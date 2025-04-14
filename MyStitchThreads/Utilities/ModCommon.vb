@@ -7,7 +7,7 @@
 Imports HindlewareLib.Logging
 Module ModCommon
     Public Function GetFormPos(ByRef oForm As Form, ByVal sPos As String) As Boolean
-        LogUtil.Info("Getting form position for " & oForm.Name, MODULE_NAME)
+        LogUtil.Info("Getting form position for " & oForm.Name, "GetFormPos")
         Dim isOK As Boolean = True
         If sPos = "max" Then
             oForm.WindowState = FormWindowState.Maximized
@@ -35,7 +35,7 @@ Module ModCommon
         Else
             sPos = oForm.Top & "~" & oForm.Left & "~" & oForm.Height & "~" & oForm.Width
         End If
-        LogUtil.Debug("Generated form position: " & sPos, MODULE_NAME)
+        LogUtil.Debug("Generated form position: " & sPos, "SetFormPos")
         Return sPos
     End Function
 End Module

@@ -13,7 +13,7 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,7 +48,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HindlewareLib">
+    <Reference Include="HindlewareLib, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\HindlewareLib\bin\Release\HindlewareLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -83,18 +84,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Domain\ModDataFunctions.vb" />
-    <Compile Include="Utilities\FrmBackup.Designer.vb">
-      <DependentUpon>FrmBackup.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\FrmBackup.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utilities\FrmRestore.Designer.vb">
-      <DependentUpon>FrmRestore.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\FrmRestore.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Utilities\ModCommon.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -122,12 +111,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmBackup.resx">
-      <DependentUpon>FrmBackup.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmRestore.resx">
-      <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

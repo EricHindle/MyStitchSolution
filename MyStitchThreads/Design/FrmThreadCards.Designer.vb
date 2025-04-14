@@ -22,44 +22,97 @@ Partial Class FrmThreadCards
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PicThreadCard = New System.Windows.Forms.PictureBox()
         Me.BtnClose = New System.Windows.Forms.Button()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.BtnClear = New System.Windows.Forms.Button()
+        Me.BtnSaveImage = New System.Windows.Forms.Button()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'PictureBox1
+        'PicThreadCard
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(776, 364)
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
+        Me.PicThreadCard.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PicThreadCard.BackColor = System.Drawing.Color.White
+        Me.PicThreadCard.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicThreadCard.Location = New System.Drawing.Point(12, 12)
+        Me.PicThreadCard.Name = "PicThreadCard"
+        Me.PicThreadCard.Size = New System.Drawing.Size(650, 446)
+        Me.PicThreadCard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicThreadCard.TabIndex = 0
+        Me.PicThreadCard.TabStop = False
         '
         'BtnClose
         '
-        Me.BtnClose.Location = New System.Drawing.Point(713, 397)
+        Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnClose.Location = New System.Drawing.Point(346, 499)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(75, 23)
         Me.BtnClose.TabIndex = 1
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = True
         '
+        'BtnClear
+        '
+        Me.BtnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnClear.Location = New System.Drawing.Point(12, 499)
+        Me.BtnClear.Name = "BtnClear"
+        Me.BtnClear.Size = New System.Drawing.Size(75, 23)
+        Me.BtnClear.TabIndex = 2
+        Me.BtnClear.Text = "Clear"
+        Me.BtnClear.UseVisualStyleBackColor = True
+        '
+        'BtnSaveImage
+        '
+        Me.BtnSaveImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnSaveImage.Location = New System.Drawing.Point(119, 499)
+        Me.BtnSaveImage.Name = "BtnSaveImage"
+        Me.BtnSaveImage.Size = New System.Drawing.Size(75, 23)
+        Me.BtnSaveImage.TabIndex = 3
+        Me.BtnSaveImage.Text = "Save Image"
+        Me.BtnSaveImage.UseVisualStyleBackColor = True
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 533)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(677, 22)
+        Me.StatusStrip1.TabIndex = 4
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'LblStatus
+        '
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
+        '
         'FrmThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(677, 555)
+        Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.BtnSaveImage)
+        Me.Controls.Add(Me.BtnClear)
         Me.Controls.Add(Me.BtnClose)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.PicThreadCard)
         Me.Name = "FrmThreadCards"
         Me.Text = "Thread Cards"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PicThreadCard As PictureBox
     Friend WithEvents BtnClose As Button
+    Friend WithEvents BtnClear As Button
+    Friend WithEvents BtnSaveImage As Button
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents LblStatus As ToolStripStatusLabel
 End Class
