@@ -28,6 +28,7 @@ Partial Class FrmThreadCards
         Me.BtnSaveImage = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BtnPrint = New System.Windows.Forms.Button()
         CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -89,11 +90,22 @@ Partial Class FrmThreadCards
         Me.LblStatus.Name = "LblStatus"
         Me.LblStatus.Size = New System.Drawing.Size(0, 17)
         '
+        'BtnPrint
+        '
+        Me.BtnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnPrint.Location = New System.Drawing.Point(236, 499)
+        Me.BtnPrint.Name = "BtnPrint"
+        Me.BtnPrint.Size = New System.Drawing.Size(75, 23)
+        Me.BtnPrint.TabIndex = 5
+        Me.BtnPrint.Text = "Print"
+        Me.BtnPrint.UseVisualStyleBackColor = True
+        '
         'FrmThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(677, 555)
+        Me.Controls.Add(Me.BtnPrint)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.BtnSaveImage)
         Me.Controls.Add(Me.BtnClear)
@@ -115,4 +127,5 @@ Partial Class FrmThreadCards
     Friend WithEvents BtnSaveImage As Button
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents LblStatus As ToolStripStatusLabel
+    Friend WithEvents BtnPrint As Button
 End Class

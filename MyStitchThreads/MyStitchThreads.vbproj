@@ -83,7 +83,9 @@
     <Compile Include="Design\FrmThreadCards.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Domain\Builders\ThreadBuilder.vb" />
     <Compile Include="Domain\ModDataFunctions.vb" />
+    <Compile Include="Domain\Objects\Thread.vb" />
     <Compile Include="Utilities\ModCommon.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -136,9 +138,6 @@
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Builders\" />
-    <Folder Include="Domain\Objects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

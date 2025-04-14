@@ -8,6 +8,7 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
+Imports HindlewareLib.Utilities
 
 Public Class FrmThreadCards
 
@@ -15,9 +16,7 @@ Public Class FrmThreadCards
     Private _cardGraphics As Graphics
     Private oImageUtil As New HindlewareLib.Imaging.ImageUtil
     Private sourceBitmap As Bitmap
-    Private targetBitmap As Bitmap
-    Private targetPaperSize As System.Drawing.Printing.PaperSize
-    Private targetImageSize As Size = New Size(0, 0)
+
 
 #End Region
 #Region "handlers"
@@ -35,6 +34,7 @@ Public Class FrmThreadCards
         LogUtil.Info("Thread Card Generation", MyBase.Name)
         GetFormPos(Me, My.Settings.ThreadCardsFormPos)
         sourceBitmap = New Bitmap(3508, 2480)
+        sourceBitmap.SetResolution(300.0F, 300.0F)
         SetPictureWidth()
 
     End Sub
@@ -42,13 +42,13 @@ Public Class FrmThreadCards
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
         Dim _pen1 As New Pen(Brushes.Black, 1)
         sourceBitmap = New Bitmap(3508, 2480)
+        sourceBitmap.SetResolution(300.0F, 300.0F)
         _cardGraphics = Graphics.FromImage(sourceBitmap)
 
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
-        _cardGraphics.DrawRectangle(_pen1, New Rectangle(0, 0, sourceBitmap.Width - 1, sourceBitmap.Height - 1))
 
         Dim colCt As Integer = 4
-        Dim colWidth As Integer = sourceBitmap.Width / colCt
+        Dim colWidth As Integer = 3508 / colCt
         Dim holeradius As Integer = 35
         Dim holeinset As Integer = 107
         Dim _pt1x As Integer
@@ -65,16 +65,22 @@ Public Class FrmThreadCards
         Dim _holegap As Integer = 236
         Dim _rowct As Integer = 10
         Dim _top As Integer = (sourceBitmap.Height - (_holegap * (_rowct - 1))) / 2
-        '  _cardGraphics.DrawLine(_pen1, New Point(0, _top), New Point(sourceBitmap.Width, _top))
         For _row As Integer = 0 To _rowct - 1
             _pt1y = _top + (_holegap * _row)
             _cardGraphics.DrawLine(_pen1, New Point(0, _pt1y), New Point(sourceBitmap.Width, _pt1y))
             For _col As Integer = 0 To colCt - 1
                 Dim _holetop As Integer = _top + (_holegap * _row) - holeradius
                 Dim _holeleft As Integer = ((colWidth * _col) + holeinset)
+                Dim _texttop As Integer = _top + (_holegap * _row) - (holeradius * 2)
+                Dim _textleft As Integer = ((colWidth * _col) + holeinset + 200)
+                Dim _textwidth As Integer = holeradius * 50
+                Dim _textheight As Integer = holeradius * 4
+                Dim _textrect As New Rectangle(New Point(_textleft, _texttop), New Size(holeradius * 8, holeradius * 4))
                 Dim _holerect As New Rectangle(New Point(_holeleft, _holetop), New Size(holeradius * 2, holeradius * 2))
                 _cardGraphics.FillEllipse(Brushes.White, _holerect)
                 _cardGraphics.DrawEllipse(_pen1, _holerect)
+                _cardGraphics.FillRectangle(Brushes.White, _textrect)
+                _cardGraphics.DrawString("1234", New Font("arial", 24, FontStyle.Regular), Brushes.Navy, New Point(_textleft, _texttop))
             Next
         Next
         PicThreadCard.Image = sourceBitmap
@@ -116,8 +122,6 @@ Public Class FrmThreadCards
         End Try
         Return imageFileName
     End Function
-
-
     Private Function SavePictureBoxImage(ByRef _pictureBox As PictureBox, _width As Integer, _height As Integer) As String
         Dim imageFile As String = Nothing
         Try
@@ -140,10 +144,46 @@ Public Class FrmThreadCards
         Return imageFile
     End Function
 
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
+
+        Dim _paperKind As PaperKind = PaperKind.A4
+        Dim myPrintDoc = New Printing.PrintDocument
+
+        For Each ps As Printing.PaperSize In myPrintDoc.PrinterSettings.PaperSizes
+            If ps.RawKind = _paperKind Then
+                myPrintDoc.DefaultPageSettings.PaperSize = ps
+                Exit For
+            End If
+        Next
+        AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
+        myPrintDoc.DefaultPageSettings.Landscape = True
+        myPrintDoc.DefaultPageSettings.Margins.Left = 0
+        myPrintDoc.DefaultPageSettings.Margins.Right = 0
+        myPrintDoc.DefaultPageSettings.Margins.Top = 0
+        myPrintDoc.DefaultPageSettings.Margins.Bottom = 0
+
+        myPrintDoc.Print()
+    End Sub
+
 #End Region
 #Region "subroutines"
+    Private Sub OnPrintImage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
+
+        'print options
+        ' 0 = print to fill available space
+        ' 1 =
+        ' 2 = print maximum size retaining aspect ratio
+        ' 3 = print into half the available space
+        ' 4 = print actual size
+
+        ' DRAW THE IMAGE scaled to the print area
+
+        Dim leftmargin As Integer = e.PageSettings.HardMarginX * 3
+        Dim topmargin As Integer = e.PageSettings.HardMarginY * 3
+        Dim targetWidth As Integer = sourceBitmap.Width - leftmargin
+        Dim targetHeight As Integer = sourceBitmap.Height - topmargin
+        e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
+    End Sub
 
 #End Region
 End Class
-
-
