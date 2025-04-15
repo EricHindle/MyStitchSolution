@@ -167,7 +167,6 @@ Module ModDataFunctions
         Return oProjects
     End Function
     Public Function GetProjectById(pProjectId As Integer) As Project
-        LogUtil.Debug("Get project " & pProjectId, MethodBase.GetCurrentMethod.Name)
         Dim oProject As New Project
         Try
             oProjectTa.FillById(oProjectTable, pProjectId)
@@ -235,7 +234,19 @@ Module ModDataFunctions
         End Try
         Return oThreads
     End Function
-
+    Public Function GetThreadbyNumber(pNumber As String) As Thread
+        Dim oThread As New Thread
+        Try
+            oThreadTa.FillByNumber(oThreadTable, pNumber)
+            If oThreadTable.Rows.Count > 0 Then
+                Dim oRow As MyStitchDataSet.ThreadsRow = oThreadTable.Rows(0)
+                oThread = ThreadBuilder.AThread.StartingWith(oRow).Build
+            End If
+        Catch ex As MySqlException
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return oThread
+    End Function
     Public Sub UpdateThread(oThread As Thread)
         LogUtil.Info("Updating " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
         Try
@@ -274,7 +285,7 @@ Module ModDataFunctions
         Return InsertThread(thread, -1)
     End Function
     Public Function InsertThread(ByRef oThread As Thread, threadId As Integer)
-        LogUtil.LogInfo("Inserting thread " & CStr(oThread.ThreadNo), MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Inserting thread " & oThread.ThreadNo, MethodBase.GetCurrentMethod.Name)
         Dim newId As Integer = -1
         Try
             With oThread

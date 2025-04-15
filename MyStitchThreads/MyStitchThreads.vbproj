@@ -177,6 +177,12 @@
     <Compile Include="Threads\FrmBuildThreadCards.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Threads\FrmColourCapture.Designer.vb">
+      <DependentUpon>FrmColourCapture.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmColourCapture.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Threads\FrmPrintThreadCards.Designer.vb">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmBuildThreadCards.resx">
       <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmColourCapture.resx">
+      <DependentUpon>FrmColourCapture.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmPrintThreadCards.resx">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>

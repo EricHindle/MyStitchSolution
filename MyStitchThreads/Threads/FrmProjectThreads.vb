@@ -41,7 +41,6 @@ Public Class FrmProjectThreads
         LogUtil.LogInfo("Closing", MyBase.Name)
         My.Settings.ProjectThreadsFormPos = SetFormPos(Me)
         My.Settings.Save()
-
     End Sub
 
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
@@ -53,8 +52,8 @@ Public Class FrmProjectThreads
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 PnlThreads.Visible = False
             End If
-            DgvThreads.ClearSelection()
-            SelectProjectThreads
+            ClearThreadSelections()
+            SelectProjectThreads()
         End If
         Debug.Print(DgvProjects.ColumnHeadersDefaultCellStyle.BackColor.ToString)
     End Sub
@@ -93,7 +92,8 @@ Public Class FrmProjectThreads
     Private Sub SelectThreadInList(pThread As Thread)
         For Each orow As DataGridViewRow In DgvThreads.Rows
             If orow.Cells(threadId.Name).Value = pThread.ThreadId Then
-                orow.Selected = True
+                Dim _chkCell As DataGridViewCheckBoxCell = orow.Cells(threadselected.Name)
+                _chkCell.Value = True
                 Exit For
             End If
         Next
@@ -123,16 +123,23 @@ Public Class FrmProjectThreads
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
         oRow.Cells(threadName.Name).Value = oThread.ColourName
+        LoadColourCell(oThread, oRow)
+        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
+    End Sub
+
+    Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
         Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
-        Dim _image As New Bitmap(40, 20)
-        For x = 0 To 39
-            For y = 0 To 19
+        Dim _cellHeight As Integer = oRow.Height
+        Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
+        Dim _image As New Bitmap(_cellWidth, _cellHeight)
+        For x = 0 To _cellWidth - 1
+            For y = 0 To _cellHeight - 1
                 _image.SetPixel(x, y, oThread.Colour)
             Next
         Next
         _imageCell.Value = _image
-        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
     End Sub
+
     Private Sub SelectProjectInList(_projectId As Integer)
         For Each orow As DataGridViewRow In DgvProjects.Rows
             If orow.Cells(projectId.Name).Value = _projectId Then
@@ -149,7 +156,13 @@ Public Class FrmProjectThreads
     End Sub
 
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
-        LoadThreadList()
+        ClearThreadSelections()
+    End Sub
+    Private Sub ClearThreadSelections()
+        For Each oRow As DataGridViewRow In DgvThreads.Rows
+            Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
+            _ChkCell.Value = False
+        Next
     End Sub
 
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
@@ -158,18 +171,30 @@ Public Class FrmProjectThreads
             LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
         Else
             DeleteProjectThreadsForProject(_selectedProject.ProjectId)
-            For Each oRow As DataGridViewRow In DgvThreads.SelectedRows
-                Dim _projectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
-                    .WithProject(_selectedProject) _
-                    .WithThreadId(oRow.Cells(threadId.Name).Value) _
-                .Build
-                InsertProjectThread(_projectThread)
+            For Each oRow As DataGridViewRow In DgvThreads.Rows
+                Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
+                If _ChkCell.Value = True Then
+                    Dim _projectThread As ProjectThread = ProjectThreadBuilder _
+                                                        .AProjectThread _
+                                                        .StartingWithNothing _
+                                                        .WithProject(_selectedProject) _
+                                                        .WithThreadId(oRow.Cells(threadId.Name).Value) _
+                                                        .Build
+                    InsertProjectThread(_projectThread)
+                End If
             Next
         End If
     End Sub
 
     Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
 
+    End Sub
+
+    Private Sub BtnAddThreads_Click(sender As Object, e As EventArgs) Handles BtnAddThreads.Click
+        LogUtil.Info("Opening Threads form", MyBase.Name)
+        Using _threads As New FrmThread
+            _threads.ShowDialog()
+        End Using
     End Sub
 
 

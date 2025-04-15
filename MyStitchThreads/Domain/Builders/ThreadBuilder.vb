@@ -7,7 +7,7 @@
 
 Public Class ThreadBuilder
     Private _threadId As Integer
-    Private _threadNo As Integer
+    Private _threadNo As String
     Private _colourName As String
     Private _colour As Color
     Public Shared Function AThread() As ThreadBuilder
@@ -15,7 +15,7 @@ Public Class ThreadBuilder
     End Function
     Public Function StartingWithNothing() As ThreadBuilder
         _threadId = -1
-        _threadNo = -1
+        _threadNo = String.Empty
         _colourName = String.Empty
         _colour = Color.White
         Return Me
@@ -48,7 +48,7 @@ Public Class ThreadBuilder
         _colourName = pColourname
         Return Me
     End Function
-    Public Function WithNumber(pThreadNo As Integer) As ThreadBuilder
+    Public Function WithNumber(pThreadNo As String) As ThreadBuilder
         _threadNo = pThreadNo
         Return Me
     End Function

@@ -38,18 +38,18 @@ Partial Class FrmProjectThreads
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
-        Me.BtnUpdate = New System.Windows.Forms.Button()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.BtnClear = New System.Windows.Forms.Button()
-        Me.BtnGenerateCards = New System.Windows.Forms.Button()
-        Me.PnlThreads = New System.Windows.Forms.Panel()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.BtnUpdate = New System.Windows.Forms.Button()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BtnAddThreads = New System.Windows.Forms.Button()
+        Me.BtnClear = New System.Windows.Forms.Button()
+        Me.BtnGenerateCards = New System.Windows.Forms.Button()
+        Me.PnlThreads = New System.Windows.Forms.Panel()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -169,107 +169,17 @@ Partial Class FrmProjectThreads
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvThreads.Location = New System.Drawing.Point(13, 41)
         Me.DgvThreads.Margin = New System.Windows.Forms.Padding(4)
+        Me.DgvThreads.MultiSelect = False
         Me.DgvThreads.Name = "DgvThreads"
-        Me.DgvThreads.ReadOnly = True
         Me.DgvThreads.RowHeadersVisible = False
         Me.DgvThreads.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(250, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.DgvThreads.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Silver
+        Me.DgvThreads.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DgvThreads.Size = New System.Drawing.Size(322, 437)
         Me.DgvThreads.TabIndex = 140
-        '
-        'BtnUpdate
-        '
-        Me.BtnUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(13, 416)
-        Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnUpdate.Name = "BtnUpdate"
-        Me.BtnUpdate.Size = New System.Drawing.Size(200, 40)
-        Me.BtnUpdate.TabIndex = 137
-        Me.BtnUpdate.Text = "Update Project"
-        Me.BtnUpdate.UseVisualStyleBackColor = False
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 548)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(633, 22)
-        Me.StatusStrip1.TabIndex = 146
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'LblStatus
-        '
-        Me.LblStatus.Name = "LblStatus"
-        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
-        '
-        'Button1
-        '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Button1.Location = New System.Drawing.Point(177, 7)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(136, 29)
-        Me.Button1.TabIndex = 147
-        Me.Button1.Text = "Add Threads"
-        Me.Button1.UseVisualStyleBackColor = False
-        '
-        'BtnClear
-        '
-        Me.BtnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.BtnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClear.Location = New System.Drawing.Point(13, 359)
-        Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnClear.Name = "BtnClear"
-        Me.BtnClear.Size = New System.Drawing.Size(200, 33)
-        Me.BtnClear.TabIndex = 148
-        Me.BtnClear.Text = "Clear Thread Selections"
-        Me.BtnClear.UseVisualStyleBackColor = False
-        '
-        'BtnGenerateCards
-        '
-        Me.BtnGenerateCards.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnGenerateCards.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnGenerateCards.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnGenerateCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnGenerateCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGenerateCards.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnGenerateCards.Location = New System.Drawing.Point(13, 475)
-        Me.BtnGenerateCards.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnGenerateCards.Name = "BtnGenerateCards"
-        Me.BtnGenerateCards.Size = New System.Drawing.Size(200, 40)
-        Me.BtnGenerateCards.TabIndex = 149
-        Me.BtnGenerateCards.Text = "Generate Cards"
-        Me.BtnGenerateCards.UseVisualStyleBackColor = False
-        '
-        'PnlThreads
-        '
-        Me.PnlThreads.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PnlThreads.Controls.Add(Me.Button1)
-        Me.PnlThreads.Controls.Add(Me.DgvThreads)
-        Me.PnlThreads.Controls.Add(Me.Label7)
-        Me.PnlThreads.Location = New System.Drawing.Point(285, 12)
-        Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(340, 482)
-        Me.PnlThreads.TabIndex = 150
-        Me.PnlThreads.Visible = False
         '
         'threadId
         '
@@ -309,8 +219,97 @@ Partial Class FrmProjectThreads
         Me.threadselected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.threadselected.HeaderText = ""
         Me.threadselected.Name = "threadselected"
-        Me.threadselected.ReadOnly = True
         Me.threadselected.Width = 30
+        '
+        'BtnUpdate
+        '
+        Me.BtnUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnUpdate.Location = New System.Drawing.Point(13, 416)
+        Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnUpdate.Name = "BtnUpdate"
+        Me.BtnUpdate.Size = New System.Drawing.Size(200, 40)
+        Me.BtnUpdate.TabIndex = 137
+        Me.BtnUpdate.Text = "Update Project"
+        Me.BtnUpdate.UseVisualStyleBackColor = False
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 548)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(633, 22)
+        Me.StatusStrip1.TabIndex = 146
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'LblStatus
+        '
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
+        '
+        'BtnAddThreads
+        '
+        Me.BtnAddThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnAddThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnAddThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnAddThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnAddThreads.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnAddThreads.Location = New System.Drawing.Point(177, 7)
+        Me.BtnAddThreads.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnAddThreads.Name = "BtnAddThreads"
+        Me.BtnAddThreads.Size = New System.Drawing.Size(136, 29)
+        Me.BtnAddThreads.TabIndex = 147
+        Me.BtnAddThreads.Text = "Add Threads"
+        Me.BtnAddThreads.UseVisualStyleBackColor = False
+        '
+        'BtnClear
+        '
+        Me.BtnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(90, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.BtnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClear.Location = New System.Drawing.Point(13, 359)
+        Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClear.Name = "BtnClear"
+        Me.BtnClear.Size = New System.Drawing.Size(200, 33)
+        Me.BtnClear.TabIndex = 148
+        Me.BtnClear.Text = "Clear Thread Selections"
+        Me.BtnClear.UseVisualStyleBackColor = False
+        '
+        'BtnGenerateCards
+        '
+        Me.BtnGenerateCards.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnGenerateCards.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnGenerateCards.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnGenerateCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnGenerateCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGenerateCards.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnGenerateCards.Location = New System.Drawing.Point(13, 475)
+        Me.BtnGenerateCards.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnGenerateCards.Name = "BtnGenerateCards"
+        Me.BtnGenerateCards.Size = New System.Drawing.Size(200, 40)
+        Me.BtnGenerateCards.TabIndex = 149
+        Me.BtnGenerateCards.Text = "Generate Cards"
+        Me.BtnGenerateCards.UseVisualStyleBackColor = False
+        '
+        'PnlThreads
+        '
+        Me.PnlThreads.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PnlThreads.Controls.Add(Me.BtnAddThreads)
+        Me.PnlThreads.Controls.Add(Me.DgvThreads)
+        Me.PnlThreads.Controls.Add(Me.Label7)
+        Me.PnlThreads.Location = New System.Drawing.Point(285, 12)
+        Me.PnlThreads.Name = "PnlThreads"
+        Me.PnlThreads.Size = New System.Drawing.Size(340, 482)
+        Me.PnlThreads.TabIndex = 150
+        Me.PnlThreads.Visible = False
         '
         'FrmProjectThreads
         '
@@ -347,7 +346,7 @@ Partial Class FrmProjectThreads
     Friend WithEvents DgvThreads As DataGridView
     Friend WithEvents BtnUpdate As Button
     Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtnAddThreads As Button
     Friend WithEvents LblStatus As ToolStripStatusLabel
     Friend WithEvents BtnClear As Button
     Friend WithEvents BtnGenerateCards As Button

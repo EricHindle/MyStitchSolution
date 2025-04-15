@@ -17,6 +17,7 @@ Public Class FrmThread
 #Region "variables"
     Private _selectedThread As New Thread
     Private isLoading As Boolean
+    Private _colrCap As New FrmColourCapture
 #End Region
 #Region "handlers"
     Private Sub FrmThread_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -32,6 +33,7 @@ Public Class FrmThread
     Private Sub FrmThread_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
 
+        _colrCap.Close()
         My.Settings.ThreadFormPos = SetFormPos(Me)
         My.Settings.Save()
 
@@ -72,9 +74,9 @@ Public Class FrmThread
         LblId.Text = _selectedThread.ThreadId
         TxtName.Text = ""
         TxtNumber.Text = ""
-        NudR.Value = 0
-        NudG.Value = 0
-        NudB.Value = 0
+        TxtR.Text = String.Empty
+        TxtG.Text = String.Empty
+        TxtB.Text = String.Empty
         Dim _colour As Color = Color.White
         LblColour.BackColor = _colour
     End Sub
@@ -85,10 +87,14 @@ Public Class FrmThread
         TxtName.Text = oThread.ColourName
         TxtNumber.Text = CStr(oThread.ThreadNo)
         Dim _colour As Color = oThread.Colour
+        SetFormColour(_colour)
+    End Sub
+
+    Private Sub SetFormColour(_colour As Color)
         LblColour.BackColor = _colour
-        NudR.Value = _colour.R
-        NudG.Value = _colour.G
-        NudB.Value = _colour.B
+        TxtR.Text = CStr(_colour.R)
+        TxtG.Text = CStr(_colour.G)
+        TxtB.Text = CStr(_colour.B)
     End Sub
 
     Private Sub LoadThreadList()
@@ -112,7 +118,7 @@ Public Class FrmThread
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
                                                     .WithColour(LblColour.BackColor) _
-                                                    .WithNumber(CStr(TxtNumber.Text)) _
+                                                    .WithNumber(TxtNumber.Text) _
                                                     .Build()
         Return _Thread
     End Function
@@ -120,8 +126,22 @@ Public Class FrmThread
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
         oRow.Cells(threadName.Name).Value = oThread.ColourName
-        oRow.Cells(threadColour.Name).Style.BackColor = oThread.Colour
+        LoadColourCell(oThread, oRow)
+        '     oRow.Cells(threadColour.Name).Style.BackColor = oThread.Colour
+
         oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
+    End Sub
+    Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
+        Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
+        Dim _cellHeight As Integer = oRow.Height
+        Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
+        Dim _image As New Bitmap(_cellWidth, _cellHeight)
+        For x = 0 To _cellWidth - 1
+            For y = 0 To _cellHeight - 1
+                _image.SetPixel(x, y, oThread.Colour)
+            Next
+        Next
+        _imageCell.Value = _image
     End Sub
     Friend Sub SaveThread()
         If _selectedThread.ThreadId >= 0 Then
@@ -132,11 +152,15 @@ Public Class FrmThread
     End Sub
     Private Sub InsertNewThread()
         LogUtil.LogInfo("New Thread", MyBase.Name)
-        Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
-        _Thread.ThreadId = InsertThread(_Thread)
-        LoadThreadList()
-        '     SelectThreadInList(_Thread.ThreadId)
-        LogUtil.ShowStatus("Thread Added", LblStatus, MyBase.Name)
+        Dim _existingthread As Thread = GetThreadbyNumber(TxtNumber.Text.Trim)
+        If _existingthread.ThreadId > 0 Then
+            LogUtil.DisplayStatus("Thread with this number already exists.", LblStatus, "Insert New Thread", True)
+        Else
+            Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
+            _Thread.ThreadId = InsertThread(_Thread)
+            LoadThreadList()
+            LogUtil.ShowStatus("Thread Added", LblStatus, MyBase.Name)
+        End If
     End Sub
     Private Sub UpdateSelectedThread()
         If _selectedThread.ThreadId >= 0 Then
@@ -162,11 +186,21 @@ Public Class FrmThread
         End If
     End Sub
 
-    Private Sub RGB_ValueChanged(sender As Object, e As EventArgs) Handles NudR.ValueChanged, NudG.ValueChanged, NudB.ValueChanged,
-             NudR.TextChanged, NudG.TextChanged, NudB.TextChanged
+    Private Sub RGB_ValueChanged(sender As Object, e As EventArgs) Handles TxtR.TextChanged, TxtG.TextChanged, TxtB.TextChanged
+        If IsNumeric(TxtR.Text) AndAlso IsNumeric(TxtG.Text) AndAlso IsNumeric(TxtB.Text) Then
+            Dim _newColor As Color = Color.FromArgb(CInt(TxtR.Text), CInt(TxtG.Text), CInt(TxtB.Text))
+            LblColour.BackColor = _newColor
+        End If
+    End Sub
 
-        Dim _newColor As Color = Color.FromArgb(NudR.Value, NudG.Value, NudB.Value)
-        LblColour.BackColor = _newColor
+
+    Private Sub BtnColourCapture_Click(sender As Object, e As EventArgs) Handles BtnColourCapture.Click
+        _colrCap.Show()
+    End Sub
+
+    Private Sub BtnGetColour_Click(sender As Object, e As EventArgs) Handles BtnGetColour.Click
+        Dim _color As Color = _colrCap.SelectedColour
+        SetFormColour(_color)
     End Sub
 
 

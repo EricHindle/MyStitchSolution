@@ -13,7 +13,7 @@ Public Class Thread
 
 #Region "properties"
     Private _threadId As Integer
-    Private _threadNo As Integer
+    Private _threadNo As String
     Private _colourName As String
     Private _colour As Color
     Public Property Colour() As Color
@@ -32,11 +32,11 @@ Public Class Thread
             _colourName = value
         End Set
     End Property
-    Public Property ThreadNo() As Integer
+    Public Property ThreadNo() As String
         Get
             Return _threadNo
         End Get
-        Set(ByVal value As Integer)
+        Set(ByVal value As String)
             _threadNo = value
         End Set
     End Property
@@ -52,7 +52,7 @@ Public Class Thread
 #Region "constructors"
     Private Sub InitialiseThread()
         _threadId = -1
-        _threadNo = -1
+        _threadNo = String.Empty
         _colourName = String.Empty
         _colour = Color.White
     End Sub
@@ -60,7 +60,7 @@ Public Class Thread
         InitialiseThread()
     End Sub
     Public Sub New(pId As Integer,
-                   pNo As Integer,
+                   pNo As String,
                    pColourName As String,
                    pColour As Color)
         _threadId = pId
@@ -81,7 +81,7 @@ Public Class Thread
             .Append("Id=[") _
             .Append(CStr(_threadId)) _
             .Append("Number=[") _
-            .Append(CStr(_threadNo)) _
+            .Append(_threadNo) _
             .Append("], Colour name=[") _
             .Append(_colourName) _
             .Append("]]")

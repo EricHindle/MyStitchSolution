@@ -42,27 +42,28 @@ Partial Class FrmThread
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadColour = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.BtnDelete = New System.Windows.Forms.Button()
         Me.BtnNew = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.TxtB = New System.Windows.Forms.TextBox()
+        Me.TxtG = New System.Windows.Forms.TextBox()
+        Me.TxtR = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.NudB = New System.Windows.Forms.NumericUpDown()
-        Me.NudG = New System.Windows.Forms.NumericUpDown()
-        Me.NudR = New System.Windows.Forms.NumericUpDown()
         Me.LblColour = New System.Windows.Forms.Label()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BtnClose = New System.Windows.Forms.Button()
+        Me.BtnColourCapture = New System.Windows.Forms.Button()
+        Me.BtnGetColour = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
-        CType(Me.NudB, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NudG, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NudR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label7
@@ -98,7 +99,7 @@ Partial Class FrmThread
         Me.Label4.BackColor = System.Drawing.SystemColors.Control
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label4.Location = New System.Drawing.Point(15, 225)
+        Me.Label4.Location = New System.Drawing.Point(17, 196)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(56, 19)
@@ -111,7 +112,7 @@ Partial Class FrmThread
         Me.Label3.BackColor = System.Drawing.SystemColors.Control
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label3.Location = New System.Drawing.Point(15, 147)
+        Me.Label3.Location = New System.Drawing.Point(17, 56)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(66, 19)
@@ -121,7 +122,7 @@ Partial Class FrmThread
         'TxtNumber
         '
         Me.TxtNumber.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtNumber.Location = New System.Drawing.Point(19, 182)
+        Me.TxtNumber.Location = New System.Drawing.Point(17, 79)
         Me.TxtNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtNumber.Name = "TxtNumber"
         Me.TxtNumber.Size = New System.Drawing.Size(138, 27)
@@ -146,7 +147,7 @@ Partial Class FrmThread
         Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label1.Location = New System.Drawing.Point(15, 69)
+        Me.Label1.Location = New System.Drawing.Point(17, 120)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(50, 19)
@@ -156,7 +157,7 @@ Partial Class FrmThread
         'TxtName
         '
         Me.TxtName.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtName.Location = New System.Drawing.Point(19, 104)
+        Me.TxtName.Location = New System.Drawing.Point(17, 143)
         Me.TxtName.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtName.Name = "TxtName"
         Me.TxtName.Size = New System.Drawing.Size(335, 27)
@@ -189,11 +190,11 @@ Partial Class FrmThread
         Me.DgvThreads.Name = "DgvThreads"
         Me.DgvThreads.ReadOnly = True
         Me.DgvThreads.RowHeadersVisible = False
-        Me.DgvThreads.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(251, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.DgvThreads.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(250, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.DgvThreads.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black
-        Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Transparent
-        Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Tan
+        Me.DgvThreads.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray
+        Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DgvThreads.Size = New System.Drawing.Size(325, 440)
         Me.DgvThreads.TabIndex = 105
@@ -224,6 +225,8 @@ Partial Class FrmThread
         Me.threadColour.HeaderText = "Colour"
         Me.threadColour.Name = "threadColour"
         Me.threadColour.ReadOnly = True
+        Me.threadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
         'BtnDelete
         '
@@ -273,12 +276,13 @@ Partial Class FrmThread
         'PnlForm
         '
         Me.PnlForm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlForm.Controls.Add(Me.GroupBox1)
+        Me.PnlForm.Controls.Add(Me.TxtB)
+        Me.PnlForm.Controls.Add(Me.TxtG)
+        Me.PnlForm.Controls.Add(Me.TxtR)
         Me.PnlForm.Controls.Add(Me.Label8)
         Me.PnlForm.Controls.Add(Me.Label6)
         Me.PnlForm.Controls.Add(Me.Label5)
-        Me.PnlForm.Controls.Add(Me.NudB)
-        Me.PnlForm.Controls.Add(Me.NudG)
-        Me.PnlForm.Controls.Add(Me.NudR)
         Me.PnlForm.Controls.Add(Me.LblColour)
         Me.PnlForm.Controls.Add(Me.TxtName)
         Me.PnlForm.Controls.Add(Me.Label1)
@@ -289,13 +293,34 @@ Partial Class FrmThread
         Me.PnlForm.Location = New System.Drawing.Point(460, 39)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(372, 354)
+        Me.PnlForm.Size = New System.Drawing.Size(372, 377)
         Me.PnlForm.TabIndex = 130
+        '
+        'TxtB
+        '
+        Me.TxtB.Location = New System.Drawing.Point(237, 247)
+        Me.TxtB.Name = "TxtB"
+        Me.TxtB.Size = New System.Drawing.Size(42, 26)
+        Me.TxtB.TabIndex = 125
+        '
+        'TxtG
+        '
+        Me.TxtG.Location = New System.Drawing.Point(175, 247)
+        Me.TxtG.Name = "TxtG"
+        Me.TxtG.Size = New System.Drawing.Size(42, 26)
+        Me.TxtG.TabIndex = 124
+        '
+        'TxtR
+        '
+        Me.TxtR.Location = New System.Drawing.Point(113, 247)
+        Me.TxtR.Name = "TxtR"
+        Me.TxtR.Size = New System.Drawing.Size(42, 26)
+        Me.TxtR.TabIndex = 123
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(276, 240)
+        Me.Label8.Location = New System.Drawing.Point(234, 228)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(17, 18)
         Me.Label8.TabIndex = 122
@@ -304,7 +329,7 @@ Partial Class FrmThread
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(195, 240)
+        Me.Label6.Location = New System.Drawing.Point(172, 228)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(18, 18)
         Me.Label6.TabIndex = 121
@@ -313,40 +338,16 @@ Partial Class FrmThread
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(114, 240)
+        Me.Label5.Location = New System.Drawing.Point(110, 228)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(17, 18)
         Me.Label5.TabIndex = 120
         Me.Label5.Text = "R"
         '
-        'NudB
-        '
-        Me.NudB.Location = New System.Drawing.Point(279, 264)
-        Me.NudB.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.NudB.Name = "NudB"
-        Me.NudB.Size = New System.Drawing.Size(63, 26)
-        Me.NudB.TabIndex = 119
-        '
-        'NudG
-        '
-        Me.NudG.Location = New System.Drawing.Point(198, 264)
-        Me.NudG.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.NudG.Name = "NudG"
-        Me.NudG.Size = New System.Drawing.Size(63, 26)
-        Me.NudG.TabIndex = 118
-        '
-        'NudR
-        '
-        Me.NudR.Location = New System.Drawing.Point(117, 264)
-        Me.NudR.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.NudR.Name = "NudR"
-        Me.NudR.Size = New System.Drawing.Size(63, 26)
-        Me.NudR.TabIndex = 117
-        '
         'LblColour
         '
         Me.LblColour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.LblColour.Location = New System.Drawing.Point(26, 254)
+        Me.LblColour.Location = New System.Drawing.Point(21, 228)
         Me.LblColour.Name = "LblColour"
         Me.LblColour.Size = New System.Drawing.Size(45, 45)
         Me.LblColour.TabIndex = 116
@@ -382,6 +383,48 @@ Partial Class FrmThread
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = False
         '
+        'BtnColourCapture
+        '
+        Me.BtnColourCapture.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnColourCapture.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnColourCapture.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnColourCapture.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnColourCapture.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnColourCapture.Location = New System.Drawing.Point(7, 26)
+        Me.BtnColourCapture.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnColourCapture.Name = "BtnColourCapture"
+        Me.BtnColourCapture.Size = New System.Drawing.Size(97, 32)
+        Me.BtnColourCapture.TabIndex = 126
+        Me.BtnColourCapture.Text = "Show Form"
+        Me.BtnColourCapture.UseVisualStyleBackColor = False
+        '
+        'BtnGetColour
+        '
+        Me.BtnGetColour.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnGetColour.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnGetColour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnGetColour.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnGetColour.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnGetColour.Location = New System.Drawing.Point(123, 26)
+        Me.BtnGetColour.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnGetColour.Name = "BtnGetColour"
+        Me.BtnGetColour.Size = New System.Drawing.Size(139, 32)
+        Me.BtnGetColour.TabIndex = 127
+        Me.BtnGetColour.Text = "Get selected colour"
+        Me.BtnGetColour.UseVisualStyleBackColor = False
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.BtnColourCapture)
+        Me.GroupBox1.Controls.Add(Me.BtnGetColour)
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 307)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(276, 67)
+        Me.GroupBox1.TabIndex = 128
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Colour Capture"
+        '
         'FrmThread
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -404,11 +447,9 @@ Partial Class FrmThread
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlForm.ResumeLayout(False)
         Me.PnlForm.PerformLayout()
-        CType(Me.NudB, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NudG, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NudR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -429,16 +470,19 @@ Partial Class FrmThread
     Friend WithEvents PnlForm As Panel
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents BtnClose As Button
-    Friend WithEvents threadId As DataGridViewTextBoxColumn
-    Friend WithEvents threadName As DataGridViewTextBoxColumn
-    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
-    Friend WithEvents threadColour As DataGridViewTextBoxColumn
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents NudB As NumericUpDown
-    Friend WithEvents NudG As NumericUpDown
-    Friend WithEvents NudR As NumericUpDown
     Friend WithEvents LblColour As Label
     Friend WithEvents LblStatus As ToolStripStatusLabel
+    Friend WithEvents TxtB As TextBox
+    Friend WithEvents TxtG As TextBox
+    Friend WithEvents TxtR As TextBox
+    Friend WithEvents threadId As DataGridViewTextBoxColumn
+    Friend WithEvents threadName As DataGridViewTextBoxColumn
+    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
+    Friend WithEvents threadColour As DataGridViewImageColumn
+    Friend WithEvents BtnColourCapture As Button
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents BtnGetColour As Button
 End Class
