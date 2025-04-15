@@ -8,9 +8,8 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
-Imports HindlewareLib.Utilities
 
-Public Class FrmThreadCards
+Public Class FrmPrintThreadCards
 
 #Region "variables"
     Private _cardGraphics As Graphics

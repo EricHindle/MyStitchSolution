@@ -10,7 +10,7 @@ Public Class ThreadBuilder
     Private _threadNo As Integer
     Private _colourName As String
     Private _colour As Color
-    Public Shared Function APerson() As ThreadBuilder
+    Public Shared Function AThread() As ThreadBuilder
         Return New ThreadBuilder
     End Function
     Public Function StartingWithNothing() As ThreadBuilder

@@ -4,8 +4,12 @@
 '
 ' Author Eric Hindle
 '
+Imports System.Globalization
 Imports HindlewareLib.Logging
 Module ModCommon
+    Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
+
+    Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
     Public Function GetFormPos(ByRef oForm As Form, ByVal sPos As String) As Boolean
         LogUtil.Info("Getting form position for " & oForm.Name, "GetFormPos")
         Dim isOK As Boolean = True
