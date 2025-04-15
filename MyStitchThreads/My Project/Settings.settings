@@ -25,5 +25,8 @@
     <Setting Name="LogFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\netwyrks\MyStitch\Logs</Value>
     </Setting>
+    <Setting Name="ThreadFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

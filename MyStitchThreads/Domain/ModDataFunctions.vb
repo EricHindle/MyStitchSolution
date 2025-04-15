@@ -218,6 +218,44 @@ Module ModDataFunctions
     End Sub
 #End Region
 #Region "threads"
+    Public Function GetThreadTable() As MyStitchDataSet.ThreadsDataTable
+        LogUtil.Info("Getting Thread table", MethodBase.GetCurrentMethod.Name)
+        Return oThreadTa.GetData()
+    End Function
+    Public Function GetThreads() As List(Of Thread)
+        LogUtil.Debug("Getting all Threads", MethodBase.GetCurrentMethod.Name)
+        Dim oThreads As New List(Of Thread)
+        Try
+            oThreadTa.Fill(oThreadTable)
+            For Each orow As MyStitchDataSet.ThreadsRow In oThreadTable.Rows
+                oThreads.Add(ThreadBuilder.AThread.StartingWith(orow).Build)
+            Next
+        Catch ex As MySqlException
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return oThreads
+    End Function
+
+    Public Sub UpdateThread(oThread As Thread)
+        LogUtil.Info("Updating " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
+        Try
+            With oThread
+                oThreadTa.UpdateThread(.ThreadNo, .ColourName, .Colour.ToArgb, .ThreadId)
+            End With
+
+        Catch ex As MySqlException
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Public Sub DeleteThread(oThread As Thread)
+        LogUtil.Info("Deleting " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
+        Try
+            oThreadTa.DeleteThread(oThread.ThreadId)
+        Catch ex As MySqlException
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+
     Public Function GetThreadById(pThreadId As Integer) As Thread
         LogUtil.Debug("Get thread " & pThreadId, MethodBase.GetCurrentMethod.Name)
         Dim othread As New Thread
@@ -232,10 +270,10 @@ Module ModDataFunctions
         End Try
         Return othread
     End Function
-    Private Function InsertThread(ByRef thread As Thread) As Integer
-        Return Insertthread(thread, -1)
+    Public Function InsertThread(ByRef thread As Thread) As Integer
+        Return InsertThread(thread, -1)
     End Function
-    Private Function InsertThread(ByRef oThread As Thread, threadId As Integer)
+    Public Function InsertThread(ByRef oThread As Thread, threadId As Integer)
         LogUtil.LogInfo("Inserting thread " & CStr(oThread.ThreadNo), MethodBase.GetCurrentMethod.Name)
         Dim newId As Integer = -1
         Try
@@ -251,6 +289,9 @@ Module ModDataFunctions
         End Try
         Return newId
     End Function
+
+
+
 #End Region
 #Region "projectthreadcards"
     Public Function GetProjectThreadCardsTable() As MyStitchDataSet.ProjectThreadCardsDataTable
