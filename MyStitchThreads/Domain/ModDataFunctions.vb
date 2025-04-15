@@ -340,5 +340,31 @@ Module ModDataFunctions
         End Try
         Return newId
     End Function
+
+    Public Function GetProjectThreads(pProjectId) As List(Of Thread)
+        Dim _list As New List(Of Thread)
+        Try
+            oProjectThreadTa.FillByProject(oProjectThreadTable, pProjectId)
+            For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
+                _list.Add(GetThreadById(oRow.thread_id))
+            Next
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+
+        End Try
+
+        Return _list
+
+    End Function
+
+    Public Function DeleteProjectThreadsForProject(pProjectId As Integer)
+        Dim response As Integer
+        Try
+            oProjectThreadTa.DeleteProjectThreadsByProject(pProjectId)
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return response
+    End Function
 #End Region
 End Module

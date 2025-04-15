@@ -184,7 +184,7 @@ SELECT thread_id, thread_no, thread_colour_name, thread_colour FROM Threads WHER
               <Mapping SourceColumn="thread_colour" DataSetColumn="thread_colour" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteThread" Modifier="Public" Name="DeleteThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="DeleteThread">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteThread" Modifier="Public" Name="DeleteThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteThread">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM Threads
@@ -195,7 +195,7 @@ WHERE        (thread_id = @id)</CommandText>
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.Threads" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillById" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillById">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.Threads" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillById" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillById">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        thread_id, thread_no, thread_colour_name, thread_colour
@@ -207,7 +207,7 @@ WHERE        (thread_id = @id)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThread" Modifier="Public" Name="InsertThread" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="InsertThread">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThread" Modifier="Public" Name="InsertThread" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="InsertThread">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO Threads
@@ -222,7 +222,7 @@ SELECT SCOPE_IDENTITY()</CommandText>
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThreadWithId" Modifier="Public" Name="InsertThreadWithId" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="InsertThreadWithId">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThreadWithId" Modifier="Public" Name="InsertThreadWithId" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="InsertThreadWithId">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SET IDENTITY_INSERT threads ON;
@@ -239,7 +239,7 @@ VALUES        (@id,@thread_no,@thread_colour_name,@thread_colour);
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateThreads" Modifier="Public" Name="TruncateThreads" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="TruncateThreads">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateThreads" Modifier="Public" Name="TruncateThreads" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="TruncateThreads">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>TRUNCATE TABLE Threads</CommandText>
@@ -247,7 +247,7 @@ VALUES        (@id,@thread_no,@thread_colour_name,@thread_colour);
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateThread" Modifier="Public" Name="UpdateThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="UpdateThread">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateThread" Modifier="Public" Name="UpdateThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="UpdateThread">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Threads
@@ -418,6 +418,17 @@ SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM ProjectThread
               <Mapping SourceColumn="thread_card_seq" DataSetColumn="thread_card_seq" />
             </Mappings>
             <Sources>
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteProjectThreadsByProject" Modifier="Public" Name="DeleteProjectThreadsByProject" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="DeleteProjectThreadsByProject">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE FROM ProjectThreads
+WHERE        (project_id = @project_id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="project_id" ColumnName="project_id" DataSourceName="MyStitch.dbo.ProjectThreads" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@project_id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="project_id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+              </DbSource>
               <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.ProjectThreads" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByKey" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByKey" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillByKey">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">

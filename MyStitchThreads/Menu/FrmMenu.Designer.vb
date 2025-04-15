@@ -35,6 +35,7 @@ Partial Class FrmMenu
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.BtnPrintCards = New System.Windows.Forms.Button()
         Me.BtnProjects = New System.Windows.Forms.Button()
+        Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -70,7 +71,7 @@ Partial Class FrmMenu
         Me.Version.BackColor = System.Drawing.Color.Transparent
         Me.Version.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Version.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.Version.Location = New System.Drawing.Point(18, 315)
+        Me.Version.Location = New System.Drawing.Point(18, 363)
         Me.Version.Name = "Version"
         Me.Version.Size = New System.Drawing.Size(156, 17)
         Me.Version.TabIndex = 31
@@ -82,7 +83,7 @@ Partial Class FrmMenu
         Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnClose.Location = New System.Drawing.Point(188, 260)
+        Me.BtnClose.Location = New System.Drawing.Point(188, 308)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(151, 49)
         Me.BtnClose.TabIndex = 30
@@ -93,7 +94,7 @@ Partial Class FrmMenu
         '
         Me.BtnPrintCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrintCards.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnPrintCards.Location = New System.Drawing.Point(11, 195)
+        Me.BtnPrintCards.Location = New System.Drawing.Point(12, 237)
         Me.BtnPrintCards.Name = "BtnPrintCards"
         Me.BtnPrintCards.Size = New System.Drawing.Size(151, 49)
         Me.BtnPrintCards.TabIndex = 29
@@ -111,13 +112,25 @@ Partial Class FrmMenu
         Me.BtnProjects.Text = "Projects"
         Me.BtnProjects.UseVisualStyleBackColor = True
         '
+        'BtnProjectThreads
+        '
+        Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnProjectThreads.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(11, 182)
+        Me.BtnProjectThreads.Name = "BtnProjectThreads"
+        Me.BtnProjectThreads.Size = New System.Drawing.Size(151, 49)
+        Me.BtnProjectThreads.TabIndex = 33
+        Me.BtnProjectThreads.Text = "Project Threads"
+        Me.BtnProjectThreads.UseVisualStyleBackColor = True
+        '
         'FrmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(352, 347)
+        Me.ClientSize = New System.Drawing.Size(352, 395)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BtnProjectThreads)
         Me.Controls.Add(Me.BtnThreads)
         Me.Controls.Add(Me.Version)
         Me.Controls.Add(Me.BtnClose)
@@ -140,4 +153,5 @@ Partial Class FrmMenu
     Friend WithEvents BtnClose As Button
     Friend WithEvents BtnPrintCards As Button
     Friend WithEvents BtnProjects As Button
+    Friend WithEvents BtnProjectThreads As Button
 End Class

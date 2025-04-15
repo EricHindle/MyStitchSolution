@@ -29,7 +29,7 @@ Partial Class FrmThread
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.BtnClear = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -69,7 +69,7 @@ Partial Class FrmThread
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.Label7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.Label7.Location = New System.Drawing.Point(113, 12)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
@@ -79,11 +79,11 @@ Partial Class FrmThread
         '
         'BtnClear
         '
-        Me.BtnClear.BackColor = System.Drawing.Color.Beige
+        Me.BtnClear.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnClear.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClear.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.BtnClear.Location = New System.Drawing.Point(16, 214)
         Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClear.Name = "BtnClear"
@@ -170,16 +170,16 @@ Partial Class FrmThread
         Me.DgvThreads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvThreads.BackgroundColor = System.Drawing.Color.Beige
+        Me.DgvThreads.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(238, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(238, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(238, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(238, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadColour})
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -227,11 +227,11 @@ Partial Class FrmThread
         '
         'BtnDelete
         '
-        Me.BtnDelete.BackColor = System.Drawing.Color.Beige
+        Me.BtnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnDelete.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDelete.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnDelete.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.BtnDelete.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.BtnDelete.Location = New System.Drawing.Point(16, 137)
         Me.BtnDelete.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDelete.Name = "BtnDelete"
@@ -242,11 +242,11 @@ Partial Class FrmThread
         '
         'BtnNew
         '
-        Me.BtnNew.BackColor = System.Drawing.Color.Beige
+        Me.BtnNew.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnNew.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnNew.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnNew.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.BtnNew.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.BtnNew.Location = New System.Drawing.Point(16, 17)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnNew.Name = "BtnNew"
@@ -257,11 +257,11 @@ Partial Class FrmThread
         '
         'BtnUpdate
         '
-        Me.BtnUpdate.BackColor = System.Drawing.Color.Beige
+        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUpdate.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.BtnUpdate.Location = New System.Drawing.Point(16, 77)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
@@ -369,11 +369,11 @@ Partial Class FrmThread
         'BtnClose
         '
         Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnClose.BackColor = System.Drawing.Color.Beige
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClose.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.BtnClose.Location = New System.Drawing.Point(752, 439)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"

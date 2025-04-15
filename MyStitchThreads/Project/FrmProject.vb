@@ -151,6 +151,16 @@ Public Class FrmProject
             LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
+
+    Private Sub BtnProjectThreads_Click(sender As Object, e As EventArgs) Handles BtnProjectThreads.Click
+        If _selectedProject.ProjectId > 0 Then
+            LogUtil.Info("Opening Project Threads form", MyBase.Name)
+            Using _projthreads As New FrmProjectThreads
+                _projthreads.SelectedProject = _selectedProject
+                _projthreads.ShowDialog()
+            End Using
+        End If
+    End Sub
 #End Region
 
 End Class

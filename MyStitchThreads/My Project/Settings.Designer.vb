@@ -136,6 +136,30 @@ Namespace My
                 Me("ThreadFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectThreadsFormPos() As String
+            Get
+                Return CType(Me("ProjectThreadsFormPos"),String)
+            End Get
+            Set
+                Me("ProjectThreadsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectThreadCardsFormPos() As String
+            Get
+                Return CType(Me("ProjectThreadCardsFormPos"),String)
+            End Get
+            Set
+                Me("ProjectThreadCardsFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

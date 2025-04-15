@@ -30,6 +30,24 @@ Public Class FrmMenu
         End Using
         Show()
     End Sub
+
+    Private Sub BtnThreads_Click(sender As Object, e As EventArgs) Handles BtnThreads.Click
+        Hide()
+        LogUtil.Info("Opening Threads form", MyBase.Name)
+        Using _threads As New FrmThread
+            _threads.ShowDialog()
+        End Using
+        Show()
+    End Sub
+
+    Private Sub BtnProjectThreads_Click(sender As Object, e As EventArgs) Handles BtnProjectThreads.Click
+        Hide()
+        LogUtil.Info("Opening Project Threads form", MyBase.Name)
+        Using _projthreads As New FrmProjectThreads
+            _projthreads.ShowDialog()
+        End Using
+        Show()
+    End Sub
     Private Sub FrmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Version.Text = System.String.Format(myStringFormatProvider, Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
         InitialiseApplication()
@@ -76,14 +94,6 @@ Public Class FrmMenu
 
     End Sub
 
-    Private Sub BtnThreads_Click(sender As Object, e As EventArgs) Handles BtnThreads.Click
-        LogUtil.Info("Showing list of deaths", MyBase.Name)
-        Hide()
-        Using _threads As New FrmThread
-            _threads.ShowDialog()
-        End Using
-        Show()
-    End Sub
 
 #End Region
 End Class

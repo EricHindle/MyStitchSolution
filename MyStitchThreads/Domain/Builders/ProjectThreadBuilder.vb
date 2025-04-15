@@ -44,7 +44,7 @@ Public Class ProjectThreadBuilder
         _thread = pThread
         Return Me
     End Function
-    Public Function WithThread(pId As Integer) As ProjectThreadBuilder
+    Public Function WithThreadId(pId As Integer) As ProjectThreadBuilder
         _thread = GetThreadById(pId)
         Return Me
     End Function
