@@ -1,4 +1,10 @@
-﻿Imports System
+﻿' Hindleware
+' Copyright (c) 2025 Eric Hindle
+' All rights reserved.
+'
+' Author Eric Hindle
+'
+
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 

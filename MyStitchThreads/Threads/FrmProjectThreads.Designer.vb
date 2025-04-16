@@ -31,6 +31,7 @@ Partial Class FrmProjectThreads
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProjectThreads))
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.DgvProjects = New System.Windows.Forms.DataGridView()
@@ -324,6 +325,7 @@ Partial Class FrmProjectThreads
         Me.Controls.Add(Me.DgvProjects)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.BtnUpdate)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmProjectThreads"
         Me.Text = "Project Threads"
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()

@@ -69,5 +69,4 @@ Public Class ProjectThreadCard
     End Function
 #End Region
 
-
 End Class

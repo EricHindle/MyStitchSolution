@@ -30,6 +30,7 @@ Partial Class FrmProject
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BtnClear = New System.Windows.Forms.Button()
@@ -41,12 +42,12 @@ Partial Class FrmProject
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.LblSelectedProject = New System.Windows.Forms.Label()
         Me.LblProjectId = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtName = New System.Windows.Forms.TextBox()
         Me.BtnClose = New System.Windows.Forms.Button()
-        Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -206,6 +207,21 @@ Partial Class FrmProject
         Me.PnlForm.Size = New System.Drawing.Size(291, 151)
         Me.PnlForm.TabIndex = 126
         '
+        'BtnProjectThreads
+        '
+        Me.BtnProjectThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnProjectThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(81, 103)
+        Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnProjectThreads.Name = "BtnProjectThreads"
+        Me.BtnProjectThreads.Size = New System.Drawing.Size(127, 29)
+        Me.BtnProjectThreads.TabIndex = 128
+        Me.BtnProjectThreads.Text = "Project Threads"
+        Me.BtnProjectThreads.UseVisualStyleBackColor = False
+        '
         'LblSelectedProject
         '
         Me.LblSelectedProject.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -271,21 +287,6 @@ Partial Class FrmProject
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = False
         '
-        'BtnProjectThreads
-        '
-        Me.BtnProjectThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnProjectThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(81, 103)
-        Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnProjectThreads.Name = "BtnProjectThreads"
-        Me.BtnProjectThreads.Size = New System.Drawing.Size(127, 29)
-        Me.BtnProjectThreads.TabIndex = 128
-        Me.BtnProjectThreads.Text = "Project Threads"
-        Me.BtnProjectThreads.UseVisualStyleBackColor = False
-        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -301,6 +302,7 @@ Partial Class FrmProject
         Me.Controls.Add(Me.BtnUpdate)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmProject"
         Me.Text = "Projects"

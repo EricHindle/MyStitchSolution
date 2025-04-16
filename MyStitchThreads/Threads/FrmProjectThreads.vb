@@ -7,7 +7,6 @@
 
 Imports HindlewareLib.Logging
 
-
 Public Class FrmProjectThreads
 #Region "properties"
     Private _selectedProject As Project
@@ -196,7 +195,6 @@ Public Class FrmProjectThreads
             _threads.ShowDialog()
         End Using
     End Sub
-
 
 #End Region
 

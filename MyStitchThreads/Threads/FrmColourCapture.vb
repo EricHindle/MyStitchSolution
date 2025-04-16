@@ -38,7 +38,6 @@ Public Class FrmColourCapture
         End If
     End Sub
 
-
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub

@@ -111,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3CECFBD14D8E4AA0993520DA99593047"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_46E557ECAF73530E50A7098FF0B006C4"
         "OwnerKey" = "8:_39BAF05BFB2B7154C636F0C53CBE0DE0"
         "MsmSig" = "8:_UNDEFINED"
@@ -346,7 +352,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_67C31786A79988D7F8AF7E3DAA06A43D"
+        "OwnerKey" = "8:_8E6C601548944E2F9C0C36EB34076ED9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -460,7 +466,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8E6C601548944E2F9C0C36EB34076ED9"
+        "OwnerKey" = "8:_67C31786A79988D7F8AF7E3DAA06A43D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -520,6 +526,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -678,7 +692,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:HindlewareLib, Version=1.13.4.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:HindlewareLib, Version=1.13.5.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_1FA1FE2E7A87EEB07D47A946B7004B4B"
@@ -734,6 +748,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3CECFBD14D8E4AA0993520DA99593047"
+            {
+            "SourcePath" = "8:..\\Images\\MyStitch.ico"
+            "TargetName" = "8:MyStitch.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46E557ECAF73530E50A7098FF0B006C4"
@@ -1176,7 +1210,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MyStitchInstall"
         "ProductCode" = "8:{474C3F01-CC2C-4185-AAF4-359EB2F12380}"
-        "PackageCode" = "8:{B18E893E-3855-445B-A199-66EDD61D4D32}"
+        "PackageCode" = "8:{698D1D69-25B4-40F0-9902-9A8CE78DF453}"
         "UpgradeCode" = "8:{E7076867-D58D-4480-A896-157A9A9127B9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -1307,7 +1341,7 @@
             "Target" = "8:_8E6C601548944E2F9C0C36EB34076ED9"
             "Folder" = "8:_CAE3E9D0CDA44436B99776A8DC44A8E2"
             "WorkingFolder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
-            "Icon" = "8:"
+            "Icon" = "8:_3CECFBD14D8E4AA0993520DA99593047"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6CE07DC57D85405CBBE4F4E13B7B1AC3"
@@ -1321,7 +1355,7 @@
             "Target" = "8:_9ADB0C332E6B45FE9E764C8542A2DC3F"
             "Folder" = "8:_B998D3814CD741CBBAE4D9A08F8B799A"
             "WorkingFolder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
-            "Icon" = "8:"
+            "Icon" = "8:_3CECFBD14D8E4AA0993520DA99593047"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1AB49B465234766AA20E0BB5D8B214D"
@@ -1335,7 +1369,7 @@
             "Target" = "8:_9ADB0C332E6B45FE9E764C8542A2DC3F"
             "Folder" = "8:_CAE3E9D0CDA44436B99776A8DC44A8E2"
             "WorkingFolder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
-            "Icon" = "8:"
+            "Icon" = "8:_3CECFBD14D8E4AA0993520DA99593047"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CEE75E752F57486F9659F70E3BA379DA"
@@ -1349,7 +1383,7 @@
             "Target" = "8:_8E6C601548944E2F9C0C36EB34076ED9"
             "Folder" = "8:_B998D3814CD741CBBAE4D9A08F8B799A"
             "WorkingFolder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
-            "Icon" = "8:"
+            "Icon" = "8:_3CECFBD14D8E4AA0993520DA99593047"
             "Feature" = "8:"
             }
         }

@@ -8,6 +8,7 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
+Imports Microsoft.VisualBasic.Devices
 
 Public Class FrmPrintThreadCards
 
@@ -15,8 +16,10 @@ Public Class FrmPrintThreadCards
     Private _cardGraphics As Graphics
     Private oImageUtil As New HindlewareLib.Imaging.ImageUtil
     Private sourceBitmap As Bitmap
-
-
+    Private oSelectedProject As Project
+    Private isLoading As Boolean
+    Private isCardsLoading As Boolean
+    Private _nextCol As Integer
 #End Region
 #Region "handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -25,20 +28,50 @@ Public Class FrmPrintThreadCards
 
     Private Sub FrmThreadCards_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", Name)
-        My.Settings.ThreadCardsFormPos = SetFormPos(Me)
+        My.Settings.PrintThreadCardsFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
 
     Private Sub FrmThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.Info("Thread Card Generation", MyBase.Name)
-        GetFormPos(Me, My.Settings.ThreadCardsFormPos)
+        GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
+        isLoading = True
+        InitialiseForm()
+        isLoading = False
+    End Sub
+    Private Sub InitialiseForm()
         sourceBitmap = New Bitmap(3508, 2480)
         sourceBitmap.SetResolution(300.0F, 300.0F)
         SetPictureWidth()
-
+        LoadProjectList()
     End Sub
+    Private Sub LoadProjectList()
+        LogUtil.LogInfo("Load project list", MyBase.Name)
+        DgvProjects.Rows.Clear()
+        For Each oproject As Project In GetProjects()
+            AddProjectRow(oproject)
+        Next
+        DgvProjects.ClearSelection()
+    End Sub
+    Private Sub LoadCardList(pProjectId As Integer)
+        LogUtil.LogInfo("Load card list", MyBase.Name)
+        isCardsLoading = True
 
-    Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
+        LbCards.Items.Clear()
+
+        Dim _list As List(Of ProjectThreadCard) = GetProjectThreadCards(pProjectId)
+        For Each oProjectCard As ProjectThreadCard In _list
+            LbCards.Items.Add(oProjectCard.CardNo)
+        Next
+
+        isCardsLoading = False
+    End Sub
+    Private Sub AddProjectRow(oProject As Project)
+        Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
+        oRow.Cells(projectId.Name).Value = oProject.ProjectId
+        oRow.Cells(projectName.Name).Value = oProject.ProjectName
+    End Sub
+    Private Sub BtnClear_Click(sender As Object, e As EventArgs)
         Dim _pen1 As New Pen(Brushes.Black, 1)
         sourceBitmap = New Bitmap(3508, 2480)
         sourceBitmap.SetResolution(300.0F, 300.0F)
@@ -90,16 +123,22 @@ Public Class FrmPrintThreadCards
         Dim _imagefile As String = SaveSourceImage(sourceBitmap)
     End Sub
 
-    Private Sub PicThreadCard_SizeChanged(sender As Object, e As EventArgs) Handles PicThreadCard.SizeChanged
+    Private Sub PnlCardImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlCardImage.SizeChanged
         SetPictureWidth()
     End Sub
 
     Private Sub SetPictureWidth()
         If sourceBitmap IsNot Nothing Then
-            PicThreadCard.Width = PicThreadCard.Height * sourceBitmap.Width / sourceBitmap.Height
+            If PnlCardImage.Width > PnlCardImage.Height Then
+                PicThreadCard.Width = PicThreadCard.Height * sourceBitmap.Width / sourceBitmap.Height
+            Else
+                PicThreadCard.Height = PicThreadCard.Width * sourceBitmap.Height / sourceBitmap.Width
+
+            End If
+
         End If
         PicThreadCard.Image = sourceBitmap
-        PicThreadCard.Location = New Point((Width - PicThreadCard.Width) / 2, PicThreadCard.Top)
+        PicThreadCard.Location = New Point((PnlCardImage.Width - PicThreadCard.Width) / 2, PicThreadCard.Top)
     End Sub
 
     Private Function SaveSourceImage(pImage As Image) As String
@@ -182,6 +221,129 @@ Public Class FrmPrintThreadCards
         Dim targetWidth As Integer = sourceBitmap.Width - leftmargin
         Dim targetHeight As Integer = sourceBitmap.Height - topmargin
         e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
+    End Sub
+
+    Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
+        If Not isLoading Then
+            If DgvProjects.SelectedRows.Count > 0 Then
+                Dim oRow As DataGridViewRow = DgvProjects.SelectedRows(0)
+                Dim _projectId As Integer = oRow.Cells(projectId.Name).Value
+                oSelectedProject = GetProjectById(_projectId)
+                LoadCardList(_projectId)
+                InitialiseImage(oSelectedProject.ProjectName)
+            End If
+        End If
+    End Sub
+
+    Private Sub InitialiseImage(projectName As String)
+        Dim _pen1 As New Pen(Brushes.Black, 1)
+        sourceBitmap = New Bitmap(3508, 2480)
+        sourceBitmap.SetResolution(300.0F, 300.0F)
+        _cardGraphics = Graphics.FromImage(sourceBitmap)
+
+        _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
+
+        Dim colCt As Integer = 4
+        Dim colWidth As Integer = 3508 / colCt
+        Dim holeradius As Integer = 35
+        Dim holeinset As Integer = 107
+        Dim _pt1x As Integer
+        Dim _pt2x As Integer
+        Dim _pt1y As Integer
+        Dim _pt2y As Integer
+        For _col = 1 To colCt - 1
+            _pt1x = colWidth * _col
+            _pt2x = _pt1x
+            _pt1y = 0
+            _pt2y = sourceBitmap.Height
+            _cardGraphics.DrawLine(_pen1, New Point(_pt1x, _pt1y), New Point(_pt2x, _pt2y))
+        Next
+        Dim _holegap As Integer = 236
+        Dim _rowct As Integer = 10
+        Dim _top As Integer = (sourceBitmap.Height - (_holegap * (_rowct - 1))) / 2
+        For _row As Integer = 0 To _rowct - 1
+            _pt1y = _top + (_holegap * _row)
+            _cardGraphics.DrawLine(_pen1, New Point(0, _pt1y), New Point(sourceBitmap.Width, _pt1y))
+            For _col As Integer = 0 To colCt - 1
+                Dim _holetop As Integer = _top + (_holegap * _row) - holeradius
+                Dim _holeleft As Integer = ((colWidth * _col) + holeinset)
+                Dim _holerect As New Rectangle(New Point(_holeleft, _holetop), New Size(holeradius * 2, holeradius * 2))
+                _cardGraphics.FillEllipse(Brushes.White, _holerect)
+                _cardGraphics.DrawEllipse(_pen1, _holerect)
+            Next
+        Next
+        PicThreadCard.Image = sourceBitmap
+        PicThreadCard.Refresh()
+        _nextCol = 0
+    End Sub
+
+    Private Sub LbCards_SelectedValueChanged(sender As Object, e As EventArgs) Handles LbCards.SelectedIndexChanged
+        If Not isCardsLoading Then
+
+        End If
+    End Sub
+    Private Sub AddCardToImage(pList As List(Of Thread))
+        Dim _rowct As Integer = 10
+        Dim colCt As Integer = 4
+        Dim colWidth As Integer = 3508 / colCt
+        Dim _holegap As Integer = 236
+        Dim _top As Integer = (sourceBitmap.Height - (_holegap * (_rowct - 1))) / 2
+
+        Dim holeradius As Integer = 35
+        Dim holeinset As Integer = 107
+
+        Dim _pt1x As Integer
+        Dim _pt1y As Integer
+        Dim _pen1 As New Pen(Brushes.Black, 1)
+        Dim _row As Integer = 0
+        '    For _row As Integer = 0 To _rowct - 1
+        For Each _thread As Thread In pList
+            Dim _col As Integer = _nextCol
+
+            _pt1y = _top + (_holegap * _row)
+            _pt1x = (colWidth * _col) + holeinset + (holeradius * 5)
+            Dim _numberFontSize = 18
+            Dim _nameFontSize = 10
+            Dim _textheight As Integer = (_numberFontSize * 300 / 72) * 1.2
+            Dim _textwidth As Integer = _textheight * 2.5
+            Dim _texttop As Integer = _pt1y - (_textheight / 2)
+            Dim _textleft As Integer = _pt1x + holeradius
+            Dim _colourtop As Integer = _pt1y - _textheight
+            Dim _colourleft As Integer = _pt1x
+            Dim _colourheight As Integer = _textheight * 2
+            Dim _colourwidth As Integer = _textwidth * 1.3
+            Dim _nametop As Integer = _pt1y + _textheight
+            Dim _nameleft As Integer = _pt1x
+            Dim _nameheight As Integer = _textheight * _nameFontSize / _numberFontSize
+            Dim _namewidth As Integer = _colourwidth
+            Dim _symboltop As Integer = _colourtop
+            Dim _symbolleft As Integer = _colourleft + _colourwidth + 20
+            Dim _symbolheight As Integer = _colourheight
+            Dim _symbolwidth As Integer = _colourheight
+            Dim _textrect As New Rectangle(New Point(_textleft, _texttop), New Size(_textwidth, _textheight))
+            Dim _colourRect As New Rectangle(New Point(_colourleft, _colourtop), New Size(_colourwidth, _colourheight))
+            Dim _symbolRect As New Rectangle(New Point(_symbolleft, _symboltop), New Size(_symbolwidth, _symbolheight))
+
+            Dim _brush As Brush = New SolidBrush(_thread.Colour)
+            _cardGraphics.FillRectangle(_brush, _colourRect)
+            _cardGraphics.FillRectangle(Brushes.White, _textrect)
+            _cardGraphics.DrawString(_thread.ThreadNo, New Font("arial", _numberFontSize, FontStyle.Regular), Brushes.Navy, New Point(_textleft, _texttop))
+            _cardGraphics.DrawString(_thread.ColourName, New Font("arial", _nameFontSize, FontStyle.Regular), Brushes.DimGray, New Point(_nameleft, _nametop))
+            _cardGraphics.FillRectangle(Brushes.White, _symbolRect)
+            _cardGraphics.DrawRectangle(_pen1, _symbolRect)
+            _row += 1
+        Next
+        PicThreadCard.Image = sourceBitmap
+        PicThreadCard.Refresh()
+    End Sub
+
+    Private Sub BtnAddCard_Click(sender As Object, e As EventArgs) Handles BtnAddCard.Click
+        If LbCards.SelectedIndex > -1 Then
+            Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
+            Dim _list As List(Of Thread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
+            AddCardToImage(_list)
+            _nextCol += 1
+        End If
     End Sub
 
 #End Region

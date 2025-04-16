@@ -5,8 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Runtime.InteropServices
-
 Public Class ProjectThreadCardBuilder
     Private _project As Project
     Private _cardNo As Integer

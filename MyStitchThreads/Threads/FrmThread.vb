@@ -7,7 +7,6 @@
 
 Imports HindlewareLib.Logging
 
-
 Public Class FrmThread
 #Region "properties"
 
@@ -193,7 +192,6 @@ Public Class FrmThread
         End If
     End Sub
 
-
     Private Sub BtnColourCapture_Click(sender As Object, e As EventArgs) Handles BtnColourCapture.Click
         _colrCap.Show()
     End Sub
@@ -202,8 +200,6 @@ Public Class FrmThread
         Dim _color As Color = _colrCap.SelectedColour
         SetFormColour(_color)
     End Sub
-
-
 
 #End Region
 

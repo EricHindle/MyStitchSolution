@@ -47,6 +47,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MyStitch.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -139,6 +142,9 @@
     <Folder Include="Design\" />
     <Folder Include="Domain\Builders\" />
     <Folder Include="Domain\Objects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MyStitch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

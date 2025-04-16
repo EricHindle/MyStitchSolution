@@ -36,6 +36,8 @@ Partial Class FrmMenu
         Me.BtnPrintCards = New System.Windows.Forms.Button()
         Me.BtnProjects = New System.Windows.Forms.Button()
         Me.BtnProjectThreads = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -45,7 +47,7 @@ Partial Class FrmMenu
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.Label1.Location = New System.Drawing.Point(55, 33)
+        Me.Label1.Location = New System.Drawing.Point(117, 36)
         Me.Label1.Name = "Label1"
         Me.Label1.Padding = New System.Windows.Forms.Padding(10)
         Me.Label1.Size = New System.Drawing.Size(231, 49)
@@ -56,7 +58,7 @@ Partial Class FrmMenu
         '
         Me.BtnThreads.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnThreads.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnThreads.Location = New System.Drawing.Point(185, 127)
+        Me.BtnThreads.Location = New System.Drawing.Point(197, 127)
         Me.BtnThreads.Margin = New System.Windows.Forms.Padding(7, 6, 7, 6)
         Me.BtnThreads.Name = "BtnThreads"
         Me.BtnThreads.Size = New System.Drawing.Size(151, 49)
@@ -83,7 +85,7 @@ Partial Class FrmMenu
         Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnClose.Location = New System.Drawing.Point(188, 308)
+        Me.BtnClose.Location = New System.Drawing.Point(197, 307)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(151, 49)
         Me.BtnClose.TabIndex = 30
@@ -94,7 +96,7 @@ Partial Class FrmMenu
         '
         Me.BtnPrintCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrintCards.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnPrintCards.Location = New System.Drawing.Point(12, 237)
+        Me.BtnPrintCards.Location = New System.Drawing.Point(21, 237)
         Me.BtnPrintCards.Name = "BtnPrintCards"
         Me.BtnPrintCards.Size = New System.Drawing.Size(151, 49)
         Me.BtnPrintCards.TabIndex = 29
@@ -105,7 +107,7 @@ Partial Class FrmMenu
         '
         Me.BtnProjects.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjects.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnProjects.Location = New System.Drawing.Point(11, 127)
+        Me.BtnProjects.Location = New System.Drawing.Point(21, 127)
         Me.BtnProjects.Name = "BtnProjects"
         Me.BtnProjects.Size = New System.Drawing.Size(151, 49)
         Me.BtnProjects.TabIndex = 28
@@ -116,20 +118,33 @@ Partial Class FrmMenu
         '
         Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjectThreads.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(11, 182)
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(21, 182)
         Me.BtnProjectThreads.Name = "BtnProjectThreads"
         Me.BtnProjectThreads.Size = New System.Drawing.Size(151, 49)
         Me.BtnProjectThreads.TabIndex = 33
         Me.BtnProjectThreads.Text = "Project Threads"
         Me.BtnProjectThreads.UseVisualStyleBackColor = True
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.GhostWhite
+        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PictureBox1.Image = Global.MyStitchThreads.My.Resources.Resources.cross_stitch
+        Me.PictureBox1.Location = New System.Drawing.Point(11, 22)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(88, 86)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 34
+        Me.PictureBox1.TabStop = False
+        '
         'FrmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(352, 395)
+        Me.ClientSize = New System.Drawing.Size(372, 395)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.BtnProjectThreads)
         Me.Controls.Add(Me.BtnThreads)
         Me.Controls.Add(Me.Version)
@@ -142,6 +157,7 @@ Partial Class FrmMenu
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -154,4 +170,5 @@ Partial Class FrmMenu
     Friend WithEvents BtnPrintCards As Button
     Friend WithEvents BtnProjects As Button
     Friend WithEvents BtnProjectThreads As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

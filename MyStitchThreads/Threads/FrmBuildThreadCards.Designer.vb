@@ -31,6 +31,7 @@ Partial Class FrmBuildThreadCards
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBuildThreadCards))
         Me.BtnClear = New System.Windows.Forms.Button()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -277,6 +278,7 @@ Partial Class FrmBuildThreadCards
         Me.Controls.Add(Me.BtnNew)
         Me.Controls.Add(Me.BtnUpdate)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmBuildThreadCards"
         Me.Text = "Build Thread Cards"

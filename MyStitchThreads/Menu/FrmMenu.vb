@@ -94,6 +94,5 @@ Public Class FrmMenu
 
     End Sub
 
-
 #End Region
 End Class

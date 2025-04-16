@@ -8,7 +8,6 @@
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Reflection
-Imports Google.Protobuf.Compiler
 Imports HindlewareLib.Logging
 Imports MySql.Data.MySqlClient
 
@@ -301,13 +300,23 @@ Module ModDataFunctions
         Return newId
     End Function
 
-
-
 #End Region
 #Region "projectthreadcards"
     Public Function GetProjectThreadCardsTable() As MyStitchDataSet.ProjectThreadCardsDataTable
         LogUtil.Info("Getting project thread cards table", MethodBase.GetCurrentMethod.Name)
         Return oProjectThreadCardTa.GetData()
+    End Function
+    Public Function GetProjectThreadCards(pProjectId) As List(Of ProjectThreadCard)
+        Dim _listOfCards As New List(Of ProjectThreadCard)
+        Try
+            oProjectThreadCardTa.FillByProject(oProjectThreadCardTable, pProjectId)
+            For Each oRow As MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
+                _listOfCards.Add(ProjectThreadCardBuilder.AProjectThreadCard.StartingWith(oRow).Build)
+            Next
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return _listOfCards
     End Function
     Public Function InsertProjectThreadCard(ByRef oThreadCard As ProjectThreadCard) As Integer
         LogUtil.LogInfo("Inserting thread card " & oThreadCard.Project.ProjectName & ":" & CStr(oThreadCard.CardNo), MethodBase.GetCurrentMethod.Name)

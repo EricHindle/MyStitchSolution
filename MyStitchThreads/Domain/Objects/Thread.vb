@@ -5,8 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Security.Cryptography
-Imports System.Security.Cryptography.X509Certificates
 Imports System.Text
 
 Public Class Thread

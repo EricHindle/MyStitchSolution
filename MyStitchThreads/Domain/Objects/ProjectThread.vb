@@ -6,7 +6,6 @@
 '
 
 Imports System.Text
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Public Class ProjectThread
 #Region "properties"

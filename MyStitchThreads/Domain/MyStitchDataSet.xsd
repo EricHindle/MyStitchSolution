@@ -205,7 +205,7 @@ WHERE        (thread_id = @id)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.Threads" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByNumber" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByNumber" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy6" UserSourceName="FillByNumber">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.Threads" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByNumber" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByNumber" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="FillByNumber">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        thread_id, thread_colour_name, thread_colour, thread_no
@@ -217,7 +217,7 @@ WHERE        (thread_no = @number)</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThread" Modifier="Public" Name="InsertThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="InsertThread">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThread" Modifier="Public" Name="InsertThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="InsertThread">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO Threads
@@ -232,7 +232,7 @@ SELECT SCOPE_IDENTITY()</CommandText>
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThreadWithId" Modifier="Public" Name="InsertThreadWithId" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="InsertThreadWithId">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertThreadWithId" Modifier="Public" Name="InsertThreadWithId" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="InsertThreadWithId">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SET IDENTITY_INSERT threads ON;
@@ -249,7 +249,7 @@ VALUES        (@id,@thread_no,@thread_colour_name,@thread_colour);
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateThreads" Modifier="Public" Name="TruncateThreads" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="TruncateThreads">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateThreads" Modifier="Public" Name="TruncateThreads" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="TruncateThreads">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>TRUNCATE TABLE Threads</CommandText>
@@ -257,7 +257,7 @@ VALUES        (@id,@thread_no,@thread_colour_name,@thread_colour);
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateThread" Modifier="Public" Name="UpdateThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="UpdateThread">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateThread" Modifier="Public" Name="UpdateThread" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy6" UserSourceName="UpdateThread">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Threads
@@ -469,7 +469,8 @@ WHERE        (project_id = @ProjectId)</CommandText>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        project_id, thread_id, thread_card_no, thread_card_seq
 FROM            ProjectThreads
-WHERE        (project_id = @projectId) AND (thread_card_no = @cardNo)</CommandText>
+WHERE        (project_id = @projectId) AND (thread_card_no = @cardNo)
+ORDER BY thread_card_seq</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="projectId" ColumnName="project_id" DataSourceName="MyStitch.dbo.ProjectThreads" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@projectId" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="project_id" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="cardNo" ColumnName="thread_card_no" DataSourceName="MyStitch.dbo.ProjectThreads" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@cardNo" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="thread_card_no" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -537,7 +538,7 @@ SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM ProjectThread
                 </xs:simpleType>
               </xs:element>
               <xs:element name="thread_colour" msprop:Generator_ColumnPropNameInTable="thread_colourColumn" msprop:Generator_ColumnPropNameInRow="thread_colour" msprop:Generator_UserColumnName="thread_colour" msprop:Generator_ColumnVarNameInTable="columnthread_colour" type="xs:int" />
-              <xs:element name="thread_no" msprop:Generator_UserColumnName="thread_no" msprop:Generator_ColumnPropNameInTable="thread_noColumn" msprop:Generator_ColumnPropNameInRow="thread_no" msprop:Generator_ColumnVarNameInTable="columnthread_no">
+              <xs:element name="thread_no" msprop:Generator_ColumnPropNameInTable="thread_noColumn" msprop:Generator_ColumnPropNameInRow="thread_no" msprop:Generator_UserColumnName="thread_no" msprop:Generator_ColumnVarNameInTable="columnthread_no">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
