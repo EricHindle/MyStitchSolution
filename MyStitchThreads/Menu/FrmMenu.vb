@@ -94,5 +94,14 @@ Public Class FrmMenu
 
     End Sub
 
+    Private Sub BtnBuildCards_Click(sender As Object, e As EventArgs) Handles BtnBuildCards.Click
+        Hide()
+        Using _build As New FrmBuildThreadCards
+            LogUtil.Info("Opening Build Cards Form", MyBase.Name)
+            _build.ShowDialog()
+        End Using
+        Show()
+    End Sub
+
 #End Region
 End Class

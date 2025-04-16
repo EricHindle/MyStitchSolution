@@ -128,7 +128,7 @@ Public Class FrmThread
         LoadColourCell(oThread, oRow)
         '     oRow.Cells(threadColour.Name).Style.BackColor = oThread.Colour
 
-        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
+        oRow.Cells(ThreadNo.Name).Value = If(IsNumeric(oThread.ThreadNo), CInt(oThread.ThreadNo), CInt("999" & oThread.ThreadId))
     End Sub
     Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
         Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)

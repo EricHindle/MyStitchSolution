@@ -123,7 +123,7 @@ Public Class FrmProjectThreads
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
         oRow.Cells(threadName.Name).Value = oThread.ColourName
         LoadColourCell(oThread, oRow)
-        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
+        oRow.Cells(ThreadNo.Name).Value = If(IsNumeric(oThread.ThreadNo), CInt(oThread.ThreadNo), CInt("999" & oThread.ThreadId))
     End Sub
 
     Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
@@ -186,6 +186,11 @@ Public Class FrmProjectThreads
     End Sub
 
     Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
+
+        Using _print As New FrmBuildThreadCards
+            LogUtil.Info("Opening Build Cards Form", MyBase.Name)
+            _print.ShowDialog()
+        End Using
 
     End Sub
 

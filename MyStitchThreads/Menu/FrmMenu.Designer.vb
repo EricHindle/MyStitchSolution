@@ -37,6 +37,7 @@ Partial Class FrmMenu
         Me.BtnProjects = New System.Windows.Forms.Button()
         Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.BtnBuildCards = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -96,7 +97,7 @@ Partial Class FrmMenu
         '
         Me.BtnPrintCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrintCards.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnPrintCards.Location = New System.Drawing.Point(21, 237)
+        Me.BtnPrintCards.Location = New System.Drawing.Point(197, 243)
         Me.BtnPrintCards.Name = "BtnPrintCards"
         Me.BtnPrintCards.Size = New System.Drawing.Size(151, 49)
         Me.BtnPrintCards.TabIndex = 29
@@ -137,6 +138,17 @@ Partial Class FrmMenu
         Me.PictureBox1.TabIndex = 34
         Me.PictureBox1.TabStop = False
         '
+        'BtnBuildCards
+        '
+        Me.BtnBuildCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnBuildCards.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.BtnBuildCards.Location = New System.Drawing.Point(21, 243)
+        Me.BtnBuildCards.Name = "BtnBuildCards"
+        Me.BtnBuildCards.Size = New System.Drawing.Size(151, 49)
+        Me.BtnBuildCards.TabIndex = 35
+        Me.BtnBuildCards.Text = "Build Cards"
+        Me.BtnBuildCards.UseVisualStyleBackColor = True
+        '
         'FrmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
@@ -144,6 +156,7 @@ Partial Class FrmMenu
         Me.BackColor = System.Drawing.Color.AliceBlue
         Me.ClientSize = New System.Drawing.Size(372, 395)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BtnBuildCards)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.BtnProjectThreads)
         Me.Controls.Add(Me.BtnThreads)
@@ -171,4 +184,5 @@ Partial Class FrmMenu
     Friend WithEvents BtnProjects As Button
     Friend WithEvents BtnProjectThreads As Button
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents BtnBuildCards As Button
 End Class
