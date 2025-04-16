@@ -6,9 +6,12 @@
 '
 
 Imports HindlewareLib.Imaging
+Imports HindlewareLib.Logging
 
 Public Class FrmColourCapture
     Private _selectedColour As Color = Color.White
+    Private isLoading As Boolean
+
     Public Property SelectedColour() As Color
         Get
             Return _selectedColour
@@ -49,5 +52,23 @@ Public Class FrmColourCapture
     Private Sub BtnLoad_Click(sender As Object, e As EventArgs) Handles BtnLoad.Click
         Dim pFilename As String = ImageUtil.GetImageFileName(ImageUtil.OpenOrSave.Open,, My.Settings.ImagePath)
         Piccolour.Image = Image.FromFile(pFilename)
+    End Sub
+
+    Private Sub FrmColourCapture_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LogUtil.LogInfo("Colour Capture", MyBase.Name)
+        isLoading = True
+        InitialiseForm()
+        isLoading = False
+    End Sub
+
+    Private Sub InitialiseForm()
+        GetFormPos(Me, My.Settings.ColourCaptureFormPos)
+    End Sub
+
+    Private Sub FrmColourCapture_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.LogInfo("Closing", MyBase.Name)
+
+        My.Settings.ColourCaptureFormPos = SetFormPos(Me)
+        My.Settings.Save()
     End Sub
 End Class

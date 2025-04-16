@@ -26,13 +26,13 @@ Public Class FrmPrintThreadCards
         Close()
     End Sub
 
-    Private Sub FrmThreadCards_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmPrintThreadCards_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", Name)
         My.Settings.PrintThreadCardsFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
 
-    Private Sub FrmThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPrintThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.Info("Thread Card Generation", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
         isLoading = True
@@ -79,7 +79,7 @@ Public Class FrmPrintThreadCards
 
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
 
-        Dim colCt As Integer = 4
+        Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
         Dim holeradius As Integer = 35
         Dim holeinset As Integer = 107
@@ -224,6 +224,10 @@ Public Class FrmPrintThreadCards
     End Sub
 
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
+        PrepareNewImage()
+    End Sub
+
+    Private Sub PrepareNewImage()
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count > 0 Then
                 Dim oRow As DataGridViewRow = DgvProjects.SelectedRows(0)
@@ -243,7 +247,7 @@ Public Class FrmPrintThreadCards
 
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
 
-        Dim colCt As Integer = 4
+        Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
         Dim holeradius As Integer = 35
         Dim holeinset As Integer = 107
@@ -284,7 +288,7 @@ Public Class FrmPrintThreadCards
     End Sub
     Private Sub AddCardToImage(pList As List(Of Thread))
         Dim _rowct As Integer = 10
-        Dim colCt As Integer = 4
+        Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
         Dim _holegap As Integer = 236
         Dim _top As Integer = (sourceBitmap.Height - (_holegap * (_rowct - 1))) / 2
@@ -317,9 +321,10 @@ Public Class FrmPrintThreadCards
             Dim _nameheight As Integer = _textheight * _nameFontSize / _numberFontSize
             Dim _namewidth As Integer = _colourwidth
             Dim _symboltop As Integer = _colourtop
-            Dim _symbolleft As Integer = _colourleft + _colourwidth + 20
             Dim _symbolheight As Integer = _colourheight
             Dim _symbolwidth As Integer = _colourheight
+            '      Dim _symbolleft As Integer = _colourleft + _colourwidth + 50
+            Dim _symbolleft As Integer = _pt1x + _colourwidth + (colWidth * (_col + 1) - _pt1x - _colourwidth - _symbolwidth) / 2
             Dim _textrect As New Rectangle(New Point(_textleft, _texttop), New Size(_textwidth, _textheight))
             Dim _colourRect As New Rectangle(New Point(_colourleft, _colourtop), New Size(_colourwidth, _colourheight))
             Dim _symbolRect As New Rectangle(New Point(_symbolleft, _symboltop), New Size(_symbolwidth, _symbolheight))
@@ -344,6 +349,14 @@ Public Class FrmPrintThreadCards
             AddCardToImage(_list)
             _nextCol += 1
         End If
+    End Sub
+
+    Private Sub NudColCt_ValueChanged(sender As Object, e As EventArgs) Handles NudColCt.ValueChanged
+        PrepareNewImage()
+    End Sub
+
+    Private Sub BtnResetImage_Click(sender As Object, e As EventArgs) Handles BtnResetImage.Click
+        PrepareNewImage()
     End Sub
 
 #End Region

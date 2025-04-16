@@ -302,6 +302,14 @@ Module ModDataFunctions
 
 #End Region
 #Region "projectthreadcards"
+    Public Sub DeleteProjectThread(pProjectThread As ProjectThread)
+        LogUtil.Info("Deleting " & pProjectThread.Project.ProjectName & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
+        Try
+            oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.Project.ProjectId, pProjectThread.Thread.ThreadId)
+        Catch ex As MySqlException
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
     Public Function GetProjectThreadCardsTable() As MyStitchDataSet.ProjectThreadCardsDataTable
         LogUtil.Info("Getting project thread cards table", MethodBase.GetCurrentMethod.Name)
         Return oProjectThreadCardTa.GetData()

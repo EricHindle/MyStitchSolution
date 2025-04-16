@@ -38,10 +38,14 @@ Partial Class FrmPrintThreadCards
         Me.LbCards = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PnlCardImage = New System.Windows.Forms.Panel()
+        Me.NudColCt = New System.Windows.Forms.NumericUpDown()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.BtnResetImage = New System.Windows.Forms.Button()
         CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlCardImage.SuspendLayout()
+        CType(Me.NudColCt, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PicThreadCard
@@ -231,11 +235,52 @@ Partial Class FrmPrintThreadCards
         Me.PnlCardImage.Size = New System.Drawing.Size(675, 463)
         Me.PnlCardImage.TabIndex = 149
         '
+        'NudColCt
+        '
+        Me.NudColCt.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NudColCt.Location = New System.Drawing.Point(168, 353)
+        Me.NudColCt.Maximum = New Decimal(New Integer() {4, 0, 0, 0})
+        Me.NudColCt.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudColCt.Name = "NudColCt"
+        Me.NudColCt.Size = New System.Drawing.Size(78, 25)
+        Me.NudColCt.TabIndex = 150
+        Me.NudColCt.Value = New Decimal(New Integer() {4, 0, 0, 0})
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(165, 332)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(63, 18)
+        Me.Label2.TabIndex = 151
+        Me.Label2.Text = "Columns"
+        '
+        'BtnResetImage
+        '
+        Me.BtnResetImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnResetImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnResetImage.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnResetImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnResetImage.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnResetImage.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnResetImage.Location = New System.Drawing.Point(17, 432)
+        Me.BtnResetImage.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnResetImage.Name = "BtnResetImage"
+        Me.BtnResetImage.Size = New System.Drawing.Size(109, 40)
+        Me.BtnResetImage.TabIndex = 152
+        Me.BtnResetImage.Text = "Reset Image"
+        Me.BtnResetImage.UseVisualStyleBackColor = False
+        '
         'FrmPrintThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(976, 555)
+        Me.Controls.Add(Me.BtnResetImage)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.NudColCt)
         Me.Controls.Add(Me.PnlCardImage)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LbCards)
@@ -254,6 +299,7 @@ Partial Class FrmPrintThreadCards
         Me.StatusStrip1.PerformLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlCardImage.ResumeLayout(False)
+        CType(Me.NudColCt, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -273,4 +319,7 @@ Partial Class FrmPrintThreadCards
     Friend WithEvents LbCards As ListBox
     Friend WithEvents Label1 As Label
     Friend WithEvents PnlCardImage As Panel
+    Friend WithEvents NudColCt As NumericUpDown
+    Friend WithEvents Label2 As Label
+    Friend WithEvents BtnResetImage As Button
 End Class
