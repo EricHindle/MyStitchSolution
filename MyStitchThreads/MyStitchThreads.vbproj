@@ -294,6 +294,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\up24.png" />
+    <None Include="Resources\right24.png" />
+    <None Include="Resources\left24.png" />
+    <None Include="Resources\down24.png" />
     <None Include="Resources\cross-stitch.png" />
     <None Include="Resources\MyStitch.ico" />
   </ItemGroup>

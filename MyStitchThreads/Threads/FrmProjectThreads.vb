@@ -52,10 +52,7 @@ Public Class FrmProjectThreads
                 PnlThreads.Visible = False
             End If
             LoadThreadList()
-            'ClearThreadSelections()
-            'SelectProjectThreads()
         End If
-        Debug.Print(DgvProjects.ColumnHeadersDefaultCellStyle.BackColor.ToString)
     End Sub
 
     Private Sub SelectProjectThreads()

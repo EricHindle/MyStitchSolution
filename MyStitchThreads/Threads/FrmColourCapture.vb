@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Windows.Forms.VisualStyles
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 
@@ -51,7 +52,15 @@ Public Class FrmColourCapture
 
     Private Sub BtnLoad_Click(sender As Object, e As EventArgs) Handles BtnLoad.Click
         Dim pFilename As String = ImageUtil.GetImageFileName(ImageUtil.OpenOrSave.Open,, My.Settings.ImagePath)
-        Piccolour.Image = Image.FromFile(pFilename)
+        If Not String.IsNullOrWhiteSpace(pFilename) Then
+            Try
+                Piccolour.Image = Image.FromFile(pFilename)
+            Catch ex As Exception
+                LogUtil.ShowStatus("No Filename selected", lblstatus, True)
+            End Try
+        Else
+            LogUtil.ShowStatus("No Filename selected", lblStatus)
+        End If
     End Sub
 
     Private Sub FrmColourCapture_Load(sender As Object, e As EventArgs) Handles MyBase.Load

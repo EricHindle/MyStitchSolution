@@ -6,6 +6,7 @@
 '
 
 Imports System.Drawing.Printing
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports Microsoft.VisualBasic.Devices
@@ -20,6 +21,9 @@ Public Class FrmPrintThreadCards
     Private isLoading As Boolean
     Private isCardsLoading As Boolean
     Private _nextCol As Integer
+    Private leftmargin As Integer
+    Private topmargin As Integer
+    Private myPrintDoc As New Printing.PrintDocument
 #End Region
 #Region "handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -42,6 +46,9 @@ Public Class FrmPrintThreadCards
     Private Sub InitialiseForm()
         sourceBitmap = New Bitmap(3508, 2480)
         sourceBitmap.SetResolution(300.0F, 300.0F)
+
+        leftmargin = myPrintDoc.DefaultPageSettings.HardMarginX * 3
+        topmargin = myPrintDoc.DefaultPageSettings.HardMarginY * 3
         SetPictureWidth()
         LoadProjectList()
     End Sub
@@ -183,24 +190,25 @@ Public Class FrmPrintThreadCards
     End Function
 
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
-
-        Dim _paperKind As PaperKind = PaperKind.A4
-        Dim myPrintDoc = New Printing.PrintDocument
-
-        For Each ps As Printing.PaperSize In myPrintDoc.PrinterSettings.PaperSizes
-            If ps.RawKind = _paperKind Then
-                myPrintDoc.DefaultPageSettings.PaperSize = ps
-                Exit For
-            End If
-        Next
-        AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
-        myPrintDoc.DefaultPageSettings.Landscape = True
-        myPrintDoc.DefaultPageSettings.Margins.Left = 0
-        myPrintDoc.DefaultPageSettings.Margins.Right = 0
-        myPrintDoc.DefaultPageSettings.Margins.Top = 0
-        myPrintDoc.DefaultPageSettings.Margins.Bottom = 0
-
-        myPrintDoc.Print()
+        If oSelectedProject IsNot Nothing Then
+            Dim _paperKind As PaperKind = PaperKind.A4
+            myPrintDoc = New PrintDocument
+            For Each ps As Printing.PaperSize In myPrintDoc.PrinterSettings.PaperSizes
+                If ps.RawKind = _paperKind Then
+                    myPrintDoc.DefaultPageSettings.PaperSize = ps
+                    Exit For
+                End If
+            Next
+            AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
+            myPrintDoc.DefaultPageSettings.Landscape = True
+            myPrintDoc.DefaultPageSettings.Margins.Left = 0
+            myPrintDoc.DefaultPageSettings.Margins.Right = 0
+            myPrintDoc.DefaultPageSettings.Margins.Top = 0
+            myPrintDoc.DefaultPageSettings.Margins.Bottom = 0
+            myPrintDoc.Print()
+        Else
+            LogUtil.ShowStatus("No project selected", LblStatus, True)
+        End If
     End Sub
 
 #End Region
@@ -216,8 +224,8 @@ Public Class FrmPrintThreadCards
 
         ' DRAW THE IMAGE scaled to the print area
 
-        Dim leftmargin As Integer = e.PageSettings.HardMarginX * 3
-        Dim topmargin As Integer = e.PageSettings.HardMarginY * 3
+        leftmargin = e.PageSettings.HardMarginX * 3
+        topmargin = e.PageSettings.HardMarginY * 3
         Dim targetWidth As Integer = sourceBitmap.Width - leftmargin
         Dim targetHeight As Integer = sourceBitmap.Height - topmargin
         e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
@@ -244,9 +252,9 @@ Public Class FrmPrintThreadCards
         sourceBitmap = New Bitmap(3508, 2480)
         sourceBitmap.SetResolution(300.0F, 300.0F)
         _cardGraphics = Graphics.FromImage(sourceBitmap)
-
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
-
+        Dim _projectNameFontSize As Integer = 9
+        Dim _textheight As Integer = (_projectNameFontSize * 300 / 72) * 1.2
         Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
         Dim holeradius As Integer = 35
@@ -255,6 +263,12 @@ Public Class FrmPrintThreadCards
         Dim _pt2x As Integer
         Dim _pt1y As Integer
         Dim _pt2y As Integer
+        For _col As Integer = 1 To colCt
+            _pt1x = (colWidth * (_col - 1)) + leftmargin
+            _pt1y = topmargin
+            _cardGraphics.DrawString(oSelectedProject.ProjectName, New Font("arial", _projectNameFontSize, FontStyle.Regular), Brushes.DimGray, New Point(_pt1x, _pt1y))
+
+        Next
         For _col = 1 To colCt - 1
             _pt1x = colWidth * _col
             _pt2x = _pt1x
@@ -300,10 +314,8 @@ Public Class FrmPrintThreadCards
         Dim _pt1y As Integer
         Dim _pen1 As New Pen(Brushes.Black, 1)
         Dim _row As Integer = 0
-        '    For _row As Integer = 0 To _rowct - 1
         For Each _thread As Thread In pList
             Dim _col As Integer = _nextCol
-
             _pt1y = _top + (_holegap * _row)
             _pt1x = (colWidth * _col) + holeinset + (holeradius * 5)
             Dim _numberFontSize = 18
@@ -312,11 +324,11 @@ Public Class FrmPrintThreadCards
             Dim _textwidth As Integer = _textheight * 2.5
             Dim _texttop As Integer = _pt1y - (_textheight / 2)
             Dim _textleft As Integer = _pt1x + holeradius
-            Dim _colourtop As Integer = _pt1y - _textheight
+            Dim _colourtop As Integer = _pt1y - _textheight * 0.8
             Dim _colourleft As Integer = _pt1x
-            Dim _colourheight As Integer = _textheight * 2
+            Dim _colourheight As Integer = _textheight * 1.6
             Dim _colourwidth As Integer = _textwidth * 1.3
-            Dim _nametop As Integer = _pt1y + _textheight
+            Dim _nametop As Integer = _pt1y + _textheight * 0.8
             Dim _nameleft As Integer = _pt1x
             Dim _nameheight As Integer = _textheight * _nameFontSize / _numberFontSize
             Dim _namewidth As Integer = _colourwidth

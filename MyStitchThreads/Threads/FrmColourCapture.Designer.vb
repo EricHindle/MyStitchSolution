@@ -45,7 +45,9 @@ Partial Class FrmColourCapture
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.BtnSaveImage = New System.Windows.Forms.Button()
         Me.BtnLoad = New System.Windows.Forms.Button()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.Piccolour, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Piccolour
@@ -170,6 +172,7 @@ Partial Class FrmColourCapture
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 485)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
@@ -225,6 +228,11 @@ Partial Class FrmColourCapture
         Me.BtnLoad.Text = "Load Image"
         Me.BtnLoad.UseVisualStyleBackColor = False
         '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(0, 17)
+        '
         'FrmColourCapture
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -251,6 +259,8 @@ Partial Class FrmColourCapture
         Me.Name = "FrmColourCapture"
         Me.Text = "Colour Capture"
         CType(Me.Piccolour, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -271,4 +281,5 @@ Partial Class FrmColourCapture
     Friend WithEvents BtnClose As Button
     Friend WithEvents BtnSaveImage As Button
     Friend WithEvents BtnLoad As Button
+    Friend WithEvents lblStatus As ToolStripStatusLabel
 End Class

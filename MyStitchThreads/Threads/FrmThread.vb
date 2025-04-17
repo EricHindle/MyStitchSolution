@@ -31,8 +31,9 @@ Public Class FrmThread
 
     Private Sub FrmThread_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
-
-        _colrCap.Close()
+        If _colrCap IsNot Nothing AndAlso Not _colrCap.IsDisposed Then
+            _colrCap.Close()
+        End If
         My.Settings.ThreadFormPos = SetFormPos(Me)
         My.Settings.Save()
 
@@ -193,6 +194,9 @@ Public Class FrmThread
     End Sub
 
     Private Sub BtnColourCapture_Click(sender As Object, e As EventArgs) Handles BtnColourCapture.Click
+        If _colrCap Is Nothing OrElse _colrCap.IsDisposed Then
+            _colrCap = New FrmColourCapture
+        End If
         _colrCap.Show()
     End Sub
 
