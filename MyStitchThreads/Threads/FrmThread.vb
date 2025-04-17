@@ -113,6 +113,15 @@ Public Class FrmThread
             End If
         Next
     End Sub
+    Private Sub SelectThreadInList(pThreadNo As String)
+        For Each orow As DataGridViewRow In DgvThreads.Rows
+            If orow.Cells(ThreadNo.Name).Value = pThreadNo Then
+                orow.Selected = True
+                DgvThreads.FirstDisplayedScrollingRowIndex = orow.Index
+                Exit For
+            End If
+        Next
+    End Sub
     Private Function BuildThreadFromForm(pId As Integer) As Thread
         Dim _Thread As Thread = ThreadBuilder.AThread.StartingWithNothing _
                                                     .WithId(pId) _
@@ -203,6 +212,10 @@ Public Class FrmThread
     Private Sub BtnGetColour_Click(sender As Object, e As EventArgs) Handles BtnGetColour.Click
         Dim _color As Color = _colrCap.SelectedColour
         SetFormColour(_color)
+    End Sub
+
+    Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
+        SelectThreadInList(TxtNumber.Text)
     End Sub
 
 #End Region

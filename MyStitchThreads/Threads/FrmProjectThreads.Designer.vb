@@ -51,6 +51,8 @@ Partial Class FrmProjectThreads
         Me.BtnClear = New System.Windows.Forms.Button()
         Me.BtnGenerateCards = New System.Windows.Forms.Button()
         Me.PnlThreads = New System.Windows.Forms.Panel()
+        Me.TxtNumber = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -262,9 +264,9 @@ Partial Class FrmProjectThreads
         Me.BtnAddThreads.Location = New System.Drawing.Point(177, 7)
         Me.BtnAddThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAddThreads.Name = "BtnAddThreads"
-        Me.BtnAddThreads.Size = New System.Drawing.Size(136, 29)
+        Me.BtnAddThreads.Size = New System.Drawing.Size(158, 29)
         Me.BtnAddThreads.TabIndex = 147
-        Me.BtnAddThreads.Text = "Add Threads"
+        Me.BtnAddThreads.Text = "Add Missing Threads"
         Me.BtnAddThreads.UseVisualStyleBackColor = False
         '
         'BtnClear
@@ -312,11 +314,34 @@ Partial Class FrmProjectThreads
         Me.PnlThreads.TabIndex = 150
         Me.PnlThreads.Visible = False
         '
+        'TxtNumber
+        '
+        Me.TxtNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TxtNumber.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtNumber.Location = New System.Drawing.Point(335, 513)
+        Me.TxtNumber.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtNumber.Name = "TxtNumber"
+        Me.TxtNumber.Size = New System.Drawing.Size(73, 27)
+        Me.TxtNumber.TabIndex = 151
+        '
+        'Label1
+        '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.Label1.Location = New System.Drawing.Point(295, 519)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(33, 17)
+        Me.Label1.TabIndex = 152
+        Me.Label1.Text = "Find"
+        '
         'FrmProjectThreads
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(633, 570)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.TxtNumber)
         Me.Controls.Add(Me.PnlThreads)
         Me.Controls.Add(Me.BtnGenerateCards)
         Me.Controls.Add(Me.BtnClear)
@@ -358,4 +383,6 @@ Partial Class FrmProjectThreads
     Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadselected As DataGridViewCheckBoxColumn
+    Friend WithEvents TxtNumber As TextBox
+    Friend WithEvents Label1 As Label
 End Class

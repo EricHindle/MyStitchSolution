@@ -49,6 +49,10 @@ Partial Class FrmBuildThreadCards
         Me.LbCards = New System.Windows.Forms.ListBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DgvCardThreads = New System.Windows.Forms.DataGridView()
+        Me.cardthreadid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cardthreadname = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cardthreadno = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cardthreadcolour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.BtnAdd = New System.Windows.Forms.Button()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -66,10 +70,6 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.BtnClearCardThreads = New System.Windows.Forms.Button()
-        Me.cardthreadid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.cardthreadname = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.cardthreadno = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.cardthreadcolour = New System.Windows.Forms.DataGridViewImageColumn()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -216,18 +216,20 @@ Partial Class FrmBuildThreadCards
         '
         'NudMaxThreads
         '
-        Me.NudMaxThreads.Location = New System.Drawing.Point(399, 495)
+        Me.NudMaxThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.NudMaxThreads.Location = New System.Drawing.Point(563, 494)
         Me.NudMaxThreads.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.NudMaxThreads.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudMaxThreads.Name = "NudMaxThreads"
-        Me.NudMaxThreads.Size = New System.Drawing.Size(120, 26)
+        Me.NudMaxThreads.Size = New System.Drawing.Size(46, 26)
         Me.NudMaxThreads.TabIndex = 137
         Me.NudMaxThreads.Value = New Decimal(New Integer() {10, 0, 0, 0})
         '
         'LblMaxThreads
         '
+        Me.LblMaxThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblMaxThreads.AutoSize = True
-        Me.LblMaxThreads.Location = New System.Drawing.Point(236, 497)
+        Me.LblMaxThreads.Location = New System.Drawing.Point(400, 496)
         Me.LblMaxThreads.Name = "LblMaxThreads"
         Me.LblMaxThreads.Size = New System.Drawing.Size(156, 18)
         Me.LblMaxThreads.TabIndex = 138
@@ -235,6 +237,7 @@ Partial Class FrmBuildThreadCards
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.Label1.Font = New System.Drawing.Font("Felix Titling", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -248,6 +251,7 @@ Partial Class FrmBuildThreadCards
         '
         'LbCards
         '
+        Me.LbCards.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LbCards.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LbCards.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.LbCards.FormattingEnabled = True
@@ -302,6 +306,39 @@ Partial Class FrmBuildThreadCards
         Me.DgvCardThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DgvCardThreads.Size = New System.Drawing.Size(245, 433)
         Me.DgvCardThreads.TabIndex = 151
+        '
+        'cardthreadid
+        '
+        Me.cardthreadid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.cardthreadid.HeaderText = "Id"
+        Me.cardthreadid.Name = "cardthreadid"
+        Me.cardthreadid.ReadOnly = True
+        Me.cardthreadid.Visible = False
+        '
+        'cardthreadname
+        '
+        Me.cardthreadname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.cardthreadname.HeaderText = "Name"
+        Me.cardthreadname.Name = "cardthreadname"
+        Me.cardthreadname.ReadOnly = True
+        '
+        'cardthreadno
+        '
+        Me.cardthreadno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.cardthreadno.HeaderText = "No."
+        Me.cardthreadno.Name = "cardthreadno"
+        Me.cardthreadno.ReadOnly = True
+        Me.cardthreadno.Width = 50
+        '
+        'cardthreadcolour
+        '
+        Me.cardthreadcolour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.cardthreadcolour.HeaderText = "Colour"
+        Me.cardthreadcolour.Name = "cardthreadcolour"
+        Me.cardthreadcolour.ReadOnly = True
+        Me.cardthreadcolour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.cardthreadcolour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.cardthreadcolour.Width = 60
         '
         'BtnAdd
         '
@@ -488,6 +525,7 @@ Partial Class FrmBuildThreadCards
         '
         'BtnClearCardThreads
         '
+        Me.BtnClearCardThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnClearCardThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnClearCardThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnClearCardThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -500,39 +538,6 @@ Partial Class FrmBuildThreadCards
         Me.BtnClearCardThreads.TabIndex = 158
         Me.BtnClearCardThreads.Text = "Clear Card Threads"
         Me.BtnClearCardThreads.UseVisualStyleBackColor = False
-        '
-        'cardthreadid
-        '
-        Me.cardthreadid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.cardthreadid.HeaderText = "Id"
-        Me.cardthreadid.Name = "cardthreadid"
-        Me.cardthreadid.ReadOnly = True
-        Me.cardthreadid.Visible = False
-        '
-        'cardthreadname
-        '
-        Me.cardthreadname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.cardthreadname.HeaderText = "Name"
-        Me.cardthreadname.Name = "cardthreadname"
-        Me.cardthreadname.ReadOnly = True
-        '
-        'cardthreadno
-        '
-        Me.cardthreadno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.cardthreadno.HeaderText = "No."
-        Me.cardthreadno.Name = "cardthreadno"
-        Me.cardthreadno.ReadOnly = True
-        Me.cardthreadno.Width = 50
-        '
-        'cardthreadcolour
-        '
-        Me.cardthreadcolour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.cardthreadcolour.HeaderText = "Colour"
-        Me.cardthreadcolour.Name = "cardthreadcolour"
-        Me.cardthreadcolour.ReadOnly = True
-        Me.cardthreadcolour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.cardthreadcolour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.cardthreadcolour.Width = 60
         '
         'FrmBuildThreadCards
         '

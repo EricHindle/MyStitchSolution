@@ -238,6 +238,21 @@ Public Class FrmProjectThreads
         End Using
     End Sub
 
+    Private Sub TxtNumber_TextChanged(sender As Object, e As EventArgs) Handles TxtNumber.TextChanged
+        If Not String.IsNullOrWhiteSpace(TxtNumber.Text) Then
+            SelectThreadInList(TxtNumber.Text)
+        End If
+    End Sub
+    Private Sub SelectThreadInList(pThreadNo As String)
+
+        For Each orow As DataGridViewRow In DgvThreads.Rows
+            If orow.Cells(ThreadNo.Name).Value = pThreadNo Then
+                orow.Selected = True
+                DgvThreads.FirstDisplayedScrollingRowIndex = orow.Index
+                Exit For
+            End If
+        Next
+    End Sub
 #End Region
 
 End Class

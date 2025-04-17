@@ -40,6 +40,10 @@ Partial Class FrmThread
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtName = New System.Windows.Forms.TextBox()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
+        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.BtnDelete = New System.Windows.Forms.Button()
         Me.BtnNew = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
@@ -57,10 +61,7 @@ Partial Class FrmThread
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BtnClose = New System.Windows.Forms.Button()
-        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.BtnFind = New System.Windows.Forms.Button()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -200,6 +201,39 @@ Partial Class FrmThread
         Me.DgvThreads.Size = New System.Drawing.Size(266, 440)
         Me.DgvThreads.TabIndex = 105
         '
+        'threadId
+        '
+        Me.threadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadId.HeaderText = "Id"
+        Me.threadId.Name = "threadId"
+        Me.threadId.ReadOnly = True
+        Me.threadId.Visible = False
+        '
+        'threadName
+        '
+        Me.threadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.threadName.HeaderText = "Name"
+        Me.threadName.Name = "threadName"
+        Me.threadName.ReadOnly = True
+        '
+        'ThreadNo
+        '
+        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.ThreadNo.HeaderText = "No."
+        Me.ThreadNo.Name = "ThreadNo"
+        Me.ThreadNo.ReadOnly = True
+        Me.ThreadNo.Width = 50
+        '
+        'threadColour
+        '
+        Me.threadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadColour.HeaderText = "Colour"
+        Me.threadColour.Name = "threadColour"
+        Me.threadColour.ReadOnly = True
+        Me.threadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.threadColour.Width = 60
+        '
         'BtnDelete
         '
         Me.BtnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
@@ -248,6 +282,7 @@ Partial Class FrmThread
         'PnlForm
         '
         Me.PnlForm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlForm.Controls.Add(Me.BtnFind)
         Me.PnlForm.Controls.Add(Me.GroupBox1)
         Me.PnlForm.Controls.Add(Me.TxtB)
         Me.PnlForm.Controls.Add(Me.TxtG)
@@ -397,38 +432,20 @@ Partial Class FrmThread
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = False
         '
-        'threadId
+        'BtnFind
         '
-        Me.threadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadId.HeaderText = "Id"
-        Me.threadId.Name = "threadId"
-        Me.threadId.ReadOnly = True
-        Me.threadId.Visible = False
-        '
-        'threadName
-        '
-        Me.threadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.threadName.HeaderText = "Name"
-        Me.threadName.Name = "threadName"
-        Me.threadName.ReadOnly = True
-        '
-        'ThreadNo
-        '
-        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "ThreadNo"
-        Me.ThreadNo.ReadOnly = True
-        Me.ThreadNo.Width = 50
-        '
-        'threadColour
-        '
-        Me.threadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadColour.HeaderText = "Colour"
-        Me.threadColour.Name = "threadColour"
-        Me.threadColour.ReadOnly = True
-        Me.threadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.threadColour.Width = 60
+        Me.BtnFind.BackColor = System.Drawing.Color.Linen
+        Me.BtnFind.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnFind.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnFind.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnFind.ForeColor = System.Drawing.Color.Black
+        Me.BtnFind.Location = New System.Drawing.Point(185, 79)
+        Me.BtnFind.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnFind.Name = "BtnFind"
+        Me.BtnFind.Size = New System.Drawing.Size(66, 27)
+        Me.BtnFind.TabIndex = 133
+        Me.BtnFind.Text = "Find"
+        Me.BtnFind.UseVisualStyleBackColor = False
         '
         'FrmThread
         '
@@ -491,4 +508,5 @@ Partial Class FrmThread
     Friend WithEvents threadName As DataGridViewTextBoxColumn
     Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
+    Friend WithEvents BtnFind As Button
 End Class

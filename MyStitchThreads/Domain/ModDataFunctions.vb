@@ -350,6 +350,14 @@ Module ModDataFunctions
         End Try
         Return _listOfThreads
     End Function
+    Public Sub RemoveExistingProjectCards(pProjectId As Integer)
+        Try
+            oProjectThreadTa.ResetCardsForProject(pProjectId)
+            oProjectThreadCardTa.DeleteCardsByProject(pProjectId)
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 #End Region
 #Region "projectthreads"
     Public Function GetProjectThreadsTable() As MyStitchDataSet.ProjectThreadsDataTable
@@ -383,6 +391,30 @@ Module ModDataFunctions
 
         Return _list
 
+    End Function
+
+    Public Function GetProjectThread(pProjectId As Integer, pThreadId As Integer) As ProjectThread
+        Dim _projectThread As New ProjectThread
+        Try
+            oProjectThreadTa.FillByKey(oProjectThreadTable, pProjectId, pThreadId)
+            If oProjectThreadTable.Rows.Count = 1 Then
+                _projectThread = ProjectThreadBuilder.AProjectThread.StartingWith(oProjectThreadTable.Rows(0)).Build
+            End If
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return _projectThread
+    End Function
+    Public Function UpdateProjectThread(pProjectThread As ProjectThread) As Integer
+        Dim _resp As Integer = 0
+        Try
+            With pProjectThread
+                _resp = oProjectThreadTa.UpdateProjectThread(.CardNo, .CardSeq, .Project.ProjectId, .Thread.ThreadId)
+            End With
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return _resp
     End Function
 
     Public Function DeleteProjectThreadsForProject(pProjectId As Integer)
