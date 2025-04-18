@@ -36,7 +36,6 @@ Partial Class FrmBuildThreadCards
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBuildThreadCards))
         Me.BtnDelete = New System.Windows.Forms.Button()
         Me.BtnAuto = New System.Windows.Forms.Button()
-        Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.DgvProjects = New System.Windows.Forms.DataGridView()
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -52,12 +51,14 @@ Partial Class FrmBuildThreadCards
         Me.cardthreadid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.cardthreadname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.cardthreadno = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cardThreadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.cardthreadcolour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.BtnAdd = New System.Windows.Forms.Button()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.LblCardNo = New System.Windows.Forms.Label()
@@ -70,6 +71,7 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.BtnClearCardThreads = New System.Windows.Forms.Button()
+        Me.BtnUpdate = New System.Windows.Forms.Button()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,21 +109,6 @@ Partial Class FrmBuildThreadCards
         Me.BtnAuto.TabIndex = 123
         Me.BtnAuto.Text = "Auto"
         Me.BtnAuto.UseVisualStyleBackColor = False
-        '
-        'BtnUpdate
-        '
-        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(19, 160)
-        Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnUpdate.Name = "BtnUpdate"
-        Me.BtnUpdate.Size = New System.Drawing.Size(80, 52)
-        Me.BtnUpdate.TabIndex = 122
-        Me.BtnUpdate.Text = "Update Card"
-        Me.BtnUpdate.UseVisualStyleBackColor = False
         '
         'BtnClose
         '
@@ -291,7 +278,7 @@ Partial Class FrmBuildThreadCards
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvCardThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DgvCardThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvCardThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.cardthreadid, Me.cardthreadname, Me.cardthreadno, Me.cardthreadcolour})
+        Me.DgvCardThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.cardthreadid, Me.cardthreadname, Me.cardthreadno, Me.cardThreadSeq, Me.cardthreadcolour})
         Me.DgvCardThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvCardThreads.Location = New System.Drawing.Point(36, 33)
         Me.DgvCardThreads.Margin = New System.Windows.Forms.Padding(4)
@@ -329,6 +316,15 @@ Partial Class FrmBuildThreadCards
         Me.cardthreadno.Name = "cardthreadno"
         Me.cardthreadno.ReadOnly = True
         Me.cardthreadno.Width = 50
+        '
+        'cardThreadSeq
+        '
+        Me.cardThreadSeq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.cardThreadSeq.HeaderText = "Seq"
+        Me.cardThreadSeq.Name = "cardThreadSeq"
+        Me.cardThreadSeq.ReadOnly = True
+        Me.cardThreadSeq.Visible = False
+        Me.cardThreadSeq.Width = 30
         '
         'cardthreadcolour
         '
@@ -374,7 +370,7 @@ Partial Class FrmBuildThreadCards
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadColour, Me.threadselected})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvThreads.Location = New System.Drawing.Point(4, 37)
         Me.DgvThreads.Margin = New System.Windows.Forms.Padding(4)
@@ -412,6 +408,13 @@ Partial Class FrmBuildThreadCards
         Me.ThreadNo.Name = "ThreadNo"
         Me.ThreadNo.ReadOnly = True
         Me.ThreadNo.Width = 50
+        '
+        'threadSortNumber
+        '
+        Me.threadSortNumber.HeaderText = "sort"
+        Me.threadSortNumber.Name = "threadSortNumber"
+        Me.threadSortNumber.ReadOnly = True
+        Me.threadSortNumber.Visible = False
         '
         'threadColour
         '
@@ -539,6 +542,21 @@ Partial Class FrmBuildThreadCards
         Me.BtnClearCardThreads.Text = "Clear Card Threads"
         Me.BtnClearCardThreads.UseVisualStyleBackColor = False
         '
+        'BtnUpdate
+        '
+        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnUpdate.Location = New System.Drawing.Point(19, 160)
+        Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnUpdate.Name = "BtnUpdate"
+        Me.BtnUpdate.Size = New System.Drawing.Size(80, 52)
+        Me.BtnUpdate.TabIndex = 122
+        Me.BtnUpdate.Text = "Update Card"
+        Me.BtnUpdate.UseVisualStyleBackColor = False
+        '
         'FrmBuildThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -577,7 +595,6 @@ Partial Class FrmBuildThreadCards
     End Sub
     Friend WithEvents BtnDelete As Button
     Friend WithEvents BtnAuto As Button
-    Friend WithEvents BtnUpdate As Button
     Friend WithEvents BtnClose As Button
     Friend WithEvents DgvProjects As DataGridView
     Friend WithEvents projectId As DataGridViewTextBoxColumn
@@ -592,11 +609,6 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents DgvCardThreads As DataGridView
     Friend WithEvents BtnAdd As Button
     Friend WithEvents DgvThreads As DataGridView
-    Friend WithEvents threadId As DataGridViewTextBoxColumn
-    Friend WithEvents threadName As DataGridViewTextBoxColumn
-    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
-    Friend WithEvents threadColour As DataGridViewImageColumn
-    Friend WithEvents threadselected As DataGridViewCheckBoxColumn
     Friend WithEvents LblCardNo As Label
     Friend WithEvents PnlThreads As Panel
     Friend WithEvents PnlCardThreads As Panel
@@ -607,8 +619,16 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents BtnUp As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents BtnClearCardThreads As Button
+    Friend WithEvents threadId As DataGridViewTextBoxColumn
+    Friend WithEvents threadName As DataGridViewTextBoxColumn
+    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
+    Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
+    Friend WithEvents threadColour As DataGridViewImageColumn
+    Friend WithEvents threadselected As DataGridViewCheckBoxColumn
     Friend WithEvents cardthreadid As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadname As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadno As DataGridViewTextBoxColumn
+    Friend WithEvents cardThreadSeq As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadcolour As DataGridViewImageColumn
+    Friend WithEvents BtnUpdate As Button
 End Class

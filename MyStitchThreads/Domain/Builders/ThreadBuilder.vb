@@ -10,6 +10,7 @@ Public Class ThreadBuilder
     Private _threadNo As String
     Private _colourName As String
     Private _colour As Color
+    Private _sortNumber As Integer
     Public Shared Function AThread() As ThreadBuilder
         Return New ThreadBuilder
     End Function
@@ -18,15 +19,19 @@ Public Class ThreadBuilder
         _threadNo = String.Empty
         _colourName = String.Empty
         _colour = Color.White
+        _sortNumber = -1
         Return Me
     End Function
     Public Function StartingWith(ByRef pThread As Thread) As ThreadBuilder
         StartingWithNothing()
         If pThread IsNot Nothing Then
-            _threadId = pThread.ThreadId
-            _threadNo = pThread.ThreadNo
-            _colourName = pThread.ColourName
-            _colour = pThread.Colour
+            With pThread
+                _threadId = .ThreadId
+                _threadNo = pThread.ThreadNo
+                _colourName = .ColourName
+                _colour = .Colour
+                _sortNumber = .SortNumber
+            End With
         End If
         Return Me
     End Function
@@ -37,6 +42,7 @@ Public Class ThreadBuilder
             _threadNo = oRow.thread_no
             _colourName = oRow.thread_colour_name
             _colour = Color.FromArgb(oRow.thread_colour)
+            _sortNumber = Thread.MakeSortNumber(_threadNo, _threadId)
         End If
         Return Me
     End Function
@@ -50,6 +56,7 @@ Public Class ThreadBuilder
     End Function
     Public Function WithNumber(pThreadNo As String) As ThreadBuilder
         _threadNo = pThreadNo
+        _sortNumber = Thread.MakeSortNumber(_threadNo, _threadId)
         Return Me
     End Function
     Public Function WithColour(pColour As Color) As ThreadBuilder

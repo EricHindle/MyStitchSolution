@@ -6,6 +6,7 @@
 '
 
 Imports System.Text
+Imports System.Text.RegularExpressions
 
 Public Class Thread
 
@@ -14,6 +15,15 @@ Public Class Thread
     Private _threadNo As String
     Private _colourName As String
     Private _colour As Color
+    Private _sortNumber As Integer
+    Public Property SortNumber() As Integer
+        Get
+            Return _sortNumber
+        End Get
+        Set(ByVal value As Integer)
+            _sortNumber = value
+        End Set
+    End Property
     Public Property Colour() As Color
         Get
             Return _colour
@@ -53,6 +63,7 @@ Public Class Thread
         _threadNo = String.Empty
         _colourName = String.Empty
         _colour = Color.White
+        _sortNumber = -1
     End Sub
     Public Sub New()
         InitialiseThread()
@@ -65,7 +76,7 @@ Public Class Thread
         _threadNo = pNo
         _colourName = pColourName
         _colour = pColour
-
+        _sortNumber = MakeSortNumber(pNo, pId)
     End Sub
     Public Function IsLoaded() As Boolean
         Return _threadId > -1
@@ -78,12 +89,30 @@ Public Class Thread
             .Append("Thread=[") _
             .Append("Id=[") _
             .Append(CStr(_threadId)) _
-            .Append("Number=[") _
+            .Append("], Number=[") _
             .Append(_threadNo) _
             .Append("], Colour name=[") _
             .Append(_colourName) _
             .Append("]]")
         Return sb.ToString
+    End Function
+    Public Shared Function MakeSortNumber(pNo As String, pId As Integer) As Integer
+        Dim _int As Integer
+        Dim _intNo As Integer
+        Dim isInteger As Boolean = Integer.TryParse(pNo, _intNo)
+        If isInteger Then
+            _int = _intNo
+        Else
+            Dim _onlynumbers As Integer
+            Dim _numbers As String = Regex.Replace(pNo, "[^\d]", "")
+            If String.IsNullOrWhiteSpace(_numbers) Then
+                _int = pId + 990000
+            Else
+                Dim isOnlyNumbers As Boolean = Integer.TryParse(_numbers, _onlynumbers)
+                _int = _onlynumbers
+            End If
+        End If
+        Return _int
     End Function
 #End Region
 End Class

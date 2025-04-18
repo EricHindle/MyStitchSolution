@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.ComponentModel
 Imports HindlewareLib.Logging
 
 Public Class FrmThread
@@ -66,7 +67,7 @@ Public Class FrmThread
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ThreadFormPos)
-        LoadThreadList()
+        LoadThreadList(DgvThreads, MyBase.Name)
         ClearThreadForm()
     End Sub
     Private Sub ClearThreadForm()
@@ -97,31 +98,16 @@ Public Class FrmThread
         TxtB.Text = CStr(_colour.B)
     End Sub
 
-    Private Sub LoadThreadList()
-        LogUtil.LogInfo("Load Thread list", MyBase.Name)
-        DgvThreads.Rows.Clear()
-        For Each oThread As Thread In GetThreads()
-            AddThreadRow(oThread)
-        Next
-        DgvThreads.ClearSelection()
-    End Sub
-    Private Sub SelectThreadInList(_ThreadId As Integer)
-        For Each orow As DataGridViewRow In DgvThreads.Rows
-            If orow.Cells(threadId.Name).Value = _ThreadId Then
-                orow.Selected = True
-                Exit For
-            End If
-        Next
-    End Sub
-    Private Sub SelectThreadInList(pThreadNo As String)
-        For Each orow As DataGridViewRow In DgvThreads.Rows
-            If orow.Cells(ThreadNo.Name).Value = pThreadNo Then
-                orow.Selected = True
-                DgvThreads.FirstDisplayedScrollingRowIndex = orow.Index
-                Exit For
-            End If
-        Next
-    End Sub
+    'Private Sub LoadThreadList()
+    '    LogUtil.LogInfo("Load Thread list", MyBase.Name)
+    '    DgvThreads.Rows.Clear()
+    '    For Each oThread As Thread In GetThreads()
+    '        AddThreadRow(oThread)
+    '    Next
+    '    DgvThreads.Sort(DgvThreads.Columns(threadsortnumber.Name), ListSortDirection.Ascending)
+    '    DgvThreads.ClearSelection()
+    'End Sub
+
     Private Function BuildThreadFromForm(pId As Integer) As Thread
         Dim _Thread As Thread = ThreadBuilder.AThread.StartingWithNothing _
                                                     .WithId(pId) _
@@ -135,30 +121,11 @@ Public Class FrmThread
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
         oRow.Cells(threadName.Name).Value = oThread.ColourName
-        LoadColourCell(oThread, oRow)
-        '     oRow.Cells(threadColour.Name).Style.BackColor = oThread.Colour
+        LoadColourCell(DgvThreads, oRow, threadColour.Name, oThread)
+        oRow.Cells(threadsortnumber.Name).Value = oThread.SortNumber
+        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
+    End Sub
 
-        oRow.Cells(ThreadNo.Name).Value = If(IsNumeric(oThread.ThreadNo), CInt(oThread.ThreadNo), CInt("999" & oThread.ThreadId))
-    End Sub
-    Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
-        Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
-        Dim _cellHeight As Integer = oRow.Height
-        Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
-        Dim _image As New Bitmap(_cellWidth, _cellHeight)
-        For x = 0 To _cellWidth - 1
-            For y = 0 To _cellHeight - 1
-                _image.SetPixel(x, y, oThread.Colour)
-            Next
-        Next
-        _imageCell.Value = _image
-    End Sub
-    Friend Sub SaveThread()
-        If _selectedThread.ThreadId >= 0 Then
-            UpdateSelectedThread()
-        Else
-            InsertNewThread()
-        End If
-    End Sub
     Private Sub InsertNewThread()
         LogUtil.LogInfo("New Thread", MyBase.Name)
         Dim _existingthread As Thread = GetThreadbyNumber(TxtNumber.Text.Trim)
@@ -167,17 +134,18 @@ Public Class FrmThread
         Else
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             _Thread.ThreadId = InsertThread(_Thread)
-            LoadThreadList()
+            LoadThreadList(DgvThreads, MyBase.Name)
             LogUtil.ShowStatus("Thread Added", LblStatus, MyBase.Name)
         End If
     End Sub
     Private Sub UpdateSelectedThread()
         If _selectedThread.ThreadId >= 0 Then
             LogUtil.LogInfo("Updating Thread", MyBase.Name)
+            Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             UpdateThread(_Thread)
-            LoadThreadList()
-            SelectThreadInList(_selectedThread.ThreadId)
+            LoadThreadList(DgvThreads, MyBase.Name)
+            SelectThreadInList(DgvThreads, threadId.Name, _Thread.ThreadId, _rowNo)
             LogUtil.ShowStatus("Thread updated", LblStatus, MyBase.Name)
         Else
             LogUtil.ShowStatus("No Thread selected", LblStatus, True, MyBase.Name, True)
@@ -189,7 +157,7 @@ Public Class FrmThread
 
             DeleteThread(_selectedThread)
             ClearThreadForm()
-            LoadThreadList()
+            LoadThreadList(DgvThreads, MyBase.Name)
         Else
             LogUtil.ShowStatus("No Thread selected", LblStatus, True, MyBase.Name, True)
         End If
@@ -215,7 +183,7 @@ Public Class FrmThread
     End Sub
 
     Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
-        SelectThreadInList(TxtNumber.Text)
+        SelectThreadInList(DgvThreads, ThreadNo.Name, TxtNumber.Text)
     End Sub
 
 #End Region

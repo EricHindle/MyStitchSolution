@@ -7,17 +7,18 @@
 
 Imports System.Text
 
-Public Class ProjectThreadCard
+Public Class ProjectCardThread
 #Region "properties"
     Private _project As Project
+    Private _thread As Thread
     Private _cardNo As Integer
-    Private _threadList As List(Of ProjectThread)
-    Public Property ThreadList() As List(Of ProjectThread)
+    Private _cardSeq As Integer
+    Public Property CardSeq() As Integer
         Get
-            Return _threadList
+            Return _cardSeq
         End Get
-        Set(ByVal value As List(Of ProjectThread))
-            _threadList = value
+        Set(ByVal value As Integer)
+            _cardSeq = value
         End Set
     End Property
     Public Property CardNo() As Integer
@@ -36,21 +37,31 @@ Public Class ProjectThreadCard
             _project = value
         End Set
     End Property
+    Public Property Thread() As Thread
+        Get
+            Return _thread
+        End Get
+        Set(ByVal value As Thread)
+            _thread = value
+        End Set
+    End Property
 #End Region
 #Region "constructors"
-    Private Sub Initialiseproject()
+    Private Sub Initialise()
         _project = New Project
+        _thread = New Thread
         _cardNo = -1
-        _threadList = New List(Of ProjectThread)
+        _cardSeq = -1
     End Sub
     Public Sub New()
-        Initialiseproject()
+        Initialise()
     End Sub
     Public Sub New(pProjectId As Integer,
-                   pCardNo As Integer)
+             pThreadId As Integer, pCardNo As Integer, pCardSeq As Integer)
         _project = GetProjectById(pProjectId)
+        _thread = GetThreadById(pThreadId)
         _cardNo = pCardNo
-        _threadList = GetThreadCardThreads(pProjectId, pCardNo)
+        _cardSeq = pCardSeq
     End Sub
     Public Function IsLoaded() As Boolean
         Return _project IsNot Nothing AndAlso _project.ProjectId > -1
@@ -60,13 +71,15 @@ Public Class ProjectThreadCard
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _
-            .Append("ProjectThreadCard=[") _
+            .Append("ProjectCardThread=[") _
             .Append(_project.ToString) _
+            .Append(_thread.ToString) _
             .Append(", CardNo=[") _
             .Append(CStr(_cardNo)) _
+            .Append("], CardSeq=[") _
+            .Append(CStr(_cardSeq)) _
             .Append("]]")
         Return sb.ToString
     End Function
 #End Region
-
 End Class

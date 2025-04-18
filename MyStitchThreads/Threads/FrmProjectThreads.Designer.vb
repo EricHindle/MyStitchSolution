@@ -39,11 +39,6 @@ Partial Class FrmProjectThreads
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
-        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -53,6 +48,12 @@ Partial Class FrmProjectThreads
         Me.PnlThreads = New System.Windows.Forms.Panel()
         Me.TxtNumber = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -168,7 +169,7 @@ Partial Class FrmProjectThreads
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadColour, Me.threadselected})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvThreads.Location = New System.Drawing.Point(13, 41)
         Me.DgvThreads.Margin = New System.Windows.Forms.Padding(4)
@@ -183,46 +184,6 @@ Partial Class FrmProjectThreads
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DgvThreads.Size = New System.Drawing.Size(322, 437)
         Me.DgvThreads.TabIndex = 140
-        '
-        'threadId
-        '
-        Me.threadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadId.HeaderText = "Id"
-        Me.threadId.Name = "threadId"
-        Me.threadId.ReadOnly = True
-        Me.threadId.Visible = False
-        '
-        'threadName
-        '
-        Me.threadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.threadName.HeaderText = "Name"
-        Me.threadName.Name = "threadName"
-        Me.threadName.ReadOnly = True
-        '
-        'ThreadNo
-        '
-        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "ThreadNo"
-        Me.ThreadNo.ReadOnly = True
-        Me.ThreadNo.Width = 50
-        '
-        'threadColour
-        '
-        Me.threadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadColour.HeaderText = "Colour"
-        Me.threadColour.Name = "threadColour"
-        Me.threadColour.ReadOnly = True
-        Me.threadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.threadColour.Width = 60
-        '
-        'threadselected
-        '
-        Me.threadselected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadselected.HeaderText = ""
-        Me.threadselected.Name = "threadselected"
-        Me.threadselected.Width = 30
         '
         'BtnUpdate
         '
@@ -335,6 +296,53 @@ Partial Class FrmProjectThreads
         Me.Label1.TabIndex = 152
         Me.Label1.Text = "Find"
         '
+        'threadId
+        '
+        Me.threadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadId.HeaderText = "Id"
+        Me.threadId.Name = "threadId"
+        Me.threadId.ReadOnly = True
+        Me.threadId.Visible = False
+        '
+        'threadName
+        '
+        Me.threadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.threadName.HeaderText = "Name"
+        Me.threadName.Name = "threadName"
+        Me.threadName.ReadOnly = True
+        '
+        'ThreadNo
+        '
+        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.ThreadNo.HeaderText = "No."
+        Me.ThreadNo.Name = "ThreadNo"
+        Me.ThreadNo.ReadOnly = True
+        Me.ThreadNo.Width = 50
+        '
+        'threadSortNumber
+        '
+        Me.threadSortNumber.HeaderText = "Sort"
+        Me.threadSortNumber.Name = "threadSortNumber"
+        Me.threadSortNumber.ReadOnly = True
+        Me.threadSortNumber.Visible = False
+        '
+        'threadColour
+        '
+        Me.threadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadColour.HeaderText = "Colour"
+        Me.threadColour.Name = "threadColour"
+        Me.threadColour.ReadOnly = True
+        Me.threadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.threadColour.Width = 60
+        '
+        'threadselected
+        '
+        Me.threadselected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadselected.HeaderText = ""
+        Me.threadselected.Name = "threadselected"
+        Me.threadselected.Width = 30
+        '
         'FrmProjectThreads
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -378,11 +386,12 @@ Partial Class FrmProjectThreads
     Friend WithEvents BtnClear As Button
     Friend WithEvents BtnGenerateCards As Button
     Friend WithEvents PnlThreads As Panel
+    Friend WithEvents TxtNumber As TextBox
+    Friend WithEvents Label1 As Label
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
     Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
+    Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadselected As DataGridViewCheckBoxColumn
-    Friend WithEvents TxtNumber As TextBox
-    Friend WithEvents Label1 As Label
 End Class

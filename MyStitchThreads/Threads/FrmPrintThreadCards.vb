@@ -50,16 +50,9 @@ Public Class FrmPrintThreadCards
         leftmargin = myPrintDoc.DefaultPageSettings.HardMarginX * 3
         topmargin = myPrintDoc.DefaultPageSettings.HardMarginY * 3
         SetPictureWidth()
-        LoadProjectList()
+        LoadProjectList(DgvProjects, MyBase.Name)
     End Sub
-    Private Sub LoadProjectList()
-        LogUtil.LogInfo("Load project list", MyBase.Name)
-        DgvProjects.Rows.Clear()
-        For Each oproject As Project In GetProjects()
-            AddProjectRow(oproject)
-        Next
-        DgvProjects.ClearSelection()
-    End Sub
+
     Private Sub LoadCardList(pProjectId As Integer)
         LogUtil.LogInfo("Load card list", MyBase.Name)
         isCardsLoading = True
@@ -70,7 +63,9 @@ Public Class FrmPrintThreadCards
         For Each oProjectCard As ProjectThreadCard In _list
             LbCards.Items.Add(oProjectCard.CardNo)
         Next
-
+        If _list.Count < 4 Then
+            NudColCt.Value = 3
+        End If
         isCardsLoading = False
     End Sub
     Private Sub AddProjectRow(oProject As Project)
@@ -300,7 +295,7 @@ Public Class FrmPrintThreadCards
 
         End If
     End Sub
-    Private Sub AddCardToImage(pList As List(Of Thread))
+    Private Sub AddCardToImage(pList As List(Of ProjectThread))
         Dim _rowct As Integer = 10
         Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
@@ -314,7 +309,7 @@ Public Class FrmPrintThreadCards
         Dim _pt1y As Integer
         Dim _pen1 As New Pen(Brushes.Black, 1)
         Dim _row As Integer = 0
-        For Each _thread As Thread In pList
+        For Each _thread As ProjectThread In pList
             Dim _col As Integer = _nextCol
             _pt1y = _top + (_holegap * _row)
             _pt1x = (colWidth * _col) + holeinset + (holeradius * 5)
@@ -341,11 +336,11 @@ Public Class FrmPrintThreadCards
             Dim _colourRect As New Rectangle(New Point(_colourleft, _colourtop), New Size(_colourwidth, _colourheight))
             Dim _symbolRect As New Rectangle(New Point(_symbolleft, _symboltop), New Size(_symbolwidth, _symbolheight))
 
-            Dim _brush As Brush = New SolidBrush(_thread.Colour)
+            Dim _brush As Brush = New SolidBrush(_thread.Thread.Colour)
             _cardGraphics.FillRectangle(_brush, _colourRect)
             _cardGraphics.FillRectangle(Brushes.White, _textrect)
-            _cardGraphics.DrawString(_thread.ThreadNo, New Font("arial", _numberFontSize, FontStyle.Regular), Brushes.Navy, New Point(_textleft, _texttop))
-            _cardGraphics.DrawString(_thread.ColourName, New Font("arial", _nameFontSize, FontStyle.Regular), Brushes.DimGray, New Point(_nameleft, _nametop))
+            _cardGraphics.DrawString(_thread.Thread.ThreadNo, New Font("arial", _numberFontSize, FontStyle.Regular), Brushes.Navy, New Point(_textleft, _texttop))
+            _cardGraphics.DrawString(_thread.Thread.ColourName, New Font("arial", _nameFontSize, FontStyle.Regular), Brushes.DimGray, New Point(_nameleft, _nametop))
             _cardGraphics.FillRectangle(Brushes.White, _symbolRect)
             _cardGraphics.DrawRectangle(_pen1, _symbolRect)
             _row += 1
@@ -357,7 +352,7 @@ Public Class FrmPrintThreadCards
     Private Sub BtnAddCard_Click(sender As Object, e As EventArgs) Handles BtnAddCard.Click
         If LbCards.SelectedIndex > -1 Then
             Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
-            Dim _list As List(Of Thread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
+            Dim _list As List(Of ProjectThread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
             AddCardToImage(_list)
             _nextCol += 1
         End If

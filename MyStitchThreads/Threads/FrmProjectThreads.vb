@@ -59,7 +59,7 @@ Public Class FrmProjectThreads
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
             Dim oSelectedThreads As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
             For Each _thread As Thread In oSelectedThreads
-                SelectThreadInList(_thread)
+                CheckThreadInList(_thread)
             Next
         End If
     End Sub
@@ -70,8 +70,7 @@ Public Class FrmProjectThreads
 
         GetFormPos(Me, My.Settings.ProjectThreadsFormPos)
         PnlThreads.Visible = False
-        LoadProjectList()
-        '      LoadThreadList()
+        LoadProjectList(DgvProjects, MyBase.Name)
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
             PnlThreads.Visible = True
             SelectProjectInList()
@@ -86,7 +85,9 @@ Public Class FrmProjectThreads
             End If
         Next
     End Sub
-    Private Sub SelectThreadInList(pThread As Thread)
+    Private Sub CheckThreadInList(pThread As Thread)
+        Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
+        SelectThreadInList(DgvThreads, threadId.Name, pThread.ThreadId, _rowNo)
         For Each orow As DataGridViewRow In DgvThreads.Rows
             If orow.Cells(threadId.Name).Value = pThread.ThreadId Then
                 Dim _chkCell As DataGridViewCheckBoxCell = orow.Cells(threadselected.Name)
@@ -100,55 +101,49 @@ Public Class FrmProjectThreads
 
     End Sub
 
-    Private Sub LoadProjectList()
-        LogUtil.LogInfo("Load project list", MyBase.Name)
-        DgvProjects.Rows.Clear()
-        For Each oproject As Project In GetProjects()
-            AddProjectRow(oproject)
-        Next
-        DgvProjects.ClearSelection()
-    End Sub
+    'Private Sub LoadProjectList()
+    '    LogUtil.LogInfo("Load project list", MyBase.Name)
+    '    DgvProjects.Rows.Clear()
+    '    For Each oproject As Project In GetProjects()
+    '        AddProjectRow(oproject)
+    '    Next
+    '    DgvProjects.ClearSelection()
+    'End Sub
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load Thread list", MyBase.Name)
-        Dim _threadList As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
+        Dim _usedThreadList As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
         Dim _threads As List(Of Thread) = GetThreads()
         Dim _unusedThreads As New List(Of Thread)
         For Each oThread As Thread In _threads
-            If Not _threadList.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
+            If Not _usedThreadList.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
                 _unusedThreads.Add(oThread)
             End If
         Next
         DgvThreads.Rows.Clear()
-        For Each oThread As Thread In _threadList
-            AddThreadRow(oThread, True)
+        _usedThreadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
+        _unusedThreads.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
+        For Each oThread As Thread In _usedThreadList
+            Dim _index = AddThreadRow(DgvThreads, oThread)
+            DgvThreads.Rows(_index).Cells(threadselected.Name).Value = True
         Next
         For Each oThread As Thread In _unusedThreads
-            AddThreadRow(oThread, False)
+            Dim _index = AddThreadRow(DgvThreads, oThread)
+            DgvThreads.Rows(_index).Cells(threadselected.Name).Value = False
         Next
         DgvThreads.ClearSelection()
     End Sub
-
-    Private Sub AddThreadRow(oThread As Thread, isUsed As Boolean)
-        Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
-        oRow.Cells(threadId.Name).Value = oThread.ThreadId
-        oRow.Cells(threadName.Name).Value = oThread.ColourName
-        LoadColourCell(oThread, oRow)
-        oRow.Cells(ThreadNo.Name).Value = If(IsNumeric(oThread.ThreadNo), CInt(oThread.ThreadNo), CInt("999" & oThread.ThreadId))
-        oRow.Cells(threadselected.Name).Value = isUsed
-    End Sub
-
-    Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
-        Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
-        Dim _cellHeight As Integer = oRow.Height
-        Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
-        Dim _image As New Bitmap(_cellWidth, _cellHeight)
-        For x = 0 To _cellWidth - 1
-            For y = 0 To _cellHeight - 1
-                _image.SetPixel(x, y, oThread.Colour)
-            Next
-        Next
-        _imageCell.Value = _image
-    End Sub
+    'Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
+    '    Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
+    '    Dim _cellHeight As Integer = oRow.Height
+    '    Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
+    '    Dim _image As New Bitmap(_cellWidth, _cellHeight)
+    '    For x = 0 To _cellWidth - 1
+    '        For y = 0 To _cellHeight - 1
+    '            _image.SetPixel(x, y, oThread.Colour)
+    '        Next
+    '    Next
+    '    _imageCell.Value = _image
+    'End Sub
 
     Private Sub SelectProjectInList(_projectId As Integer)
         For Each orow As DataGridViewRow In DgvProjects.Rows
@@ -182,9 +177,6 @@ Public Class FrmProjectThreads
         Else
             Dim _usedThreadsBefore As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
             Dim _usedThreadsAfter As New List(Of Thread)
-
-
-
             For Each oRow As DataGridViewRow In DgvThreads.Rows
                 Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
                 If _ChkCell.Value = True Then
@@ -203,7 +195,6 @@ Public Class FrmProjectThreads
                     InsertProjectThread(_projectThread)
                 End If
             Next
-
             For Each oThread As Thread In _usedThreadsBefore
                 If Not _usedThreadsAfter.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
                     Dim _projectThread As ProjectThread = ProjectThreadBuilder _
@@ -215,10 +206,7 @@ Public Class FrmProjectThreads
                     DeleteProjectThread(_projectThread)
                 End If
             Next
-
             LoadThreadList()
-
-
         End If
     End Sub
 
@@ -228,7 +216,7 @@ Public Class FrmProjectThreads
             LogUtil.Info("Opening Build Cards Form", MyBase.Name)
             _print.ShowDialog()
         End Using
-
+        LoadThreadList()
     End Sub
 
     Private Sub BtnAddThreads_Click(sender As Object, e As EventArgs) Handles BtnAddThreads.Click
@@ -240,19 +228,10 @@ Public Class FrmProjectThreads
 
     Private Sub TxtNumber_TextChanged(sender As Object, e As EventArgs) Handles TxtNumber.TextChanged
         If Not String.IsNullOrWhiteSpace(TxtNumber.Text) Then
-            SelectThreadInList(TxtNumber.Text)
+            SelectThreadInList(DgvThreads, ThreadNo.Name, TxtNumber.Text)
         End If
     End Sub
-    Private Sub SelectThreadInList(pThreadNo As String)
 
-        For Each orow As DataGridViewRow In DgvThreads.Rows
-            If orow.Cells(ThreadNo.Name).Value = pThreadNo Then
-                orow.Selected = True
-                DgvThreads.FirstDisplayedScrollingRowIndex = orow.Index
-                Exit For
-            End If
-        Next
-    End Sub
 #End Region
 
 End Class

@@ -67,7 +67,7 @@ Public Class FrmProject
 
         GetFormPos(Me, My.Settings.ProjectFormPos)
 
-        LoadProjectList()
+        LoadProjectList(DgvProjects, MyBase.Name)
 
     End Sub
     Private Sub ClearProjectForm()
@@ -83,14 +83,6 @@ Public Class FrmProject
         TxtName.Text = oProject.ProjectName
     End Sub
 
-    Private Sub LoadProjectList()
-        LogUtil.LogInfo("Load project list", MyBase.Name)
-        DgvProjects.Rows.Clear()
-        For Each oproject As Project In GetProjects()
-            AddProjectRow(oproject)
-        Next
-        DgvProjects.ClearSelection()
-    End Sub
     Private Sub SelectProjectInList(_projectId As Integer)
         For Each orow As DataGridViewRow In DgvProjects.Rows
             If orow.Cells(projectId.Name).Value = _projectId Then
@@ -106,11 +98,7 @@ Public Class FrmProject
                                                    .Build()
         Return _project
     End Function
-    Private Sub AddProjectRow(oProject As Project)
-        Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
-        oRow.Cells(projectId.Name).Value = oProject.ProjectId
-        oRow.Cells(projectName.Name).Value = oProject.ProjectName
-    End Sub
+
     Friend Sub SaveProject()
         If _selectedProject.ProjectId >= 0 Then
             UpdateSelectedProject()
@@ -122,7 +110,7 @@ Public Class FrmProject
         LogUtil.LogInfo("New project", MyBase.Name)
         Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
         _project.ProjectId = InsertProject(_project)
-        LoadProjectList()
+        LoadProjectList(DgvProjects, MyBase.Name)
         SelectProjectInList(_project.ProjectId)
         LogUtil.ShowStatus("project Added", LblStatus, MyBase.Name)
     End Sub
@@ -132,7 +120,7 @@ Public Class FrmProject
             Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
 
             Updateproject(_project)
-            LoadProjectList()
+            LoadProjectList(DgvProjects, MyBase.Name)
             SelectProjectInList(_selectedProject.ProjectId)
             LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)
 
@@ -146,7 +134,7 @@ Public Class FrmProject
 
             DeleteProject(_selectedProject)
             ClearProjectForm()
-            LoadProjectList()
+            LoadProjectList(DgvProjects, MyBase.Name)
         Else
             LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If

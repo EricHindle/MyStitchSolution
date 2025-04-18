@@ -11,6 +11,7 @@ Imports HindlewareLib.Logging
 Public Class FrmBuildThreadCards
     Private isLoading As Boolean
     Private oSelectedProject As Project
+    Private oSelectedCardNo As Integer = -1
     Private oNextCardNo As Integer
     Private oCardList As New List(Of ProjectThreadCard)
     Private isCardsLoading As Boolean
@@ -35,22 +36,9 @@ Public Class FrmBuildThreadCards
     End Sub
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.BuildCardsFormPos)
-        LoadProjectList()
+        LoadProjectList(DgvProjects, MyBase.Name)
         PnlThreads.Visible = False
         PnlCardThreads.Visible = False
-    End Sub
-    Private Sub LoadProjectList()
-        LogUtil.LogInfo("Load project list", MyBase.Name)
-        DgvProjects.Rows.Clear()
-        For Each oproject As Project In GetProjects()
-            AddProjectRow(oproject)
-        Next
-        DgvProjects.ClearSelection()
-    End Sub
-    Private Sub AddProjectRow(oProject As Project)
-        Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
-        oRow.Cells(projectId.Name).Value = oProject.ProjectId
-        oRow.Cells(projectName.Name).Value = oProject.ProjectName
     End Sub
 
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
@@ -67,7 +55,7 @@ Public Class FrmBuildThreadCards
                 oSelectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 PnlThreads.Visible = False
             End If
-            LoadThreadList()
+            LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, MyBase.Name)
         End If
     End Sub
     Private Sub LoadCardList(pProjectId As Integer)
@@ -85,16 +73,16 @@ Public Class FrmBuildThreadCards
         End If
         isCardsLoading = False
     End Sub
-    Private Sub LoadThreadList()
-        LogUtil.LogInfo("Load Thread list", MyBase.Name)
-        Dim _threadList As List(Of Thread) = GetProjectThreads(oSelectedProject.ProjectId)
-        DgvThreads.Rows.Clear()
-        For Each oThread As Thread In _threadList
-            AddThreadRow(oThread, False)
-        Next
-        DgvThreads.Sort(DgvThreads.Columns(ThreadNo.Name), ListSortDirection.Ascending)
-        DgvThreads.ClearSelection()
-    End Sub
+    'Private Sub LoadThreadList()
+    '    LogUtil.LogInfo("Load Thread list", MyBase.Name)
+    '    Dim _threadList As List(Of Thread) = GetProjectThreads(oSelectedProject.ProjectId)
+    '    DgvThreads.Rows.Clear()
+    '    For Each oThread As Thread In _threadList
+    '        AddThreadRow(oThread, False)
+    '    Next
+    '    DgvThreads.Sort(DgvThreads.Columns(ThreadNo.Name), ListSortDirection.Ascending)
+    '    DgvThreads.ClearSelection()
+    'End Sub
     Private Sub AddThreadRow(oThread As Thread, isUsed As Boolean)
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
@@ -118,33 +106,26 @@ Public Class FrmBuildThreadCards
 
     Private Sub LbCards_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LbCards.SelectedIndexChanged
         DgvCardThreads.Rows.Clear()
-
+        oSelectedCardNo = -1
         If LbCards.SelectedIndex > -1 Then
-            Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
-            Dim _list As List(Of Thread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
-            LoadCardThreadList(_list)
+            oSelectedCardNo = CInt(LbCards.SelectedItem)
+            LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
             PnlCardThreads.Visible = True
         Else
             PnlCardThreads.Visible = False
         End If
     End Sub
 
-    Private Sub LoadCardThreadList(pThreadList As List(Of Thread))
-        DgvCardThreads.Rows.Clear()
-        For Each oThread As Thread In pThreadList
-            AddCardThreadRow(oThread)
-        Next
+    'Private Sub LoadCardThreadList(pThreadList As List(Of Thread))
+    '    DgvCardThreads.Rows.Clear()
+    '    For Each oThread As Thread In pThreadList
+    '        AddCardThreadRow(DgvCardThreads, oThread)
 
-        DgvCardThreads.ClearSelection()
-    End Sub
-    Private Sub AddCardThreadRow(oThread As Thread)
-        Dim oRow As DataGridViewRow = DgvCardThreads.Rows(DgvCardThreads.Rows.Add())
-        oRow.Cells(cardthreadid.Name).Value = oThread.ThreadId
-        oRow.Cells(cardthreadname.Name).Value = oThread.ColourName
-        LoadColourCell(oThread, DgvCardThreads, oRow, cardthreadcolour.Name)
-        oRow.Cells(cardthreadno.Name).Value = If(IsNumeric(oThread.ThreadNo), CInt(oThread.ThreadNo), CInt("999" & oThread.ThreadId))
+    '    Next
 
-    End Sub
+    '    DgvCardThreads.ClearSelection()
+    'End Sub
+
 
     Private Sub BtnAuto_Click(sender As Object, e As EventArgs) Handles BtnAuto.Click
         Dim _resp As MsgBoxResult = MsgBox("Replace existing cards?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel, "Overwrite")
@@ -154,13 +135,17 @@ Public Class FrmBuildThreadCards
                 RemoveExistingProjectCards(oSelectedProject.ProjectId)
                 oNextCardNo = 1
             End If
-            Dim oCardThreadList As New List(Of Thread)
+            Dim oCardThreadList As New List(Of ProjectThread)
             Dim _totalThreadCount As Integer = DgvThreads.Rows.Count
             Dim _newCardCt As Integer = Math.Ceiling(_totalThreadCount / 10)
             NudMaxThreads.Value = Math.Ceiling(_totalThreadCount / _newCardCt)
             For Each oRow As DataGridViewRow In DgvThreads.Rows
                 Dim _threadId As Integer = oRow.Cells(threadId.Name).Value
-                oCardThreadList.Add(GetThreadById(_threadId))
+                Dim _projectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
+                    .WithProject(oSelectedProject) _
+                    .WithThreadId(_threadId) _
+                    .Build
+                oCardThreadList.Add(_projectThread)
                 If oCardThreadList.Count = NudMaxThreads.Value Then
                     WriteProjectThreadCard(oSelectedProject, oNextCardNo, oCardThreadList)
                     oNextCardNo += 1
@@ -174,7 +159,7 @@ Public Class FrmBuildThreadCards
         End If
     End Sub
 
-    Private Sub WriteProjectThreadCard(pSelectedProject As Project, pNextCardNo As Integer, pCardThreadList As List(Of Thread))
+    Private Sub WriteProjectThreadCard(pSelectedProject As Project, pNextCardNo As Integer, pCardThreadList As List(Of ProjectThread))
         Dim _newProjectCard As ProjectThreadCard = ProjectThreadCardBuilder.AProjectThreadCard.StartingWithNothing _
             .WithProject(pSelectedProject) _
             .WithCardNo(pNextCardNo) _
@@ -182,12 +167,78 @@ Public Class FrmBuildThreadCards
             .Build
         InsertProjectThreadCard(_newProjectCard)
         Dim _seq As Integer = 1
-        For Each _thread As Thread In pCardThreadList
-            Dim _projectThread As ProjectThread = GetProjectThread(pSelectedProject.ProjectId, _thread.ThreadId)
+        For Each _projectThread As ProjectThread In pCardThreadList
             _projectThread.CardNo = pNextCardNo
             _projectThread.CardSeq = _seq
-            UpdateProjectThread(_projectThread)
+            InsertProjectCardThread(_projectThread)
             _seq += 1
         Next
+    End Sub
+
+    Private Sub BtnAddThread_Click(sender As Object, e As EventArgs) Handles BtnAddThread.Click
+        For Each oRow As DataGridViewRow In DgvThreads.Rows
+            Dim _cell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
+            If _cell.Value = True Then
+                Dim oThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWithNothing _
+                    .WithProject(oSelectedProject) _
+                    .WithThreadId(oRow.Cells(threadId.Name).Value) _
+                    .WithCardNo(oSelectedCardNo) _
+                    .Build
+
+                AddCardThreadRow(DgvCardThreads, oThread)
+                _cell.Value = False
+            End If
+        Next
+        DeleteThreadsForProjectCard(oSelectedProject.ProjectId, oSelectedCardNo)
+        SaveCardThreads(DgvCardThreads)
+        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+
+
+    End Sub
+
+    Private Sub BtnRemoveThread_Click(sender As Object, e As EventArgs) Handles BtnRemoveThread.Click
+        Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
+        DgvCardThreads.Rows.Remove(oRow)
+        DeleteThreadsForProjectCard(oSelectedProject.ProjectId, oSelectedCardNo)
+        SaveCardThreads(DgvCardThreads)
+        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+    End Sub
+    Private Sub SaveCardThreads(pDgv As DataGridView)
+        Dim _seq As Integer = 1
+        For Each oRow As DataGridViewRow In pDgv.Rows
+            Dim _cardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWithNothing _
+                .WithProject(oSelectedProject) _
+                .WithThreadId(oRow.Cells(cardthreadid.Name).Value) _
+                .WithCardNo(oSelectedCardNo) _
+                .WithCardseq(_seq) _
+                .Build
+            InsertProjectCardThread(_cardThread)
+            _seq += 1
+        Next
+    End Sub
+
+
+    Private Sub BtnUp_Click(sender As Object, e As EventArgs) Handles BtnUp.Click
+
+    End Sub
+
+    Private Sub BtnDown_Click(sender As Object, e As EventArgs) Handles BtnDown.Click
+
+    End Sub
+
+    Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
+
+    End Sub
+
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
+
+    End Sub
+
+    Private Sub BtnDelete_Click(sender As Object, e As EventArgs) Handles BtnDelete.Click
+
+    End Sub
+
+    Private Sub BtnClearCardThreads_Click(sender As Object, e As EventArgs) Handles BtnClearCardThreads.Click
+
     End Sub
 End Class
