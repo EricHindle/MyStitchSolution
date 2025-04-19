@@ -28,9 +28,9 @@ Public Class FrmProjectThreads
 #Region "handlers"
     Private Sub FrmProjectThreads_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Project threads", MyBase.Name)
-        isLoading = True
+
         InitialiseForm()
-        isLoading = False
+
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
@@ -67,10 +67,12 @@ Public Class FrmProjectThreads
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
-
+        isLoading = True
         GetFormPos(Me, My.Settings.ProjectThreadsFormPos)
         PnlThreads.Visible = False
         LoadProjectList(DgvProjects, MyBase.Name)
+        DgvProjects.ClearSelection()
+        isLoading = False
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
             PnlThreads.Visible = True
             SelectProjectInList()
@@ -172,7 +174,7 @@ Public Class FrmProjectThreads
 
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
         LogUtil.ShowStatus("Updating Project Threads", LblStatus, True, MyBase.Name, False)
-        If _selectedProject Is Nothing OrElse _selectedProject.ProjectId < 0 Then
+        If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
             LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
         Else
             Dim _usedThreadsBefore As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
@@ -211,12 +213,16 @@ Public Class FrmProjectThreads
     End Sub
 
     Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
-
-        Using _print As New FrmBuildThreadCards
-            LogUtil.Info("Opening Build Cards Form", MyBase.Name)
-            _print.ShowDialog()
-        End Using
-        LoadThreadList()
+        If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
+            LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
+        Else
+            Using _print As New FrmBuildThreadCards
+                LogUtil.Info("Opening Build Cards Form", MyBase.Name)
+                _print.SelectedProject = _selectedProject
+                _print.ShowDialog()
+            End Using
+            LoadThreadList()
+        End If
     End Sub
 
     Private Sub BtnAddThreads_Click(sender As Object, e As EventArgs) Handles BtnAddThreads.Click

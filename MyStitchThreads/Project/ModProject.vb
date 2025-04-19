@@ -54,4 +54,16 @@ Module ModProject
         SaveCardThreads(pDgv, pProjectId, pCardNo)
         LoadCardThreadList(pDgv, pProjectId, pCardNo, pBaseName)
     End Sub
+    Public Function SelectProjectInList(ByRef pDgv As DataGridView, pColName As String, pProjectId As Integer) As Integer
+        Dim _index As Integer = 0
+        For Each orow As DataGridViewRow In pDgv.Rows
+            If orow.Cells(pColName).Value = pProjectId Then
+                orow.Selected = True
+                pDgv.FirstDisplayedScrollingRowIndex = orow.Index
+                _index = orow.Index
+                Exit For
+            End If
+        Next
+        Return _index
+    End Function
 End Module

@@ -16,12 +16,23 @@ Public Class FrmBuildThreadCards
     Private oNextCardNo As Integer
     Private oCardList As New List(Of ProjectThreadCard)
     Private isCardsLoading As Boolean
-
+    Private _selectedProject As Project
+    Public Property SelectedProject() As Project
+        Get
+            Return _selectedProject
+        End Get
+        Set(ByVal value As Project)
+            _selectedProject = value
+        End Set
+    End Property
     Private Sub FrmBuildThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Thread maintenence", MyBase.Name)
         isLoading = True
         InitialiseForm()
         isLoading = False
+        If _selectedProject IsNot Nothing AndAlso SelectedProject.IsLoaded Then
+            SelectProjectInList(DgvProjects, projectId.Name, _selectedProject.ProjectId)
+        End If
     End Sub
 
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -40,6 +51,7 @@ Public Class FrmBuildThreadCards
         LoadProjectList(DgvProjects, MyBase.Name)
         PnlThreads.Visible = False
         PnlCardThreads.Visible = False
+
     End Sub
 
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
