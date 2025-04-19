@@ -6,6 +6,7 @@
 '
 
 Imports System.ComponentModel
+Imports System.Reflection
 Imports HindlewareLib.Logging
 
 Public Class FrmBuildThreadCards
@@ -45,12 +46,14 @@ Public Class FrmBuildThreadCards
         LbCards.Items.Clear()
         DgvCardThreads.Rows.Clear()
         DgvThreads.Rows.Clear()
+        PnlCardThreads.Visible = False
+        oSelectedCardNo = -1
         oNextCardNo = 1
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 oSelectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 PnlThreads.Visible = True
-                LoadCardList(oSelectedProject.ProjectId)
+                oNextCardNo = LoadCardList(oSelectedProject.ProjectId, LbCards, MyBase.Name) + 1
             Else
                 oSelectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 PnlThreads.Visible = False
@@ -58,31 +61,7 @@ Public Class FrmBuildThreadCards
             LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, MyBase.Name)
         End If
     End Sub
-    Private Sub LoadCardList(pProjectId As Integer)
-        LogUtil.LogInfo("Load card list", MyBase.Name)
-        oNextCardNo = 1
-        isCardsLoading = True
-        LbCards.Items.Clear()
-        DgvCardThreads.Rows.Clear()
-        Dim _list As List(Of ProjectThreadCard) = GetProjectThreadCards(pProjectId)
-        For Each oProjectCard As ProjectThreadCard In _list
-            LbCards.Items.Add(oProjectCard.CardNo)
-        Next
-        If _list.Count > 0 Then
-            oNextCardNo = _list.Last.CardNo + 1
-        End If
-        isCardsLoading = False
-    End Sub
-    'Private Sub LoadThreadList()
-    '    LogUtil.LogInfo("Load Thread list", MyBase.Name)
-    '    Dim _threadList As List(Of Thread) = GetProjectThreads(oSelectedProject.ProjectId)
-    '    DgvThreads.Rows.Clear()
-    '    For Each oThread As Thread In _threadList
-    '        AddThreadRow(oThread, False)
-    '    Next
-    '    DgvThreads.Sort(DgvThreads.Columns(ThreadNo.Name), ListSortDirection.Ascending)
-    '    DgvThreads.ClearSelection()
-    'End Sub
+
     Private Sub AddThreadRow(oThread As Thread, isUsed As Boolean)
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
         oRow.Cells(threadId.Name).Value = oThread.ThreadId
@@ -109,9 +88,11 @@ Public Class FrmBuildThreadCards
         oSelectedCardNo = -1
         If LbCards.SelectedIndex > -1 Then
             oSelectedCardNo = CInt(LbCards.SelectedItem)
+            LblCardNo.Text = CStr(oSelectedCardNo)
             LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
             PnlCardThreads.Visible = True
         Else
+            LblCardNo.Text = String.Empty
             PnlCardThreads.Visible = False
         End If
     End Sub
@@ -150,12 +131,13 @@ Public Class FrmBuildThreadCards
                     WriteProjectThreadCard(oSelectedProject, oNextCardNo, oCardThreadList)
                     oNextCardNo += 1
                     oCardThreadList.Clear()
-                    End If
-                Next
+                End If
+            Next
             If oCardThreadList.Count > 0 Then
                 WriteProjectThreadCard(oSelectedProject, oNextCardNo, oCardThreadList)
             End If
-            LoadCardList(oSelectedProject.ProjectId)
+            oNextCardNo = LoadCardList(oSelectedProject.ProjectId, LbCards, MyBase.Name) + 1
+            oSelectedCardNo = -1
         End If
     End Sub
 
@@ -189,56 +171,89 @@ Public Class FrmBuildThreadCards
                 _cell.Value = False
             End If
         Next
-        DeleteThreadsForProjectCard(oSelectedProject.ProjectId, oSelectedCardNo)
-        SaveCardThreads(DgvCardThreads)
-        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
 
+        UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
 
     End Sub
 
     Private Sub BtnRemoveThread_Click(sender As Object, e As EventArgs) Handles BtnRemoveThread.Click
-        Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
-        DgvCardThreads.Rows.Remove(oRow)
-        DeleteThreadsForProjectCard(oSelectedProject.ProjectId, oSelectedCardNo)
-        SaveCardThreads(DgvCardThreads)
-        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+        If DgvCardThreads.SelectedRows.Count > 0 Then
+            Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
+            DgvCardThreads.Rows.Remove(oRow)
+            UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+
+        End If
     End Sub
-    Private Sub SaveCardThreads(pDgv As DataGridView)
-        Dim _seq As Integer = 1
-        For Each oRow As DataGridViewRow In pDgv.Rows
-            Dim _cardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWithNothing _
-                .WithProject(oSelectedProject) _
-                .WithThreadId(oRow.Cells(cardthreadid.Name).Value) _
-                .WithCardNo(oSelectedCardNo) _
-                .WithCardseq(_seq) _
-                .Build
-            InsertProjectCardThread(_cardThread)
-            _seq += 1
-        Next
-    End Sub
+
 
 
     Private Sub BtnUp_Click(sender As Object, e As EventArgs) Handles BtnUp.Click
+        If DgvCardThreads.SelectedRows.Count = 1 Then
+            Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
+            If oRow.Index > 0 Then
+                Dim _newRow As DataGridViewRow = oRow.Clone
+                For Each _col As DataGridViewColumn In DgvCardThreads.Columns
+                    _newRow.Cells(_col.Index).Value = oRow.Cells(_col.Index).Value
+                Next
+                DgvCardThreads.Rows.Insert(oRow.Index - 1, _newRow)
+                DgvCardThreads.Rows.Remove(oRow)
+                DgvCardThreads.ClearSelection()
+                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+                SelectCardThreadInList(_newRow)
+            End If
+        End If
+    End Sub
 
+    Private Sub SelectCardThreadInList(_newRow As DataGridViewRow)
+        For Each _row As DataGridViewRow In DgvCardThreads.Rows
+            Dim _colindex As Integer = cardthreadid.Index
+            If _row.Cells(_colindex).Value = _newRow.Cells(_colindex).Value Then
+                _row.Selected = True
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub BtnDown_Click(sender As Object, e As EventArgs) Handles BtnDown.Click
+        If DgvCardThreads.SelectedRows.Count = 1 Then
+            Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
+            If oRow.Index < DgvCardThreads.Rows(DgvCardThreads.Rows.Count - 1).Index Then
+                Dim _newRow As DataGridViewRow = oRow.Clone
+                For Each _col As DataGridViewColumn In DgvCardThreads.Columns
+                    _newRow.Cells(_col.Index).Value = oRow.Cells(_col.Index).Value
+                Next
+                DgvCardThreads.Rows.Insert(oRow.Index + 2, _newRow)
+                DgvCardThreads.Rows.Remove(oRow)
+                DgvCardThreads.ClearSelection()
+                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+                SelectCardThreadInList(_newRow)
 
-    End Sub
-
-    Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
-
+            End If
+        End If
     End Sub
 
     Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles BtnAdd.Click
-
+        If oSelectedProject IsNot Nothing AndAlso oSelectedProject.IsLoaded Then
+            WriteProjectThreadCard(oSelectedProject, oNextCardNo, New List(Of ProjectThread))
+            LblCardNo.Text = CStr(oNextCardNo)
+            oNextCardNo += 1
+            LoadCardList(oSelectedProject.ProjectId, LbCards, MyBase.Name)
+            DgvCardThreads.Rows.Clear()
+            oSelectedCardNo = -1
+        End If
     End Sub
 
     Private Sub BtnDelete_Click(sender As Object, e As EventArgs) Handles BtnDelete.Click
-
+        If oSelectedProject IsNot Nothing AndAlso oSelectedProject.IsLoaded Then
+            If oSelectedCardNo > 0 Then
+                DeleteThreadsForProjectCard(oSelectedProject.ProjectId, oSelectedCardNo)
+                DeleteProjectThreadCard(oSelectedProject.ProjectId, oSelectedCardNo)
+                PnlCardThreads.Visible = False
+                LblCardNo.Text = String.Empty
+                LoadCardList(oSelectedProject.ProjectId, LbCards, MyBase.Name)
+            End If
+        End If
     End Sub
 
-    Private Sub BtnClearCardThreads_Click(sender As Object, e As EventArgs) Handles BtnClearCardThreads.Click
 
-    End Sub
 End Class

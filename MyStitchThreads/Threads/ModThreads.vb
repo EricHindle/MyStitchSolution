@@ -32,10 +32,6 @@ Module ModThreads
     End Sub
     Public Sub LoadCardThreadList(ByRef pDgv As DataGridView, pProjectId As Integer, pCardNo As Integer, pBaseName As String)
         pDgv.Rows.Clear()
-        'Dim threadList As List(Of ProjectThread) = GetThreadCardThreads(pProjectId, pCardNo)
-        'For Each oThread As ProjectThread In threadList
-        '    AddCardThreadRow(pDgv, oThread)
-        'Next
         Dim threadList As List(Of ProjectCardThread) = GetProjectCardThreadsByProjectCard(pProjectId, pCardNo)
         For Each oThread As ProjectCardThread In threadList
             AddCardThreadRow(pDgv, oThread)

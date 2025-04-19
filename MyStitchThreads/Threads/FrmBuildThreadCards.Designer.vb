@@ -5,12 +5,12 @@
 ' Author Eric Hindle
 '
 
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmBuildThreadCards
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -27,7 +27,7 @@ Partial Class FrmBuildThreadCards
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -70,8 +70,6 @@ Partial Class FrmBuildThreadCards
         Me.BtnUp = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.BtnClearCardThreads = New System.Windows.Forms.Button()
-        Me.BtnUpdate = New System.Windows.Forms.Button()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -253,7 +251,7 @@ Partial Class FrmBuildThreadCards
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(4, 6)
+        Me.Label2.Location = New System.Drawing.Point(32, 6)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(163, 23)
@@ -343,12 +341,12 @@ Partial Class FrmBuildThreadCards
         Me.BtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAdd.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAdd.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAdd.Location = New System.Drawing.Point(19, 100)
+        Me.BtnAdd.Location = New System.Drawing.Point(19, 118)
         Me.BtnAdd.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAdd.Name = "BtnAdd"
         Me.BtnAdd.Size = New System.Drawing.Size(80, 52)
         Me.BtnAdd.TabIndex = 153
-        Me.BtnAdd.Text = "Add Card"
+        Me.BtnAdd.Text = "New Card"
         Me.BtnAdd.UseVisualStyleBackColor = False
         '
         'DgvThreads
@@ -526,43 +524,11 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1.TabIndex = 157
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'BtnClearCardThreads
-        '
-        Me.BtnClearCardThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnClearCardThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnClearCardThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnClearCardThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnClearCardThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClearCardThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClearCardThreads.Location = New System.Drawing.Point(19, 361)
-        Me.BtnClearCardThreads.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnClearCardThreads.Name = "BtnClearCardThreads"
-        Me.BtnClearCardThreads.Size = New System.Drawing.Size(86, 49)
-        Me.BtnClearCardThreads.TabIndex = 158
-        Me.BtnClearCardThreads.Text = "Clear Card Threads"
-        Me.BtnClearCardThreads.UseVisualStyleBackColor = False
-        '
-        'BtnUpdate
-        '
-        Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(19, 160)
-        Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnUpdate.Name = "BtnUpdate"
-        Me.BtnUpdate.Size = New System.Drawing.Size(80, 52)
-        Me.BtnUpdate.TabIndex = 122
-        Me.BtnUpdate.Text = "Update Card"
-        Me.BtnUpdate.UseVisualStyleBackColor = False
-        '
         'FrmBuildThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(974, 562)
-        Me.Controls.Add(Me.BtnClearCardThreads)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PnlThreads)
         Me.Controls.Add(Me.BtnAdd)
@@ -575,7 +541,6 @@ Partial Class FrmBuildThreadCards
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.BtnDelete)
         Me.Controls.Add(Me.BtnAuto)
-        Me.Controls.Add(Me.BtnUpdate)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -618,7 +583,6 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents BtnDown As Button
     Friend WithEvents BtnUp As Button
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents BtnClearCardThreads As Button
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
     Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
@@ -630,5 +594,4 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents cardthreadno As DataGridViewTextBoxColumn
     Friend WithEvents cardThreadSeq As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadcolour As DataGridViewImageColumn
-    Friend WithEvents BtnUpdate As Button
 End Class

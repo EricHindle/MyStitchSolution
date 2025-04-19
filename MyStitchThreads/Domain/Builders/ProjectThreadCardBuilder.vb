@@ -41,7 +41,7 @@ Public Class ProjectThreadCardBuilder
         _project = pProject
         Return Me
     End Function
-    Public Function WithProject(pId As Integer) As ProjectThreadCardBuilder
+    Public Function WithProjectId(pId As Integer) As ProjectThreadCardBuilder
         _project = GetProjectById(pId)
         Return Me
     End Function

@@ -52,7 +52,7 @@ Public Class ProjectCardThreadBuilder
         _project = pProject
         Return Me
     End Function
-    Public Function WithProject(pId As Integer) As ProjectCardThreadBuilder
+    Public Function WithProjectId(pId As Integer) As ProjectCardThreadBuilder
         _project = GetProjectById(pId)
         Return Me
     End Function

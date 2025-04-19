@@ -373,6 +373,14 @@ Module ModDataFunctions
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+    Public Sub DeleteProjectThreadCard(pProjectId As Integer, pCardNo As Integer)
+        Try
+            oProjectThreadCardTa.DeleteProjectThreadCard(pProjectId, pCardNo)
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+
+        End Try
+    End Sub
 
 #End Region
 #Region "projectthreads"
