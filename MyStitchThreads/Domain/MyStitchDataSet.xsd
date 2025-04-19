@@ -333,7 +333,7 @@ WHERE        (project_id = @project_id)</CommandText>
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteProjectThreadCard" Modifier="Public" Name="DeleteProjectThreadCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="DeleteProjectThreadCard">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteProjectThreadCard" Modifier="Public" Name="DeleteProjectThreadCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="DeleteProjectThreadCard">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>DELETE FROM ProjectThreadCards
@@ -345,7 +345,7 @@ WHERE        (project_id = @project_id) AND (thread_card_no = @thread_card_no)</
                   </DbCommand>
                 </DeleteCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.ProjectThreadCards" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByKey" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByKey" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="FillByKey">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.ProjectThreadCards" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByKey" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByKey" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="FillByKey">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        project_id, thread_card_no
@@ -358,7 +358,7 @@ WHERE        (project_id = @projectId) AND (thread_card_no = @cardNo)</CommandTe
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.ProjectThreadCards" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByProject" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByProject" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="FillByProject">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="MyStitch.dbo.ProjectThreadCards" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByProject" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillByProject" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="FillByProject">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        project_id, thread_card_no
@@ -371,7 +371,7 @@ ORDER BY thread_card_no</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertProjectThreadCard" Modifier="Public" Name="InsertProjectThreadCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="InsertProjectThreadCard">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertProjectThreadCard" Modifier="Public" Name="InsertProjectThreadCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="InsertProjectThreadCard">
                 <InsertCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>INSERT INTO ProjectThreadCards
@@ -385,7 +385,7 @@ SELECT project_id, thread_card_no FROM ProjectThreadCards WHERE (project_id = @p
                   </DbCommand>
                 </InsertCommand>
               </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateProjectThreadCards" Modifier="Public" Name="TruncateProjectThreadCards" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="TruncateProjectThreadCards">
+              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateProjectThreadCards" Modifier="Public" Name="TruncateProjectThreadCards" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="TruncateProjectThreadCards">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>TRUNCATE TABLE ProjectThreadCards</CommandText>
@@ -529,19 +529,6 @@ SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM ProjectThread
                     </Parameters>
                   </DbCommand>
                 </InsertCommand>
-              </DbSource>
-              <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="ResetCardsForProject" Modifier="Public" Name="ResetCardsForProject" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy6" UserSourceName="ResetCardsForProject">
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>UPDATE       ProjectThreads
-SET                thread_card_no = -1, thread_card_seq = -1
-WHERE        (project_id = @project_id); 
-SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM ProjectThreads WHERE (project_id = @project_id)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="project_id" ColumnName="project_id" DataSourceName="MyStitch.dbo.ProjectThreads" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@project_id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="project_id" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
               </DbSource>
               <DbSource ConnectionRef="MyStitchConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="TruncateProjectThreads" Modifier="Public" Name="TruncateProjectThreads" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy7" UserSourceName="TruncateProjectThreads">
                 <DeleteCommand>

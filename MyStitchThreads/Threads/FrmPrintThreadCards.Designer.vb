@@ -66,7 +66,7 @@ Partial Class FrmPrintThreadCards
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 533)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(976, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(978, 22)
         Me.StatusStrip1.TabIndex = 4
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -83,7 +83,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(881, 482)
+        Me.BtnClose.Location = New System.Drawing.Point(883, 482)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 40)
@@ -99,7 +99,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnAddCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAddCard.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAddCard.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAddCard.Location = New System.Drawing.Point(312, 482)
+        Me.BtnAddCard.Location = New System.Drawing.Point(314, 482)
         Me.BtnAddCard.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAddCard.Name = "BtnAddCard"
         Me.BtnAddCard.Size = New System.Drawing.Size(109, 40)
@@ -115,7 +115,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(611, 482)
+        Me.BtnPrint.Location = New System.Drawing.Point(613, 482)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(80, 40)
@@ -131,7 +131,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveImage.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveImage.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveImage.Location = New System.Drawing.Point(464, 482)
+        Me.BtnSaveImage.Location = New System.Drawing.Point(466, 482)
         Me.BtnSaveImage.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSaveImage.Name = "BtnSaveImage"
         Me.BtnSaveImage.Size = New System.Drawing.Size(109, 40)
@@ -232,7 +232,7 @@ Partial Class FrmPrintThreadCards
         Me.PnlCardImage.Controls.Add(Me.PicThreadCard)
         Me.PnlCardImage.Location = New System.Drawing.Point(289, 12)
         Me.PnlCardImage.Name = "PnlCardImage"
-        Me.PnlCardImage.Size = New System.Drawing.Size(675, 463)
+        Me.PnlCardImage.Size = New System.Drawing.Size(677, 463)
         Me.PnlCardImage.TabIndex = 149
         '
         'NudColCt
@@ -259,13 +259,13 @@ Partial Class FrmPrintThreadCards
         '
         'BtnResetImage
         '
-        Me.BtnResetImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnResetImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnResetImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnResetImage.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnResetImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnResetImage.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnResetImage.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnResetImage.Location = New System.Drawing.Point(17, 432)
+        Me.BtnResetImage.Location = New System.Drawing.Point(168, 432)
         Me.BtnResetImage.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnResetImage.Name = "BtnResetImage"
         Me.BtnResetImage.Size = New System.Drawing.Size(109, 40)
@@ -277,7 +277,7 @@ Partial Class FrmPrintThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(976, 555)
+        Me.ClientSize = New System.Drawing.Size(978, 555)
         Me.Controls.Add(Me.BtnResetImage)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.NudColCt)

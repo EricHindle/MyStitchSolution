@@ -53,21 +53,21 @@ Public Class FrmPrintThreadCards
         LoadProjectList(DgvProjects, MyBase.Name)
     End Sub
 
-    Private Sub LoadCardList(pProjectId As Integer)
-        LogUtil.LogInfo("Load card list", MyBase.Name)
-        isCardsLoading = True
+    'Private Sub LoadCardList(pProjectId As Integer)
+    '    LogUtil.LogInfo("Load card list", MyBase.Name)
+    '    isCardsLoading = True
 
-        LbCards.Items.Clear()
+    '    LbCards.Items.Clear()
 
-        Dim _list As List(Of ProjectThreadCard) = GetProjectThreadCards(pProjectId)
-        For Each oProjectCard As ProjectThreadCard In _list
-            LbCards.Items.Add(oProjectCard.CardNo)
-        Next
-        If _list.Count < 4 Then
-            NudColCt.Value = 3
-        End If
-        isCardsLoading = False
-    End Sub
+    '    Dim _list As List(Of ProjectThreadCard) = GetProjectThreadCards(pProjectId)
+    '    For Each oProjectCard As ProjectThreadCard In _list
+    '        LbCards.Items.Add(oProjectCard.CardNo)
+    '    Next
+    '    If _list.Count < 4 Then
+    '        NudColCt.Value = 3
+    '    End If
+    '    isCardsLoading = False
+    'End Sub
     Private Sub AddProjectRow(oProject As Project)
         Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
         oRow.Cells(projectId.Name).Value = oProject.ProjectId
@@ -231,14 +231,15 @@ Public Class FrmPrintThreadCards
     End Sub
 
     Private Sub PrepareNewImage()
-        If Not isLoading Then
-            If DgvProjects.SelectedRows.Count > 0 Then
-                Dim oRow As DataGridViewRow = DgvProjects.SelectedRows(0)
-                Dim _projectId As Integer = oRow.Cells(projectId.Name).Value
-                oSelectedProject = GetProjectById(_projectId)
-                LoadCardList(_projectId)
-                InitialiseImage(oSelectedProject.ProjectName)
+        If DgvProjects.SelectedRows.Count > 0 Then
+            Dim oRow As DataGridViewRow = DgvProjects.SelectedRows(0)
+            Dim _projectId As Integer = oRow.Cells(projectId.Name).Value
+            oSelectedProject = GetProjectById(_projectId)
+            LoadCardList(_projectId, LbCards, MyBase.Name)
+            If _LbCards.Items.Count < 4 Then
+                NudColCt.Value = 3
             End If
+            InitialiseImage(oSelectedProject.ProjectName)
         End If
     End Sub
 
@@ -295,7 +296,7 @@ Public Class FrmPrintThreadCards
 
         End If
     End Sub
-    Private Sub AddCardToImage(pList As List(Of ProjectThread))
+    Private Sub AddCardToImage(pList As List(Of ProjectCardThread))
         Dim _rowct As Integer = 10
         Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = 3508 / colCt
@@ -309,7 +310,7 @@ Public Class FrmPrintThreadCards
         Dim _pt1y As Integer
         Dim _pen1 As New Pen(Brushes.Black, 1)
         Dim _row As Integer = 0
-        For Each _thread As ProjectThread In pList
+        For Each _thread As ProjectCardThread In pList
             Dim _col As Integer = _nextCol
             _pt1y = _top + (_holegap * _row)
             _pt1x = (colWidth * _col) + holeinset + (holeradius * 5)
@@ -352,8 +353,9 @@ Public Class FrmPrintThreadCards
     Private Sub BtnAddCard_Click(sender As Object, e As EventArgs) Handles BtnAddCard.Click
         If LbCards.SelectedIndex > -1 Then
             Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
-            Dim _list As List(Of ProjectThread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
-            AddCardToImage(_list)
+            '   Dim _list As List(Of ProjectThread) = GetThreadCardThreads(oSelectedProject.ProjectId, _cardNo)
+            Dim _threadList As List(Of ProjectCardThread) = GetProjectCardThreadsByProjectCard(oSelectedProject.ProjectId, _cardNo)
+            AddCardToImage(_threadlist)
             _nextCol += 1
         End If
     End Sub

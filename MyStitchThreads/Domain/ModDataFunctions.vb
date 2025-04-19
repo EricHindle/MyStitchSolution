@@ -366,9 +366,15 @@ Module ModDataFunctions
     End Function
     Public Sub RemoveExistingProjectCards(pProjectId As Integer)
         Try
-            oProjectThreadTa.ResetCardsForProject(pProjectId)
+            DeleteProjectCardThreads(pProjectId)
+            DeleteCardsForProject(pProjectId)
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Public Sub DeleteCardsForProject(pProjectId As Integer)
+        Try
             oProjectThreadCardTa.DeleteCardsByProject(pProjectId)
-            oProjectCardThreadTa.DeleteCardThreadsForProject(pProjectId)
         Catch ex As Exception
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
@@ -512,6 +518,15 @@ Module ModDataFunctions
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return _list
+    End Function
+    Public Function DeleteProjectCardThreads(pProjectId As Integer)
+        Dim response As Integer
+        Try
+            oProjectCardThreadTa.DeleteCardThreadsForProject(pProjectId)
+        Catch ex As Exception
+            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return response
     End Function
 #End Region
 End Module

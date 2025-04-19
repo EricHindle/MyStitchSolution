@@ -131,7 +131,8 @@ Public Class FrmProject
     Friend Sub DeleteSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
             LogUtil.LogInfo("Delete project", MyBase.Name)
-
+            RemoveExistingProjectCards(_selectedProject.ProjectId)
+            DeleteProjectThreadsForProject(_selectedProject.ProjectId)
             DeleteProject(_selectedProject)
             ClearProjectForm()
             LoadProjectList(DgvProjects, MyBase.Name)
