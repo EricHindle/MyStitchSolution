@@ -196,6 +196,90 @@ Namespace My
                 Me("BuildCardsFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BackUpFormPos() As String
+            Get
+                Return CType(Me("BackUpFormPos"),String)
+            End Get
+            Set
+                Me("BackUpFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BackupPath() As String
+            Get
+                Return CType(Me("BackupPath"),String)
+            End Get
+            Set
+                Me("BackupPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property BackupAddDate() As Boolean
+            Get
+                Return CType(Me("BackupAddDate"),Boolean)
+            End Get
+            Set
+                Me("BackupAddDate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property BackupArchive() As Boolean
+            Get
+                Return CType(Me("BackupArchive"),Boolean)
+            End Get
+            Set
+                Me("BackupArchive") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property BackUpDb() As Boolean
+            Get
+                Return CType(Me("BackUpDb"),Boolean)
+            End Get
+            Set
+                Me("BackUpDb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property BackupRevision() As Boolean
+            Get
+                Return CType(Me("BackupRevision"),Boolean)
+            End Get
+            Set
+                Me("BackupRevision") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AppendDbBackup() As Boolean
+            Get
+                Return CType(Me("AppendDbBackup"),Boolean)
+            End Get
+            Set
+                Me("AppendDbBackup") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

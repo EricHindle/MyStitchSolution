@@ -7,47 +7,21 @@
 
 Imports HindlewareLib.Logging
 
-Public Class FrmMenu
+Public Class FrmMenu2
 #Region "form control handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub
 
-    Private Sub BtnProjects_Click(sender As Object, e As EventArgs) Handles BtnProjects.Click
+    Private Sub BtnProjects_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
         Hide()
-        Using _projects As New FrmProject
-            LogUtil.LogInfo("Opening projects form", MyBase.Name)
-            _projects.ShowDialog()
+        Using _backupForm As New FrmBackup
+            LogUtil.LogInfo("Opening Backup form", MyBase.Name)
+            _backupForm.ShowDialog()
         End Using
         Show()
     End Sub
 
-    Private Sub BtnPrintCards_Click(sender As Object, e As EventArgs) Handles BtnPrintCards.Click
-        Hide()
-        Using _print As New FrmPrintThreadCards
-            LogUtil.Info("Opening Print Form", MyBase.Name)
-            _print.ShowDialog()
-        End Using
-        Show()
-    End Sub
-
-    Private Sub BtnThreads_Click(sender As Object, e As EventArgs) Handles BtnThreads.Click
-        Hide()
-        LogUtil.Info("Opening Threads form", MyBase.Name)
-        Using _threads As New FrmThread
-            _threads.ShowDialog()
-        End Using
-        Show()
-    End Sub
-
-    Private Sub BtnProjectThreads_Click(sender As Object, e As EventArgs) Handles BtnProjectThreads.Click
-        Hide()
-        LogUtil.Info("Opening Project Threads form", MyBase.Name)
-        Using _projthreads As New FrmProjectThreads
-            _projthreads.ShowDialog()
-        End Using
-        Show()
-    End Sub
     Private Sub FrmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Version.Text = System.String.Format(myStringFormatProvider, Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
         InitialiseApplication()
@@ -94,19 +68,11 @@ Public Class FrmMenu
 
     End Sub
 
-    Private Sub BtnBuildCards_Click(sender As Object, e As EventArgs) Handles BtnBuildCards.Click
+    Private Sub BtnBuildCards_Click(sender As Object, e As EventArgs)
         Hide()
         Using _build As New FrmBuildThreadCards
             LogUtil.Info("Opening Build Cards Form", MyBase.Name)
             _build.ShowDialog()
-        End Using
-        Show()
-    End Sub
-
-    Private Sub BtnMenu2_Click(sender As Object, e As EventArgs) Handles BtnMenu2.Click
-        Hide()
-        Using _menu2 As New FrmMenu2
-            _menu2.ShowDialog()
         End Using
         Show()
     End Sub

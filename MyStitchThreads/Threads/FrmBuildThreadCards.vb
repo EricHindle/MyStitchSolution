@@ -5,8 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.ComponentModel
-Imports System.Reflection
 Imports HindlewareLib.Logging
 
 Public Class FrmBuildThreadCards
@@ -119,7 +117,6 @@ Public Class FrmBuildThreadCards
     '    DgvCardThreads.ClearSelection()
     'End Sub
 
-
     Private Sub BtnAuto_Click(sender As Object, e As EventArgs) Handles BtnAuto.Click
         Dim _resp As MsgBoxResult = MsgBox("Replace existing cards?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel, "Overwrite")
         If Not _resp = MsgBoxResult.Cancel Then
@@ -197,8 +194,6 @@ Public Class FrmBuildThreadCards
         End If
     End Sub
 
-
-
     Private Sub BtnUp_Click(sender As Object, e As EventArgs) Handles BtnUp.Click
         If DgvCardThreads.SelectedRows.Count = 1 Then
             Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
@@ -266,6 +261,5 @@ Public Class FrmBuildThreadCards
             End If
         End If
     End Sub
-
 
 End Class

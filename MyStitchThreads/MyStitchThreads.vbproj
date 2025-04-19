@@ -162,6 +162,12 @@
     <Compile Include="Domain\Objects\ProjectCardThread.vb" />
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Menu\FrmMenu2.Designer.vb">
+      <DependentUpon>FrmMenu2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\FrmMenu2.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Menu\FrmMenu.Designer.vb">
       <DependentUpon>FrmMenu.vb</DependentUpon>
     </Compile>
@@ -214,6 +220,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\ModThreads.vb" />
+    <Compile Include="Utilities\FrmBackup.Designer.vb">
+      <DependentUpon>FrmBackup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmBackup.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\ModCommon.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -233,6 +245,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Menu\FrmMenu2.resx">
+      <DependentUpon>FrmMenu2.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu\FrmMenu.resx">
       <DependentUpon>FrmMenu.vb</DependentUpon>
     </EmbeddedResource>
@@ -259,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmThread.resx">
       <DependentUpon>FrmThread.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmBackup.resx">
+      <DependentUpon>FrmBackup.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

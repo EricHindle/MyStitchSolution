@@ -49,9 +49,6 @@ Partial Class FrmBackup
         Me.BtnSelectPath = New System.Windows.Forms.Button()
         Me.chkAddDate = New System.Windows.Forms.CheckBox()
         Me.BtnSelectAll = New System.Windows.Forms.Button()
-        Me.RbAllBooks = New System.Windows.Forms.RadioButton()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.RbCurrentBook = New System.Windows.Forms.RadioButton()
         Me.ChkArchive = New System.Windows.Forms.CheckBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ChkRevision = New System.Windows.Forms.CheckBox()
@@ -74,7 +71,6 @@ Partial Class FrmBackup
         Me.SplitContainer3.Panel1.SuspendLayout()
         Me.SplitContainer3.Panel2.SuspendLayout()
         Me.SplitContainer3.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -171,7 +167,7 @@ Partial Class FrmBackup
         Me.LblCounts.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.LblCounts.ForeColor = System.Drawing.Color.Black
         Me.LblCounts.Name = "LblCounts"
-        Me.LblCounts.Size = New System.Drawing.Size(61, 19)
+        Me.LblCounts.Size = New System.Drawing.Size(62, 19)
         Me.LblCounts.Text = "T:0 D:0 I:0"
         '
         'BtnCancel
@@ -362,45 +358,6 @@ Partial Class FrmBackup
         Me.BtnSelectAll.Text = "Select All Items"
         Me.BtnSelectAll.UseVisualStyleBackColor = True
         '
-        'RbAllBooks
-        '
-        Me.RbAllBooks.AutoSize = True
-        Me.RbAllBooks.Checked = True
-        Me.RbAllBooks.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbAllBooks.ForeColor = System.Drawing.Color.Black
-        Me.RbAllBooks.Location = New System.Drawing.Point(18, 21)
-        Me.RbAllBooks.Name = "RbAllBooks"
-        Me.RbAllBooks.Size = New System.Drawing.Size(73, 18)
-        Me.RbAllBooks.TabIndex = 15
-        Me.RbAllBooks.TabStop = True
-        Me.RbAllBooks.Text = "All Books"
-        Me.RbAllBooks.UseVisualStyleBackColor = True
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox5.Controls.Add(Me.RbCurrentBook)
-        Me.GroupBox5.Controls.Add(Me.RbAllBooks)
-        Me.GroupBox5.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox5.Location = New System.Drawing.Point(539, 529)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(153, 62)
-        Me.GroupBox5.TabIndex = 16
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Book Selection"
-        '
-        'RbCurrentBook
-        '
-        Me.RbCurrentBook.AutoSize = True
-        Me.RbCurrentBook.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbCurrentBook.ForeColor = System.Drawing.Color.Black
-        Me.RbCurrentBook.Location = New System.Drawing.Point(18, 40)
-        Me.RbCurrentBook.Name = "RbCurrentBook"
-        Me.RbCurrentBook.Size = New System.Drawing.Size(125, 18)
-        Me.RbCurrentBook.TabIndex = 16
-        Me.RbCurrentBook.Text = "Current Book Only"
-        Me.RbCurrentBook.UseVisualStyleBackColor = True
-        '
         'ChkArchive
         '
         Me.ChkArchive.AutoSize = True
@@ -456,7 +413,6 @@ Partial Class FrmBackup
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(985, 623)
         Me.Controls.Add(Me.GroupBox6)
-        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.BtnSelectAll)
         Me.Controls.Add(Me.chkAddDate)
         Me.Controls.Add(Me.BtnSelectPath)
@@ -493,8 +449,6 @@ Partial Class FrmBackup
         Me.SplitContainer3.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer3.ResumeLayout(False)
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
@@ -524,9 +478,6 @@ Partial Class FrmBackup
     Friend WithEvents BtnSelectAll As Button
     Friend WithEvents LblStatus As ToolStripStatusLabel
     Friend WithEvents PbCopyProgress As ToolStripProgressBar
-    Friend WithEvents RbAllBooks As RadioButton
-    Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents RbCurrentBook As RadioButton
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents MnuClear As ToolStripMenuItem
     Friend WithEvents ChkArchive As CheckBox

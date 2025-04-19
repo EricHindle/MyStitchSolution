@@ -458,6 +458,10 @@ Module ModDataFunctions
     End Function
 #End Region
 #Region "projectcardthreads"
+    Public Function GetProjectCardThreadTable() As MyStitchDataSet.ProjectCardThreadDataTable
+        LogUtil.Info("Getting project table", MethodBase.GetCurrentMethod.Name)
+        Return oProjectCardThreadTa.GetData()
+    End Function
     Public Function GetProjectThreadCardThreadTable() As MyStitchDataSet.ProjectCardThreadDataTable
         LogUtil.Info("Getting project card thread table", MethodBase.GetCurrentMethod.Name)
         Return oProjectCardThreadTa.GetData()
