@@ -103,14 +103,6 @@ Public Class FrmProjectThreads
 
     End Sub
 
-    'Private Sub LoadProjectList()
-    '    LogUtil.LogInfo("Load project list", MyBase.Name)
-    '    DgvProjects.Rows.Clear()
-    '    For Each oproject As Project In GetProjects()
-    '        AddProjectRow(oproject)
-    '    Next
-    '    DgvProjects.ClearSelection()
-    'End Sub
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load Thread list", MyBase.Name)
         Dim _usedThreadList As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
@@ -134,18 +126,7 @@ Public Class FrmProjectThreads
         Next
         DgvThreads.ClearSelection()
     End Sub
-    'Private Sub LoadColourCell(oThread As Thread, oRow As DataGridViewRow)
-    '    Dim _imageCell As DataGridViewImageCell = oRow.Cells(threadColour.Name)
-    '    Dim _cellHeight As Integer = oRow.Height
-    '    Dim _cellWidth As Integer = DgvThreads.Columns(oRow.Cells(threadColour.Name).ColumnIndex).Width
-    '    Dim _image As New Bitmap(_cellWidth, _cellHeight)
-    '    For x = 0 To _cellWidth - 1
-    '        For y = 0 To _cellHeight - 1
-    '            _image.SetPixel(x, y, oThread.Colour)
-    '        Next
-    '    Next
-    '    _imageCell.Value = _image
-    'End Sub
+
 
     Private Sub SelectProjectInList(_projectId As Integer)
         For Each orow As DataGridViewRow In DgvProjects.Rows

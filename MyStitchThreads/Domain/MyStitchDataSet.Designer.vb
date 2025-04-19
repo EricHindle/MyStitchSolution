@@ -711,6 +711,8 @@ Partial Public Class MyStitchDataSet
         
         Private columnthread_no As Global.System.Data.DataColumn
         
+        Private columnstock_level As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
@@ -779,6 +781,14 @@ Partial Public Class MyStitchDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property stock_levelColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnstock_level
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -815,9 +825,9 @@ Partial Public Class MyStitchDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddThreadsRow(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String) As ThreadsRow
+        Public Overloads Function AddThreadsRow(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal stock_level As Integer) As ThreadsRow
             Dim rowThreadsRow As ThreadsRow = CType(Me.NewRow,ThreadsRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, thread_colour_name, thread_colour, thread_no}
+            Dim columnValuesArray() As Object = New Object() {Nothing, thread_colour_name, thread_colour, thread_no, stock_level}
             rowThreadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowThreadsRow)
             Return rowThreadsRow
@@ -850,6 +860,7 @@ Partial Public Class MyStitchDataSet
             Me.columnthread_colour_name = MyBase.Columns("thread_colour_name")
             Me.columnthread_colour = MyBase.Columns("thread_colour")
             Me.columnthread_no = MyBase.Columns("thread_no")
+            Me.columnstock_level = MyBase.Columns("stock_level")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -863,6 +874,8 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnthread_colour)
             Me.columnthread_no = New Global.System.Data.DataColumn("thread_no", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnthread_no)
+            Me.columnstock_level = New Global.System.Data.DataColumn("stock_level", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnstock_level)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnthread_id}, true))
             Me.columnthread_id.AutoIncrement = true
             Me.columnthread_id.AutoIncrementSeed = -1
@@ -875,6 +888,7 @@ Partial Public Class MyStitchDataSet
             Me.columnthread_colour.AllowDBNull = false
             Me.columnthread_no.AllowDBNull = false
             Me.columnthread_no.MaxLength = 10
+            Me.columnstock_level.AllowDBNull = false
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1290,10 +1304,6 @@ Partial Public Class MyStitchDataSet
         
         Private columnthread_id As Global.System.Data.DataColumn
         
-        Private columnthread_card_no As Global.System.Data.DataColumn
-        
-        Private columnthread_card_seq As Global.System.Data.DataColumn
-        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
@@ -1346,22 +1356,6 @@ Partial Public Class MyStitchDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property thread_card_noColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnthread_card_no
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property thread_card_seqColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnthread_card_seq
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1398,9 +1392,9 @@ Partial Public Class MyStitchDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddProjectThreadsRow(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As ProjectThreadsRow
+        Public Overloads Function AddProjectThreadsRow(ByVal project_id As Integer, ByVal thread_id As Integer) As ProjectThreadsRow
             Dim rowProjectThreadsRow As ProjectThreadsRow = CType(Me.NewRow,ProjectThreadsRow)
-            Dim columnValuesArray() As Object = New Object() {project_id, thread_id, thread_card_no, thread_card_seq}
+            Dim columnValuesArray() As Object = New Object() {project_id, thread_id}
             rowProjectThreadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectThreadsRow)
             Return rowProjectThreadsRow
@@ -1431,8 +1425,6 @@ Partial Public Class MyStitchDataSet
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnthread_id = MyBase.Columns("thread_id")
-            Me.columnthread_card_no = MyBase.Columns("thread_card_no")
-            Me.columnthread_card_seq = MyBase.Columns("thread_card_seq")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1442,15 +1434,9 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnproject_id)
             Me.columnthread_id = New Global.System.Data.DataColumn("thread_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnthread_id)
-            Me.columnthread_card_no = New Global.System.Data.DataColumn("thread_card_no", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnthread_card_no)
-            Me.columnthread_card_seq = New Global.System.Data.DataColumn("thread_card_seq", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnthread_card_seq)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_id}, true))
             Me.columnproject_id.AllowDBNull = false
             Me.columnthread_id.AllowDBNull = false
-            Me.columnthread_card_no.AllowDBNull = false
-            Me.columnthread_card_seq.AllowDBNull = false
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1978,6 +1964,17 @@ Partial Public Class MyStitchDataSet
                 Me(Me.tableThreads.thread_noColumn) = value
             End Set
         End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property stock_level() As Integer
+            Get
+                Return CType(Me(Me.tableThreads.stock_levelColumn),Integer)
+            End Get
+            Set
+                Me(Me.tableThreads.stock_levelColumn) = value
+            End Set
+        End Property
     End Class
     
     '''<summary>
@@ -2052,28 +2049,6 @@ Partial Public Class MyStitchDataSet
             End Get
             Set
                 Me(Me.tableProjectThreads.thread_idColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property thread_card_no() As Integer
-            Get
-                Return CType(Me(Me.tableProjectThreads.thread_card_noColumn),Integer)
-            End Get
-            Set
-                Me(Me.tableProjectThreads.thread_card_noColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property thread_card_seq() As Integer
-            Get
-                Return CType(Me(Me.tableProjectThreads.thread_card_seqColumn),Integer)
-            End Get
-            Set
-                Me(Me.tableProjectThreads.thread_card_seqColumn) = value
             End Set
         End Property
     End Class
@@ -2951,43 +2926,50 @@ Namespace MyStitchDataSetTableAdapters
             tableMapping.ColumnMappings.Add("thread_colour_name", "thread_colour_name")
             tableMapping.ColumnMappings.Add("thread_colour", "thread_colour")
             tableMapping.ColumnMappings.Add("thread_no", "thread_no")
+            tableMapping.ColumnMappings.Add("stock_level", "stock_level")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM [Threads] WHERE (([thread_id] = @Original_thread_id) AND ([thread_col"& _ 
                 "our_name] = @Original_thread_colour_name) AND ([thread_colour] = @Original_threa"& _ 
-                "d_colour) AND ([thread_no] = @Original_thread_no))"
+                "d_colour) AND ([thread_no] = @Original_thread_no) AND ([stock_level] = @Original"& _ 
+                "_stock_level))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [Threads] ([thread_colour_name], [thread_colour], [thread_no]) VALUES"& _ 
-                " (@thread_colour_name, @thread_colour, @thread_no);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thread_id, thread_co"& _ 
-                "lour_name, thread_colour, thread_no FROM Threads WHERE (thread_id = SCOPE_IDENTI"& _ 
-                "TY())"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [Threads] ([thread_colour_name], [thread_colour], [thread_no], [stock"& _ 
+                "_level]) VALUES (@thread_colour_name, @thread_colour, @thread_no, @stock_level);"& _ 
+                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thread_id, thread_colour_name, thread_colour, thread_no, stock_level FR"& _ 
+                "OM Threads WHERE (thread_id = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE [Threads] SET [thread_colour_name] = @thread_colour_name, [thread_colour] "& _ 
-                "= @thread_colour, [thread_no] = @thread_no WHERE (([thread_id] = @Original_threa"& _ 
-                "d_id) AND ([thread_colour_name] = @Original_thread_colour_name) AND ([thread_col"& _ 
-                "our] = @Original_thread_colour) AND ([thread_no] = @Original_thread_no));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELEC"& _ 
-                "T thread_id, thread_colour_name, thread_colour, thread_no FROM Threads WHERE (th"& _ 
-                "read_id = @thread_id)"
+                "= @thread_colour, [thread_no] = @thread_no, [stock_level] = @stock_level WHERE ("& _ 
+                "([thread_id] = @Original_thread_id) AND ([thread_colour_name] = @Original_thread"& _ 
+                "_colour_name) AND ([thread_colour] = @Original_thread_colour) AND ([thread_no] ="& _ 
+                " @Original_thread_no) AND ([stock_level] = @Original_stock_level));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thre"& _ 
+                "ad_id, thread_colour_name, thread_colour, thread_no, stock_level FROM Threads WH"& _ 
+                "ERE (thread_id = @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -3004,7 +2986,8 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(7) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT thread_id, thread_colour_name, thread_colour, thread_no FROM Threads"
+            Me._commandCollection(0).CommandText = "SELECT thread_id, thread_colour_name, thread_colour, thread_no, stock_level FROM "& _ 
+                "Threads"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
@@ -3013,35 +2996,37 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(2).Connection = Me.Connection
-            Me._commandCollection(2).CommandText = "SELECT thread_id, thread_colour_name, thread_colour, thread_no FROM Threads WHERE"& _ 
-                " (thread_id = @id)"
+            Me._commandCollection(2).CommandText = "SELECT        thread_id, thread_colour_name, thread_colour, thread_no, stock_leve"& _ 
+                "l"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (thread_id = @id)"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(3).Connection = Me.Connection
-            Me._commandCollection(3).CommandText = "SELECT        thread_id, thread_colour_name, thread_colour, thread_no"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM      "& _ 
-                "      Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (thread_no = @number)"
+            Me._commandCollection(3).CommandText = "SELECT        thread_id, thread_colour_name, thread_colour, thread_no, stock_leve"& _ 
+                "l"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (thread_no = @number)"
             Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@number", Global.System.Data.SqlDbType.NVarChar, 10, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(4).Connection = Me.Connection
             Me._commandCollection(4).CommandText = "INSERT INTO Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (thread_no, thread_colour_name, thr"& _ 
-                "ead_colour)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@thread_no,@thread_colour_name,@thread_colour); "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SE"& _ 
-                "LECT SCOPE_IDENTITY()"
+                "ead_colour, stock_level)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@thread_no,@thread_colour_name,@thread_"& _ 
+                "colour,@stock_level);   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT SCOPE_IDENTITY()"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 10, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(5).Connection = Me.Connection
             Me._commandCollection(5).CommandText = "SET IDENTITY_INSERT threads ON;"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"INSERT INTO Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (t"& _ 
-                "hread_id, thread_no, thread_colour_name, thread_colour)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@id,@thr"& _ 
-                "ead_no,@thread_colour_name,@thread_colour); "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)
+                "hread_id, thread_no, thread_colour_name, thread_colour, stock_level)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES    "& _ 
+                "    (@id,@thread_no,@thread_colour_name,@thread_colour,@stock_level);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)
             Me._commandCollection(5).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 10, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(6) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(6).Connection = Me.Connection
             Me._commandCollection(6).CommandText = "TRUNCATE TABLE Threads"
@@ -3049,13 +3034,14 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(7) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(7).Connection = Me.Connection
             Me._commandCollection(7).CommandText = "UPDATE       Threads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                thread_no = @thread_no, thread_colour_na"& _ 
-                "me = @thread_colour_name, thread_colour = @thread_colour"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (thread_i"& _ 
-                "d = @id);   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thread_id, thread_no, thread_colour_name, thread_colour FRO"& _ 
-                "M Threads WHERE (thread_id = @id)"
+                "me = @thread_colour_name, thread_colour = @thread_colour, stock_level = @stock_l"& _ 
+                "evel"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (thread_id = @id);     "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thread_id, thread_no, thread_"& _ 
+                "colour_name, thread_colour, stock_level FROM Threads WHERE (thread_id = @id)"
             Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 10, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
         
@@ -3147,7 +3133,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String, ByVal Original_stock_level As Integer) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_thread_id,Integer)
             If (Original_thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_colour_name")
@@ -3160,6 +3146,7 @@ Namespace MyStitchDataSetTableAdapters
             Else
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_no,String)
             End If
+            Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -3179,7 +3166,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String) As Integer
+        Public Overloads Overridable Function Insert(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal stock_level As Integer) As Integer
             If (thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_colour_name")
             Else
@@ -3191,6 +3178,7 @@ Namespace MyStitchDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(2).Value = CType(thread_no,String)
             End If
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -3210,7 +3198,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String, ByVal thread_id As Integer) As Integer
+        Public Overloads Overridable Function Update(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String, ByVal Original_stock_level As Integer, ByVal thread_id As Integer) As Integer
             If (thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_colour_name")
             Else
@@ -3222,19 +3210,21 @@ Namespace MyStitchDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_no,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(stock_level,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_id,Integer)
             If (Original_thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_colour_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_colour_name,String)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_colour_name,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_colour,Integer)
             If (Original_thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_no")
             Else
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_no,String)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_no,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_stock_level,Integer)
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(thread_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -3254,8 +3244,8 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String) As Integer
-            Return Me.Update(thread_colour_name, thread_colour, thread_no, Original_thread_id, Original_thread_colour_name, Original_thread_colour, Original_thread_no, Original_thread_id)
+        Public Overloads Overridable Function Update(ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal thread_no As String, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_thread_no As String, ByVal Original_stock_level As Integer) As Integer
+            Return Me.Update(thread_colour_name, thread_colour, thread_no, stock_level, Original_thread_id, Original_thread_colour_name, Original_thread_colour, Original_thread_no, Original_stock_level, Original_thread_id)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3285,7 +3275,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
-        Public Overloads Overridable Function InsertThread(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer) As Integer
+        Public Overloads Overridable Function InsertThread(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(4)
             If (thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_no")
@@ -3298,27 +3288,33 @@ Namespace MyStitchDataSetTableAdapters
                 command.Parameters(1).Value = CType(thread_colour_name,String)
             End If
             command.Parameters(2).Value = CType(thread_colour,Integer)
+            command.Parameters(3).Value = CType(stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
-        Public Overloads Overridable Function InsertThreadWithId(ByVal id As Integer, ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer) As Integer
+        Public Overloads Overridable Function InsertThreadWithId(ByVal id As Integer, ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(5)
             command.Parameters(0).Value = CType(id,Integer)
             If (thread_no Is Nothing) Then
@@ -3332,6 +3328,7 @@ Namespace MyStitchDataSetTableAdapters
                 command.Parameters(2).Value = CType(thread_colour_name,String)
             End If
             command.Parameters(3).Value = CType(thread_colour,Integer)
+            command.Parameters(4).Value = CType(stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -3374,7 +3371,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
-        Public Overloads Overridable Function UpdateThread(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal id As Integer) As Integer
+        Public Overloads Overridable Function UpdateThread(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal id As Integer) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
             If (thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_no")
@@ -3387,7 +3384,8 @@ Namespace MyStitchDataSetTableAdapters
                 command.Parameters(1).Value = CType(thread_colour_name,String)
             End If
             command.Parameters(2).Value = CType(thread_colour,Integer)
-            command.Parameters(3).Value = CType(id,Integer)
+            command.Parameters(3).Value = CType(stock_level,Integer)
+            command.Parameters(4).Value = CType(id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4000,19 +3998,14 @@ Namespace MyStitchDataSetTableAdapters
             tableMapping.DataSetTable = "ProjectThreads"
             tableMapping.ColumnMappings.Add("project_id", "project_id")
             tableMapping.ColumnMappings.Add("thread_id", "thread_id")
-            tableMapping.ColumnMappings.Add("thread_card_no", "thread_card_no")
-            tableMapping.ColumnMappings.Add("thread_card_seq", "thread_card_seq")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectThreads] WHERE (([project_id] = @Original_project_id) A"& _ 
-                "ND ([thread_id] = @Original_thread_id) AND ([thread_card_no] = @Original_thread_"& _ 
-                "card_no) AND ([thread_card_seq] = @Original_thread_card_seq))"
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [ProjectThreads] WHERE (([project_id] = @Original_project_id) AND ([t"& _ 
+                "hread_id] = @Original_thread_id))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectThreads] ([project_id], [thread_id], [thread_card_no], "& _ 
@@ -4026,22 +4019,15 @@ Namespace MyStitchDataSetTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectThreads] SET [project_id] = @project_id, [thread_id] = @thre"& _ 
-                "ad_id, [thread_card_no] = @thread_card_no, [thread_card_seq] = @thread_card_seq "& _ 
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [ProjectThreads] SET [project_id] = @project_id, [thread_id] = @thread_id "& _ 
                 "WHERE (([project_id] = @Original_project_id) AND ([thread_id] = @Original_thread"& _ 
-                "_id) AND ([thread_card_no] = @Original_thread_card_no) AND ([thread_card_seq] = "& _ 
-                "@Original_thread_card_seq));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, thread_card_no, thre"& _ 
-                "ad_card_seq FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id "& _ 
-                "= @thread_id)"
+                "_id));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id FROM ProjectThreads WHERE (project_id = @pr"& _ 
+                "oject_id) AND (thread_id = @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4054,11 +4040,10 @@ Namespace MyStitchDataSetTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(8) {}
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(7) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM dbo.ProjectThr"& _ 
-                "eads"
+            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id FROM ProjectThreads"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
@@ -4074,54 +4059,44 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(3) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(3).Connection = Me.Connection
-            Me._commandCollection(3).CommandText = "SELECT        project_id, thread_id, thread_card_no, thread_card_seq"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM       "& _ 
-                "     ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @projectId) AND (thread_id = @th"& _ 
-                "readId)"
+            Me._commandCollection(3).CommandText = "SELECT project_id, thread_id FROM ProjectThreads WHERE (project_id = @projectId) "& _ 
+                "AND (thread_id = @threadId)"
             Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@projectId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@threadId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(4).Connection = Me.Connection
-            Me._commandCollection(4).CommandText = "SELECT        project_id, thread_id, thread_card_no, thread_card_seq"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM       "& _ 
-                "     ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @ProjectId)"
+            Me._commandCollection(4).CommandText = "SELECT project_id, thread_id FROM ProjectThreads WHERE (project_id = @ProjectId)"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ProjectId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(5).Connection = Me.Connection
-            Me._commandCollection(5).CommandText = "SELECT        project_id, thread_id, thread_card_no, thread_card_seq"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM       "& _ 
-                "     ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @projectId) AND (thread_card_no "& _ 
-                "= @cardNo)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY thread_card_seq"
-            Me._commandCollection(5).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@projectId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@cardNo", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(6).Connection = Me.Connection
-            Me._commandCollection(6).CommandText = "INSERT INTO ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (project_id, thread_id, thre"& _ 
+            Me._commandCollection(5).CommandText = "INSERT INTO ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (project_id, thread_id, thre"& _ 
                 "ad_card_no, thread_card_seq)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@project_id,@thread_id,@thread_card"& _ 
                 "_no,@thread_card_seq); "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, thread_card_no, thread_ca"& _ 
                 "rd_seq FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id = @th"& _ 
                 "read_id)"
+            Me._commandCollection(5).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(6) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(6).Connection = Me.Connection
+            Me._commandCollection(6).CommandText = "TRUNCATE TABLE ProjectThreads"
             Me._commandCollection(6).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(7).Connection = Me.Connection
-            Me._commandCollection(7).CommandText = "TRUNCATE TABLE ProjectThreads"
-            Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(8) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(8).Connection = Me.Connection
-            Me._commandCollection(8).CommandText = "UPDATE       ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                thread_card_no = @thread_card_no,"& _ 
+            Me._commandCollection(7).CommandText = "UPDATE       ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                thread_card_no = @thread_card_no,"& _ 
                 " thread_card_seq = @thread_card_seq"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @project_id) AND"& _ 
                 " (thread_id = @thread_id); "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, thread_card_no, threa"& _ 
                 "d_card_seq FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id ="& _ 
                 " @thread_id)"
-            Me._commandCollection(8).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(8).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(8).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(8).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
-            Me._commandCollection(8).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4179,21 +4154,6 @@ Namespace MyStitchDataSetTableAdapters
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByProjectCard(ByVal dataTable As MyStitchDataSet.ProjectThreadsDataTable, ByVal projectId As Integer, ByVal cardNo As Integer) As Integer
-            Me.Adapter.SelectCommand = Me.CommandCollection(5)
-            Me.Adapter.SelectCommand.Parameters(0).Value = CType(projectId,Integer)
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(cardNo,Integer)
-            If (Me.ClearBeforeFill = true) Then
-                dataTable.Clear
-            End If
-            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
-            Return returnValue
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function Update(ByVal dataTable As MyStitchDataSet.ProjectThreadsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
@@ -4224,11 +4184,9 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
             Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id,Integer)
-            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_thread_card_no,Integer)
-            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_card_seq,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4272,15 +4230,11 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
+        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer) As Integer
             Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id,Integer)
             Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id,Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_card_no,Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(thread_card_seq,Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_project_id,Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_id,Integer)
-            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_card_no,Integer)
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_card_seq,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_thread_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4300,8 +4254,8 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
-            Return Me.Update(Original_project_id, Original_thread_id, thread_card_no, thread_card_seq, Original_project_id, Original_thread_id, Original_thread_card_no, Original_thread_card_seq)
+        Public Overloads Overridable Function Update(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer) As Integer
+            Return Me.Update(Original_project_id, Original_thread_id, Original_project_id, Original_thread_id)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4356,7 +4310,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
         Public Overloads Overridable Function InsertProjectThread(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As Integer
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(6)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(5)
             command.Parameters(0).Value = CType(project_id,Integer)
             command.Parameters(1).Value = CType(thread_id,Integer)
             command.Parameters(2).Value = CType(thread_card_no,Integer)
@@ -4382,7 +4336,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, false)>  _
         Public Overloads Overridable Function TruncateProjectThreads() As Integer
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(6)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4404,7 +4358,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
         Public Overloads Overridable Function UpdateProjectThread(ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer, ByVal project_id As Integer, ByVal thread_id As Integer) As Integer
-            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(8)
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
             command.Parameters(0).Value = CType(thread_card_no,Integer)
             command.Parameters(1).Value = CType(thread_card_seq,Integer)
             command.Parameters(2).Value = CType(project_id,Integer)

@@ -98,12 +98,21 @@ Module ModThreads
         Dim _imageCell As DataGridViewImageCell = pRow.Cells(pColName)
         Dim _cellHeight As Integer = pRow.Height
         Dim _cellWidth As Integer = pDgv.Columns(pRow.Cells(pColName).ColumnIndex).Width
+        Dim _levelWidth As Integer = _cellWidth * Math.Min(1, (pThread.StockLevel + 10) / 100)
         Dim _image As New Bitmap(_cellWidth, _cellHeight)
         For x = 0 To _cellWidth - 1
             For y = 0 To _cellHeight - 1
                 _image.SetPixel(x, y, pThread.Colour)
             Next
         Next
+        If _levelWidth < _cellWidth Then
+            For x = _levelWidth To _cellWidth - 1
+                For y = 0 To _cellHeight - 1
+                    _image.SetPixel(x, y, Color.White)
+                Next
+            Next
+        End If
+
         _imageCell.Value = _image
     End Sub
 End Module

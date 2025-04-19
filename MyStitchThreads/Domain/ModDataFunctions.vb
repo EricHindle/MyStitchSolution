@@ -264,7 +264,7 @@ Module ModDataFunctions
         LogUtil.Info("Updating " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
         Try
             With oThread
-                oThreadTa.UpdateThread(.ThreadNo, .ColourName, .Colour.ToArgb, .ThreadId)
+                oThreadTa.UpdateThread(.ThreadNo, .ColourName, .Colour.ToArgb, .StockLevel, .ThreadId)
             End With
 
         Catch ex As MySqlException
@@ -303,9 +303,9 @@ Module ModDataFunctions
         Try
             With oThread
                 If threadId < 0 Then
-                    newId = oThreadTa.InsertThread(.ThreadNo, .ColourName, .Colour.ToArgb)
+                    newId = oThreadTa.InsertThread(.ThreadNo, .ColourName, .Colour.ToArgb, .StockLevel)
                 Else
-                    newId = oThreadTa.InsertThreadWithId(threadId, .ThreadNo, .ColourName, .Colour.ToArgb)
+                    newId = oThreadTa.InsertThreadWithId(threadId, .ThreadNo, .ColourName, .Colour.ToArgb, .StockLevel)
                 End If
             End With
         Catch ex As SqlException
@@ -352,18 +352,18 @@ Module ModDataFunctions
         End Try
         Return newId
     End Function
-    Public Function GetThreadCardThreads(pProjectId As Integer, pCardNo As Integer) As List(Of ProjectThread)
-        Dim _listOfThreads As New List(Of ProjectThread)
-        Try
-            oProjectThreadTa.FillByProjectCard(oProjectThreadTable, pProjectId, pCardNo)
-            For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
-                _listOfThreads.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
-            Next
-        Catch ex As Exception
-            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return _listOfThreads
-    End Function
+    'Public Function GetThreadCardThreads(pProjectId As Integer, pCardNo As Integer) As List(Of ProjectThread)
+    '    Dim _listOfThreads As New List(Of ProjectThread)
+    '    Try
+    '        oProjectThreadTa.FillByProjectCard(oProjectThreadTable, pProjectId, pCardNo)
+    '        For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
+    '            _listOfThreads.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
+    '        Next
+    '    Catch ex As Exception
+    '        LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    '    Return _listOfThreads
+    'End Function
     Public Sub RemoveExistingProjectCards(pProjectId As Integer)
         Try
             DeleteProjectCardThreads(pProjectId)

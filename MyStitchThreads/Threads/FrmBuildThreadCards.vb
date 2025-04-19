@@ -154,7 +154,6 @@ Public Class FrmBuildThreadCards
         Dim _newProjectCard As ProjectThreadCard = ProjectThreadCardBuilder.AProjectThreadCard.StartingWithNothing _
             .WithProject(pSelectedProject) _
             .WithCardNo(pNextCardNo) _
-            .WithThreadList(pCardThreadList) _
             .Build
         InsertProjectThreadCard(_newProjectCard)
         Dim _seq As Integer = 1

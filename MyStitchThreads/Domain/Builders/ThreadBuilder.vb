@@ -11,6 +11,7 @@ Public Class ThreadBuilder
     Private _colourName As String
     Private _colour As Color
     Private _sortNumber As Integer
+    Private _stock_level As Integer
     Public Shared Function AThread() As ThreadBuilder
         Return New ThreadBuilder
     End Function
@@ -20,6 +21,7 @@ Public Class ThreadBuilder
         _colourName = String.Empty
         _colour = Color.White
         _sortNumber = -1
+        _stock_level = 0
         Return Me
     End Function
     Public Function StartingWith(ByRef pThread As Thread) As ThreadBuilder
@@ -31,6 +33,7 @@ Public Class ThreadBuilder
                 _colourName = .ColourName
                 _colour = .Colour
                 _sortNumber = .SortNumber
+                _stock_level = .StockLevel
             End With
         End If
         Return Me
@@ -43,6 +46,7 @@ Public Class ThreadBuilder
             _colourName = oRow.thread_colour_name
             _colour = Color.FromArgb(oRow.thread_colour)
             _sortNumber = Thread.MakeSortNumber(_threadNo, _threadId)
+            _stock_level = oRow.stock_level
         End If
         Return Me
     End Function
@@ -63,8 +67,12 @@ Public Class ThreadBuilder
         _colour = pColour
         Return Me
     End Function
+    Public Function WithStockLevel(pStock As Integer) As ThreadBuilder
+        _stock_level = pStock
+        Return Me
+    End Function
     Public Function Build() As Thread
-        Return New Thread(_threadId, _threadNo, _colourName, _colour)
+        Return New Thread(_threadId, _threadNo, _colourName, _colour, _stock_level)
     End Function
 
 End Class

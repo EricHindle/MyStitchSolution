@@ -16,6 +16,15 @@ Public Class Thread
     Private _colourName As String
     Private _colour As Color
     Private _sortNumber As Integer
+    Private _stock_level As Integer
+    Public Property StockLevel() As Integer
+        Get
+            Return _stock_level
+        End Get
+        Set(ByVal value As Integer)
+            _stock_level = value
+        End Set
+    End Property
     Public Property SortNumber() As Integer
         Get
             Return _sortNumber
@@ -64,6 +73,7 @@ Public Class Thread
         _colourName = String.Empty
         _colour = Color.White
         _sortNumber = -1
+        _stock_level = 0
     End Sub
     Public Sub New()
         InitialiseThread()
@@ -71,12 +81,14 @@ Public Class Thread
     Public Sub New(pId As Integer,
                    pNo As String,
                    pColourName As String,
-                   pColour As Color)
+                   pColour As Color,
+                   pStock As Integer)
         _threadId = pId
         _threadNo = pNo
         _colourName = pColourName
         _colour = pColour
         _sortNumber = MakeSortNumber(pNo, pId)
+        _stock_level = pStock
     End Sub
     Public Function IsLoaded() As Boolean
         Return _threadId > -1
@@ -93,6 +105,8 @@ Public Class Thread
             .Append(_threadNo) _
             .Append("], Colour name=[") _
             .Append(_colourName) _
+            .Append("], Stock level=[") _
+            .Append(CStr(_stock_level)) _
             .Append("]]")
         Return sb.ToString
     End Function

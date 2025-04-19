@@ -35,8 +35,8 @@ Public Class ProjectThreadBuilder
         If oRow IsNot Nothing Then
             _project = GetProjectById(oRow.project_id)
             _thread = GetthreadById(oRow.thread_id)
-            _cardNo = oRow.thread_card_no
-            _cardSeq = oRow.thread_card_seq
+            '_cardNo = oRow.thread_card_no
+            '_cardSeq = oRow.thread_card_seq
         End If
         Return Me
     End Function

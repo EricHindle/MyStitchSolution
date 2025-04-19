@@ -8,7 +8,7 @@
 Public Class ProjectThreadCardBuilder
     Private _project As Project
     Private _cardNo As Integer
-    Private _threadList As List(Of ProjectThread)
+    'Private _threadList As List(Of ProjectThread)
 
     Public Shared Function AProjectThreadCard() As ProjectThreadCardBuilder
         Return New ProjectThreadCardBuilder
@@ -16,7 +16,7 @@ Public Class ProjectThreadCardBuilder
     Public Function StartingWithNothing() As ProjectThreadCardBuilder
         _project = New Project()
         _cardNo = -1
-        _threadList = New List(Of ProjectThread)
+        '_threadList = New List(Of ProjectThread)
         Return Me
     End Function
     Public Function StartingWith(ByRef pThreadCard As ProjectThreadCard) As ProjectThreadCardBuilder
@@ -24,7 +24,7 @@ Public Class ProjectThreadCardBuilder
         If pThreadCard IsNot Nothing Then
             _project = pThreadCard.Project
             _cardNo = pThreadCard.CardNo
-            _threadList = pThreadCard.ThreadList
+            '_threadList = pThreadCard.ThreadList
         End If
         Return Me
     End Function
@@ -49,10 +49,10 @@ Public Class ProjectThreadCardBuilder
         _cardNo = pCardNo
         Return Me
     End Function
-    Public Function WithThreadList(pThreadList As List(Of ProjectThread)) As ProjectThreadCardBuilder
-        _threadList = pThreadList
-        Return Me
-    End Function
+    'Public Function WithThreadList(pThreadList As List(Of ProjectThread)) As ProjectThreadCardBuilder
+    '    _threadList = pThreadList
+    '    Return Me
+    'End Function
     Public Function Build() As ProjectThreadCard
         Return New ProjectThreadCard(_project.ProjectId, _cardNo)
     End Function

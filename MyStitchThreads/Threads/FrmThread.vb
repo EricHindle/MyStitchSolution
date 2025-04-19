@@ -13,6 +13,12 @@ Public Class FrmThread
 
 #End Region
 #Region "constants"
+    Private Const STOCK_NONE As Integer = 0
+    Private Const STOCK_NOTMUCH As Integer = 25
+    Private Const STOCK_SOME As Integer = 50
+    Private Const STOCK_ENOUGH As Integer = 75
+    Private Const STOCK_PLENTY As Integer = 100
+
 #End Region
 #Region "variables"
     Private _selectedThread As New Thread
@@ -40,7 +46,7 @@ Public Class FrmThread
 
     End Sub
 
-    Private Sub DgvBooks_SelectionChanged(sender As Object, e As EventArgs) Handles DgvThreads.SelectionChanged
+    Private Sub DgvThreads_SelectionChanged(sender As Object, e As EventArgs) Handles DgvThreads.SelectionChanged
         If Not isLoading Then
             If DgvThreads.SelectedRows.Count = 1 Then
                 _selectedThread = GetThreadById(DgvThreads.SelectedRows(0).Cells(threadId.Name).Value)
@@ -88,6 +94,18 @@ Public Class FrmThread
         TxtName.Text = oThread.ColourName
         TxtNumber.Text = CStr(oThread.ThreadNo)
         Dim _colour As Color = oThread.Colour
+        Select Case oThread.StockLevel
+            Case < STOCK_NOTMUCH
+                RbNone.Checked = True
+            Case < STOCK_SOME
+                RbNotMuch.Checked = True
+            Case < STOCK_ENOUGH
+                RbSome.Checked = True
+            Case < STOCK_PLENTY
+                RbEnough.Checked = True
+            Case Else
+                RbPlenty.Checked = True
+        End Select
         SetFormColour(_colour)
     End Sub
 
@@ -98,24 +116,32 @@ Public Class FrmThread
         TxtB.Text = CStr(_colour.B)
     End Sub
 
-    'Private Sub LoadThreadList()
-    '    LogUtil.LogInfo("Load Thread list", MyBase.Name)
-    '    DgvThreads.Rows.Clear()
-    '    For Each oThread As Thread In GetThreads()
-    '        AddThreadRow(oThread)
-    '    Next
-    '    DgvThreads.Sort(DgvThreads.Columns(threadsortnumber.Name), ListSortDirection.Ascending)
-    '    DgvThreads.ClearSelection()
-    'End Sub
-
     Private Function BuildThreadFromForm(pId As Integer) As Thread
         Dim _Thread As Thread = ThreadBuilder.AThread.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
                                                     .WithColour(LblColour.BackColor) _
                                                     .WithNumber(TxtNumber.Text) _
+                                                    .WithStockLevel(CalcStock) _
                                                     .Build()
         Return _Thread
+    End Function
+    Private Function CalcStock() As Integer
+        Dim _level As Integer
+        Select Case True
+            Case RbNone.Checked
+                _level = STOCK_NONE
+            Case RbNotMuch.Checked
+                _level = STOCK_NOTMUCH
+            Case RbSome.Checked
+                _level = STOCK_SOME
+            Case RbEnough.Checked
+                _level = STOCK_ENOUGH
+            Case RbPlenty.Checked
+                _level = STOCK_PLENTY
+        End Select
+        Return _level
+
     End Function
     Private Sub AddThreadRow(oThread As Thread)
         Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
