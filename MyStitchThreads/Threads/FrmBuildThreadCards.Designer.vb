@@ -70,6 +70,7 @@ Partial Class FrmBuildThreadCards
         Me.BtnUp = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -289,7 +290,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvCardThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvCardThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvCardThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvCardThreads.Size = New System.Drawing.Size(245, 433)
+        Me.DgvCardThreads.Size = New System.Drawing.Size(245, 411)
         Me.DgvCardThreads.TabIndex = 151
         '
         'cardthreadid
@@ -381,7 +382,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(260, 436)
+        Me.DgvThreads.Size = New System.Drawing.Size(260, 415)
         Me.DgvThreads.TabIndex = 154
         '
         'threadId
@@ -453,7 +454,7 @@ Partial Class FrmBuildThreadCards
         Me.PnlThreads.Controls.Add(Me.DgvThreads)
         Me.PnlThreads.Location = New System.Drawing.Point(399, 12)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(563, 477)
+        Me.PnlThreads.Size = New System.Drawing.Size(563, 455)
         Me.PnlThreads.TabIndex = 156
         '
         'PnlCardThreads
@@ -469,7 +470,7 @@ Partial Class FrmBuildThreadCards
         Me.PnlCardThreads.Controls.Add(Me.Label2)
         Me.PnlCardThreads.Location = New System.Drawing.Point(275, 4)
         Me.PnlCardThreads.Name = "PnlCardThreads"
-        Me.PnlCardThreads.Size = New System.Drawing.Size(285, 470)
+        Me.PnlCardThreads.Size = New System.Drawing.Size(285, 448)
         Me.PnlCardThreads.TabIndex = 155
         '
         'BtnRemoveThread
@@ -524,11 +525,24 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1.TabIndex = 157
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'ChkShowStock
+        '
+        Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ChkShowStock.AutoSize = True
+        Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkShowStock.Location = New System.Drawing.Point(259, 308)
+        Me.ChkShowStock.Name = "ChkShowStock"
+        Me.ChkShowStock.Size = New System.Drawing.Size(123, 18)
+        Me.ChkShowStock.TabIndex = 158
+        Me.ChkShowStock.Text = "Show stock levels"
+        Me.ChkShowStock.UseVisualStyleBackColor = True
+        '
         'FrmBuildThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(974, 562)
+        Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PnlThreads)
         Me.Controls.Add(Me.BtnAdd)
@@ -594,4 +608,5 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents cardthreadno As DataGridViewTextBoxColumn
     Friend WithEvents cardThreadSeq As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadcolour As DataGridViewImageColumn
+    Friend WithEvents ChkShowStock As CheckBox
 End Class

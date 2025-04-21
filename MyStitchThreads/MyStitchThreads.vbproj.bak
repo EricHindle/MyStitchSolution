@@ -177,14 +177,7 @@
     <Compile Include="Menu\FrmStitchThreadsSplash.Designer.vb">
       <DependentUpon>FrmStitchThreadsSplash.vb</DependentUpon>
     </Compile>
-    <Compile Include="Menu\FrmStitchThreadsSplash.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="My Project\Application.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
+    <Compile Include="Menu\FrmStitchThreadsSplash.vb" />
     <Compile Include="Project\FrmProject.Designer.vb">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </Compile>
@@ -293,7 +286,6 @@
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
-      <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -24,6 +24,7 @@ Public Class FrmThread
     Private _selectedThread As New Thread
     Private isLoading As Boolean
     Private _colrCap As New FrmColourCapture
+    Private isShowStock As Boolean
 #End Region
 #Region "handlers"
     Private Sub FrmThread_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -73,7 +74,8 @@ Public Class FrmThread
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ThreadFormPos)
-        LoadThreadList(DgvThreads, MyBase.Name)
+        isShowStock = ChkShowStock.Checked
+        LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
         ClearThreadForm()
     End Sub
     Private Sub ClearThreadForm()
@@ -143,14 +145,6 @@ Public Class FrmThread
         Return _level
 
     End Function
-    Private Sub AddThreadRow(oThread As Thread)
-        Dim oRow As DataGridViewRow = DgvThreads.Rows(DgvThreads.Rows.Add())
-        oRow.Cells(threadId.Name).Value = oThread.ThreadId
-        oRow.Cells(threadName.Name).Value = oThread.ColourName
-        LoadColourCell(DgvThreads, oRow, threadColour.Name, oThread)
-        oRow.Cells(threadsortnumber.Name).Value = oThread.SortNumber
-        oRow.Cells(ThreadNo.Name).Value = oThread.ThreadNo
-    End Sub
 
     Private Sub InsertNewThread()
         LogUtil.LogInfo("New Thread", MyBase.Name)
@@ -160,7 +154,7 @@ Public Class FrmThread
         Else
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             _Thread.ThreadId = InsertThread(_Thread)
-            LoadThreadList(DgvThreads, MyBase.Name)
+            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
             LogUtil.ShowStatus("Thread Added", LblStatus, MyBase.Name)
         End If
     End Sub
@@ -170,7 +164,7 @@ Public Class FrmThread
             Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             UpdateThread(_Thread)
-            LoadThreadList(DgvThreads, MyBase.Name)
+            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
             SelectThreadInList(DgvThreads, threadId.Name, _Thread.ThreadId, _rowNo)
             LogUtil.ShowStatus("Thread updated", LblStatus, MyBase.Name)
         Else
@@ -183,7 +177,7 @@ Public Class FrmThread
 
             DeleteThread(_selectedThread)
             ClearThreadForm()
-            LoadThreadList(DgvThreads, MyBase.Name)
+            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
         Else
             LogUtil.ShowStatus("No Thread selected", LblStatus, True, MyBase.Name, True)
         End If
@@ -210,6 +204,11 @@ Public Class FrmThread
 
     Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
         SelectThreadInList(DgvThreads, ThreadNo.Name, TxtNumber.Text)
+    End Sub
+
+    Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
+        isShowStock = ChkShowStock.Checked
+        LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
     End Sub
 
 #End Region

@@ -15,6 +15,7 @@ Public Class FrmBuildThreadCards
     Private oCardList As New List(Of ProjectThreadCard)
     Private isCardsLoading As Boolean
     Private _selectedProject As Project
+    Private isShowStock As Boolean
     Public Property SelectedProject() As Project
         Get
             Return _selectedProject
@@ -25,6 +26,7 @@ Public Class FrmBuildThreadCards
     End Property
     Private Sub FrmBuildThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Thread maintenence", MyBase.Name)
+        isShowStock = ChkShowStock.Checked
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -68,7 +70,7 @@ Public Class FrmBuildThreadCards
                 oSelectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 PnlThreads.Visible = False
             End If
-            LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, MyBase.Name)
+            LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, isShowStock, MyBase.Name)
         End If
     End Sub
 
@@ -99,7 +101,7 @@ Public Class FrmBuildThreadCards
         If LbCards.SelectedIndex > -1 Then
             oSelectedCardNo = CInt(LbCards.SelectedItem)
             LblCardNo.Text = CStr(oSelectedCardNo)
-            LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+            LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock)
             PnlCardThreads.Visible = True
         Else
             LblCardNo.Text = String.Empty
@@ -180,7 +182,7 @@ Public Class FrmBuildThreadCards
             End If
         Next
 
-        UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+        UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock, MyBase.Name)
 
     End Sub
 
@@ -188,7 +190,7 @@ Public Class FrmBuildThreadCards
         If DgvCardThreads.SelectedRows.Count > 0 Then
             Dim oRow As DataGridViewRow = DgvCardThreads.SelectedRows(0)
             DgvCardThreads.Rows.Remove(oRow)
-            UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+            UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock, MyBase.Name)
 
         End If
     End Sub
@@ -204,7 +206,7 @@ Public Class FrmBuildThreadCards
                 DgvCardThreads.Rows.Insert(oRow.Index - 1, _newRow)
                 DgvCardThreads.Rows.Remove(oRow)
                 DgvCardThreads.ClearSelection()
-                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock, MyBase.Name)
                 SelectCardThreadInList(_newRow)
             End If
         End If
@@ -231,7 +233,7 @@ Public Class FrmBuildThreadCards
                 DgvCardThreads.Rows.Insert(oRow.Index + 2, _newRow)
                 DgvCardThreads.Rows.Remove(oRow)
                 DgvCardThreads.ClearSelection()
-                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, MyBase.Name)
+                UpdateProjectThreadCard(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock, MyBase.Name)
                 SelectCardThreadInList(_newRow)
 
             End If
@@ -261,4 +263,9 @@ Public Class FrmBuildThreadCards
         End If
     End Sub
 
+    Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
+        isShowStock = ChkShowStock.Checked
+        LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, isShowStock, MyBase.Name)
+        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock)
+    End Sub
 End Class

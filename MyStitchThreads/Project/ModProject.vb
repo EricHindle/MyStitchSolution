@@ -49,10 +49,12 @@ Module ModProject
             _seq += 1
         Next
     End Sub
-    Public Sub UpdateProjectThreadCard(ByRef pDgv As DataGridView, pProjectId As Integer, pCardNo As Integer, pBaseName As String)
+
+    Public Sub UpdateProjectThreadCard(ByRef pDgv As DataGridView, pProjectId As Integer, pCardNo As Integer, pIsShowStock As Boolean, pBaseName As String)
+        LogUtil.LogInfo("Update Project thread card", pBaseName)
         DeleteThreadsForProjectCard(pProjectId, pCardNo)
         SaveCardThreads(pDgv, pProjectId, pCardNo)
-        LoadCardThreadList(pDgv, pProjectId, pCardNo, pBaseName)
+        LoadCardThreadList(pDgv, pProjectId, pCardNo, pIsShowStock)
     End Sub
     Public Function SelectProjectInList(ByRef pDgv As DataGridView, pColName As String, pProjectId As Integer) As Integer
         Dim _index As Integer = 0

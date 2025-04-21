@@ -54,6 +54,7 @@ Partial Class FrmProjectThreads
         Me.PnlThreads = New System.Windows.Forms.Panel()
         Me.TxtNumber = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -182,7 +183,7 @@ Partial Class FrmProjectThreads
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(322, 437)
+        Me.DgvThreads.Size = New System.Drawing.Size(322, 412)
         Me.DgvThreads.TabIndex = 140
         '
         'threadId
@@ -318,7 +319,7 @@ Partial Class FrmProjectThreads
         Me.PnlThreads.Controls.Add(Me.Label7)
         Me.PnlThreads.Location = New System.Drawing.Point(285, 12)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(340, 482)
+        Me.PnlThreads.Size = New System.Drawing.Size(340, 457)
         Me.PnlThreads.TabIndex = 150
         Me.PnlThreads.Visible = False
         '
@@ -343,11 +344,22 @@ Partial Class FrmProjectThreads
         Me.Label1.TabIndex = 152
         Me.Label1.Text = "Find"
         '
+        'ChkShowStock
+        '
+        Me.ChkShowStock.AutoSize = True
+        Me.ChkShowStock.Location = New System.Drawing.Point(301, 475)
+        Me.ChkShowStock.Name = "ChkShowStock"
+        Me.ChkShowStock.Size = New System.Drawing.Size(107, 17)
+        Me.ChkShowStock.TabIndex = 153
+        Me.ChkShowStock.Text = "Show stock level"
+        Me.ChkShowStock.UseVisualStyleBackColor = True
+        '
         'FrmProjectThreads
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(633, 570)
+        Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TxtNumber)
         Me.Controls.Add(Me.PnlThreads)
@@ -394,4 +406,5 @@ Partial Class FrmProjectThreads
     Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadselected As DataGridViewCheckBoxColumn
+    Friend WithEvents ChkShowStock As CheckBox
 End Class

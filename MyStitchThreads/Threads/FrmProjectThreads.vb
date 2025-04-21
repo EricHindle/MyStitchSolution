@@ -23,12 +23,12 @@ Public Class FrmProjectThreads
 #End Region
 #Region "variables"
     Private isLoading As Boolean
-
+    Private isShowStock As Boolean
 #End Region
 #Region "handlers"
     Private Sub FrmProjectThreads_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Project threads", MyBase.Name)
-
+        isShowStock = ChkShowStock.Checked
         InitialiseForm()
 
     End Sub
@@ -117,11 +117,11 @@ Public Class FrmProjectThreads
         _usedThreadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
         _unusedThreads.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
         For Each oThread As Thread In _usedThreadList
-            Dim _index = AddThreadRow(DgvThreads, oThread)
+            Dim _index = AddProjectThreadRow(DgvThreads, oThread, True, isShowStock)
             DgvThreads.Rows(_index).Cells(threadselected.Name).Value = True
         Next
         For Each oThread As Thread In _unusedThreads
-            Dim _index = AddThreadRow(DgvThreads, oThread)
+            Dim _index = AddProjectThreadRow(DgvThreads, oThread, isShowStock)
             DgvThreads.Rows(_index).Cells(threadselected.Name).Value = False
         Next
         DgvThreads.ClearSelection()
@@ -217,6 +217,11 @@ Public Class FrmProjectThreads
         If Not String.IsNullOrWhiteSpace(TxtNumber.Text) Then
             SelectThreadInList(DgvThreads, ThreadNo.Name, TxtNumber.Text)
         End If
+    End Sub
+
+    Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
+        isShowStock = ChkShowStock.Checked
+        LoadThreadList()
     End Sub
 
 #End Region

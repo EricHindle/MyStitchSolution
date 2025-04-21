@@ -50,6 +50,12 @@ Partial Class FrmThread
         Me.BtnNew = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.GrpStock = New System.Windows.Forms.GroupBox()
+        Me.RbSome = New System.Windows.Forms.RadioButton()
+        Me.RbEnough = New System.Windows.Forms.RadioButton()
+        Me.RbNotMuch = New System.Windows.Forms.RadioButton()
+        Me.RbPlenty = New System.Windows.Forms.RadioButton()
+        Me.RbNone = New System.Windows.Forms.RadioButton()
         Me.BtnFind = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BtnColourCapture = New System.Windows.Forms.Button()
@@ -64,18 +70,13 @@ Partial Class FrmThread
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BtnClose = New System.Windows.Forms.Button()
-        Me.GrpStock = New System.Windows.Forms.GroupBox()
-        Me.RbNone = New System.Windows.Forms.RadioButton()
-        Me.RbPlenty = New System.Windows.Forms.RadioButton()
-        Me.RbNotMuch = New System.Windows.Forms.RadioButton()
-        Me.RbEnough = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.RbSome = New System.Windows.Forms.RadioButton()
+        Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
+        Me.GrpStock.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        Me.GrpStock.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label7
@@ -321,6 +322,82 @@ Partial Class FrmThread
         Me.PnlForm.Size = New System.Drawing.Size(372, 392)
         Me.PnlForm.TabIndex = 130
         '
+        'GrpStock
+        '
+        Me.GrpStock.Controls.Add(Me.RbSome)
+        Me.GrpStock.Controls.Add(Me.RbEnough)
+        Me.GrpStock.Controls.Add(Me.RbNotMuch)
+        Me.GrpStock.Controls.Add(Me.RbPlenty)
+        Me.GrpStock.Controls.Add(Me.RbNone)
+        Me.GrpStock.Location = New System.Drawing.Point(250, 177)
+        Me.GrpStock.Name = "GrpStock"
+        Me.GrpStock.Size = New System.Drawing.Size(102, 139)
+        Me.GrpStock.TabIndex = 134
+        Me.GrpStock.TabStop = False
+        Me.GrpStock.Text = "Stock"
+        '
+        'RbSome
+        '
+        Me.RbSome.AutoSize = True
+        Me.RbSome.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbSome.Location = New System.Drawing.Point(16, 69)
+        Me.RbSome.Name = "RbSome"
+        Me.RbSome.Size = New System.Drawing.Size(56, 18)
+        Me.RbSome.TabIndex = 4
+        Me.RbSome.Text = "Some"
+        Me.ToolTip1.SetToolTip(Me.RbSome, "half skein")
+        Me.RbSome.UseVisualStyleBackColor = True
+        '
+        'RbEnough
+        '
+        Me.RbEnough.AutoSize = True
+        Me.RbEnough.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbEnough.Location = New System.Drawing.Point(16, 91)
+        Me.RbEnough.Name = "RbEnough"
+        Me.RbEnough.Size = New System.Drawing.Size(67, 18)
+        Me.RbEnough.TabIndex = 3
+        Me.RbEnough.Text = "Enough"
+        Me.ToolTip1.SetToolTip(Me.RbEnough, "1 skein")
+        Me.RbEnough.UseVisualStyleBackColor = True
+        '
+        'RbNotMuch
+        '
+        Me.RbNotMuch.AutoSize = True
+        Me.RbNotMuch.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbNotMuch.Location = New System.Drawing.Point(16, 47)
+        Me.RbNotMuch.Name = "RbNotMuch"
+        Me.RbNotMuch.Size = New System.Drawing.Size(79, 18)
+        Me.RbNotMuch.TabIndex = 2
+        Me.RbNotMuch.Text = "Not much"
+        Me.ToolTip1.SetToolTip(Me.RbNotMuch, "< half skein")
+        Me.RbNotMuch.UseVisualStyleBackColor = True
+        '
+        'RbPlenty
+        '
+        Me.RbPlenty.AutoSize = True
+        Me.RbPlenty.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbPlenty.Location = New System.Drawing.Point(16, 113)
+        Me.RbPlenty.Name = "RbPlenty"
+        Me.RbPlenty.Size = New System.Drawing.Size(59, 18)
+        Me.RbPlenty.TabIndex = 1
+        Me.RbPlenty.Text = "Plenty"
+        Me.ToolTip1.SetToolTip(Me.RbPlenty, "> 1 skein")
+        Me.RbPlenty.UseVisualStyleBackColor = True
+        '
+        'RbNone
+        '
+        Me.RbNone.AutoSize = True
+        Me.RbNone.Checked = True
+        Me.RbNone.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbNone.Location = New System.Drawing.Point(16, 25)
+        Me.RbNone.Name = "RbNone"
+        Me.RbNone.Size = New System.Drawing.Size(54, 18)
+        Me.RbNone.TabIndex = 0
+        Me.RbNone.TabStop = True
+        Me.RbNone.Text = "None"
+        Me.ToolTip1.SetToolTip(Me.RbNone, "None")
+        Me.RbNone.UseVisualStyleBackColor = True
+        '
         'BtnFind
         '
         Me.BtnFind.BackColor = System.Drawing.Color.Linen
@@ -465,87 +542,22 @@ Partial Class FrmThread
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = False
         '
-        'GrpStock
+        'ChkShowStock
         '
-        Me.GrpStock.Controls.Add(Me.RbSome)
-        Me.GrpStock.Controls.Add(Me.RbEnough)
-        Me.GrpStock.Controls.Add(Me.RbNotMuch)
-        Me.GrpStock.Controls.Add(Me.RbPlenty)
-        Me.GrpStock.Controls.Add(Me.RbNone)
-        Me.GrpStock.Location = New System.Drawing.Point(250, 177)
-        Me.GrpStock.Name = "GrpStock"
-        Me.GrpStock.Size = New System.Drawing.Size(102, 139)
-        Me.GrpStock.TabIndex = 134
-        Me.GrpStock.TabStop = False
-        Me.GrpStock.Text = "Stock"
-        '
-        'RbNone
-        '
-        Me.RbNone.AutoSize = True
-        Me.RbNone.Checked = True
-        Me.RbNone.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbNone.Location = New System.Drawing.Point(16, 25)
-        Me.RbNone.Name = "RbNone"
-        Me.RbNone.Size = New System.Drawing.Size(54, 18)
-        Me.RbNone.TabIndex = 0
-        Me.RbNone.TabStop = True
-        Me.RbNone.Text = "None"
-        Me.ToolTip1.SetToolTip(Me.RbNone, "None")
-        Me.RbNone.UseVisualStyleBackColor = True
-        '
-        'RbPlenty
-        '
-        Me.RbPlenty.AutoSize = True
-        Me.RbPlenty.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbPlenty.Location = New System.Drawing.Point(16, 113)
-        Me.RbPlenty.Name = "RbPlenty"
-        Me.RbPlenty.Size = New System.Drawing.Size(59, 18)
-        Me.RbPlenty.TabIndex = 1
-        Me.RbPlenty.Text = "Plenty"
-        Me.ToolTip1.SetToolTip(Me.RbPlenty, "> 1 skein")
-        Me.RbPlenty.UseVisualStyleBackColor = True
-        '
-        'RbNotMuch
-        '
-        Me.RbNotMuch.AutoSize = True
-        Me.RbNotMuch.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbNotMuch.Location = New System.Drawing.Point(16, 47)
-        Me.RbNotMuch.Name = "RbNotMuch"
-        Me.RbNotMuch.Size = New System.Drawing.Size(79, 18)
-        Me.RbNotMuch.TabIndex = 2
-        Me.RbNotMuch.Text = "Not much"
-        Me.ToolTip1.SetToolTip(Me.RbNotMuch, "< half skein")
-        Me.RbNotMuch.UseVisualStyleBackColor = True
-        '
-        'RbEnough
-        '
-        Me.RbEnough.AutoSize = True
-        Me.RbEnough.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbEnough.Location = New System.Drawing.Point(16, 91)
-        Me.RbEnough.Name = "RbEnough"
-        Me.RbEnough.Size = New System.Drawing.Size(67, 18)
-        Me.RbEnough.TabIndex = 3
-        Me.RbEnough.Text = "Enough"
-        Me.ToolTip1.SetToolTip(Me.RbEnough, "1 skein")
-        Me.RbEnough.UseVisualStyleBackColor = True
-        '
-        'RbSome
-        '
-        Me.RbSome.AutoSize = True
-        Me.RbSome.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbSome.Location = New System.Drawing.Point(16, 69)
-        Me.RbSome.Name = "RbSome"
-        Me.RbSome.Size = New System.Drawing.Size(56, 18)
-        Me.RbSome.TabIndex = 4
-        Me.RbSome.Text = "Some"
-        Me.ToolTip1.SetToolTip(Me.RbSome, "half skein")
-        Me.RbSome.UseVisualStyleBackColor = True
+        Me.ChkShowStock.AutoSize = True
+        Me.ChkShowStock.Location = New System.Drawing.Point(418, 449)
+        Me.ChkShowStock.Name = "ChkShowStock"
+        Me.ChkShowStock.Size = New System.Drawing.Size(133, 22)
+        Me.ChkShowStock.TabIndex = 133
+        Me.ChkShowStock.Text = "Show stock level"
+        Me.ChkShowStock.UseVisualStyleBackColor = True
         '
         'FrmThread
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(786, 514)
+        Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PnlForm)
@@ -564,11 +576,11 @@ Partial Class FrmThread
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlForm.ResumeLayout(False)
         Me.PnlForm.PerformLayout()
+        Me.GrpStock.ResumeLayout(False)
+        Me.GrpStock.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.GrpStock.ResumeLayout(False)
-        Me.GrpStock.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -613,4 +625,5 @@ Partial Class FrmThread
     Friend WithEvents RbNone As RadioButton
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RbSome As RadioButton
+    Friend WithEvents ChkShowStock As CheckBox
 End Class
