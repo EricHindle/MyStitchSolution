@@ -209,7 +209,7 @@ Partial Class FrmThread
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(266, 440)
+        Me.DgvThreads.Size = New System.Drawing.Size(289, 450)
         Me.DgvThreads.TabIndex = 105
         '
         'threadId
@@ -316,7 +316,7 @@ Partial Class FrmThread
         Me.PnlForm.Controls.Add(Me.Label4)
         Me.PnlForm.Controls.Add(Me.Label3)
         Me.PnlForm.Controls.Add(Me.TxtNumber)
-        Me.PnlForm.Location = New System.Drawing.Point(401, 39)
+        Me.PnlForm.Location = New System.Drawing.Point(424, 39)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
         Me.PnlForm.Size = New System.Drawing.Size(372, 392)
@@ -514,10 +514,10 @@ Partial Class FrmThread
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 492)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 502)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(786, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(809, 22)
         Me.StatusStrip1.TabIndex = 131
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -534,7 +534,7 @@ Partial Class FrmThread
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(693, 439)
+        Me.BtnClose.Location = New System.Drawing.Point(716, 449)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 40)
@@ -544,10 +544,12 @@ Partial Class FrmThread
         '
         'ChkShowStock
         '
+        Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChkShowStock.AutoSize = True
-        Me.ChkShowStock.Location = New System.Drawing.Point(418, 449)
+        Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkShowStock.Location = New System.Drawing.Point(440, 451)
         Me.ChkShowStock.Name = "ChkShowStock"
-        Me.ChkShowStock.Size = New System.Drawing.Size(133, 22)
+        Me.ChkShowStock.Size = New System.Drawing.Size(128, 21)
         Me.ChkShowStock.TabIndex = 133
         Me.ChkShowStock.Text = "Show stock level"
         Me.ChkShowStock.UseVisualStyleBackColor = True
@@ -556,7 +558,7 @@ Partial Class FrmThread
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(786, 514)
+        Me.ClientSize = New System.Drawing.Size(809, 524)
         Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.StatusStrip1)

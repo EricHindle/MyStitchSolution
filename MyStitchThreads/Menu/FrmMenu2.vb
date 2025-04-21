@@ -9,27 +9,23 @@ Imports HindlewareLib.Logging
 
 Public Class FrmMenu2
 #Region "form control handlers"
+    Private Sub FrmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Version.Text = System.String.Format(myStringFormatProvider, Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
+        InitialiseApplication()
+    End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub
-
-    Private Sub BtnProjects_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
+    Private Sub FrmMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.Info("Closing", MyBase.Name)
+    End Sub
+    Private Sub BtnBackup_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
         Hide()
         Using _backupForm As New FrmBackup
             LogUtil.LogInfo("Opening Backup form", MyBase.Name)
             _backupForm.ShowDialog()
         End Using
         Show()
-    End Sub
-
-    Private Sub FrmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Version.Text = System.String.Format(myStringFormatProvider, Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
-        InitialiseApplication()
-    End Sub
-
-    Private Sub FrmMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        LogUtil.Info("Closing", MyBase.Name)
-
     End Sub
 
 #End Region
@@ -65,16 +61,6 @@ Public Class FrmMenu2
         For Each _rt As String In _runtime
             LogUtil.Info(_rt, MyBase.Name)
         Next
-
-    End Sub
-
-    Private Sub BtnBuildCards_Click(sender As Object, e As EventArgs)
-        Hide()
-        Using _build As New FrmBuildThreadCards
-            LogUtil.Info("Opening Build Cards Form", MyBase.Name)
-            _build.ShowDialog()
-        End Using
-        Show()
     End Sub
 
 #End Region

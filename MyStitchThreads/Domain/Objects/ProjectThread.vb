@@ -11,24 +11,6 @@ Public Class ProjectThread
 #Region "properties"
     Private _project As Project
     Private _thread As Thread
-    Private _cardNo As Integer
-    Private _cardSeq As Integer
-    Public Property CardSeq() As Integer
-        Get
-            Return _cardSeq
-        End Get
-        Set(ByVal value As Integer)
-            _cardSeq = value
-        End Set
-    End Property
-    Public Property CardNo() As Integer
-        Get
-            Return _cardNo
-        End Get
-        Set(ByVal value As Integer)
-            _cardNo = value
-        End Set
-    End Property
     Public Property Project() As Project
         Get
             Return _project
@@ -50,34 +32,29 @@ Public Class ProjectThread
     Private Sub Initialiseproject()
         _project = New Project
         _thread = New Thread
-        _cardNo = -1
-        _cardSeq = -1
     End Sub
     Public Sub New()
         Initialiseproject()
     End Sub
     Public Sub New(pProjectId As Integer,
-             pThreadId As Integer, pCardNo As Integer, pCardSeq As Integer)
+             pThreadId As Integer)
         _project = GetProjectById(pProjectId)
         _thread = GetThreadById(pThreadId)
-        _cardNo = pCardNo
-        _cardSeq = pCardSeq
     End Sub
+#End Region
+#Region "methods"
     Public Function IsLoaded() As Boolean
         Return _project IsNot Nothing AndAlso _project.ProjectId > -1
     End Function
-#End Region
-#Region "methods"
+    Public Function Key() As String
+        Return CStr(_project.ProjectId) & ":" & CStr(_thread.ThreadId)
+    End Function
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _
             .Append("ProjectThread=[") _
             .Append(_project.ToString) _
             .Append(_thread.ToString) _
-            .Append(", CardNo=[") _
-            .Append(CStr(_cardNo)) _
-            .Append("], CardSeq=[") _
-            .Append(CStr(_cardSeq)) _
             .Append("]]")
         Return sb.ToString
     End Function

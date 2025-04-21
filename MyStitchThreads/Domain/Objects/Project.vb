@@ -19,7 +19,6 @@ Public Class Project
             _projectName = value
         End Set
     End Property
-
     Public Property ProjectId() As Integer
         Get
             Return _projectId
@@ -42,11 +41,11 @@ Public Class Project
         _projectId = pId
         _projectName = pProjectName
     End Sub
+#End Region
+#Region "methods"
     Public Function IsLoaded() As Boolean
         Return _projectId > -1
     End Function
-#End Region
-#Region "methods"
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _

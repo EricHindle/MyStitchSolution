@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.ComponentModel
 Imports HindlewareLib.Logging
 
 Public Class FrmThread

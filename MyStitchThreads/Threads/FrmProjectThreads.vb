@@ -127,7 +127,6 @@ Public Class FrmProjectThreads
         DgvThreads.ClearSelection()
     End Sub
 
-
     Private Sub SelectProjectInList(_projectId As Integer)
         For Each orow As DataGridViewRow In DgvProjects.Rows
             If orow.Cells(projectId.Name).Value = _projectId Then

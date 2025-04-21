@@ -11,15 +11,7 @@ Public Class ProjectThreadCard
 #Region "properties"
     Private _project As Project
     Private _cardNo As Integer
-    'Private _threadList As List(Of ProjectThread)
-    'Public Property ThreadList() As List(Of ProjectThread)
-    '    Get
-    '        Return _threadList
-    '    End Get
-    '    Set(ByVal value As List(Of ProjectThread))
-    '        _threadList = value
-    '    End Set
-    'End Property
+
     Public Property CardNo() As Integer
         Get
             Return _cardNo
@@ -41,7 +33,6 @@ Public Class ProjectThreadCard
     Private Sub Initialiseproject()
         _project = New Project
         _cardNo = -1
-        '_threadList = New List(Of ProjectThread)
     End Sub
     Public Sub New()
         Initialiseproject()
@@ -50,7 +41,6 @@ Public Class ProjectThreadCard
                    pCardNo As Integer)
         _project = GetProjectById(pProjectId)
         _cardNo = pCardNo
-        '_threadList = GetThreadCardThreads(pProjectId, pCardNo)
     End Sub
     Public Function IsLoaded() As Boolean
         Return _project IsNot Nothing AndAlso _project.ProjectId > -1

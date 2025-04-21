@@ -239,7 +239,7 @@ Partial Class FrmPrintThreadCards
         '
         Me.NudColCt.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NudColCt.Location = New System.Drawing.Point(168, 353)
-        Me.NudColCt.Maximum = New Decimal(New Integer() {4, 0, 0, 0})
+        Me.NudColCt.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.NudColCt.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudColCt.Name = "NudColCt"
         Me.NudColCt.Size = New System.Drawing.Size(78, 25)

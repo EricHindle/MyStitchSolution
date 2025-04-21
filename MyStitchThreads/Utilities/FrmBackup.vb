@@ -198,9 +198,9 @@ Public Class FrmBackup
         TvImages.Nodes.Add("Images")
         Dim _SourceImagePath As String = My.Settings.ImagePath
         Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_SourceImagePath)
-            For Each _filename As String In fileList
-                Dim _fname As String = Path.GetFileName(_filename)
-                TvImages.Nodes(0).Nodes.Add(IMAGE_TAG & _filename, _fname)
+        For Each _filename As String In fileList
+            Dim _fname As String = Path.GetFileName(_filename)
+            TvImages.Nodes(0).Nodes.Add(IMAGE_TAG & _filename, _fname)
 
         Next
     End Sub
@@ -408,7 +408,7 @@ Public Class FrmBackup
         Dim _itemList As New List(Of String)
         _itemList.Add(" Images:")
         imagePath = Path.Combine(backupPath, "images")
-            ImageBackup(_itemList)
+        ImageBackup(_itemList)
 
     End Sub
     'Private Sub DocumentsBackup(_book As Book, ByRef _itemList As List(Of String))

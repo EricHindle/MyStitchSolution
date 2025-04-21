@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Windows.Forms.VisualStyles
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 

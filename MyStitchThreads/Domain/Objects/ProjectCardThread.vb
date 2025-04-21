@@ -63,11 +63,14 @@ Public Class ProjectCardThread
         _cardNo = pCardNo
         _cardSeq = pCardSeq
     End Sub
+#End Region
+#Region "methods"
     Public Function IsLoaded() As Boolean
         Return _project IsNot Nothing AndAlso _project.ProjectId > -1
     End Function
-#End Region
-#Region "methods"
+    Public Function Key() As String
+        Return CStr(_project.ProjectId) & ":" & CStr(_cardNo) & ":" & CStr(_thread.ThreadId)
+    End Function
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _

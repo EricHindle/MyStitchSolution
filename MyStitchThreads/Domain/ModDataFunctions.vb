@@ -13,19 +13,20 @@ Imports MySql.Data.MySqlClient
 
 Module ModDataFunctions
 #Region "constants"
-    '   Private Const MODULE_NAME As String = "DataFunctions"
     Friend Const BOOK_TAG As String = "B~"
     Friend Const TABLE_TAG As String = "T~"
     Friend Const DOC_TAG As String = "D~"
     Friend Const IMAGE_TAG As String = "I~"
     Friend Const REV_TAG As String = "R~"
+    Private Const TRUNCATING_TABLE As String = "Truncating table"
+    Private Const ADDING_RECORDS As String = "Adding records from backup file"
 #End Region
 #Region "enum"
     Public Enum Tables
         Projects
-        ProjectThreadCards
-        ProjectThreads
         Threads
+        ProjectThreads
+        ProjectThreadCards
         ProjectCardThread
     End Enum
 #End Region
@@ -40,24 +41,27 @@ Module ModDataFunctions
     Private ReadOnly oProjectThreadCardTa As New MyStitchDataSetTableAdapters.ProjectThreadCardsTableAdapter
     Private ReadOnly oProjectCardThreadTable As New MyStitchDataSet.ProjectCardThreadDataTable
     Private ReadOnly oProjectCardThreadTa As New MyStitchDataSetTableAdapters.ProjectCardThreadTableAdapter
-
 #End Region
 #Region "variables"
+    ' List of dB tables used in backup and restore
     Public tableList As New List(Of String)
 #End Region
 #Region "common"
     Public Sub SetConnectionString(pDatabase As String)
-        My.Settings.Item("mynovelConnectionString") = "server=localhost;user id=ehindle;password=dkk.mysql;persistsecurityinfo=True;database=" & pDatabase
+        My.Settings.Item("myStitchConnectionString") = "server=localhost;user id=sa;password=dkk.sql;persistsecurityinfo=True;database=" & pDatabase
     End Sub
     Public Sub InitialiseData()
         LogUtil.LogInfo("Initialising data", MethodBase.GetCurrentMethod.Name)
-        Dim _enumArray As Array
-        _enumArray = [Enum].GetValues(GetType(Tables))
+        FillTableListFromTableEnum()
+    End Sub
+    Private Sub FillTableListFromTableEnum()
+        Dim _enumArray As Array = [Enum].GetValues(GetType(Tables))
         For Each _enum In _enumArray
             tableList.Add(_enum.ToString)
         Next
     End Sub
     Public Sub FillTableTree(ByRef tvtables As TreeView)
+        LogUtil.LogInfo("Filling table tree", MethodBase.GetCurrentMethod.Name)
         tvtables.Nodes.Clear()
         tvtables.Nodes.Add("Tables")
         For Each oTable As String In tableList
@@ -68,6 +72,7 @@ Module ModDataFunctions
     End Sub
     Public Sub BackupDataTable(backupDataTable As DataTable, datapath As String)
         Dim sTableName As String = backupDataTable.TableName
+        LogUtil.LogInfo("Writing .xml file for " & sTableName, MethodBase.GetCurrentMethod.Name)
         Dim sDbFullPath As String = datapath
         Dim sBackupFile As String = Path.Combine(sDbFullPath, sTableName & ".xml")
         backupDataTable.WriteXml(sBackupFile, XmlWriteMode.WriteSchema)
@@ -76,22 +81,26 @@ Module ModDataFunctions
         Return RestoreDataTable(tableType, datapath, False)
     End Function
     Public Function RestoreDataTable(tableType As String, datapath As String, isSuppressMessage As Boolean) As Integer
+        LogUtil.LogInfo("Restoring table " & tableType, MethodBase.GetCurrentMethod.Name)
         Dim rowCount As Integer = 0
         Try
             Select Case tableType
                 Case "Projects"
                     If RecreateTable(oProjectTable, datapath, isSuppressMessage) Then
+                        LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectTa.TruncateProjects()
+                        LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                         For Each _row As MyStitchDataSet.ProjectsRow In oProjectTable.Rows
                             Dim _project As Project = ProjectBuilder.AProject.StartingWith(_row).Build
                             InsertProject(_project, _project.ProjectId)
                         Next
-                        'oprojectTa.RestoreAI()
                         rowCount = oProjectTa.GetData().Rows.Count
                     End If
                 Case "Threads"
                     If RecreateTable(oThreadTable, datapath, isSuppressMessage) Then
+                        LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oThreadTa.TruncateThreads()
+                        LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                         For Each _row As MyStitchDataSet.ThreadsRow In oThreadTable.Rows
                             Dim _thread As Thread = ThreadBuilder.AThread.StartingWith(_row).Build
                             InsertThread(_thread, _thread.ThreadId)
@@ -100,7 +109,9 @@ Module ModDataFunctions
                     End If
                 Case "ProjectThreads"
                     If RecreateTable(oProjectThreadTable, datapath, isSuppressMessage) Then
+                        LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectThreadTa.TruncateProjectThreads()
+                        LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                         For Each _row As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
                             Dim _ProjectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWith(_row).Build
                             InsertProjectThread(_ProjectThread)
@@ -109,7 +120,9 @@ Module ModDataFunctions
                     End If
                 Case "ProjectThreadCards"
                     If RecreateTable(oProjectThreadCardTable, datapath, isSuppressMessage) Then
+                        LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectThreadCardTa.TruncateProjectThreadCards()
+                        LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                         For Each _row As MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
                             Dim _ProjectThreadCard As ProjectThreadCard = ProjectThreadCardBuilder.AProjectThreadCard.StartingWith(_row).Build
                             InsertProjectThreadCard(_ProjectThreadCard)
@@ -118,14 +131,15 @@ Module ModDataFunctions
                     End If
                 Case "ProjectCardThread"
                     If RecreateTable(oProjectCardThreadTable, datapath, isSuppressMessage) Then
+                        LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectCardThreadTa.TruncateProjectCardThread()
+                        LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                         For Each _row As MyStitchDataSet.ProjectCardThreadRow In oProjectCardThreadTable.Rows
                             Dim _ProjectCardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWith(_row).Build
                             InsertProjectCardThread(_ProjectCardThread)
                         Next
                         rowCount = oProjectCardThreadTa.GetData().Rows.Count
                     End If
-
             End Select
         Catch ex As Exception
             MsgBox(GetMessage(ex), MsgBoxStyle.Exclamation, "Error")
@@ -139,6 +153,7 @@ Module ModDataFunctions
         Dim isTableOK As Boolean = False
         Dim sTableName As String = restoredDataTable.TableName
         Dim sBackupFile As String = Path.Combine(datapath, sTableName & ".xml")
+        LogUtil.LogInfo("Recreating table from XML", MethodBase.GetCurrentMethod.Name)
         If My.Computer.FileSystem.FileExists(sBackupFile) Then
             Try
                 restoredDataTable.Clear()
@@ -154,6 +169,8 @@ Module ModDataFunctions
             Catch ex As Exception
                 MsgBox(GetMessage(ex), MsgBoxStyle.Exclamation, "Error")
             End Try
+        Else
+            LogUtil.LogInfo("File not found : " & sBackupFile, MethodBase.GetCurrentMethod.Name)
         End If
         Return isTableOK
     End Function
@@ -163,11 +180,9 @@ Module ModDataFunctions
 #End Region
 #Region "projects"
     Public Function GetProjectTable() As MyStitchDataSet.ProjectsDataTable
-        LogUtil.Info("Getting project table", MethodBase.GetCurrentMethod.Name)
         Return oProjectTa.GetData()
     End Function
     Public Function GetProjects() As List(Of Project)
-        LogUtil.Debug("Getting all projects", MethodBase.GetCurrentMethod.Name)
         Dim oProjects As New List(Of Project)
         Try
             oProjectTa.Fill(oProjectTable)
@@ -211,9 +226,8 @@ Module ModDataFunctions
         End Try
         Return newId
     End Function
-
     Public Sub UpdateProject(oProject As Project)
-        LogUtil.Info("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectTa.UpdateProject(oProject.ProjectName, oProject.ProjectId)
         Catch ex As MySqlException
@@ -221,7 +235,7 @@ Module ModDataFunctions
         End Try
     End Sub
     Public Sub DeleteProject(oProject As Project)
-        LogUtil.Info("Deleting " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Deleting " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectTa.DeleteProject(oProject.ProjectId)
         Catch ex As MySqlException
@@ -231,11 +245,9 @@ Module ModDataFunctions
 #End Region
 #Region "threads"
     Public Function GetThreadTable() As MyStitchDataSet.ThreadsDataTable
-        LogUtil.Info("Getting Thread table", MethodBase.GetCurrentMethod.Name)
         Return oThreadTa.GetData()
     End Function
     Public Function GetThreads() As List(Of Thread)
-        LogUtil.Debug("Getting all Threads", MethodBase.GetCurrentMethod.Name)
         Dim oThreads As New List(Of Thread)
         Try
             oThreadTa.Fill(oThreadTable)
@@ -261,7 +273,7 @@ Module ModDataFunctions
         Return oThread
     End Function
     Public Sub UpdateThread(oThread As Thread)
-        LogUtil.Info("Updating " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Updating " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
         Try
             With oThread
                 oThreadTa.UpdateThread(.ThreadNo, .ColourName, .Colour.ToArgb, .StockLevel, .ThreadId)
@@ -272,16 +284,14 @@ Module ModDataFunctions
         End Try
     End Sub
     Public Sub DeleteThread(oThread As Thread)
-        LogUtil.Info("Deleting " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Deleting " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
         Try
             oThreadTa.DeleteThread(oThread.ThreadId)
         Catch ex As MySqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
     Public Function GetThreadById(pThreadId As Integer) As Thread
-        LogUtil.Debug("Get thread " & pThreadId, MethodBase.GetCurrentMethod.Name)
         Dim othread As New Thread
         Try
             oThreadTa.FillById(oThreadTable, pThreadId)
@@ -317,7 +327,7 @@ Module ModDataFunctions
 #End Region
 #Region "projectthreadcards"
     Public Sub DeleteProjectThread(pProjectThread As ProjectThread)
-        LogUtil.Info("Deleting " & pProjectThread.Project.ProjectName & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Deleting " & pProjectThread.Project.ProjectName & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.Project.ProjectId, pProjectThread.Thread.ThreadId)
         Catch ex As MySqlException
@@ -325,7 +335,6 @@ Module ModDataFunctions
         End Try
     End Sub
     Public Function GetProjectThreadCardsTable() As MyStitchDataSet.ProjectThreadCardsDataTable
-        LogUtil.Info("Getting project thread cards table", MethodBase.GetCurrentMethod.Name)
         Return oProjectThreadCardTa.GetData()
     End Function
     Public Function GetProjectThreadCards(pProjectId) As List(Of ProjectThreadCard)
@@ -352,18 +361,6 @@ Module ModDataFunctions
         End Try
         Return newId
     End Function
-    'Public Function GetThreadCardThreads(pProjectId As Integer, pCardNo As Integer) As List(Of ProjectThread)
-    '    Dim _listOfThreads As New List(Of ProjectThread)
-    '    Try
-    '        oProjectThreadTa.FillByProjectCard(oProjectThreadTable, pProjectId, pCardNo)
-    '        For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
-    '            _listOfThreads.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
-    '        Next
-    '    Catch ex As Exception
-    '        LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-    '    End Try
-    '    Return _listOfThreads
-    'End Function
     Public Sub RemoveExistingProjectCards(pProjectId As Integer)
         Try
             DeleteProjectCardThreads(pProjectId)
@@ -373,6 +370,7 @@ Module ModDataFunctions
         End Try
     End Sub
     Public Sub DeleteCardsForProject(pProjectId As Integer)
+        LogUtil.LogInfo("Delete cards for project " & CStr(pProjectId), MethodBase.GetCurrentMethod.Name)
         Try
             oProjectThreadCardTa.DeleteCardsByProject(pProjectId)
         Catch ex As Exception
@@ -380,18 +378,17 @@ Module ModDataFunctions
         End Try
     End Sub
     Public Sub DeleteProjectThreadCard(pProjectId As Integer, pCardNo As Integer)
+        LogUtil.LogInfo("Delete project thread card " & CStr(pProjectId) & ":" & CStr(pCardNo), MethodBase.GetCurrentMethod.Name)
         Try
             oProjectThreadCardTa.DeleteProjectThreadCard(pProjectId, pCardNo)
         Catch ex As Exception
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-
         End Try
     End Sub
 
 #End Region
 #Region "projectthreads"
     Public Function GetProjectThreadsTable() As MyStitchDataSet.ProjectThreadsDataTable
-        LogUtil.Info("Getting project threads table", MethodBase.GetCurrentMethod.Name)
         Return oProjectThreadTa.GetData()
     End Function
     Public Function InsertProjectThread(ByRef oProjectThread As ProjectThread)
@@ -399,14 +396,13 @@ Module ModDataFunctions
         Dim newId As Integer = -1
         Try
             With oProjectThread
-                newId = oProjectThreadTa.InsertProjectThread(.Project.ProjectId, .Thread.ThreadId, .CardNo, .CardSeq)
+                newId = oProjectThreadTa.InsertProjectThread(.Project.ProjectId, .Thread.ThreadId)
             End With
         Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return newId
     End Function
-
     Public Function GetProjectThreads(pProjectId) As List(Of Thread)
         Dim _list As New List(Of Thread)
         Try
@@ -416,13 +412,9 @@ Module ModDataFunctions
             Next
         Catch ex As Exception
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-
         End Try
-
         Return _list
-
     End Function
-
     Public Function GetProjectThread(pProjectId As Integer, pThreadId As Integer) As ProjectThread
         Dim _projectThread As New ProjectThread
         Try
@@ -435,19 +427,8 @@ Module ModDataFunctions
         End Try
         Return _projectThread
     End Function
-    Public Function UpdateProjectThread(pProjectThread As ProjectThread) As Integer
-        Dim _resp As Integer = 0
-        Try
-            With pProjectThread
-                _resp = oProjectThreadTa.UpdateProjectThread(.CardNo, .CardSeq, .Project.ProjectId, .Thread.ThreadId)
-            End With
-        Catch ex As Exception
-            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return _resp
-    End Function
-
     Public Function DeleteProjectThreadsForProject(pProjectId As Integer)
+        LogUtil.LogInfo("Deleting threads for project " & CStr(pProjectId), MethodBase.GetCurrentMethod.Name)
         Dim response As Integer
         Try
             oProjectThreadTa.DeleteProjectThreadsByProject(pProjectId)
@@ -459,15 +440,13 @@ Module ModDataFunctions
 #End Region
 #Region "projectcardthreads"
     Public Function GetProjectCardThreadTable() As MyStitchDataSet.ProjectCardThreadDataTable
-        LogUtil.Info("Getting project table", MethodBase.GetCurrentMethod.Name)
         Return oProjectCardThreadTa.GetData()
     End Function
     Public Function GetProjectThreadCardThreadTable() As MyStitchDataSet.ProjectCardThreadDataTable
-        LogUtil.Info("Getting project card thread table", MethodBase.GetCurrentMethod.Name)
         Return oProjectCardThreadTa.GetData()
     End Function
     Public Function InsertProjectCardThread(ByRef oProjectCardThread As ProjectCardThread)
-        LogUtil.LogInfo("Inserting project card thread" & oProjectCardThread.Project.ProjectName & ":" & CStr(oProjectCardThread.Thread.ThreadId), MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Inserting project card thread " & oProjectCardThread.Key, MethodBase.GetCurrentMethod.Name)
         Dim _resp As Integer
         Try
             With oProjectCardThread
@@ -478,19 +457,8 @@ Module ModDataFunctions
         End Try
         Return _resp
     End Function
-    Public Function InsertProjectCardThread(ByRef oProjectThread As ProjectThread)
-        LogUtil.LogInfo("Inserting project card thread", MethodBase.GetCurrentMethod.Name)
-        Dim _resp As Integer
-        Try
-            With oProjectThread
-                _resp = oProjectCardThreadTa.InsertProjectCardThread(.Project.ProjectId, .Thread.ThreadId, .CardNo, .CardSeq)
-            End With
-        Catch ex As SqlException
-            LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return _resp
-    End Function
     Public Function DeleteProjectCardThread(pProjectCardThread As ProjectCardThread)
+        LogUtil.LogInfo("Deleting project card thread " & pProjectCardThread.Key, MethodBase.GetCurrentMethod.Name)
         Dim response As Integer
         Try
             With pProjectCardThread
@@ -502,6 +470,7 @@ Module ModDataFunctions
         Return response
     End Function
     Public Function DeleteThreadsForProjectCard(pProjectId As Integer, pCardNo As Integer)
+        LogUtil.LogInfo("Deleting threads for project card " & pProjectId & ":" & pCardNo, MethodBase.GetCurrentMethod.Name)
         Dim response As Integer
         Try
             oProjectCardThreadTa.DeleteThreadsForProjectCard(pProjectId, pCardNo)
@@ -524,6 +493,7 @@ Module ModDataFunctions
         Return _list
     End Function
     Public Function DeleteProjectCardThreads(pProjectId As Integer)
+        LogUtil.LogInfo("Deleting threads for project " & pProjectId, MethodBase.GetCurrentMethod.Name)
         Dim response As Integer
         Try
             oProjectCardThreadTa.DeleteCardThreadsForProject(pProjectId)

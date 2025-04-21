@@ -6,9 +6,7 @@
 '
 
 Imports System.ComponentModel
-Imports System.Threading
 Imports HindlewareLib.Logging
-Imports ZstdSharp.Unsafe
 
 Module ModThreads
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pBaseName As String)
@@ -33,15 +31,7 @@ Module ModThreads
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
-    Public Sub LoadCardThreadList(ByRef pDgv As DataGridView, pProjectId As Integer, pCardNo As Integer, pShowStock As Boolean)
-        pDgv.Rows.Clear()
-        Dim threadList As List(Of ProjectCardThread) = GetProjectCardThreadsByProjectCard(pProjectId, pCardNo)
-        For Each oThread As ProjectCardThread In threadList
-            AddCardThreadRow(pDgv, oThread, pShowStock)
-        Next
-        pDgv.Sort(pDgv.Columns("cardThreadSeq"), ListSortDirection.Ascending)
-        pDgv.ClearSelection()
-    End Sub
+
 
     Public Function SelectThreadInList(ByRef pDgv As DataGridView, pColName As String, pThreadId As Integer, pRowNo As Integer) As Integer
         Dim _index As Integer = 0

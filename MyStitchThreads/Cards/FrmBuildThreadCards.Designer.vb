@@ -71,12 +71,14 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
+        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlThreads.SuspendLayout()
         Me.PnlCardThreads.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'BtnDelete
@@ -519,6 +521,7 @@ Partial Class FrmBuildThreadCards
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 540)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(974, 22)
@@ -536,6 +539,11 @@ Partial Class FrmBuildThreadCards
         Me.ChkShowStock.TabIndex = 158
         Me.ChkShowStock.Text = "Show stock levels"
         Me.ChkShowStock.UseVisualStyleBackColor = True
+        '
+        'LblStatus
+        '
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
         '
         'FrmBuildThreadCards
         '
@@ -568,6 +576,8 @@ Partial Class FrmBuildThreadCards
         Me.PnlThreads.PerformLayout()
         Me.PnlCardThreads.ResumeLayout(False)
         Me.PnlCardThreads.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -609,4 +619,5 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents cardThreadSeq As DataGridViewTextBoxColumn
     Friend WithEvents cardthreadcolour As DataGridViewImageColumn
     Friend WithEvents ChkShowStock As CheckBox
+    Friend WithEvents LblStatus As ToolStripStatusLabel
 End Class

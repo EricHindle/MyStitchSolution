@@ -90,11 +90,11 @@ Public Class Thread
         _sortNumber = MakeSortNumber(pNo, pId)
         _stock_level = pStock
     End Sub
+#End Region
+#Region "methods"
     Public Function IsLoaded() As Boolean
         Return _threadId > -1
     End Function
-#End Region
-#Region "methods"
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _
@@ -110,6 +110,9 @@ Public Class Thread
             .Append("]]")
         Return sb.ToString
     End Function
+    '
+    ' Create a number that can be used to sort threads by the thread number in a list
+    '
     Public Shared Function MakeSortNumber(pNo As String, pId As Integer) As Integer
         Dim _int As Integer
         Dim _intNo As Integer

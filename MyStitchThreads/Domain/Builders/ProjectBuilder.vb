@@ -4,7 +4,6 @@
 '
 ' Author Eric Hindle
 '
-
 Public Class ProjectBuilder
     Private _projectId As Integer
     Private _projectName As String

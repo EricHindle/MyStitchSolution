@@ -151,6 +151,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\ModCards.vb" />
     <Compile Include="Domain\Builders\ProjectBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectCardThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
@@ -192,10 +193,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Project\ModProject.vb" />
-    <Compile Include="Threads\FrmBuildThreadCards.Designer.vb">
+    <Compile Include="Cards\FrmBuildThreadCards.Designer.vb">
       <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
     </Compile>
-    <Compile Include="Threads\FrmBuildThreadCards.vb">
+    <Compile Include="Cards\FrmBuildThreadCards.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\FrmColourCapture.Designer.vb">
@@ -204,10 +205,10 @@
     <Compile Include="Threads\FrmColourCapture.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Threads\FrmPrintThreadCards.Designer.vb">
+    <Compile Include="Cards\FrmPrintThreadCards.Designer.vb">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
     </Compile>
-    <Compile Include="Threads\FrmPrintThreadCards.vb">
+    <Compile Include="Cards\FrmPrintThreadCards.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
@@ -263,13 +264,13 @@
     <EmbeddedResource Include="Project\FrmProject.resx">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Threads\FrmBuildThreadCards.resx">
+    <EmbeddedResource Include="Cards\FrmBuildThreadCards.resx">
       <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmColourCapture.resx">
       <DependentUpon>FrmColourCapture.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Threads\FrmPrintThreadCards.resx">
+    <EmbeddedResource Include="Cards\FrmPrintThreadCards.resx">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
