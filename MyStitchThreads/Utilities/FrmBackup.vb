@@ -8,7 +8,8 @@
 Imports System.IO
 Imports System.Text
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmBackup
 #Region "properties"
 
@@ -405,8 +406,9 @@ Public Class FrmBackup
     End Sub
     Private Sub ImagesBackup()
         AddProgress("Images backup", 2, 2)
-        Dim _itemList As New List(Of String)
-        _itemList.Add(" Images:")
+        Dim _itemList As New List(Of String) From {
+            " Images:"
+        }
         imagePath = Path.Combine(backupPath, "images")
         ImageBackup(_itemList)
 

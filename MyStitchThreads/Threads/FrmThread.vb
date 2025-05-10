@@ -6,7 +6,9 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Public Class FrmThread
 #Region "properties"
 
@@ -202,7 +204,7 @@ Public Class FrmThread
     End Sub
 
     Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
-        SelectThreadInList(DgvThreads, ThreadNo.Name, TxtNumber.Text)
+        SelectThreadInList(DgvThreads, threadNo.Name, TxtNumber.Text)
     End Sub
 
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged

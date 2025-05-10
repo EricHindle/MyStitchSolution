@@ -6,7 +6,8 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Module ModProject
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load project list", pBaseName)

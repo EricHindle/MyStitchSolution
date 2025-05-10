@@ -51,6 +51,9 @@
     <ApplicationIcon>MyStitch.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HindlewareLib">
+      <HintPath>..\..\HindlewareLib\bin\Release\HindlewareLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -76,7 +79,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Builders\GlobalSettingBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectCardThreadBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
+    <Compile Include="Domain\Builders\ThreadBuilder.vb" />
     <Compile Include="Domain\ModDataFunctions.vb" />
+    <Compile Include="Domain\Objects\GlobalSetting.vb" />
+    <Compile Include="Domain\Objects\Project.vb" />
+    <Compile Include="Domain\Objects\ProjectCardThread.vb" />
+    <Compile Include="Domain\Objects\ProjectThread.vb" />
+    <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Domain\Objects\Thread.vb" />
     <Compile Include="FrmStitchDesign.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -140,8 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Design\" />
-    <Folder Include="Domain\Builders\" />
-    <Folder Include="Domain\Objects\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />

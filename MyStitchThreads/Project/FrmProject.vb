@@ -6,7 +6,9 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Public Class FrmProject
 #Region "properties"
 
@@ -119,7 +121,7 @@ Public Class FrmProject
             LogUtil.LogInfo("Updating project", MyBase.Name)
             Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
 
-            Updateproject(_project)
+            UpdateProject(_project)
             LoadProjectList(DgvProjects, MyBase.Name)
             SelectProjectInList(_selectedProject.ProjectId)
             LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)

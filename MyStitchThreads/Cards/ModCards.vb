@@ -5,9 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.ComponentModel
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Module ModCards
     Public isCardsLoading As Boolean
 

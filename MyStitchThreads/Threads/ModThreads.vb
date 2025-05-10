@@ -7,7 +7,8 @@
 
 Imports System.ComponentModel
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Module ModThreads
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pBaseName As String)
         LoadThreadList(pDgv, False, pBaseName)
@@ -31,7 +32,6 @@ Module ModThreads
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
-
 
     Public Function SelectThreadInList(ByRef pDgv As DataGridView, pColName As String, pThreadId As Integer, pRowNo As Integer) As Integer
         Dim _index As Integer = 0

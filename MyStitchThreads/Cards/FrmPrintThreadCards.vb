@@ -8,7 +8,8 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmPrintThreadCards
     Private Const A4_WIDTH_PIXELS As Integer = 3508
     Private Const A4_HEIGHT_PIXELS As Integer = 2480

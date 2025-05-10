@@ -1,0 +1,136 @@
+﻿' Hindleware
+' Copyright (c) 2025 Eric Hindle
+' All rights reserved.
+'
+' Author Eric Hindle
+'
+Imports MyStitch.Domain.Objects
+
+Namespace Domain.Builders
+    Public Class ProjectBuilder
+        Private _projectId As Integer
+        Private _projectName As String
+        Private _dateStarted As DateTime
+        Private _dateEnded As DateTime
+        Private _designWidth As Integer
+        Private _designHeight As Integer
+        Private _fabricWidth As Integer
+        Private _fabricHeight As Integer
+        Private _fabricColour As Integer
+        Private _grid1Colour As Integer
+        Private _grid5Colour As Integer
+        Private _grid10Colour As Integer
+        Public Shared Function AProject() As ProjectBuilder
+            Return New ProjectBuilder
+        End Function
+        Public Function StartingWithNothing() As ProjectBuilder
+            _projectId = -1
+            _projectName = String.Empty
+            _dateStarted = Date.MinValue
+            _dateEnded = Date.MinValue
+            _designHeight = 0
+            _designWidth = 0
+            _fabricWidth = 0
+            _fabricHeight = 0
+            _fabricColour = Color.Black.ToArgb
+            Return Me
+        End Function
+        Public Function StartingWith(ByRef pproject As Project) As ProjectBuilder
+            StartingWithNothing()
+            If pproject IsNot Nothing Then
+                With pproject
+                    _projectId = .ProjectId
+                    _projectName = .ProjectName
+                    _dateStarted = .DateStarted
+                    _dateEnded = .DateEnded
+                    _designHeight = .DesignHeight
+                    _designWidth = .DesignWidth
+                    _fabricWidth = .FabricWidth
+                    _fabricHeight = .FabricHeight
+                    _fabricColour = .FabricColour
+                End With
+            End If
+            Return Me
+        End Function
+        Public Function StartingWith(ByRef oRow As MyStitchDataSet.ProjectsRow) As ProjectBuilder
+            StartingWithNothing()
+            If oRow IsNot Nothing Then
+                With oRow
+                    _projectId = .project_id
+                    _projectName = .project_name
+                    _dateStarted = .date_started
+                    _dateEnded = .date_ended
+                    _designHeight = .design_height
+                    _designWidth = .design_width
+                    _fabricWidth = .fabric_width
+                    _fabricHeight = .fabric_height
+                    _fabricColour = .fabric_colour
+                End With
+            End If
+            Return Me
+        End Function
+        Public Function WithId(pId As Integer) As ProjectBuilder
+            _projectId = pId
+            Return Me
+        End Function
+        Public Function WithName(pprojectname As String) As ProjectBuilder
+            _projectName = pprojectname
+            Return Me
+        End Function
+        Public Function WithStarted(pDateStarted As DateTime) As ProjectBuilder
+            _dateStarted = pDateStarted
+            Return Me
+        End Function
+        Public Function WithEnded(pDateEnded As DateTime) As ProjectBuilder
+            _dateEnded = pDateEnded
+            Return Me
+        End Function
+        Public Function WithDesignWidth(pDesignWidth As Integer) As ProjectBuilder
+            _designWidth = pDesignWidth
+            Return Me
+        End Function
+        Public Function WithDesignHeight(pDesignHeight As Integer) As ProjectBuilder
+            _designHeight = pDesignHeight
+            Return Me
+        End Function
+        Public Function WithFabricWidth(pFabricWidth As Integer) As ProjectBuilder
+            _fabricWidth = pFabricWidth
+            Return Me
+        End Function
+        Public Function WithFabricHeight(pFabricHeight As Integer) As ProjectBuilder
+            _fabricHeight = pFabricHeight
+            Return Me
+        End Function
+        Public Function WithFabricColour(pFabricColour As Integer) As ProjectBuilder
+            _fabricColour = pFabricColour
+            Return Me
+        End Function
+        Public Function WithGrid1Colour(pGrid1Colour As Integer) As ProjectBuilder
+            _grid1Colour = pGrid1Colour
+            Return Me
+        End Function
+        Public Function WithGrid5Colour(pGrid5Colour As Integer) As ProjectBuilder
+            _grid5Colour = pGrid5Colour
+            Return Me
+        End Function
+        Public Function WithGrid10Colour(pGrid10Colour As Integer) As ProjectBuilder
+            _grid10Colour = pGrid10Colour
+            Return Me
+        End Function
+        Public Function Build() As Project
+            Return New Project(_projectId,
+                               _projectName,
+                               _dateStarted,
+                               _dateEnded,
+                               _designWidth,
+                               _designHeight,
+                               _fabricWidth,
+                               _fabricHeight,
+                               _fabricColour,
+                               _grid1Colour,
+                               _grid5Colour,
+                               _grid10Colour)
+        End Function
+
+    End Class
+End Namespace
