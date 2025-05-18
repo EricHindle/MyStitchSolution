@@ -26,13 +26,16 @@ Namespace Domain.Builders
         Public Function StartingWithNothing() As ProjectBuilder
             _projectId = -1
             _projectName = String.Empty
-            _dateStarted = Date.MinValue
-            _dateEnded = Date.MinValue
+            _dateStarted = MIN_DATE
+            _dateEnded = MIN_DATE
             _designHeight = 0
             _designWidth = 0
             _fabricWidth = 0
             _fabricHeight = 0
-            _fabricColour = Color.Black.ToArgb
+            _fabricColour = 1
+            _grid1Colour = 2
+            _grid5Colour = 3
+            _grid10Colour = 4
             Return Me
         End Function
         Public Function StartingWith(ByRef pproject As Project) As ProjectBuilder
@@ -48,6 +51,9 @@ Namespace Domain.Builders
                     _fabricWidth = .FabricWidth
                     _fabricHeight = .FabricHeight
                     _fabricColour = .FabricColour
+                    _grid1Colour = .Grid1Colour
+                    _grid5Colour = .Grid5Colour
+                    _grid10Colour = .Grid10Colour
                 End With
             End If
             Return Me
@@ -65,6 +71,9 @@ Namespace Domain.Builders
                     _fabricWidth = .fabric_width
                     _fabricHeight = .fabric_height
                     _fabricColour = .fabric_colour
+                    _grid1Colour = .grid1_colour
+                    _grid5Colour = .grid5_colour
+                    _grid10Colour = .grid10_colour
                 End With
             End If
             Return Me

@@ -22,6 +22,7 @@ Namespace Domain
         Public Const REV_TAG As String = "R~"
         Public Const TRUNCATING_TABLE As String = "Truncating table"
         Public Const ADDING_RECORDS As String = "Adding records from backup file"
+        Public MIN_DATE As New DateTime(2001, 1, 1)
 #End Region
 #Region "enum"
         Public Enum Tables

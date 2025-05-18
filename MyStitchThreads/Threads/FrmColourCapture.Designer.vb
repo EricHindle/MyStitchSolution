@@ -42,10 +42,10 @@ Partial Class FrmColourCapture
         Me.LblColour = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.BtnSaveImage = New System.Windows.Forms.Button()
         Me.BtnLoad = New System.Windows.Forms.Button()
-        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.Piccolour, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -180,6 +180,11 @@ Partial Class FrmColourCapture
         Me.StatusStrip1.TabIndex = 140
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(0, 17)
+        '
         'BtnClose
         '
         Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -227,11 +232,6 @@ Partial Class FrmColourCapture
         Me.BtnLoad.TabIndex = 143
         Me.BtnLoad.Text = "Load Image"
         Me.BtnLoad.UseVisualStyleBackColor = False
-        '
-        'lblStatus
-        '
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(0, 17)
         '
         'FrmColourCapture
         '

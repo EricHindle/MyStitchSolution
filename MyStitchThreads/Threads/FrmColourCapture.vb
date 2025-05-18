@@ -79,4 +79,5 @@ Public Class FrmColourCapture
         My.Settings.ColourCaptureFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
+
 End Class

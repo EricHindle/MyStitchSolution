@@ -64,6 +64,18 @@ Namespace My
                 Return CType(Me("MyStitchConnectionString"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DesignFormPos() As String
+            Get
+                Return CType(Me("DesignFormPos"),String)
+            End Get
+            Set
+                Me("DesignFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

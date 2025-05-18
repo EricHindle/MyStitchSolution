@@ -120,4 +120,16 @@ Module ModThreads
         End If
         _imageCell.Value = _image
     End Sub
+    Public Function SelectColor(pCurrentColor As Color) As Color
+        Dim _selectedColor As Color = pCurrentColor
+        Using _colorDialog As New ColorDialog
+            _colorDialog.AllowFullOpen = True
+            _colorDialog.CustomColors = New Integer() {pCurrentColor.ToArgb}
+            _colorDialog.Color = pCurrentColor
+            If _colorDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                _selectedColor = _colorDialog.Color
+            End If
+        End Using
+        Return _selectedColor
+    End Function
 End Module

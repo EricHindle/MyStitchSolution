@@ -122,8 +122,8 @@ Namespace Domain.Objects
         Private Sub Initialiseproject()
             _projectId = -1
             _projectName = String.Empty
-            _dateStarted = Date.MinValue
-            _dateEnded = Date.MinValue
+            _dateStarted = MIN_DATE
+            _dateEnded = MIN_DATE
             _designHeight = 0
             _designWidth = 0
             _fabricWidth = 0
@@ -161,6 +161,9 @@ Namespace Domain.Objects
             _fabricWidth = pFabricWidth
             _fabricHeight = pFabricHeight
             _fabricColour = pFabricColour
+            _grid1Colour = pGrid1Colour
+            _grid5Colour = pGrid5Colour
+            _grid10Colour = pGrid10Colour
         End Sub
 #End Region
 #Region "methods"
