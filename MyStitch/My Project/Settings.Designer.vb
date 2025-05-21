@@ -76,6 +76,30 @@ Namespace My
                 Me("DesignFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectFormPos() As String
+            Get
+                Return CType(Me("ProjectFormPos"),String)
+            End Get
+            Set
+                Me("ProjectFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectThreadsFormPos() As String
+            Get
+                Return CType(Me("ProjectThreadsFormPos"),String)
+            End Get
+            Set
+                Me("ProjectThreadsFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

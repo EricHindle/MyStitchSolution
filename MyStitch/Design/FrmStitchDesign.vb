@@ -24,6 +24,14 @@ Public Class FrmStitchDesign
     Private topmargin As Integer
     Private myPrintDoc As New Printing.PrintDocument
     Private _designGraphics As Graphics
+
+    Private _projectId As Integer
+    Public WriteOnly Property ProjectId() As Integer
+        Set(ByVal value As Integer)
+            _projectId = value
+        End Set
+    End Property
+
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Printing Thread Cards", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
