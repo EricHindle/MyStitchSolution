@@ -142,6 +142,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\ModThreads.vb" />
+    <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
+      <DependentUpon>FrmStitchSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmStitchSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\ModCommon.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmProjectThreads.resx">
       <DependentUpon>FrmProjectThreads.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">
+      <DependentUpon>FrmStitchSplash.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +197,35 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\cross-stitch.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\zoom.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\shrink.png" />
+    <None Include="Resources\redo.png" />
+    <None Include="Resources\quarters.png" />
+    <None Include="Resources\qtrtr.png" />
+    <None Include="Resources\qtrtl.png" />
+    <None Include="Resources\qtrbr.png" />
+    <None Include="Resources\qtrbl.png" />
+    <None Include="Resources\paste2.png" />
+    <None Include="Resources\move.png" />
+    <None Include="Resources\knot.png" />
+    <None Include="Resources\halfthinbs.png" />
+    <None Include="Resources\halfthickbs.png" />
+    <None Include="Resources\halffwd.png" />
+    <None Include="Resources\halfback.png" />
+    <None Include="Resources\fullthinbs.png" />
+    <None Include="Resources\fullthickbs.png" />
+    <None Include="Resources\fullcross.png" />
+    <None Include="Resources\flood.png" />
+    <None Include="Resources\enlarge.png" />
+    <None Include="Resources\cut.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\3qtrstr.png" />
+    <None Include="Resources\3qtrstl.png" />
+    <None Include="Resources\3qtrsbr.png" />
+    <None Include="Resources\3qtrsbl.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

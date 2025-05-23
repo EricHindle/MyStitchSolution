@@ -102,4 +102,128 @@ Public Class FrmStitchDesign
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Close()
     End Sub
+
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+
+    End Sub
+
+    Private Sub BtnCopy_Click(sender As Object, e As EventArgs) Handles BtnCopy.Click
+
+    End Sub
+
+    Private Sub BtnCut_Click(sender As Object, e As EventArgs) Handles BtnCut.Click
+
+    End Sub
+
+    Private Sub BtnMove_Click(sender As Object, e As EventArgs) Handles BtnMove.Click
+
+    End Sub
+
+    Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
+
+    End Sub
+
+    Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
+
+    End Sub
+
+    Private Sub BtnRedo_Click(sender As Object, e As EventArgs) Handles BtnRedo.Click
+
+    End Sub
+
+    Private Sub BtnFill_Click(sender As Object, e As EventArgs) Handles BtnFill.Click
+
+    End Sub
+
+    Private Sub BtnZoom_Click(sender As Object, e As EventArgs) Handles BtnZoom.Click
+
+    End Sub
+
+    Private Sub BtnEnlarge_Click(sender As Object, e As EventArgs) Handles BtnEnlarge.Click
+
+    End Sub
+
+    Private Sub BtnShrink_Click(sender As Object, e As EventArgs) Handles BtnShrink.Click
+
+    End Sub
+
+    Private Sub BtnFit_Click(sender As Object, e As EventArgs) Handles BtnFit.Click
+
+    End Sub
+
+    Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
+
+    End Sub
+
+    Private Sub Btn3QtrsTL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTL.Click
+
+    End Sub
+
+    Private Sub Btn3QtrsTR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTR.Click
+
+    End Sub
+
+    Private Sub Btn3QtrsBR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBR.Click
+
+    End Sub
+
+    Private Sub Btn3QtrsBL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBL.Click
+
+    End Sub
+
+    Private Sub BtnHalfForward_Click(sender As Object, e As EventArgs) Handles BtnHalfForward.Click
+
+    End Sub
+
+    Private Sub BtnHalfBack_Click(sender As Object, e As EventArgs) Handles BtnHalfBack.Click
+
+    End Sub
+
+    Private Sub BtnQtrTL_Click(sender As Object, e As EventArgs) Handles BtnQtrTL.Click
+
+    End Sub
+
+    Private Sub BtnQWtrTR_Click(sender As Object, e As EventArgs) Handles BtnQWtrTR.Click
+
+    End Sub
+
+    Private Sub BtnQtrBR_Click(sender As Object, e As EventArgs) Handles BtnQtrBR.Click
+
+    End Sub
+
+    Private Sub BtnQtrBL_Click(sender As Object, e As EventArgs) Handles BtnQtrBL.Click
+
+    End Sub
+
+    Private Sub BtnQuarters_Click(sender As Object, e As EventArgs) Handles BtnQuarters.Click
+
+    End Sub
+
+    Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitchThin.Click
+
+    End Sub
+
+    Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThin.Click
+
+    End Sub
+
+    Private Sub BtnFullBcakStitchThick_Click(sender As Object, e As EventArgs) Handles BtnFullBcakStitchThick.Click
+
+    End Sub
+
+    Private Sub BtnHalfBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThick.Click
+
+    End Sub
+
+    Private Sub BtnKnot_Click(sender As Object, e As EventArgs) Handles BtnKnot.Click
+
+    End Sub
+
+    Private Sub BtnBead_Click(sender As Object, e As EventArgs) Handles BtnBead.Click
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+    End Sub
 End Class
