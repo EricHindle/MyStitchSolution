@@ -19,5 +19,8 @@
     <Setting Name="ProjectThreadsFormPos" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="DesignFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\MyStitch\Designs</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

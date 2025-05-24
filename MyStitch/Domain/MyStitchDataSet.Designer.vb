@@ -784,6 +784,8 @@ Partial Public Class MyStitchDataSet
         
         Private columngrid10_colour As Global.System.Data.DataColumn
         
+        Private columndesign_file As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
@@ -916,6 +918,14 @@ Partial Public Class MyStitchDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property design_fileColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columndesign_file
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -952,9 +962,9 @@ Partial Public Class MyStitchDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddProjectsRow(ByVal project_name As String, ByVal date_started As Date, ByVal date_ended As Date, ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer) As ProjectsRow
+        Public Overloads Function AddProjectsRow(ByVal project_name As String, ByVal date_started As Date, ByVal date_ended As Date, ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal design_file As String) As ProjectsRow
             Dim rowProjectsRow As ProjectsRow = CType(Me.NewRow,ProjectsRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10_colour}
+            Dim columnValuesArray() As Object = New Object() {Nothing, project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10_colour, design_file}
             rowProjectsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectsRow)
             Return rowProjectsRow
@@ -995,6 +1005,7 @@ Partial Public Class MyStitchDataSet
             Me.columngrid1_colour = MyBase.Columns("grid1_colour")
             Me.columngrid5_colour = MyBase.Columns("grid5_colour")
             Me.columngrid10_colour = MyBase.Columns("grid10_colour")
+            Me.columndesign_file = MyBase.Columns("design_file")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1024,6 +1035,8 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columngrid5_colour)
             Me.columngrid10_colour = New Global.System.Data.DataColumn("grid10_colour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columngrid10_colour)
+            Me.columndesign_file = New Global.System.Data.DataColumn("design_file", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columndesign_file)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id}, true))
             Me.columnproject_id.AutoIncrement = true
             Me.columnproject_id.AutoIncrementSeed = -1
@@ -1041,6 +1054,8 @@ Partial Public Class MyStitchDataSet
             Me.columngrid1_colour.AllowDBNull = false
             Me.columngrid5_colour.AllowDBNull = false
             Me.columngrid10_colour.AllowDBNull = false
+            Me.columndesign_file.AllowDBNull = false
+            Me.columndesign_file.MaxLength = 100
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2592,6 +2607,17 @@ Partial Public Class MyStitchDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property design_file() As String
+            Get
+                Return CType(Me(Me.tableProjects.design_fileColumn),String)
+            End Get
+            Set
+                Me(Me.tableProjects.design_fileColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function Isdate_startedNull() As Boolean
             Return Me.IsNull(Me.tableProjects.date_startedColumn)
         End Function
@@ -3715,18 +3741,20 @@ Namespace MyStitchDataSetTableAdapters
             tableMapping.ColumnMappings.Add("grid1_colour", "grid1_colour")
             tableMapping.ColumnMappings.Add("grid5_colour", "grid5_colour")
             tableMapping.ColumnMappings.Add("grid10_colour", "grid10_colour")
+            tableMapping.ColumnMappings.Add("design_file", "design_file")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Projects] WHERE (([project_id] = @Original_project_id) AND ([p"& _ 
-                "roject_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_"& _ 
-                "started] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_da"& _ 
-                "te_ended = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended))"& _ 
-                " AND ([design_width] = @Original_design_width) AND ([design_height] = @Original_"& _ 
-                "design_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height"& _ 
-                "] = @Original_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND"& _ 
-                " ([grid1_colour] = @Original_grid1_colour) AND ([grid5_colour] = @Original_grid5"& _ 
-                "_colour) AND ([grid10_colour] = @Original_grid10_colour))"
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [Projects] WHERE (([project_id] = @Original_project_id) AND ([project"& _ 
+                "_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_starte"& _ 
+                "d] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_date_end"& _ 
+                "ed = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND ("& _ 
+                "[design_width] = @Original_design_width) AND ([design_height] = @Original_design"& _ 
+                "_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height] = @O"& _ 
+                "riginal_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND ([gri"& _ 
+                "d1_colour] = @Original_grid1_colour) AND ([grid5_colour] = @Original_grid5_colou"& _ 
+                "r) AND ([grid10_colour] = @Original_grid10_colour) AND ([design_file] = @Origina"& _ 
+                "l_design_file))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -3742,16 +3770,18 @@ Namespace MyStitchDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid1_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid5_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid10_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Projects] ([project_name], [date_started], [date_ended], [desi"& _ 
-                "gn_width], [design_height], [fabric_width], [fabric_height], [fabric_colour], [g"& _ 
-                "rid1_colour], [grid5_colour], [grid10_colour]) VALUES (@project_name, @date_star"& _ 
-                "ted, @date_ended, @design_width, @design_height, @fabric_width, @fabric_height, "& _ 
-                "@fabric_colour, @grid1_colour, @grid5_colour, @grid10_colour);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_i"& _ 
-                "d, project_name, date_started, date_ended, design_width, design_height, fabric_w"& _ 
-                "idth, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10_colour FR"& _ 
-                "OM Projects WHERE (project_id = SCOPE_IDENTITY())"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [Projects] ([project_name], [date_started], [date_ended], [design_wid"& _ 
+                "th], [design_height], [fabric_width], [fabric_height], [fabric_colour], [grid1_c"& _ 
+                "olour], [grid5_colour], [grid10_colour], [design_file]) VALUES (@project_name, @"& _ 
+                "date_started, @date_ended, @design_width, @design_height, @fabric_width, @fabric"& _ 
+                "_height, @fabric_colour, @grid1_colour, @grid5_colour, @grid10_colour, @design_f"& _ 
+                "ile);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name, date_started, date_ended, design_width, "& _ 
+                "design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_c"& _ 
+                "olour, grid10_colour, design_file FROM Projects WHERE (project_id = SCOPE_IDENTI"& _ 
+                "TY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -3764,24 +3794,26 @@ Namespace MyStitchDataSetTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Projects] SET [project_name] = @project_name, [date_started] = @dat"& _ 
-                "e_started, [date_ended] = @date_ended, [design_width] = @design_width, [design_h"& _ 
-                "eight] = @design_height, [fabric_width] = @fabric_width, [fabric_height] = @fabr"& _ 
-                "ic_height, [fabric_colour] = @fabric_colour, [grid1_colour] = @grid1_colour, [gr"& _ 
-                "id5_colour] = @grid5_colour, [grid10_colour] = @grid10_colour WHERE (([project_i"& _ 
-                "d] = @Original_project_id) AND ([project_name] = @Original_project_name) AND ((@"& _ 
-                "IsNull_date_started = 1 AND [date_started] IS NULL) OR ([date_started] = @Origin"& _ 
-                "al_date_started)) AND ((@IsNull_date_ended = 1 AND [date_ended] IS NULL) OR ([da"& _ 
-                "te_ended] = @Original_date_ended)) AND ([design_width] = @Original_design_width)"& _ 
-                " AND ([design_height] = @Original_design_height) AND ([fabric_width] = @Original"& _ 
-                "_fabric_width) AND ([fabric_height] = @Original_fabric_height) AND ([fabric_colo"& _ 
-                "ur] = @Original_fabric_colour) AND ([grid1_colour] = @Original_grid1_colour) AND"& _ 
-                " ([grid5_colour] = @Original_grid5_colour) AND ([grid10_colour] = @Original_grid"& _ 
-                "10_colour));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name, date_started, date_ended, design_"& _ 
-                "width, design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, "& _ 
-                "grid5_colour, grid10_colour FROM Projects WHERE (project_id = @project_id)"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [Projects] SET [project_name] = @project_name, [date_started] = @date_star"& _ 
+                "ted, [date_ended] = @date_ended, [design_width] = @design_width, [design_height]"& _ 
+                " = @design_height, [fabric_width] = @fabric_width, [fabric_height] = @fabric_hei"& _ 
+                "ght, [fabric_colour] = @fabric_colour, [grid1_colour] = @grid1_colour, [grid5_co"& _ 
+                "lour] = @grid5_colour, [grid10_colour] = @grid10_colour, [design_file] = @design"& _ 
+                "_file WHERE (([project_id] = @Original_project_id) AND ([project_name] = @Origin"& _ 
+                "al_project_name) AND ((@IsNull_date_started = 1 AND [date_started] IS NULL) OR ("& _ 
+                "[date_started] = @Original_date_started)) AND ((@IsNull_date_ended = 1 AND [date"& _ 
+                "_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND ([design_width] ="& _ 
+                " @Original_design_width) AND ([design_height] = @Original_design_height) AND ([f"& _ 
+                "abric_width] = @Original_fabric_width) AND ([fabric_height] = @Original_fabric_h"& _ 
+                "eight) AND ([fabric_colour] = @Original_fabric_colour) AND ([grid1_colour] = @Or"& _ 
+                "iginal_grid1_colour) AND ([grid5_colour] = @Original_grid5_colour) AND ([grid10_"& _ 
+                "colour] = @Original_grid10_colour) AND ([design_file] = @Original_design_file));"& _ 
+                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name, date_started, date_ended, design_width, desig"& _ 
+                "n_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour"& _ 
+                ", grid10_colour, design_file FROM Projects WHERE (project_id = @project_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -3794,6 +3826,7 @@ Namespace MyStitchDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_started", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
@@ -3808,6 +3841,7 @@ Namespace MyStitchDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid1_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid5_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_grid10_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -3821,12 +3855,12 @@ Namespace MyStitchDataSetTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(6) {}
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(7) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT project_id, project_name, date_started, date_ended, design_width, design_h"& _ 
                 "eight, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, g"& _ 
-                "rid10_colour FROM dbo.Projects"
+                "rid10_colour, design_file FROM Projects"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
@@ -3835,19 +3869,19 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(2).Connection = Me.Connection
-            Me._commandCollection(2).CommandText = "SELECT        project_id, project_name, date_ended, date_started, design_height, "& _ 
-                "design_width, fabric_colour, fabric_height, fabric_width, grid10_colour, grid1_c"& _ 
-                "olour, grid5_colour"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @id)"
+            Me._commandCollection(2).CommandText = "SELECT project_id, project_name, date_ended, date_started, design_height, design_"& _ 
+                "width, fabric_colour, fabric_height, fabric_width, grid10_colour, grid1_colour, "& _ 
+                "grid5_colour, design_file FROM Projects WHERE (project_id = @id)"
             Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(2).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(3).Connection = Me.Connection
             Me._commandCollection(3).CommandText = "INSERT INTO Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (project_name, date_started, date_"& _ 
                 "ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, "& _ 
-                "grid1_colour, grid5_colour, grid10_colour)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@project_name,@date_s"& _ 
-                "tarted,@date_ended,@design_width,@design_height,@fabric_width,@fabric_height,@fa"& _ 
-                "bric_colour,@grid1_colour,@grid5_colour,@grid10_colour);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT SCOPE_IDENTIT"& _ 
-                "Y()"
+                "grid1_colour, grid5_colour, grid10_colour, design_file)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@project"& _ 
+                "_name,@date_started,@date_ended,@design_width,@design_height,@fabric_width,@fabr"& _ 
+                "ic_height,@fabric_colour,@grid1_colour,@grid5_colour,@grid10_colour,@designfile)"& _ 
+                ";   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT SCOPE_IDENTITY()"
             Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -3860,14 +3894,15 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@designfile", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(4).Connection = Me.Connection
             Me._commandCollection(4).CommandText = "SET IDENTITY_INSERT projects ON;"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"INSERT INTO Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         "& _ 
                 "(project_id, project_name, date_started, date_ended, design_width, design_height"& _ 
                 ", fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10"& _ 
-                "_colour)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@Id,@project_name,@date_started,@date_ended,@design_wid"& _ 
-                "th,@design_height,@fabric_width,@fabric_height,@fabric_colour,@grid1_colour,@gri"& _ 
-                "d5_colour,@grid10_colour);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)
+                "_colour, design_file)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@Id,@project_name,@date_started,@date_ende"& _ 
+                "d,@design_width,@design_height,@fabric_width,@fabric_height,@fabric_colour,@grid"& _ 
+                "1_colour,@grid5_colour,@grid10_colour,@designfile);   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -3881,32 +3916,44 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@designfile", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(5).Connection = Me.Connection
             Me._commandCollection(5).CommandText = "TRUNCATE TABLE Projects"
             Me._commandCollection(5).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(6) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(6).Connection = Me.Connection
-            Me._commandCollection(6).CommandText = "UPDATE       Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                project_name = @project_name, date_star"& _ 
+            Me._commandCollection(6).CommandText = "UPDATE       Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                design_file = @design_file"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE      "& _ 
+                "  (project_id = @project_id);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name, date_started, "& _ 
+                "date_ended, design_width, design_height, fabric_width, fabric_height, fabric_col"& _ 
+                "our, grid1_colour, grid5_colour, grid10_colour, design_file FROM Projects WHERE "& _ 
+                "(project_id = @project_id)"
+            Me._commandCollection(6).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._commandCollection(7) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(7).Connection = Me.Connection
+            Me._commandCollection(7).CommandText = "UPDATE       Projects"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                project_name = @project_name, date_star"& _ 
                 "ted = @date_started, date_ended = @date_ended, design_width = @design_widht, des"& _ 
                 "ign_height = @design_height, fabric_width = @fabric_width, fabric_height = @fabr"& _ 
                 "ic_height, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         fabric_colour = @fabric_colour, grid1_colo"& _ 
                 "ur = @grid1_colour, grid5_colour = @grid5_colour, grid10_colour = @grid10_colour"& _ 
-                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @project_id);   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name F"& _ 
-                "ROM Projects WHERE (project_id = @project_id)"
-            Me._commandCollection(6).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_widht", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+                ", design_file = @designfile"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @project_id);    "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELEC"& _ 
+                "T project_id, project_name FROM Projects WHERE (project_id = @project_id)"
+            Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_widht", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid1_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid1_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid5_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid5_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@grid10_colour", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "grid10_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@designfile", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3979,7 +4026,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_project_name As String, ByVal Original_date_started As Global.System.Nullable(Of Date), ByVal Original_date_ended As Global.System.Nullable(Of Date), ByVal Original_design_width As Integer, ByVal Original_design_height As Integer, ByVal Original_fabric_width As Integer, ByVal Original_fabric_height As Integer, ByVal Original_fabric_colour As Integer, ByVal Original_grid1_colour As Integer, ByVal Original_grid5_colour As Integer, ByVal Original_grid10_colour As Integer) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_project_name As String, ByVal Original_date_started As Global.System.Nullable(Of Date), ByVal Original_date_ended As Global.System.Nullable(Of Date), ByVal Original_design_width As Integer, ByVal Original_design_height As Integer, ByVal Original_fabric_width As Integer, ByVal Original_fabric_height As Integer, ByVal Original_fabric_colour As Integer, ByVal Original_grid1_colour As Integer, ByVal Original_grid5_colour As Integer, ByVal Original_grid10_colour As Integer, ByVal Original_design_file As String) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
             If (Original_project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_project_name")
@@ -4008,6 +4055,11 @@ Namespace MyStitchDataSetTableAdapters
             Me.Adapter.DeleteCommand.Parameters(11).Value = CType(Original_grid1_colour,Integer)
             Me.Adapter.DeleteCommand.Parameters(12).Value = CType(Original_grid5_colour,Integer)
             Me.Adapter.DeleteCommand.Parameters(13).Value = CType(Original_grid10_colour,Integer)
+            If (Original_design_file Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("Original_design_file")
+            Else
+                Me.Adapter.DeleteCommand.Parameters(14).Value = CType(Original_design_file,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4027,7 +4079,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer) As Integer
+        Public Overloads Overridable Function Insert(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal design_file As String) As Integer
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
             Else
@@ -4051,6 +4103,11 @@ Namespace MyStitchDataSetTableAdapters
             Me.Adapter.InsertCommand.Parameters(8).Value = CType(grid1_colour,Integer)
             Me.Adapter.InsertCommand.Parameters(9).Value = CType(grid5_colour,Integer)
             Me.Adapter.InsertCommand.Parameters(10).Value = CType(grid10_colour,Integer)
+            If (design_file Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("design_file")
+            Else
+                Me.Adapter.InsertCommand.Parameters(11).Value = CType(design_file,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4082,6 +4139,7 @@ Namespace MyStitchDataSetTableAdapters
                     ByVal grid1_colour As Integer,  _
                     ByVal grid5_colour As Integer,  _
                     ByVal grid10_colour As Integer,  _
+                    ByVal design_file As String,  _
                     ByVal Original_project_id As Integer,  _
                     ByVal Original_project_name As String,  _
                     ByVal Original_date_started As Global.System.Nullable(Of Date),  _
@@ -4094,6 +4152,7 @@ Namespace MyStitchDataSetTableAdapters
                     ByVal Original_grid1_colour As Integer,  _
                     ByVal Original_grid5_colour As Integer,  _
                     ByVal Original_grid10_colour As Integer,  _
+                    ByVal Original_design_file As String,  _
                     ByVal project_id As Integer) As Integer
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
@@ -4118,35 +4177,45 @@ Namespace MyStitchDataSetTableAdapters
             Me.Adapter.UpdateCommand.Parameters(8).Value = CType(grid1_colour,Integer)
             Me.Adapter.UpdateCommand.Parameters(9).Value = CType(grid5_colour,Integer)
             Me.Adapter.UpdateCommand.Parameters(10).Value = CType(grid10_colour,Integer)
-            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_project_id,Integer)
+            If (design_file Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("design_file")
+            Else
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(design_file,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_project_id,Integer)
             If (Original_project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_project_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_project_name,String)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_project_name,String)
             End If
             If (Original_date_started.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_date_started.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(Original_date_started.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = Global.System.DBNull.Value
             End If
             If (Original_date_ended.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_date_ended.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(Original_date_ended.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(17).Value = CType(Original_design_width,Integer)
-            Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_design_height,Integer)
-            Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_fabric_width,Integer)
-            Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_fabric_height,Integer)
-            Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_fabric_colour,Integer)
-            Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_grid1_colour,Integer)
-            Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_grid5_colour,Integer)
-            Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_grid10_colour,Integer)
-            Me.Adapter.UpdateCommand.Parameters(25).Value = CType(project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_design_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_design_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_fabric_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_fabric_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_fabric_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_grid1_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_grid5_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(25).Value = CType(Original_grid10_colour,Integer)
+            If (Original_design_file Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("Original_design_file")
+            Else
+                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_design_file,String)
+            End If
+            Me.Adapter.UpdateCommand.Parameters(27).Value = CType(project_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4178,6 +4247,7 @@ Namespace MyStitchDataSetTableAdapters
                     ByVal grid1_colour As Integer,  _
                     ByVal grid5_colour As Integer,  _
                     ByVal grid10_colour As Integer,  _
+                    ByVal design_file As String,  _
                     ByVal Original_project_id As Integer,  _
                     ByVal Original_project_name As String,  _
                     ByVal Original_date_started As Global.System.Nullable(Of Date),  _
@@ -4189,8 +4259,9 @@ Namespace MyStitchDataSetTableAdapters
                     ByVal Original_fabric_colour As Integer,  _
                     ByVal Original_grid1_colour As Integer,  _
                     ByVal Original_grid5_colour As Integer,  _
-                    ByVal Original_grid10_colour As Integer) As Integer
-            Return Me.Update(project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10_colour, Original_project_id, Original_project_name, Original_date_started, Original_date_ended, Original_design_width, Original_design_height, Original_fabric_width, Original_fabric_height, Original_fabric_colour, Original_grid1_colour, Original_grid5_colour, Original_grid10_colour, Original_project_id)
+                    ByVal Original_grid10_colour As Integer,  _
+                    ByVal Original_design_file As String) As Integer
+            Return Me.Update(project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, grid1_colour, grid5_colour, grid10_colour, design_file, Original_project_id, Original_project_name, Original_date_started, Original_date_ended, Original_design_width, Original_design_height, Original_fabric_width, Original_fabric_height, Original_fabric_colour, Original_grid1_colour, Original_grid5_colour, Original_grid10_colour, Original_design_file, Original_project_id)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4220,7 +4291,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
-        Public Overloads Overridable Function InsertProject(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer) As Integer
+        Public Overloads Overridable Function InsertProject(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal designfile As String) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(3)
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
@@ -4245,27 +4316,37 @@ Namespace MyStitchDataSetTableAdapters
             command.Parameters(8).Value = CType(grid1_colour,Integer)
             command.Parameters(9).Value = CType(grid5_colour,Integer)
             command.Parameters(10).Value = CType(grid10_colour,Integer)
+            If (designfile Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("designfile")
+            Else
+                command.Parameters(11).Value = CType(designfile,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
-        Public Overloads Overridable Function InsertProjectWithId(ByVal Id As Integer, ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer) As Integer
+        Public Overloads Overridable Function InsertProjectWithId(ByVal Id As Integer, ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal designfile As String) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(4)
             command.Parameters(0).Value = CType(Id,Integer)
             If (project_name Is Nothing) Then
@@ -4291,6 +4372,11 @@ Namespace MyStitchDataSetTableAdapters
             command.Parameters(9).Value = CType(grid1_colour,Integer)
             command.Parameters(10).Value = CType(grid5_colour,Integer)
             command.Parameters(11).Value = CType(grid10_colour,Integer)
+            If (designfile Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("designfile")
+            Else
+                command.Parameters(12).Value = CType(designfile,String)
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -4333,8 +4419,36 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
-        Public Overloads Overridable Function UpdateProject(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_widht As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal project_id As Integer) As Integer
+        Public Overloads Overridable Function UpdateDesignFile(ByVal design_file As String, ByVal project_id As Integer) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(6)
+            If (design_file Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("design_file")
+            Else
+                command.Parameters(0).Value = CType(design_file,String)
+            End If
+            command.Parameters(1).Value = CType(project_id,Integer)
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
+        Public Overloads Overridable Function UpdateProject(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_widht As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal grid1_colour As Integer, ByVal grid5_colour As Integer, ByVal grid10_colour As Integer, ByVal designfile As String, ByVal project_id As Integer) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
             Else
@@ -4358,7 +4472,12 @@ Namespace MyStitchDataSetTableAdapters
             command.Parameters(8).Value = CType(grid1_colour,Integer)
             command.Parameters(9).Value = CType(grid5_colour,Integer)
             command.Parameters(10).Value = CType(grid10_colour,Integer)
-            command.Parameters(11).Value = CType(project_id,Integer)
+            If (designfile Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("designfile")
+            Else
+                command.Parameters(11).Value = CType(designfile,String)
+            End If
+            command.Parameters(12).Value = CType(project_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then

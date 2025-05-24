@@ -21,6 +21,24 @@ Namespace Domain.Objects
         Private _grid1Colour As Integer
         Private _grid5Colour As Integer
         Private _grid10Colour As Integer
+        Private _design As ProjectDesign
+        Private _designFileName As String
+        Public Property DesignFileName() As String
+            Get
+                Return _designFileName
+            End Get
+            Set(ByVal value As String)
+                _designFileName = value
+            End Set
+        End Property
+        Public Property Design() As ProjectDesign
+            Get
+                Return _design
+            End Get
+            Set(ByVal value As ProjectDesign)
+                _design = value
+            End Set
+        End Property
         Public Property Grid10Colour() As Integer
             Get
                 Return _grid10Colour
@@ -128,7 +146,9 @@ Namespace Domain.Objects
             _designWidth = 0
             _fabricWidth = 0
             _fabricHeight = 0
-            _fabricColour = Color.Black.ToArgb
+            _fabricColour = Color.White.ToArgb
+            _design = New ProjectDesign
+            _designFileName = String.Empty
         End Sub
         Public Sub New()
             Initialiseproject()
@@ -150,7 +170,9 @@ Namespace Domain.Objects
                        pFabricColour As Integer,
                        pGrid1Colour As Integer,
                        pGrid5Colour As Integer,
-                       pGrid10Colour As Integer)
+                       pGrid10Colour As Integer,
+                       pDesign As ProjectDesign,
+                       pFilename As String)
             Initialiseproject()
             _projectId = pId
             _projectName = pProjectName
@@ -164,6 +186,8 @@ Namespace Domain.Objects
             _grid1Colour = pGrid1Colour
             _grid5Colour = pGrid5Colour
             _grid10Colour = pGrid10Colour
+            _design = pDesign
+            _designFileName = pFilename
         End Sub
 #End Region
 #Region "methods"

@@ -6,8 +6,11 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain.Objects
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain
 Public Class FrmStitchDesign
+    Private Const PIXELS_PER_CELL As Integer = 64
     Private Const A4_WIDTH_PIXELS As Integer = 3508
     Private Const A4_HEIGHT_PIXELS As Integer = 2480
     ' image dots per inch
@@ -24,7 +27,8 @@ Public Class FrmStitchDesign
     Private topmargin As Integer
     Private myPrintDoc As New Printing.PrintDocument
     Private _designGraphics As Graphics
-
+    Private _projectDesign As ProjectDesign
+    Private _project As Project
     Private _projectId As Integer
     Public WriteOnly Property ProjectId() As Integer
         Set(ByVal value As Integer)
@@ -33,20 +37,45 @@ Public Class FrmStitchDesign
     End Property
 
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Printing Thread Cards", MyBase.Name)
+        LogUtil.LogInfo("Opening design", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
         isLoading = True
         InitialiseForm()
         isLoading = False
     End Sub
     Private Sub InitialiseForm()
-        sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
-        sourceBitmap.SetResolution(DPI, DPI)
-        leftmargin = myPrintDoc.DefaultPageSettings.HardMarginX * 3
-        topmargin = myPrintDoc.DefaultPageSettings.HardMarginY * 3
-        SetPictureWidth()
-        DrawGrid
+        _project = GetProjectById(_projectId)
+        If _project.IsLoaded Then
+            _projectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, _project.DesignFileName).Build
+            If Not _projectDesign.IsLoaded Then
+                _projectDesign.Rows = _project.DesignHeight
+                _projectDesign.Columns = _project.DesignWidth
+            End If
+            sourceBitmap = New Bitmap(_projectDesign.Columns * PIXELS_PER_CELL, _projectDesign.Rows * PIXELS_PER_CELL)
+            sourceBitmap.SetResolution(DPI, DPI)
+            'leftmargin = myPrintDoc.DefaultPageSettings.HardMarginX * 3
+            'topmargin = myPrintDoc.DefaultPageSettings.HardMarginY * 3
+            'SetPictureWidth()
+            DrawGrid(_projectDesign.Columns, _projectDesign.Rows)
+        Else
+            MsgBox("No project found", MsgBoxStyle.Exclamation, "Error")
+            Close()
+        End If
     End Sub
+
+    Private Sub GenTestDesign()
+        _projectDesign = New ProjectDesign
+
+        For x = 1 To 10
+            Dim _quarters As New List(Of BlockStitchQuarter)
+            _projectDesign.BlockStitches.Add(New BlockStitch(New Point(1, 1), _quarters))
+            _projectDesign.BackStitches.Add(New BackStitch)
+            _projectDesign.Knots.Add(New Knot)
+        Next
+        _projectDesign.Rows = 10
+        _projectDesign.Columns = 15
+    End Sub
+
     Private Sub SetPictureWidth()
         'If sourceBitmap IsNot Nothing Then
         '    If PnlCardImage.Width > PnlCardImage.Height Then
@@ -58,13 +87,14 @@ Public Class FrmStitchDesign
         'PicThreadCard.Image = sourceBitmap
         'PicThreadCard.Location = New Point((PnlCardImage.Width - PicThreadCard.Width) / 2, PicThreadCard.Top)
     End Sub
-    Private Sub DrawGrid()
-        Dim gap As Integer = sourceBitmap.Height / 100
+    Private Sub DrawGrid(pWidth As Integer, pHeight As Integer)
+        Dim gap As Integer = PIXELS_PER_CELL * magnificationLevel
         Dim wct As Integer = sourceBitmap.Width / gap
         _designGraphics = Graphics.FromImage(sourceBitmap)
         _designGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
-        _designGraphics.DrawRectangle(New Pen(Brushes.Black, 2), New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
-        For x = 0 To wct
+        _designGraphics.DrawRectangle(New Pen(Brushes.Black, 2), New Rectangle(0, 0, Math.Min(gap * pWidth, sourceBitmap.Width), Math.Min(gap * pHeight, sourceBitmap.Height)))
+
+        For x = 0 To pWidth
             Dim penwidth As Integer = 1
             If x Mod 5 = 0 Then
                 penwidth = 2
@@ -73,10 +103,10 @@ Public Class FrmStitchDesign
             If x Mod 10 = 0 Then
                 penwidth = 4
             End If
-            _designGraphics.DrawLine(New Pen(Brushes.Black, penwidth), New Point(gap * x, 0), New Point(gap * x, sourceBitmap.Height))
+            _designGraphics.DrawLine(New Pen(Brushes.Black, penwidth), New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * pHeight, sourceBitmap.Height)))
 
         Next
-        For y = 0 To 100
+        For y = 0 To pHeight
             Dim penwidth As Integer = 1
             Dim pencolor As Brush = Brushes.LightGray
             If y Mod 5 = 0 Then
@@ -88,7 +118,7 @@ Public Class FrmStitchDesign
                 penwidth = 4
                 pencolor = Brushes.Black
             End If
-            _designGraphics.DrawLine(New Pen(Brushes.Black, penwidth), New Point(0, gap * y), New Point(sourceBitmap.Width, gap * y))
+            _designGraphics.DrawLine(New Pen(Brushes.Black, penwidth), New Point(0, gap * y), New Point(Math.Min(gap * pWidth, sourceBitmap.Width), gap * y))
         Next
 
         PicDesign.Image = sourceBitmap
@@ -104,6 +134,8 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        SaveDesignJson(_projectDesign, My.Settings.DesignFilePath, "TestDesign")
+        SaveDesignXML(_projectDesign, My.Settings.DesignFilePath, "TestDesign")
 
     End Sub
 
@@ -140,11 +172,13 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub BtnEnlarge_Click(sender As Object, e As EventArgs) Handles BtnEnlarge.Click
-
+        magnificationLevel *= 1.2
+        DrawGrid(_projectDesign.Columns, _projectDesign.Rows)
     End Sub
 
     Private Sub BtnShrink_Click(sender As Object, e As EventArgs) Handles BtnShrink.Click
-
+        magnificationLevel /= 1.2
+        DrawGrid(_projectDesign.Columns, _projectDesign.Rows)
     End Sub
 
     Private Sub BtnFit_Click(sender As Object, e As EventArgs) Handles BtnFit.Click
@@ -224,6 +258,14 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
 
     End Sub
 End Class

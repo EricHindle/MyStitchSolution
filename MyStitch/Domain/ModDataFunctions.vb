@@ -233,9 +233,9 @@ Namespace Domain
             Try
                 With oProject
                     If projectId < 0 Then
-                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour)
+                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName)
                     Else
-                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour)
+                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName)
                     End If
                 End With
             Catch ex As SqlException
@@ -247,8 +247,16 @@ Namespace Domain
             LogUtil.LogInfo("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
             Try
                 With oProject
-                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, oProject.ProjectId)
+                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, oProject.ProjectId)
                 End With
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+        End Sub
+        Public Sub UpdateDesignFilename(pProjectId As Integer, pFilename As String)
+            LogUtil.LogInfo("Updating project filename", MethodBase.GetCurrentMethod.Name)
+            Try
+                oProjectTa.UpdateDesignFile(pFilename, pProjectId)
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
