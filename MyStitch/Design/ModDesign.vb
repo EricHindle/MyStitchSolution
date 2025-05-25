@@ -15,8 +15,7 @@ Module ModDesign
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
 
-    Public magnification As Decimal = 1
-    Public magnificationLevel As Decimal = 1
+
 
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean

@@ -84,6 +84,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\ImageViewer.designer.vb">
+      <DependentUpon>ImageViewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ImageViewer.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Design\ModDesign.vb" />
     <Compile Include="Domain\Builders\BackstitchBuilder.vb" />
     <Compile Include="Domain\Builders\BlockStitchBuilder.vb" />
@@ -205,6 +211,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\width.png" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\minus.png" />
+    <None Include="Resources\height.png" />
+    <None Include="Resources\centre.png" />
     <None Include="packages.config" />
     <None Include="Resources\cross-stitch.png" />
     <None Include="Resources\save.png" />
