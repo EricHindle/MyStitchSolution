@@ -14,7 +14,7 @@ Public Class KnotBuilder
     Private _thread As Thread
     Private _strands As Integer
     Private _isBead As Boolean
-    Public Shared Function ABackStitch() As KnotBuilder
+    Public Shared Function AKnot() As KnotBuilder
         Return New KnotBuilder
     End Function
     Public Function StartingWithNothing() As KnotBuilder

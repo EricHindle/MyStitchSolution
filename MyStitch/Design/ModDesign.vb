@@ -7,15 +7,11 @@
 
 Imports System.IO
 Imports System.IO.Compression
-Imports MyStitch.Domain.Objects
-Imports Newtonsoft.Json
 
 Module ModDesign
     Public Const JSON_EXT As String = ".json"
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
-
-
 
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean

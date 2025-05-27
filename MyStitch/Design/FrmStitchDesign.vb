@@ -5,11 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.Net.Mime.MediaTypeNames
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports HindlewareLib.Logging
+Imports MyStitch.BlockStitch
 Imports MyStitch.Domain
-Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Public Class FrmStitchDesign
     Private PIXELS_PER_CELL As Integer = 8
@@ -38,6 +36,37 @@ Public Class FrmStitchDesign
     Private topcorner As Point = New Point(0, 0)
 
     Private oViewer As ImageViewer = New ImageViewer
+
+    Private oCurrentAction As DesignAction
+    Private oCurrentThread As New Thread
+
+    Private iXOffset As Integer
+    Private iYOffset As Integer
+    Private iOldHScrollbarValue As Integer = 0
+    Private iOldVScrollbarValue As Integer = 0
+
+    Private iPpc As Integer
+    Private Enum DesignAction
+        FullBlockstitch
+        HalfBlockstitchForward
+        HalfBlockstitchBack
+        QuarterBlockstitchTopLeft
+        QuarterBlockstitchTopRight
+        QuarterBlockstitchBottomRight
+        QuarterBlockstitchBottonLeft
+        ThreeQuarterBlockstitchTopLeft
+        ThreeQuarterBlockstitchTopRight
+        ThreeQuarterBlockstitchBottomRight
+        ThreeQuarterBlockstitchBottomLeft
+        BlockstitchQuarters
+        BackStitchFullThin
+        BackstitchHalfThin
+        BackstitchFullThick
+        BackStitchHalfThick
+        Knot
+        Bead
+    End Enum
+
     Public WriteOnly Property ProjectId() As Integer
         Set(ByVal value As Integer)
             oProjectId = value
@@ -63,17 +92,38 @@ Public Class FrmStitchDesign
             'Create ImageViewer
             oViewer = New ImageViewer(PicDesign, HScrollBar1, VScrollBar1, ZoomTrackBar, LblPct)
             magnification = 1
+            iPpc = PIXELS_PER_CELL * magnification
             'Draw grid onto graphics
             DrawGrid(oProject, oProjectDesign)
+            CalculateOffsetForCentre(oDesignBitmap)
 
-            DisplayImage(oDesignBitmap)
+            HScrollBar1.Maximum = PicDesign.Width / iPpc
+            HScrollBar1.Value = iXOffset / iPpc
+
+            VScrollBar1.Maximum = PicDesign.Height / iPpc
+            VScrollBar1.Value = iYOffset / iPpc
+            iOldHScrollbarValue = HScrollBar1.Value
+            iOldVScrollbarValue = VScrollBar1.Value
 
         Else
             MsgBox("No project found", MsgBoxStyle.Exclamation, "Error")
             Close()
         End If
+        Me.Refresh()
     End Sub
+    Private Sub CalculateOffsetForCentre(pDesignBitmap)
+        Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / 2
+        Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / 2
+        iXOffset = If(x > 0, x, 0)
+        iYOffset = If(y > 0, y, 0)
+    End Sub
+    Private Sub AdjustOffSet(pX As Integer, pY As Integer)
 
+        Dim x As Integer = iXOffset + pX
+        Dim y As Integer = iYOffset + pY
+        iXOffset = If(x > 0, x, 0)
+        iYOffset = If(y > 0, y, 0)
+    End Sub
     Private Sub GenTestDesign()
         oProjectDesign = New ProjectDesign
 
@@ -101,8 +151,8 @@ Public Class FrmStitchDesign
     Private Sub DrawGrid(ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign)
 
         ' Create image the size of the design
-        Dim ppc As Integer = PIXELS_PER_CELL * magnification
-        oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * ppc), CInt(oProjectDesign.Rows * ppc))
+
+        oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * iPpc), CInt(oProjectDesign.Rows * iPpc))
         '   oDesignBitmap.SetResolution(DPI, DPI)
 
         'Create graphics from image
@@ -110,7 +160,7 @@ Public Class FrmStitchDesign
 
         Dim _widthInColumns As Integer = pProjectDesign.Columns
         Dim _heightInRows As Integer = pProjectDesign.Rows
-        Dim gap As Integer = ppc
+        Dim gap As Integer = iPpc
         Dim wct As Integer = oDesignBitmap.Width / gap
         Dim _fabricColour As Color = Color.FromArgb(pProject.FabricColour)
         Dim _fabricBrush As New SolidBrush(_fabricColour)
@@ -130,42 +180,59 @@ Public Class FrmStitchDesign
             oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
         Next
         For x = 5 To _widthInColumns Step 10
-            _penWidth = 2
+            _penWidth = 1
             _penColor = Brushes.DarkGray
             oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         Next
         For y = 5 To _heightInRows Step 10
-            _penWidth = 2
+            _penWidth = 1
             _penColor = Brushes.DarkGray
             oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
         Next
         For x = 10 To _widthInColumns Step 10
-            _penWidth = 2
+            _penWidth = 1
             _penColor = Brushes.Black
             oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         Next
         For y = 10 To _heightInRows Step 10
-            _penWidth = 2
+            _penWidth = 1
             _penColor = Brushes.Black
             oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
         Next
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
+        FillGrid()
+    End Sub
 
+    Private Sub FillGrid()
+        For Each _blockstitch In oProjectDesign.BlockStitches
+
+        Next
+        For Each _backstitch In oProjectDesign.BackStitches
+
+        Next
+        For Each _knot As Knot In oProjectDesign.Knots
+
+        Next
     End Sub
     Private Sub DisplayImage(pImage As Bitmap)
+        DisplayImage(pImage, 0, 0)
+    End Sub
+    Private Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer)
 
-        Dim ppc As Integer = PIXELS_PER_CELL * magnification
         Dim rect As Rectangle
-        Dim picx As Single = ppc * topcorner.X
-        Dim picy As Single = ppc * topcorner.Y
+        Dim picx As Single = iPpc * topcorner.X
+        Dim picy As Single = iPpc * topcorner.Y
         Dim picw As Single = oDesignBitmap.Width - picx
         Dim pich As Single = oDesignBitmap.Height - picy
+        Dim atX As Single = pX
+        Dim atY As Single = pY
+
         rect = New Rectangle(picx, picy, picw, pich)
         Dim myfg As Graphics = PicDesign.CreateGraphics
         myfg.Clear(PicDesign.BackColor)
 
         Try
-            myfg.DrawImage(pImage, 0, 0, rect, GraphicsUnit.Pixel)
+            myfg.DrawImage(pImage, atX, atY, rect, GraphicsUnit.Pixel)
         Catch ex As Exception
             Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
         End Try
@@ -215,92 +282,166 @@ Public Class FrmStitchDesign
 
     Private Sub BtnEnlarge_Click(sender As Object, e As EventArgs) Handles BtnEnlarge.Click
         magnification *= 1.2
+        iPpc = PIXELS_PER_CELL * magnification
         DrawGrid(oProject, oProjectDesign)
+        isLoading = True
+        HScrollBar1.Maximum = PicDesign.Width / iPpc
+        HScrollBar1.Value = iXOffset / iPpc
 
-        DisplayImage(oDesignBitmap)
+        VScrollBar1.Maximum = PicDesign.Height / iPpc
+        VScrollBar1.Value = iYOffset / iPpc
+        iOldHScrollbarValue = HScrollBar1.Value
+        iOldVScrollbarValue = VScrollBar1.Value
+        isLoading = False
+        ' DisplayImage(oDesignBitmap)
 
     End Sub
 
     Private Sub BtnShrink_Click(sender As Object, e As EventArgs) Handles BtnShrink.Click
         magnification /= 1.2
+        iPpc = PIXELS_PER_CELL * magnification
         DrawGrid(oProject, oProjectDesign)
+        isLoading = True
+        HScrollBar1.Maximum = PicDesign.Width / iPpc
+        HScrollBar1.Value = iXOffset / iPpc
 
-        DisplayImage(oDesignBitmap)
+        VScrollBar1.Maximum = PicDesign.Height / iPpc
+        VScrollBar1.Value = iYOffset / iPpc
+        iOldHScrollbarValue = HScrollBar1.Value
+        iOldVScrollbarValue = VScrollBar1.Value
+        isLoading = False
+        '     DisplayImage(oDesignBitmap)
 
     End Sub
 
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
-
+        oCurrentAction = DesignAction.FullBlockstitch
+        ClearButtonSelect()
+        BtnFullStitch.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub Btn3QtrsTL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTL.Click
-
+        oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopLeft
+        ClearButtonSelect()
+        Btn3QtrsTL.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub Btn3QtrsTR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTR.Click
-
+        oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopRight
+        ClearButtonSelect()
+        Btn3QtrsTR.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub Btn3QtrsBR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBR.Click
-
+        oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomRight
+        ClearButtonSelect()
+        Btn3QtrsBR.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub Btn3QtrsBL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBL.Click
-
+        oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomLeft
+        ClearButtonSelect()
+        Btn3QtrsBL.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnHalfForward_Click(sender As Object, e As EventArgs) Handles BtnHalfForward.Click
-
+        oCurrentAction = DesignAction.HalfBlockstitchForward
+        ClearButtonSelect()
+        BtnHalfForward.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnHalfBack_Click(sender As Object, e As EventArgs) Handles BtnHalfBack.Click
-
+        oCurrentAction = DesignAction.HalfBlockstitchBack
+        ClearButtonSelect()
+        BtnHalfBack.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnQtrTL_Click(sender As Object, e As EventArgs) Handles BtnQtrTL.Click
-
+        oCurrentAction = DesignAction.QuarterBlockstitchTopLeft
+        ClearButtonSelect()
+        BtnQtrTL.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
-    Private Sub BtnQWtrTR_Click(sender As Object, e As EventArgs) Handles BtnQWtrTR.Click
-
+    Private Sub BtnQWtrTR_Click(sender As Object, e As EventArgs) Handles BtnQtrTR.Click
+        oCurrentAction = DesignAction.QuarterBlockstitchTopRight
+        ClearButtonSelect()
+        BtnQtrTR.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnQtrBR_Click(sender As Object, e As EventArgs) Handles BtnQtrBR.Click
-
+        oCurrentAction = DesignAction.QuarterBlockstitchBottomRight
+        ClearButtonSelect()
+        BtnQtrBR.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnQtrBL_Click(sender As Object, e As EventArgs) Handles BtnQtrBL.Click
-
+        oCurrentAction = DesignAction.QuarterBlockstitchBottonLeft
+        ClearButtonSelect()
+        BtnQtrBL.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnQuarters_Click(sender As Object, e As EventArgs) Handles BtnQuarters.Click
-
+        oCurrentAction = DesignAction.BlockstitchQuarters
+        ClearButtonSelect()
+        BtnQuarters.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitchThin.Click
-
+        oCurrentAction = DesignAction.BackStitchFullThin
+        ClearButtonSelect()
+        BtnFullBackstitchThin.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThin.Click
-
+        oCurrentAction = DesignAction.BackstitchHalfThin
+        ClearButtonSelect()
+        BtnHalfBackStitchThin.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
-    Private Sub BtnFullBcakStitchThick_Click(sender As Object, e As EventArgs) Handles BtnFullBcakStitchThick.Click
-
+    Private Sub BtnFullBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnFullBackStitchThick.Click
+        oCurrentAction = DesignAction.BackstitchFullThick
+        ClearButtonSelect()
+        BtnFullBackStitchThick.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnHalfBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThick.Click
-
+        oCurrentAction = DesignAction.BackStitchHalfThick
+        ClearButtonSelect()
+        BtnHalfBackStitchThick.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnKnot_Click(sender As Object, e As EventArgs) Handles BtnKnot.Click
-
+        oCurrentAction = DesignAction.Knot
+        ClearButtonSelect()
+        BtnKnot.BackgroundImage = My.Resources.BtnBkgrdDown
     End Sub
 
     Private Sub BtnBead_Click(sender As Object, e As EventArgs) Handles BtnBead.Click
+        oCurrentAction = DesignAction.Bead
+        ClearButtonSelect()
+        BtnBead.BackgroundImage = My.Resources.BtnBkgrdDown
+    End Sub
+    Private Sub ClearButtonSelect()
+        BtnFullStitch.BackgroundImage = My.Resources.BtnBkgrd
+        BtnHalfBack.BackgroundImage = My.Resources.BtnBkgrd
+        BtnHalfForward.BackgroundImage = My.Resources.BtnBkgrd
+        Btn3QtrsBL.BackgroundImage = My.Resources.BtnBkgrd
+        Btn3QtrsBR.BackgroundImage = My.Resources.BtnBkgrd
+        Btn3QtrsTL.BackgroundImage = My.Resources.BtnBkgrd
+        Btn3QtrsTR.BackgroundImage = My.Resources.BtnBkgrd
+        BtnQtrBL.BackgroundImage = My.Resources.BtnBkgrd
+        BtnQtrBR.BackgroundImage = My.Resources.BtnBkgrd
+        BtnQtrTL.BackgroundImage = My.Resources.BtnBkgrd
+        BtnQtrTR.BackgroundImage = My.Resources.BtnBkgrd
+        BtnQuarters.BackgroundImage = My.Resources.BtnBkgrd
+        BtnFullBackstitchThin.BackgroundImage = My.Resources.BtnBkgrd
+        BtnFullBackStitchThick.BackgroundImage = My.Resources.BtnBkgrd
+        BtnHalfBackStitchThick.BackgroundImage = My.Resources.BtnBkgrd
+        BtnHalfBackStitchThin.BackgroundImage = My.Resources.BtnBkgrd
+        BtnKnot.BackgroundImage = My.Resources.BtnBkgrd
+        BtnBead.BackgroundImage = My.Resources.BtnBkgrd
 
     End Sub
-
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
     End Sub
@@ -313,14 +454,39 @@ Public Class FrmStitchDesign
 
     End Sub
     Private Sub HScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles HScrollBar1.ValueChanged
-        topcorner = New Point(HScrollBar1.Value, topcorner.Y)
-        DisplayImage(oDesignBitmap)
+        If Not isLoading Then
+            Dim _newXOffset As Integer = iXOffset + (iPpc * (HScrollBar1.Value - iOldHScrollbarValue))
+            Dim _oldTopCornerX As Integer = topcorner.X
 
+            If _newXOffset < 0 Then
+                topcorner = New Point(topcorner.X + (HScrollBar1.Value - iOldHScrollbarValue), topcorner.Y)
+                iXOffset = 0
+            Else
+                iXOffset = _newXOffset
+            End If
+            LogUtil.Info(CStr(iOldHScrollbarValue) & " : " & CStr(HScrollBar1.Value) & " : " & CStr(iXOffset) & " : " & CStr(_newXOffset) & " : " & CStr(topcorner.X) & " : X")
+
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+            iOldHScrollbarValue = HScrollBar1.Value
+        End If
     End Sub
 
     Private Sub VScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles VScrollBar1.ValueChanged
-        topcorner = New Point(topcorner.X, VScrollBar1.Value)
-        DisplayImage(oDesignBitmap)
+        If Not isLoading Then
+            Dim _newYOffset As Integer = iYOffset + (iPpc * (VScrollBar1.Value - iOldVScrollbarValue))
+
+            If _newYOffset < 0 Then
+                topcorner = New Point(topcorner.X, (VScrollBar1.Value - iOldVScrollbarValue) + topcorner.Y)
+                iYOffset = 0
+            Else
+
+                iYOffset = _newYOffset
+            End If
+            LogUtil.Info(CStr(iOldVScrollbarValue) & " : " & CStr(VScrollBar1.Value) & " : " & CStr(iYOffset) & " : " & CStr(_newYOffset) & " : " & CStr(topcorner.Y) & " : Y")
+
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+            iOldVScrollbarValue = VScrollBar1.Value
+        End If
 
     End Sub
 
@@ -345,18 +511,166 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
-        Dim ppc As Integer = PIXELS_PER_CELL * magnification
-        Dim cel_x As Integer = Math.Floor(e.X / ppc) + topcorner.X
-        Dim cel_y As Integer = Math.Floor(e.Y / ppc) + topcorner.Y
+
+        Dim cel_x As Integer = Math.Floor((e.X - iXOffset) / iPpc) + topcorner.X
+        Dim cel_y As Integer = Math.Floor((e.Y - iYOffset) / iPpc) + topcorner.Y
+
+        Dim celLocation As New Point(cel_x, cel_y)
+        Dim isRemove As Boolean = e.Button = MouseButtons.Right
+
+
+
+
         Label1.Text = CStr(cel_x)
         Label2.Text = CStr(cel_y)
-    End Sub
 
+        Dim _xrmd As Integer = e.X Mod iPpc
+        Dim _yrmd As Integer = e.Y Mod iPpc
+        Dim _adjustX As Integer = 0
+        Dim _adjustY As Integer = 0
+        Dim _qtr As BlockQuarter
+
+        Select Case True
+            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+                _qtr = BlockQuarter.BottomRight
+            Case _xrmd > iPpc / 2 AndAlso _yrmd <= iPpc / 2
+                _qtr = BlockQuarter.TopRight
+            Case _xrmd <= iPpc / 2 AndAlso _yrmd > iPpc / 2
+                _qtr = BlockQuarter.BottomLeft
+            Case _xrmd <= iPpc / 2 AndAlso _yrmd <= iPpc / 2
+                _qtr = BlockQuarter.TopLeft
+        End Select
+
+
+        If _xrmd > iPpc / 2 Then
+            _adjustX += iPpc / 2
+        End If
+        If _yrmd > iPpc / 2 Then
+            _adjustY += iPpc / 2
+        End If
+
+        Dim _actionPoint As New Point((cel_x * iPpc) + _adjustX, (cel_y * iPpc) + _adjustY)
+        Label3.Text = CStr(iPpc)
+        Label4.Text = CStr(_actionPoint.X) & ":" & CStr(_actionPoint.Y)
+        Select Case oCurrentAction
+            Case DesignAction.BackstitchFullThick
+                StartBackstitch()
+            Case DesignAction.BackStitchFullThin
+                StartBackstitch()
+            Case DesignAction.BackstitchHalfThin
+                StartBackstitch()
+            Case DesignAction.BackStitchHalfThick
+                StartBackstitch()
+            Case DesignAction.Bead
+                AddKnot(celLocation, _qtr, True, isRemove)
+            Case DesignAction.Knot
+                AddKnot(celLocation, _qtr, False, isRemove)
+            Case DesignAction.FullBlockstitch
+
+            Case DesignAction.HalfBlockstitchBack
+            Case DesignAction.HalfBlockstitchForward
+            Case DesignAction.QuarterBlockstitchBottomRight
+            Case DesignAction.QuarterBlockstitchBottonLeft
+            Case DesignAction.QuarterBlockstitchTopLeft
+            Case DesignAction.QuarterBlockstitchTopRight
+            Case DesignAction.ThreeQuarterBlockstitchBottomLeft
+            Case DesignAction.ThreeQuarterBlockstitchBottomRight
+            Case DesignAction.ThreeQuarterBlockstitchTopLeft
+            Case DesignAction.ThreeQuarterBlockstitchTopRight
+            Case DesignAction.BlockstitchQuarters
+        End Select
+    End Sub
+    Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean, pIsRemove As Boolean)
+        Dim _list As List(Of Knot) = FindKnots(pActionPoint)
+        For Each _knot As Knot In _list
+            oProjectDesign.Knots.Remove(_knot)
+        Next
+        If Not pIsRemove Then
+            Dim newBead As New Knot(pActionPoint, pQtr, 1, oCurrentThread, True)
+            oProjectDesign.Knots.Add(newBead)
+        End If
+    End Sub
+    Private Function FindKnots(pActionPoint As Point) As List(Of Knot)
+        Dim _list As New List(Of Knot)
+        For Each _knot As Knot In oProjectDesign.Knots
+            If _knot.BlockLocation = pActionPoint Then
+                _list.Add(_knot)
+            End If
+        Next
+        Return _list
+    End Function
     Private Sub PicDesign_SizeChanged(sender As Object, e As EventArgs) Handles PicDesign.SizeChanged
         If Not isLoading Then
             If oProject IsNot Nothing AndAlso oProjectDesign IsNot Nothing AndAlso oProject.IsLoaded AndAlso oProjectDesign.IsLoaded Then
                 DisplayImage(oDesignBitmap)
             End If
         End If
+    End Sub
+
+    Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
+
+        Select Case oCurrentAction
+            Case DesignAction.BackstitchFullThick
+                DrawBackstitch()
+            Case DesignAction.BackStitchFullThin
+                DrawBackstitch()
+            Case DesignAction.BackstitchHalfThin
+                DrawBackstitch()
+            Case DesignAction.BackStitchHalfThick
+                DrawBackstitch()
+            Case DesignAction.Bead
+
+            Case DesignAction.Knot
+
+            Case DesignAction.FullBlockstitch
+
+            Case DesignAction.HalfBlockstitchBack
+            Case DesignAction.HalfBlockstitchForward
+            Case DesignAction.QuarterBlockstitchBottomRight
+            Case DesignAction.QuarterBlockstitchBottonLeft
+            Case DesignAction.QuarterBlockstitchTopLeft
+            Case DesignAction.QuarterBlockstitchTopRight
+            Case DesignAction.ThreeQuarterBlockstitchBottomLeft
+            Case DesignAction.ThreeQuarterBlockstitchBottomRight
+            Case DesignAction.ThreeQuarterBlockstitchTopLeft
+            Case DesignAction.ThreeQuarterBlockstitchTopRight
+            Case DesignAction.BlockstitchQuarters
+
+        End Select
+    End Sub
+
+    Private Sub PicDesign_MouseUp(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseUp
+        Select Case oCurrentAction
+            Case DesignAction.BackstitchFullThick
+                EndBackstitch()
+            Case DesignAction.BackStitchFullThin
+                EndBackstitch()
+            Case DesignAction.BackstitchHalfThin
+                EndBackstitch()
+            Case DesignAction.BackStitchHalfThick
+                EndBackstitch()
+        End Select
+
+    End Sub
+    Private Sub DrawBackstitch()
+
+    End Sub
+    Private Sub StartBackstitch()
+
+    End Sub
+    Private Sub EndBackstitch()
+
+    End Sub
+
+    Private Sub BtnCentre_Click(sender As Object, e As EventArgs) Handles BtnCentre.Click
+        CalculateOffsetForCentre(oDesignBitmap)
+    End Sub
+
+    Private Sub FrmStitchDesign_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+    End Sub
+
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
+        Me.Close()
     End Sub
 End Class

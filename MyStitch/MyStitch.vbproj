@@ -211,6 +211,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\Bead.png" />
+    <None Include="Resources\BtnBkgrdDown.png" />
+    <None Include="Resources\fullthinbs.png" />
+    <None Include="Resources\BtnBkgrd.png" />
     <None Include="Resources\width.png" />
     <None Include="Resources\plus.png" />
     <None Include="Resources\minus.png" />
@@ -235,7 +239,6 @@
     <None Include="Resources\halfthickbs.png" />
     <None Include="Resources\halffwd.png" />
     <None Include="Resources\halfback.png" />
-    <None Include="Resources\fullthinbs.png" />
     <None Include="Resources\fullthickbs.png" />
     <None Include="Resources\fullcross.png" />
     <None Include="Resources\flood.png" />
