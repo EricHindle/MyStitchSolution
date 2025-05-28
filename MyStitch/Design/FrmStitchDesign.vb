@@ -10,7 +10,8 @@ Imports MyStitch.BlockStitch
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmStitchDesign
-    Private PIXELS_PER_CELL As Integer = 8
+    Private Const PIXELS_PER_CELL As Integer = 8
+    Private Const MAG_STEP As Decimal = 1.3
     Private Const A4_WIDTH_PIXELS As Integer = 3508
     Private Const A4_HEIGHT_PIXELS As Integer = 2480
     ' image dots per inch
@@ -32,9 +33,9 @@ Public Class FrmStitchDesign
     Private topmargin As Integer
     Private myPrintDoc As New Printing.PrintDocument
 
-    Private magnification As Decimal = 1.25
+    Private magnification As Decimal
     Private topcorner As Point = New Point(0, 0)
-
+    Private iOneToOneSize As Size
     Private oViewer As ImageViewer = New ImageViewer
 
     Private oCurrentAction As DesignAction
@@ -91,17 +92,43 @@ Public Class FrmStitchDesign
 
             'Create ImageViewer
             oViewer = New ImageViewer(PicDesign, HScrollBar1, VScrollBar1, ZoomTrackBar, LblPct)
-            magnification = 1
-            iPpc = PIXELS_PER_CELL * magnification
+            ChangeMagnification(1)
+
+
+            Dim _widthRatio As Decimal = Math.Round(PicDesign.Width / iOneToOneSize.Width, 2, MidpointRounding.AwayFromZero)
+            Dim _heightRatio As Decimal = Math.Round(PicDesign.Height / iOneToOneSize.Height, 2, MidpointRounding.AwayFromZero)
+            If iOneToOneSize.Width <= PicDesign.Width Then
+                If iOneToOneSize.Height > PicDesign.Height Then
+                    ChangeMagnification(_heightRatio)
+                End If
+            Else
+                If iOneToOneSize.Height > PicDesign.Height Then
+                    If _widthRatio < _heightRatio Then
+                        ChangeMagnification(_widthRatio)
+                    Else
+                        ChangeMagnification(_heightRatio)
+                    End If
+                Else
+                    ChangeMagnification(_widthRatio)
+                End If
+            End If
+
+            CalculateSCrollBarMaximumValues()
             'Draw grid onto graphics
             DrawGrid(oProject, oProjectDesign)
             CalculateOffsetForCentre(oDesignBitmap)
 
-            HScrollBar1.Maximum = PicDesign.Width / iPpc
-            HScrollBar1.Value = iXOffset / iPpc
+            CalculateScrollBarValues()
 
-            VScrollBar1.Maximum = PicDesign.Height / iPpc
-            VScrollBar1.Value = iYOffset / iPpc
+
+
+
+
+            'HScrollBar1.Maximum = PicDesign.Width / iPpc
+            'HScrollBar1.Value = iXOffset / iPpc
+
+            'VScrollBar1.Maximum = PicDesign.Height / iPpc
+            'VScrollBar1.Value = iYOffset / iPpc
             iOldHScrollbarValue = HScrollBar1.Value
             iOldVScrollbarValue = VScrollBar1.Value
 
@@ -109,21 +136,36 @@ Public Class FrmStitchDesign
             MsgBox("No project found", MsgBoxStyle.Exclamation, "Error")
             Close()
         End If
-        Me.Refresh()
+
+    End Sub
+
+    Private Sub CalculateScrollBarMaximumValues()
+        HScrollBar1.Maximum = (PicDesign.Width / iPpc) + (oProjectDesign.Columns) + 7
+        VScrollBar1.Maximum = (PicDesign.Height / iPpc) + (oProjectDesign.Rows) + 7
+    End Sub
+
+    Private Sub CalculateScrollBarValues()
+        HScrollBar1.Value = oProjectDesign.Columns - 1 + iXOffset - topcorner.X
+        VScrollBar1.Value = oProjectDesign.Rows - 1 + iYOffset - topcorner.Y
+    End Sub
+
+    Private Sub ChangeMagnification(pNewValue As Decimal)
+        magnification = pNewValue
+        iPpc = Math.Floor(PIXELS_PER_CELL * magnification)
+        iOneToOneSize = New Size(oProjectDesign.Columns * iPpc, oProjectDesign.Rows * iPpc)
+
+        CalculateScrollBarMaximumValues()
+
+        LblPct.Text = CStr(magnification)
+        LblPpc.Text = CStr(iPpc)
     End Sub
     Private Sub CalculateOffsetForCentre(pDesignBitmap)
-        Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / 2
-        Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / 2
+        Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / (2 * iPpc)
+        Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / (2 * iPpc)
         iXOffset = If(x > 0, x, 0)
         iYOffset = If(y > 0, y, 0)
     End Sub
-    Private Sub AdjustOffSet(pX As Integer, pY As Integer)
 
-        Dim x As Integer = iXOffset + pX
-        Dim y As Integer = iYOffset + pY
-        iXOffset = If(x > 0, x, 0)
-        iYOffset = If(y > 0, y, 0)
-    End Sub
     Private Sub GenTestDesign()
         oProjectDesign = New ProjectDesign
 
@@ -211,8 +253,24 @@ Public Class FrmStitchDesign
 
         Next
         For Each _knot As Knot In oProjectDesign.Knots
-
+            DrawKnot(_knot)
         Next
+    End Sub
+
+    Private Sub DrawKnot(pKnot As Knot)
+        Dim _knotlocation_x As Integer = (pKnot.BlockLocation.X * iPpc) - (iPpc / 4)
+        Dim _knotlocation_y As Integer = (pKnot.BlockLocation.Y * iPpc) - (iPpc / 4)
+        Select Case pKnot.BlockQuarter
+            Case BlockQuarter.BottomLeft
+                _knotlocation_y += iPpc / 2
+            Case BlockQuarter.BottomRight
+                _knotlocation_y += iPpc / 2
+                _knotlocation_x += iPpc / 2
+            Case BlockQuarter.TopRight
+                _knotlocation_x += iPpc / 2
+        End Select
+        Dim _rect As New Rectangle(_knotlocation_x, _knotlocation_y, iPpc / 2, iPpc / 2)
+        oDesignGraphics.FillEllipse(Brushes.Fuchsia, _rect)
     End Sub
     Private Sub DisplayImage(pImage As Bitmap)
         DisplayImage(pImage, 0, 0)
@@ -224,8 +282,8 @@ Public Class FrmStitchDesign
         Dim picy As Single = iPpc * topcorner.Y
         Dim picw As Single = oDesignBitmap.Width - picx
         Dim pich As Single = oDesignBitmap.Height - picy
-        Dim atX As Single = pX
-        Dim atY As Single = pY
+        Dim atX As Single = pX * iPpc
+        Dim atY As Single = pY * iPpc
 
         rect = New Rectangle(picx, picy, picw, pich)
         Dim myfg As Graphics = PicDesign.CreateGraphics
@@ -281,34 +339,35 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub BtnEnlarge_Click(sender As Object, e As EventArgs) Handles BtnEnlarge.Click
-        magnification *= 1.2
-        iPpc = PIXELS_PER_CELL * magnification
+        ChangeMagnification(Math.Round(magnification * MAG_STEP, 2, MidpointRounding.AwayFromZero))
+
         DrawGrid(oProject, oProjectDesign)
         isLoading = True
-        HScrollBar1.Maximum = PicDesign.Width / iPpc
-        HScrollBar1.Value = iXOffset / iPpc
+        'HScrollBar1.Maximum = PicDesign.Width / iPpc
+        'HScrollBar1.Value = iXOffset / iPpc
 
-        VScrollBar1.Maximum = PicDesign.Height / iPpc
-        VScrollBar1.Value = iYOffset / iPpc
-        iOldHScrollbarValue = HScrollBar1.Value
-        iOldVScrollbarValue = VScrollBar1.Value
+        'VScrollBar1.Maximum = PicDesign.Height / iPpc
+        'VScrollBar1.Value = iYOffset / iPpc
+        'iOldHScrollbarValue = HScrollBar1.Value
+        'iOldVScrollbarValue = VScrollBar1.Value
         isLoading = False
         ' DisplayImage(oDesignBitmap)
 
     End Sub
 
     Private Sub BtnShrink_Click(sender As Object, e As EventArgs) Handles BtnShrink.Click
-        magnification /= 1.2
-        iPpc = PIXELS_PER_CELL * magnification
+        ChangeMagnification(Math.Round(magnification / MAG_STEP, 2, MidpointRounding.AwayFromZero))
+
         DrawGrid(oProject, oProjectDesign)
         isLoading = True
-        HScrollBar1.Maximum = PicDesign.Width / iPpc
-        HScrollBar1.Value = iXOffset / iPpc
 
-        VScrollBar1.Maximum = PicDesign.Height / iPpc
-        VScrollBar1.Value = iYOffset / iPpc
-        iOldHScrollbarValue = HScrollBar1.Value
-        iOldVScrollbarValue = VScrollBar1.Value
+        'HScrollBar1.Maximum = PicDesign.Width / iPpc
+        'HScrollBar1.Value = iXOffset / iPpc
+
+        'VScrollBar1.Maximum = PicDesign.Height / iPpc
+        'VScrollBar1.Value = iYOffset / iPpc
+        'iOldHScrollbarValue = HScrollBar1.Value
+        'iOldVScrollbarValue = VScrollBar1.Value
         isLoading = False
         '     DisplayImage(oDesignBitmap)
 
@@ -455,17 +514,19 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub HScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles HScrollBar1.ValueChanged
         If Not isLoading Then
-            Dim _newXOffset As Integer = iXOffset + (iPpc * (HScrollBar1.Value - iOldHScrollbarValue))
-            Dim _oldTopCornerX As Integer = topcorner.X
+            Dim _h_change As Integer = (HScrollBar1.Value - iOldHScrollbarValue)
 
-            If _newXOffset < 0 Then
-                topcorner = New Point(topcorner.X + (HScrollBar1.Value - iOldHScrollbarValue), topcorner.Y)
-                iXOffset = 0
+            Dim _newOff_x As Integer = iXOffset + _h_change - topcorner.X
+            Dim _newTc_x As Integer
+            If _newOff_x < 0 Then
+                _newTc_x = _newOff_x * -1
             Else
-                iXOffset = _newXOffset
+                _newTc_x = 0
             End If
-            LogUtil.Info(CStr(iOldHScrollbarValue) & " : " & CStr(HScrollBar1.Value) & " : " & CStr(iXOffset) & " : " & CStr(_newXOffset) & " : " & CStr(topcorner.X) & " : X")
+            If _newOff_x < 0 Then _newOff_x = 0
 
+            iXOffset = _newOff_x
+            topcorner = New Point(_newTc_x, topcorner.Y)
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
             iOldHScrollbarValue = HScrollBar1.Value
         End If
@@ -473,21 +534,23 @@ Public Class FrmStitchDesign
 
     Private Sub VScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles VScrollBar1.ValueChanged
         If Not isLoading Then
-            Dim _newYOffset As Integer = iYOffset + (iPpc * (VScrollBar1.Value - iOldVScrollbarValue))
 
-            If _newYOffset < 0 Then
-                topcorner = New Point(topcorner.X, (VScrollBar1.Value - iOldVScrollbarValue) + topcorner.Y)
-                iYOffset = 0
+            Dim _v_change As Integer = (VScrollBar1.Value - iOldVScrollbarValue)
+
+            Dim _newOff_y As Integer = iYOffset + _v_change - topcorner.Y
+            Dim _newTc_y As Integer
+            If _newOff_y < 0 Then
+                _newTc_y = _newOff_y * -1
             Else
-
-                iYOffset = _newYOffset
+                _newTc_y = 0
             End If
-            LogUtil.Info(CStr(iOldVScrollbarValue) & " : " & CStr(VScrollBar1.Value) & " : " & CStr(iYOffset) & " : " & CStr(_newYOffset) & " : " & CStr(topcorner.Y) & " : Y")
+            If _newOff_y < 0 Then _newOff_y = 0
 
+            iYOffset = _newOff_y
+            topcorner = New Point(topcorner.X, _newTc_y)
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
             iOldVScrollbarValue = VScrollBar1.Value
         End If
-
     End Sub
 
     Private Sub BtnHeight_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnHeight.Click
@@ -512,8 +575,8 @@ Public Class FrmStitchDesign
 
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
 
-        Dim cel_x As Integer = Math.Floor((e.X - iXOffset) / iPpc) + topcorner.X
-        Dim cel_y As Integer = Math.Floor((e.Y - iYOffset) / iPpc) + topcorner.Y
+        Dim cel_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
+        Dim cel_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
 
         Dim celLocation As New Point(cel_x, cel_y)
         Dim isRemove As Boolean = e.Button = MouseButtons.Right
@@ -550,8 +613,7 @@ Public Class FrmStitchDesign
         End If
 
         Dim _actionPoint As New Point((cel_x * iPpc) + _adjustX, (cel_y * iPpc) + _adjustY)
-        Label3.Text = CStr(iPpc)
-        Label4.Text = CStr(_actionPoint.X) & ":" & CStr(_actionPoint.Y)
+
         Select Case oCurrentAction
             Case DesignAction.BackstitchFullThick
                 StartBackstitch()
@@ -579,6 +641,8 @@ Public Class FrmStitchDesign
             Case DesignAction.ThreeQuarterBlockstitchTopRight
             Case DesignAction.BlockstitchQuarters
         End Select
+        DrawGrid(oProject, oProjectDesign)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
     End Sub
     Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean, pIsRemove As Boolean)
         Dim _list As List(Of Knot) = FindKnots(pActionPoint)
