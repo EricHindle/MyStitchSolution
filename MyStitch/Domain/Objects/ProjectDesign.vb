@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.IO
 Imports Newtonsoft.Json
 
 Public Class ProjectDesign

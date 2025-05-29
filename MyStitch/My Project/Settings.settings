@@ -22,5 +22,14 @@
     <Setting Name="DesignFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\MyStitch\Designs</Value>
     </Setting>
+    <Setting Name="DesignStitchDisplay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PaletteStitchDisplay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="StitchDisplayStyleFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

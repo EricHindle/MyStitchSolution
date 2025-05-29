@@ -1,15 +1,9 @@
-﻿'
-' Copyright (c) 2015, William Hill plc
-' St. John’s Centre, 31 Merrion Street, Leeds, LS2 8LQ
+﻿' Hindleware
+' Copyright (c) 2025 Eric Hindle
 ' All rights reserved.
 '
 ' Author Eric Hindle
-' Created Aug 2015
-
-Imports System.Math
-Imports System.Windows.Forms
-Imports System.Drawing
-Imports System.Drawing.Drawing2D
+'
 
 Public Class ImageViewer
     Dim myfg As Graphics = Nothing
@@ -34,7 +28,6 @@ Public Class ImageViewer
     Dim xPos As Integer = 0
     Dim yPos As Integer = 0
     Dim rotateAngle As Integer = 0
-
 
     Public Enum ImagePos
         auto = 0
@@ -70,7 +63,6 @@ Public Class ImageViewer
             End If
         End If
     End Sub
-
 
     Private Sub setScrollBars(ByVal oldpct As Integer, ByVal newpct As Integer)
         bZooming = True
@@ -170,8 +162,6 @@ Public Class ImageViewer
         End If
         bDrawing = False
     End Sub
-
-
 
     Public Sub MouseDown(ByVal e As System.Windows.Forms.MouseEventArgs)
         If e.Button = Windows.Forms.MouseButtons.Left Then

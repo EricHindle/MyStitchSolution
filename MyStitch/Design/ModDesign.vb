@@ -7,21 +7,32 @@
 
 Imports System.IO
 Imports System.IO.Compression
+Imports Newtonsoft.Json
 
 Module ModDesign
     Public Const JSON_EXT As String = ".json"
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
+    Public Const ARC_EXT As String = ".hsa"
+
+    Public Enum StitchDisplayStyle
+        Crosses
+        Blocks
+        ColouredSymbols
+        Strokes
+        BlackWhiteSymbols
+        BlocksWithSymbols
+    End Enum
 
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
         Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _fs As New FileStream(_zipFile, FileMode.Create)
-            End Using
-        End If
-        Using zipToOpen As New FileStream(_zipFile, FileMode.Open)
+        '  If Not My.Computer.FileSystem.FileExists(_zipFile) Then
+        Using _fs As New FileStream(_zipFile, FileMode.Create)
+        End Using
+        '  End If
+        Using zipToOpen As New FileStream(_zipFile, FileMode.Create)
             Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
                 Dim designEntry As ZipArchiveEntry = archive.CreateEntry(pDesignFileName & JSON_EXT)
                 Using _output As New StreamWriter(designEntry.Open())
@@ -69,4 +80,25 @@ Module ModDesign
         End If
         Return _projectDesign
     End Function
+
+    Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
+        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
+        Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
+        Dim _projectDesign As New ProjectDesign
+        If My.Computer.FileSystem.FileExists(_zipFile) Then
+            Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+                For Each _entry As ZipArchiveEntry In _chapterFile.Entries
+                    If _entry.Name.EndsWith(JSON_EXT) Then
+                        Using _input As New StreamReader(_entry.Open())
+                            Dim _jsonText As String = _input.ReadLine()
+                            _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
+                        End Using
+                    End If
+                Next
+            End Using
+        End If
+        Return _projectDesign
+    End Function
+
+
 End Module

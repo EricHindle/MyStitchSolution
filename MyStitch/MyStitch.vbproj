@@ -84,6 +84,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\FrmStitchDisplayStyle.Designer.vb">
+      <DependentUpon>FrmStitchDisplayStyle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmStitchDisplayStyle.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Design\ImageViewer.designer.vb">
       <DependentUpon>ImageViewer.vb</DependentUpon>
     </Compile>
@@ -167,6 +173,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmStitchDisplayStyle.resx">
+      <DependentUpon>FrmStitchDisplayStyle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

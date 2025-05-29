@@ -1,9 +1,10 @@
 ﻿' Hindleware
-' Copyright (c) 2023-24 Eric Hindle
+' Copyright (c) 2025 Eric Hindle
 ' All rights reserved.
 '
 ' Author Eric Hindle
 '
+
 Imports MyStitch.Domain.Objects
 Namespace Domain.Builders
     Public Class GlobalSettingBuilder

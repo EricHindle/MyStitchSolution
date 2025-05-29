@@ -112,6 +112,42 @@ Namespace My
                 Me("DesignFilePath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property DesignStitchDisplay() As Integer
+            Get
+                Return CType(Me("DesignStitchDisplay"),Integer)
+            End Get
+            Set
+                Me("DesignStitchDisplay") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PaletteStitchDisplay() As Integer
+            Get
+                Return CType(Me("PaletteStitchDisplay"),Integer)
+            End Get
+            Set
+                Me("PaletteStitchDisplay") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property StitchDisplayStyleFormPos() As String
+            Get
+                Return CType(Me("StitchDisplayStyleFormPos"),String)
+            End Get
+            Set
+                Me("StitchDisplayStyleFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

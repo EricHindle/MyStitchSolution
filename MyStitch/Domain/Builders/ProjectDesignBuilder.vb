@@ -5,9 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports MyStitch.Domain.Builders
-Imports MyStitch.Domain.Objects
-
 Public Class ProjectDesignBuilder
     Private _projectId As Integer
     Private _blockStitches As List(Of BlockStitch)
@@ -28,7 +25,7 @@ Public Class ProjectDesignBuilder
         Return Me
     End Function
     Public Function StartingWith(pPath As String, pFilename As String) As ProjectDesignBuilder
-        StartingWith(OpenDesignXML(pPath, pFilename))
+        StartingWith(OpenDesignJSON(pPath, pFilename))
         Return Me
     End Function
     Public Function StartingWith(pDesign As ProjectDesign) As ProjectDesignBuilder
