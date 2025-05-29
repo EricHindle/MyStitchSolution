@@ -50,6 +50,9 @@ Public Class BlockStitch
         _blockLoc = pLocation
         _quarters = pQuarters
     End Sub
+    Public Function IsLoaded() As Boolean
+        Return _quarters IsNot Nothing AndAlso _quarters.Count > 0
+    End Function
     Public Overrides Function ToString() As String
         Dim sb As New StringBuilder
         sb _
