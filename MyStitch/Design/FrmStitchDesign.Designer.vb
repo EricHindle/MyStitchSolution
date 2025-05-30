@@ -65,27 +65,27 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.BtnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnCopy = New System.Windows.Forms.ToolStripButton()
+        Me.BtnCut = New System.Windows.Forms.ToolStripButton()
+        Me.BtnMove = New System.Windows.Forms.ToolStripButton()
+        Me.BtnPaste = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnUndo = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnRedo = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnFill = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnZoom = New System.Windows.Forms.ToolStripButton()
+        Me.BtnEnlarge = New System.Windows.Forms.ToolStripButton()
+        Me.BtnShrink = New System.Windows.Forms.ToolStripButton()
+        Me.BtnWidth = New System.Windows.Forms.ToolStripButton()
+        Me.BtnHeight = New System.Windows.Forms.ToolStripButton()
+        Me.BtnCentre = New System.Windows.Forms.ToolStripButton()
+        Me.BtnClose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
-        Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
-        Me.ZoomTrackBar = New System.Windows.Forms.TrackBar()
-        Me.LblPct = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.LblPpc = New System.Windows.Forms.Label()
-        Me.btnZoomOut = New System.Windows.Forms.Button()
-        Me.btnZoomIn = New System.Windows.Forms.Button()
-        Me.PicDesign = New System.Windows.Forms.PictureBox()
         Me.BtnFullStitch = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTL = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTR = New System.Windows.Forms.ToolStripButton()
@@ -98,34 +98,35 @@ Partial Class FrmStitchDesign
         Me.BtnQtrBR = New System.Windows.Forms.ToolStripButton()
         Me.BtnQtrBL = New System.Windows.Forms.ToolStripButton()
         Me.BtnQuarters = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnFullBackstitchThin = New System.Windows.Forms.ToolStripButton()
         Me.BtnHalfBackStitchThin = New System.Windows.Forms.ToolStripButton()
         Me.BtnFullBackStitchThick = New System.Windows.Forms.ToolStripButton()
         Me.BtnHalfBackStitchThick = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnKnot = New System.Windows.Forms.ToolStripButton()
         Me.BtnBead = New System.Windows.Forms.ToolStripButton()
-        Me.BtnSave = New System.Windows.Forms.ToolStripButton()
-        Me.BtnCopy = New System.Windows.Forms.ToolStripButton()
-        Me.BtnCut = New System.Windows.Forms.ToolStripButton()
-        Me.BtnMove = New System.Windows.Forms.ToolStripButton()
-        Me.BtnPaste = New System.Windows.Forms.ToolStripButton()
-        Me.BtnUndo = New System.Windows.Forms.ToolStripButton()
-        Me.BtnRedo = New System.Windows.Forms.ToolStripButton()
-        Me.BtnFill = New System.Windows.Forms.ToolStripButton()
-        Me.BtnZoom = New System.Windows.Forms.ToolStripButton()
-        Me.BtnEnlarge = New System.Windows.Forms.ToolStripButton()
-        Me.BtnShrink = New System.Windows.Forms.ToolStripButton()
-        Me.BtnWidth = New System.Windows.Forms.ToolStripButton()
-        Me.BtnHeight = New System.Windows.Forms.ToolStripButton()
-        Me.BtnCentre = New System.Windows.Forms.ToolStripButton()
-        Me.BtnClose = New System.Windows.Forms.ToolStripButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PicDesign = New System.Windows.Forms.PictureBox()
+        Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
+        Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
+        Me.ZoomTrackBar = New System.Windows.Forms.TrackBar()
+        Me.LblPct = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.LblPpc = New System.Windows.Forms.Label()
+        Me.btnZoomOut = New System.Windows.Forms.Button()
+        Me.btnZoomIn = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.BtnTest = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -288,42 +289,42 @@ Partial Class FrmStitchDesign
         'RedrawToolStripMenuItem
         '
         Me.RedrawToolStripMenuItem.Name = "RedrawToolStripMenuItem"
-        Me.RedrawToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RedrawToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.RedrawToolStripMenuItem.Text = "Redraw"
         '
         'ZoomInToolStripMenuItem
         '
         Me.ZoomInToolStripMenuItem.Name = "ZoomInToolStripMenuItem"
-        Me.ZoomInToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ZoomInToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.ZoomInToolStripMenuItem.Text = "Zoom In"
         '
-        'ZopomOutToolStripMenuItem
+        'ZoomOutToolStripMenuItem
         '
-        Me.ZoomOutToolStripMenuItem.Name = "ZopomOutToolStripMenuItem"
-        Me.ZoomOutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ZoomOutToolStripMenuItem.Name = "ZoomOutToolStripMenuItem"
+        Me.ZoomOutToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.ZoomOutToolStripMenuItem.Text = "Zoom Out"
         '
         'ZoomToolStripMenuItem
         '
         Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
-        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.ZoomToolStripMenuItem.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(142, 6)
         '
         'GridToolStripMenuItem
         '
         Me.GridToolStripMenuItem.Name = "GridToolStripMenuItem"
-        Me.GridToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.GridToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.GridToolStripMenuItem.Text = "Grid"
         '
         'StitchDisplayToolStripMenuItem
         '
         Me.StitchDisplayToolStripMenuItem.Name = "StitchDisplayToolStripMenuItem"
-        Me.StitchDisplayToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StitchDisplayToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.StitchDisplayToolStripMenuItem.Text = "Stitch Display"
         '
         'PaletteToolStripMenuItem
@@ -403,7 +404,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.AutoSize = False
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnUndo, Me.ToolStripSeparator3, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnUndo, Me.ToolStripSeparator3, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose, Me.BtnTest})
         Me.ToolStrip1.Location = New System.Drawing.Point(6, 5)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
@@ -411,11 +412,76 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.TabIndex = 135
         Me.ToolStrip1.Text = "ToolStrip1"
         '
+        'BtnSave
+        '
+        Me.BtnSave.AutoSize = False
+        Me.BtnSave.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnSave.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnSave.Image = Global.MyStitch.My.Resources.Resources.save
+        Me.BtnSave.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnSave.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnSave.Name = "BtnSave"
+        Me.BtnSave.Size = New System.Drawing.Size(23, 22)
+        Me.BtnSave.Text = "ToolStripButton1"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 24)
+        '
+        'BtnCopy
+        '
+        Me.BtnCopy.AutoSize = False
+        Me.BtnCopy.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnCopy.BackgroundImage = CType(resources.GetObject("BtnCopy.BackgroundImage"), System.Drawing.Image)
+        Me.BtnCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnCopy.Image = Global.MyStitch.My.Resources.Resources.copy
+        Me.BtnCopy.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnCopy.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnCopy.Name = "BtnCopy"
+        Me.BtnCopy.Size = New System.Drawing.Size(23, 22)
+        Me.BtnCopy.Text = "ToolStripButton3"
+        '
+        'BtnCut
+        '
+        Me.BtnCut.AutoSize = False
+        Me.BtnCut.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnCut.BackgroundImage = CType(resources.GetObject("BtnCut.BackgroundImage"), System.Drawing.Image)
+        Me.BtnCut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnCut.Image = Global.MyStitch.My.Resources.Resources.cut
+        Me.BtnCut.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnCut.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnCut.Name = "BtnCut"
+        Me.BtnCut.Size = New System.Drawing.Size(23, 22)
+        Me.BtnCut.Text = "ToolStripButton2"
+        '
+        'BtnMove
+        '
+        Me.BtnMove.AutoSize = False
+        Me.BtnMove.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnMove.BackgroundImage = CType(resources.GetObject("BtnMove.BackgroundImage"), System.Drawing.Image)
+        Me.BtnMove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnMove.Image = Global.MyStitch.My.Resources.Resources.move
+        Me.BtnMove.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnMove.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnMove.Name = "BtnMove"
+        Me.BtnMove.Size = New System.Drawing.Size(23, 22)
+        Me.BtnMove.Text = "ToolStripButton1"
+        '
+        'BtnPaste
+        '
+        Me.BtnPaste.AutoSize = False
+        Me.BtnPaste.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnPaste.BackgroundImage = CType(resources.GetObject("BtnPaste.BackgroundImage"), System.Drawing.Image)
+        Me.BtnPaste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnPaste.Image = Global.MyStitch.My.Resources.Resources.paste2
+        Me.BtnPaste.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnPaste.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnPaste.Name = "BtnPaste"
+        Me.BtnPaste.Size = New System.Drawing.Size(23, 22)
+        Me.BtnPaste.Text = "ToolStripButton1"
         '
         'ToolStripSeparator4
         '
@@ -423,11 +489,37 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 24)
         '
+        'BtnUndo
+        '
+        Me.BtnUndo.AutoSize = False
+        Me.BtnUndo.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnUndo.BackgroundImage = CType(resources.GetObject("BtnUndo.BackgroundImage"), System.Drawing.Image)
+        Me.BtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnUndo.Image = Global.MyStitch.My.Resources.Resources.undo
+        Me.BtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnUndo.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnUndo.Name = "BtnUndo"
+        Me.BtnUndo.Size = New System.Drawing.Size(23, 22)
+        Me.BtnUndo.Text = "ToolStripButton1"
+        '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 24)
+        '
+        'BtnRedo
+        '
+        Me.BtnRedo.AutoSize = False
+        Me.BtnRedo.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnRedo.BackgroundImage = CType(resources.GetObject("BtnRedo.BackgroundImage"), System.Drawing.Image)
+        Me.BtnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnRedo.Image = Global.MyStitch.My.Resources.Resources.redo
+        Me.BtnRedo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnRedo.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnRedo.Name = "BtnRedo"
+        Me.BtnRedo.Size = New System.Drawing.Size(23, 22)
+        Me.BtnRedo.Text = "BtnRedo"
         '
         'ToolStripSeparator7
         '
@@ -435,11 +527,117 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
         Me.ToolStripSeparator7.Size = New System.Drawing.Size(6, 24)
         '
+        'BtnFill
+        '
+        Me.BtnFill.AutoSize = False
+        Me.BtnFill.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnFill.BackgroundImage = CType(resources.GetObject("BtnFill.BackgroundImage"), System.Drawing.Image)
+        Me.BtnFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnFill.Image = Global.MyStitch.My.Resources.Resources.flood
+        Me.BtnFill.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnFill.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnFill.Name = "BtnFill"
+        Me.BtnFill.Size = New System.Drawing.Size(23, 22)
+        Me.BtnFill.Text = "ToolStripButton1"
+        '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 24)
+        '
+        'BtnZoom
+        '
+        Me.BtnZoom.AutoSize = False
+        Me.BtnZoom.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnZoom.BackgroundImage = CType(resources.GetObject("BtnZoom.BackgroundImage"), System.Drawing.Image)
+        Me.BtnZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnZoom.Image = Global.MyStitch.My.Resources.Resources.zoom
+        Me.BtnZoom.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnZoom.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnZoom.Name = "BtnZoom"
+        Me.BtnZoom.Size = New System.Drawing.Size(23, 22)
+        Me.BtnZoom.Text = "ToolStripButton1"
+        '
+        'BtnEnlarge
+        '
+        Me.BtnEnlarge.AutoSize = False
+        Me.BtnEnlarge.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnEnlarge.BackgroundImage = CType(resources.GetObject("BtnEnlarge.BackgroundImage"), System.Drawing.Image)
+        Me.BtnEnlarge.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnEnlarge.Image = Global.MyStitch.My.Resources.Resources.enlarge
+        Me.BtnEnlarge.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnEnlarge.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnEnlarge.Name = "BtnEnlarge"
+        Me.BtnEnlarge.Size = New System.Drawing.Size(23, 22)
+        Me.BtnEnlarge.Text = "ToolStripButton1"
+        '
+        'BtnShrink
+        '
+        Me.BtnShrink.AutoSize = False
+        Me.BtnShrink.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnShrink.BackgroundImage = CType(resources.GetObject("BtnShrink.BackgroundImage"), System.Drawing.Image)
+        Me.BtnShrink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnShrink.Image = Global.MyStitch.My.Resources.Resources.shrink
+        Me.BtnShrink.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnShrink.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnShrink.Name = "BtnShrink"
+        Me.BtnShrink.Size = New System.Drawing.Size(23, 22)
+        Me.BtnShrink.Text = "ToolStripButton1"
+        '
+        'BtnWidth
+        '
+        Me.BtnWidth.AutoSize = False
+        Me.BtnWidth.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnWidth.BackgroundImage = CType(resources.GetObject("BtnWidth.BackgroundImage"), System.Drawing.Image)
+        Me.BtnWidth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnWidth.Image = Global.MyStitch.My.Resources.Resources.width
+        Me.BtnWidth.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnWidth.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnWidth.Name = "BtnWidth"
+        Me.BtnWidth.Size = New System.Drawing.Size(23, 22)
+        Me.BtnWidth.Text = "ToolStripButton1"
+        '
+        'BtnHeight
+        '
+        Me.BtnHeight.AutoSize = False
+        Me.BtnHeight.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnHeight.BackgroundImage = CType(resources.GetObject("BtnHeight.BackgroundImage"), System.Drawing.Image)
+        Me.BtnHeight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnHeight.Image = Global.MyStitch.My.Resources.Resources.height
+        Me.BtnHeight.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnHeight.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnHeight.Name = "BtnHeight"
+        Me.BtnHeight.Size = New System.Drawing.Size(23, 22)
+        Me.BtnHeight.Text = "ToolStripButton1"
+        '
+        'BtnCentre
+        '
+        Me.BtnCentre.AutoSize = False
+        Me.BtnCentre.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnCentre.BackgroundImage = CType(resources.GetObject("BtnCentre.BackgroundImage"), System.Drawing.Image)
+        Me.BtnCentre.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnCentre.Image = Global.MyStitch.My.Resources.Resources.centre
+        Me.BtnCentre.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnCentre.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnCentre.Name = "BtnCentre"
+        Me.BtnCentre.Size = New System.Drawing.Size(23, 22)
+        Me.BtnCentre.Text = "ToolStripButton1"
+        '
+        'BtnClose
+        '
+        Me.BtnClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.BtnClose.AutoSize = False
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClose.BackgroundImage = CType(resources.GetObject("BtnClose.BackgroundImage"), System.Drawing.Image)
+        Me.BtnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClose.Image = CType(resources.GetObject("BtnClose.Image"), System.Drawing.Image)
+        Me.BtnClose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnClose.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnClose.Name = "BtnClose"
+        Me.BtnClose.Size = New System.Drawing.Size(46, 22)
+        Me.BtnClose.Text = "Close"
         '
         'ToolStrip2
         '
@@ -456,159 +654,6 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.Size = New System.Drawing.Size(697, 26)
         Me.ToolStrip2.TabIndex = 136
         Me.ToolStrip2.Text = "ToolStrip2"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 23)
-        '
-        'ToolStripSeparator6
-        '
-        Me.ToolStripSeparator6.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 23)
-        '
-        'Panel1
-        '
-        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.PicDesign)
-        Me.Panel1.Controls.Add(Me.HScrollBar1)
-        Me.Panel1.Controls.Add(Me.VScrollBar1)
-        Me.Panel1.Location = New System.Drawing.Point(6, 63)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(703, 466)
-        Me.Panel1.TabIndex = 137
-        '
-        'HScrollBar1
-        '
-        Me.HScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.HScrollBar1.Location = New System.Drawing.Point(3, 442)
-        Me.HScrollBar1.Name = "HScrollBar1"
-        Me.HScrollBar1.Size = New System.Drawing.Size(669, 20)
-        Me.HScrollBar1.TabIndex = 135
-        '
-        'VScrollBar1
-        '
-        Me.VScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VScrollBar1.Location = New System.Drawing.Point(675, 3)
-        Me.VScrollBar1.Name = "VScrollBar1"
-        Me.VScrollBar1.Size = New System.Drawing.Size(20, 433)
-        Me.VScrollBar1.TabIndex = 134
-        '
-        'ZoomTrackBar
-        '
-        Me.ZoomTrackBar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ZoomTrackBar.AutoSize = False
-        Me.ZoomTrackBar.LargeChange = 20
-        Me.ZoomTrackBar.Location = New System.Drawing.Point(162, 566)
-        Me.ZoomTrackBar.Maximum = 150
-        Me.ZoomTrackBar.Minimum = 10
-        Me.ZoomTrackBar.Name = "ZoomTrackBar"
-        Me.ZoomTrackBar.Size = New System.Drawing.Size(321, 22)
-        Me.ZoomTrackBar.SmallChange = 10
-        Me.ZoomTrackBar.TabIndex = 138
-        Me.ZoomTrackBar.TickFrequency = 20
-        Me.ZoomTrackBar.Value = 100
-        '
-        'LblPct
-        '
-        Me.LblPct.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LblPct.AutoSize = True
-        Me.LblPct.Location = New System.Drawing.Point(523, 569)
-        Me.LblPct.Name = "LblPct"
-        Me.LblPct.Size = New System.Drawing.Size(39, 13)
-        Me.LblPct.TabIndex = 141
-        Me.LblPct.Text = "Label1"
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(737, 575)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(13, 13)
-        Me.Label1.TabIndex = 142
-        Me.Label1.Text = "0"
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(756, 575)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(13, 13)
-        Me.Label2.TabIndex = 143
-        Me.Label2.Text = "0"
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(682, 575)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(13, 13)
-        Me.Label3.TabIndex = 144
-        Me.Label3.Text = "0"
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(701, 575)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(13, 13)
-        Me.Label4.TabIndex = 145
-        Me.Label4.Text = "0"
-        '
-        'LblPpc
-        '
-        Me.LblPpc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblPpc.AutoSize = True
-        Me.LblPpc.Location = New System.Drawing.Point(572, 569)
-        Me.LblPpc.Name = "LblPpc"
-        Me.LblPpc.Size = New System.Drawing.Size(39, 13)
-        Me.LblPpc.TabIndex = 146
-        Me.LblPpc.Text = "Label1"
-        '
-        'btnZoomOut
-        '
-        Me.btnZoomOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnZoomOut.BackColor = System.Drawing.Color.White
-        Me.btnZoomOut.Image = Global.MyStitch.My.Resources.Resources.minus
-        Me.btnZoomOut.Location = New System.Drawing.Point(139, 566)
-        Me.btnZoomOut.Name = "btnZoomOut"
-        Me.btnZoomOut.Size = New System.Drawing.Size(19, 19)
-        Me.btnZoomOut.TabIndex = 140
-        Me.btnZoomOut.UseVisualStyleBackColor = False
-        '
-        'btnZoomIn
-        '
-        Me.btnZoomIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnZoomIn.BackColor = System.Drawing.Color.White
-        Me.btnZoomIn.Image = Global.MyStitch.My.Resources.Resources.plus
-        Me.btnZoomIn.Location = New System.Drawing.Point(489, 566)
-        Me.btnZoomIn.Name = "btnZoomIn"
-        Me.btnZoomIn.Size = New System.Drawing.Size(19, 19)
-        Me.btnZoomIn.TabIndex = 139
-        Me.btnZoomIn.UseVisualStyleBackColor = False
-        '
-        'PicDesign
-        '
-        Me.PicDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PicDesign.BackColor = System.Drawing.Color.White
-        Me.PicDesign.Location = New System.Drawing.Point(3, 3)
-        Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(669, 433)
-        Me.PicDesign.TabIndex = 133
-        Me.PicDesign.TabStop = False
         '
         'BtnFullStitch
         '
@@ -779,6 +824,12 @@ Partial Class FrmStitchDesign
         Me.BtnQuarters.Text = "ToolStripButton1"
         Me.BtnQuarters.ToolTipText = "Quarters"
         '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 23)
+        '
         'BtnFullBackstitchThin
         '
         Me.BtnFullBackstitchThin.AutoSize = False
@@ -835,6 +886,12 @@ Partial Class FrmStitchDesign
         Me.BtnHalfBackStitchThick.Text = "ToolStripButton1"
         Me.BtnHalfBackStitchThick.ToolTipText = "Thick Half Backstitch"
         '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 23)
+        '
         'BtnKnot
         '
         Me.BtnKnot.AutoSize = False
@@ -863,202 +920,146 @@ Partial Class FrmStitchDesign
         Me.BtnBead.Text = "ToolStripButton1"
         Me.BtnBead.ToolTipText = "Bead"
         '
-        'BtnSave
+        'Panel1
         '
-        Me.BtnSave.AutoSize = False
-        Me.BtnSave.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnSave.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
-        Me.BtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnSave.Image = Global.MyStitch.My.Resources.Resources.save
-        Me.BtnSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnSave.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(23, 22)
-        Me.BtnSave.Text = "ToolStripButton1"
+        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.PicDesign)
+        Me.Panel1.Controls.Add(Me.HScrollBar1)
+        Me.Panel1.Controls.Add(Me.VScrollBar1)
+        Me.Panel1.Location = New System.Drawing.Point(6, 63)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(703, 466)
+        Me.Panel1.TabIndex = 137
         '
-        'BtnCopy
+        'PicDesign
         '
-        Me.BtnCopy.AutoSize = False
-        Me.BtnCopy.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnCopy.BackgroundImage = CType(resources.GetObject("BtnCopy.BackgroundImage"), System.Drawing.Image)
-        Me.BtnCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnCopy.Image = Global.MyStitch.My.Resources.Resources.copy
-        Me.BtnCopy.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnCopy.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnCopy.Name = "BtnCopy"
-        Me.BtnCopy.Size = New System.Drawing.Size(23, 22)
-        Me.BtnCopy.Text = "ToolStripButton3"
+        Me.PicDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicDesign.BackColor = System.Drawing.Color.White
+        Me.PicDesign.Location = New System.Drawing.Point(3, 3)
+        Me.PicDesign.Name = "PicDesign"
+        Me.PicDesign.Size = New System.Drawing.Size(669, 433)
+        Me.PicDesign.TabIndex = 133
+        Me.PicDesign.TabStop = False
         '
-        'BtnCut
+        'HScrollBar1
         '
-        Me.BtnCut.AutoSize = False
-        Me.BtnCut.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnCut.BackgroundImage = CType(resources.GetObject("BtnCut.BackgroundImage"), System.Drawing.Image)
-        Me.BtnCut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnCut.Image = Global.MyStitch.My.Resources.Resources.cut
-        Me.BtnCut.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnCut.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnCut.Name = "BtnCut"
-        Me.BtnCut.Size = New System.Drawing.Size(23, 22)
-        Me.BtnCut.Text = "ToolStripButton2"
+        Me.HScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.HScrollBar1.Location = New System.Drawing.Point(3, 442)
+        Me.HScrollBar1.Name = "HScrollBar1"
+        Me.HScrollBar1.Size = New System.Drawing.Size(669, 20)
+        Me.HScrollBar1.TabIndex = 135
         '
-        'BtnMove
+        'VScrollBar1
         '
-        Me.BtnMove.AutoSize = False
-        Me.BtnMove.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnMove.BackgroundImage = CType(resources.GetObject("BtnMove.BackgroundImage"), System.Drawing.Image)
-        Me.BtnMove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnMove.Image = Global.MyStitch.My.Resources.Resources.move
-        Me.BtnMove.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnMove.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnMove.Name = "BtnMove"
-        Me.BtnMove.Size = New System.Drawing.Size(23, 22)
-        Me.BtnMove.Text = "ToolStripButton1"
+        Me.VScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.VScrollBar1.Location = New System.Drawing.Point(675, 3)
+        Me.VScrollBar1.Name = "VScrollBar1"
+        Me.VScrollBar1.Size = New System.Drawing.Size(20, 433)
+        Me.VScrollBar1.TabIndex = 134
         '
-        'BtnPaste
+        'ZoomTrackBar
         '
-        Me.BtnPaste.AutoSize = False
-        Me.BtnPaste.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnPaste.BackgroundImage = CType(resources.GetObject("BtnPaste.BackgroundImage"), System.Drawing.Image)
-        Me.BtnPaste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnPaste.Image = Global.MyStitch.My.Resources.Resources.paste2
-        Me.BtnPaste.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnPaste.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnPaste.Name = "BtnPaste"
-        Me.BtnPaste.Size = New System.Drawing.Size(23, 22)
-        Me.BtnPaste.Text = "ToolStripButton1"
+        Me.ZoomTrackBar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ZoomTrackBar.AutoSize = False
+        Me.ZoomTrackBar.LargeChange = 20
+        Me.ZoomTrackBar.Location = New System.Drawing.Point(162, 566)
+        Me.ZoomTrackBar.Maximum = 150
+        Me.ZoomTrackBar.Minimum = 10
+        Me.ZoomTrackBar.Name = "ZoomTrackBar"
+        Me.ZoomTrackBar.Size = New System.Drawing.Size(321, 22)
+        Me.ZoomTrackBar.SmallChange = 10
+        Me.ZoomTrackBar.TabIndex = 138
+        Me.ZoomTrackBar.TickFrequency = 20
+        Me.ZoomTrackBar.Value = 100
         '
-        'BtnUndo
+        'LblPct
         '
-        Me.BtnUndo.AutoSize = False
-        Me.BtnUndo.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnUndo.BackgroundImage = CType(resources.GetObject("BtnUndo.BackgroundImage"), System.Drawing.Image)
-        Me.BtnUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnUndo.Image = Global.MyStitch.My.Resources.Resources.undo
-        Me.BtnUndo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnUndo.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnUndo.Name = "BtnUndo"
-        Me.BtnUndo.Size = New System.Drawing.Size(23, 22)
-        Me.BtnUndo.Text = "ToolStripButton1"
+        Me.LblPct.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LblPct.AutoSize = True
+        Me.LblPct.Location = New System.Drawing.Point(523, 569)
+        Me.LblPct.Name = "LblPct"
+        Me.LblPct.Size = New System.Drawing.Size(39, 13)
+        Me.LblPct.TabIndex = 141
+        Me.LblPct.Text = "Label1"
         '
-        'BtnRedo
+        'Label1
         '
-        Me.BtnRedo.AutoSize = False
-        Me.BtnRedo.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnRedo.BackgroundImage = CType(resources.GetObject("BtnRedo.BackgroundImage"), System.Drawing.Image)
-        Me.BtnRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnRedo.Image = Global.MyStitch.My.Resources.Resources.redo
-        Me.BtnRedo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnRedo.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnRedo.Name = "BtnRedo"
-        Me.BtnRedo.Size = New System.Drawing.Size(23, 22)
-        Me.BtnRedo.Text = "BtnRedo"
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(737, 575)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(13, 13)
+        Me.Label1.TabIndex = 142
+        Me.Label1.Text = "0"
         '
-        'BtnFill
+        'Label2
         '
-        Me.BtnFill.AutoSize = False
-        Me.BtnFill.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnFill.BackgroundImage = CType(resources.GetObject("BtnFill.BackgroundImage"), System.Drawing.Image)
-        Me.BtnFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnFill.Image = Global.MyStitch.My.Resources.Resources.flood
-        Me.BtnFill.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnFill.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnFill.Name = "BtnFill"
-        Me.BtnFill.Size = New System.Drawing.Size(23, 22)
-        Me.BtnFill.Text = "ToolStripButton1"
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(756, 575)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(13, 13)
+        Me.Label2.TabIndex = 143
+        Me.Label2.Text = "0"
         '
-        'BtnZoom
+        'Label3
         '
-        Me.BtnZoom.AutoSize = False
-        Me.BtnZoom.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnZoom.BackgroundImage = CType(resources.GetObject("BtnZoom.BackgroundImage"), System.Drawing.Image)
-        Me.BtnZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnZoom.Image = Global.MyStitch.My.Resources.Resources.zoom
-        Me.BtnZoom.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnZoom.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnZoom.Name = "BtnZoom"
-        Me.BtnZoom.Size = New System.Drawing.Size(23, 22)
-        Me.BtnZoom.Text = "ToolStripButton1"
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(682, 575)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(13, 13)
+        Me.Label3.TabIndex = 144
+        Me.Label3.Text = "0"
         '
-        'BtnEnlarge
+        'Label4
         '
-        Me.BtnEnlarge.AutoSize = False
-        Me.BtnEnlarge.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnEnlarge.BackgroundImage = CType(resources.GetObject("BtnEnlarge.BackgroundImage"), System.Drawing.Image)
-        Me.BtnEnlarge.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnEnlarge.Image = Global.MyStitch.My.Resources.Resources.enlarge
-        Me.BtnEnlarge.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnEnlarge.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnEnlarge.Name = "BtnEnlarge"
-        Me.BtnEnlarge.Size = New System.Drawing.Size(23, 22)
-        Me.BtnEnlarge.Text = "ToolStripButton1"
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(701, 575)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(13, 13)
+        Me.Label4.TabIndex = 145
+        Me.Label4.Text = "0"
         '
-        'BtnShrink
+        'LblPpc
         '
-        Me.BtnShrink.AutoSize = False
-        Me.BtnShrink.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnShrink.BackgroundImage = CType(resources.GetObject("BtnShrink.BackgroundImage"), System.Drawing.Image)
-        Me.BtnShrink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnShrink.Image = Global.MyStitch.My.Resources.Resources.shrink
-        Me.BtnShrink.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnShrink.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnShrink.Name = "BtnShrink"
-        Me.BtnShrink.Size = New System.Drawing.Size(23, 22)
-        Me.BtnShrink.Text = "ToolStripButton1"
+        Me.LblPpc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblPpc.AutoSize = True
+        Me.LblPpc.Location = New System.Drawing.Point(572, 569)
+        Me.LblPpc.Name = "LblPpc"
+        Me.LblPpc.Size = New System.Drawing.Size(39, 13)
+        Me.LblPpc.TabIndex = 146
+        Me.LblPpc.Text = "Label1"
         '
-        'BtnWidth
+        'btnZoomOut
         '
-        Me.BtnWidth.AutoSize = False
-        Me.BtnWidth.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnWidth.BackgroundImage = CType(resources.GetObject("BtnWidth.BackgroundImage"), System.Drawing.Image)
-        Me.BtnWidth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnWidth.Image = Global.MyStitch.My.Resources.Resources.width
-        Me.BtnWidth.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnWidth.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnWidth.Name = "BtnWidth"
-        Me.BtnWidth.Size = New System.Drawing.Size(23, 22)
-        Me.BtnWidth.Text = "ToolStripButton1"
+        Me.btnZoomOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnZoomOut.BackColor = System.Drawing.Color.White
+        Me.btnZoomOut.Image = Global.MyStitch.My.Resources.Resources.minus
+        Me.btnZoomOut.Location = New System.Drawing.Point(139, 566)
+        Me.btnZoomOut.Name = "btnZoomOut"
+        Me.btnZoomOut.Size = New System.Drawing.Size(19, 19)
+        Me.btnZoomOut.TabIndex = 140
+        Me.btnZoomOut.UseVisualStyleBackColor = False
         '
-        'BtnHeight
+        'btnZoomIn
         '
-        Me.BtnHeight.AutoSize = False
-        Me.BtnHeight.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnHeight.BackgroundImage = CType(resources.GetObject("BtnHeight.BackgroundImage"), System.Drawing.Image)
-        Me.BtnHeight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnHeight.Image = Global.MyStitch.My.Resources.Resources.height
-        Me.BtnHeight.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnHeight.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnHeight.Name = "BtnHeight"
-        Me.BtnHeight.Size = New System.Drawing.Size(23, 22)
-        Me.BtnHeight.Text = "ToolStripButton1"
-        '
-        'BtnCentre
-        '
-        Me.BtnCentre.AutoSize = False
-        Me.BtnCentre.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnCentre.BackgroundImage = CType(resources.GetObject("BtnCentre.BackgroundImage"), System.Drawing.Image)
-        Me.BtnCentre.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnCentre.Image = Global.MyStitch.My.Resources.Resources.centre
-        Me.BtnCentre.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnCentre.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnCentre.Name = "BtnCentre"
-        Me.BtnCentre.Size = New System.Drawing.Size(23, 22)
-        Me.BtnCentre.Text = "ToolStripButton1"
-        '
-        'BtnClose
-        '
-        Me.BtnClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.BtnClose.AutoSize = False
-        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnClose.BackgroundImage = CType(resources.GetObject("BtnClose.BackgroundImage"), System.Drawing.Image)
-        Me.BtnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Image = CType(resources.GetObject("BtnClose.Image"), System.Drawing.Image)
-        Me.BtnClose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnClose.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnClose.Name = "BtnClose"
-        Me.BtnClose.Size = New System.Drawing.Size(46, 22)
-        Me.BtnClose.Text = "Close"
+        Me.btnZoomIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnZoomIn.BackColor = System.Drawing.Color.White
+        Me.btnZoomIn.Image = Global.MyStitch.My.Resources.Resources.plus
+        Me.btnZoomIn.Location = New System.Drawing.Point(489, 566)
+        Me.btnZoomIn.Name = "btnZoomIn"
+        Me.btnZoomIn.Size = New System.Drawing.Size(19, 19)
+        Me.btnZoomIn.TabIndex = 139
+        Me.btnZoomIn.UseVisualStyleBackColor = False
         '
         'SplitContainer1
         '
@@ -1083,6 +1084,19 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1.Size = New System.Drawing.Size(848, 536)
         Me.SplitContainer1.SplitterDistance = 128
         Me.SplitContainer1.TabIndex = 136
+        '
+        'BtnTest
+        '
+        Me.BtnTest.AutoSize = False
+        Me.BtnTest.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnTest.BackgroundImage = CType(resources.GetObject("BtnTest.BackgroundImage"), System.Drawing.Image)
+        Me.BtnTest.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnTest.Image = Global.MyStitch.My.Resources.Resources.centre
+        Me.BtnTest.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnTest.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnTest.Name = "BtnTest"
+        Me.BtnTest.Size = New System.Drawing.Size(23, 22)
+        Me.BtnTest.Text = "ToolStripButton1"
         '
         'FrmStitchDesign
         '
@@ -1112,8 +1126,8 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.ResumeLayout(False)
         Me.ToolStrip2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1219,4 +1233,5 @@ Partial Class FrmStitchDesign
     Friend WithEvents BtnClose As ToolStripButton
     Friend WithEvents LblPpc As Label
     Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents BtnTest As ToolStripButton
 End Class

@@ -19,6 +19,7 @@ Public Class FrmStitchDesign
     ' font points per inch
     Private Const PPI As Integer = 72
     Private LINE_PEN As New Pen(Brushes.Black, 1)
+    Private oStitchPenWidth As Single = 2
 
     Private oImageUtil As New HindlewareLib.Imaging.ImageUtil
 
@@ -26,6 +27,7 @@ Public Class FrmStitchDesign
     Private oProject As Project
     Private oDesignBitmap As Bitmap
     Private oDesignGraphics As Graphics
+    Private oDesignGraphicsOverlay As Graphics
     Private oProjectDesign As ProjectDesign
 
     Private isLoading As Boolean
@@ -45,6 +47,7 @@ Public Class FrmStitchDesign
     Private iYOffset As Integer
     Private iOldHScrollbarValue As Integer = 0
     Private iOldVScrollbarValue As Integer = 0
+
 
     Private iPpc As Integer
     Private Enum DesignAction
@@ -217,6 +220,8 @@ Public Class FrmStitchDesign
         'Create graphics from image
         oDesignGraphics = Graphics.FromImage(oDesignBitmap)
 
+        oDesignGraphics = Graphics.FromImage(oDesignBitmap)
+        oDesignGraphicsOverlay = Graphics.FromImage(oDesignBitmap)
         Dim _widthInColumns As Integer = pProjectDesign.Columns
         Dim _heightInRows As Integer = pProjectDesign.Rows
         Dim gap As Integer = iPpc
@@ -274,19 +279,20 @@ Public Class FrmStitchDesign
         Next
     End Sub
     Private Sub DrawBlockStitch(pBlockStitch As BlockStitch)
+        oStitchPenWidth = Math.Max(2, iPpc / 8)
         Dim _cellLocation_x As Integer = (pBlockStitch.BlockLocation.X * iPpc)
         Dim _cellLocation_y As Integer = (pBlockStitch.BlockLocation.Y * iPpc)
         For Each _blockQtr As BlockStitchQuarter In pBlockStitch.Quarters
             DrawQtrBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
 
-            Select Case _blockQtr.StitchType
-                Case BlockStitchType.Full
-                    DrawFullBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
-                Case BlockStitchType.Half
-                    DrawFullBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
-                Case BlockStitchType.ThreeQuarter
-                Case BlockStitchType.Quarter
-            End Select
+            'Select Case _blockQtr.StitchType
+            '    Case BlockStitchType.Full
+            '        DrawFullBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
+            '    Case BlockStitchType.Half
+            '        DrawFullBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
+            '    Case BlockStitchType.ThreeQuarter
+            '    Case BlockStitchType.Quarter
+            'End Select
 
         Next
 
@@ -312,19 +318,25 @@ Public Class FrmStitchDesign
 
     Private Sub DrawQtrBlockStitch(pBlockQtr As BlockStitchQuarter, pX As Integer, pY As Integer)
 
-        Dim _pen As New Pen(New SolidBrush(pBlockQtr.Thread.Colour), 2)
+        Dim l As Single = CSng(Math.Round(Math.Sqrt(iPpc * iPpc / 2) / oStitchPenWidth, 1))
 
+        Dim _pen As New Pen(New SolidBrush(pBlockQtr.Thread.Colour), oStitchPenWidth) With {
+            .DashCap = Drawing2D.DashCap.Round,
+            .DashPattern = New Single() {l, 0.1F}
+        }
+        oDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         Dim _middleX As Integer = CInt(pX + (iPpc / 2))
         Dim _middleY As Integer = CInt(pY + (iPpc / 2))
         Select Case pBlockQtr.BlockQuarter
             Case BlockQuarter.TopLeft
-                oDesignGraphics.DrawLine(_pen, pX, pY, _middleX, _middleY)
+                oDesignGraphics.DrawLine(_pen, _middleX, _middleY, pX, pY)
             Case BlockQuarter.TopRight
-                oDesignGraphics.DrawLine(_pen, pX + iPpc, pY, _middleX, _middleY)
+                oDesignGraphics.DrawLine(_pen, _middleX, _middleY, pX + iPpc, pY)
             Case BlockQuarter.BottomLeft
-                oDesignGraphics.DrawLine(_pen, pX, pY + iPpc, _middleX, _middleY)
+                oDesignGraphics.DrawLine(_pen, _middleX, _middleY, pX, pY + iPpc)
             Case BlockQuarter.BottomRight
-                oDesignGraphics.DrawLine(_pen, pX + iPpc, pY + iPpc, _middleX, _middleY)
+                oDesignGraphics.DrawLine(_pen, _middleX, _middleY, pX + iPpc, pY + iPpc)
+
         End Select
 
     End Sub
@@ -658,51 +670,63 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
-
         Dim cel_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
         Dim cel_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
 
         Dim _xrmd As Integer = e.X Mod iPpc
         Dim _yrmd As Integer = e.Y Mod iPpc
 
-        Dim _qtr As BlockQuarter
+        Dim _knotQtr As BlockQuarter
+        Dim _stitchQtr As BlockQuarter
+
+        Select Case True
+            Case _xrmd < iPpc / 2 AndAlso _yrmd < iPpc / 2
+                _stitchQtr = BlockQuarter.TopLeft
+            Case _xrmd >= iPpc / 2 AndAlso _yrmd >= iPpc / 2
+                _stitchQtr = BlockQuarter.BottomRight
+            Case _xrmd < iPpc / 2 AndAlso _yrmd >= iPpc / 2
+                _stitchQtr = BlockQuarter.BottomLeft
+            Case _xrmd >= iPpc / 2 AndAlso _yrmd < iPpc / 2
+                _stitchQtr = BlockQuarter.TopRight
+        End Select
 
         If _yrmd >= 0 And _yrmd < iPpc / 4 Then
             If _xrmd >= 0 And _xrmd < iPpc / 4 Then
-                _qtr = BlockQuarter.TopLeft
+                _knotQtr = BlockQuarter.TopLeft
             End If
             If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
-                _qtr = BlockQuarter.TopRight
+                _knotQtr = BlockQuarter.TopRight
             End If
             If _xrmd >= iPpc * 3 / 4 Then
-                _qtr = BlockQuarter.TopLeft
+                _knotQtr = BlockQuarter.TopLeft
                 cel_x += 1
             End If
         End If
 
         If _yrmd >= iPpc / 4 And _yrmd < iPpc * 3 / 4 Then
             If _xrmd >= 0 And _xrmd < iPpc / 4 Then
-                _qtr = BlockQuarter.BottomLeft
+                _knotQtr = BlockQuarter.BottomLeft
             End If
             If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
-                _qtr = BlockQuarter.BottomRight
+                _knotQtr = BlockQuarter.BottomRight
             End If
             If _xrmd >= iPpc * 3 / 4 Then
-                _qtr = BlockQuarter.BottomLeft
+                _knotQtr = BlockQuarter.BottomLeft
                 cel_x += 1
             End If
         End If
 
         If _yrmd >= iPpc * 3 / 4 Then
             If _xrmd >= 0 And _xrmd < iPpc / 4 Then
-                _qtr = BlockQuarter.TopLeft
+                _knotQtr = BlockQuarter.TopLeft
                 cel_y += 1
             End If
             If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
-                _qtr = BlockQuarter.TopRight
+                _knotQtr = BlockQuarter.TopRight
                 cel_y += 1
             End If
             If _xrmd >= iPpc * 3 / 4 Then
+                _knotQtr = BlockQuarter.TopLeft
                 cel_y += 1
                 cel_x += 1
             End If
@@ -710,12 +734,13 @@ Public Class FrmStitchDesign
 
         Dim celLocation As New Point(cel_x, cel_y)
 
+
         Dim isRemove As Boolean = e.Button = MouseButtons.Right
 
         If isRemove Then
 
             If oCurrentAction = DesignAction.Bead Or oCurrentAction = DesignAction.Knot Then
-                Dim _exists As Knot = FindKnot(celLocation, _qtr)
+                Dim _exists As Knot = FindKnot(celLocation, _knotQtr)
                 If _exists IsNot Nothing Then
                     oProjectDesign.Knots.Remove(_exists)
                 End If
@@ -753,20 +778,15 @@ Public Class FrmStitchDesign
                 Case DesignAction.BackStitchHalfThick
                     StartBackstitch()
                 Case DesignAction.Bead
-                    AddKnot(celLocation, _qtr, True, isRemove)
+                    AddKnot(celLocation, _knotQtr, True)
                 Case DesignAction.Knot
-                    AddKnot(celLocation, _qtr, False, isRemove)
+                    AddKnot(celLocation, _knotQtr, False)
                 Case DesignAction.FullBlockstitch
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+                    AddFullBlockStitch(celLocation)
                 Case DesignAction.HalfBlockstitchBack
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+                    AddHalfBlockBackStitch(celLocation)
                 Case DesignAction.HalfBlockstitchForward
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+                    AddHalfBlockForwardStitch(celLocation)
                 Case DesignAction.QuarterBlockstitchBottomRight
                     AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
                 Case DesignAction.QuarterBlockstitchBottonLeft
@@ -776,26 +796,60 @@ Public Class FrmStitchDesign
                 Case DesignAction.QuarterBlockstitchTopRight
                     AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
                 Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+                    Add3QtrStitchBL(celLocation)
                 Case DesignAction.ThreeQuarterBlockstitchBottomRight
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+                    Add3QtrStitchBR(celLocation)
                 Case DesignAction.ThreeQuarterBlockstitchTopLeft
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+                    Add3QtrStitchTL(celLocation)
                 Case DesignAction.ThreeQuarterBlockstitchTopRight
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
-                    AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+                    Add3QtrStitchTR(celLocation)
                 Case DesignAction.BlockstitchQuarters
+                    AddQuarterBlockstitch(celLocation, _stitchQtr)
             End Select
         End If
         DrawGrid(oProject, oProjectDesign)
         DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+    End Sub
+
+    Private Sub Add3QtrStitchTR(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+    End Sub
+
+    Private Sub Add3QtrStitchTL(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+    End Sub
+
+    Private Sub Add3QtrStitchBR(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+    End Sub
+
+    Private Sub Add3QtrStitchBL(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+    End Sub
+
+    Private Sub AddHalfBlockForwardStitch(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+    End Sub
+
+    Private Sub AddHalfBlockBackStitch(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+    End Sub
+
+    Private Sub AddFullBlockStitch(celLocation As Point)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
     End Sub
 
     Private Sub AddQuarterBlockstitch(pActionPoint As Point, pQtr As BlockQuarter)
@@ -810,7 +864,7 @@ Public Class FrmStitchDesign
         _existing.Quarters = _blockStitchQtrList
     End Sub
 
-    Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean, pIsRemove As Boolean)
+    Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean)
         Dim _exists = FindKnot(pActionPoint, pQtr)
         If _exists IsNot Nothing Then
             oProjectDesign.Knots.Remove(_exists)
@@ -850,37 +904,149 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
+        Dim isImageChanged As Boolean = False
+        Dim cellQtr As BlockQuarter = BlockQuarter.TopLeft
+        Dim cell As New Point(0, 0)
+        Dim cellLocation As Point = FindCellFromClickLocation(e, cell, cellQtr)
+        If e.Button = MouseButtons.Right Then
+            If oCurrentAction = DesignAction.Bead Or oCurrentAction = DesignAction.Knot Then
 
-        Select Case oCurrentAction
-            Case DesignAction.BackstitchFullThick
-                DrawBackstitch()
-            Case DesignAction.BackStitchFullThin
-                DrawBackstitch()
-            Case DesignAction.BackstitchHalfThin
-                DrawBackstitch()
-            Case DesignAction.BackStitchHalfThick
-                DrawBackstitch()
-            Case DesignAction.Bead
+                Debug.Print(cell.X & "," & cell.Y & " : " & cellQtr.ToString)
+                Dim _exists As Knot = FindKnot(cell, cellQtr)
+                If _exists IsNot Nothing Then
+                    oProjectDesign.Knots.Remove(_exists)
+                    isImageChanged = True
+                End If
+            Else
+                Dim _exists As BlockStitch = FindBlockstitch(cell)
+                If _exists.IsLoaded Then
+                    oProjectDesign.BlockStitches.Remove(_exists)
+                    isImageChanged = True
+                End If
+            End If
+        End If
 
-            Case DesignAction.Knot
+        If e.Button = MouseButtons.Left Then
 
-            Case DesignAction.FullBlockstitch
 
-            Case DesignAction.HalfBlockstitchBack
-            Case DesignAction.HalfBlockstitchForward
-            Case DesignAction.QuarterBlockstitchBottomRight
-            Case DesignAction.QuarterBlockstitchBottonLeft
-            Case DesignAction.QuarterBlockstitchTopLeft
-            Case DesignAction.QuarterBlockstitchTopRight
-            Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-            Case DesignAction.ThreeQuarterBlockstitchBottomRight
-            Case DesignAction.ThreeQuarterBlockstitchTopLeft
-            Case DesignAction.ThreeQuarterBlockstitchTopRight
-            Case DesignAction.BlockstitchQuarters
+            Select Case oCurrentAction
+                Case DesignAction.BackstitchFullThick
 
-        End Select
+                Case DesignAction.BackStitchFullThin
+
+                Case DesignAction.BackstitchHalfThin
+
+                Case DesignAction.BackStitchHalfThick
+
+                Case DesignAction.Bead
+                    AddKnot(cell, cellQtr, True)
+                    isImageChanged = True
+                Case DesignAction.Knot
+                    AddKnot(cell, cellQtr, False)
+                    isImageChanged = True
+                Case DesignAction.FullBlockstitch
+                    AddFullBlockStitch(cell)
+                    isImageChanged = True
+                Case DesignAction.HalfBlockstitchBack
+                    AddHalfBlockBackStitch(cell)
+                    isImageChanged = True
+                Case DesignAction.HalfBlockstitchForward
+                    AddHalfBlockForwardStitch(cell)
+                    isImageChanged = True
+                Case DesignAction.QuarterBlockstitchBottomRight
+                    AddQuarterBlockstitch(cell, BlockQuarter.BottomRight)
+                    isImageChanged = True
+                Case DesignAction.QuarterBlockstitchBottonLeft
+                    AddQuarterBlockstitch(cell, BlockQuarter.BottomLeft)
+                    isImageChanged = True
+                Case DesignAction.QuarterBlockstitchTopLeft
+                    AddQuarterBlockstitch(cell, BlockQuarter.TopLeft)
+                    isImageChanged = True
+                Case DesignAction.QuarterBlockstitchTopRight
+                    AddQuarterBlockstitch(cell, BlockQuarter.TopRight)
+                    isImageChanged = True
+                Case DesignAction.ThreeQuarterBlockstitchBottomLeft
+                    Add3QtrStitchBL(cell)
+                    isImageChanged = True
+                Case DesignAction.ThreeQuarterBlockstitchBottomRight
+                    Add3QtrStitchBR(cell)
+                    isImageChanged = True
+                Case DesignAction.ThreeQuarterBlockstitchTopLeft
+                    Add3QtrStitchTL(cell)
+                    isImageChanged = True
+                Case DesignAction.ThreeQuarterBlockstitchTopRight
+                    Add3QtrStitchTR(cell)
+                    isImageChanged = True
+                Case DesignAction.BlockstitchQuarters
+                    AddQuarterBlockstitch(cell, cellQtr)
+                    isImageChanged = True
+            End Select
+
+        End If
+        If isImageChanged Then
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+        End If
     End Sub
 
+    Private Function FindQtrFromClickLocation(e As MouseEventArgs, ByRef pQtr As BlockQuarter) As Point
+        Dim start_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
+        Dim start_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
+
+        Dim cel_x As Integer = (start_x) * iPpc
+
+        Dim cel_y As Integer = (start_y) * iPpc
+
+        Dim celLocation As New Point(cel_x, cel_y)
+
+        Dim _xrmd As Integer = e.X Mod iPpc
+        Dim _yrmd As Integer = e.Y Mod iPpc
+        Select Case True
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                '    celLocation = New Point(cel_x, cel_y)
+                pQtr = BlockQuarter.TopLeft
+            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+                '     celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
+                pQtr = BlockQuarter.BottomRight
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
+                '     celLocation = New Point(cel_x, cel_y + (iPpc / 2))
+                pQtr = BlockQuarter.TopRight
+            Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                '      celLocation = New Point(cel_x + (iPpc / 2), cel_y)
+                pQtr = BlockQuarter.BottomLeft
+        End Select
+
+        Return celLocation
+    End Function
+    Private Function FindCellFromClickLocation(e As MouseEventArgs, ByRef pCell As Point, ByRef pQtr As BlockQuarter) As Point
+        Dim start_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
+        Dim start_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
+        pCell = New Point(start_x, start_y)
+        Dim cel_x As Integer = (start_x) * iPpc
+
+        Dim cel_y As Integer = (start_y) * iPpc
+
+        Dim celLocation As New Point(cel_x, cel_y)
+
+        Dim _xrmd As Integer = e.X Mod iPpc
+        Dim _yrmd As Integer = e.Y Mod iPpc
+        Select Case True
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                '    celLocation = New Point(cel_x, cel_y)
+                pQtr = BlockQuarter.TopLeft
+            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+                '     celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
+                pQtr = BlockQuarter.BottomRight
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
+                '     celLocation = New Point(cel_x, cel_y + (iPpc / 2))
+                pQtr = BlockQuarter.BottomLeft
+            Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                '      celLocation = New Point(cel_x + (iPpc / 2), cel_y)
+                pQtr = BlockQuarter.TopRight
+        End Select
+
+        Return celLocation
+    End Function
     Private Sub PicDesign_MouseUp(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseUp
         Select Case oCurrentAction
             Case DesignAction.BackstitchFullThick
@@ -933,4 +1099,48 @@ Public Class FrmStitchDesign
         DecreaseMagnification()
 
     End Sub
+
+    'Private Sub BtnTest_Click(sender As Object, e As EventArgs) Handles BtnTest.Click
+    '    Dim start_x As Integer = Math.Floor(testX / iPpc) - iXOffset
+    '    Dim start_y As Integer = Math.Floor(testY / iPpc) - iYOffset
+
+    '    Dim xoffset As Integer = iXOffset + topcorner.X
+    '    Dim yoffset As Integer = iYOffset + topcorner.Y
+
+    '    For xjump As Integer = 0 To 5
+    '        Dim cel_x As Integer = (start_x + xjump) * iPpc
+    '        For yjump As Integer = 0 To 5
+    '            Dim cel_y As Integer = (start_y + yjump) * iPpc
+    '            Dim celLocation As New Point(cel_x, cel_y)
+    '            Dim _xrmd As Integer = testX Mod iPpc
+    '            Dim _yrmd As Integer = testY Mod iPpc
+
+    '            Dim _stitchQtr As BlockQuarter
+
+    '            Select Case True
+    '                Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+    '                    _stitchQtr = BlockQuarter.TopLeft
+    '                    celLocation = New Point(cel_x, cel_y)
+    '                Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+    '                    _stitchQtr = BlockQuarter.BottomRight
+    '                    celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
+
+    '                Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
+    '                    _stitchQtr = BlockQuarter.BottomLeft
+    '                    celLocation = New Point(cel_x, cel_y + (iPpc / 2))
+
+    '                Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+    '                    _stitchQtr = BlockQuarter.TopRight
+    '                    celLocation = New Point(cel_x + (iPpc / 2), cel_y)
+
+    '            End Select
+
+
+    '            oDesignGraphicsOverlay.DrawRectangle(New Pen(Color.DarkGray, 1), New Rectangle(celLocation, New Size(iPpc / 2, iPpc / 2)))
+    '            oDesignGraphicsOverlay.DrawString(CStr(xjump) & "," & CStr(yjump), New Font("Arial", 7), Brushes.Black, celLocation)
+    '        Next
+    '    Next
+    '    DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+
+    'End Sub
 End Class
