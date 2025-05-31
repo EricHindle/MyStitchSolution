@@ -23,6 +23,9 @@ Public Class FrmProject
 #End Region
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        InitialiseSettings()
+
+        InitialiseLogging()
         LogUtil.LogInfo("Project maintenence", MyBase.Name)
         isLoading = True
         InitialiseForm()
@@ -42,8 +45,16 @@ Public Class FrmProject
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
+                NudDesignHeight.Enabled = False
+                NudDesignWidth.Enabled = False
+                NudOriginX.Enabled = False
+                NudOriginY.Enabled = False
             Else
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
+                NudDesignHeight.Enabled = True
+                NudDesignWidth.Enabled = True
+                NudOriginX.Enabled = True
+                NudOriginY.Enabled = True
             End If
             LoadProjectForm(_selectedProject)
         End If
@@ -69,6 +80,7 @@ Public Class FrmProject
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
+
     End Sub
 
     Private Sub LoadProjectForm(oProject As Project)
@@ -82,6 +94,8 @@ Public Class FrmProject
             DtpEnd.Value = .DateEnded
             NudDesignHeight.Value = .DesignHeight
             NudDesignWidth.Value = .DesignWidth
+            NudOriginX.Value = .OriginX
+            NudOriginY.Value = .OriginY
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
             Select Case .FabricColour
@@ -258,6 +272,7 @@ Public Class FrmProject
     End Sub
 
     Private Sub BtnDesign_Click(sender As Object, e As EventArgs) Handles BtnDesign.Click
+        LogUtil.Info(_selectedProject.ToString, MyBase.Name)
         Using _design As New FrmStitchDesign
             If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
                 _design.ProjectId = _selectedProject.ProjectId
@@ -266,6 +281,32 @@ Public Class FrmProject
             End If
         End Using
     End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Close()
+    End Sub
+
+    Private Sub MnuShowLog_Click(sender As Object, e As EventArgs) Handles MnuShowLog.Click
+
+    End Sub
+
+    Private Sub MnuUndoOn_Click(sender As Object, e As EventArgs) Handles MnuUndoOn.Click
+
+    End Sub
+
+    Private Sub MnuDuplicate_Click(sender As Object, e As EventArgs) Handles MnuDuplicate.Click
+
+    End Sub
+
+    Private Sub MnuCrop_Click(sender As Object, e As EventArgs) Handles MnuCrop.Click
+
+    End Sub
+
+    Private Sub MnuExtend_Click(sender As Object, e As EventArgs) Handles MnuExtend.Click
+
+    End Sub
+
+
 
 #End Region
 

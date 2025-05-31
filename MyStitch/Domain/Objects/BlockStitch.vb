@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
+Imports Newtonsoft.Json
 
 Public Class BlockStitch
     Public Enum BlockStitchType
@@ -53,19 +53,6 @@ Public Class BlockStitch
         Return _quarters IsNot Nothing AndAlso _quarters.Count > 0
     End Function
     Public Overrides Function ToString() As String
-        Dim sb As New StringBuilder
-        sb _
-            .Append("Blockstitch=[") _
-            .Append("Location=[X=") _
-            .Append(_blockLoc.X) _
-            .Append(", Y=") _
-            .Append(_blockLoc.Y) _
-            .Append("], Quarters=[")
-        For Each _qtr As BlockStitchQuarter In _quarters
-            sb.Append(_qtr.ToString)
-        Next
-        sb.Append("]]")
-        Return sb.ToString()
-
+        Return JsonConvert.SerializeObject(Me)
     End Function
 End Class

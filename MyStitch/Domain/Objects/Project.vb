@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
+Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class Project
 #Region "properties"
@@ -23,6 +23,29 @@ Namespace Domain.Objects
         Private _grid10Colour As Integer
         Private _design As ProjectDesign
         Private _designFileName As String
+        Private _originX As Integer
+        Private _originY As Integer
+        Public ReadOnly Property Origin As Point
+            Get
+                Return New Point(_originX, _originY)
+            End Get
+        End Property
+        Public Property OriginY() As Integer
+            Get
+                Return _originY
+            End Get
+            Set(ByVal value As Integer)
+                _originY = value
+            End Set
+        End Property
+        Public Property OriginX() As Integer
+            Get
+                Return _originX
+            End Get
+            Set(ByVal value As Integer)
+                _originX = value
+            End Set
+        End Property
         Public Property DesignFileName() As String
             Get
                 Return _designFileName
@@ -149,6 +172,8 @@ Namespace Domain.Objects
             _fabricColour = Color.White.ToArgb
             _design = New ProjectDesign
             _designFileName = String.Empty
+            _originX = 0
+            _originY = 0
         End Sub
         Public Sub New()
             Initialiseproject()
@@ -172,7 +197,9 @@ Namespace Domain.Objects
                        pGrid5Colour As Integer,
                        pGrid10Colour As Integer,
                        pDesign As ProjectDesign,
-                       pFilename As String)
+                       pFilename As String,
+                       pOriginX As Integer,
+                       pOriginY As Integer)
             Initialiseproject()
             _projectId = pId
             _projectName = pProjectName
@@ -188,6 +215,8 @@ Namespace Domain.Objects
             _grid10Colour = pGrid10Colour
             _design = pDesign
             _designFileName = pFilename
+            _originX = pOriginX
+            _originY = pOriginY
         End Sub
 #End Region
 #Region "methods"
@@ -195,15 +224,7 @@ Namespace Domain.Objects
             Return _projectId > -1
         End Function
         Public Overrides Function ToString() As String
-            Dim sb As New StringBuilder
-            sb _
-                .Append("project=[") _
-                .Append("Id=[") _
-                .Append(CStr(_projectId)) _
-                .Append("], project name=[") _
-                .Append(_projectName) _
-                .Append("]]")
-            Return sb.ToString
+            Return JsonConvert.SerializeObject(Me)
         End Function
 #End Region
 

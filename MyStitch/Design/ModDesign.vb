@@ -100,5 +100,4 @@ Module ModDesign
         Return _projectDesign
     End Function
 
-
 End Module

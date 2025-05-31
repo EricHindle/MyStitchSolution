@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
+Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class ProjectThreadCard
 #Region "properties"
@@ -48,14 +48,7 @@ Namespace Domain.Objects
 #End Region
 #Region "methods"
         Public Overrides Function ToString() As String
-            Dim sb As New StringBuilder
-            sb _
-                .Append("ProjectThreadCard=[") _
-                .Append(_project.ToString) _
-                .Append(", CardNo=[") _
-                .Append(CStr(_cardNo)) _
-                .Append("]]")
-            Return sb.ToString
+            Return JsonConvert.SerializeObject(Me)
         End Function
 #End Region
 

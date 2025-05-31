@@ -5,8 +5,8 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
 Imports System.Text.RegularExpressions
+Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class Thread
 
@@ -96,19 +96,7 @@ Namespace Domain.Objects
             Return _threadId > -1
         End Function
         Public Overrides Function ToString() As String
-            Dim sb As New StringBuilder
-            sb _
-                .Append("Thread=[") _
-                .Append("Id=[") _
-                .Append(CStr(_threadId)) _
-                .Append("], Number=[") _
-                .Append(_threadNo) _
-                .Append("], Colour name=[") _
-                .Append(_colourName) _
-                .Append("], Stock level=[") _
-                .Append(CStr(_stock_level)) _
-                .Append("]]")
-            Return sb.ToString
+            Return JsonConvert.SerializeObject(Me)
         End Function
         '
         ' Create a number that can be used to sort threads by the thread number in a list

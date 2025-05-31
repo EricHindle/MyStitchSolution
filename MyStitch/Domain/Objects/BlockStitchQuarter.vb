@@ -5,9 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
 Imports MyStitch.BlockStitch
 Imports MyStitch.Domain.Objects
+Imports Newtonsoft.Json
 
 Public Class BlockStitchQuarter
     Private _blockQuarter As BlockQuarter
@@ -62,18 +62,6 @@ Public Class BlockStitchQuarter
         _thread = pThread
     End Sub
     Public Overrides Function ToString() As String
-        Dim sb As New StringBuilder
-        sb _
-            .Append("BlockStitchQuarter=[") _
-            .Append(_blockQuarter.ToString) _
-            .Append("=[Type=[") _
-            .Append(_stitchType.ToString) _
-            .Append("], Strand count=[") _
-            .Append(CStr(_strandCount)) _
-            .Append("], ") _
-            .Append(_thread.ToString) _
-            .Append("]")
-        Return sb.ToString()
-
+        Return JsonConvert.SerializeObject(Me)
     End Function
 End Class

@@ -8,6 +8,7 @@
 Public NotInheritable Class FrmStitchSplash
 
     Private Sub FrmStitchThreadsSplash_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         If My.Application.Info.Title <> "" Then
             ApplicationTitle.Text = My.Application.Info.Title
         Else

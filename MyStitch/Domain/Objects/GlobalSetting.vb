@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
+Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class GlobalSetting
 #Region "properties"
@@ -55,17 +55,7 @@ Namespace Domain.Objects
 #End Region
 #Region "methods"
         Public Overrides Function ToString() As String
-            Dim sb As New StringBuilder
-            sb _
-            .Append("GlobalSetting=[") _
-            .Append("Name=[") _
-            .Append(_name) _
-            .Append("], Type=[") _
-            .Append(_type) _
-            .Append("], Value=[") _
-            .Append(_value) _
-            .Append("]]")
-            Return sb.ToString
+            Return JsonConvert.SerializeObject(Me)
         End Function
 #End Region
     End Class

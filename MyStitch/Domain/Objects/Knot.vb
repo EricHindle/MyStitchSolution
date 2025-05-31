@@ -5,9 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
 Imports MyStitch.BlockStitch
 Imports MyStitch.Domain.Objects
+Imports Newtonsoft.Json
 
 Public Class Knot
     Private _blockLoc As Point
@@ -74,23 +74,6 @@ Public Class Knot
         _isBead = pIsBead
     End Sub
     Public Overrides Function ToString() As String
-        Dim sb As New StringBuilder
-        sb _
-            .Append("Backstitch=[") _
-            .Append("FromLocation=[X=") _
-            .Append(_blockLoc.X) _
-            .Append(", Y=") _
-            .Append(_blockLoc.Y) _
-            .Append("], Quarter=[") _
-            .Append(_blockQtr.ToString) _
-            .Append("], Strands=[") _
-            .Append(CStr(_strands)) _
-            .Append("], ") _
-            .Append(_thread.ToString) _
-            .Append(", Is bead=[") _
-            .Append(_isBead) _
-            .Append("]]")
-        Return sb.ToString()
-
+        Return JsonConvert.SerializeObject(Me)
     End Function
 End Class

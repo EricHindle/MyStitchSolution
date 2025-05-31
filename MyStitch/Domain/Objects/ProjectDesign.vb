@@ -79,8 +79,7 @@ Public Class ProjectDesign
         _columns = pColumns
     End Sub
     Public Function SerializeJson() As String
-        Dim json As String = JsonConvert.SerializeObject(Me)
-        Return json
+        Return JsonConvert.SerializeObject(Me)
     End Function
     Public Function IsLoaded() As Boolean
         Dim _isOk As Boolean = False
@@ -88,5 +87,8 @@ Public Class ProjectDesign
             _isOk = True
         End If
         Return _isOk
+    End Function
+    Public Overrides Function ToString() As String
+        Return JsonConvert.SerializeObject(Me)
     End Function
 End Class

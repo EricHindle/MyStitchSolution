@@ -109,6 +109,9 @@
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
     <Compile Include="Domain\ModDataFunctions.vb" />
+    <Compile Include="Domain\MyStitchDataSet.vb">
+      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Objects\BackStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitchQuarter.vb" />
@@ -220,6 +223,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\MenuBtn.png" />
     <None Include="Resources\Bead.png" />
     <None Include="Resources\BtnBkgrdDown.png" />
     <None Include="Resources\fullthinbs.png" />

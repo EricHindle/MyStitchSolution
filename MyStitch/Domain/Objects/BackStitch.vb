@@ -5,9 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
 Imports MyStitch.BlockStitch
 Imports MyStitch.Domain.Objects
+Imports Newtonsoft.Json
 
 Public Class BackStitch
     Private _fromBlockLoc As Point
@@ -86,24 +86,6 @@ Public Class BackStitch
     End Sub
 
     Public Overrides Function ToString() As String
-        Dim sb As New StringBuilder
-        sb _
-            .Append("Backstitch=[") _
-            .Append("FromLocation=[X=") _
-            .Append(_fromBlockLoc.X) _
-            .Append(", Y=") _
-            .Append(_fromBlockLoc.Y) _
-            .Append("], ") _
-            .Append("ToLocation=[X=") _
-            .Append(_toBlockLoc.X) _
-            .Append(", Y=") _
-            .Append(_toBlockLoc.Y) _
-            .Append("], Strands=[") _
-            .Append(CStr(_strands)) _
-            .Append("], ") _
-            .Append(_thread.ToString) _
-            .Append("]]")
-        Return sb.ToString()
-
+        Return JsonConvert.SerializeObject(Me)
     End Function
 End Class

@@ -48,7 +48,6 @@ Public Class FrmStitchDesign
     Private iOldHScrollbarValue As Integer = 0
     Private iOldVScrollbarValue As Integer = 0
 
-
     Private iPpc As Integer
     Private Enum DesignAction
         FullBlockstitch
@@ -734,7 +733,6 @@ Public Class FrmStitchDesign
 
         Dim celLocation As New Point(cel_x, cel_y)
 
-
         Dim isRemove As Boolean = e.Button = MouseButtons.Right
 
         If isRemove Then
@@ -927,7 +925,6 @@ Public Class FrmStitchDesign
         End If
 
         If e.Button = MouseButtons.Left Then
-
 
             Select Case oCurrentAction
                 Case DesignAction.BackstitchFullThick
@@ -1134,7 +1131,6 @@ Public Class FrmStitchDesign
     '                    celLocation = New Point(cel_x + (iPpc / 2), cel_y)
 
     '            End Select
-
 
     '            oDesignGraphicsOverlay.DrawRectangle(New Pen(Color.DarkGray, 1), New Rectangle(celLocation, New Size(iPpc / 2, iPpc / 2)))
     '            oDesignGraphicsOverlay.DrawString(CStr(xjump) & "," & CStr(yjump), New Font("Arial", 7), Brushes.Black, celLocation)

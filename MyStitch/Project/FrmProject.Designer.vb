@@ -42,6 +42,10 @@ Partial Class FrmProject
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.NudOriginY = New System.Windows.Forms.NumericUpDown()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.NudOriginX = New System.Windows.Forms.NumericUpDown()
         Me.CbGrid10Colour = New System.Windows.Forms.ComboBox()
         Me.PicGrid10Colour = New System.Windows.Forms.PictureBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -66,17 +70,34 @@ Partial Class FrmProject
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DtpEnd = New System.Windows.Forms.DateTimePicker()
         Me.DtpStart = New System.Windows.Forms.DateTimePicker()
-        Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.LblSelectedProject = New System.Windows.Forms.Label()
         Me.LblProjectId = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtName = New System.Windows.Forms.TextBox()
+        Me.BtnProjectThreads = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         Me.BtnDesign = New System.Windows.Forms.Button()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.MnuButton = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDuplicate = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCrop = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuExtend = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuLogging = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuShowLog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDebugOn = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuUndoOn = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
+        CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -85,12 +106,13 @@ Partial Class FrmProject
         CType(Me.NudFabricWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDesignHeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDesignWidth, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 547)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 553)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(709, 22)
@@ -109,7 +131,7 @@ Partial Class FrmProject
         Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClear.Location = New System.Drawing.Point(12, 208)
+        Me.BtnClear.Location = New System.Drawing.Point(17, 290)
         Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClear.Name = "BtnClear"
         Me.BtnClear.Size = New System.Drawing.Size(80, 40)
@@ -124,7 +146,7 @@ Partial Class FrmProject
         Me.BtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDelete.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDelete.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDelete.Location = New System.Drawing.Point(12, 128)
+        Me.BtnDelete.Location = New System.Drawing.Point(17, 217)
         Me.BtnDelete.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDelete.Name = "BtnDelete"
         Me.BtnDelete.Size = New System.Drawing.Size(80, 40)
@@ -139,7 +161,7 @@ Partial Class FrmProject
         Me.BtnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnNew.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnNew.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnNew.Location = New System.Drawing.Point(12, 13)
+        Me.BtnNew.Location = New System.Drawing.Point(17, 104)
         Me.BtnNew.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnNew.Name = "BtnNew"
         Me.BtnNew.Size = New System.Drawing.Size(80, 40)
@@ -154,7 +176,7 @@ Partial Class FrmProject
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(13, 70)
+        Me.BtnUpdate.Location = New System.Drawing.Point(17, 160)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
         Me.BtnUpdate.Size = New System.Drawing.Size(80, 40)
@@ -167,7 +189,7 @@ Partial Class FrmProject
         Me.Label44.AutoSize = True
         Me.Label44.Font = New System.Drawing.Font("Felix Titling", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label44.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label44.Location = New System.Drawing.Point(117, 9)
+        Me.Label44.Location = New System.Drawing.Point(13, 37)
         Me.Label44.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(100, 23)
@@ -194,7 +216,7 @@ Partial Class FrmProject
         Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
         Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.DgvProjects.Location = New System.Drawing.Point(121, 36)
+        Me.DgvProjects.Location = New System.Drawing.Point(121, 35)
         Me.DgvProjects.Margin = New System.Windows.Forms.Padding(4)
         Me.DgvProjects.MultiSelect = False
         Me.DgvProjects.Name = "DgvProjects"
@@ -205,7 +227,7 @@ Partial Class FrmProject
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(265, 383)
+        Me.DgvProjects.Size = New System.Drawing.Size(265, 450)
         Me.DgvProjects.TabIndex = 124
         '
         'projectId
@@ -229,6 +251,10 @@ Partial Class FrmProject
         Me.PnlForm.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlForm.Controls.Add(Me.Label12)
+        Me.PnlForm.Controls.Add(Me.NudOriginY)
+        Me.PnlForm.Controls.Add(Me.Label13)
+        Me.PnlForm.Controls.Add(Me.NudOriginX)
         Me.PnlForm.Controls.Add(Me.CbGrid10Colour)
         Me.PnlForm.Controls.Add(Me.PicGrid10Colour)
         Me.PnlForm.Controls.Add(Me.Label11)
@@ -258,18 +284,56 @@ Partial Class FrmProject
         Me.PnlForm.Controls.Add(Me.Label1)
         Me.PnlForm.Controls.Add(Me.TxtName)
         Me.PnlForm.ForeColor = System.Drawing.Color.FromArgb(CType(CType(10, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(120, Byte), Integer))
-        Me.PnlForm.Location = New System.Drawing.Point(394, 36)
+        Me.PnlForm.Location = New System.Drawing.Point(394, 35)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(302, 444)
+        Me.PnlForm.Size = New System.Drawing.Size(302, 450)
         Me.PnlForm.TabIndex = 126
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(48, 241)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(95, 14)
+        Me.Label12.TabIndex = 156
+        Me.Label12.Text = "Centre Y co-ord"
+        '
+        'NudOriginY
+        '
+        Me.NudOriginY.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NudOriginY.Location = New System.Drawing.Point(195, 239)
+        Me.NudOriginY.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NudOriginY.Name = "NudOriginY"
+        Me.NudOriginY.Size = New System.Drawing.Size(74, 22)
+        Me.NudOriginY.TabIndex = 155
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(48, 211)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(94, 14)
+        Me.Label13.TabIndex = 154
+        Me.Label13.Text = "Centre X co-ord"
+        '
+        'NudOriginX
+        '
+        Me.NudOriginX.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NudOriginX.Location = New System.Drawing.Point(195, 211)
+        Me.NudOriginX.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NudOriginX.Name = "NudOriginX"
+        Me.NudOriginX.Size = New System.Drawing.Size(74, 22)
+        Me.NudOriginX.TabIndex = 153
         '
         'CbGrid10Colour
         '
         Me.CbGrid10Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbGrid10Colour.FormattingEnabled = True
         Me.CbGrid10Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid10Colour.Location = New System.Drawing.Point(195, 371)
+        Me.CbGrid10Colour.Location = New System.Drawing.Point(195, 422)
         Me.CbGrid10Colour.Name = "CbGrid10Colour"
         Me.CbGrid10Colour.Size = New System.Drawing.Size(79, 22)
         Me.CbGrid10Colour.TabIndex = 152
@@ -278,7 +342,7 @@ Partial Class FrmProject
         '
         Me.PicGrid10Colour.BackColor = System.Drawing.Color.White
         Me.PicGrid10Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid10Colour.Location = New System.Drawing.Point(166, 371)
+        Me.PicGrid10Colour.Location = New System.Drawing.Point(166, 422)
         Me.PicGrid10Colour.Name = "PicGrid10Colour"
         Me.PicGrid10Colour.Size = New System.Drawing.Size(23, 23)
         Me.PicGrid10Colour.TabIndex = 151
@@ -288,7 +352,7 @@ Partial Class FrmProject
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(48, 375)
+        Me.Label11.Location = New System.Drawing.Point(48, 426)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(84, 14)
         Me.Label11.TabIndex = 150
@@ -299,7 +363,7 @@ Partial Class FrmProject
         Me.CbGrid5Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbGrid5Colour.FormattingEnabled = True
         Me.CbGrid5Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid5Colour.Location = New System.Drawing.Point(195, 344)
+        Me.CbGrid5Colour.Location = New System.Drawing.Point(195, 395)
         Me.CbGrid5Colour.Name = "CbGrid5Colour"
         Me.CbGrid5Colour.Size = New System.Drawing.Size(79, 22)
         Me.CbGrid5Colour.TabIndex = 149
@@ -308,7 +372,7 @@ Partial Class FrmProject
         '
         Me.PicGrid5Colour.BackColor = System.Drawing.Color.White
         Me.PicGrid5Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid5Colour.Location = New System.Drawing.Point(166, 344)
+        Me.PicGrid5Colour.Location = New System.Drawing.Point(166, 395)
         Me.PicGrid5Colour.Name = "PicGrid5Colour"
         Me.PicGrid5Colour.Size = New System.Drawing.Size(23, 23)
         Me.PicGrid5Colour.TabIndex = 148
@@ -318,7 +382,7 @@ Partial Class FrmProject
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(48, 348)
+        Me.Label10.Location = New System.Drawing.Point(48, 399)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(77, 14)
         Me.Label10.TabIndex = 147
@@ -329,7 +393,7 @@ Partial Class FrmProject
         Me.CbGrid1Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbGrid1Colour.FormattingEnabled = True
         Me.CbGrid1Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid1Colour.Location = New System.Drawing.Point(195, 316)
+        Me.CbGrid1Colour.Location = New System.Drawing.Point(195, 367)
         Me.CbGrid1Colour.Name = "CbGrid1Colour"
         Me.CbGrid1Colour.Size = New System.Drawing.Size(79, 22)
         Me.CbGrid1Colour.TabIndex = 146
@@ -338,7 +402,7 @@ Partial Class FrmProject
         '
         Me.PicGrid1Colour.BackColor = System.Drawing.Color.White
         Me.PicGrid1Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid1Colour.Location = New System.Drawing.Point(166, 316)
+        Me.PicGrid1Colour.Location = New System.Drawing.Point(166, 367)
         Me.PicGrid1Colour.Name = "PicGrid1Colour"
         Me.PicGrid1Colour.Size = New System.Drawing.Size(23, 23)
         Me.PicGrid1Colour.TabIndex = 145
@@ -348,7 +412,7 @@ Partial Class FrmProject
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(48, 320)
+        Me.Label9.Location = New System.Drawing.Point(48, 371)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(77, 14)
         Me.Label9.TabIndex = 144
@@ -359,7 +423,7 @@ Partial Class FrmProject
         Me.CbFabricColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbFabricColour.FormattingEnabled = True
         Me.CbFabricColour.Items.AddRange(New Object() {"White", "Cream", "Blue", "Pink", "Other"})
-        Me.CbFabricColour.Location = New System.Drawing.Point(195, 283)
+        Me.CbFabricColour.Location = New System.Drawing.Point(195, 334)
         Me.CbFabricColour.Name = "CbFabricColour"
         Me.CbFabricColour.Size = New System.Drawing.Size(79, 22)
         Me.CbFabricColour.TabIndex = 143
@@ -368,7 +432,7 @@ Partial Class FrmProject
         '
         Me.PicFabricColour.BackColor = System.Drawing.Color.White
         Me.PicFabricColour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicFabricColour.Location = New System.Drawing.Point(166, 283)
+        Me.PicFabricColour.Location = New System.Drawing.Point(166, 334)
         Me.PicFabricColour.Name = "PicFabricColour"
         Me.PicFabricColour.Size = New System.Drawing.Size(23, 23)
         Me.PicFabricColour.TabIndex = 142
@@ -378,7 +442,7 @@ Partial Class FrmProject
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(48, 287)
+        Me.Label8.Location = New System.Drawing.Point(48, 338)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(76, 14)
         Me.Label8.TabIndex = 141
@@ -388,7 +452,7 @@ Partial Class FrmProject
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(48, 248)
+        Me.Label7.Location = New System.Drawing.Point(48, 299)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(78, 14)
         Me.Label7.TabIndex = 140
@@ -397,7 +461,7 @@ Partial Class FrmProject
         'NudFabricHeight
         '
         Me.NudFabricHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricHeight.Location = New System.Drawing.Point(195, 246)
+        Me.NudFabricHeight.Location = New System.Drawing.Point(195, 297)
         Me.NudFabricHeight.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricHeight.Name = "NudFabricHeight"
@@ -409,7 +473,7 @@ Partial Class FrmProject
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(48, 220)
+        Me.Label6.Location = New System.Drawing.Point(48, 271)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(75, 14)
         Me.Label6.TabIndex = 138
@@ -418,7 +482,7 @@ Partial Class FrmProject
         'NudFabricWidth
         '
         Me.NudFabricWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricWidth.Location = New System.Drawing.Point(195, 218)
+        Me.NudFabricWidth.Location = New System.Drawing.Point(195, 269)
         Me.NudFabricWidth.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricWidth.Name = "NudFabricWidth"
@@ -508,22 +572,6 @@ Partial Class FrmProject
         Me.DtpStart.Size = New System.Drawing.Size(122, 22)
         Me.DtpStart.TabIndex = 129
         '
-        'BtnProjectThreads
-        '
-        Me.BtnProjectThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnProjectThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnProjectThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(121, 427)
-        Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnProjectThreads.Name = "BtnProjectThreads"
-        Me.BtnProjectThreads.Size = New System.Drawing.Size(75, 53)
-        Me.BtnProjectThreads.TabIndex = 128
-        Me.BtnProjectThreads.Text = "Project Threads"
-        Me.BtnProjectThreads.UseVisualStyleBackColor = False
-        '
         'LblSelectedProject
         '
         Me.LblSelectedProject.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -573,6 +621,22 @@ Partial Class FrmProject
         Me.TxtName.Size = New System.Drawing.Size(216, 27)
         Me.TxtName.TabIndex = 1
         '
+        'BtnProjectThreads
+        '
+        Me.BtnProjectThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnProjectThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnProjectThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(121, 493)
+        Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnProjectThreads.Name = "BtnProjectThreads"
+        Me.BtnProjectThreads.Size = New System.Drawing.Size(75, 53)
+        Me.BtnProjectThreads.TabIndex = 128
+        Me.BtnProjectThreads.Text = "Project Threads"
+        Me.BtnProjectThreads.UseVisualStyleBackColor = False
+        '
         'BtnClose
         '
         Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -581,7 +645,7 @@ Partial Class FrmProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(616, 488)
+        Me.BtnClose.Location = New System.Drawing.Point(616, 499)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 40)
@@ -597,7 +661,7 @@ Partial Class FrmProject
         Me.BtnDesign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDesign.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDesign.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDesign.Location = New System.Drawing.Point(214, 427)
+        Me.BtnDesign.Location = New System.Drawing.Point(215, 493)
         Me.BtnDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDesign.Name = "BtnDesign"
         Me.BtnDesign.Size = New System.Drawing.Size(75, 53)
@@ -605,11 +669,116 @@ Partial Class FrmProject
         Me.BtnDesign.Text = "Design"
         Me.BtnDesign.UseVisualStyleBackColor = False
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.AutoSize = False
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuButton})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(709, 28)
+        Me.MenuStrip1.TabIndex = 130
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'MnuButton
+        '
+        Me.MnuButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.MnuButton.AutoSize = False
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuLogging, Me.MnuOptions, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
+        Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
+        Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.MnuButton.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.MnuButton.Name = "MnuButton"
+        Me.MnuButton.Padding = New System.Windows.Forms.Padding(0)
+        Me.MnuButton.Size = New System.Drawing.Size(122, 28)
+        '
+        'MnuDesign
+        '
+        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDuplicate, Me.MnuCrop, Me.MnuExtend})
+        Me.MnuDesign.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.MnuDesign.Name = "MnuDesign"
+        Me.MnuDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDesign.Text = "Design"
+        '
+        'MnuDuplicate
+        '
+        Me.MnuDuplicate.Name = "MnuDuplicate"
+        Me.MnuDuplicate.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDuplicate.Text = "Duplicate"
+        '
+        'MnuCrop
+        '
+        Me.MnuCrop.Name = "MnuCrop"
+        Me.MnuCrop.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCrop.Text = "Crop"
+        '
+        'MnuExtend
+        '
+        Me.MnuExtend.Name = "MnuExtend"
+        Me.MnuExtend.Size = New System.Drawing.Size(180, 22)
+        Me.MnuExtend.Text = "Extend"
+        '
+        'MnuLogging
+        '
+        Me.MnuLogging.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebugOn})
+        Me.MnuLogging.Name = "MnuLogging"
+        Me.MnuLogging.Size = New System.Drawing.Size(180, 22)
+        Me.MnuLogging.Text = "Logging"
+        '
+        'MnuShowLog
+        '
+        Me.MnuShowLog.Name = "MnuShowLog"
+        Me.MnuShowLog.Size = New System.Drawing.Size(128, 22)
+        Me.MnuShowLog.Text = "Show Log"
+        '
+        'MnuDebugOn
+        '
+        Me.MnuDebugOn.CheckOnClick = True
+        Me.MnuDebugOn.Name = "MnuDebugOn"
+        Me.MnuDebugOn.Size = New System.Drawing.Size(128, 22)
+        Me.MnuDebugOn.Text = "Debug On"
+        '
+        'MnuOptions
+        '
+        Me.MnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuUndoOn, Me.ToolStripSeparator2, Me.MnuPreferences})
+        Me.MnuOptions.Name = "MnuOptions"
+        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
+        Me.MnuOptions.Text = "Options"
+        '
+        'MnuUndoOn
+        '
+        Me.MnuUndoOn.CheckOnClick = True
+        Me.MnuUndoOn.Name = "MnuUndoOn"
+        Me.MnuUndoOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuUndoOn.Text = "Undo On"
+        '
+        'MnuPreferences
+        '
+        Me.MnuPreferences.Name = "MnuPreferences"
+        Me.MnuPreferences.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPreferences.Text = "Preferences"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(709, 569)
+        Me.ClientSize = New System.Drawing.Size(709, 575)
         Me.Controls.Add(Me.BtnDesign)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.PnlForm)
@@ -620,9 +789,11 @@ Partial Class FrmProject
         Me.Controls.Add(Me.BtnNew)
         Me.Controls.Add(Me.BtnUpdate)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.BtnProjectThreads)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmProject"
         Me.Text = "Projects"
@@ -631,6 +802,8 @@ Partial Class FrmProject
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlForm.ResumeLayout(False)
         Me.PnlForm.PerformLayout()
+        CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).EndInit()
@@ -639,6 +812,8 @@ Partial Class FrmProject
         CType(Me.NudFabricWidth, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudDesignHeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudDesignWidth, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -687,4 +862,23 @@ Partial Class FrmProject
     Friend WithEvents Label9 As Label
     Friend WithEvents ColorDialog1 As ColorDialog
     Friend WithEvents BtnDesign As Button
+    Friend WithEvents Label12 As Label
+    Friend WithEvents NudOriginY As NumericUpDown
+    Friend WithEvents Label13 As Label
+    Friend WithEvents NudOriginX As NumericUpDown
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents MnuButton As ToolStripMenuItem
+    Friend WithEvents MnuLogging As ToolStripMenuItem
+    Friend WithEvents MnuOptions As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuDesign As ToolStripMenuItem
+    Friend WithEvents MnuDuplicate As ToolStripMenuItem
+    Friend WithEvents MnuCrop As ToolStripMenuItem
+    Friend WithEvents MnuExtend As ToolStripMenuItem
+    Friend WithEvents MnuShowLog As ToolStripMenuItem
+    Friend WithEvents MnuDebugOn As ToolStripMenuItem
+    Friend WithEvents MnuUndoOn As ToolStripMenuItem
+    Friend WithEvents MnuPreferences As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class

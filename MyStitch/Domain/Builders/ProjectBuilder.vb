@@ -22,7 +22,8 @@ Namespace Domain.Builders
         Private _grid10Colour As Integer
         Private _design As ProjectDesign
         Private _designFileName As String
-
+        Private _originX As Integer
+        Private _originY As Integer
         Public Shared Function AProject() As ProjectBuilder
             Return New ProjectBuilder
         End Function
@@ -41,6 +42,8 @@ Namespace Domain.Builders
             _grid10Colour = 4
             _design = New ProjectDesign
             _designFileName = String.Empty
+            _originX = 0
+            _originY = 0
             Return Me
         End Function
         Public Function StartingWith(ByRef pproject As Project) As ProjectBuilder
@@ -61,6 +64,8 @@ Namespace Domain.Builders
                     _grid10Colour = .Grid10Colour
                     _design = .Design
                     _designFileName = .DesignFileName
+                    _originX = .OriginX
+                    _originY = .OriginY
                 End With
             End If
             Return Me
@@ -82,6 +87,8 @@ Namespace Domain.Builders
                     _grid5Colour = .grid5_colour
                     _grid10Colour = .grid10_colour
                     _designFileName = .design_file
+                    _originX = .origin_x
+                    _originY = .origin_y
                 End With
             End If
             Return Me
@@ -142,6 +149,19 @@ Namespace Domain.Builders
             _designFileName = pFilename
             Return Me
         End Function
+        Public Function WithOriginX(pOriginX As Integer) As ProjectBuilder
+            _originX = pOriginX
+            Return Me
+        End Function
+        Public Function WithOriginY(pOriginY As Integer) As ProjectBuilder
+            _originY = pOriginY
+            Return Me
+        End Function
+        Public Function WithOrigin(pOrigin As Point) As ProjectBuilder
+            _originX = pOrigin.X
+            _originY = pOrigin.Y
+            Return Me
+        End Function
         Public Function Build() As Project
             Return New Project(_projectId,
                                _projectName,
@@ -156,7 +176,9 @@ Namespace Domain.Builders
                                _grid5Colour,
                                _grid10Colour,
                                _design,
-                               _designFileName)
+                               _designFileName,
+                               _originX,
+                               _originY)
         End Function
 
     End Class

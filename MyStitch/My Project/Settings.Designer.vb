@@ -148,6 +148,42 @@ Namespace My
                 Me("StitchDisplayStyleFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property CallUpgrade() As Integer
+            Get
+                Return CType(Me("CallUpgrade"),Integer)
+            End Get
+            Set
+                Me("CallUpgrade") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property DebugOn() As Boolean
+            Get
+                Return CType(Me("DebugOn"),Boolean)
+            End Get
+            Set
+                Me("DebugOn") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("D:\MyStitch\Logs")>  _
+        Public Property LogFolder() As String
+            Get
+                Return CType(Me("LogFolder"),String)
+            End Get
+            Set
+                Me("LogFolder") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
+Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class ProjectThread
 #Region "properties"
@@ -87,13 +87,7 @@ Namespace Domain.Objects
             Return CStr(_project.ProjectId) & ":" & CStr(_thread.ThreadId)
         End Function
         Public Overrides Function ToString() As String
-            Dim sb As New StringBuilder
-            sb _
-            .Append("ProjectThread=[") _
-            .Append(_project.ToString) _
-            .Append(_thread.ToString) _
-            .Append("]]")
-            Return sb.ToString
+            Return JsonConvert.SerializeObject(Me)
         End Function
 #End Region
 

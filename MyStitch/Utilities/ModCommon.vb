@@ -10,8 +10,22 @@ Imports HindlewareLib.Logging
 
 Module ModCommon
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
-
+    Public isUpgradedSettings As Boolean = False
     Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
+    Public Sub InitialiseSettings()
+        If My.Settings.CallUpgrade = 0 Then
+            My.Settings.Upgrade()
+            My.Settings.CallUpgrade = 1
+            My.Settings.Save()
+            isUpgradedSettings = True
+        End If
+    End Sub
+    Public Sub InitialiseLogging()
+        LogUtil.LogFolder = My.Settings.LogFolder
+        LogUtil.StartLogging(My.Settings.MyStitchConnectionString)
+        LogUtil.LogInfo("Settings " & If(isUpgradedSettings, "", "not ") & "upgraded ", "InitialiseLogging")
+
+    End Sub
     Public Function GetFormPos(ByRef oForm As Form, ByVal sPos As String) As Boolean
         LogUtil.Info("Getting form position for " & oForm.Name, "GetFormPos")
         Dim isOK As Boolean = True
