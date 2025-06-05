@@ -272,7 +272,6 @@ Public Class FrmProject
     End Sub
 
     Private Sub BtnDesign_Click(sender As Object, e As EventArgs) Handles BtnDesign.Click
-        LogUtil.Info(_selectedProject.ToString, MyBase.Name)
         Using _design As New FrmStitchDesign
             If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
                 _design.ProjectId = _selectedProject.ProjectId
