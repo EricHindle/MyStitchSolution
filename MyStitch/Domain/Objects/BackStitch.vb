@@ -33,7 +33,7 @@ Public Class BackStitch
             _fromBlockLoc = value
         End Set
     End Property
-    Public Property FromBlockPosition() As BlockQuarter
+    Public Property FromBlockQuarter() As BlockQuarter
         Get
             Return _fromBlockQtr
         End Get
@@ -41,7 +41,7 @@ Public Class BackStitch
             _fromBlockQtr = value
         End Set
     End Property
-    Public Property ToBlockPosition() As BlockQuarter
+    Public Property ToBlockQuarter() As BlockQuarter
         Get
             Return _toBlockQtr
         End Get
