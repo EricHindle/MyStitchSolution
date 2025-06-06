@@ -223,6 +223,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\ColrBtnDown.png" />
+    <None Include="Resources\gridon.png" />
+    <None Include="Resources\gridoff.png" />
+    <None Include="Resources\grid.png" />
     <None Include="Resources\MenuBtn.png" />
     <None Include="Resources\Bead.png" />
     <None Include="Resources\BtnBkgrdDown.png" />

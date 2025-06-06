@@ -27,6 +27,18 @@ Public Class BackstitchBuilder
         _thread = New Thread
         Return Me
     End Function
+    Public Function StartingWith(pBackStitch As BackStitch) As BackstitchBuilder
+        With pBackStitch
+            _fromBlockLoc = .FromBlockLocation
+            _toBlockLoc = .ToBlockLocation
+            _fromBlockQtr = .FromBlockQuarter
+            _toBlockQtr = .ToBlockQuarter
+            _strands = .Strands
+            _thread = .Thread
+        End With
+        Return Me
+    End Function
+
     Public Function WithFromBlockLocation(pLoc As Point) As BackstitchBuilder
         _fromBlockLoc = pLoc
         Return Me
