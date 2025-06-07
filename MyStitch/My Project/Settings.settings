@@ -43,5 +43,14 @@
     <Setting Name="isGridOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ProjectThreadSymbolsFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SymbolsFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ImagePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\MyStitch\Images</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -5,8 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.ComponentModel
-Imports System.Data.Common
 Imports HindlewareLib.Logging
 Imports MyStitch.BlockStitch
 Imports MyStitch.Domain
@@ -143,7 +141,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub InitialisePalette()
-        oProjectThreads = GetProjectThreads(oProject.ProjectId)
+        oProjectThreads = GetThreadsForProject(oProject.ProjectId)
         For Each _thread As Thread In oProjectThreads
             Dim _picThread As New PictureBox()
             With _picThread
@@ -151,6 +149,8 @@ Public Class FrmStitchDesign
                 .Size = New Size(50, 50)
                 .BackColor = _thread.Colour
                 .BorderStyle = BorderStyle.None
+                Dim tt As New ToolTip
+                tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
                 AddHandler .Click, AddressOf Palette_Click
 
             End With
@@ -1134,7 +1134,6 @@ Public Class FrmStitchDesign
         Dim start_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
         Dim start_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
 
-
         pCell = New Point(start_x, start_y)
         Dim cel_x As Integer = (start_x) * iPpc
 
@@ -1269,7 +1268,6 @@ Public Class FrmStitchDesign
         PicDesign.Invalidate()
         '       LogUtil.Debug(CStr(_fromCellLocation_x) & "," & CStr(_fromCellLocation_y) & " to " & CStr(_toCellLocation_x) & "," & CStr(_toCellLocation_y), MyBase.Name)
     End Sub
-
 
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
         Dim rect As Rectangle
@@ -1416,6 +1414,25 @@ Public Class FrmStitchDesign
         ToggleGrid()
     End Sub
 
+    Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
+        If oProject.ProjectId > 0 Then
+            LogUtil.Info("Opening Project Threads form", MyBase.Name)
+            Using _projthreads As New FrmProjectThreads
+                _projthreads.SelectedProject = oProject
+                _projthreads.ShowDialog()
+            End Using
+        End If
+    End Sub
+
+    Private Sub MnuThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuThreadSymbols.Click
+        If oProject.ProjectId > 0 Then
+            LogUtil.Info("Opening Project Thread Symbols form", MyBase.Name)
+            Using _threadsymbols As New FrmThreadSymbols
+                _threadsymbols.SelectedProject = oProject
+                _threadsymbols.ShowDialog()
+            End Using
+        End If
+    End Sub
 
     'Private Sub BtnTest_Click(sender As Object, e As EventArgs) Handles BtnTest.Click
     '    Dim start_x As Integer = Math.Floor(testX / iPpc) - iXOffset

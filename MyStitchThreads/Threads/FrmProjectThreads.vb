@@ -60,7 +60,7 @@ Public Class FrmProjectThreads
 
     Private Sub SelectProjectThreads()
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
-            Dim oSelectedThreads As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
+            Dim oSelectedThreads As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
             For Each _thread As Thread In oSelectedThreads
                 CheckThreadInList(_thread)
             Next
@@ -108,7 +108,7 @@ Public Class FrmProjectThreads
 
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load Thread list", MyBase.Name)
-        Dim _usedThreadList As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
+        Dim _usedThreadList As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
         Dim _threads As List(Of Thread) = GetThreads()
         Dim _unusedThreads As New List(Of Thread)
         For Each oThread As Thread In _threads
@@ -160,7 +160,7 @@ Public Class FrmProjectThreads
         If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
             LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
         Else
-            Dim _usedThreadsBefore As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
+            Dim _usedThreadsBefore As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
             Dim _usedThreadsAfter As New List(Of Thread)
             For Each oRow As DataGridViewRow In DgvThreads.Rows
                 Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
@@ -228,7 +228,7 @@ Public Class FrmProjectThreads
 
     Private Sub BtnPaletteList_Click(sender As Object, e As EventArgs) Handles BtnPaletteList.Click
         Dim _threadText As New StringBuilder
-        Dim _threadList As List(Of Thread) = GetProjectThreads(_selectedProject.ProjectId)
+        Dim _threadList As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
         _threadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
         For Each oThread As Thread In _threadList
             _threadText.Append(oThread.ThreadNo).Append(",")

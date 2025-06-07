@@ -89,10 +89,12 @@ Partial Class FrmProject
         Me.MnuDebugOn = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuUndoOn = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -683,7 +685,7 @@ Partial Class FrmProject
         '
         Me.MnuButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.MnuButton.AutoSize = False
-        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuLogging, Me.MnuOptions, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuSymbols, Me.ToolStripSeparator3, Me.MnuLogging, Me.MnuOptions, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
         Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
         Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -749,13 +751,18 @@ Partial Class FrmProject
         '
         Me.MnuUndoOn.CheckOnClick = True
         Me.MnuUndoOn.Name = "MnuUndoOn"
-        Me.MnuUndoOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuUndoOn.Size = New System.Drawing.Size(135, 22)
         Me.MnuUndoOn.Text = "Undo On"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(132, 6)
         '
         'MnuPreferences
         '
         Me.MnuPreferences.Name = "MnuPreferences"
-        Me.MnuPreferences.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPreferences.Size = New System.Drawing.Size(135, 22)
         Me.MnuPreferences.Text = "Preferences"
         '
         'ToolStripSeparator1
@@ -769,10 +776,16 @@ Partial Class FrmProject
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
-        'ToolStripSeparator2
+        'MnuSymbols
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.MnuSymbols.Name = "MnuSymbols"
+        Me.MnuSymbols.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSymbols.Text = "Symbols"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         'FrmProject
         '
@@ -881,4 +894,6 @@ Partial Class FrmProject
     Friend WithEvents MnuUndoOn As ToolStripMenuItem
     Friend WithEvents MnuPreferences As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents MnuSymbols As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
 End Class

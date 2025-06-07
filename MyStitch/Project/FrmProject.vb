@@ -305,7 +305,11 @@ Public Class FrmProject
 
     End Sub
 
-
+    Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
+        Using _symbols As New FrmSymbols
+            _symbols.ShowDialog()
+        End Using
+    End Sub
 
 #End Region
 

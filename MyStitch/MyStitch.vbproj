@@ -107,6 +107,7 @@
     <Compile Include="Domain\Builders\ProjectDesignBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
+    <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
     <Compile Include="Domain\ModDataFunctions.vb" />
     <Compile Include="Domain\MyStitchDataSet.vb">
@@ -122,6 +123,7 @@
     <Compile Include="Domain\Objects\ProjectDesign.vb" />
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
     <Compile Include="Design\FrmStitchDesign.vb">
       <SubType>Form</SubType>
@@ -164,6 +166,18 @@
     <Compile Include="Threads\FrmProjectThreads.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Threads\FrmSymbols.Designer.vb">
+      <DependentUpon>FrmSymbols.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmSymbols.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Threads\FrmThreadSymbols.Designer.vb">
+      <DependentUpon>FrmThreadSymbols.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmThreadSymbols.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Threads\ModThreads.vb" />
     <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>
@@ -191,6 +205,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmProjectThreads.resx">
       <DependentUpon>FrmProjectThreads.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmSymbols.resx">
+      <DependentUpon>FrmSymbols.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmThreadSymbols.resx">
+      <DependentUpon>FrmThreadSymbols.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>

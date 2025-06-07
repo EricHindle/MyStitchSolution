@@ -196,6 +196,42 @@ Namespace My
                 Me("isGridOn") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectThreadSymbolsFormPos() As String
+            Get
+                Return CType(Me("ProjectThreadSymbolsFormPos"),String)
+            End Get
+            Set
+                Me("ProjectThreadSymbolsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property SymbolsFormPos() As String
+            Get
+                Return CType(Me("SymbolsFormPos"),String)
+            End Get
+            Set
+                Me("SymbolsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("D:\MyStitch\Images")>  _
+        Public Property ImagePath() As String
+            Get
+                Return CType(Me("ImagePath"),String)
+            End Get
+            Set
+                Me("ImagePath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

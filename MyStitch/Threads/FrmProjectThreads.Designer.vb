@@ -412,7 +412,6 @@ Partial Class FrmProjectThreads
         Me.BtnCopy.FlatAppearance.BorderSize = 0
         Me.BtnCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCopy.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '  Me.BtnCopy.Image = Global.MyStitchThreads.My.Resources.Resources.copyicon
         Me.BtnCopy.Location = New System.Drawing.Point(415, 549)
         Me.BtnCopy.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnCopy.Name = "BtnCopy"
@@ -426,7 +425,6 @@ Partial Class FrmProjectThreads
         Me.BtnPaste.FlatAppearance.BorderSize = 0
         Me.BtnPaste.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPaste.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '   Me.BtnPaste.Image = Global.MyStitchThreads.My.Resources.Resources.paste
         Me.BtnPaste.Location = New System.Drawing.Point(445, 549)
         Me.BtnPaste.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnPaste.Name = "BtnPaste"

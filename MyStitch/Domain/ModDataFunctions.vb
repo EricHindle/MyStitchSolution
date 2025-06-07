@@ -32,6 +32,7 @@ Namespace Domain
             ProjectThreadCards
             ProjectCardThread
             Settings
+            Symbols
         End Enum
 #End Region
 #Region "dataset"
@@ -47,6 +48,8 @@ Namespace Domain
         Private ReadOnly oProjectCardThreadTa As New MyStitchDataSetTableAdapters.ProjectCardThreadTableAdapter
         Private ReadOnly oSettingsTa As New MyStitchDataSetTableAdapters.SettingsTableAdapter
         Private ReadOnly oSettingsTable As New MyStitchDataSet.SettingsDataTable
+        Private ReadOnly oSymbolsTa As New MyStitchDataSetTableAdapters.SymbolsTableAdapter
+        Private ReadOnly oSymbolsTable As New MyStitchDataSet.SymbolsDataTable
 #End Region
 #Region "variables"
         ' List of dB tables used in backup and restore
@@ -110,6 +113,17 @@ Namespace Domain
                             For Each _row As MyStitchDataSet.ThreadsRow In oThreadTable.Rows
                                 Dim _thread As Thread = ThreadBuilder.AThread.StartingWith(_row).Build
                                 InsertThread(_thread, _thread.ThreadId)
+                            Next
+                            rowCount = oThreadTa.GetData().Rows.Count
+                        End If
+                    Case "Symbols"
+                        If RecreateTable(oSymbolsTable, datapath, isSuppressMessage) Then
+                            LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
+                            oSymbolsTa.TruncateSymbols()
+                            LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
+                            For Each _row As MyStitchDataSet.SymbolsRow In oThreadTable.Rows
+                                Dim _symbol As Symbol = SymbolBuilder.ASymbol.StartingWith(_row).Build
+                                InsertSymbol(_symbol, _symbol.symbolId)
                             Next
                             rowCount = oThreadTa.GetData().Rows.Count
                         End If
@@ -423,14 +437,26 @@ Namespace Domain
             Dim newId As Integer = -1
             Try
                 With oProjectThread
-                    newId = oProjectThreadTa.InsertProjectThread(.Project.ProjectId, .BlockstitchCount, .BackstitchCount, .KnotCount, .Thread.ThreadId)
+                    newId = oProjectThreadTa.InsertProjectThread(.Project.ProjectId, .Thread.ThreadId, .BackstitchCount, .BlockstitchCount, .KnotCount, .SymbolId)
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return newId
         End Function
-        Public Function GetProjectThreads(pProjectId) As List(Of Thread)
+        Public Function GetProjectThreads(pProjectId) As List(Of ProjectThread)
+            Dim _list As New List(Of ProjectThread)
+            Try
+                oProjectThreadTa.FillByProject(oProjectThreadTable, pProjectId)
+                For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
+                    _list.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
+                Next
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _list
+        End Function
+        Public Function GetThreadsForProject(ByRef pProjectId) As List(Of Thread)
             Dim _list As New List(Of Thread)
             Try
                 oProjectThreadTa.FillByProject(oProjectThreadTable, pProjectId)
@@ -441,6 +467,7 @@ Namespace Domain
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return _list
+
         End Function
         Public Function GetProjectThread(pProjectId As Integer, pThreadId As Integer) As ProjectThread
             Dim _projectThread As New ProjectThread
@@ -589,6 +616,42 @@ Namespace Domain
             Return rtnVal
         End Function
 
+#End Region
+#Region "symbols"
+        Public Function GetSymbolsTable() As MyStitchDataSet.SymbolsDataTable
+            Return oSymbolsTa.GetData()
+        End Function
+        Public Function GetSymbolById(pSymbolId As Integer) As Symbol
+            Dim _symbol As New Symbol
+            Try
+                oSymbolsTa.FillById(oSymbolsTable, pSymbolId)
+                If oSymbolsTable.Rows.Count > 0 Then
+                    _symbol = SymbolBuilder.ASymbol.StartingWith(oSymbolsTable.Rows(0)).Build
+                End If
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _symbol
+        End Function
+        Public Function InsertSymbol(ByRef pSymbol As Symbol) As Integer
+            Return InsertSymbol(pSymbol, -1)
+        End Function
+        Public Function InsertSymbol(ByRef pSymbol As Symbol, SymbolId As Integer)
+            LogUtil.LogInfo("Inserting Symbol", MethodBase.GetCurrentMethod.Name)
+            Dim newId As Integer = -1
+            Try
+                With pSymbol
+                    If SymbolId < 0 Then
+                        newId = oSymbolsTa.InsertSymbol(.SymbolBytes)
+                    Else
+                        newId = oSymbolsTa.InsertSymbolWithId(SymbolId, .SymbolBytes)
+                    End If
+                End With
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return newId
+        End Function
 #End Region
     End Module
 End Namespace
