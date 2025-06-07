@@ -43,7 +43,7 @@ Namespace Domain.Builders
             Return Me
         End Function
 
-        Public Function WithNumber(pSymbol As Byte()) As SymbolBuilder
+        Public Function WithSymbolBytes(pSymbol As Byte()) As SymbolBuilder
             _SymbolBytes = pSymbol
             Return Me
         End Function

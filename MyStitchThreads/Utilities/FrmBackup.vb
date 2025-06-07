@@ -482,7 +482,6 @@ Public Class FrmBackup
                     Case "Threads"
                         _itemList.Add(BackupTable(GetThreadTable))
                         _isTableSaved = True
-
                     Case "ProjectThreadCards"
                         _itemList.Add(BackupTable(GetProjectThreadCardsTable))
                         _isTableSaved = True
@@ -491,6 +490,12 @@ Public Class FrmBackup
                         _isTableSaved = True
                     Case "ProjectCardThread"
                         _itemList.Add(BackupTable(GetProjectCardThreadTable))
+                        _isTableSaved = True
+                    Case "Symbols"
+                        _itemList.Add(BackupTable(GetSymbolsTable))
+                        _isTableSaved = True
+                    Case "Settings"
+                        _itemList.Add(BackupTable(GetSettingsTable))
                         _isTableSaved = True
                 End Select
                 If _isTableSaved Then

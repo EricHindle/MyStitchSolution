@@ -621,6 +621,15 @@ Namespace Domain
         Public Function GetSymbolsTable() As MyStitchDataSet.SymbolsDataTable
             Return oSymbolsTa.GetData()
         End Function
+        Public Function GetAllSymbols() As List(Of Symbol)
+            Dim _list As New List(Of Symbol)
+            oSymbolsTa.Fill(oSymbolsTable)
+            For Each _row As MyStitchDataSet.SymbolsRow In oSymbolsTable.Rows
+                Dim _symbol As Symbol = SymbolBuilder.ASymbol.StartingWith(_row).Build
+                _list.Add(_symbol)
+            Next
+            Return _list
+        End Function
         Public Function GetSymbolById(pSymbolId As Integer) As Symbol
             Dim _symbol As New Symbol
             Try
