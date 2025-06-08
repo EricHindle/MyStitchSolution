@@ -40,8 +40,16 @@ Partial Class FrmSymbols
         Me.BtnImageSel = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.BtnAddSymbol = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.PicSelectedSymbol = New System.Windows.Forms.PictureBox()
+        Me.BtnReplace = New System.Windows.Forms.Button()
+        Me.BtnRemove = New System.Windows.Forms.Button()
+        Me.LblImageId = New System.Windows.Forms.Label()
+        Me.BtnClearSelected = New System.Windows.Forms.Button()
+        Me.BtnClearLoaded = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PicSymbolSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSelectedSymbol, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -78,8 +86,9 @@ Partial Class FrmSymbols
         '
         'FlpSymbols
         '
-        Me.FlpSymbols.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.FlpSymbols.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlpSymbols.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.FlpSymbols.Location = New System.Drawing.Point(13, 13)
         Me.FlpSymbols.Margin = New System.Windows.Forms.Padding(4)
@@ -91,7 +100,7 @@ Partial Class FrmSymbols
         '
         Me.TxtFilename.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtFilename.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtFilename.Location = New System.Drawing.Point(627, 34)
+        Me.TxtFilename.Location = New System.Drawing.Point(627, 146)
         Me.TxtFilename.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtFilename.Name = "TxtFilename"
         Me.TxtFilename.Size = New System.Drawing.Size(221, 24)
@@ -101,7 +110,7 @@ Partial Class FrmSymbols
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(542, 37)
+        Me.Label1.Location = New System.Drawing.Point(540, 149)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 16)
         Me.Label1.TabIndex = 165
@@ -113,7 +122,7 @@ Partial Class FrmSymbols
         Me.PicSymbolSource.BackColor = System.Drawing.Color.White
         Me.PicSymbolSource.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.PicSymbolSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PicSymbolSource.Location = New System.Drawing.Point(627, 75)
+        Me.PicSymbolSource.Location = New System.Drawing.Point(652, 202)
         Me.PicSymbolSource.Name = "PicSymbolSource"
         Me.PicSymbolSource.Size = New System.Drawing.Size(64, 64)
         Me.PicSymbolSource.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -128,7 +137,7 @@ Partial Class FrmSymbols
         Me.BtnImageSel.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnImageSel.FlatAppearance.BorderSize = 0
         Me.BtnImageSel.ForeColor = System.Drawing.SystemColors.Control
-        Me.BtnImageSel.Location = New System.Drawing.Point(856, 25)
+        Me.BtnImageSel.Location = New System.Drawing.Point(856, 137)
         Me.BtnImageSel.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnImageSel.Name = "BtnImageSel"
         Me.BtnImageSel.Size = New System.Drawing.Size(37, 40)
@@ -139,11 +148,11 @@ Partial Class FrmSymbols
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(542, 75)
+        Me.Label2.Location = New System.Drawing.Point(540, 202)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 16)
+        Me.Label2.Size = New System.Drawing.Size(78, 16)
         Me.Label2.TabIndex = 167
-        Me.Label2.Text = "Image"
+        Me.Label2.Text = "New Symbol"
         '
         'BtnAddSymbol
         '
@@ -153,7 +162,7 @@ Partial Class FrmSymbols
         Me.BtnAddSymbol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAddSymbol.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAddSymbol.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAddSymbol.Location = New System.Drawing.Point(743, 75)
+        Me.BtnAddSymbol.Location = New System.Drawing.Point(745, 202)
         Me.BtnAddSymbol.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAddSymbol.Name = "BtnAddSymbol"
         Me.BtnAddSymbol.Size = New System.Drawing.Size(80, 31)
@@ -161,11 +170,114 @@ Partial Class FrmSymbols
         Me.BtnAddSymbol.Text = "Add"
         Me.BtnAddSymbol.UseVisualStyleBackColor = False
         '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(540, 26)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(102, 16)
+        Me.Label3.TabIndex = 170
+        Me.Label3.Text = "Selected Symbol"
+        '
+        'PicSelectedSymbol
+        '
+        Me.PicSelectedSymbol.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicSelectedSymbol.BackColor = System.Drawing.Color.White
+        Me.PicSelectedSymbol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PicSelectedSymbol.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PicSelectedSymbol.Location = New System.Drawing.Point(652, 26)
+        Me.PicSelectedSymbol.Name = "PicSelectedSymbol"
+        Me.PicSelectedSymbol.Size = New System.Drawing.Size(64, 64)
+        Me.PicSelectedSymbol.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicSelectedSymbol.TabIndex = 169
+        Me.PicSelectedSymbol.TabStop = False
+        '
+        'BtnReplace
+        '
+        Me.BtnReplace.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnReplace.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnReplace.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnReplace.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnReplace.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnReplace.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnReplace.Location = New System.Drawing.Point(745, 26)
+        Me.BtnReplace.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnReplace.Name = "BtnReplace"
+        Me.BtnReplace.Size = New System.Drawing.Size(80, 31)
+        Me.BtnReplace.TabIndex = 171
+        Me.BtnReplace.Text = "Replace"
+        Me.BtnReplace.UseVisualStyleBackColor = False
+        '
+        'BtnRemove
+        '
+        Me.BtnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnRemove.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnRemove.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnRemove.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnRemove.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnRemove.Location = New System.Drawing.Point(745, 65)
+        Me.BtnRemove.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnRemove.Name = "BtnRemove"
+        Me.BtnRemove.Size = New System.Drawing.Size(80, 31)
+        Me.BtnRemove.TabIndex = 172
+        Me.BtnRemove.Text = "Remove"
+        Me.BtnRemove.UseVisualStyleBackColor = False
+        '
+        'LblImageId
+        '
+        Me.LblImageId.AutoSize = True
+        Me.LblImageId.Font = New System.Drawing.Font("Tahoma", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblImageId.Location = New System.Drawing.Point(571, 52)
+        Me.LblImageId.Name = "LblImageId"
+        Me.LblImageId.Size = New System.Drawing.Size(0, 23)
+        Me.LblImageId.TabIndex = 173
+        '
+        'BtnClearSelected
+        '
+        Me.BtnClearSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnClearSelected.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClearSelected.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClearSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClearSelected.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClearSelected.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClearSelected.Location = New System.Drawing.Point(839, 26)
+        Me.BtnClearSelected.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClearSelected.Name = "BtnClearSelected"
+        Me.BtnClearSelected.Size = New System.Drawing.Size(80, 31)
+        Me.BtnClearSelected.TabIndex = 174
+        Me.BtnClearSelected.Text = "Clear"
+        Me.BtnClearSelected.UseVisualStyleBackColor = False
+        '
+        'BtnClearLoaded
+        '
+        Me.BtnClearLoaded.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnClearLoaded.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClearLoaded.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClearLoaded.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClearLoaded.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClearLoaded.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClearLoaded.Location = New System.Drawing.Point(839, 202)
+        Me.BtnClearLoaded.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClearLoaded.Name = "BtnClearLoaded"
+        Me.BtnClearLoaded.Size = New System.Drawing.Size(80, 31)
+        Me.BtnClearLoaded.TabIndex = 175
+        Me.BtnClearLoaded.Text = "Clear"
+        Me.BtnClearLoaded.UseVisualStyleBackColor = False
+        '
         'FrmSymbols
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(939, 478)
+        Me.Controls.Add(Me.BtnClearLoaded)
+        Me.Controls.Add(Me.BtnClearSelected)
+        Me.Controls.Add(Me.LblImageId)
+        Me.Controls.Add(Me.BtnRemove)
+        Me.Controls.Add(Me.BtnReplace)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.PicSelectedSymbol)
         Me.Controls.Add(Me.BtnAddSymbol)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PicSymbolSource)
@@ -183,6 +295,7 @@ Partial Class FrmSymbols
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.PicSymbolSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSelectedSymbol, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -197,4 +310,11 @@ Partial Class FrmSymbols
     Friend WithEvents PicSymbolSource As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents BtnAddSymbol As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents PicSelectedSymbol As PictureBox
+    Friend WithEvents BtnReplace As Button
+    Friend WithEvents BtnRemove As Button
+    Friend WithEvents LblImageId As Label
+    Friend WithEvents BtnClearSelected As Button
+    Friend WithEvents BtnClearLoaded As Button
 End Class

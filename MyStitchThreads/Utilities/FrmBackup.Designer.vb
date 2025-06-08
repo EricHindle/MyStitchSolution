@@ -27,7 +27,7 @@ Partial Class FrmBackup
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TvDatatables = New System.Windows.Forms.TreeView()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.TvDocuments = New System.Windows.Forms.TreeView()
+        Me.TvDesigns = New System.Windows.Forms.TreeView()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TvImages = New System.Windows.Forms.TreeView()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
@@ -97,24 +97,24 @@ Partial Class FrmBackup
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.TvDocuments)
+        Me.GroupBox2.Controls.Add(Me.TvDesigns)
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(459, 272)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Documents"
+        Me.GroupBox2.Text = "Designs"
         '
-        'TvDocuments
+        'TvDesigns
         '
-        Me.TvDocuments.BackColor = System.Drawing.Color.LightGray
-        Me.TvDocuments.CheckBoxes = True
-        Me.TvDocuments.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TvDocuments.Location = New System.Drawing.Point(3, 21)
-        Me.TvDocuments.Name = "TvDocuments"
-        Me.TvDocuments.Size = New System.Drawing.Size(453, 248)
-        Me.TvDocuments.TabIndex = 1
+        Me.TvDesigns.BackColor = System.Drawing.Color.LightGray
+        Me.TvDesigns.CheckBoxes = True
+        Me.TvDesigns.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TvDesigns.Location = New System.Drawing.Point(3, 21)
+        Me.TvDesigns.Name = "TvDesigns"
+        Me.TvDesigns.Size = New System.Drawing.Size(453, 248)
+        Me.TvDesigns.TabIndex = 1
         '
         'GroupBox3
         '
@@ -462,7 +462,7 @@ Partial Class FrmBackup
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents TvDatatables As TreeView
     Friend WithEvents BtnCancel As Button
-    Friend WithEvents TvDocuments As TreeView
+    Friend WithEvents TvDesigns As TreeView
     Friend WithEvents TvImages As TreeView
     Friend WithEvents Label1 As Label
     Friend WithEvents TxtBackupPath As TextBox

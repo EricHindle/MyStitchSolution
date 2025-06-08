@@ -661,6 +661,27 @@ Namespace Domain
             End Try
             Return newId
         End Function
+        Public Function DeleteSymbol(pSymbolId As Integer) As Integer
+            LogUtil.LogInfo("Deleting Symbol", MethodBase.GetCurrentMethod.Name)
+            Dim _rtn As Integer
+            Try
+                _rtn = oSymbolsTa.DeleteSymbol(pSymbolId)
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _rtn
+
+        End Function
+        Public Function UpdateSymbol(pSymbol As Symbol) As Integer
+            LogUtil.LogInfo("Replacing Symbol", MethodBase.GetCurrentMethod.Name)
+            Dim _rtn As Integer
+            Try
+                _rtn = oSymbolsTa.UpdateSymbol(pSymbol.SymbolBytes, pSymbol.SymbolId)
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _rtn
+        End Function
 #End Region
     End Module
 End Namespace
