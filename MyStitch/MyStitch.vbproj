@@ -160,16 +160,28 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Project\ModProject.vb" />
+    <Compile Include="Threads\FrmColourCapture.Designer.vb">
+      <DependentUpon>FrmColourCapture.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmColourCapture.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Threads\FrmProjectThreads.Designer.vb">
       <DependentUpon>FrmProjectThreads.vb</DependentUpon>
     </Compile>
     <Compile Include="Threads\FrmProjectThreads.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Threads\FrmSymbols.Designer.vb">
+    <Compile Include="Symbols\FrmSymbols.Designer.vb">
       <DependentUpon>FrmSymbols.vb</DependentUpon>
     </Compile>
-    <Compile Include="Threads\FrmSymbols.vb">
+    <Compile Include="Symbols\FrmSymbols.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Threads\FrmThread.Designer.vb">
+      <DependentUpon>FrmThread.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmThread.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\FrmThreadSymbols.Designer.vb">
@@ -179,12 +191,37 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\ModThreads.vb" />
+    <Compile Include="Utilities\FrmBackup.Designer.vb">
+      <DependentUpon>FrmBackup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmBackup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utilities\FrmGlobalSettings.designer.vb">
+      <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmGlobalSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utilities\frmOptions.Designer.vb">
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\frmOptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utilities\FrmRestore.Designer.vb">
+      <DependentUpon>FrmRestore.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmRestore.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>
     </Compile>
     <Compile Include="Utilities\FrmStitchSplash.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utilities\GlobalSettings.vb" />
     <Compile Include="Utilities\ModCommon.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -203,14 +240,32 @@
     <EmbeddedResource Include="Project\FrmProject.resx">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmColourCapture.resx">
+      <DependentUpon>FrmColourCapture.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmProjectThreads.resx">
       <DependentUpon>FrmProjectThreads.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Threads\FrmSymbols.resx">
+    <EmbeddedResource Include="Symbols\FrmSymbols.resx">
       <DependentUpon>FrmSymbols.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmThread.resx">
+      <DependentUpon>FrmThread.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmThreadSymbols.resx">
       <DependentUpon>FrmThreadSymbols.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmBackup.resx">
+      <DependentUpon>FrmBackup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
+      <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\frmOptions.resx">
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmRestore.resx">
+      <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>

@@ -34,6 +34,7 @@ Partial Class FrmBackup
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.PbCopyProgress = New System.Windows.Forms.ToolStripProgressBar()
         Me.LblCounts = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.BtnCancel = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TxtBackupPath = New System.Windows.Forms.TextBox()
         Me.BtnBackup = New System.Windows.Forms.Button()
@@ -52,7 +53,6 @@ Partial Class FrmBackup
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ChkRevision = New System.Windows.Forms.CheckBox()
         Me.ChkIncludeDb = New System.Windows.Forms.CheckBox()
-        Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -169,6 +169,18 @@ Partial Class FrmBackup
         Me.LblCounts.Name = "LblCounts"
         Me.LblCounts.Size = New System.Drawing.Size(62, 19)
         Me.LblCounts.Text = "T:0 D:0 I:0"
+        '
+        'BtnCancel
+        '
+        Me.BtnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCancel.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCancel.ForeColor = System.Drawing.Color.Black
+        Me.BtnCancel.Location = New System.Drawing.Point(884, 540)
+        Me.BtnCancel.Name = "BtnCancel"
+        Me.BtnCancel.Size = New System.Drawing.Size(87, 41)
+        Me.BtnCancel.TabIndex = 4
+        Me.BtnCancel.Text = "Close"
+        Me.BtnCancel.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -395,28 +407,11 @@ Partial Class FrmBackup
         Me.ChkIncludeDb.Text = "Include Database"
         Me.ChkIncludeDb.UseVisualStyleBackColor = True
         '
-        'BtnClose
-        '
-        Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(891, 540)
-        Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnClose.Name = "BtnClose"
-        Me.BtnClose.Size = New System.Drawing.Size(80, 40)
-        Me.BtnClose.TabIndex = 142
-        Me.BtnClose.Text = "Close"
-        Me.BtnClose.UseVisualStyleBackColor = False
-        '
         'FrmBackup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(985, 623)
-        Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.BtnSelectAll)
         Me.Controls.Add(Me.chkAddDate)
@@ -426,6 +421,7 @@ Partial Class FrmBackup
         Me.Controls.Add(Me.BtnBackup)
         Me.Controls.Add(Me.TxtBackupPath)
         Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.BtnCancel)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
@@ -465,6 +461,7 @@ Partial Class FrmBackup
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents TvDatatables As TreeView
+    Friend WithEvents BtnCancel As Button
     Friend WithEvents TvDesigns As TreeView
     Friend WithEvents TvImages As TreeView
     Friend WithEvents Label1 As Label
@@ -488,5 +485,4 @@ Partial Class FrmBackup
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents ChkIncludeDb As CheckBox
     Friend WithEvents ChkRevision As CheckBox
-    Friend WithEvents BtnClose As Button
 End Class

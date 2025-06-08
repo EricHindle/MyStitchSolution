@@ -57,6 +57,9 @@ Public Class FrmBackup
         ChkRevision.Checked = My.Settings.BackupRevision
     End Sub
 
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
+        Close()
+    End Sub
     Private Sub TreeView_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck, TvDesigns.AfterCheck, TvImages.AfterCheck
         Dim node As TreeNode = e.Node
         If node.Name.StartsWith(TABLE_TAG) Then
@@ -326,7 +329,7 @@ Public Class FrmBackup
             .Append("-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")
         Dim _command As New Global.System.Data.SqlClient.SqlCommand With {
             .Connection = New Global.System.Data.SqlClient.SqlConnection With {
-            .ConnectionString = Global.MyStitchThreads.My.MySettings.Default.MyStitchConnectionString
+            .ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         },
             .CommandText = _commandSQL.ToString,
             .CommandType = Global.System.Data.CommandType.Text
@@ -499,10 +502,6 @@ Public Class FrmBackup
         StatusStrip1.Refresh()
         Return sTableName
     End Function
-
-    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
-        Close()
-    End Sub
 
     'Private Sub ChkRevision_CheckedChanged(sender As Object, e As EventArgs) Handles ChkRevision.CheckedChanged
     '    FillDocumentTree()

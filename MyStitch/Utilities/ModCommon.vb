@@ -22,9 +22,21 @@ Module ModCommon
     End Sub
     Public Sub InitialiseLogging()
         LogUtil.LogFolder = My.Settings.LogFolder
+        LogUtil.IsDebugOn = My.Settings.isDebugOn
         LogUtil.StartLogging(My.Settings.MyStitchConnectionString)
         LogUtil.LogInfo("Settings " & If(isUpgradedSettings, "", "not ") & "upgraded ", "InitialiseLogging")
-
+    End Sub
+    Public Sub ShowLog()
+        Using _logView As New FrmLogViewer
+            _logView.FormPosition = My.Settings.LogViewPos
+            _logView.ZoomValue = My.Settings.logZoomValue
+            _logView.IsZoomOn = My.Settings.logZoomOn
+            _logView.ShowDialog()
+            My.Settings.LogViewPos = _logView.FormPosition
+            My.Settings.logZoomValue = _logView.ZoomValue
+            My.Settings.logZoomOn = _logView.IsZoomOn
+            My.Settings.Save()
+        End Using
     End Sub
     Public Function GetFormPos(ByRef oForm As Form, ByVal sPos As String) As Boolean
         LogUtil.Info("Getting form position for " & oForm.Name, "GetFormPos")

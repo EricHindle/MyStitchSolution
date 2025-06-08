@@ -24,9 +24,7 @@ Public Class FrmRestore
         FillTableTree(TvDatatables)
         TvDatatables.ExpandAll()
     End Sub
-    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        Close()
-    End Sub
+
     Private Sub TvDatatables_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck
         Dim node As TreeNode = e.Node
         Dim ischecked As Boolean = node.Checked
@@ -100,5 +98,10 @@ Public Class FrmRestore
         End If
         Return isOKToBackup
     End Function
+
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
+        Close()
+
+    End Sub
 #End Region
 End Class

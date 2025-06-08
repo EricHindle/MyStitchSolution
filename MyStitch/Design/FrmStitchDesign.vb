@@ -87,7 +87,7 @@ Public Class FrmStitchDesign
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening design", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
-        LogUtil.IsDebugOn = True
+
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -196,8 +196,6 @@ Public Class FrmStitchDesign
 
         CalculateScrollBarMaximumValues()
 
-        LblPct.Text = CStr(magnification)
-        LblPpc.Text = CStr(iPpc)
     End Sub
     Private Sub CalculateOffsetForCentre(pDesignBitmap)
         Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / (2 * iPpc)
@@ -711,11 +709,11 @@ Public Class FrmStitchDesign
 
     End Sub
 
-    Private Sub btnZoomIn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnZoomIn.Click
+    Private Sub BtnZoomIn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnZoomIn.Click
 
     End Sub
 
-    Private Sub btnZoomOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnZoomOut.Click
+    Private Sub BtnZoomOut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnZoomOut.Click
 
     End Sub
 
@@ -817,8 +815,6 @@ Public Class FrmStitchDesign
             End If
         Else
             LogUtil.Debug("Create stitch", MyBase.Name)
-            Label1.Text = CStr(cel_x)
-            Label2.Text = CStr(cel_y)
 
             Dim _adjustX As Integer = 0
             Dim _adjustY As Integer = 0
@@ -1414,7 +1410,7 @@ Public Class FrmStitchDesign
         ToggleGrid()
     End Sub
 
-    Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
+    Private Sub MnuThreads_Click(sender As Object, e As EventArgs)
         If oProject.ProjectId > 0 Then
             LogUtil.Info("Opening Project Threads form", MyBase.Name)
             Using _projthreads As New FrmProjectThreads
@@ -1434,46 +1430,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
 
-    'Private Sub BtnTest_Click(sender As Object, e As EventArgs) Handles BtnTest.Click
-    '    Dim start_x As Integer = Math.Floor(testX / iPpc) - iXOffset
-    '    Dim start_y As Integer = Math.Floor(testY / iPpc) - iYOffset
+    Private Sub MnuThreads_Click_1(sender As Object, e As EventArgs) Handles MnuThreads.Click
 
-    '    Dim xoffset As Integer = iXOffset + topcorner.X
-    '    Dim yoffset As Integer = iYOffset + topcorner.Y
-
-    '    For xjump As Integer = 0 To 5
-    '        Dim cel_x As Integer = (start_x + xjump) * iPpc
-    '        For yjump As Integer = 0 To 5
-    '            Dim cel_y As Integer = (start_y + yjump) * iPpc
-    '            Dim celLocation As New Point(cel_x, cel_y)
-    '            Dim _xrmd As Integer = testX Mod iPpc
-    '            Dim _yrmd As Integer = testY Mod iPpc
-
-    '            Dim _stitchQtr As BlockQuarter
-
-    '            Select Case True
-    '                Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
-    '                    _stitchQtr = BlockQuarter.TopLeft
-    '                    celLocation = New Point(cel_x, cel_y)
-    '                Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
-    '                    _stitchQtr = BlockQuarter.BottomRight
-    '                    celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
-
-    '                Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
-    '                    _stitchQtr = BlockQuarter.BottomLeft
-    '                    celLocation = New Point(cel_x, cel_y + (iPpc / 2))
-
-    '                Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
-    '                    _stitchQtr = BlockQuarter.TopRight
-    '                    celLocation = New Point(cel_x + (iPpc / 2), cel_y)
-
-    '            End Select
-
-    '            oDesignGraphicsOverlay.DrawRectangle(New Pen(Color.DarkGray, 1), New Rectangle(celLocation, New Size(iPpc / 2, iPpc / 2)))
-    '            oDesignGraphicsOverlay.DrawString(CStr(xjump) & "," & CStr(yjump), New Font("Arial", 7), Brushes.Black, celLocation)
-    '        Next
-    '    Next
-    '    DisplayImage(oDesignBitmap, iXOffset, iYOffset)
-
-    'End Sub
+    End Sub
 End Class

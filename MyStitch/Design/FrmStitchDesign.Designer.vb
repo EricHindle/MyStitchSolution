@@ -31,6 +31,15 @@ Partial Class FrmStitchDesign
         Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PaletteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectPalette = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSelectPaletteColours = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuRemoveUnusedColours = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCreateThreadCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPrintThreadCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,7 +65,6 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuGridOn = New System.Windows.Forms.ToolStripMenuItem()
         Me.StitchDisplayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PaletteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CropToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExtendToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -119,18 +127,10 @@ Partial Class FrmStitchDesign
         Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
         Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
         Me.ZoomTrackBar = New System.Windows.Forms.TrackBar()
-        Me.LblPct = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.LblPpc = New System.Windows.Forms.Label()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.btnZoomOut = New System.Windows.Forms.Button()
-        Me.btnZoomIn = New System.Windows.Forms.Button()
+        Me.BtnZoomOut = New System.Windows.Forms.Button()
+        Me.BtnZoomIn = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.MnuThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,7 +148,7 @@ Partial Class FrmStitchDesign
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.DrawToolStripMenuItem, Me.TextToolStripMenuItem, Me.ViewToolStripMenuItem, Me.PaletteToolStripMenuItem, Me.ToolsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.MnuThreads, Me.PaletteToolStripMenuItem, Me.EditToolStripMenuItem, Me.DrawToolStripMenuItem, Me.TextToolStripMenuItem, Me.ViewToolStripMenuItem, Me.ToolsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(858, 24)
@@ -159,8 +159,8 @@ Partial Class FrmStitchDesign
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.SaveAsToolStripMenuItem, Me.ToolStripSeparator8, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
+        Me.FileToolStripMenuItem.Text = "Design"
         '
         'OpenToolStripMenuItem
         '
@@ -190,6 +190,62 @@ Partial Class FrmStitchDesign
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'MnuThreads
+        '
+        Me.MnuThreads.Name = "MnuThreads"
+        Me.MnuThreads.Size = New System.Drawing.Size(61, 20)
+        Me.MnuThreads.Text = "Threads"
+        '
+        'PaletteToolStripMenuItem
+        '
+        Me.PaletteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols})
+        Me.PaletteToolStripMenuItem.Name = "PaletteToolStripMenuItem"
+        Me.PaletteToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
+        Me.PaletteToolStripMenuItem.Text = "Palette"
+        '
+        'MnuProjectPalette
+        '
+        Me.MnuProjectPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuSelectPaletteColours, Me.MnuRemoveUnusedColours, Me.MnuCreateThreadCards, Me.MnuPrintThreadCards})
+        Me.MnuProjectPalette.Name = "MnuProjectPalette"
+        Me.MnuProjectPalette.Size = New System.Drawing.Size(159, 22)
+        Me.MnuProjectPalette.Text = "Project Palette"
+        '
+        'MnuSelectPaletteColours
+        '
+        Me.MnuSelectPaletteColours.Name = "MnuSelectPaletteColours"
+        Me.MnuSelectPaletteColours.Size = New System.Drawing.Size(204, 22)
+        Me.MnuSelectPaletteColours.Text = "Select Colours"
+        '
+        'MnuRemoveUnusedColours
+        '
+        Me.MnuRemoveUnusedColours.Name = "MnuRemoveUnusedColours"
+        Me.MnuRemoveUnusedColours.Size = New System.Drawing.Size(204, 22)
+        Me.MnuRemoveUnusedColours.Text = "Remove Unused Colours"
+        '
+        'MnuCreateThreadCards
+        '
+        Me.MnuCreateThreadCards.Name = "MnuCreateThreadCards"
+        Me.MnuCreateThreadCards.Size = New System.Drawing.Size(204, 22)
+        Me.MnuCreateThreadCards.Text = "Create Thread Cards"
+        '
+        'MnuPrintThreadCards
+        '
+        Me.MnuPrintThreadCards.Name = "MnuPrintThreadCards"
+        Me.MnuPrintThreadCards.Size = New System.Drawing.Size(204, 22)
+        Me.MnuPrintThreadCards.Text = "Print Thread Cards"
+        '
+        'MnuSymbols
+        '
+        Me.MnuSymbols.Name = "MnuSymbols"
+        Me.MnuSymbols.Size = New System.Drawing.Size(159, 22)
+        Me.MnuSymbols.Text = "Symbols"
+        '
+        'MnuThreadSymbols
+        '
+        Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(159, 22)
+        Me.MnuThreadSymbols.Text = "Thread Symbols"
         '
         'EditToolStripMenuItem
         '
@@ -339,13 +395,6 @@ Partial Class FrmStitchDesign
         Me.StitchDisplayToolStripMenuItem.Name = "StitchDisplayToolStripMenuItem"
         Me.StitchDisplayToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
         Me.StitchDisplayToolStripMenuItem.Text = "Stitch Display"
-        '
-        'PaletteToolStripMenuItem
-        '
-        Me.PaletteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuThreads, Me.MnuThreadSymbols})
-        Me.PaletteToolStripMenuItem.Name = "PaletteToolStripMenuItem"
-        Me.PaletteToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
-        Me.PaletteToolStripMenuItem.Text = "Palette"
         '
         'ToolsToolStripMenuItem
         '
@@ -1089,66 +1138,6 @@ Partial Class FrmStitchDesign
         Me.ZoomTrackBar.TickFrequency = 20
         Me.ZoomTrackBar.Value = 100
         '
-        'LblPct
-        '
-        Me.LblPct.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LblPct.AutoSize = True
-        Me.LblPct.Location = New System.Drawing.Point(523, 569)
-        Me.LblPct.Name = "LblPct"
-        Me.LblPct.Size = New System.Drawing.Size(39, 13)
-        Me.LblPct.TabIndex = 141
-        Me.LblPct.Text = "Label1"
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(737, 575)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(13, 13)
-        Me.Label1.TabIndex = 142
-        Me.Label1.Text = "0"
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(756, 575)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(13, 13)
-        Me.Label2.TabIndex = 143
-        Me.Label2.Text = "0"
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(682, 575)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(13, 13)
-        Me.Label3.TabIndex = 144
-        Me.Label3.Text = "0"
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(701, 575)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(13, 13)
-        Me.Label4.TabIndex = 145
-        Me.Label4.Text = "0"
-        '
-        'LblPpc
-        '
-        Me.LblPpc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblPpc.AutoSize = True
-        Me.LblPpc.Location = New System.Drawing.Point(572, 569)
-        Me.LblPpc.Name = "LblPpc"
-        Me.LblPpc.Size = New System.Drawing.Size(39, 13)
-        Me.LblPpc.TabIndex = 146
-        Me.LblPpc.Text = "Label1"
-        '
         'SplitContainer1
         '
         Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1173,39 +1162,29 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1.SplitterDistance = 128
         Me.SplitContainer1.TabIndex = 136
         '
-        'btnZoomOut
+        'BtnZoomOut
         '
-        Me.btnZoomOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnZoomOut.BackColor = System.Drawing.Color.White
-        Me.btnZoomOut.Image = Global.MyStitch.My.Resources.Resources.minus
-        Me.btnZoomOut.Location = New System.Drawing.Point(139, 566)
-        Me.btnZoomOut.Name = "btnZoomOut"
-        Me.btnZoomOut.Size = New System.Drawing.Size(19, 19)
-        Me.btnZoomOut.TabIndex = 140
-        Me.btnZoomOut.UseVisualStyleBackColor = False
+        Me.BtnZoomOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnZoomOut.BackColor = System.Drawing.Color.White
+        Me.BtnZoomOut.BackgroundImage = Global.MyStitch.My.Resources.Resources.minus
+        Me.BtnZoomOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnZoomOut.Location = New System.Drawing.Point(139, 566)
+        Me.BtnZoomOut.Name = "BtnZoomOut"
+        Me.BtnZoomOut.Size = New System.Drawing.Size(20, 20)
+        Me.BtnZoomOut.TabIndex = 140
+        Me.BtnZoomOut.UseVisualStyleBackColor = False
         '
-        'btnZoomIn
+        'BtnZoomIn
         '
-        Me.btnZoomIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnZoomIn.BackColor = System.Drawing.Color.White
-        Me.btnZoomIn.Image = Global.MyStitch.My.Resources.Resources.plus
-        Me.btnZoomIn.Location = New System.Drawing.Point(489, 566)
-        Me.btnZoomIn.Name = "btnZoomIn"
-        Me.btnZoomIn.Size = New System.Drawing.Size(19, 19)
-        Me.btnZoomIn.TabIndex = 139
-        Me.btnZoomIn.UseVisualStyleBackColor = False
-        '
-        'MnuThreadSymbols
-        '
-        Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
-        Me.MnuThreadSymbols.Size = New System.Drawing.Size(180, 22)
-        Me.MnuThreadSymbols.Text = "Thread Symbols"
-        '
-        'MnuThreads
-        '
-        Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(180, 22)
-        Me.MnuThreads.Text = "Threads"
+        Me.BtnZoomIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnZoomIn.BackColor = System.Drawing.Color.White
+        Me.BtnZoomIn.BackgroundImage = Global.MyStitch.My.Resources.Resources.plus
+        Me.BtnZoomIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnZoomIn.Location = New System.Drawing.Point(489, 566)
+        Me.BtnZoomIn.Name = "BtnZoomIn"
+        Me.BtnZoomIn.Size = New System.Drawing.Size(20, 20)
+        Me.BtnZoomIn.TabIndex = 139
+        Me.BtnZoomIn.UseVisualStyleBackColor = False
         '
         'FrmStitchDesign
         '
@@ -1213,14 +1192,8 @@ Partial Class FrmStitchDesign
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(858, 644)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.LblPpc)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.LblPct)
-        Me.Controls.Add(Me.btnZoomOut)
-        Me.Controls.Add(Me.btnZoomIn)
+        Me.Controls.Add(Me.BtnZoomOut)
+        Me.Controls.Add(Me.BtnZoomIn)
         Me.Controls.Add(Me.ZoomTrackBar)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -1334,17 +1307,11 @@ Partial Class FrmStitchDesign
     Friend WithEvents HScrollBar1 As HScrollBar
     Friend WithEvents VScrollBar1 As VScrollBar
     Friend WithEvents ZoomTrackBar As TrackBar
-    Friend WithEvents btnZoomIn As Button
-    Friend WithEvents btnZoomOut As Button
+    Friend WithEvents BtnZoomIn As Button
+    Friend WithEvents BtnZoomOut As Button
     Friend WithEvents BtnHeight As ToolStripButton
-    Friend WithEvents LblPct As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents BtnCentre As ToolStripButton
     Friend WithEvents BtnClose As ToolStripButton
-    Friend WithEvents LblPpc As Label
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents PicGrid As PictureBox
     Friend WithEvents PicStitch As PictureBox
@@ -1354,6 +1321,12 @@ Partial Class FrmStitchDesign
     Friend WithEvents PnlPixelColour As Panel
     Friend WithEvents LblPixelColourName As Label
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents MnuThreads As ToolStripMenuItem
     Friend WithEvents MnuThreadSymbols As ToolStripMenuItem
+    Friend WithEvents MnuSymbols As ToolStripMenuItem
+    Friend WithEvents MnuProjectPalette As ToolStripMenuItem
+    Friend WithEvents MnuSelectPaletteColours As ToolStripMenuItem
+    Friend WithEvents MnuCreateThreadCards As ToolStripMenuItem
+    Friend WithEvents MnuRemoveUnusedColours As ToolStripMenuItem
+    Friend WithEvents MnuThreads As ToolStripMenuItem
+    Friend WithEvents MnuPrintThreadCards As ToolStripMenuItem
 End Class

@@ -74,9 +74,7 @@ Namespace Domain
             tvtables.Nodes.Clear()
             tvtables.Nodes.Add("Tables")
             For Each oTable As String In tableList
-                If Not oTable.Equals("Files") Then
-                    tvtables.Nodes(0).Nodes.Add(TABLE_TAG & oTable, oTable)
-                End If
+                tvtables.Nodes(0).Nodes.Add(TABLE_TAG & oTable, oTable)
             Next
         End Sub
         Public Sub BackupDataTable(backupDataTable As DataTable, datapath As String)

@@ -67,5 +67,8 @@
     <Setting Name="DesignFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\MyStitch\Designs</Value>
     </Setting>
+    <Setting Name="RestoreFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

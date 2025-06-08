@@ -32,10 +32,10 @@ Namespace Domain.Builders
             _projectName = String.Empty
             _dateStarted = MIN_DATE
             _dateEnded = MIN_DATE
-            _designHeight = 0
-            _designWidth = 0
-            _fabricWidth = 0
-            _fabricHeight = 0
+            _designHeight = 1
+            _designWidth = 1
+            _fabricWidth = 1
+            _fabricHeight = 1
             _fabricColour = 1
             _grid1Colour = 2
             _grid5Colour = 3

@@ -28,7 +28,6 @@ Partial Class FrmRestore
         Me.BtnRestore = New System.Windows.Forms.Button()
         Me.TxtBackupPath = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnCancel = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
@@ -36,6 +35,7 @@ Partial Class FrmRestore
         Me.TvDatatables = New System.Windows.Forms.TreeView()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.rtbProgress = New System.Windows.Forms.RichTextBox()
+        Me.BtnClose = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer3.Panel1.SuspendLayout()
@@ -114,20 +114,6 @@ Partial Class FrmRestore
         Me.Label1.Size = New System.Drawing.Size(99, 18)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Backup Folder"
-        '
-        'btnCancel
-        '
-        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCancel.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnCancel.Location = New System.Drawing.Point(902, 409)
-        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(44, 44)
-        Me.btnCancel.TabIndex = 15
-        Me.btnCancel.UseVisualStyleBackColor = True
         '
         'StatusStrip1
         '
@@ -215,12 +201,29 @@ Partial Class FrmRestore
         Me.rtbProgress.TabIndex = 8
         Me.rtbProgress.Text = ""
         '
+        'BtnClose
+        '
+        Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClose.Location = New System.Drawing.Point(869, 411)
+        Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClose.Name = "BtnClose"
+        Me.BtnClose.Size = New System.Drawing.Size(80, 40)
+        Me.BtnClose.TabIndex = 142
+        Me.BtnClose.Text = "Close"
+        Me.BtnClose.UseVisualStyleBackColor = False
+        '
         'FrmRestore
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(963, 487)
+        Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.SplitContainer3)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.BtnSelectAll)
@@ -228,7 +231,6 @@ Partial Class FrmRestore
         Me.Controls.Add(Me.BtnRestore)
         Me.Controls.Add(Me.TxtBackupPath)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.btnCancel)
         Me.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -253,7 +255,6 @@ Partial Class FrmRestore
     Friend WithEvents BtnRestore As Button
     Friend WithEvents TxtBackupPath As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents btnCancel As Button
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents SplitContainer3 As SplitContainer
     Friend WithEvents GroupBox3 As GroupBox
@@ -261,4 +262,5 @@ Partial Class FrmRestore
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents rtbProgress As RichTextBox
     Friend WithEvents LblStatus As ToolStripStatusLabel
+    Friend WithEvents BtnClose As Button
 End Class

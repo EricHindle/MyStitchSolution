@@ -24,7 +24,6 @@ Public Class FrmProject
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitialiseSettings()
-
         InitialiseLogging()
         LogUtil.LogInfo("Project maintenence", MyBase.Name)
         isLoading = True
@@ -70,17 +69,16 @@ Public Class FrmProject
     End Sub
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
         ClearProjectForm()
-        DgvProjects.ClearSelection()
     End Sub
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ProjectFormPos)
+        MnuDebugOn.Checked = My.Settings.isDebugOn
         LoadProjectList(DgvProjects, MyBase.Name)
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
-
     End Sub
 
     Private Sub LoadProjectForm(oProject As Project)
@@ -272,13 +270,18 @@ Public Class FrmProject
     End Sub
 
     Private Sub BtnDesign_Click(sender As Object, e As EventArgs) Handles BtnDesign.Click
-        Using _design As New FrmStitchDesign
-            If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
+        OpenProjectDesign()
+    End Sub
+
+    Private Sub OpenProjectDesign()
+        If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
+            Using _design As New FrmStitchDesign
                 _design.ProjectId = _selectedProject.ProjectId
                 _design.ShowDialog()
-            Else
-            End If
-        End Using
+            End Using
+        Else
+            LogUtil.ShowStatus("No Project selected", LblStatus, True)
+        End If
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -286,28 +289,77 @@ Public Class FrmProject
     End Sub
 
     Private Sub MnuShowLog_Click(sender As Object, e As EventArgs) Handles MnuShowLog.Click
-
+        ShowLog()
     End Sub
 
     Private Sub MnuUndoOn_Click(sender As Object, e As EventArgs) Handles MnuUndoOn.Click
 
     End Sub
 
-    Private Sub MnuDuplicate_Click(sender As Object, e As EventArgs) Handles MnuDuplicate.Click
 
-    End Sub
-
-    Private Sub MnuCrop_Click(sender As Object, e As EventArgs) Handles MnuCrop.Click
-
-    End Sub
-
-    Private Sub MnuExtend_Click(sender As Object, e As EventArgs) Handles MnuExtend.Click
-
-    End Sub
 
     Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
+        OpenSymbolsForm()
+    End Sub
+
+    Private Shared Sub OpenSymbolsForm()
         Using _symbols As New FrmSymbols
             _symbols.ShowDialog()
+        End Using
+    End Sub
+
+
+
+    Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
+        OpenThreadListForm
+    End Sub
+    Private Shared Sub OpenThreadListForm()
+        Using _threads As New FrmThread
+            _threads.ShowDialog()
+        End Using
+    End Sub
+
+    Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
+        OpenProjectDesign()
+    End Sub
+
+    Private Sub MnuResizeDesign_Click(sender As Object, e As EventArgs) Handles MnuResizeDesign.Click
+
+    End Sub
+
+    Private Sub MnuDebugOn_Click(sender As Object, e As EventArgs) Handles MnuDebugOn.Click
+        My.Settings.isDebugOn = Not My.Settings.isDebugOn
+        LogUtil.IsDebugOn = My.Settings.isDebugOn
+        MnuDebugOn.Checked = My.Settings.isDebugOn
+        My.Settings.Save()
+        LogUtil.LogInfo("Debugging is " & If(My.Settings.isDebugOn, "ON", "OFF"), MyBase.Name)
+    End Sub
+
+    Private Shared Sub OpenBackupForm()
+        Using _backup As New FrmBackup
+            _backup.ShowDialog()
+        End Using
+    End Sub
+    Private Shared Sub OpenRestoreForm()
+        Using _restore As New FrmRestore
+            _restore.ShowDialog()
+        End Using
+    End Sub
+
+    Private Sub MnuBackup_Click(sender As Object, e As EventArgs) Handles MnuBackup.Click
+        OpenBackupForm()
+    End Sub
+
+    Private Sub MnuRestore_Click(sender As Object, e As EventArgs) Handles MnuRestore.Click
+        OpenRestoreForm()
+    End Sub
+
+    Private Sub MnuPreferences_Click(sender As Object, e As EventArgs) Handles MnuPreferences.Click
+        OpenPreferencesForm()
+    End Sub
+    Private Sub OpenPreferencesForm()
+        Using _options As New FrmOptions
+            _options.ShowDialog()
         End Using
     End Sub
 

@@ -232,6 +232,186 @@ Namespace My
                 Me("ImagePath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BackupFormPos() As String
+            Get
+                Return CType(Me("BackupFormPos"),String)
+            End Get
+            Set
+                Me("BackupFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("D:\MyStitch\Backup")>  _
+        Public Property BackupPath() As String
+            Get
+                Return CType(Me("BackupPath"),String)
+            End Get
+            Set
+                Me("BackupPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property BackupArchive() As Boolean
+            Get
+                Return CType(Me("BackupArchive"),Boolean)
+            End Get
+            Set
+                Me("BackupArchive") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property BackupDb() As Boolean
+            Get
+                Return CType(Me("BackupDb"),Boolean)
+            End Get
+            Set
+                Me("BackupDb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property BackupRevision() As Boolean
+            Get
+                Return CType(Me("BackupRevision"),Boolean)
+            End Get
+            Set
+                Me("BackupRevision") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AppendDbBackup() As Boolean
+            Get
+                Return CType(Me("AppendDbBackup"),Boolean)
+            End Get
+            Set
+                Me("AppendDbBackup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property BackupAddDate() As Boolean
+            Get
+                Return CType(Me("BackupAddDate"),Boolean)
+            End Get
+            Set
+                Me("BackupAddDate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ColourCaptureFormPos() As String
+            Get
+                Return CType(Me("ColourCaptureFormPos"),String)
+            End Get
+            Set
+                Me("ColourCaptureFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ThreadFormPos() As String
+            Get
+                Return CType(Me("ThreadFormPos"),String)
+            End Get
+            Set
+                Me("ThreadFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LogViewPos() As String
+            Get
+                Return CType(Me("LogViewPos"),String)
+            End Get
+            Set
+                Me("LogViewPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LogZoomValue() As Decimal
+            Get
+                Return CType(Me("LogZoomValue"),Decimal)
+            End Get
+            Set
+                Me("LogZoomValue") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property LogZoomOn() As Boolean
+            Get
+                Return CType(Me("LogZoomOn"),Boolean)
+            End Get
+            Set
+                Me("LogZoomOn") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isDebugOn() As Boolean
+            Get
+                Return CType(Me("isDebugOn"),Boolean)
+            End Get
+            Set
+                Me("isDebugOn") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property RestoreFormPos() As String
+            Get
+                Return CType(Me("RestoreFormPos"),String)
+            End Get
+            Set
+                Me("RestoreFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property FileRetentionPeriod() As Integer
+            Get
+                Return CType(Me("FileRetentionPeriod"),Integer)
+            End Get
+            Set
+                Me("FileRetentionPeriod") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

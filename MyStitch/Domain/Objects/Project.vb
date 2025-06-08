@@ -165,10 +165,10 @@ Namespace Domain.Objects
             _projectName = String.Empty
             _dateStarted = MIN_DATE
             _dateEnded = MIN_DATE
-            _designHeight = 0
-            _designWidth = 0
-            _fabricWidth = 0
-            _fabricHeight = 0
+            _designHeight = 1
+            _designWidth = 1
+            _fabricWidth = 1
+            _fabricHeight = 1
             _fabricColour = Color.White.ToArgb
             _design = New ProjectDesign
             _designFileName = String.Empty

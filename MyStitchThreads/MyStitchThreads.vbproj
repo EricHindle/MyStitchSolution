@@ -222,6 +222,12 @@
     <Compile Include="Utilities\FrmBackup.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utilities\FrmRestore.Designer.vb">
+      <DependentUpon>FrmRestore.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmRestore.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\ModCommon.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmBackup.resx">
       <DependentUpon>FrmBackup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmRestore.resx">
+      <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
