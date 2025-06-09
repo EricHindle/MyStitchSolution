@@ -10,11 +10,14 @@ Imports System.IO.Compression
 Imports Newtonsoft.Json
 
 Module ModDesign
+#Region "constants"
+
     Public Const JSON_EXT As String = ".json"
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
     Public Const ARC_EXT As String = ".hsa"
-
+#End Region
+#Region "enum"
     Public Enum StitchDisplayStyle
         Crosses
         Blocks
@@ -23,6 +26,99 @@ Module ModDesign
         BlackWhiteSymbols
         BlocksWithSymbols
     End Enum
+#End Region
+#Region "variables"
+    Friend iXOffset As Integer
+    Friend iYOffset As Integer
+    Friend iPpc As Integer
+    Friend topcorner As New Point(0, 0)
+#End Region
+#Region "functions"
+    Public Function FindCellFromClickLocation(e As MouseEventArgs) As Cell
+        Dim pCellBuilder As CellBuilder = CellBuilder.ACell.StartingWithNothing
+        Dim pos_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
+        Dim pos_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
+        Dim loc_x As Integer = (pos_x) * iPpc
+        Dim loc_y As Integer = (pos_y) * iPpc
+
+        pCellBuilder.WithPosition(New Point(pos_x, pos_y))
+        pCellBuilder.WithLocation(New Point(loc_x, loc_y))
+
+        Dim _xrmd As Integer = e.X Mod iPpc
+        Dim _yrmd As Integer = e.Y Mod iPpc
+        Dim _qtr As BlockQuarter
+        Dim _qtrLoc As New Point(loc_x, loc_y)
+        Dim _qtrPos As New Point(pos_x, pos_y)
+        Select Case True
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                _qtrLoc = New Point(loc_x, loc_y)
+                _qtr = BlockQuarter.TopLeft
+            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+                _qtrLoc = New Point(loc_x + (iPpc / 2), loc_y + (iPpc / 2))
+                _qtr = BlockQuarter.BottomRight
+            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
+                _qtrLoc = New Point(loc_x, loc_y + (iPpc / 2))
+                _qtr = BlockQuarter.BottomLeft
+            Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+                _qtrLoc = New Point(loc_x + (iPpc / 2), loc_y)
+                _qtr = BlockQuarter.TopRight
+        End Select
+        pCellBuilder.WithStitchQtr(_qtr).WithStitchQtrLoc(_qtrLoc)
+        If _yrmd >= 0 And _yrmd < iPpc / 4 Then
+            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+                _qtr = BlockQuarter.TopLeft
+            End If
+            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.TopRight
+            End If
+            If _xrmd >= iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.TopLeft
+                _qtrPos.X += 1
+            End If
+        End If
+
+        If _yrmd >= iPpc / 4 And _yrmd < iPpc * 3 / 4 Then
+            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+                _qtr = BlockQuarter.BottomLeft
+            End If
+            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.BottomRight
+            End If
+            If _xrmd >= iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.BottomLeft
+                _qtrPos.X += 1
+            End If
+        End If
+
+        If _yrmd >= iPpc * 3 / 4 Then
+            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+                _qtr = BlockQuarter.TopLeft
+                _qtrPos.Y += 1
+            End If
+            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.TopRight
+                _qtrPos.Y += 1
+            End If
+            If _xrmd >= iPpc * 3 / 4 Then
+                _qtr = BlockQuarter.TopLeft
+                _qtrPos.Y += 1
+                _qtrPos.X += 1
+            End If
+        End If
+
+        Select Case _qtr
+            Case BlockQuarter.TopRight
+                _qtrLoc.X += Math.Floor(iPpc / 2)
+            Case BlockQuarter.BottomLeft
+                _qtrLoc.Y += Math.Floor(iPpc / 2)
+            Case BlockQuarter.BottomRight
+                _qtrLoc.X += Math.Floor(iPpc / 2)
+                _qtrLoc.Y += Math.Floor(iPpc / 2)
+        End Select
+
+        pCellBuilder.WithKnotQuarter(_qtr).WithKnotCellPos(_qtrPos).WithKnotQtrLoc(_qtrLoc)
+        Return pCellBuilder.Build
+    End Function
 
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
@@ -62,25 +158,6 @@ Module ModDesign
 
         Return isOK
     End Function
-
-    Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-        Dim _projectDesign As New ProjectDesign
-        If My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-                For Each _entry As ZipArchiveEntry In _chapterFile.Entries
-                    If _entry.Name.EndsWith(XML_EXT) Then
-                        Using _input As New StreamReader(_entry.Open())
-                            _projectDesign = CType(serializer.Deserialize(_input), ProjectDesign)
-                        End Using
-                    End If
-                Next
-            End Using
-        End If
-        Return _projectDesign
-    End Function
-
     Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
         Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
         Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
@@ -99,5 +176,24 @@ Module ModDesign
         End If
         Return _projectDesign
     End Function
+    Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
+        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
+        Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
+        Dim _projectDesign As New ProjectDesign
+        If My.Computer.FileSystem.FileExists(_zipFile) Then
+            Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+                For Each _entry As ZipArchiveEntry In _chapterFile.Entries
+                    If _entry.Name.EndsWith(XML_EXT) Then
+                        Using _input As New StreamReader(_entry.Open())
+                            _projectDesign = CType(serializer.Deserialize(_input), ProjectDesign)
+                        End Using
+                    End If
+                Next
+            End Using
+        End If
+        Return _projectDesign
+    End Function
+
+#End Region
 
 End Module

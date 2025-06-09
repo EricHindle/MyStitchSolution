@@ -25,14 +25,14 @@ Partial Class FrmStitchDesign
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStitchDesign))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSaveDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSaveDesignAs = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PaletteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPalette = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectPalette = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuSelectPaletteColours = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuRemoveUnusedColours = New System.Windows.Forms.ToolStripMenuItem()
@@ -40,37 +40,39 @@ Partial Class FrmStitchDesign
         Me.MnuPrintThreadCards = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PasteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuEdit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCopySelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuMoveSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCutSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPaste = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
-        Me.FlipToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MirrorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RotateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuFlipSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuMirrorSelection = New System.Windows.Forms.ToolStripMenuItem()
+        Me.VerticalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HorizontalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuRotate = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ClearAreaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DrawToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DrawShapeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DrawFilledShapeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuClearArea = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDraw = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDrawShape = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDrawFilledShape = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
-        Me.FloodFillToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TextToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuFloodFill = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuText = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RedrawToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ZoomInToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ZoomOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ZoomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuRedraw = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuZoomIn = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuZoomOut = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuZoom = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuGridOn = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StitchDisplayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CropToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExtendToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuStitchDisplayStyle = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCropDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuExtendDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ShowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuShowDesignStats = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.LblPixelColourName = New System.Windows.Forms.Label()
         Me.PicGrid = New System.Windows.Forms.PictureBox()
@@ -144,48 +146,48 @@ Partial Class FrmStitchDesign
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.MnuThreads, Me.PaletteToolStripMenuItem, Me.EditToolStripMenuItem, Me.DrawToolStripMenuItem, Me.TextToolStripMenuItem, Me.ViewToolStripMenuItem, Me.ToolsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuThreads, Me.MnuPalette, Me.MnuEdit, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(858, 24)
         Me.MenuStrip1.TabIndex = 129
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
+        'MnuDesign
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenToolStripMenuItem, Me.SaveToolStripMenuItem, Me.SaveAsToolStripMenuItem, Me.ToolStripSeparator8, Me.ExitToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
-        Me.FileToolStripMenuItem.Text = "Design"
+        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuSaveDesign, Me.MnuSaveDesignAs, Me.ToolStripSeparator8, Me.MnuExit})
+        Me.MnuDesign.Name = "MnuDesign"
+        Me.MnuDesign.Size = New System.Drawing.Size(55, 20)
+        Me.MnuDesign.Text = "Design"
         '
-        'OpenToolStripMenuItem
+        'MnuOpenDesign
         '
-        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
-        Me.OpenToolStripMenuItem.Text = "Open"
+        Me.MnuOpenDesign.Name = "MnuOpenDesign"
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuOpenDesign.Text = "Open"
         '
-        'SaveToolStripMenuItem
+        'MnuSaveDesign
         '
-        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
-        Me.SaveToolStripMenuItem.Text = "Save"
+        Me.MnuSaveDesign.Name = "MnuSaveDesign"
+        Me.MnuSaveDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesign.Text = "Save"
         '
-        'SaveAsToolStripMenuItem
+        'MnuSaveDesignAs
         '
-        Me.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem"
-        Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
-        Me.SaveAsToolStripMenuItem.Text = "Save As..."
+        Me.MnuSaveDesignAs.Name = "MnuSaveDesignAs"
+        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesignAs.Text = "Save As..."
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
         Me.ToolStripSeparator8.Size = New System.Drawing.Size(120, 6)
         '
-        'ExitToolStripMenuItem
+        'MnuExit
         '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
+        Me.MnuExit.Name = "MnuExit"
+        Me.MnuExit.Size = New System.Drawing.Size(123, 22)
+        Me.MnuExit.Text = "Exit"
         '
         'MnuThreads
         '
@@ -193,12 +195,12 @@ Partial Class FrmStitchDesign
         Me.MnuThreads.Size = New System.Drawing.Size(61, 20)
         Me.MnuThreads.Text = "Threads"
         '
-        'PaletteToolStripMenuItem
+        'MnuPalette
         '
-        Me.PaletteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols})
-        Me.PaletteToolStripMenuItem.Name = "PaletteToolStripMenuItem"
-        Me.PaletteToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
-        Me.PaletteToolStripMenuItem.Text = "Palette"
+        Me.MnuPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols})
+        Me.MnuPalette.Name = "MnuPalette"
+        Me.MnuPalette.Size = New System.Drawing.Size(55, 20)
+        Me.MnuPalette.Text = "Palette"
         '
         'MnuProjectPalette
         '
@@ -243,190 +245,203 @@ Partial Class FrmStitchDesign
         Me.MnuThreadSymbols.Size = New System.Drawing.Size(159, 22)
         Me.MnuThreadSymbols.Text = "Thread Symbols"
         '
-        'EditToolStripMenuItem
+        'MnuEdit
         '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopyToolStripMenuItem, Me.MoveToolStripMenuItem, Me.CutToolStripMenuItem, Me.PasteToolStripMenuItem, Me.ToolStripSeparator9, Me.FlipToolStripMenuItem, Me.MirrorToolStripMenuItem, Me.RotateToolStripMenuItem, Me.ToolStripSeparator10, Me.ClearAreaToolStripMenuItem})
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
+        Me.MnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCopySelection, Me.MnuMoveSelection, Me.MnuCutSelection, Me.MnuPaste, Me.ToolStripSeparator9, Me.MnuFlipSelection, Me.MnuMirrorSelection, Me.MnuRotate, Me.ToolStripSeparator10, Me.MnuClearArea})
+        Me.MnuEdit.Name = "MnuEdit"
+        Me.MnuEdit.Size = New System.Drawing.Size(39, 20)
+        Me.MnuEdit.Text = "Edit"
         '
-        'CopyToolStripMenuItem
+        'MnuCopySelection
         '
-        Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.CopyToolStripMenuItem.Text = "Copy"
+        Me.MnuCopySelection.Name = "MnuCopySelection"
+        Me.MnuCopySelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuCopySelection.Text = "Copy"
         '
-        'MoveToolStripMenuItem
+        'MnuMoveSelection
         '
-        Me.MoveToolStripMenuItem.Name = "MoveToolStripMenuItem"
-        Me.MoveToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.MoveToolStripMenuItem.Text = "Move"
+        Me.MnuMoveSelection.Name = "MnuMoveSelection"
+        Me.MnuMoveSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuMoveSelection.Text = "Move"
         '
-        'CutToolStripMenuItem
+        'MnuCutSelection
         '
-        Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
-        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.CutToolStripMenuItem.Text = "Cut"
+        Me.MnuCutSelection.Name = "MnuCutSelection"
+        Me.MnuCutSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuCutSelection.Text = "Cut"
         '
-        'PasteToolStripMenuItem
+        'MnuPaste
         '
-        Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.PasteToolStripMenuItem.Text = "Paste"
+        Me.MnuPaste.Name = "MnuPaste"
+        Me.MnuPaste.Size = New System.Drawing.Size(128, 22)
+        Me.MnuPaste.Text = "Paste"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
         Me.ToolStripSeparator9.Size = New System.Drawing.Size(125, 6)
         '
-        'FlipToolStripMenuItem
+        'MnuFlipSelection
         '
-        Me.FlipToolStripMenuItem.Name = "FlipToolStripMenuItem"
-        Me.FlipToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.FlipToolStripMenuItem.Text = "Flip"
+        Me.MnuFlipSelection.Name = "MnuFlipSelection"
+        Me.MnuFlipSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuFlipSelection.Text = "Flip"
         '
-        'MirrorToolStripMenuItem
+        'MnuMirrorSelection
         '
-        Me.MirrorToolStripMenuItem.Name = "MirrorToolStripMenuItem"
-        Me.MirrorToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.MirrorToolStripMenuItem.Text = "Mirror"
+        Me.MnuMirrorSelection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerticalToolStripMenuItem, Me.HorizontalToolStripMenuItem})
+        Me.MnuMirrorSelection.Name = "MnuMirrorSelection"
+        Me.MnuMirrorSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuMirrorSelection.Text = "Mirror"
         '
-        'RotateToolStripMenuItem
+        'VerticalToolStripMenuItem
         '
-        Me.RotateToolStripMenuItem.Name = "RotateToolStripMenuItem"
-        Me.RotateToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.RotateToolStripMenuItem.Text = "Rotate"
+        Me.VerticalToolStripMenuItem.Name = "VerticalToolStripMenuItem"
+        Me.VerticalToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.VerticalToolStripMenuItem.Text = "Vertical"
+        '
+        'HorizontalToolStripMenuItem
+        '
+        Me.HorizontalToolStripMenuItem.Name = "HorizontalToolStripMenuItem"
+        Me.HorizontalToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.HorizontalToolStripMenuItem.Text = "Horizontal"
+        '
+        'MnuRotate
+        '
+        Me.MnuRotate.Name = "MnuRotate"
+        Me.MnuRotate.Size = New System.Drawing.Size(128, 22)
+        Me.MnuRotate.Text = "Rotate"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
         Me.ToolStripSeparator10.Size = New System.Drawing.Size(125, 6)
         '
-        'ClearAreaToolStripMenuItem
+        'MnuClearArea
         '
-        Me.ClearAreaToolStripMenuItem.Name = "ClearAreaToolStripMenuItem"
-        Me.ClearAreaToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
-        Me.ClearAreaToolStripMenuItem.Text = "Clear Area"
+        Me.MnuClearArea.Name = "MnuClearArea"
+        Me.MnuClearArea.Size = New System.Drawing.Size(128, 22)
+        Me.MnuClearArea.Text = "Clear Area"
         '
-        'DrawToolStripMenuItem
+        'MnuDraw
         '
-        Me.DrawToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DrawShapeToolStripMenuItem, Me.DrawFilledShapeToolStripMenuItem, Me.ToolStripSeparator11, Me.FloodFillToolStripMenuItem})
-        Me.DrawToolStripMenuItem.Name = "DrawToolStripMenuItem"
-        Me.DrawToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
-        Me.DrawToolStripMenuItem.Text = "Draw"
+        Me.MnuDraw.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDrawShape, Me.MnuDrawFilledShape, Me.ToolStripSeparator11, Me.MnuFloodFill})
+        Me.MnuDraw.Name = "MnuDraw"
+        Me.MnuDraw.Size = New System.Drawing.Size(46, 20)
+        Me.MnuDraw.Text = "Draw"
         '
-        'DrawShapeToolStripMenuItem
+        'MnuDrawShape
         '
-        Me.DrawShapeToolStripMenuItem.Name = "DrawShapeToolStripMenuItem"
-        Me.DrawShapeToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
-        Me.DrawShapeToolStripMenuItem.Text = "Draw Shape"
+        Me.MnuDrawShape.Name = "MnuDrawShape"
+        Me.MnuDrawShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawShape.Text = "Draw Shape"
         '
-        'DrawFilledShapeToolStripMenuItem
+        'MnuDrawFilledShape
         '
-        Me.DrawFilledShapeToolStripMenuItem.Name = "DrawFilledShapeToolStripMenuItem"
-        Me.DrawFilledShapeToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
-        Me.DrawFilledShapeToolStripMenuItem.Text = "Draw Filled Shape"
+        Me.MnuDrawFilledShape.Name = "MnuDrawFilledShape"
+        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawFilledShape.Text = "Draw Filled Shape"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
         Me.ToolStripSeparator11.Size = New System.Drawing.Size(164, 6)
         '
-        'FloodFillToolStripMenuItem
+        'MnuFloodFill
         '
-        Me.FloodFillToolStripMenuItem.Name = "FloodFillToolStripMenuItem"
-        Me.FloodFillToolStripMenuItem.Size = New System.Drawing.Size(167, 22)
-        Me.FloodFillToolStripMenuItem.Text = "Flood Fill"
+        Me.MnuFloodFill.Name = "MnuFloodFill"
+        Me.MnuFloodFill.Size = New System.Drawing.Size(167, 22)
+        Me.MnuFloodFill.Text = "Flood Fill"
         '
-        'TextToolStripMenuItem
+        'MnuText
         '
-        Me.TextToolStripMenuItem.Name = "TextToolStripMenuItem"
-        Me.TextToolStripMenuItem.Size = New System.Drawing.Size(40, 20)
-        Me.TextToolStripMenuItem.Text = "Text"
+        Me.MnuText.Name = "MnuText"
+        Me.MnuText.Size = New System.Drawing.Size(40, 20)
+        Me.MnuText.Text = "Text"
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RedrawToolStripMenuItem, Me.ZoomInToolStripMenuItem, Me.ZoomOutToolStripMenuItem, Me.ZoomToolStripMenuItem, Me.ToolStripSeparator12, Me.MnuGridOn, Me.StitchDisplayToolStripMenuItem})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuRedraw, Me.MnuZoomIn, Me.MnuZoomOut, Me.MnuZoom, Me.ToolStripSeparator12, Me.MnuGridOn, Me.MnuStitchDisplayStyle})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ViewToolStripMenuItem.Text = "View"
         '
-        'RedrawToolStripMenuItem
+        'MnuRedraw
         '
-        Me.RedrawToolStripMenuItem.Name = "RedrawToolStripMenuItem"
-        Me.RedrawToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.RedrawToolStripMenuItem.Text = "Redraw"
+        Me.MnuRedraw.Name = "MnuRedraw"
+        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRedraw.Text = "Redraw"
         '
-        'ZoomInToolStripMenuItem
+        'MnuZoomIn
         '
-        Me.ZoomInToolStripMenuItem.Name = "ZoomInToolStripMenuItem"
-        Me.ZoomInToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.ZoomInToolStripMenuItem.Text = "Zoom In"
+        Me.MnuZoomIn.Name = "MnuZoomIn"
+        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomIn.Text = "Zoom In"
         '
-        'ZoomOutToolStripMenuItem
+        'MnuZoomOut
         '
-        Me.ZoomOutToolStripMenuItem.Name = "ZoomOutToolStripMenuItem"
-        Me.ZoomOutToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.ZoomOutToolStripMenuItem.Text = "Zoom Out"
+        Me.MnuZoomOut.Name = "MnuZoomOut"
+        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomOut.Text = "Zoom Out"
         '
-        'ZoomToolStripMenuItem
+        'MnuZoom
         '
-        Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
-        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.ZoomToolStripMenuItem.Text = "Zoom"
+        Me.MnuZoom.Name = "MnuZoom"
+        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(142, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(145, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
         Me.MnuGridOn.Text = "Grid"
         '
-        'StitchDisplayToolStripMenuItem
+        'MnuStitchDisplayStyle
         '
-        Me.StitchDisplayToolStripMenuItem.Name = "StitchDisplayToolStripMenuItem"
-        Me.StitchDisplayToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.StitchDisplayToolStripMenuItem.Text = "Stitch Display"
+        Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
-        'ToolsToolStripMenuItem
+        'MnuTools
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CropToolStripMenuItem, Me.ExtendToolStripMenuItem, Me.ToolStripSeparator13, Me.ShowToolStripMenuItem, Me.OptionsToolStripMenuItem})
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
-        Me.ToolsToolStripMenuItem.Text = "Tools"
+        Me.MnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCropDesign, Me.MnuExtendDesign, Me.ToolStripSeparator13, Me.MnuShowDesignStats, Me.MnuOptions})
+        Me.MnuTools.Name = "MnuTools"
+        Me.MnuTools.Size = New System.Drawing.Size(47, 20)
+        Me.MnuTools.Text = "Tools"
         '
-        'CropToolStripMenuItem
+        'MnuCropDesign
         '
-        Me.CropToolStripMenuItem.Name = "CropToolStripMenuItem"
-        Me.CropToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.CropToolStripMenuItem.Text = "Crop"
+        Me.MnuCropDesign.Name = "MnuCropDesign"
+        Me.MnuCropDesign.Size = New System.Drawing.Size(116, 22)
+        Me.MnuCropDesign.Text = "Crop"
         '
-        'ExtendToolStripMenuItem
+        'MnuExtendDesign
         '
-        Me.ExtendToolStripMenuItem.Name = "ExtendToolStripMenuItem"
-        Me.ExtendToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.ExtendToolStripMenuItem.Text = "Extend"
+        Me.MnuExtendDesign.Name = "MnuExtendDesign"
+        Me.MnuExtendDesign.Size = New System.Drawing.Size(116, 22)
+        Me.MnuExtendDesign.Text = "Extend"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
         Me.ToolStripSeparator13.Size = New System.Drawing.Size(113, 6)
         '
-        'ShowToolStripMenuItem
+        'MnuShowDesignStats
         '
-        Me.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem"
-        Me.ShowToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.ShowToolStripMenuItem.Text = "Show"
+        Me.MnuShowDesignStats.Name = "MnuShowDesignStats"
+        Me.MnuShowDesignStats.Size = New System.Drawing.Size(116, 22)
+        Me.MnuShowDesignStats.Text = "Show"
         '
-        'OptionsToolStripMenuItem
+        'MnuOptions
         '
-        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.OptionsToolStripMenuItem.Text = "Options"
+        Me.MnuOptions.Name = "MnuOptions"
+        Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
+        Me.MnuOptions.Text = "Options"
         '
         'TableLayoutPanel1
         '
@@ -1177,13 +1192,13 @@ Partial Class FrmStitchDesign
     End Sub
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DrawToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TextToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuDesign As ToolStripMenuItem
+    Friend WithEvents MnuEdit As ToolStripMenuItem
+    Friend WithEvents MnuDraw As ToolStripMenuItem
+    Friend WithEvents MnuText As ToolStripMenuItem
     Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PaletteToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuPalette As ToolStripMenuItem
+    Friend WithEvents MnuTools As ToolStripMenuItem
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents PicDesign As PictureBox
     Friend WithEvents ToolStrip1 As ToolStrip
@@ -1196,7 +1211,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents Btn3QtrsTL As ToolStripButton
     Friend WithEvents Btn3QtrsTR As ToolStripButton
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuExit As ToolStripMenuItem
     Friend WithEvents BtnMove As ToolStripButton
     Friend WithEvents BtnPaste As ToolStripButton
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
@@ -1227,36 +1242,36 @@ Partial Class FrmStitchDesign
     Friend WithEvents BtnKnot As ToolStripButton
     Friend WithEvents BtnBead As ToolStripButton
     Friend WithEvents ToolStripSeparator7 As ToolStripSeparator
-    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuSaveDesign As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator8 As ToolStripSeparator
-    Friend WithEvents SaveAsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CopyToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MoveToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PasteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuSaveDesignAs As ToolStripMenuItem
+    Friend WithEvents MnuCopySelection As ToolStripMenuItem
+    Friend WithEvents MnuMoveSelection As ToolStripMenuItem
+    Friend WithEvents MnuCutSelection As ToolStripMenuItem
+    Friend WithEvents MnuPaste As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator9 As ToolStripSeparator
-    Friend WithEvents FlipToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MirrorToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RotateToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuFlipSelection As ToolStripMenuItem
+    Friend WithEvents MnuMirrorSelection As ToolStripMenuItem
+    Friend WithEvents MnuRotate As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
-    Friend WithEvents ClearAreaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DrawShapeToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DrawFilledShapeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuClearArea As ToolStripMenuItem
+    Friend WithEvents MnuDrawShape As ToolStripMenuItem
+    Friend WithEvents MnuDrawFilledShape As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
-    Friend WithEvents FloodFillToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RedrawToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ZoomInToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ZoomOutToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ZoomToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuFloodFill As ToolStripMenuItem
+    Friend WithEvents MnuRedraw As ToolStripMenuItem
+    Friend WithEvents MnuZoomIn As ToolStripMenuItem
+    Friend WithEvents MnuZoomOut As ToolStripMenuItem
+    Friend WithEvents MnuZoom As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator12 As ToolStripSeparator
     Friend WithEvents MnuGridOn As ToolStripMenuItem
-    Friend WithEvents StitchDisplayToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CropToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ExtendToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuStitchDisplayStyle As ToolStripMenuItem
+    Friend WithEvents MnuCropDesign As ToolStripMenuItem
+    Friend WithEvents MnuExtendDesign As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
-    Friend WithEvents ShowToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OptionsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuShowDesignStats As ToolStripMenuItem
+    Friend WithEvents MnuOptions As ToolStripMenuItem
+    Friend WithEvents MnuOpenDesign As ToolStripMenuItem
     Friend WithEvents HScrollBar1 As HScrollBar
     Friend WithEvents VScrollBar1 As VScrollBar
     Friend WithEvents BtnHeight As ToolStripButton
@@ -1279,4 +1294,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuRemoveUnusedColours As ToolStripMenuItem
     Friend WithEvents MnuThreads As ToolStripMenuItem
     Friend WithEvents MnuPrintThreadCards As ToolStripMenuItem
+    Friend WithEvents VerticalToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HorizontalToolStripMenuItem As ToolStripMenuItem
 End Class

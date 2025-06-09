@@ -743,14 +743,14 @@ Partial Class FrmProject
         'MnuShowLog
         '
         Me.MnuShowLog.Name = "MnuShowLog"
-        Me.MnuShowLog.Size = New System.Drawing.Size(180, 22)
+        Me.MnuShowLog.Size = New System.Drawing.Size(128, 22)
         Me.MnuShowLog.Text = "Show Log"
         '
         'MnuDebugOn
         '
         Me.MnuDebugOn.CheckOnClick = True
         Me.MnuDebugOn.Name = "MnuDebugOn"
-        Me.MnuDebugOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDebugOn.Size = New System.Drawing.Size(128, 22)
         Me.MnuDebugOn.Text = "Debug On"
         '
         'BackupToolStripMenuItem
@@ -763,13 +763,13 @@ Partial Class FrmProject
         'MnuBackup
         '
         Me.MnuBackup.Name = "MnuBackup"
-        Me.MnuBackup.Size = New System.Drawing.Size(113, 22)
+        Me.MnuBackup.Size = New System.Drawing.Size(180, 22)
         Me.MnuBackup.Text = "Backup"
         '
         'MnuRestore
         '
         Me.MnuRestore.Name = "MnuRestore"
-        Me.MnuRestore.Size = New System.Drawing.Size(113, 22)
+        Me.MnuRestore.Size = New System.Drawing.Size(180, 22)
         Me.MnuRestore.Text = "Restore"
         '
         'MnuOptions

@@ -100,6 +100,7 @@
     <Compile Include="Domain\Builders\BackstitchBuilder.vb" />
     <Compile Include="Domain\Builders\BlockStitchBuilder.vb" />
     <Compile Include="Domain\Builders\BlockStitchQuarterBuilder.vb" />
+    <Compile Include="Domain\Builders\CellBuilder.vb" />
     <Compile Include="Domain\Builders\GlobalSettingBuilder.vb" />
     <Compile Include="Domain\Builders\KnotBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectBuilder.vb" />
@@ -116,6 +117,7 @@
     <Compile Include="Domain\Objects\BackStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitchQuarter.vb" />
+    <Compile Include="Domain\Objects\Cell.vb" />
     <Compile Include="Domain\Objects\GlobalSetting.vb" />
     <Compile Include="Domain\Objects\Knot.vb" />
     <Compile Include="Domain\Objects\Project.vb" />
