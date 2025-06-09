@@ -8,28 +8,8 @@
 Imports Newtonsoft.Json
 
 Public Class BlockStitch
-    Public Enum BlockStitchType
-        Full
-        Half
-        Quarter
-        ThreeQuarter
-    End Enum
-    Public Enum BlockQuarter
-        TopLeft
-        TopRight
-        BottomLeft
-        BottomRight
-    End Enum
-    Private _blockLoc As Point
+    Inherits Stitch
     Private _quarters As List(Of BlockStitchQuarter)
-    Public Property BlockLocation() As Point
-        Get
-            Return _blockLoc
-        End Get
-        Set(ByVal value As Point)
-            _blockLoc = value
-        End Set
-    End Property
     Public Property Quarters() As List(Of BlockStitchQuarter)
         Get
             Return _quarters

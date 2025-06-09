@@ -10,12 +10,9 @@ Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
 Public Class BackStitch
-    Private _fromBlockLoc As Point
+    Inherits Stitch
     Private _toBlockLoc As Point
-    Private _fromBlockQtr As BlockQuarter
     Private _toBlockQtr As BlockQuarter
-    Private _thread As Thread
-    Private _strands As Integer
 
     Public Property ToBlockLocation() As Point
         Get
@@ -27,18 +24,18 @@ Public Class BackStitch
     End Property
     Public Property FromBlockLocation() As Point
         Get
-            Return _fromBlockLoc
+            Return _blockLoc
         End Get
         Set(ByVal value As Point)
-            _fromBlockLoc = value
+            _blockLoc = value
         End Set
     End Property
     Public Property FromBlockQuarter() As BlockQuarter
         Get
-            Return _fromBlockQtr
+            Return _blockQtr
         End Get
         Set(ByVal value As BlockQuarter)
-            _fromBlockQtr = value
+            _blockQtr = value
         End Set
     End Property
     Public Property ToBlockQuarter() As BlockQuarter
@@ -49,26 +46,11 @@ Public Class BackStitch
             _toBlockQtr = value
         End Set
     End Property
-    Public Property Strands() As Integer
-        Get
-            Return _strands
-        End Get
-        Set(ByVal value As Integer)
-            _strands = value
-        End Set
-    End Property
-    Public Property Thread() As Thread
-        Get
-            Return _thread
-        End Get
-        Set(ByVal value As Thread)
-            _thread = value
-        End Set
-    End Property
+
     Private Sub Initialise()
-        _fromBlockLoc = New Point(0, 0)
+        _blockLoc = New Point(0, 0)
         _toBlockLoc = New Point(0, 0)
-        _fromBlockQtr = BlockQuarter.TopLeft
+        _blockQtr = BlockQuarter.TopLeft
         _toBlockQtr = BlockQuarter.TopLeft
         _strands = 1
         _thread = New Thread
@@ -77,8 +59,8 @@ Public Class BackStitch
         Initialise()
     End Sub
     Public Sub New(pFromLoc As Point, pFromQtr As BlockQuarter, pToloc As Point, pToQtr As BlockQuarter, pStrands As Integer, pThread As Thread)
-        _fromBlockLoc = pFromLoc
-        _fromBlockQtr = pFromQtr
+        _blockLoc = pFromLoc
+        _blockQtr = pFromQtr
         _toBlockLoc = pToloc
         _toBlockQtr = pToQtr
         _strands = pStrands

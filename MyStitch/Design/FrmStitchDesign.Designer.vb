@@ -126,10 +126,7 @@ Partial Class FrmStitchDesign
         Me.PicDesign = New System.Windows.Forms.PictureBox()
         Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
         Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
-        Me.ZoomTrackBar = New System.Windows.Forms.TrackBar()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.BtnZoomOut = New System.Windows.Forms.Button()
-        Me.BtnZoomIn = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -139,7 +136,6 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -1123,21 +1119,6 @@ Partial Class FrmStitchDesign
         Me.VScrollBar1.Size = New System.Drawing.Size(20, 433)
         Me.VScrollBar1.TabIndex = 134
         '
-        'ZoomTrackBar
-        '
-        Me.ZoomTrackBar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ZoomTrackBar.AutoSize = False
-        Me.ZoomTrackBar.LargeChange = 20
-        Me.ZoomTrackBar.Location = New System.Drawing.Point(162, 566)
-        Me.ZoomTrackBar.Maximum = 150
-        Me.ZoomTrackBar.Minimum = 10
-        Me.ZoomTrackBar.Name = "ZoomTrackBar"
-        Me.ZoomTrackBar.Size = New System.Drawing.Size(321, 22)
-        Me.ZoomTrackBar.SmallChange = 10
-        Me.ZoomTrackBar.TabIndex = 138
-        Me.ZoomTrackBar.TickFrequency = 20
-        Me.ZoomTrackBar.Value = 100
-        '
         'SplitContainer1
         '
         Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -1162,39 +1143,12 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1.SplitterDistance = 128
         Me.SplitContainer1.TabIndex = 136
         '
-        'BtnZoomOut
-        '
-        Me.BtnZoomOut.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnZoomOut.BackColor = System.Drawing.Color.White
-        Me.BtnZoomOut.BackgroundImage = Global.MyStitch.My.Resources.Resources.minus
-        Me.BtnZoomOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnZoomOut.Location = New System.Drawing.Point(139, 566)
-        Me.BtnZoomOut.Name = "BtnZoomOut"
-        Me.BtnZoomOut.Size = New System.Drawing.Size(20, 20)
-        Me.BtnZoomOut.TabIndex = 140
-        Me.BtnZoomOut.UseVisualStyleBackColor = False
-        '
-        'BtnZoomIn
-        '
-        Me.BtnZoomIn.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnZoomIn.BackColor = System.Drawing.Color.White
-        Me.BtnZoomIn.BackgroundImage = Global.MyStitch.My.Resources.Resources.plus
-        Me.BtnZoomIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnZoomIn.Location = New System.Drawing.Point(489, 566)
-        Me.BtnZoomIn.Name = "BtnZoomIn"
-        Me.BtnZoomIn.Size = New System.Drawing.Size(20, 20)
-        Me.BtnZoomIn.TabIndex = 139
-        Me.BtnZoomIn.UseVisualStyleBackColor = False
-        '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(858, 644)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.BtnZoomOut)
-        Me.Controls.Add(Me.BtnZoomIn)
-        Me.Controls.Add(Me.ZoomTrackBar)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1213,7 +1167,6 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ZoomTrackBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1306,9 +1259,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HScrollBar1 As HScrollBar
     Friend WithEvents VScrollBar1 As VScrollBar
-    Friend WithEvents ZoomTrackBar As TrackBar
-    Friend WithEvents BtnZoomIn As Button
-    Friend WithEvents BtnZoomOut As Button
     Friend WithEvents BtnHeight As ToolStripButton
     Friend WithEvents BtnCentre As ToolStripButton
     Friend WithEvents BtnClose As ToolStripButton

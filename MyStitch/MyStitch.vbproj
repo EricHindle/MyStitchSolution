@@ -123,6 +123,7 @@
     <Compile Include="Domain\Objects\ProjectDesign.vb" />
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
     <Compile Include="Design\FrmStitchDesign.vb">
