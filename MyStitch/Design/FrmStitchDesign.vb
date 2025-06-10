@@ -69,8 +69,6 @@ Public Class FrmStitchDesign
     Private oSelectedBackstitchIndex As Integer
     Private oSelectedBackstitchThread As Thread
 
-
-
     Dim _bsPen As New Pen(Brushes.Black)
     Dim _fromCellLocation_x As Integer
     Dim _fromCellLocation_y As Integer
@@ -125,7 +123,6 @@ Public Class FrmStitchDesign
         ToggleGrid()
     End Sub
 
-
     Private Sub Palette_Click(sender As Object, e As EventArgs)
         For Each _control As Control In FlowLayoutPanel1.Controls
 
@@ -145,10 +142,8 @@ Public Class FrmStitchDesign
         LblCurrentColour.Text = oCurrentThread.ColourName & " : DMC " & CStr(oCurrentThread.ThreadNo)
     End Sub
 
-
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
         Dim isImageChanged As Boolean = False
-
 
         Dim _cell As Cell = FindCellFromClickLocation(e)
 
@@ -195,7 +190,6 @@ Public Class FrmStitchDesign
             End If
         Else
             LogUtil.Debug("Create stitch", MyBase.Name)
-
 
             Select Case oCurrentAction
                 Case DesignAction.BackstitchFullThick
@@ -264,7 +258,6 @@ Public Class FrmStitchDesign
         Dim _cellQtr As BlockQuarter = _cell.StitchQuarter
         Dim _knotqtr As BlockQuarter = _cell.KnotQtr
         Dim _knotPos As Point = _cell.KnotCellPos
-
 
         LblCursorPos.Text = "X:" & CStr(_cellPos.X + 1) & ", Y:" & CStr(_cellPos.Y + 1)
         PnlPixelColour.BackColor = GetPixelColour(e)
@@ -731,8 +724,6 @@ Public Class FrmStitchDesign
         RedrawDesign()
     End Sub
 
-
-
     Private Sub ZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuZoom.Click
 
     End Sub
@@ -828,8 +819,13 @@ Public Class FrmStitchDesign
                                 oCurrentAction = DesignAction.BlockstitchQuarters
     End Sub
     Private Sub InitialisePalette()
-        oProjectThreads = GetThreadsForProject(oProject.ProjectId)
-        For Each _thread As Thread In oProjectThreads
+        FlowLayoutPanel1.Controls.Clear()
+        Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
+        oProjectThreads = New List(Of Thread)
+
+        For Each _projectThread As ProjectThread In _projectThreads
+            Dim _thread As Thread = _projectThread.Thread
+            oProjectThreads.Add(_thread)
             Dim _picThread As New PictureBox()
             With _picThread
                 .Name = CStr(_thread.ThreadId)
@@ -839,7 +835,12 @@ Public Class FrmStitchDesign
                 Dim tt As New ToolTip
                 tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
                 AddHandler .Click, AddressOf Palette_Click
-
+                If _projectThread.SymbolId > 0 Then
+                    If My.Settings.PaletteStitchDisplay = StitchDisplayStyle.BlocksWithSymbols Then
+                        .Image = GetSymbolById(_projectThread.SymbolId).SymbolImage
+                        .SizeMode = PictureBoxSizeMode.Zoom
+                    End If
+                End If
             End With
             FlowLayoutPanel1.Controls.Add(_picThread)
         Next
@@ -1159,7 +1160,6 @@ Public Class FrmStitchDesign
         For Each _blockQtr As BlockStitchQuarter In pBlockStitch.Quarters
             DrawQtrBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
         Next
-
     End Sub
     Private Sub DrawQtrBlockStitch(pBlockQtr As BlockStitchQuarter, pX As Integer, pY As Integer)
 
@@ -1406,10 +1406,9 @@ Public Class FrmStitchDesign
         Using _stitchStyle As New FrmStitchDisplayStyle
             _stitchStyle.ShowDialog()
         End Using
-        RedrawDesign
+        RedrawDesign()
+        InitialisePalette()
     End Sub
-
-
 
 #End Region
 End Class

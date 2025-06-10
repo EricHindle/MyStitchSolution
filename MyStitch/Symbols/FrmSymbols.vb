@@ -7,9 +7,9 @@
 Imports System.IO
 Imports HindlewareLib.Imaging.ImageUtil
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Public Class FrmSymbols
 #Region "properties"
 
@@ -22,6 +22,7 @@ Public Class FrmSymbols
     Private oLoadedSymbol As Image
     Private iSelectedSymbolId As Integer
     Private oSelectedSymbol As New Symbol
+    Private pbSelectedSymbol As PictureBox = Nothing
 #End Region
 #Region "handlers"
     Private fullFilename As String
@@ -50,7 +51,6 @@ Public Class FrmSymbols
         SetButtons()
     End Sub
 
-
     Private Sub FrmSymbols_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Symbols", MyBase.Name)
         InitialiseForm()
@@ -71,12 +71,18 @@ Public Class FrmSymbols
     Private Sub InitialiseForm()
         isLoading = True
         GetFormPos(Me, My.Settings.SymbolsFormPos)
-        LoadSymbols()
+        LoadSymbols(FlpSymbols)
         SetButtons()
         isLoading = False
     End Sub
-
-
+    Public Sub LoadSymbols(ByRef pFlp As FlowLayoutPanel)
+        ClearSymbolTable(pFlp)
+        Dim _symbols As List(Of Symbol) = GetAllSymbols()
+        For Each _symbol As Symbol In _symbols
+            Dim _picBox As PictureBox = AddSymbolToTable(pFlp, _symbol)
+            AddHandler _picBox.Click, AddressOf Symbol_Click
+        Next
+    End Sub
     Private Sub SetButtons()
 
         BtnAddSymbol.Enabled = isSourceSymbolLoaded
@@ -84,38 +90,12 @@ Public Class FrmSymbols
         BtnReplace.Enabled = oSelectedSymbol.IsLoaded AndAlso isSourceSymbolLoaded
 
     End Sub
-
-    Private Sub LoadSymbols()
-        ClearSymbolTable()
-        Dim _symbols As List(Of Symbol) = GetAllSymbols()
-        For Each _symbol As Symbol In _symbols
-            AddSymbolToTable(_symbol)
-        Next
-    End Sub
-
-    Private Sub AddSymbolToTable(_symbol As Symbol)
-        Dim _picSymbol As New PictureBox()
-        With _picSymbol
-            .Name = CStr(_symbol.SymbolId)
-            .Size = New Size(28, 28)
-            .BackColor = Color.White
-            .BorderStyle = BorderStyle.FixedSingle
-            .Image = _symbol.SymbolImage
-            .SizeMode = PictureBoxSizeMode.Zoom
-            AddHandler .Click, AddressOf Symbol_Click
-        End With
-        FlpSymbols.Controls.Add(_picSymbol)
-    End Sub
-    Private Sub ClearSymbolTable()
-        FlpSymbols.Controls.Clear()
-    End Sub
-
     Private Sub BtnAddSymbol_Click(sender As Object, e As EventArgs) Handles BtnAddSymbol.Click
         If isSourceSymbolLoaded Then
             Dim _newSymbol As Symbol = SymbolBuilder.ASymbol.StartingWithNothing.WithSymbolBytes(ConvertImageToBytes(oLoadedSymbol)).Build
             Dim _symbolId As Integer = InsertSymbol(_newSymbol)
             _newSymbol.SymbolId = _symbolId
-            AddSymbolToTable(_newSymbol)
+            AddSymbolToTable(FlpSymbols, _newSymbol)
             ClearForm()
         End If
     End Sub
@@ -138,11 +118,20 @@ Public Class FrmSymbols
         oSelectedSymbol = New Symbol
         LblImageId.Text = String.Empty
         PicSelectedSymbol.Image = Nothing
+        If pbSelectedSymbol IsNot Nothing Then
+            pbSelectedSymbol.BackColor = Color.White
+        End If
+        pbSelectedSymbol = Nothing
         SetButtons()
     End Sub
 
     Private Sub Symbol_Click(sender As Object, e As EventArgs)
         Dim _picBox As PictureBox = CType(sender, PictureBox)
+        If pbSelectedSymbol IsNot Nothing Then
+            pbSelectedSymbol.BackColor = Color.White
+        End If
+        pbSelectedSymbol = _picBox
+        pbSelectedSymbol.BackColor = Color.LightGreen
         iSelectedSymbolId = CInt(_picBox.Name)
         oSelectedSymbol = GetSymbolById(iSelectedSymbolId)
         PicSelectedSymbol.Image = oSelectedSymbol.SymbolImage
@@ -161,7 +150,7 @@ Public Class FrmSymbols
     Private Sub BtnRemove_Click(sender As Object, e As EventArgs) Handles BtnRemove.Click
         If iSelectedSymbolId > 0 Then
             DeleteSymbol(iSelectedSymbolId)
-            LoadSymbols()
+            LoadSymbols(FlpSymbols)
             ClearSelectedSymbol()
         End If
     End Sub
@@ -170,12 +159,11 @@ Public Class FrmSymbols
         If isSourceSymbolLoaded And iSelectedSymbolId > 0 Then
             Dim _newSymbol As Symbol = SymbolBuilder.ASymbol.StartingWith(oSelectedSymbol).WithSymbolBytes(ConvertImageToBytes(oLoadedSymbol)).Build
             UpdateSymbol(_newSymbol)
-            LoadSymbols()
+            LoadSymbols(FlpSymbols)
             ClearForm()
         End If
 
     End Sub
-
 
 #End Region
 End Class

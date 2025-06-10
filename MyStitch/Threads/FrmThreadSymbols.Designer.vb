@@ -5,12 +5,12 @@
 ' Author Eric Hindle
 '
 
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmThreadSymbols
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -27,7 +27,7 @@ Partial Class FrmThreadSymbols
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -43,34 +43,41 @@ Partial Class FrmThreadSymbols
         Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.threadimage = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.threadimageid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadsymbol = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.threadsymbolid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.LblProjectName = New System.Windows.Forms.Label()
+        Me.BtnClearSymbol = New System.Windows.Forms.Button()
         Me.PnlThreads.SuspendLayout()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'FlpSymbols
         '
-        Me.FlpSymbols.Location = New System.Drawing.Point(598, 69)
+        Me.FlpSymbols.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlpSymbols.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.FlpSymbols.Location = New System.Drawing.Point(420, 12)
         Me.FlpSymbols.Name = "FlpSymbols"
-        Me.FlpSymbols.Size = New System.Drawing.Size(200, 395)
+        Me.FlpSymbols.Size = New System.Drawing.Size(433, 516)
         Me.FlpSymbols.TabIndex = 161
         '
         'BtnAuto
         '
+        Me.BtnAuto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnAuto.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnAuto.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnAuto.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnAuto.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAuto.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAuto.Location = New System.Drawing.Point(52, 500)
+        Me.BtnAuto.Location = New System.Drawing.Point(12, 554)
         Me.BtnAuto.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAuto.Name = "BtnAuto"
-        Me.BtnAuto.Size = New System.Drawing.Size(80, 40)
+        Me.BtnAuto.Size = New System.Drawing.Size(102, 37)
         Me.BtnAuto.TabIndex = 160
-        Me.BtnAuto.Text = "Auto"
+        Me.BtnAuto.Text = "Auto Allocate"
         Me.BtnAuto.UseVisualStyleBackColor = False
         '
         'BtnUpdate
@@ -79,14 +86,14 @@ Partial Class FrmThreadSymbols
         Me.BtnUpdate.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(196, 489)
+        Me.BtnUpdate.Location = New System.Drawing.Point(594, 535)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
-        Me.BtnUpdate.Size = New System.Drawing.Size(106, 40)
+        Me.BtnUpdate.Size = New System.Drawing.Size(106, 59)
         Me.BtnUpdate.TabIndex = 159
-        Me.BtnUpdate.Text = "Update"
+        Me.BtnUpdate.Text = "Apply Changes"
         Me.BtnUpdate.UseVisualStyleBackColor = False
         '
         'BtnClose
@@ -107,25 +114,22 @@ Partial Class FrmThreadSymbols
         '
         'PnlThreads
         '
-        Me.PnlThreads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlThreads.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PnlThreads.Controls.Add(Me.DgvThreads)
         Me.PnlThreads.Controls.Add(Me.Label7)
-        Me.PnlThreads.Location = New System.Drawing.Point(12, 12)
+        Me.PnlThreads.Location = New System.Drawing.Point(12, 42)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(400, 423)
+        Me.PnlThreads.Size = New System.Drawing.Size(402, 486)
         Me.PnlThreads.TabIndex = 157
-        Me.PnlThreads.Visible = False
         '
         'DgvThreads
         '
         Me.DgvThreads.AllowUserToAddRows = False
         Me.DgvThreads.AllowUserToDeleteRows = False
         Me.DgvThreads.AllowUserToResizeRows = False
-        Me.DgvThreads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvThreads.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DgvThreads.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -137,7 +141,7 @@ Partial Class FrmThreadSymbols
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadimage, Me.threadimageid})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadsymbol, Me.threadsymbolid})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -147,7 +151,7 @@ Partial Class FrmThreadSymbols
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DgvThreads.DefaultCellStyle = DataGridViewCellStyle2
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.DgvThreads.Location = New System.Drawing.Point(13, 41)
+        Me.DgvThreads.Location = New System.Drawing.Point(0, 41)
         Me.DgvThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.DgvThreads.MultiSelect = False
         Me.DgvThreads.Name = "DgvThreads"
@@ -159,7 +163,7 @@ Partial Class FrmThreadSymbols
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(375, 378)
+        Me.DgvThreads.Size = New System.Drawing.Size(398, 441)
         Me.DgvThreads.TabIndex = 140
         '
         'threadId
@@ -202,28 +206,28 @@ Partial Class FrmThreadSymbols
         Me.threadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.threadColour.Width = 60
         '
-        'threadimage
+        'threadsymbol
         '
-        Me.threadimage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.threadimage.HeaderText = "*"
-        Me.threadimage.Name = "threadimage"
-        Me.threadimage.ReadOnly = True
-        Me.threadimage.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.threadimage.Width = 30
+        Me.threadsymbol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadsymbol.HeaderText = "*"
+        Me.threadsymbol.Name = "threadsymbol"
+        Me.threadsymbol.ReadOnly = True
+        Me.threadsymbol.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.threadsymbol.Width = 32
         '
-        'threadimageid
+        'threadsymbolid
         '
-        Me.threadimageid.HeaderText = "imageid"
-        Me.threadimageid.Name = "threadimageid"
-        Me.threadimageid.ReadOnly = True
-        Me.threadimageid.Visible = False
+        Me.threadsymbolid.HeaderText = "symbolid"
+        Me.threadsymbolid.Name = "threadsymbolid"
+        Me.threadsymbolid.ReadOnly = True
+        Me.threadsymbolid.Visible = False
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label7.Location = New System.Drawing.Point(9, 10)
+        Me.Label7.Location = New System.Drawing.Point(4, 14)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(98, 23)
@@ -238,11 +242,41 @@ Partial Class FrmThreadSymbols
         Me.StatusStrip1.TabIndex = 162
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'LblProjectName
+        '
+        Me.LblProjectName.AutoSize = True
+        Me.LblProjectName.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblProjectName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.LblProjectName.Location = New System.Drawing.Point(8, 9)
+        Me.LblProjectName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblProjectName.Name = "LblProjectName"
+        Me.LblProjectName.Size = New System.Drawing.Size(152, 23)
+        Me.LblProjectName.TabIndex = 163
+        Me.LblProjectName.Text = "Project Name"
+        '
+        'BtnClearSymbol
+        '
+        Me.BtnClearSymbol.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnClearSymbol.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClearSymbol.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClearSymbol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClearSymbol.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClearSymbol.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClearSymbol.Location = New System.Drawing.Point(132, 554)
+        Me.BtnClearSymbol.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClearSymbol.Name = "BtnClearSymbol"
+        Me.BtnClearSymbol.Size = New System.Drawing.Size(102, 37)
+        Me.BtnClearSymbol.TabIndex = 164
+        Me.BtnClearSymbol.Text = "Clear Symbol"
+        Me.BtnClearSymbol.UseVisualStyleBackColor = False
+        '
         'FrmThreadSymbols
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(866, 627)
+        Me.Controls.Add(Me.BtnClearSymbol)
+        Me.Controls.Add(Me.LblProjectName)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.FlpSymbols)
         Me.Controls.Add(Me.BtnAuto)
@@ -266,13 +300,15 @@ Partial Class FrmThreadSymbols
     Friend WithEvents BtnClose As Button
     Friend WithEvents PnlThreads As Panel
     Friend WithEvents DgvThreads As DataGridView
+    Friend WithEvents Label7 As Label
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents LblProjectName As Label
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
     Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
-    Friend WithEvents threadimage As DataGridViewImageColumn
-    Friend WithEvents threadimageid As DataGridViewTextBoxColumn
-    Friend WithEvents Label7 As Label
-    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents threadsymbol As DataGridViewImageColumn
+    Friend WithEvents threadsymbolid As DataGridViewTextBoxColumn
+    Friend WithEvents BtnClearSymbol As Button
 End Class

@@ -479,6 +479,15 @@ Namespace Domain
             End Try
             Return _projectThread
         End Function
+        Public Function UpdateProjectThreadSymbolId(pProjectId As Integer, pThreadId As Integer, pSymbolId As Integer) As Boolean
+            Dim isOk As Boolean
+            Try
+                isOk = oProjectThreadTa.UpdateProjectThreadSymbolId(pProjectId, pThreadId, pSymbolId) = 1
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return isOk
+        End Function
         Public Function DeleteProjectThreadsForProject(pProjectId As Integer)
             LogUtil.LogInfo("Deleting threads for project " & CStr(pProjectId), MethodBase.GetCurrentMethod.Name)
             Dim response As Integer

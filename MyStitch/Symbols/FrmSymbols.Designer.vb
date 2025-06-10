@@ -29,6 +29,7 @@ Partial Class FrmSymbols
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmSymbols))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -47,6 +48,7 @@ Partial Class FrmSymbols
         Me.LblImageId = New System.Windows.Forms.Label()
         Me.BtnClearSelected = New System.Windows.Forms.Button()
         Me.BtnClearLoaded = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PicSymbolSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicSelectedSymbol, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,6 +144,7 @@ Partial Class FrmSymbols
         Me.BtnImageSel.Name = "BtnImageSel"
         Me.BtnImageSel.Size = New System.Drawing.Size(37, 40)
         Me.BtnImageSel.TabIndex = 164
+        Me.ToolTip1.SetToolTip(Me.BtnImageSel, "Select image file ")
         Me.BtnImageSel.UseVisualStyleBackColor = True
         '
         'Label2
@@ -227,6 +230,7 @@ Partial Class FrmSymbols
         '
         'LblImageId
         '
+        Me.LblImageId.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LblImageId.AutoSize = True
         Me.LblImageId.Font = New System.Drawing.Font("Tahoma", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblImageId.Location = New System.Drawing.Point(571, 52)
@@ -317,4 +321,5 @@ Partial Class FrmSymbols
     Friend WithEvents LblImageId As Label
     Friend WithEvents BtnClearSelected As Button
     Friend WithEvents BtnClearLoaded As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
