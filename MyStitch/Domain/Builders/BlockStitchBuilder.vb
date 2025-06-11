@@ -16,6 +16,13 @@ Public Class BlockStitchBuilder
         _quarters = New List(Of BlockStitchQuarter)
         Return Me
     End Function
+    Public Function StartingWith(pBs As BlockStitch) As BlockStitchBuilder
+        With pBs
+            _blockLoc = .BlockLocation
+            _quarters = .Quarters
+        End With
+        Return Me
+    End Function
     Public Function WithLocation(pLoc As Point) As BlockStitchBuilder
         _blockLoc = pLoc
         Return Me

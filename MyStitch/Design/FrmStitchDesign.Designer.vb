@@ -130,6 +130,9 @@ Partial Class FrmStitchDesign
         Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.LblSelectMessage = New System.Windows.Forms.Label()
+        Me.LblSelection = New System.Windows.Forms.Label()
+        Me.MnuClearSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -247,7 +250,7 @@ Partial Class FrmStitchDesign
         '
         'MnuEdit
         '
-        Me.MnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCopySelection, Me.MnuMoveSelection, Me.MnuCutSelection, Me.MnuPaste, Me.ToolStripSeparator9, Me.MnuFlipSelection, Me.MnuMirrorSelection, Me.MnuRotate, Me.ToolStripSeparator10, Me.MnuClearArea})
+        Me.MnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCopySelection, Me.MnuMoveSelection, Me.MnuCutSelection, Me.MnuPaste, Me.ToolStripSeparator9, Me.MnuFlipSelection, Me.MnuMirrorSelection, Me.MnuRotate, Me.ToolStripSeparator10, Me.MnuClearArea, Me.MnuClearSelection})
         Me.MnuEdit.Name = "MnuEdit"
         Me.MnuEdit.Size = New System.Drawing.Size(39, 20)
         Me.MnuEdit.Text = "Edit"
@@ -255,43 +258,43 @@ Partial Class FrmStitchDesign
         'MnuCopySelection
         '
         Me.MnuCopySelection.Name = "MnuCopySelection"
-        Me.MnuCopySelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuCopySelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuCopySelection.Text = "Copy"
         '
         'MnuMoveSelection
         '
         Me.MnuMoveSelection.Name = "MnuMoveSelection"
-        Me.MnuMoveSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuMoveSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuMoveSelection.Text = "Move"
         '
         'MnuCutSelection
         '
         Me.MnuCutSelection.Name = "MnuCutSelection"
-        Me.MnuCutSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuCutSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuCutSelection.Text = "Cut"
         '
         'MnuPaste
         '
         Me.MnuPaste.Name = "MnuPaste"
-        Me.MnuPaste.Size = New System.Drawing.Size(128, 22)
+        Me.MnuPaste.Size = New System.Drawing.Size(180, 22)
         Me.MnuPaste.Text = "Paste"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(125, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(177, 6)
         '
         'MnuFlipSelection
         '
         Me.MnuFlipSelection.Name = "MnuFlipSelection"
-        Me.MnuFlipSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuFlipSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuFlipSelection.Text = "Flip"
         '
         'MnuMirrorSelection
         '
         Me.MnuMirrorSelection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerticalToolStripMenuItem, Me.HorizontalToolStripMenuItem})
         Me.MnuMirrorSelection.Name = "MnuMirrorSelection"
-        Me.MnuMirrorSelection.Size = New System.Drawing.Size(128, 22)
+        Me.MnuMirrorSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuMirrorSelection.Text = "Mirror"
         '
         'VerticalToolStripMenuItem
@@ -309,18 +312,18 @@ Partial Class FrmStitchDesign
         'MnuRotate
         '
         Me.MnuRotate.Name = "MnuRotate"
-        Me.MnuRotate.Size = New System.Drawing.Size(128, 22)
+        Me.MnuRotate.Size = New System.Drawing.Size(180, 22)
         Me.MnuRotate.Text = "Rotate"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(125, 6)
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(177, 6)
         '
         'MnuClearArea
         '
         Me.MnuClearArea.Name = "MnuClearArea"
-        Me.MnuClearArea.Size = New System.Drawing.Size(128, 22)
+        Me.MnuClearArea.Size = New System.Drawing.Size(180, 22)
         Me.MnuClearArea.Text = "Clear Area"
         '
         'MnuDraw
@@ -369,42 +372,42 @@ Partial Class FrmStitchDesign
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuTools
@@ -460,6 +463,8 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.Controls.Add(Me.LblCurrentColour, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.LblCursorPos, 5, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PnlPixelColour, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.LblSelectMessage, 4, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.LblSelection, 5, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 594)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -549,6 +554,7 @@ Partial Class FrmStitchDesign
         '
         Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(124, 532)
@@ -1158,6 +1164,36 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1.SplitterDistance = 128
         Me.SplitContainer1.TabIndex = 136
         '
+        'LblSelectMessage
+        '
+        Me.LblSelectMessage.AutoSize = True
+        Me.LblSelectMessage.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblSelectMessage.Location = New System.Drawing.Point(509, 29)
+        Me.LblSelectMessage.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblSelectMessage.Name = "LblSelectMessage"
+        Me.LblSelectMessage.Size = New System.Drawing.Size(106, 14)
+        Me.LblSelectMessage.TabIndex = 7
+        Me.LblSelectMessage.Text = "No cells selected"
+        Me.LblSelectMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LblSelection
+        '
+        Me.LblSelection.AutoSize = True
+        Me.LblSelection.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblSelection.Location = New System.Drawing.Point(684, 29)
+        Me.LblSelection.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblSelection.Name = "LblSelection"
+        Me.LblSelection.Size = New System.Drawing.Size(104, 14)
+        Me.LblSelection.TabIndex = 8
+        Me.LblSelection.Text = "From 0,0 To 0,0"
+        Me.LblSelection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MnuClearSelection
+        '
+        Me.MnuClearSelection.Name = "MnuClearSelection"
+        Me.MnuClearSelection.Size = New System.Drawing.Size(180, 22)
+        Me.MnuClearSelection.Text = "Clear Selection"
+        '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1296,4 +1332,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuPrintThreadCards As ToolStripMenuItem
     Friend WithEvents VerticalToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HorizontalToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LblSelectMessage As Label
+    Friend WithEvents MnuClearSelection As ToolStripMenuItem
+    Friend WithEvents LblSelection As Label
 End Class

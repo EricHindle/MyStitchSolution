@@ -24,6 +24,16 @@ Public Class KnotBuilder
         _thread = New Thread
         Return Me
     End Function
+    Public Function StartingWith(pKnot As Knot) As KnotBuilder
+        With pKnot
+            _blockLoc = .BlockLocation
+            _blockQtr = .BlockQuarter
+            _strands = .Strands
+            _thread = .Thread
+            _isBead = .IsBead
+        End With
+        Return Me
+    End Function
     Public Function WithBlockLocation(pLoc As Point) As KnotBuilder
         _blockLoc = pLoc
         Return Me

@@ -138,13 +138,13 @@ Public Class FrmThreadSymbols
         Return oRow
     End Function
 
-    Private Function SetThreadImageInRow(pSymbolId As Integer, ByRef pRow As DataGridViewRow)
+    Private Sub SetThreadImageInRow(pSymbolId As Integer, ByRef pRow As DataGridViewRow)
         Dim symcell As DataGridViewImageCell = CType(pRow.Cells(threadsymbol.Name), DataGridViewImageCell)
         Dim _symbol As Symbol = GetSymbolById(pSymbolId)
         symcell.Style.Padding = New Padding(1)
         symcell.Value = ResizeImage(_symbol.SymbolImage, symcell.Size.Height, symcell.Size.Height)
         pRow.Cells(threadsymbolid.Name).Value = pSymbolId
-    End Function
+    End Sub
 
     Private Function FindSymbolInTable(pSymbolId As Integer) As PictureBox
         Dim _foundSymbol As PictureBox = Nothing

@@ -22,6 +22,7 @@ Public Class FrmStitchDesign
     Private Const PPI As Integer = 72
     Private LINE_PEN As New Pen(Brushes.Black, 1)
     Private oStitchPenWidth As Single = 2
+    Private oSelectionPenWidth As Single = 2
 #End Region
 #Region "properties"
     Private oProjectId As Integer
@@ -48,6 +49,10 @@ Public Class FrmStitchDesign
     Private iOneToOneSize As Size
 
     Private oCurrentAction As DesignAction
+    Private oCurrentSelection(-1) As Point
+    Private oCurrentSelectedBlockStitch As New List(Of BlockStitch)
+    Private oCurrentSelectedKnot As New List(Of Knot)
+
     Private isBlockstitchAction As Boolean
     Private isBackstitchAction As Boolean
     Private isKnotAction As Boolean
@@ -70,6 +75,7 @@ Public Class FrmStitchDesign
     Private oSelectedBackstitchThread As Thread
 
     Dim _bsPen As New Pen(Brushes.Black)
+    Dim _selPen As New Pen(Brushes.Black)
     Dim _fromCellLocation_x As Integer
     Dim _fromCellLocation_y As Integer
     Dim _toCellLocation_x As Integer
@@ -95,6 +101,10 @@ Public Class FrmStitchDesign
         BackStitchHalfThick
         Knot
         Bead
+        Copy
+        Cut
+        Move
+        Paste
         none
     End Enum
 #End Region
@@ -118,11 +128,9 @@ Public Class FrmStitchDesign
     Private Sub FrmStitchDesign_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
         DisplayImage(oDesignBitmap, iXOffset, iYOffset)
     End Sub
-
     Private Sub PicGrid_Click(sender As Object, e As EventArgs) Handles PicGrid.Click
         ToggleGrid()
     End Sub
-
     Private Sub Palette_Click(sender As Object, e As EventArgs)
         For Each _control As Control In FlowLayoutPanel1.Controls
 
@@ -141,14 +149,10 @@ Public Class FrmStitchDesign
         PnlColor.BackColor = oCurrentThread.Colour
         LblCurrentColour.Text = oCurrentThread.ColourName & " : DMC " & CStr(oCurrentThread.ThreadNo)
     End Sub
-
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
         Dim isImageChanged As Boolean = False
-
         Dim _cell As Cell = FindCellFromClickLocation(e)
-
         Dim isRemove As Boolean = e.Button = MouseButtons.Right
-
         If isRemove Then
             LogUtil.Debug("Remove stitch", MyBase.Name)
             If isKnotAction Then
@@ -192,6 +196,10 @@ Public Class FrmStitchDesign
             LogUtil.Debug("Create stitch", MyBase.Name)
 
             Select Case oCurrentAction
+                Case DesignAction.Copy
+                    AreaSelectMouseDown(_cell.Position)
+                Case DesignAction.Paste
+                    PasteMouseDown(_cell.Position)
                 Case DesignAction.BackstitchFullThick
                     BackstitchMouseDown(_cell.KnotCellPos, False, True)
                 Case DesignAction.BackStitchFullThin
@@ -339,6 +347,9 @@ Public Class FrmStitchDesign
 
         End If
         If e.Button = MouseButtons.None Then
+            If isSelectionInProgress Then
+                DrawSelectionInProgress(_cellPos)
+            End If
             If isBackstitchInProgress Then
                 Select Case oCurrentAction
                     Case DesignAction.BackstitchFullThick
@@ -362,7 +373,6 @@ Public Class FrmStitchDesign
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         End If
     End Sub
-
     Private Sub PicDesign_SizeChanged(sender As Object, e As EventArgs) Handles PicDesign.SizeChanged
         If Not isLoading Then
             If oProject IsNot Nothing AndAlso oProjectDesign IsNot Nothing AndAlso oProject.IsLoaded AndAlso oProjectDesign.IsLoaded Then
@@ -381,10 +391,16 @@ Public Class FrmStitchDesign
         rect = New Rectangle(picx, picy, picw, pich)
 
         e.Graphics.DrawImage(oDesignBitmap, atX, atY, rect, GraphicsUnit.Pixel)
-        e.Graphics.DrawLine(_bsPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+        If isBackstitchInProgress Then
+            e.Graphics.DrawLine(_bsPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+        End If
+        If isSelectionInProgress Then
+            Dim _width As Integer = _toCellLocation_x - _fromCellLocation_x + iPpc
+            Dim _height As Integer = _toCellLocation_y - _fromCellLocation_y + iPpc
+            e.Graphics.DrawRectangle(_selPen, _fromCellLocation_x, _fromCellLocation_y, _width, _height)
 
+        End If
     End Sub
-
     Private Sub HScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles HScrollBar1.ValueChanged
         If Not isLoading Then
             Dim _h_change As Integer = (iOldHScrollbarValue - HScrollBar1.Value)
@@ -405,6 +421,16 @@ Public Class FrmStitchDesign
             iOldVScrollbarValue = VScrollBar1.Value
 
         End If
+    End Sub
+    Private Sub MnuZoomIn_Click(sender As Object, e As EventArgs) Handles MnuZoomIn.Click
+        IncreaseMagnification()
+    End Sub
+    Private Sub MnuStitchDisplayStyle_Click(sender As Object, e As EventArgs) Handles MnuStitchDisplayStyle.Click
+        Using _stitchStyle As New FrmStitchDisplayStyle
+            _stitchStyle.ShowDialog()
+        End Using
+        RedrawDesign()
+        InitialisePalette()
     End Sub
 
 #End Region
@@ -634,6 +660,7 @@ Public Class FrmStitchDesign
                 _threadsymbols.SelectedProject = oProject
                 _threadsymbols.ShowDialog()
             End Using
+            InitialisePalette()
         End If
     End Sub
 
@@ -676,8 +703,9 @@ Public Class FrmStitchDesign
 
     End Sub
 
-    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuCopySelection.Click
-
+    Private Sub MnuCopySelection_Click(sender As Object, e As EventArgs) Handles MnuCopySelection.Click
+        oCurrentAction = DesignAction.Copy
+        LblSelectMessage.Text = "Select area to copy"
     End Sub
 
     Private Sub MoveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuMoveSelection.Click
@@ -688,8 +716,9 @@ Public Class FrmStitchDesign
 
     End Sub
 
-    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuPaste.Click
-
+    Private Sub MnuPaste_Click(sender As Object, e As EventArgs) Handles MnuPaste.Click
+        LblSelectMessage.Text = "Select location to paste"
+        oCurrentAction = DesignAction.Paste
     End Sub
 
     Private Sub FlipToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuFlipSelection.Click
@@ -821,6 +850,7 @@ Public Class FrmStitchDesign
     Private Sub InitialisePalette()
         FlowLayoutPanel1.Controls.Clear()
         Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
+        _projectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
         oProjectThreads = New List(Of Thread)
 
         For Each _projectThread As ProjectThread In _projectThreads
@@ -969,6 +999,11 @@ Public Class FrmStitchDesign
             Next
         End If
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
+        If oCurrentSelection.Length > 0 Then
+            Dim _width As Integer = (oCurrentSelection(1).X - oCurrentSelection(0).X) * iPpc
+            Dim _height As Integer = (oCurrentSelection(1).Y - oCurrentSelection(0).Y) * iPpc
+            oDesignGraphics.DrawRectangle(_selPen, oCurrentSelection(0).X * iPpc, oCurrentSelection(0).Y * iPpc, _width, _height)
+        End If
         FillGrid()
     End Sub
     Private Sub FillGrid()
@@ -1049,6 +1084,106 @@ Public Class FrmStitchDesign
         BtnBead.BackgroundImage = My.Resources.BtnBkgrd
 
     End Sub
+    Private Sub AreaSelectMouseDown(pPosition As Point)
+        If isSelectionInProgress Then
+            LogUtil.Debug("MouseDown selection in progress", MyBase.Name)
+            EndSelection(pPosition)
+        Else
+            LogUtil.Debug("MouseDown selection NOT in progress", MyBase.Name)
+            StartSelection(pPosition)
+        End If
+    End Sub
+    Private Sub PasteMouseDown(pPosition As Point)
+        If oCurrentSelection.Length > 0 Then
+            Dim _xChange As Integer = pPosition.X - oCurrentSelection(0).X
+            Dim _yChange As Integer = pPosition.Y - oCurrentSelection(0).Y
+            Dim _newProjectDesign As ProjectDesign = oProjectDesign
+            If oCurrentSelectedBlockStitch.Count > 0 Then
+                For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
+                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithLocation(New Point(_bs.BlockLocation.X + _xChange, _bs.BlockLocation.Y + _yChange)).Build
+                    AddBlockStitch(_newProjectDesign, _newBs)
+                Next
+            End If
+            If oCurrentSelectedKnot.Count > 0 Then
+                For Each _knot As Knot In oCurrentSelectedKnot
+                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithBlockLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                    AddKnot(_newProjectDesign, _newKnot)
+                Next
+            End If
+            oProjectDesign = _newProjectDesign
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap)
+        End If
+        oCurrentAction = DesignAction.none
+    End Sub
+    Private Sub StartSelection(pCellLocation As Point)
+        LogUtil.Debug("Starting selection", MyBase.Name)
+        oInProgressAnchor = pCellLocation
+        oInProgressTerminus = New Point(pCellLocation.X, pCellLocation.Y)
+        isSelectionInProgress = True
+        SelectionMessage("Selection in progress")
+        LogUtil.Debug("Backstitch IS in progress", MyBase.Name)
+    End Sub
+
+    Private Sub SelectionMessage(pText As String)
+        LblSelectMessage.Text = pText
+        If pText = String.Empty Then
+            LblSelection.Text = String.Empty
+        Else
+            LblSelection.Text = "From " & oInProgressAnchor.X & "," & oInProgressAnchor.Y & "  To " & oInProgressTerminus.X & "," & oInProgressTerminus.Y
+        End If
+    End Sub
+
+    Private Sub EndSelection(pCellLocation As Point)
+        LogUtil.Debug("Ending selection", MyBase.Name)
+        If isSelectionInProgress Then
+            If oCurrentAction = DesignAction.Cut Then
+                '      CutCells(oCurrentSelectedCells)
+            End If
+            If oCurrentAction = DesignAction.Paste Then
+                '        PasteCells(oCurrentSelectedCells, oInProgressAnchor)
+            End If
+            oInProgressTerminus = pCellLocation
+            oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
+            GetSelectedCells()
+            isSelectionInProgress = False
+            SelectionMessage("Selection complete")
+            oCurrentAction = DesignAction.none
+        Else
+            LogUtil.Debug("Ending backstitch - error not in progress", MyBase.Name)
+        End If
+    End Sub
+    Private Sub DrawSelectionInProgress(pCell As Point)
+        oInProgressTerminus = New Point(pCell.X - 1, pCell.Y - 1)
+        oSelectionPenWidth = Math.Max(2, iPpc / 16)
+        _fromCellLocation_x = (oInProgressAnchor.X + iXOffset - topcorner.X) * iPpc
+        _fromCellLocation_y = (oInProgressAnchor.Y + iYOffset - topcorner.Y) * iPpc
+        _toCellLocation_x = (oInProgressTerminus.X + iXOffset - topcorner.X) * iPpc
+        _toCellLocation_y = (oInProgressTerminus.Y + iYOffset - topcorner.Y) * iPpc
+        Dim _selPenColour As Color = Color.Black
+        _selPen = New Pen(_selPenColour, oStitchPenWidth)
+        PicDesign.Invalidate()
+    End Sub
+    Private Sub GetSelectedCells()
+        Dim _from_x As Integer = oCurrentSelection(0).X
+        Dim _from_y As Integer = oCurrentSelection(0).Y
+        Dim _to_x As Integer = oCurrentSelection(1).X
+        Dim _to_y As Integer = oCurrentSelection(1).Y
+        oCurrentSelectedBlockStitch = New List(Of BlockStitch)
+        For Each _bs As BlockStitch In oProjectDesign.BlockStitches
+            If _bs.BlockLocation.X >= _from_x And _bs.BlockLocation.X <= _to_x _
+                And _bs.BlockLocation.Y >= _from_y And _bs.BlockLocation.Y <= _to_y Then
+                oCurrentSelectedBlockStitch.Add(_bs)
+            End If
+        Next
+        oCurrentSelectedKnot = New List(Of Knot)
+        For Each _knot In oProjectDesign.Knots
+            If _knot.BlockLocation.X >= _from_x And _knot.BlockLocation.X <= _to_x _
+                And _knot.BlockLocation.Y >= _from_y And _knot.BlockLocation.Y <= _to_y Then
+                oCurrentSelectedKnot.Add(_knot)
+            End If
+        Next
+    End Sub
 #End Region
 #Region "stitch subroutines"
     '
@@ -1088,6 +1223,16 @@ Public Class FrmStitchDesign
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
     End Sub
+    Private Sub AddBlockStitch(pDesign As ProjectDesign, pStitch As BlockStitch)
+        RemoveExistingBlockStitch(pStitch.BlockLocation, pDesign)
+        pDesign.BlockStitches.Add(pStitch)
+    End Sub
+    Private Sub AddKnot(pDesign As ProjectDesign, pKnot As Knot)
+        RemoveExistingKnot(pKnot.BlockLocation, pKnot.BlockQuarter, pDesign)
+        pDesign.Knots.Add(pKnot)
+    End Sub
+
+
     Private Sub AddQuarterBlockstitch(pActionPoint As Point, pQtr As BlockQuarter)
         Dim _existing As BlockStitch = FindBlockstitch(pActionPoint)
         Dim _blockStitchQtrList As New List(Of BlockStitchQuarter)
@@ -1306,6 +1451,7 @@ Public Class FrmStitchDesign
         Next
         Return _exists
     End Function
+
     Private Function FindBlockstitch(pActionPoint As Point) As BlockStitch
         Dim _found As BlockStitch = Nothing
         For Each _blockStitch As BlockStitch In oProjectDesign.BlockStitches
@@ -1320,6 +1466,23 @@ Public Class FrmStitchDesign
         End If
         Return _found
     End Function
+    Private Sub RemoveExistingBlockStitch(pActionPoint As Point, pDesign As ProjectDesign)
+        For Each _blockStitch As BlockStitch In pDesign.BlockStitches
+            If _blockStitch.BlockLocation = pActionPoint Then
+                pDesign.BlockStitches.Remove(_blockStitch)
+                Exit For
+            End If
+        Next
+    End Sub
+    Private Sub RemoveExistingKnot(pActionPoint As Point, pQtr As BlockQuarter, pDesign As ProjectDesign)
+        For Each _knot As Knot In pDesign.Knots
+            If _knot.BlockLocation = pActionPoint And _knot.BlockQuarter = pQtr Then
+                pDesign.Knots.Remove(_knot)
+                Exit For
+            End If
+        Next
+    End Sub
+
     Private Function FindBackstitches(pActionPoint As Point) As List(Of BackStitch)
         Dim _list As New List(Of BackStitch)
         For Each _backStitch As BackStitch In oProjectDesign.BackStitches
@@ -1367,47 +1530,16 @@ Public Class FrmStitchDesign
 
         Return celLocation
     End Function
-    'Private Function FindCellFromClickLocation(e As MouseEventArgs, ByRef pCell As Point, ByRef pQtr As BlockQuarter) As Point
-    '    Dim start_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
-    '    Dim start_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
 
-    '    pCell = New Point(start_x, start_y)
-    '    Dim cel_x As Integer = (start_x) * iPpc
+    Private Sub MnuClearSelection_Click(sender As Object, e As EventArgs) Handles MnuClearSelection.Click
+        isSelectionInProgress = False
+        oInProgressAnchor = New Point(0, 0)
+        oInProgressTerminus = New Point(0, 0)
+        oCurrentSelection = New Point() {}
+        SelectionMessage(String.Empty)
+        DrawGrid(oProject, oProjectDesign)
+        DisplayImage(oDesignBitmap)
 
-    '    Dim cel_y As Integer = (start_y) * iPpc
-
-    '    Dim celLocation As New Point(cel_x, cel_y)
-
-    '    Dim _xrmd As Integer = e.X Mod iPpc
-    '    Dim _yrmd As Integer = e.Y Mod iPpc
-    '    Select Case True
-    '        Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
-    '            '    celLocation = New Point(cel_x, cel_y)
-    '            pQtr = BlockQuarter.TopLeft
-    '        Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
-    '            '     celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
-    '            pQtr = BlockQuarter.BottomRight
-    '        Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
-    '            '     celLocation = New Point(cel_x, cel_y + (iPpc / 2))
-    '            pQtr = BlockQuarter.BottomLeft
-    '        Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
-    '            '      celLocation = New Point(cel_x + (iPpc / 2), cel_y)
-    '            pQtr = BlockQuarter.TopRight
-    '    End Select
-
-    '    Return celLocation
-    'End Function
-
-    Private Sub MnuZoomIn_Click(sender As Object, e As EventArgs) Handles MnuZoomIn.Click
-        IncreaseMagnification()
-    End Sub
-
-    Private Sub MnuStitchDisplayStyle_Click(sender As Object, e As EventArgs) Handles MnuStitchDisplayStyle.Click
-        Using _stitchStyle As New FrmStitchDisplayStyle
-            _stitchStyle.ShowDialog()
-        End Using
-        RedrawDesign()
-        InitialisePalette()
     End Sub
 
 #End Region
