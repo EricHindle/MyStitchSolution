@@ -302,6 +302,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\move.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\paste2.png" />
     <None Include="Resources\imageselect.png" />
     <None Include="Resources\ColrBtnDown.png" />
     <None Include="Resources\gridon.png" />
@@ -329,8 +332,6 @@
     <None Include="Resources\qtrtl.png" />
     <None Include="Resources\qtrbr.png" />
     <None Include="Resources\qtrbl.png" />
-    <None Include="Resources\paste2.png" />
-    <None Include="Resources\move.png" />
     <None Include="Resources\knot.png" />
     <None Include="Resources\halfthinbs.png" />
     <None Include="Resources\halfthickbs.png" />
@@ -341,7 +342,6 @@
     <None Include="Resources\flood.png" />
     <None Include="Resources\enlarge.png" />
     <None Include="Resources\cut.png" />
-    <None Include="Resources\copy.png" />
     <None Include="Resources\3qtrstr.png" />
     <None Include="Resources\3qtrstl.png" />
     <None Include="Resources\3qtrsbr.png" />

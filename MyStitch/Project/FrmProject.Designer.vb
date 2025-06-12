@@ -701,7 +701,7 @@ Partial Class FrmProject
         Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuResizeDesign})
         Me.MnuDesign.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MnuDesign.Name = "MnuDesign"
-        Me.MnuDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDesign.Size = New System.Drawing.Size(157, 22)
         Me.MnuDesign.Text = "Design"
         '
         'MnuOpenDesign
@@ -719,25 +719,25 @@ Partial Class FrmProject
         'MnuThreads
         '
         Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(180, 22)
+        Me.MnuThreads.Size = New System.Drawing.Size(157, 22)
         Me.MnuThreads.Text = "Threads"
         '
         'MnuSymbols
         '
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSymbols.Size = New System.Drawing.Size(157, 22)
         Me.MnuSymbols.Text = "Symbols"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(154, 6)
         '
         'MnuLogging
         '
         Me.MnuLogging.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebugOn})
         Me.MnuLogging.Name = "MnuLogging"
-        Me.MnuLogging.Size = New System.Drawing.Size(180, 22)
+        Me.MnuLogging.Size = New System.Drawing.Size(157, 22)
         Me.MnuLogging.Text = "Logging"
         '
         'MnuShowLog
@@ -757,55 +757,55 @@ Partial Class FrmProject
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
-        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.BackupToolStripMenuItem.Text = "Backup/Restore"
         '
         'MnuBackup
         '
         Me.MnuBackup.Name = "MnuBackup"
-        Me.MnuBackup.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBackup.Size = New System.Drawing.Size(113, 22)
         Me.MnuBackup.Text = "Backup"
         '
         'MnuRestore
         '
         Me.MnuRestore.Name = "MnuRestore"
-        Me.MnuRestore.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRestore.Size = New System.Drawing.Size(113, 22)
         Me.MnuRestore.Text = "Restore"
         '
         'MnuOptions
         '
         Me.MnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.ToolStripSeparator2, Me.MnuUndoOn})
         Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
+        Me.MnuOptions.Size = New System.Drawing.Size(157, 22)
         Me.MnuOptions.Text = "Preferences"
         '
         'MnuPreferences
         '
         Me.MnuPreferences.Name = "MnuPreferences"
-        Me.MnuPreferences.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPreferences.Size = New System.Drawing.Size(135, 22)
         Me.MnuPreferences.Text = "Preferences"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(132, 6)
         '
         'MnuUndoOn
         '
         Me.MnuUndoOn.CheckOnClick = True
         Me.MnuUndoOn.Name = "MnuUndoOn"
-        Me.MnuUndoOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuUndoOn.Size = New System.Drawing.Size(135, 22)
         Me.MnuUndoOn.Text = "Undo On"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(154, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'FrmProject

@@ -115,7 +115,6 @@ Public Class FrmStitchDesign
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening design", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
-
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -142,16 +141,19 @@ Public Class FrmStitchDesign
                 _colourBox.BorderStyle = BorderStyle.None
                 _colourBox.BackgroundImage = Nothing
             End If
-
         Next
         Dim _picBox As PictureBox = CType(sender, PictureBox)
-        _picBox.BorderStyle = BorderStyle.Fixed3D
+        SelectPaletteColour(_picBox)
+    End Sub
 
-        Dim _thread As Thread = CType(oProjectThreads.Find(Function(p) p.ThreadId = CInt(_picBox.Name)), Thread)
+    Private Sub SelectPaletteColour(pPicBox As PictureBox)
+        pPicBox.BorderStyle = BorderStyle.Fixed3D
+        Dim _thread As Thread = CType(oProjectThreads.Find(Function(p) p.ThreadId = CInt(pPicBox.Name)), Thread)
         oCurrentThread = _thread
         PnlColor.BackColor = oCurrentThread.Colour
         LblCurrentColour.Text = oCurrentThread.ColourName & " : DMC " & CStr(oCurrentThread.ThreadNo)
     End Sub
+
     Private Sub MouseDownLeft(e As MouseEventArgs, pCell As Cell)
         If isSelectionInProgress Then
             '       MouseDownLeftSelecting(e, pCell)
@@ -162,7 +164,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub MouseDownRight(e As MouseEventArgs, pCell As Cell)
-        If isSelectionInProgress Then
+        If isSelectionInProgress Or isMoveInProgress Then
             MouseDownRightSelecting()
         Else
         End If
@@ -221,6 +223,8 @@ Public Class FrmStitchDesign
                 oCurrentAction = DesignAction.none
             Case DesignAction.Paste
             Case DesignAction.Move
+                ClearSelection()
+                oCurrentAction = DesignAction.none
             Case DesignAction.Cut
         End Select
     End Sub
@@ -620,6 +624,10 @@ Public Class FrmStitchDesign
 #End Region
 #Region "thread buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
+        SelectFullBlockstitch()
+    End Sub
+
+    Private Sub SelectFullBlockstitch()
         oCurrentAction = DesignAction.FullBlockstitch
         StitchButtonSelected()
         BtnFullStitch.BackgroundImage = My.Resources.BtnBkgrdDown
@@ -753,19 +761,20 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub BtnCopy_Click(sender As Object, e As EventArgs) Handles BtnCopy.Click
-
+        BeginCopy()
     End Sub
 
     Private Sub BtnCut_Click(sender As Object, e As EventArgs) Handles BtnCut.Click
-
+        oCurrentAction = DesignAction.Cut
     End Sub
 
     Private Sub BtnMove_Click(sender As Object, e As EventArgs) Handles BtnMove.Click
-
+        oCurrentAction = DesignAction.Move
     End Sub
 
     Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
-
+        LblSelectMessage.Text = "Select location to paste"
+        oCurrentAction = DesignAction.Paste
     End Sub
 
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
@@ -824,7 +833,7 @@ Public Class FrmStitchDesign
         LogUtil.Info("Design saved to " & _filename, MyBase.Name)
     End Sub
 
-    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
+    Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
 
     End Sub
     Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
@@ -888,8 +897,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MnuCopySelection_Click(sender As Object, e As EventArgs) Handles MnuCopySelection.Click
-        oCurrentAction = DesignAction.Copy
-        LblSelectMessage.Text = "Select area to copy"
+        BeginCopy()
     End Sub
 
     Private Sub MnuMoveSelection_Click(sender As Object, e As EventArgs) Handles MnuMoveSelection.Click
@@ -965,8 +973,8 @@ Public Class FrmStitchDesign
     Private Sub InitialiseForm()
         oProject = GetProjectById(oProjectId)
         SetGridImage()
-        oSelectedBackstitchThread = ThreadBuilder.AThread.StartingWithNothing.WithColour(Color.Red).Build
-        oCurrentAction = DesignAction.none
+        oSelectedBackstitchThread = ThreadBuilder.AThread.StartingWithNothing.WithColour(Color.Black).Build
+        SelectFullBlockstitch()
         SetCurrentActionClass()
         PnlColor.BackColor = SystemColors.Control
         If oProject.IsLoaded Then
@@ -976,7 +984,6 @@ Public Class FrmStitchDesign
                 oProjectDesign.Columns = oProject.DesignWidth
             End If
             InitialisePalette()
-            'Create ImageViewer
             ChangeMagnification(1)
 
             Dim _widthRatio As Decimal = Math.Round(PicDesign.Width / iOneToOneSize.Width, 2, MidpointRounding.AwayFromZero)
@@ -1036,7 +1043,7 @@ Public Class FrmStitchDesign
         Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
         _projectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
         oProjectThreads = New List(Of Thread)
-
+        Dim _firstPicThread As PictureBox = Nothing
         For Each _projectThread As ProjectThread In _projectThreads
             Dim _thread As Thread = _projectThread.Thread
             oProjectThreads.Add(_thread)
@@ -1057,8 +1064,9 @@ Public Class FrmStitchDesign
                 End If
             End With
             FlowLayoutPanel1.Controls.Add(_picThread)
+            _firstPicThread = If(_firstPicThread, _picThread)
         Next
-
+        SelectPaletteColour(_firstPicThread)
     End Sub
     ' Scrollbars
     Private Sub CalculateScrollBarValues()
@@ -1396,6 +1404,10 @@ Public Class FrmStitchDesign
             End If
         Next
 
+    End Sub
+    Private Sub BeginCopy()
+        oCurrentAction = DesignAction.Copy
+        LblSelectMessage.Text = "Select area to copy"
     End Sub
 #End Region
 #Region "stitch subroutines"

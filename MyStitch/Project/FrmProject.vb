@@ -363,6 +363,18 @@ Public Class FrmProject
         End Using
     End Sub
 
+    Private Sub DgvProjects_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvProjects.CellDoubleClick
+        Dim _row As DataGridViewRow = DgvProjects.Rows(e.RowIndex)
+        Dim _projectId As Integer = _row.Cells(projectId.Name).Value
+        _selectedProject = GetProjectById(_projectId)
+        NudDesignHeight.Enabled = False
+        NudDesignWidth.Enabled = False
+        NudOriginX.Enabled = False
+        NudOriginY.Enabled = False
+        OpenProjectDesign()
+
+    End Sub
+
 #End Region
 
 End Class
