@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Runtime.InteropServices
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -40,6 +41,7 @@ Public Class FrmStitchDesign
     Private oProjectDesign As ProjectDesign
 
     Private isLoading As Boolean
+    Private isInitialised As Boolean
     Private leftmargin As Integer
     Private topmargin As Integer
     Private myPrintDoc As New Printing.PrintDocument
@@ -49,6 +51,7 @@ Public Class FrmStitchDesign
     Private iOneToOneSize As Size
 
     Private oCurrentAction As DesignAction
+
     Private oCurrentSelection(-1) As Point
     Private oCurrentSelectedBlockStitch As New List(Of BlockStitch)
     Private oCurrentSelectedKnot As New List(Of Knot)
@@ -180,16 +183,24 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MouseMoveNone(e As MouseEventArgs, pCell As Cell)
         oPasteDestination = pCell.Position
-        Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
-        Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
-        oSelectionPenWidth = Math.Max(2, iPpc / 16)
-        _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPpc
-        _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPpc
-        _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPpc
-        _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPpc
-        Dim _selPenColour As Color = Color.Black
-        _selPen = New Pen(_selPenColour, oStitchPenWidth)
-        PicDesign.Invalidate()
+
+        If oPasteDestination.X >= 0 AndAlso oPasteDestination.Y >= 0 AndAlso
+            oPasteDestination.X < oProject.DesignWidth AndAlso oPasteDestination.Y < oProject.DesignHeight Then
+            Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
+            Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
+            If oCurrentAction = DesignAction.Paste Then
+                _width = oCurrentSelection(1).X - oCurrentSelection(0).X - 1
+                _height = oCurrentSelection(1).Y - oCurrentSelection(0).Y - 1
+            End If
+            oSelectionPenWidth = Math.Max(2, iPpc / 16)
+            _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPpc
+            _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPpc
+            _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPpc
+            _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPpc
+            Dim _selPenColour As Color = Color.Black
+            _selPen = New Pen(_selPenColour, oStitchPenWidth)
+            PicDesign.Invalidate()
+        End If
     End Sub
 
     Private Sub MouseDownLeftNotSelecting(e As MouseEventArgs, pCell As Cell)
@@ -209,11 +220,12 @@ Public Class FrmStitchDesign
             Case DesignAction.Copy
                 EndCopy(pCell.Position)
             Case DesignAction.Paste
+                EndPaste(pCell.Position)
             Case DesignAction.Move
                 RemoveSelectedCells()
                 EndCopy(pCell.Position)
             Case DesignAction.Cut
-
+                RemoveSelectedCells()
         End Select
     End Sub
     Private Sub MouseDownRightSelecting()
@@ -233,7 +245,6 @@ Public Class FrmStitchDesign
             Case DesignAction.Copy
                 EndCopySelection(pCell.Position)
                 StartMoveSelection()
-            Case DesignAction.Paste
             Case DesignAction.Move
                 EndCopySelection(pCell.Position)
                 StartMoveSelection()
@@ -270,7 +281,14 @@ Public Class FrmStitchDesign
         ClearSelection()
         oCurrentAction = DesignAction.none
         DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+    End Sub
+    Private Sub EndPaste(pCellPosition As Point)
+        isMoveInProgress = False
+        PasteMouseDown(pCellPosition)
+        oCurrentAction = DesignAction.none
+        DrawGrid(oProject, oProjectDesign)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
     End Sub
 
     Private Sub RemoveSelectedCells()
@@ -290,7 +308,7 @@ Public Class FrmStitchDesign
             Next
         End If
         DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
 
     End Sub
 
@@ -321,9 +339,18 @@ Public Class FrmStitchDesign
         End If
         oProjectDesign = _newProjectDesign
         DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
 
     End Sub
+    Private Sub PicDesign_MouseUp(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseUp
+        Dim _cell As Cell = FindCellFromClickLocation(e)
+        If isSelectionInProgress Then
+            MouseUpLeftSelecting(e, _cell)
+        Else
+            ' MouseUpLeftNotSelecting(e, _cell)
+        End If
+    End Sub
+
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
         Dim isImageChanged As Boolean = False
         Dim _cell As Cell = FindCellFromClickLocation(e)
@@ -438,7 +465,6 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
         Dim _cell As Cell = FindCellFromClickLocation(e)
-
         Select Case e.Button
             Case MouseButtons.Left
                 MouseMoveLeft(e, _cell)
@@ -564,7 +590,7 @@ Public Class FrmStitchDesign
     Private Sub PicDesign_SizeChanged(sender As Object, e As EventArgs) Handles PicDesign.SizeChanged
         If Not isLoading Then
             If oProject IsNot Nothing AndAlso oProjectDesign IsNot Nothing AndAlso oProject.IsLoaded AndAlso oProjectDesign.IsLoaded Then
-                DisplayImage(oDesignBitmap)
+                DisplayImage(oDesignBitmap, iXOffset, iYOffset)
             End If
         End If
     End Sub
@@ -775,6 +801,7 @@ Public Class FrmStitchDesign
     Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
         LblSelectMessage.Text = "Select location to paste"
         oCurrentAction = DesignAction.Paste
+        isMoveInProgress = True
     End Sub
 
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
@@ -911,6 +938,7 @@ Public Class FrmStitchDesign
     Private Sub MnuPaste_Click(sender As Object, e As EventArgs) Handles MnuPaste.Click
         LblSelectMessage.Text = "Select location to paste"
         oCurrentAction = DesignAction.Paste
+        isMoveInProgress = True
     End Sub
 
     Private Sub FlipToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuFlipSelection.Click
@@ -971,6 +999,7 @@ Public Class FrmStitchDesign
 #Region "subroutines"
     '   Initialise
     Private Sub InitialiseForm()
+        isInitialised = True
         oProject = GetProjectById(oProjectId)
         SetGridImage()
         oSelectedBackstitchThread = ThreadBuilder.AThread.StartingWithNothing.WithColour(Color.Black).Build
@@ -1039,35 +1068,64 @@ Public Class FrmStitchDesign
                                 oCurrentAction = DesignAction.BlockstitchQuarters
     End Sub
     Private Sub InitialisePalette()
-        FlowLayoutPanel1.Controls.Clear()
-        Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
-        _projectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
-        oProjectThreads = New List(Of Thread)
-        Dim _firstPicThread As PictureBox = Nothing
-        For Each _projectThread As ProjectThread In _projectThreads
-            Dim _thread As Thread = _projectThread.Thread
-            oProjectThreads.Add(_thread)
-            Dim _picThread As New PictureBox()
-            With _picThread
-                .Name = CStr(_thread.ThreadId)
-                .Size = New Size(50, 50)
-                .BackColor = _thread.Colour
-                .BorderStyle = BorderStyle.None
-                Dim tt As New ToolTip
-                tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
-                AddHandler .Click, AddressOf Palette_Click
-                If _projectThread.SymbolId > 0 Then
-                    If My.Settings.PaletteStitchDisplay = StitchDisplayStyle.BlocksWithSymbols Then
-                        .Image = GetSymbolById(_projectThread.SymbolId).SymbolImage
-                        .SizeMode = PictureBoxSizeMode.Zoom
+        If isInitialised Then
+            FlowLayoutPanel1.Controls.Clear()
+            Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
+            _projectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+            oProjectThreads = New List(Of Thread)
+            Dim _panelWidth As Integer = FlowLayoutPanel1.Width
+            Dim _panelHeight As Integer = FlowLayoutPanel1.Height
+            Dim _threadCt As Integer = _projectThreads.Count
+            Dim _picSize As Integer = 50
+            Dim _threadsPerColumn As Integer = Math.Floor(_panelHeight / (_picSize + 6))
+            Dim _threadsPerRow As Integer = Math.Floor(_panelWidth / (_picSize + 6))
+            Dim _maxThreads As Integer = _threadsPerColumn * _threadsPerRow
+            If _maxThreads < _threadCt Then
+                _picSize = ShrinkPic(FlowLayoutPanel1, _threadCt)
+            End If
+            Dim _firstPicThread As PictureBox = Nothing
+            For Each _projectThread As ProjectThread In _projectThreads
+                Dim _thread As Thread = _projectThread.Thread
+                oProjectThreads.Add(_thread)
+                Dim _picThread As New PictureBox()
+                With _picThread
+                    .Name = CStr(_thread.ThreadId)
+                    .Size = New Size(_picSize, _picSize)
+                    .BackColor = _thread.Colour
+                    .BorderStyle = BorderStyle.None
+                    Dim tt As New ToolTip
+                    tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
+                    AddHandler .Click, AddressOf Palette_Click
+                    If _projectThread.SymbolId > 0 Then
+                        If My.Settings.PaletteStitchDisplay = StitchDisplayStyle.BlocksWithSymbols Then
+                            .Image = GetSymbolById(_projectThread.SymbolId).SymbolImage
+                            .SizeMode = PictureBoxSizeMode.Zoom
+                        End If
                     End If
-                End If
-            End With
-            FlowLayoutPanel1.Controls.Add(_picThread)
-            _firstPicThread = If(_firstPicThread, _picThread)
-        Next
-        SelectPaletteColour(_firstPicThread)
+                End With
+                FlowLayoutPanel1.Controls.Add(_picThread)
+                _firstPicThread = If(_firstPicThread, _picThread)
+            Next
+            SelectPaletteColour(_firstPicThread)
+        End If
     End Sub
+    Private Function ShrinkPic(pFlp As FlowLayoutPanel, pThreadCt As Integer) As Integer
+        Dim _panelWidth As Integer = pFlp.Width
+        Dim _panelHeight As Integer = pFlp.Height
+        Dim _picSize As Integer = 50
+        Dim _maxthreadsPerColumn As Integer = Math.Floor(_panelHeight / (_picSize + 6))
+        Dim _maxthreadsPerRow As Integer = Math.Floor(_panelWidth / (_picSize + 6))
+        Dim _maxThreads As Integer = _maxthreadsPerColumn * _maxthreadsPerRow
+        While _maxThreads < pThreadCt
+            _picSize -= 5
+            _maxthreadsPerColumn = Math.Floor(_panelHeight / (_picSize + 6))
+            _maxthreadsPerRow = Math.Floor(_panelWidth / (_picSize + 6))
+            _maxThreads = _maxthreadsPerColumn * _maxthreadsPerRow
+        End While
+
+
+        Return _picSize
+    End Function
     ' Scrollbars
     Private Sub CalculateScrollBarValues()
         HScrollBar1.Value = oProjectDesign.Columns - 1 + iXOffset - topcorner.X
@@ -1151,7 +1209,7 @@ Public Class FrmStitchDesign
         Dim _heightInRows As Integer = pProjectDesign.Rows
         Dim gap As Integer = iPpc
         Dim wct As Integer = oDesignBitmap.Width / gap
-        Dim _fabricColour As Color = Color.FromArgb(pProject.FabricColour)
+        Dim _fabricColour As Color = GetColourFromProject(pProject.FabricColour, oFabricColour)
         Dim _fabricBrush As New SolidBrush(_fabricColour)
         Dim _designBorderPen As New Pen(Brushes.Black, 2)
 
@@ -1191,11 +1249,11 @@ Public Class FrmStitchDesign
             Next
         End If
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-        If oCurrentSelection.Length > 0 Then
-            Dim _width As Integer = (oCurrentSelection(1).X - oCurrentSelection(0).X) * iPpc
-            Dim _height As Integer = (oCurrentSelection(1).Y - oCurrentSelection(0).Y) * iPpc
-            oDesignGraphics.DrawRectangle(_selPen, oCurrentSelection(0).X * iPpc, oCurrentSelection(0).Y * iPpc, _width, _height)
-        End If
+        'If oCurrentSelection.Length > 0 Then
+        '    Dim _width As Integer = (oCurrentSelection(1).X - oCurrentSelection(0).X) * iPpc
+        '    Dim _height As Integer = (oCurrentSelection(1).Y - oCurrentSelection(0).Y) * iPpc
+        '    oDesignGraphics.DrawRectangle(_selPen, oCurrentSelection(0).X * iPpc, oCurrentSelection(0).Y * iPpc, _width, _height)
+        'End If
         FillGrid()
     End Sub
     Private Sub FillGrid()
@@ -1324,7 +1382,7 @@ Public Class FrmStitchDesign
             End If
             oProjectDesign = _newProjectDesign
             DrawGrid(oProject, oProjectDesign)
-            DisplayImage(oDesignBitmap)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         End If
         oCurrentAction = DesignAction.none
     End Sub
@@ -1353,10 +1411,10 @@ Public Class FrmStitchDesign
                 '      CutCells(oCurrentSelectedCells)
             End If
             If oCurrentAction = DesignAction.Paste Then
-                '        PasteCells(oCurrentSelectedCells, oInProgressAnchor)
+                '       PasteCells(oCurrentSelectedCells, oInProgressAnchor)
             End If
             oInProgressTerminus = pCellLocation
-            oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
+            '        oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
             GetSelectedCells()
             isSelectionInProgress = False
             SelectionMessage("Selection complete")
@@ -1770,7 +1828,7 @@ Public Class FrmStitchDesign
     Private Sub MnuClearSelection_Click(sender As Object, e As EventArgs) Handles MnuClearSelection.Click
         ClearSelection()
         DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
 
     End Sub
 
@@ -1779,18 +1837,14 @@ Public Class FrmStitchDesign
         isMoveInProgress = False
         oInProgressAnchor = New Point(0, 0)
         oInProgressTerminus = New Point(0, 0)
-        oCurrentSelection = New Point() {}
+        '   oCurrentSelection = New Point() {}
         SelectionMessage(String.Empty)
     End Sub
 
-    Private Sub PicDesign_MouseUp(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseUp
-        Dim _cell As Cell = FindCellFromClickLocation(e)
-        If isSelectionInProgress Then
-            MouseUpLeftSelecting(e, _cell)
-        Else
-            ' MouseUpLeftNotSelecting(e, _cell)
-        End If
+    Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles FlowLayoutPanel1.SizeChanged
+        InitialisePalette()
     End Sub
+
 
 #End Region
 End Class

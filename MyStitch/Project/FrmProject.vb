@@ -18,8 +18,7 @@ Public Class FrmProject
 #Region "variables"
     Private _selectedProject As New Project
     Private isLoading As Boolean
-    Private oFabricColour As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
-    Private oGridColour As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
+
 #End Region
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -96,36 +95,32 @@ Public Class FrmProject
             NudOriginY.Value = .OriginY
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
+            PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColour)
+            PicGrid1Colour.BackColor = GetColourFromProject(.Grid1Colour, oGridColour)
+            PicGrid5Colour.BackColor = GetColourFromProject(.Grid5Colour, oGridColour)
+            PicGrid10Colour.BackColor = GetColourFromProject(.Grid10Colour, oGridColour)
             Select Case .FabricColour
                 Case 1 To 4
-                    PicFabricColour.BackColor = oFabricColour(.FabricColour - 1)
                     CbFabricColour.SelectedIndex = .FabricColour - 1
                 Case Else
-                    PicFabricColour.BackColor = Color.FromArgb(.FabricColour)
                     CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
             End Select
             Select Case .Grid1Colour
                 Case 1 To 4
-                    PicGrid1Colour.BackColor = oGridColour(.Grid1Colour - 1)
                     CbGrid1Colour.SelectedIndex = .Grid1Colour - 1
                 Case Else
-                    PicGrid1Colour.BackColor = Color.FromArgb(.Grid1Colour)
                     CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
             End Select
             Select Case .Grid5Colour
                 Case 1 To 4
-                    PicGrid5Colour.BackColor = oGridColour(.Grid5Colour - 1)
                     CbGrid5Colour.SelectedIndex = .Grid5Colour - 1
                 Case Else
-                    PicGrid5Colour.BackColor = Color.FromArgb(.Grid5Colour)
                     CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
             End Select
             Select Case .Grid10Colour
                 Case 1 To 4
-                    PicGrid10Colour.BackColor = oGridColour(.Grid10Colour - 1)
                     CbGrid10Colour.SelectedIndex = .Grid10Colour - 1
                 Case Else
-                    PicGrid10Colour.BackColor = Color.FromArgb(.Grid10Colour)
                     CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
             End Select
 
@@ -238,16 +233,12 @@ Public Class FrmProject
         Select Case CbFabricColour.SelectedIndex
             Case 0 To CbFabricColour.Items.Count - 2
                 PicFabricColour.BackColor = oFabricColour(CbFabricColour.SelectedIndex)
-                'Case Else
-                '    PicFabricColour.BackColor = SelectColor(PicFabricColour.BackColor)
         End Select
     End Sub
     Private Sub CbGrid1Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged
         Select Case CbGrid1Colour.SelectedIndex
             Case 0 To CbGrid1Colour.Items.Count - 2
                 PicGrid1Colour.BackColor = oGridColour(CbGrid1Colour.SelectedIndex)
-                'Case Else
-                '    PicGrid1Colour.BackColor = SelectColor(PicGrid1Colour.BackColor)
         End Select
     End Sub
 
@@ -255,8 +246,6 @@ Public Class FrmProject
         Select Case CbGrid5Colour.SelectedIndex
             Case 0 To CbGrid5Colour.Items.Count - 2
                 PicGrid5Colour.BackColor = oGridColour(CbGrid5Colour.SelectedIndex)
-                'Case Else
-                '    PicGrid5Colour.BackColor = SelectColor(PicGrid5Colour.BackColor)
         End Select
     End Sub
 
@@ -264,8 +253,6 @@ Public Class FrmProject
         Select Case CbGrid10Colour.SelectedIndex
             Case 0 To CbGrid10Colour.Items.Count - 2
                 PicGrid10Colour.BackColor = oGridColour(CbGrid10Colour.SelectedIndex)
-                'Case Else
-                '    PicGrid10Colour.BackColor = SelectColor(PicGrid10Colour.BackColor)
         End Select
     End Sub
 

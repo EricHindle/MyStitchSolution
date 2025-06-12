@@ -16,6 +16,8 @@ Module ModDesign
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
     Public Const ARC_EXT As String = ".hsa"
+    Public oFabricColour As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
+    Public oGridColour As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
 #End Region
 #Region "enum"
     Public Enum StitchDisplayStyle
@@ -119,7 +121,16 @@ Module ModDesign
         pCellBuilder.WithKnotQuarter(_qtr).WithKnotCellPos(_qtrPos).WithKnotQtrLoc(_qtrLoc)
         Return pCellBuilder.Build
     End Function
-
+    Public Function GetColourFromProject(pProjectColour As Integer, pColours As List(Of Color)) As Color
+        Dim _color As Color
+        Select Case pProjectColour
+            Case 1 To pColours.Count - 1
+                _color = pColours(pProjectColour - 1)
+            Case Else
+                _color = Color.FromArgb(pProjectColour)
+        End Select
+        Return _color
+    End Function
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
