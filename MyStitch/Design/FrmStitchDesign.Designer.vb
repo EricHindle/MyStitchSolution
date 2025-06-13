@@ -78,13 +78,13 @@ Partial Class FrmStitchDesign
         Me.LblPixelColourName = New System.Windows.Forms.Label()
         Me.PicGrid = New System.Windows.Forms.PictureBox()
         Me.PicStitch = New System.Windows.Forms.PictureBox()
-        Me.PnlColor = New System.Windows.Forms.Panel()
+        Me.PnlSelectedColor = New System.Windows.Forms.Panel()
         Me.LblCurrentColour = New System.Windows.Forms.Label()
         Me.LblCursorPos = New System.Windows.Forms.Label()
         Me.PnlPixelColour = New System.Windows.Forms.Panel()
         Me.LblSelectMessage = New System.Windows.Forms.Label()
         Me.LblSelection = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.BtnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -465,7 +465,7 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.Controls.Add(Me.LblPixelColourName, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PicGrid, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PicStitch, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.PnlColor, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PnlSelectedColor, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.LblCurrentColour, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.LblCursorPos, 5, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PnlPixelColour, 3, 0)
@@ -514,14 +514,14 @@ Partial Class FrmStitchDesign
         Me.PicStitch.TabIndex = 1
         Me.PicStitch.TabStop = False
         '
-        'PnlColor
+        'PnlSelectedColor
         '
-        Me.PnlColor.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlColor.Location = New System.Drawing.Point(26, 3)
-        Me.PnlColor.Margin = New System.Windows.Forms.Padding(0)
-        Me.PnlColor.Name = "PnlColor"
-        Me.PnlColor.Size = New System.Drawing.Size(20, 20)
-        Me.PnlColor.TabIndex = 2
+        Me.PnlSelectedColor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PnlSelectedColor.Location = New System.Drawing.Point(26, 3)
+        Me.PnlSelectedColor.Margin = New System.Windows.Forms.Padding(0)
+        Me.PnlSelectedColor.Name = "PnlSelectedColor"
+        Me.PnlSelectedColor.Size = New System.Drawing.Size(20, 20)
+        Me.PnlSelectedColor.TabIndex = 2
         '
         'LblCurrentColour
         '
@@ -580,15 +580,15 @@ Partial Class FrmStitchDesign
         Me.LblSelection.Text = "From 0,0 To 0,0"
         Me.LblSelection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'FlowLayoutPanel1
+        'ThreadLayoutPanel
         '
-        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(124, 532)
-        Me.FlowLayoutPanel1.TabIndex = 131
+        Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.ThreadLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(124, 532)
+        Me.ThreadLayoutPanel.TabIndex = 131
         '
         'ToolStrip1
         '
@@ -1181,7 +1181,7 @@ Partial Class FrmStitchDesign
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.FlowLayoutPanel1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
         '
         'SplitContainer1.Panel2
         '
@@ -1234,7 +1234,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MnuPalette As ToolStripMenuItem
     Friend WithEvents MnuTools As ToolStripMenuItem
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents ThreadLayoutPanel As FlowLayoutPanel
     Friend WithEvents PicDesign As PictureBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents BtnSave As ToolStripButton
@@ -1315,7 +1315,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents PicGrid As PictureBox
     Friend WithEvents PicStitch As PictureBox
-    Friend WithEvents PnlColor As Panel
+    Friend WithEvents PnlSelectedColor As Panel
     Friend WithEvents LblCurrentColour As Label
     Friend WithEvents LblCursorPos As Label
     Friend WithEvents PnlPixelColour As Panel

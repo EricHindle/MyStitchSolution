@@ -5,12 +5,12 @@
 ' Author Eric Hindle
 '
 
-Imports System.Runtime.InteropServices
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
+Imports HindlewareLib.Imaging
 Public Class FrmStitchDesign
 #Region "constants"
     Private Const PIXELS_PER_CELL As Integer = 8
@@ -60,8 +60,8 @@ Public Class FrmStitchDesign
     Private isBlockstitchAction As Boolean
     Private isBackstitchAction As Boolean
     Private isKnotAction As Boolean
-    Private oCurrentThread As New Thread
-    Private oProjectThreads As List(Of Thread)
+    Private oCurrentThread As New ProjectThread
+    Private oProjectThreads As New List(Of ProjectThread)
 
     Private iOldHScrollbarValue As Integer = 0
     Private iOldVScrollbarValue As Integer = 0
@@ -76,6 +76,7 @@ Public Class FrmStitchDesign
     Private oPasteDestination As New Point(0, 0)
 
     Private oBackstitchInProgress As New BackStitch
+    Private oRemoveBackstitch As New BackStitch
     Private oNearestBackstitches As New List(Of BackStitch)
     Private oSelectedBackstitchIndex As Integer
     Private oSelectedBackstitchThread As Thread
@@ -86,6 +87,9 @@ Public Class FrmStitchDesign
     Dim _fromCellLocation_y As Integer
     Dim _toCellLocation_x As Integer
     Dim _toCellLocation_y As Integer
+
+    Private aTimer As System.Timers.Timer
+    Private isThreadOn As Boolean
 #End Region
 #Region "enum"
     Private Enum DesignAction
@@ -137,7 +141,7 @@ Public Class FrmStitchDesign
         ToggleGrid()
     End Sub
     Private Sub Palette_Click(sender As Object, e As EventArgs)
-        For Each _control As Control In FlowLayoutPanel1.Controls
+        For Each _control As Control In ThreadLayoutPanel.Controls
 
             Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
             If _colourBox IsNot Nothing Then
@@ -151,10 +155,11 @@ Public Class FrmStitchDesign
 
     Private Sub SelectPaletteColour(pPicBox As PictureBox)
         pPicBox.BorderStyle = BorderStyle.Fixed3D
-        Dim _thread As Thread = CType(oProjectThreads.Find(Function(p) p.ThreadId = CInt(pPicBox.Name)), Thread)
-        oCurrentThread = _thread
-        PnlColor.BackColor = oCurrentThread.Colour
-        LblCurrentColour.Text = oCurrentThread.ColourName & " : DMC " & CStr(oCurrentThread.ThreadNo)
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
+        Dim _thread As Thread = _projectThread.Thread
+        oCurrentThread = _projectThread
+        PnlSelectedColor.BackColor = _thread.Colour
+        LblCurrentColour.Text = _thread.ColourName & " : DMC " & CStr(_thread.ThreadNo)
     End Sub
 
     Private Sub MouseDownLeft(e As MouseEventArgs, pCell As Cell)
@@ -183,7 +188,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MouseMoveNone(e As MouseEventArgs, pCell As Cell)
         oPasteDestination = pCell.Position
-
+        If oCurrentAction = DesignAction.BackStitchFullThin Then Exit Sub
         If oPasteDestination.X >= 0 AndAlso oPasteDestination.Y >= 0 AndAlso
             oPasteDestination.X < oProject.DesignWidth AndAlso oPasteDestination.Y < oProject.DesignHeight Then
             Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
@@ -363,7 +368,7 @@ Public Class FrmStitchDesign
 
         '======================================================================================
         Dim isRemove As Boolean = e.Button = MouseButtons.Right
-        If isRemove Then
+        If isRemove Or isRemoveBackstitchInProgress Then
             LogUtil.Debug("Remove stitch", MyBase.Name)
             If isKnotAction Then
                 LogUtil.Debug("Removing knot/bead", MyBase.Name)
@@ -381,16 +386,36 @@ Public Class FrmStitchDesign
                 Else
                     LogUtil.Debug("Selecting backstitch to remove", MyBase.Name)
                     If isRemoveBackstitchInProgress Then
+                        LogUtil.LogInfo("Stopping timer", MyBase.Name)
+                        StopTimer()
+                        If e.Button = MouseButtons.Left Then
+                            RemoveExistingBackStitch(oNearestBackstitches(oSelectedBackstitchIndex).FromBlockLocation,
+                                                     oNearestBackstitches(oSelectedBackstitchIndex).ToBlockLocation,
+                                                     oProjectDesign)
+                            oSelectedBackstitchIndex = -1
+                        Else
+                            oSelectedBackstitchIndex += 1
+                        End If
 
+                        If oSelectedBackstitchIndex < 0 OrElse oSelectedBackstitchIndex >= oNearestBackstitches.Count Then
+                            LogUtil.LogInfo("No more threads", MyBase.Name)
+                            EndRemoveBackStitch()
+                            oSelectedBackstitchIndex = -1
+                        Else
+                            LogUtil.LogInfo("Next backstitch", MyBase.Name)
+                            oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).WithThread(oSelectedBackstitchThread).Build
+                            StartTimer()
+                        End If
                     Else
+                        LogUtil.LogInfo("Start remove backstitch", MyBase.Name)
                         isRemoveBackstitchInProgress = True
                         oNearestBackstitches = FindBackstitches(_cell.Position)
                         If oNearestBackstitches.Count > 0 Then
                             oSelectedBackstitchIndex = 0
-                            oBackstitchInProgress = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).WithThread(oSelectedBackstitchThread).Build
-                            DrawBackstitchInProgress(oBackstitchInProgress.ToBlockLocation, oBackstitchInProgress.ToBlockQuarter, True, True)
+                            oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).WithThread(oSelectedBackstitchThread).Build
+                            StartTimer()
                         Else
-                            oSelectedBackstitchIndex = -1
+                            EndRemoveBackStitch()
                         End If
                     End If
                 End If
@@ -463,6 +488,7 @@ Public Class FrmStitchDesign
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         End If
     End Sub
+
     Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
         Dim _cell As Cell = FindCellFromClickLocation(e)
         Select Case e.Button
@@ -485,9 +511,9 @@ Public Class FrmStitchDesign
         PnlPixelColour.BackColor = GetPixelColour(e)
         Dim _isColourFound As Boolean
         Dim _colourName As String = String.Empty
-        For Each _thread As Thread In oProjectThreads
-            If _thread.Colour = PnlPixelColour.BackColor Then
-                _colourName = _thread.ColourName & " : DMC " & CStr(_thread.ThreadNo)
+        For Each _projectThread As ProjectThread In oProjectThreads
+            If _projectThread.Thread.Colour = PnlPixelColour.BackColor Then
+                _colourName = _projectThread.Thread.ColourName & " : DMC " & CStr(_projectThread.Thread.ThreadNo)
                 _isColourFound = True
                 Exit For
             End If
@@ -606,6 +632,9 @@ Public Class FrmStitchDesign
 
         e.Graphics.DrawImage(oDesignBitmap, atX, atY, rect, GraphicsUnit.Pixel)
         If isBackstitchInProgress Then
+            e.Graphics.DrawLine(_bsPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+        End If
+        If isRemoveBackstitchInProgress Then
             e.Graphics.DrawLine(_bsPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
         End If
         If isSelectionInProgress Or isMoveInProgress Then
@@ -1005,7 +1034,7 @@ Public Class FrmStitchDesign
         oSelectedBackstitchThread = ThreadBuilder.AThread.StartingWithNothing.WithColour(Color.Black).Build
         SelectFullBlockstitch()
         SetCurrentActionClass()
-        PnlColor.BackColor = SystemColors.Control
+        PnlSelectedColor.BackColor = SystemColors.Control
         If oProject.IsLoaded Then
             oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
             If Not oProjectDesign.IsLoaded Then
@@ -1069,24 +1098,24 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub InitialisePalette()
         If isInitialised Then
-            FlowLayoutPanel1.Controls.Clear()
-            Dim _projectThreads As List(Of ProjectThread) = GetProjectThreads(oProject.ProjectId)
-            _projectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
-            oProjectThreads = New List(Of Thread)
-            Dim _panelWidth As Integer = FlowLayoutPanel1.Width
-            Dim _panelHeight As Integer = FlowLayoutPanel1.Height
-            Dim _threadCt As Integer = _projectThreads.Count
+            ThreadLayoutPanel.Controls.Clear()
+            oProjectThreads = GetProjectThreads(oProject.ProjectId)
+            oProjectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+            '        oProjectThreads = New List(Of Thread)
+            Dim _panelWidth As Integer = ThreadLayoutPanel.Width
+            Dim _panelHeight As Integer = ThreadLayoutPanel.Height
+            Dim _threadCt As Integer = oprojectThreads.Count
             Dim _picSize As Integer = 50
             Dim _threadsPerColumn As Integer = Math.Floor(_panelHeight / (_picSize + 6))
             Dim _threadsPerRow As Integer = Math.Floor(_panelWidth / (_picSize + 6))
             Dim _maxThreads As Integer = _threadsPerColumn * _threadsPerRow
             If _maxThreads < _threadCt Then
-                _picSize = ShrinkPic(FlowLayoutPanel1, _threadCt)
+                _picSize = ShrinkPic(ThreadLayoutPanel, _threadCt)
             End If
             Dim _firstPicThread As PictureBox = Nothing
-            For Each _projectThread As ProjectThread In _projectThreads
+            For Each _projectThread As ProjectThread In oprojectThreads
                 Dim _thread As Thread = _projectThread.Thread
-                oProjectThreads.Add(_thread)
+                'oprojectThreads.Add(_thread)
                 Dim _picThread As New PictureBox()
                 With _picThread
                     .Name = CStr(_thread.ThreadId)
@@ -1103,7 +1132,7 @@ Public Class FrmStitchDesign
                         End If
                     End If
                 End With
-                FlowLayoutPanel1.Controls.Add(_picThread)
+                ThreadLayoutPanel.Controls.Add(_picThread)
                 _firstPicThread = If(_firstPicThread, _picThread)
             Next
             SelectPaletteColour(_firstPicThread)
@@ -1122,7 +1151,6 @@ Public Class FrmStitchDesign
             _maxthreadsPerRow = Math.Floor(_panelWidth / (_picSize + 6))
             _maxThreads = _maxthreadsPerColumn * _maxthreadsPerRow
         End While
-
 
         Return _picSize
     End Function
@@ -1467,30 +1495,63 @@ Public Class FrmStitchDesign
         oCurrentAction = DesignAction.Copy
         LblSelectMessage.Text = "Select area to copy"
     End Sub
+
+    Private Sub StartTimer()
+        ' Create a timer with a two second interval.
+        aTimer = New System.Timers.Timer(200)
+        ' Hook up the Elapsed event for the timer. 
+        AddHandler aTimer.Elapsed, AddressOf OnTimedEvent
+        aTimer.AutoReset = True
+        aTimer.Enabled = True
+    End Sub
+    Private Sub StopTimer()
+        aTimer.Enabled = False
+    End Sub
+    Private Sub OnTimedEvent()
+        isThreadOn = Not isThreadOn
+        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iXOffset - topcorner.X) * iPpc
+        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
+        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iXOffset - topcorner.X) * iPpc
+        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
+
+        _bsPen = New Pen(Color.White, oStitchPenWidth * oRemoveBackstitch.Strands)
+        If isThreadOn Then
+            _bsPen = New Pen(oRemoveBackstitch.Thread.Colour, oStitchPenWidth * oRemoveBackstitch.Strands)
+        End If
+        PicDesign.Invalidate()
+    End Sub
 #End Region
 #Region "stitch subroutines"
     '
     '   Add stitches to design
     '
     Private Sub Add3QtrStitchTR(celLocation As Point)
-        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
+        _blockstitch.StitchType = BlockStitchType.ThreeQuarter
+        _blockstitch.Thread = oCurrentThread.Thread
     End Sub
     Private Sub Add3QtrStitchTL(celLocation As Point)
-        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+        _blockstitch.StitchType = BlockStitchType.ThreeQuarter
+        _blockstitch.Thread = oCurrentThread.Thread
     End Sub
     Private Sub Add3QtrStitchBR(celLocation As Point)
-        AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
+        Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+        _blockstitch.StitchType = BlockStitchType.ThreeQuarter
+        _blockstitch.Thread = oCurrentThread.Thread
     End Sub
     Private Sub Add3QtrStitchBL(celLocation As Point)
-        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+        _blockstitch.StitchType = BlockStitchType.ThreeQuarter
+        _blockstitch.Thread = oCurrentThread.Thread
     End Sub
     Private Sub AddHalfBlockForwardStitch(celLocation As Point)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
@@ -1501,10 +1562,12 @@ Public Class FrmStitchDesign
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
     End Sub
     Private Sub AddFullBlockStitch(celLocation As Point)
-        AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
+        Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
+        _blockstitch.StitchType = BlockStitchType.Full
+        _blockstitch.Thread = oCurrentThread.Thread
     End Sub
     Private Sub AddBlockStitch(pDesign As ProjectDesign, pStitch As BlockStitch)
         RemoveExistingBlockStitch(pStitch.BlockLocation, pDesign)
@@ -1519,7 +1582,7 @@ Public Class FrmStitchDesign
         pDesign.BackStitches.Add(pStitch)
     End Sub
 
-    Private Sub AddQuarterBlockstitch(pActionPoint As Point, pQtr As BlockQuarter)
+    Private Function AddQuarterBlockstitch(pActionPoint As Point, pQtr As BlockQuarter) As BlockStitch
         Dim _existing As BlockStitch = FindBlockstitch(pActionPoint)
         Dim _blockStitchQtrList As New List(Of BlockStitchQuarter)
         For Each _bsq As BlockStitchQuarter In _existing.Quarters
@@ -1527,15 +1590,16 @@ Public Class FrmStitchDesign
                 _blockStitchQtrList.Add(_bsq)
             End If
         Next
-        _blockStitchQtrList.Add(New BlockStitchQuarter(pQtr, BlockStitchType.Quarter, 2, oCurrentThread))
+        _blockStitchQtrList.Add(New BlockStitchQuarter(pQtr, BlockStitchType.Quarter, 2, oCurrentThread.Thread))
         _existing.Quarters = _blockStitchQtrList
-    End Sub
+        Return _existing
+    End Function
     Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean)
         Dim _exists = FindKnot(pActionPoint, pQtr)
         If _exists IsNot Nothing Then
             oProjectDesign.Knots.Remove(_exists)
         End If
-        Dim newBead As New Knot(pActionPoint, pQtr, 1, oCurrentThread, True)
+        Dim newBead As New Knot(pActionPoint, pQtr, 1, oCurrentThread.Thread, True)
         oProjectDesign.Knots.Add(newBead)
     End Sub
 
@@ -1559,7 +1623,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub StartBackstitch(pCellLocation As Point, pQtr As BlockQuarter, pIsHalf As Boolean, pIsThick As Boolean)
         LogUtil.Debug("Starting backstitch", MyBase.Name)
-        oBackstitchInProgress = New BackStitch(pCellLocation, pQtr, pCellLocation, pQtr, If(pIsThick, 2, 1), oCurrentThread)
+        oBackstitchInProgress = New BackStitch(pCellLocation, pQtr, pCellLocation, pQtr, If(pIsThick, 2, 1), oCurrentThread.Thread)
         isBackstitchInProgress = True
         LogUtil.Debug("Backstitch IS in progress", MyBase.Name)
     End Sub
@@ -1580,18 +1644,38 @@ Public Class FrmStitchDesign
             LogUtil.Debug("Ending backstitch - error not in progress", MyBase.Name)
         End If
     End Sub
-
+    Private Sub EndRemoveBackStitch()
+        LogUtil.LogInfo("Ending remove backstich", MyBase.Name)
+        isRemoveBackstitchInProgress = False
+        DrawGrid(oProject, oProjectDesign)
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+    End Sub
     '
     '   Draw stitches
     '
     Private Sub DrawBlockStitch(pBlockStitch As BlockStitch)
         oStitchPenWidth = Math.Max(2, iPpc / 8)
-        Dim _cellLocation_x As Integer = (pBlockStitch.BlockLocation.X * iPpc)
-        Dim _cellLocation_y As Integer = (pBlockStitch.BlockLocation.Y * iPpc)
+        Dim _cellLocation As New Point(pBlockStitch.BlockLocation.X * iPpc, pBlockStitch.BlockLocation.Y * iPpc)
         For Each _blockQtr As BlockStitchQuarter In pBlockStitch.Quarters
-            DrawQtrBlockStitch(_blockQtr, _cellLocation_x, _cellLocation_y)
+            DrawQtrBlockStitch(_blockQtr, _cellLocation.X, _cellLocation.Y)
         Next
+        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
+        If _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Then
+            If pBlockStitch.StitchType = BlockStitchType.Full Then
+                oDesignGraphics.DrawImage(MakeImage(pBlockStitch), _cellLocation)
+            End If
+            'If pBlockStitch.StitchType = BlockStitchType.ThreeQuarter Then
+            '    oDesignGraphics.DrawImage(MakeImage(pBlockStitch), _cellLocation)
+            'End If
+        End If
+
     End Sub
+    Private Function MakeImage(pBlockStitch As BlockStitch) As Image
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = pBlockStitch.Thread.ThreadId), ProjectThread)
+        Dim _symbol As Symbol = GetSymbolById(_projectThread.SymbolId)
+        Dim _image As Image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPpc, iPpc)
+        Return _image
+    End Function
     Private Sub DrawQtrBlockStitch(pBlockQtr As BlockStitchQuarter, pX As Integer, pY As Integer)
 
         Dim _crossPen As New Pen(New SolidBrush(pBlockQtr.Thread.Colour), oStitchPenWidth) With {
@@ -1634,6 +1718,7 @@ Public Class FrmStitchDesign
                     oDesignGraphics.FillRectangle(_brush, pX + _rectSize, pY + _rectSize, _rectSize, _rectSize)
             End Select
         End If
+
         _crossPen.Dispose()
     End Sub
 
@@ -1841,10 +1926,9 @@ Public Class FrmStitchDesign
         SelectionMessage(String.Empty)
     End Sub
 
-    Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles FlowLayoutPanel1.SizeChanged
+    Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles ThreadLayoutPanel.SizeChanged
         InitialisePalette()
     End Sub
-
 
 #End Region
 End Class

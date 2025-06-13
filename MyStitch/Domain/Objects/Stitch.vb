@@ -12,6 +12,7 @@ Public Enum BlockStitchType
     Half
     Quarter
     ThreeQuarter
+    Mixed
 End Enum
 Public Enum BlockQuarter
     TopLeft
@@ -24,6 +25,15 @@ Public Class Stitch
     Friend _blockQtr As BlockQuarter
     Friend _thread As Thread
     Friend _strands As Integer
+    Friend _stitchType As BlockStitchType
+    Public Property StitchType() As BlockStitchType
+        Get
+            Return _stitchType
+        End Get
+        Set(ByVal value As BlockStitchType)
+            _stitchType = value
+        End Set
+    End Property
     Public Property BlockLocation() As Point
         Get
             Return _blockLoc
@@ -61,11 +71,12 @@ Public Class Stitch
         _blockQtr = BlockQuarter.TopLeft
         _strands = 2
         _thread = New Thread
+        _stitchType = BlockStitchType.Mixed
     End Sub
     Public Sub New()
         Initialise()
     End Sub
-    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThread As Thread, pIsBead As Boolean)
+    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThread As Thread, pStitchType As BlockStitchType)
         _blockLoc = pLoc
         _blockQtr = pQtr
         _strands = pStrands
