@@ -49,7 +49,8 @@ Public Class FrmStitchDesign
 
     Private iOneToOneSize As Size
 
-    Private oCurrentAction As DesignAction
+    Private oCurrentAction As DesignAction = DesignAction.none
+    Private oCurrentStitchType As DesignAction = DesignAction.none
 
     Private oCurrentSelection(-1) As Point
     Private oCurrentSelectedBlockStitch As New List(Of BlockStitch)
@@ -113,6 +114,7 @@ Public Class FrmStitchDesign
         Cut
         Move
         Paste
+        Flip
         none
     End Enum
 #End Region
@@ -142,7 +144,6 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub Palette_Click(sender As Object, e As EventArgs)
         For Each _control As Control In ThreadLayoutPanel.Controls
-
             Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
             If _colourBox IsNot Nothing Then
                 _colourBox.BorderStyle = BorderStyle.None
@@ -188,23 +189,25 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MouseMoveNone(e As MouseEventArgs, pCell As Cell)
         oPasteDestination = pCell.Position
-        If oCurrentAction = DesignAction.BackStitchFullThin Then Exit Sub
+        If oCurrentStitchType = DesignAction.BackStitchFullThin Then Exit Sub
         If oPasteDestination.X >= 0 AndAlso oPasteDestination.Y >= 0 AndAlso
             oPasteDestination.X < oProject.DesignWidth AndAlso oPasteDestination.Y < oProject.DesignHeight Then
             Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
             Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
-            If oCurrentAction = DesignAction.Paste Then
+            If oCurrentAction = DesignAction.Paste And oCurrentSelection.Length > 1 Then
                 _width = oCurrentSelection(1).X - oCurrentSelection(0).X - 1
                 _height = oCurrentSelection(1).Y - oCurrentSelection(0).Y - 1
             End If
-            oSelectionPenWidth = Math.Max(2, iPpc / 16)
-            _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPpc
-            _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPpc
-            _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPpc
-            _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPpc
-            Dim _selPenColour As Color = Color.Black
-            _selPen = New Pen(_selPenColour, oStitchPenWidth)
-            PicDesign.Invalidate()
+            If _width > -1 And _height > -1 Then
+                oSelectionPenWidth = Math.Max(2, iPpc / 16)
+                _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPpc
+                _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPpc
+                _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPpc
+                _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPpc
+                Dim _selPenColour As Color = Color.Black
+                _selPen = New Pen(_selPenColour, oStitchPenWidth)
+                PicDesign.Invalidate()
+            End If
         End If
     End Sub
 
@@ -216,6 +219,8 @@ Public Class FrmStitchDesign
             Case DesignAction.Move
                 StartSelection(pCell.Position)
             Case DesignAction.Cut
+                StartSelection(pCell.Position)
+            Case DesignAction.Flip
                 StartSelection(pCell.Position)
         End Select
     End Sub
@@ -244,6 +249,7 @@ Public Class FrmStitchDesign
                 oCurrentAction = DesignAction.none
             Case DesignAction.Cut
         End Select
+        PicDesign.Invalidate()
     End Sub
     Private Sub MouseUpLeftSelecting(e As MouseEventArgs, pCell As Cell)
         Select Case oCurrentAction
@@ -256,6 +262,10 @@ Public Class FrmStitchDesign
             Case DesignAction.Cut
                 EndCopySelection(pCell.Position)
                 RemoveSelectedCells()
+                ClearSelection()
+            Case DesignAction.Flip
+                EndCopySelection(pCell.Position)
+                EndFlip(pCell.Position)
                 ClearSelection()
         End Select
     End Sub
@@ -281,21 +291,17 @@ Public Class FrmStitchDesign
         SelectionMessage("Move in progress")
     End Sub
     Private Sub EndCopy(pCellPosition As Point)
-        isMoveInProgress = False
         PasteSelectedCells(pCellPosition)
         ClearSelection()
         oCurrentAction = DesignAction.none
-        DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
     End Sub
     Private Sub EndPaste(pCellPosition As Point)
         isMoveInProgress = False
         PasteMouseDown(pCellPosition)
-        oCurrentAction = DesignAction.none
-        DrawGrid(oProject, oProjectDesign)
-        DisplayImage(oDesignBitmap, iXOffset, iYOffset)
     End Sub
-
+    Private Sub EndFlip(pCellPosition As Point)
+        FlipMouseDown(pCellPosition)
+    End Sub
     Private Sub RemoveSelectedCells()
         If oCurrentSelectedBlockStitch.Count > 0 Then
             For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
@@ -329,7 +335,7 @@ Public Class FrmStitchDesign
         End If
         If oCurrentSelectedKnot.Count > 0 Then
             For Each _knot As Knot In oCurrentSelectedKnot
-                Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithBlockLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
                 AddKnot(_newProjectDesign, _newKnot)
             Next
         End If
@@ -359,128 +365,130 @@ Public Class FrmStitchDesign
     Private Sub PicDesign_MouseDown(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseDown
         Dim isImageChanged As Boolean = False
         Dim _cell As Cell = FindCellFromClickLocation(e)
-        Select Case e.Button
-            Case MouseButtons.Left
-                MouseDownLeft(e, _cell)
-            Case MouseButtons.Right
-                MouseDownRight(e, _cell)
-        End Select
-
         '======================================================================================
-        Dim isRemove As Boolean = e.Button = MouseButtons.Right
-        If isRemove Or isRemoveBackstitchInProgress Then
-            LogUtil.Debug("Remove stitch", MyBase.Name)
-            If isKnotAction Then
-                LogUtil.Debug("Removing knot/bead", MyBase.Name)
-                Dim _exists As Knot = FindKnot(_cell.KnotCellPos, _cell.KnotQtr)
-                If _exists IsNot Nothing Then
-                    oProjectDesign.Knots.Remove(_exists)
-                    isImageChanged = True
-                End If
-            ElseIf isBackstitchAction Then
+        If oCurrentAction = DesignAction.none Then
+            Dim isRemove As Boolean = e.Button = MouseButtons.Right
+            If isRemove Or isRemoveBackstitchInProgress Then
+                LogUtil.Debug("Remove stitch", MyBase.Name)
+                If isKnotAction Then
+                    LogUtil.Debug("Removing knot/bead", MyBase.Name)
+                    Dim _exists As Knot = FindKnot(_cell.KnotCellPos, _cell.KnotQtr)
+                    If _exists IsNot Nothing Then
+                        oProjectDesign.Knots.Remove(_exists)
+                        isImageChanged = True
+                    End If
+                ElseIf isBackstitchAction Then
 
-                If isBackstitchInProgress Then
-                    LogUtil.Debug("Backstitch ending", MyBase.Name)
-                    isBackstitchInProgress = False
-                    oBackstitchInProgress = Nothing
-                Else
-                    LogUtil.Debug("Selecting backstitch to remove", MyBase.Name)
-                    If isRemoveBackstitchInProgress Then
-                        LogUtil.LogInfo("Stopping timer", MyBase.Name)
-                        StopTimer()
-                        If e.Button = MouseButtons.Left Then
-                            RemoveExistingBackStitch(oNearestBackstitches(oSelectedBackstitchIndex).FromBlockLocation,
+                    If isBackstitchInProgress Then
+                        LogUtil.Debug("Backstitch ending", MyBase.Name)
+                        isBackstitchInProgress = False
+                        oBackstitchInProgress = Nothing
+                    Else
+                        LogUtil.Debug("Selecting backstitch to remove", MyBase.Name)
+                        If isRemoveBackstitchInProgress Then
+                            LogUtil.LogInfo("Stopping timer", MyBase.Name)
+                            StopTimer()
+                            If e.Button = MouseButtons.Left Then
+                                RemoveExistingBackStitch(oNearestBackstitches(oSelectedBackstitchIndex).FromBlockLocation,
                                                      oNearestBackstitches(oSelectedBackstitchIndex).ToBlockLocation,
                                                      oProjectDesign)
-                            oSelectedBackstitchIndex = -1
-                        Else
-                            oSelectedBackstitchIndex += 1
-                        End If
+                                oSelectedBackstitchIndex = -1
+                            Else
+                                oSelectedBackstitchIndex += 1
+                            End If
 
-                        If oSelectedBackstitchIndex < 0 OrElse oSelectedBackstitchIndex >= oNearestBackstitches.Count Then
-                            LogUtil.LogInfo("No more threads", MyBase.Name)
-                            EndRemoveBackStitch()
-                            oSelectedBackstitchIndex = -1
+                            If oSelectedBackstitchIndex < 0 OrElse oSelectedBackstitchIndex >= oNearestBackstitches.Count Then
+                                LogUtil.LogInfo("No more threads", MyBase.Name)
+                                EndRemoveBackStitch()
+                                oSelectedBackstitchIndex = -1
+                            Else
+                                LogUtil.LogInfo("Next backstitch", MyBase.Name)
+                                oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).Build
+                                StartTimer()
+                            End If
                         Else
-                            LogUtil.LogInfo("Next backstitch", MyBase.Name)
-                            oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).Build
-                            StartTimer()
-                        End If
-                    Else
-                        LogUtil.LogInfo("Start remove backstitch", MyBase.Name)
-                        isRemoveBackstitchInProgress = True
-                        oNearestBackstitches = FindBackstitches(_cell.Position)
-                        If oNearestBackstitches.Count > 0 Then
-                            oSelectedBackstitchIndex = 0
-                            oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).Build
-                            StartTimer()
-                        Else
-                            EndRemoveBackStitch()
+                            LogUtil.LogInfo("Start remove backstitch", MyBase.Name)
+                            isRemoveBackstitchInProgress = True
+                            oNearestBackstitches = FindBackstitches(_cell.Position)
+                            If oNearestBackstitches.Count > 0 Then
+                                oSelectedBackstitchIndex = 0
+                                oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).Build
+                                StartTimer()
+                            Else
+                                EndRemoveBackStitch()
+                            End If
                         End If
                     End If
+                ElseIf isBlockstitchAction Then
+                    LogUtil.Debug("Removing blockstitch", MyBase.Name)
+                    Dim _exists As BlockStitch = FindBlockstitch(_cell.Position)
+                    If _exists.IsLoaded Then
+                        oProjectDesign.BlockStitches.Remove(_exists)
+                        isImageChanged = True
+                    End If
                 End If
-            ElseIf isBlockstitchAction Then
-                LogUtil.Debug("Removing blockstitch", MyBase.Name)
-                Dim _exists As BlockStitch = FindBlockstitch(_cell.Position)
-                If _exists.IsLoaded Then
-                    oProjectDesign.BlockStitches.Remove(_exists)
-                    isImageChanged = True
-                End If
+            Else
+                LogUtil.Debug("Create stitch", MyBase.Name)
+
+                Select Case oCurrentStitchType
+                    Case DesignAction.BackstitchFullThick
+                        BackstitchMouseDown(_cell.KnotCellPos, False, True)
+                    Case DesignAction.BackStitchFullThin
+                        BackstitchMouseDown(_cell.KnotCellPos, False, False)
+                    Case DesignAction.BackstitchHalfThin
+                        BackstitchMouseDown(_cell.KnotCellPos, _cell.KnotQtr, True, False)
+                    Case DesignAction.BackStitchHalfThick
+                        BackstitchMouseDown(_cell.KnotCellPos, _cell.KnotQtr, True, True)
+                    Case DesignAction.Bead
+                        AddKnot(_cell.KnotCellPos, _cell.KnotQtr, True)
+                        isImageChanged = True
+                    Case DesignAction.Knot
+                        AddKnot(_cell.KnotCellPos, _cell.KnotQtr, False)
+                        isImageChanged = True
+                    Case DesignAction.FullBlockstitch
+                        AddFullBlockStitch(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.HalfBlockstitchBack
+                        AddHalfBlockBackStitch(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.HalfBlockstitchForward
+                        AddHalfBlockForwardStitch(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchBottomRight
+                        AddQuarterBlockstitch(_cell.Position, BlockQuarter.BottomRight)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchBottonLeft
+                        AddQuarterBlockstitch(_cell.Position, BlockQuarter.BottomLeft)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchTopLeft
+                        AddQuarterBlockstitch(_cell.Position, BlockQuarter.TopLeft)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchTopRight
+                        AddQuarterBlockstitch(_cell.Position, BlockQuarter.TopRight)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchBottomLeft
+                        Add3QtrStitchBL(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchBottomRight
+                        Add3QtrStitchBR(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchTopLeft
+                        Add3QtrStitchTL(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchTopRight
+                        Add3QtrStitchTR(_cell.Position)
+                        isImageChanged = True
+                    Case DesignAction.BlockstitchQuarters
+                        AddQuarterBlockstitch(_cell.Position, _cell.StitchQuarter)
+                        isImageChanged = True
+                End Select
             End If
         Else
-            LogUtil.Debug("Create stitch", MyBase.Name)
-
-            Select Case oCurrentAction
-                Case DesignAction.BackstitchFullThick
-                    BackstitchMouseDown(_cell.KnotCellPos, False, True)
-                Case DesignAction.BackStitchFullThin
-                    BackstitchMouseDown(_cell.KnotCellPos, False, False)
-                Case DesignAction.BackstitchHalfThin
-                    BackstitchMouseDown(_cell.KnotCellPos, _cell.KnotQtr, True, False)
-                Case DesignAction.BackStitchHalfThick
-                    BackstitchMouseDown(_cell.KnotCellPos, _cell.KnotQtr, True, True)
-                Case DesignAction.Bead
-                    AddKnot(_cell.KnotCellPos, _cell.KnotQtr, True)
-                    isImageChanged = True
-                Case DesignAction.Knot
-                    AddKnot(_cell.KnotCellPos, _cell.KnotQtr, False)
-                    isImageChanged = True
-                Case DesignAction.FullBlockstitch
-                    AddFullBlockStitch(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.HalfBlockstitchBack
-                    AddHalfBlockBackStitch(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.HalfBlockstitchForward
-                    AddHalfBlockForwardStitch(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchBottomRight
-                    AddQuarterBlockstitch(_cell.Position, BlockQuarter.BottomRight)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchBottonLeft
-                    AddQuarterBlockstitch(_cell.Position, BlockQuarter.BottomLeft)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchTopLeft
-                    AddQuarterBlockstitch(_cell.Position, BlockQuarter.TopLeft)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchTopRight
-                    AddQuarterBlockstitch(_cell.Position, BlockQuarter.TopRight)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-                    Add3QtrStitchBL(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchBottomRight
-                    Add3QtrStitchBR(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchTopLeft
-                    Add3QtrStitchTL(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchTopRight
-                    Add3QtrStitchTR(_cell.Position)
-                    isImageChanged = True
-                Case DesignAction.BlockstitchQuarters
-                    AddQuarterBlockstitch(_cell.Position, _cell.StitchQuarter)
-                    isImageChanged = True
+            Select Case e.Button
+                Case MouseButtons.Left
+                    MouseDownLeft(e, _cell)
+                Case MouseButtons.Right
+                    MouseDownRight(e, _cell)
             End Select
         End If
         If isImageChanged Then
@@ -491,22 +499,13 @@ Public Class FrmStitchDesign
 
     Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
         Dim _cell As Cell = FindCellFromClickLocation(e)
-        Select Case e.Button
-            Case MouseButtons.Left
-                MouseMoveLeft(e, _cell)
-            Case MouseButtons.None
-                MouseMoveNone(e, _cell)
-        End Select
 
-        '==================================================================
         Dim isImageChanged As Boolean = False
-
         Dim _cellPos As Point = _cell.Position
         Dim _cellLocation As Point = _cell.Location
         Dim _cellQtr As BlockQuarter = _cell.StitchQuarter
         Dim _knotqtr As BlockQuarter = _cell.KnotQtr
         Dim _knotPos As Point = _cell.KnotCellPos
-
         LblCursorPos.Text = "X:" & CStr(_cellPos.X + 1) & ", Y:" & CStr(_cellPos.Y + 1)
         PnlPixelColour.BackColor = GetPixelColour(e)
         Dim _isColourFound As Boolean
@@ -518,94 +517,106 @@ Public Class FrmStitchDesign
                 Exit For
             End If
         Next
-
         LblPixelColourName.Text = _colourName
-        If e.Button = MouseButtons.Right Then
-            If oCurrentAction = DesignAction.Bead Or oCurrentAction = DesignAction.Knot Then
-                LogUtil.Debug("Remove knot on the move", MyBase.Name)
-                Dim _exists As Knot = FindKnot(_knotPos, _knotqtr)
-                If _exists IsNot Nothing Then
-                    oProjectDesign.Knots.Remove(_exists)
-                    isImageChanged = True
-                End If
-            Else
-                LogUtil.Debug("Remove blockstitch on the move", MyBase.Name)
-                Dim _exists As BlockStitch = FindBlockstitch(_cellPos)
-                If _exists.IsLoaded Then
-                    oProjectDesign.BlockStitches.Remove(_exists)
-                    isImageChanged = True
+        '==================================================================
+        If oCurrentAction = DesignAction.none Then
+
+            If e.Button = MouseButtons.Right Then
+                If oCurrentStitchType = DesignAction.Bead Or oCurrentStitchType = DesignAction.Knot Then
+                    LogUtil.Debug("Remove knot on the move", MyBase.Name)
+                    Dim _exists As Knot = FindKnot(_knotPos, _knotqtr)
+                    If _exists IsNot Nothing Then
+                        oProjectDesign.Knots.Remove(_exists)
+                        isImageChanged = True
+                    End If
+                Else
+                    LogUtil.Debug("Remove blockstitch on the move", MyBase.Name)
+                    Dim _exists As BlockStitch = FindBlockstitch(_cellPos)
+                    If _exists.IsLoaded Then
+                        oProjectDesign.BlockStitches.Remove(_exists)
+                        isImageChanged = True
+                    End If
                 End If
             End If
-        End If
 
-        If e.Button = MouseButtons.Left Then
-            LogUtil.Debug("Adding stitch on the move", MyBase.Name)
-            Select Case oCurrentAction
-                Case DesignAction.Bead
-                    AddKnot(_knotPos, _knotqtr, True)
-                    isImageChanged = True
-                Case DesignAction.Knot
-                    AddKnot(_knotPos, _knotqtr, False)
-                    isImageChanged = True
-                Case DesignAction.FullBlockstitch
-                    AddFullBlockStitch(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.HalfBlockstitchBack
-                    AddHalfBlockBackStitch(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.HalfBlockstitchForward
-                    AddHalfBlockForwardStitch(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchBottomRight
-                    AddQuarterBlockstitch(_cellPos, BlockQuarter.BottomRight)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchBottonLeft
-                    AddQuarterBlockstitch(_cellPos, BlockQuarter.BottomLeft)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchTopLeft
-                    AddQuarterBlockstitch(_cellPos, BlockQuarter.TopLeft)
-                    isImageChanged = True
-                Case DesignAction.QuarterBlockstitchTopRight
-                    AddQuarterBlockstitch(_cellPos, BlockQuarter.TopRight)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-                    Add3QtrStitchBL(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchBottomRight
-                    Add3QtrStitchBR(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchTopLeft
-                    Add3QtrStitchTL(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.ThreeQuarterBlockstitchTopRight
-                    Add3QtrStitchTR(_cellPos)
-                    isImageChanged = True
-                Case DesignAction.BlockstitchQuarters
-                    AddQuarterBlockstitch(_cellPos, _cellQtr)
-                    isImageChanged = True
-            End Select
-
-        End If
-        If e.Button = MouseButtons.None Then
-            If isSelectionInProgress Then
-                DrawSelectionInProgress(_cellPos)
-            End If
-            If isBackstitchInProgress Then
-                Select Case oCurrentAction
-                    Case DesignAction.BackstitchFullThick
-                        DrawBackstitchInProgress(_knotPos, BlockQuarter.TopLeft, False)
-
-                    Case DesignAction.BackStitchFullThin
-                        DrawBackstitchInProgress(_knotPos, BlockQuarter.TopLeft, False)
-
-                    Case DesignAction.BackstitchHalfThin
-                        DrawBackstitchInProgress(_knotPos, _knotqtr, True)
-
-                    Case DesignAction.BackStitchHalfThick
-                        DrawBackstitchInProgress(_knotPos, _knotqtr, True)
-
+            If e.Button = MouseButtons.Left Then
+                LogUtil.Debug("Adding stitch on the move", MyBase.Name)
+                Select Case oCurrentStitchType
+                    Case DesignAction.Bead
+                        AddKnot(_knotPos, _knotqtr, True)
+                        isImageChanged = True
+                    Case DesignAction.Knot
+                        AddKnot(_knotPos, _knotqtr, False)
+                        isImageChanged = True
+                    Case DesignAction.FullBlockstitch
+                        AddFullBlockStitch(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.HalfBlockstitchBack
+                        AddHalfBlockBackStitch(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.HalfBlockstitchForward
+                        AddHalfBlockForwardStitch(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchBottomRight
+                        AddQuarterBlockstitch(_cellPos, BlockQuarter.BottomRight)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchBottonLeft
+                        AddQuarterBlockstitch(_cellPos, BlockQuarter.BottomLeft)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchTopLeft
+                        AddQuarterBlockstitch(_cellPos, BlockQuarter.TopLeft)
+                        isImageChanged = True
+                    Case DesignAction.QuarterBlockstitchTopRight
+                        AddQuarterBlockstitch(_cellPos, BlockQuarter.TopRight)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchBottomLeft
+                        Add3QtrStitchBL(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchBottomRight
+                        Add3QtrStitchBR(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchTopLeft
+                        Add3QtrStitchTL(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.ThreeQuarterBlockstitchTopRight
+                        Add3QtrStitchTR(_cellPos)
+                        isImageChanged = True
+                    Case DesignAction.BlockstitchQuarters
+                        AddQuarterBlockstitch(_cellPos, _cellQtr)
+                        isImageChanged = True
                 End Select
+
             End If
+            If e.Button = MouseButtons.None Then
+                'If isSelectionInProgress Then
+                '    DrawSelectionInProgress(_cellPos)
+                'End If
+                If isBackstitchInProgress Then
+                    Select Case oCurrentStitchType
+                        Case DesignAction.BackstitchFullThick
+                            DrawBackstitchInProgress(_knotPos, BlockQuarter.TopLeft, False)
+
+                        Case DesignAction.BackStitchFullThin
+                            DrawBackstitchInProgress(_knotPos, BlockQuarter.TopLeft, False)
+
+                        Case DesignAction.BackstitchHalfThin
+                            DrawBackstitchInProgress(_knotPos, _knotqtr, True)
+
+                        Case DesignAction.BackStitchHalfThick
+                            DrawBackstitchInProgress(_knotPos, _knotqtr, True)
+
+                    End Select
+                End If
+            End If
+        Else
+            Select Case e.Button
+                Case MouseButtons.Left
+                    'area definition
+                    MouseMoveLeft(e, _cell)
+                Case MouseButtons.None
+                    'paste positioning
+                    MouseMoveNone(e, _cell)
+            End Select
         End If
         If isImageChanged Then
             LogUtil.Debug("Drawing changes after move", MyBase.Name)
@@ -684,130 +695,93 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub SelectFullBlockstitch()
-        oCurrentAction = DesignAction.FullBlockstitch
-        StitchButtonSelected()
-        BtnFullStitch.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.fullcross
+        oCurrentStitchType = DesignAction.FullBlockstitch
+        StitchButtonSelected(BtnFullStitch)
     End Sub
 
     Private Sub Btn3QtrsTL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTL.Click
-        oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopLeft
-        StitchButtonSelected()
-        Btn3QtrsTL.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources._3qtrstl
-
+        oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopLeft
+        StitchButtonSelected(Btn3QtrsTL)
     End Sub
 
     Private Sub Btn3QtrsTR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTR.Click
-        oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopRight
-        StitchButtonSelected()
-        Btn3QtrsTR.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources._3qtrstr
+        oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopRight
+        StitchButtonSelected(Btn3QtrsTR)
     End Sub
 
     Private Sub Btn3QtrsBR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBR.Click
-        oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomRight
-        StitchButtonSelected()
-        Btn3QtrsBR.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources._3qtrsbr
+        oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchBottomRight
+        StitchButtonSelected(Btn3QtrsBR)
     End Sub
 
     Private Sub Btn3QtrsBL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBL.Click
-        oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomLeft
-        StitchButtonSelected()
-        Btn3QtrsBL.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources._3qtrsbl
+        oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchBottomLeft
+        StitchButtonSelected(Btn3QtrsBL)
     End Sub
 
     Private Sub BtnHalfForward_Click(sender As Object, e As EventArgs) Handles BtnHalfForward.Click
-        oCurrentAction = DesignAction.HalfBlockstitchForward
-        StitchButtonSelected()
-        BtnHalfForward.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.halffwd
+        oCurrentStitchType = DesignAction.HalfBlockstitchForward
+        StitchButtonSelected(BtnHalfForward)
     End Sub
 
     Private Sub BtnHalfBack_Click(sender As Object, e As EventArgs) Handles BtnHalfBack.Click
-        oCurrentAction = DesignAction.HalfBlockstitchBack
-        StitchButtonSelected()
-        BtnHalfBack.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.halfback
+        oCurrentStitchType = DesignAction.HalfBlockstitchBack
+        StitchButtonSelected(BtnHalfBack)
     End Sub
 
     Private Sub BtnQtrTL_Click(sender As Object, e As EventArgs) Handles BtnQtrTL.Click
-        oCurrentAction = DesignAction.QuarterBlockstitchTopLeft
-        StitchButtonSelected()
-        BtnQtrTL.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.qtrtl
+        oCurrentStitchType = DesignAction.QuarterBlockstitchTopLeft
+        StitchButtonSelected(BtnQtrTL)
     End Sub
 
     Private Sub BtnQWtrTR_Click(sender As Object, e As EventArgs) Handles BtnQtrTR.Click
-        oCurrentAction = DesignAction.QuarterBlockstitchTopRight
-        StitchButtonSelected()
-        BtnQtrTR.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.qtrtr
+        oCurrentStitchType = DesignAction.QuarterBlockstitchTopRight
+        StitchButtonSelected(BtnQtrTR)
     End Sub
 
     Private Sub BtnQtrBR_Click(sender As Object, e As EventArgs) Handles BtnQtrBR.Click
-        oCurrentAction = DesignAction.QuarterBlockstitchBottomRight
-        StitchButtonSelected()
-        BtnQtrBR.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.qtrbr
+        oCurrentStitchType = DesignAction.QuarterBlockstitchBottomRight
+        StitchButtonSelected(BtnQtrBR)
     End Sub
 
     Private Sub BtnQtrBL_Click(sender As Object, e As EventArgs) Handles BtnQtrBL.Click
-        oCurrentAction = DesignAction.QuarterBlockstitchBottonLeft
-        StitchButtonSelected()
-        BtnQtrBL.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.qtrbl
+        oCurrentStitchType = DesignAction.QuarterBlockstitchBottonLeft
+        StitchButtonSelected(BtnQtrBL)
     End Sub
 
     Private Sub BtnQuarters_Click(sender As Object, e As EventArgs) Handles BtnQuarters.Click
-        oCurrentAction = DesignAction.BlockstitchQuarters
-        StitchButtonSelected()
-        BtnQuarters.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.quarters
+        oCurrentStitchType = DesignAction.BlockstitchQuarters
+        StitchButtonSelected(BtnQuarters)
     End Sub
 
     Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitchThin.Click
-        oCurrentAction = DesignAction.BackStitchFullThin
-        StitchButtonSelected()
-        BtnFullBackstitchThin.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.fullthinbs
+        oCurrentStitchType = DesignAction.BackStitchFullThin
+        StitchButtonSelected(BtnFullBackstitchThin)
     End Sub
 
     Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThin.Click
-        oCurrentAction = DesignAction.BackstitchHalfThin
-        StitchButtonSelected()
-        BtnHalfBackStitchThin.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.halfthinbs
+        oCurrentStitchType = DesignAction.BackstitchHalfThin
+        StitchButtonSelected(BtnHalfBackStitchThin)
     End Sub
 
     Private Sub BtnFullBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnFullBackStitchThick.Click
-        oCurrentAction = DesignAction.BackstitchFullThick
-        StitchButtonSelected()
-        BtnFullBackStitchThick.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.fullthickbs
+        oCurrentStitchType = DesignAction.BackstitchFullThick
+        StitchButtonSelected(BtnFullBackStitchThick)
     End Sub
 
     Private Sub BtnHalfBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThick.Click
-        oCurrentAction = DesignAction.BackStitchHalfThick
-        StitchButtonSelected()
-        BtnHalfBackStitchThick.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.halfthickbs
+        oCurrentStitchType = DesignAction.BackStitchHalfThick
+        StitchButtonSelected(BtnHalfBackStitchThick)
     End Sub
 
     Private Sub BtnKnot_Click(sender As Object, e As EventArgs) Handles BtnKnot.Click
-        oCurrentAction = DesignAction.Knot
-        StitchButtonSelected()
-        BtnKnot.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.knot
+        oCurrentStitchType = DesignAction.Knot
+        StitchButtonSelected(BtnKnot)
     End Sub
 
     Private Sub BtnBead_Click(sender As Object, e As EventArgs) Handles BtnBead.Click
-        oCurrentAction = DesignAction.Bead
-        StitchButtonSelected()
-        BtnBead.BackgroundImage = My.Resources.BtnBkgrdDown
-        PicStitch.Image = My.Resources.Bead
+        oCurrentStitchType = DesignAction.Bead
+        StitchButtonSelected(BtnBead)
     End Sub
 #End Region
 #Region "action buttons"
@@ -821,17 +795,17 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub BtnCut_Click(sender As Object, e As EventArgs) Handles BtnCut.Click
-        oCurrentAction = DesignAction.Cut
+        BeginCut()
     End Sub
 
     Private Sub BtnMove_Click(sender As Object, e As EventArgs) Handles BtnMove.Click
-        oCurrentAction = DesignAction.Move
+        BeginMove()
     End Sub
 
     Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
-        LblSelectMessage.Text = "Select location to paste"
-        oCurrentAction = DesignAction.Paste
-        isMoveInProgress = True
+        BeginPaste()
+
+
     End Sub
 
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
@@ -962,21 +936,19 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MnuMoveSelection_Click(sender As Object, e As EventArgs) Handles MnuMoveSelection.Click
-        oCurrentAction = DesignAction.Move
+        BeginMove()
     End Sub
 
     Private Sub MnuCutSelection_Click(sender As Object, e As EventArgs) Handles MnuCutSelection.Click
-        oCurrentAction = DesignAction.Cut
+        BeginCut()
     End Sub
 
     Private Sub MnuPaste_Click(sender As Object, e As EventArgs) Handles MnuPaste.Click
-        LblSelectMessage.Text = "Select location to paste"
-        oCurrentAction = DesignAction.Paste
-        isMoveInProgress = True
+        BeginPaste()
     End Sub
 
     Private Sub FlipToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuFlipSelection.Click
-
+        beginFlip
     End Sub
 
     Private Sub MirrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuMirrorSelection.Click
@@ -1105,24 +1077,24 @@ Public Class FrmStitchDesign
 
     Private Sub SetCurrentActionClass()
 
-        isKnotAction = oCurrentAction = DesignAction.Knot Or
-                        oCurrentAction = DesignAction.Bead
-        isBackstitchAction = oCurrentAction = DesignAction.BackStitchFullThin Or
-                                oCurrentAction = DesignAction.BackstitchFullThick Or
-                                oCurrentAction = DesignAction.BackstitchHalfThin Or
-                                oCurrentAction = DesignAction.BackStitchHalfThick
-        isBlockstitchAction = oCurrentAction = DesignAction.FullBlockstitch Or
-                                oCurrentAction = DesignAction.HalfBlockstitchBack Or
-                                oCurrentAction = DesignAction.HalfBlockstitchForward Or
-                                oCurrentAction = DesignAction.QuarterBlockstitchBottomRight Or
-                                oCurrentAction = DesignAction.QuarterBlockstitchBottonLeft Or
-                                oCurrentAction = DesignAction.QuarterBlockstitchTopLeft Or
-                                oCurrentAction = DesignAction.QuarterBlockstitchTopRight Or
-                                oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomLeft Or
-                                oCurrentAction = DesignAction.ThreeQuarterBlockstitchBottomRight Or
-                                oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopLeft Or
-                                oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopRight Or
-                                oCurrentAction = DesignAction.BlockstitchQuarters
+        isKnotAction = oCurrentStitchType = DesignAction.Knot Or
+                        oCurrentStitchType = DesignAction.Bead
+        isBackstitchAction = oCurrentStitchType = DesignAction.BackStitchFullThin Or
+                                oCurrentStitchType = DesignAction.BackstitchFullThick Or
+                                oCurrentStitchType = DesignAction.BackstitchHalfThin Or
+                                oCurrentStitchType = DesignAction.BackStitchHalfThick
+        isBlockstitchAction = oCurrentStitchType = DesignAction.FullBlockstitch Or
+                                oCurrentStitchType = DesignAction.HalfBlockstitchBack Or
+                                oCurrentStitchType = DesignAction.HalfBlockstitchForward Or
+                                oCurrentStitchType = DesignAction.QuarterBlockstitchBottomRight Or
+                                oCurrentStitchType = DesignAction.QuarterBlockstitchBottonLeft Or
+                                oCurrentStitchType = DesignAction.QuarterBlockstitchTopLeft Or
+                                oCurrentStitchType = DesignAction.QuarterBlockstitchTopRight Or
+                                oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchBottomLeft Or
+                                oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchBottomRight Or
+                                oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopLeft Or
+                                oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopRight Or
+                                oCurrentStitchType = DesignAction.BlockstitchQuarters
     End Sub
     Private Function InitialisePalette() As Boolean
         Dim isOK As Boolean = True
@@ -1379,26 +1351,22 @@ Public Class FrmStitchDesign
         Return _filename
     End Function
     Private Sub StitchButtonSelected()
+        StitchButtonSelected(Nothing)
+    End Sub
+    Private Sub StitchButtonSelected(pButton As ToolStripButton)
         SetCurrentActionClass()
-        BtnFullStitch.BackgroundImage = My.Resources.BtnBkgrd
-        BtnHalfBack.BackgroundImage = My.Resources.BtnBkgrd
-        BtnHalfForward.BackgroundImage = My.Resources.BtnBkgrd
-        Btn3QtrsBL.BackgroundImage = My.Resources.BtnBkgrd
-        Btn3QtrsBR.BackgroundImage = My.Resources.BtnBkgrd
-        Btn3QtrsTL.BackgroundImage = My.Resources.BtnBkgrd
-        Btn3QtrsTR.BackgroundImage = My.Resources.BtnBkgrd
-        BtnQtrBL.BackgroundImage = My.Resources.BtnBkgrd
-        BtnQtrBR.BackgroundImage = My.Resources.BtnBkgrd
-        BtnQtrTL.BackgroundImage = My.Resources.BtnBkgrd
-        BtnQtrTR.BackgroundImage = My.Resources.BtnBkgrd
-        BtnQuarters.BackgroundImage = My.Resources.BtnBkgrd
-        BtnFullBackstitchThin.BackgroundImage = My.Resources.BtnBkgrd
-        BtnFullBackStitchThick.BackgroundImage = My.Resources.BtnBkgrd
-        BtnHalfBackStitchThick.BackgroundImage = My.Resources.BtnBkgrd
-        BtnHalfBackStitchThin.BackgroundImage = My.Resources.BtnBkgrd
-        BtnKnot.BackgroundImage = My.Resources.BtnBkgrd
-        BtnBead.BackgroundImage = My.Resources.BtnBkgrd
-
+        For Each _item As Object In ToolStrip2.Items
+            Dim _button As ToolStripButton = TryCast(_item, ToolStripButton)
+            If _button IsNot Nothing Then
+                _button.BackgroundImage = My.Resources.BtnBkgrd
+            End If
+        Next
+        If pButton IsNot Nothing Then
+            pButton.BackgroundImage = My.Resources.BtnBkgrdDown
+            PicStitch.Image = pButton.Image
+        Else
+            PicStitch.Image = Nothing
+        End If
     End Sub
 
     'Mouse Down
@@ -1419,6 +1387,30 @@ Public Class FrmStitchDesign
             LogUtil.Debug("MouseDown selection NOT in progress", MyBase.Name)
             StartSelection(pPosition)
         End If
+    End Sub
+    Private Sub FlipMouseDown(pPosition As Point)
+        If oCurrentSelection.Length > 0 Then
+            Dim _sum As Integer = oCurrentSelection(1).Y + oCurrentSelection(0).Y - 1
+            If oCurrentSelectedBlockStitch.Count > 0 Then
+                For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
+                    _bs.BlockLocation = New Point(_bs.BlockLocation.X, _sum - _bs.BlockLocation.Y)
+                Next
+            End If
+            'If oCurrentSelectedKnot.Count > 0 Then
+            '    For Each _knot As Knot In oCurrentSelectedKnot
+            '        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y)
+            '    Next
+            'End If
+            'If oCurrentSelectedBackstitch.Count > 0 Then
+            '    For Each _bkst As BackStitch In oCurrentSelectedBackstitch
+
+            '    Next
+            'End If
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+        End If
+        oCurrentAction = DesignAction.none
+
     End Sub
     Private Sub PasteMouseDown(pPosition As Point)
         If oCurrentSelection.Length > 0 Then
@@ -1531,9 +1523,35 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BeginCopy()
         oCurrentAction = DesignAction.Copy
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
         LblSelectMessage.Text = "Select area to copy"
     End Sub
-
+    Private Sub BeginMove()
+        oCurrentAction = DesignAction.Move
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        LblSelectMessage.Text = "Select area to move"
+    End Sub
+    Private Sub BeginCut()
+        oCurrentAction = DesignAction.Cut
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        LblSelectMessage.Text = "Select area to cut"
+    End Sub
+    Private Sub BeginPaste()
+        oCurrentAction = DesignAction.Paste
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        LblSelectMessage.Text = "Select location to paste"
+        isMoveInProgress = True
+    End Sub
+    Private Sub BeginFlip()
+        oCurrentAction = DesignAction.flip
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        LblSelectMessage.Text = "Select area to flip"
+    End Sub
     Private Sub StartTimer()
         ' Create a timer with a two second interval.
         aTimer = New System.Timers.Timer(200)
@@ -1609,6 +1627,7 @@ Public Class FrmStitchDesign
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomLeft)
         _blockstitch.StitchType = BlockStitchType.Full
+        _blockstitch.ProjThread = Nothing
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
     End Sub

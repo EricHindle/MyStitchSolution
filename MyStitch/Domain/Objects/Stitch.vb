@@ -77,13 +77,16 @@ Public Class Stitch
             _strands = value
         End Set
     End Property
-    Public ReadOnly Property ProjThread() As ProjectThread
+    Public Property ProjThread() As ProjectThread
         Get
             If _thread Is Nothing Then
                 _thread = GetProjectThread(_projectId, _threadId)
             End If
             Return _thread
         End Get
+        Set(value As ProjectThread)
+            _thread = value
+        End Set
     End Property
     Friend Sub Initialise()
         _blockLoc = New Point(0, 0)

@@ -21,9 +21,19 @@ Public Class KnotBuilder
             _blockLoc = .BlockLocation
             _blockQtr = .BlockQuarter
             _strands = .Strands
-            _thread = .ProjThread
+            _thread = Nothing
             _isBead = .IsBead
+            _threadId = .ThreadId
+            _projectId = .ProjectId
         End With
+        Return Me
+    End Function
+    Public Function WithIsBead(pIsBead As Boolean) As KnotBuilder
+        _isBead = pIsBead
+        Return Me
+    End Function
+    Public Function WithKnotLocation(pLoc As Point) As KnotBuilder
+        _blockLoc = pLoc
         Return Me
     End Function
     Public Overloads Function Build() As Knot

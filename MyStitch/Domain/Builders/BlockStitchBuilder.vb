@@ -24,6 +24,7 @@ Public Class BlockStitchBuilder
             _threadId = .ThreadId
             _projectId = .ProjectId
             _quarters = .Quarters
+            _stitchType = .StitchType
         End With
         Return Me
     End Function
@@ -36,6 +37,6 @@ Public Class BlockStitchBuilder
         Return Me
     End Function
     Public Overloads Function Build() As BlockStitch
-        Return New BlockStitch(_blockLoc, _quarters, _strands, _threadId, _projectId)
+        Return New BlockStitch(_blockLoc, _quarters, _strands, _threadId, _stitchType, _projectId)
     End Function
 End Class
