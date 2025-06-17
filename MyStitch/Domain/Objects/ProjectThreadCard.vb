@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports Newtonsoft.Json
+Imports System.Text
 Namespace Domain.Objects
     Public Class ProjectThreadCard
 #Region "properties"
@@ -41,6 +41,7 @@ Namespace Domain.Objects
                        pCardNo As Integer)
             _project = GetProjectById(pProjectId)
             _cardNo = pCardNo
+            '      LogUtil.Info(Me.ToString, "ProjectThreadCard")
         End Sub
         Public Function IsLoaded() As Boolean
             Return _project IsNot Nothing AndAlso _project.ProjectId > -1
@@ -48,7 +49,11 @@ Namespace Domain.Objects
 #End Region
 #Region "methods"
         Public Overrides Function ToString() As String
-            Return JsonConvert.SerializeObject(Me)
+            Dim _sb As New StringBuilder
+            _sb.Append("Project Thread Card=[") _
+                .Append("ProjectId=[").Append(CStr(_project.ProjectId)).Append("], ") _
+                .Append("CardNo=[").Append(CStr(_cardNo)).Append("]]")
+            Return _sb.ToString()
         End Function
 #End Region
 

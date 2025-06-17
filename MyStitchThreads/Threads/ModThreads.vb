@@ -14,7 +14,7 @@ Module ModThreads
         LoadThreadList(pDgv, False, pBaseName)
     End Sub
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pIsShowStock As Boolean, pBaseName As String)
-        LogUtil.LogInfo("Load Thread list", pBaseName)
+        LogUtil.LogInfo("Load ProjectThread list", pBaseName)
         pDgv.Rows.Clear()
         For Each oThread As Thread In GetThreads()
             AddProjectThreadRow(pDgv, oThread, pIsShowStock)
@@ -23,7 +23,7 @@ Module ModThreads
         pDgv.ClearSelection()
     End Sub
     Public Sub LoadProjectThreadList(ByRef pDgv As DataGridView, pProjectId As Integer, pShowStock As Boolean, pBaseName As String)
-        LogUtil.LogInfo("Load Thread list", pBaseName)
+        LogUtil.LogInfo("Load ProjectThread list", pBaseName)
         Dim _threadList As List(Of Thread) = GetThreadsForProject(pProjectId)
         pDgv.Rows.Clear()
         For Each oThread As Thread In _threadList

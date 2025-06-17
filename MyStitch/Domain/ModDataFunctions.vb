@@ -366,9 +366,9 @@ Namespace Domain
 #End Region
 #Region "projectthreadcards"
         Public Sub DeleteProjectThread(pProjectThread As ProjectThread)
-            LogUtil.LogInfo("Deleting " & pProjectThread.Project.ProjectName & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
+            LogUtil.LogInfo("Deleting " & pProjectThread.ProjectId & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
             Try
-                oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.Project.ProjectId, pProjectThread.Thread.ThreadId)
+                oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.ProjectId, pProjectThread.Thread.ThreadId)
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
@@ -431,11 +431,11 @@ Namespace Domain
             Return oProjectThreadTa.GetData()
         End Function
         Public Function InsertProjectThread(ByRef oProjectThread As ProjectThread)
-            LogUtil.LogInfo("Inserting project thread" & oProjectThread.Project.ProjectName & ":" & CStr(oProjectThread.Thread.ThreadId), MethodBase.GetCurrentMethod.Name)
+            LogUtil.LogInfo("Inserting project thread" & oProjectThread.ProjectId & ":" & CStr(oProjectThread.ThreadId), MethodBase.GetCurrentMethod.Name)
             Dim newId As Integer = -1
             Try
                 With oProjectThread
-                    newId = oProjectThreadTa.InsertProjectThread(.Project.ProjectId, .Thread.ThreadId, .BackstitchCount, .BlockstitchCount, .KnotCount, .SymbolId)
+                    newId = oProjectThreadTa.InsertProjectThread(.ProjectId, .ThreadId, .SymbolId)
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -468,7 +468,7 @@ Namespace Domain
 
         End Function
         Public Function GetProjectThread(pProjectId As Integer, pThreadId As Integer) As ProjectThread
-            Dim _projectThread As New ProjectThread
+            Dim _projectThread As ProjectThread = Nothing
             Try
                 oProjectThreadTa.FillByKey(oProjectThreadTable, pProjectId, pThreadId)
                 If oProjectThreadTable.Rows.Count = 1 Then
@@ -648,6 +648,18 @@ Namespace Domain
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return _symbol
+        End Function
+        Public Function GetSymbolImage(pSymbolId As Integer) As Image
+            Dim _image As Image = Nothing
+            Try
+                oSymbolsTa.FillById(oSymbolsTable, pSymbolId)
+                If oSymbolsTable.Rows.Count > 0 Then
+                    _image = SymbolBuilder.ASymbol.StartingWith(oSymbolsTable.Rows(0)).Build.SymbolImage
+                End If
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _image
         End Function
         Public Function InsertSymbol(ByRef pSymbol As Symbol) As Integer
             Return InsertSymbol(pSymbol, -1)

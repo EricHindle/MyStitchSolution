@@ -5,16 +5,32 @@
 ' Author Eric Hindle
 '
 
-Imports Newtonsoft.Json
+Imports System.Text
 Namespace Domain.Objects
     Public Class ProjectThread
 #Region "properties"
-        Private _project As Project
         Private _thread As Thread
-        Private _backstitchCount As Integer
-        Private _blockstitchCount As Integer
-        Private _knotCount As Integer
         Private _symbolId As Integer
+        Private _projectId As Integer
+        Private _threadId As Integer
+        Private _symbol As Image
+        Public Property ThreadId() As Integer
+            Get
+                Return _threadId
+            End Get
+            Set(ByVal value As Integer)
+                _threadId = value
+            End Set
+        End Property
+        Public Property ProjectId() As Integer
+            Get
+                Return _projectId
+            End Get
+            Set(ByVal value As Integer)
+                _projectId = value
+            End Set
+        End Property
+
         Public Property SymbolId() As Integer
             Get
                 Return _symbolId
@@ -23,82 +39,59 @@ Namespace Domain.Objects
                 _symbolId = value
             End Set
         End Property
-        Public Property KnotCount() As Integer
+        Public ReadOnly Property Thread() As Thread
             Get
-                Return _knotCount
-            End Get
-            Set(ByVal value As Integer)
-                _knotCount = value
-            End Set
-        End Property
-        Public Property BlockstitchCount() As Integer
-            Get
-                Return _blockstitchCount
-            End Get
-            Set(ByVal value As Integer)
-                _blockstitchCount = value
-            End Set
-        End Property
-        Public Property BackstitchCount() As Integer
-            Get
-                Return _backstitchCount
-            End Get
-            Set(ByVal value As Integer)
-                _backstitchCount = value
-            End Set
-        End Property
-        Public Property Project() As Project
-            Get
-                Return _project
-            End Get
-            Set(ByVal value As Project)
-                _project = value
-            End Set
-        End Property
-        Public Property Thread() As Thread
-            Get
+                If _thread Is Nothing Then
+                    _thread = GetThreadById(_threadId)
+                End If
                 Return _thread
             End Get
-            Set(ByVal value As Thread)
-                _thread = value
-            End Set
         End Property
+        Public ReadOnly Property Symbol() As Image
+            Get
+                If _symbol Is Nothing Then
+                    _symbol = GetSymbolImage(_symbolId)
+                End If
+                Return _symbol
+            End Get
+        End Property
+
 #End Region
 #Region "constructors"
         Private Sub InitialiseProjectThread()
-            _project = New Project
-            _thread = New Thread
-            _blockstitchCount = 0
-            _backstitchCount = 0
-            _knotCount = 0
+            _thread = Nothing
             _symbolId = -1
+            _projectId = -1
+            _threadId = -1
+            _symbol = Nothing
         End Sub
         Public Sub New()
             InitialiseProjectThread()
         End Sub
         Public Sub New(pProjectId As Integer,
                        pThreadId As Integer,
-                       pBackstitchCount As Integer,
-                       pBlockstitchCount As Integer,
-                       pKnotCount As Integer,
                        pSymbolId As Integer)
-            _project = GetProjectById(pProjectId)
-            _thread = GetThreadById(pThreadId)
-            _blockstitchCount = pBlockstitchCount
-            _backstitchCount = pBackstitchCount
-            _knotCount = pKnotCount
+            _projectId = pProjectId
+            _threadId = pThreadId
             _symbolId = pSymbolId
+            '       LogUtil.Info(Me.ToString, "ProjectThread")
         End Sub
 #End Region
 #Region "methods"
         Public Function IsLoaded() As Boolean
-            Return _project IsNot Nothing AndAlso _project.ProjectId > -1
+            Return _projectId > -1 And _threadId > -1
         End Function
         Public Function Key() As String
-            Return CStr(_project.ProjectId) & ":" & CStr(_thread.ThreadId)
+            Return CStr(_projectId) & ":" & CStr(_threadId)
         End Function
         Public Overrides Function ToString() As String
-            Return JsonConvert.SerializeObject(Me)
+            Dim _sb As New StringBuilder
+            _sb.Append("ProjectThread=[") _
+                .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
+                .Append(Thread.ToString).Append(", ") _
+                .Append("SymbolId=[").Append(CStr(_symbolId)).Append("]") _
+                .Append("]")
+            Return _sb.ToString()
         End Function
 #End Region
 

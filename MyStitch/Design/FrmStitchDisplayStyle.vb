@@ -27,6 +27,7 @@ Public Class FrmStitchDisplayStyle
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles BtnOK.Click
         My.Settings.DesignStitchDisplay = CbDesignStitchDisplay.SelectedIndex
         My.Settings.PaletteStitchDisplay = CbPaletteStitchDisplay.SelectedIndex
+        My.Settings.Save()
         Close()
     End Sub
 End Class

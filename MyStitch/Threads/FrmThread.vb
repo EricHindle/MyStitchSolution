@@ -29,7 +29,7 @@ Public Class FrmThread
 #End Region
 #Region "handlers"
     Private Sub FrmThread_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Thread maintenence", MyBase.Name)
+        LogUtil.LogInfo("ProjectThread maintenence", MyBase.Name)
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -148,39 +148,39 @@ Public Class FrmThread
     End Function
 
     Private Sub InsertNewThread()
-        LogUtil.LogInfo("New Thread", MyBase.Name)
+        LogUtil.LogInfo("New ProjectThread", MyBase.Name)
         Dim _existingthread As Thread = GetThreadbyNumber(TxtNumber.Text.Trim)
         If _existingthread.ThreadId > 0 Then
-            LogUtil.DisplayStatus("Thread with this number already exists.", LblStatus, "Insert New Thread", True)
+            LogUtil.DisplayStatus("ProjectThread with this number already exists.", LblStatus, "Insert New ProjectThread", True)
         Else
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             _Thread.ThreadId = InsertThread(_Thread)
             LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
-            LogUtil.ShowStatus("Thread Added", LblStatus, MyBase.Name)
+            LogUtil.ShowStatus("ProjectThread Added", LblStatus, MyBase.Name)
         End If
     End Sub
     Private Sub UpdateSelectedThread()
         If _selectedThread.ThreadId >= 0 Then
-            LogUtil.LogInfo("Updating Thread", MyBase.Name)
+            LogUtil.LogInfo("Updating ProjectThread", MyBase.Name)
             Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
             Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
             UpdateThread(_Thread)
             LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
             SelectThreadInList(DgvThreads, threadId.Name, _Thread.ThreadId, _rowNo)
-            LogUtil.ShowStatus("Thread updated", LblStatus, MyBase.Name)
+            LogUtil.ShowStatus("ProjectThread updated", LblStatus, MyBase.Name)
         Else
-            LogUtil.ShowStatus("No Thread selected", LblStatus, True, MyBase.Name, True)
+            LogUtil.ShowStatus("No ProjectThread selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
     Friend Sub DeleteSelectedThread()
         If _selectedThread.ThreadId >= 0 Then
-            LogUtil.LogInfo("Delete Thread", MyBase.Name)
+            LogUtil.LogInfo("Delete ProjectThread", MyBase.Name)
 
             DeleteThread(_selectedThread)
             ClearThreadForm()
             LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
         Else
-            LogUtil.ShowStatus("No Thread selected", LblStatus, True, MyBase.Name, True)
+            LogUtil.ShowStatus("No ProjectThread selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
 

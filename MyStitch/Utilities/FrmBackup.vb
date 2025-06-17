@@ -382,7 +382,6 @@ Public Class FrmBackup
 
     End Sub
 
-
     Private Sub DesignBackup(ByRef _itemList As List(Of String))
         For Each oTypeNode As TreeNode In TvDesigns.Nodes
             DisplayProgressBar(oTypeNode)

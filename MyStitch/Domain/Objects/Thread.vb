@@ -5,8 +5,8 @@
 ' Author Eric Hindle
 '
 
+Imports System.Text
 Imports System.Text.RegularExpressions
-Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class Thread
 
@@ -89,6 +89,7 @@ Namespace Domain.Objects
             _colour = pColour
             _sortNumber = MakeSortNumber(pNo, pId)
             _stock_level = pStock
+            '          LogUtil.Info(Me.ToString, "Thread")
         End Sub
 #End Region
 #Region "methods"
@@ -96,7 +97,15 @@ Namespace Domain.Objects
             Return _threadId > -1
         End Function
         Public Overrides Function ToString() As String
-            Return JsonConvert.SerializeObject(Me)
+            Dim _sb As New StringBuilder
+            _sb.Append("Thread=[") _
+                .Append("ThreadId=[").Append(CStr(_threadId)).Append("], ") _
+                .Append("ThreadNo =[").Append(_threadNo).Append("], ") _
+                .Append("Colour name =[").Append(_colourName).Append("], ") _
+                .Append("Sort number =[").Append(_sortNumber).Append("], ") _
+                .Append("Stock level =[").Append(CStr(_stock_level)) _
+                .Append("]]")
+            Return _sb.ToString()
         End Function
         '
         ' Create a number that can be used to sort threads by the thread number in a list

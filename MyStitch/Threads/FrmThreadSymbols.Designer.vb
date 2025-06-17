@@ -285,7 +285,7 @@ Partial Class FrmThreadSymbols
         Me.Controls.Add(Me.PnlThreads)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmThreadSymbols"
-        Me.Text = "Thread Symbols"
+        Me.Text = "ProjectThread Symbols"
         Me.PnlThreads.ResumeLayout(False)
         Me.PnlThreads.PerformLayout()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).EndInit()

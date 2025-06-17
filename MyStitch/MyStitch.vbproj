@@ -102,6 +102,7 @@
     <Compile Include="Domain\Builders\ProjectDesignBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
+    <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
     <Compile Include="Domain\ModDataFunctions.vb" />

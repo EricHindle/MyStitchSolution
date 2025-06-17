@@ -217,6 +217,7 @@ Namespace Domain.Objects
             _designFileName = pFilename
             _originX = pOriginX
             _originY = pOriginY
+            '        LogUtil.Info(Me.ToString, "Project")
         End Sub
 #End Region
 #Region "methods"

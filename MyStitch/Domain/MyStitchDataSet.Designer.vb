@@ -5708,17 +5708,13 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(6).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbolId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(7).Connection = Me.Connection
-            Me._commandCollection(7).CommandText = "INSERT INTO ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (project_id, thread_id, back"& _ 
-                "stitch_count, blockstitch_count, knot_count, symbol_id)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@project"& _ 
-                "_id,@thread_id,@backstitch_count,@blockstitch_count,@knot_count,@symbolId);     "& _ 
-                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id FROM ProjectThreads WHERE (project_id = @project_"& _ 
-                "id) AND (thread_id = @thread_id)"
+            Me._commandCollection(7).CommandText = "INSERT INTO ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (project_id, thread_id, symb"& _ 
+                "ol_id)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"VALUES        (@project_id,@thread_id,@symbolId);      "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_"& _ 
+                "id, thread_id FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_i"& _ 
+                "d = @thread_id)"
             Me._commandCollection(7).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(7).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbolId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(8) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(8).Connection = Me.Connection
@@ -5726,16 +5722,11 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(8).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(9) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(9).Connection = Me.Connection
-            Me._commandCollection(9).CommandText = "UPDATE       ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                backstitch_count = @backstitch_co"& _ 
-                "unt, blockstitch_count = @blockstitch_count, knot_count = @knot_count, symbol_id"& _ 
-                " = @symbolId"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (project_id = @project_id) AND (thread_id = @thread_i"& _ 
-                "d);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, backstitch_count, blockstitch_count, knot_c"& _ 
-                "ount FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id = @thre"& _ 
-                "ad_id)"
+            Me._commandCollection(9).CommandText = "UPDATE       ProjectThreads"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                symbol_id = @symbolId"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE     "& _ 
+                "   (project_id = @project_id) AND (thread_id = @thread_id);   "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_i"& _ 
+                "d, thread_id, backstitch_count, blockstitch_count, knot_count FROM ProjectThread"& _ 
+                "s WHERE (project_id = @project_id) AND (thread_id = @thread_id)"
             Me._commandCollection(9).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbolId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(9).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -6004,14 +5995,11 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, false)>  _
-        Public Overloads Overridable Function InsertProjectThread(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbolId As Integer) As Integer
+        Public Overloads Overridable Function InsertProjectThread(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal symbolId As Integer) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(7)
             command.Parameters(0).Value = CType(project_id,Integer)
             command.Parameters(1).Value = CType(thread_id,Integer)
-            command.Parameters(2).Value = CType(backstitch_count,Integer)
-            command.Parameters(3).Value = CType(blockstitch_count,Integer)
-            command.Parameters(4).Value = CType(knot_count,Integer)
-            command.Parameters(5).Value = CType(symbolId,Integer)
+            command.Parameters(2).Value = CType(symbolId,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -6054,14 +6042,11 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
-        Public Overloads Overridable Function UpdateProjectThread(ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbolId As Integer, ByVal project_id As Integer, ByVal thread_id As Integer) As Integer
+        Public Overloads Overridable Function UpdateProjectThread(ByVal symbolId As Integer, ByVal project_id As Integer, ByVal thread_id As Integer) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(9)
-            command.Parameters(0).Value = CType(backstitch_count,Integer)
-            command.Parameters(1).Value = CType(blockstitch_count,Integer)
-            command.Parameters(2).Value = CType(knot_count,Integer)
-            command.Parameters(3).Value = CType(symbolId,Integer)
-            command.Parameters(4).Value = CType(project_id,Integer)
-            command.Parameters(5).Value = CType(thread_id,Integer)
+            command.Parameters(0).Value = CType(symbolId,Integer)
+            command.Parameters(1).Value = CType(project_id,Integer)
+            command.Parameters(2).Value = CType(thread_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then

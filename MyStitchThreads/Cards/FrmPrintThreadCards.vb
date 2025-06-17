@@ -51,7 +51,7 @@ Public Class FrmPrintThreadCards
         My.Settings.Save()
     End Sub
     Private Sub FrmPrintThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Printing Thread Cards", MyBase.Name)
+        LogUtil.LogInfo("Printing ProjectThread Cards", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
         isLoading = True
         InitialiseForm()

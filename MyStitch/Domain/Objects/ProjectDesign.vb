@@ -5,6 +5,8 @@
 ' Author Eric Hindle
 '
 
+Imports System.Text
+Imports HindlewareLib.Logging
 Imports Newtonsoft.Json
 
 Public Class ProjectDesign
@@ -77,6 +79,7 @@ Public Class ProjectDesign
         _knots = pKnots
         _rows = pRows
         _columns = pColumns
+        '     LogUtil.Info(Me.ToString, "ProjectDesign")
     End Sub
     Public Function SerializeJson() As String
         Return JsonConvert.SerializeObject(Me)
@@ -89,6 +92,25 @@ Public Class ProjectDesign
         Return _isOk
     End Function
     Public Overrides Function ToString() As String
-        Return JsonConvert.SerializeObject(Me)
+        Dim _sb As New StringBuilder
+        _sb.Append("Project Design=[") _
+            .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
+            .Append("BlockStitches=[")
+        For Each _blst As BlockStitch In _blockStitches
+            _sb.Append(_blst.ToString).Append(", ")
+        Next
+        _sb.Append("], BackStitches=[")
+        For Each _bkst As BackStitch In _backStitches
+            _sb.Append(_bkst.ToString).Append(", ")
+        Next
+        _sb.Append("], Knots =[")
+        For Each _knot As Knot In _knots
+            _sb.Append(_knot.ToString).Append(", ")
+        Next
+        _sb.Append("], ") _
+              .Append("Rows=[").Append(CStr(_rows)).Append("], ") _
+              .Append("Columns=[").Append(CStr(_columns)) _
+              .Append("]]")
+        Return _sb.ToString()
     End Function
 End Class

@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-
+Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Enum BlockStitchType
     Full
@@ -13,6 +13,7 @@ Public Enum BlockStitchType
     Quarter
     ThreeQuarter
     Mixed
+    none
 End Enum
 Public Enum BlockQuarter
     TopLeft
@@ -23,9 +24,27 @@ End Enum
 Public Class Stitch
     Friend _blockLoc As Point
     Friend _blockQtr As BlockQuarter
-    Friend _thread As Thread
+    Friend _thread As ProjectThread
     Friend _strands As Integer
     Friend _stitchType As BlockStitchType
+    Friend _threadId As Integer
+    Friend _projectId As Integer
+    Public Property ProjectId() As Integer
+        Get
+            Return _projectId
+        End Get
+        Set(ByVal value As Integer)
+            _projectId = value
+        End Set
+    End Property
+    Public Property ThreadId() As Integer
+        Get
+            Return _threadId
+        End Get
+        Set(ByVal value As Integer)
+            _threadId = value
+        End Set
+    End Property
     Public Property StitchType() As BlockStitchType
         Get
             Return _stitchType
@@ -58,28 +77,32 @@ Public Class Stitch
             _strands = value
         End Set
     End Property
-    Public Property Thread() As Thread
+    Public ReadOnly Property ProjThread() As ProjectThread
         Get
+            If _thread Is Nothing Then
+                _thread = GetProjectThread(_projectId, _threadId)
+            End If
             Return _thread
         End Get
-        Set(ByVal value As Thread)
-            _thread = value
-        End Set
     End Property
-    Private Sub Initialise()
+    Friend Sub Initialise()
         _blockLoc = New Point(0, 0)
         _blockQtr = BlockQuarter.TopLeft
         _strands = 2
-        _thread = New Thread
-        _stitchType = BlockStitchType.Mixed
+        _thread = Nothing
+        _stitchType = BlockStitchType.none
+        _threadId = -1
+        _projectId = -1
     End Sub
     Public Sub New()
         Initialise()
     End Sub
-    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThread As Thread, pStitchType As BlockStitchType)
+    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
         _blockLoc = pLoc
         _blockQtr = pQtr
         _strands = pStrands
-        _thread = pThread
+        _threadId = pThreadId
+        _projectId = pProjectId
+        _thread = Nothing
     End Sub
 End Class

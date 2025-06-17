@@ -283,8 +283,6 @@ Public Class FrmProject
 
     End Sub
 
-
-
     Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
         OpenSymbolsForm()
     End Sub
@@ -294,8 +292,6 @@ Public Class FrmProject
             _symbols.ShowDialog()
         End Using
     End Sub
-
-
 
     Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
         OpenThreadListForm

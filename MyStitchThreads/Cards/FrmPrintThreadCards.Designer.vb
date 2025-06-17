@@ -293,7 +293,7 @@ Partial Class FrmPrintThreadCards
         Me.Controls.Add(Me.StatusStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmPrintThreadCards"
-        Me.Text = "Thread Cards"
+        Me.Text = "ProjectThread Cards"
         CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()

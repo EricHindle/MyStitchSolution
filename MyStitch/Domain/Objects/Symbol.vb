@@ -4,6 +4,7 @@
 '
 ' Author Eric Hindle
 '
+Imports System.Text
 Imports HindlewareLib.Imaging
 Namespace Domain.Objects
     Public Class Symbol
@@ -56,7 +57,12 @@ Namespace Domain.Objects
         Public Function IsLoaded() As Boolean
             Return _SymbolId > -1
         End Function
-
+        Public Overrides Function ToString() As String
+            Dim _sb As New StringBuilder
+            _sb.Append("Symbol=[") _
+                .Append("SymbolId=[").Append(CStr(_SymbolId)).Append("]]")
+            Return _sb.ToString()
+        End Function
 #End Region
     End Class
 End Namespace

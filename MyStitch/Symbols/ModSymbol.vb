@@ -4,7 +4,6 @@
 '
 ' Author Eric Hindle
 '
-Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 
 Module ModSymbol

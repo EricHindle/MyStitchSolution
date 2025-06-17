@@ -1,5 +1,5 @@
 ﻿' Hindleware
-' Copyright (c) 2019-2023 Eric Hindle
+' Copyright (c) 2025 Eric Hindle
 ' All rights reserved.
 '
 ' Author Eric Hindle
@@ -99,6 +99,5 @@ Public NotInheritable Class GlobalSettings
     Public Shared Sub LoadGlobalSettings()
         My.Settings.Save()
     End Sub
-
 
 End Class

@@ -6,19 +6,23 @@
 '
 
 Public Class BlockStitchBuilder
-    Private _blockLoc As Point
+    Inherits StitchBuilder
     Private _quarters As List(Of BlockStitchQuarter)
     Public Shared Function ABlockStitch() As BlockStitchBuilder
         Return New BlockStitchBuilder
     End Function
-    Public Function StartingWithNothing() As BlockStitchBuilder
-        _blockLoc = New Point(0, 0)
+    Public Overloads Function StartingWithNothing() As BlockStitchBuilder
+        Initialise()
         _quarters = New List(Of BlockStitchQuarter)
         Return Me
     End Function
-    Public Function StartingWith(pBs As BlockStitch) As BlockStitchBuilder
-        With pBs
+    Public Overloads Function StartingWith(pBlockstitch As BlockStitch) As BlockStitchBuilder
+        With pBlockstitch
             _blockLoc = .BlockLocation
+            _blockQtr = .BlockQuarter
+            _strands = .Strands
+            _threadId = .ThreadId
+            _projectId = .ProjectId
             _quarters = .Quarters
         End With
         Return Me
@@ -31,7 +35,7 @@ Public Class BlockStitchBuilder
         _quarters = pQtrs
         Return Me
     End Function
-    Public Function Build() As BlockStitch
-        Return New BlockStitch(_blockLoc, _quarters)
+    Public Overloads Function Build() As BlockStitch
+        Return New BlockStitch(_blockLoc, _quarters, _strands, _threadId, _projectId)
     End Function
 End Class

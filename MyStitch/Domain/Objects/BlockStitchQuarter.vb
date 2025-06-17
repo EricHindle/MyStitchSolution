@@ -5,22 +5,29 @@
 ' Author Eric Hindle
 '
 
-Imports MyStitch.BlockStitch
+Imports System.Text
+Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
-Imports Newtonsoft.Json
-
 Public Class BlockStitchQuarter
     Private _blockQuarter As BlockQuarter
-    Private _stitchType As BlockStitchType
     Private _strandCount As Integer
     Private _thread As Thread
-    Public Property Thread() As Thread
+    Private _threadId As Integer
+    Public Property ThreadId() As Integer
         Get
+            Return _threadId
+        End Get
+        Set(ByVal value As Integer)
+            _threadId = value
+        End Set
+    End Property
+    Public ReadOnly Property Thread() As Thread
+        Get
+            If _thread Is Nothing Then
+                _thread = GetThreadById(_threadId)
+            End If
             Return _thread
         End Get
-        Set(ByVal value As Thread)
-            _thread = value
-        End Set
     End Property
     Public Property StrandCount() As Integer
         Get
@@ -28,14 +35,6 @@ Public Class BlockStitchQuarter
         End Get
         Set(ByVal value As Integer)
             _strandCount = value
-        End Set
-    End Property
-    Public Property StitchType() As BlockStitchType
-        Get
-            Return _stitchType
-        End Get
-        Set(ByVal value As BlockStitchType)
-            _stitchType = value
         End Set
     End Property
     Public Property BlockQuarter() As BlockQuarter
@@ -48,20 +47,27 @@ Public Class BlockStitchQuarter
     End Property
     Private Sub Initialise()
         _blockQuarter = BlockQuarter.TopRight
-        _stitchType = BlockStitchType.Full
         _strandCount = 2
-        _thread = New Thread
+        _thread = Nothing
+        _threadId = -1
     End Sub
     Public Sub New()
         Initialise()
     End Sub
-    Public Sub New(pQtr As BlockQuarter, pType As BlockStitchType, pStrandCt As Integer, pThread As Thread)
+    Public Sub New(pQtr As BlockQuarter, pStrandCt As Integer, pThreadId As Integer)
         _blockQuarter = pQtr
-        _stitchType = pType
         _strandCount = pStrandCt
-        _thread = pThread
+        _threadId = pThreadId
+        _thread = Nothing
+        '    LogUtil.Info(Me.ToString, "Stitch Quarter")
     End Sub
     Public Overrides Function ToString() As String
-        Return JsonConvert.SerializeObject(Me)
+        Dim _sb As New StringBuilder
+        _sb.Append("BlockQuarter=[") _
+            .Append("Quarter =[").Append(_blockQuarter.ToString).Append("], ") _
+            .Append("Strands =[").Append(CStr(_strandCount)).Append("], ") _
+            .Append("Thread = [").Append(Thread.ToString).Append("]") _
+            .Append("]")
+        Return _sb.ToString()
     End Function
 End Class

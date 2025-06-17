@@ -5,8 +5,8 @@
 ' Author Eric Hindle
 '
 
+Imports System.Text
 Imports MyStitch.Domain.Objects
-Imports Newtonsoft.Json
 
 Public Class Knot
     Inherits Stitch
@@ -19,25 +19,31 @@ Public Class Knot
             _isBead = value
         End Set
     End Property
-
-    Private Sub Initialise()
-        _blockLoc = New Point(0, 0)
-        _blockQtr = BlockQuarter.TopLeft
-        _strands = 2
-        _thread = New Thread
-        _isBead = False
-    End Sub
     Public Sub New()
         Initialise()
+        _isBead = False
     End Sub
-    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThread As Thread, pIsBead As Boolean)
+    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer, pIsBead As Boolean)
         _blockLoc = pLoc
         _blockQtr = pQtr
         _strands = pStrands
-        _thread = pThread
+        _threadId = pThreadId
+        _projectId = pProjectId
+        _thread = Nothing
         _isBead = pIsBead
+        '    LogUtil.Info(Me.ToString, "Knot")
     End Sub
     Public Overrides Function ToString() As String
-        Return JsonConvert.SerializeObject(Me)
+        Dim _sb As New StringBuilder
+        _sb.Append(If(_isBead, "Bead", "Knot")).Append("=[") _
+            .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
+            .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
+            .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
+            .Append("BlockLocation =[").Append(CStr(_blockLoc.X)).Append(",").Append(CStr(_blockLoc.Y)).Append("], ") _
+            .Append("BlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _
+            .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
+            .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _
+            .Append("]")
+        Return _sb.ToString()
     End Function
 End Class

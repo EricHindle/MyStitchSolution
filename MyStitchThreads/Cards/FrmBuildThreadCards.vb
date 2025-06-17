@@ -35,7 +35,7 @@ Public Class FrmBuildThreadCards
 #End Region
 #Region "control handlers"
     Private Sub FrmBuildThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Thread maintenence", MyBase.Name)
+        LogUtil.LogInfo("ProjectThread maintenence", MyBase.Name)
         isShowStock = ChkShowStock.Checked
         isLoading = True
         InitialiseForm()

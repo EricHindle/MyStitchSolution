@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports Newtonsoft.Json
+Imports System.Text
 
 Public Class BlockStitch
     Inherits Stitch
@@ -18,21 +18,39 @@ Public Class BlockStitch
             _quarters = value
         End Set
     End Property
-    Private Sub Initialise()
-        _blockLoc = New Point(0, 0)
-        _quarters = New List(Of BlockStitchQuarter)
-    End Sub
     Public Sub New()
         Initialise()
+        _quarters = New List(Of BlockStitchQuarter)
     End Sub
-    Public Sub New(pLocation As Point, pQuarters As List(Of BlockStitchQuarter))
+    Public Sub New(pLocation As Point, pQuarters As List(Of BlockStitchQuarter), pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
         _blockLoc = pLocation
         _quarters = pQuarters
+        _strands = pStrands
+        _threadId = pThreadId
+        _projectId = pProjectId
+        _thread = Nothing
+        Dim _string As String = Me.ToString
+        '    LogUtil.LogInfo(_string, "Blockstitch")
     End Sub
     Public Function IsLoaded() As Boolean
         Return _quarters IsNot Nothing AndAlso _quarters.Count > 0
     End Function
     Public Overrides Function ToString() As String
-        Return JsonConvert.SerializeObject(Me)
+        Dim _sb As New StringBuilder
+        _sb.Append("Blockstitch=[") _
+            .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
+            .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
+            .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
+            .Append("BlockLocation =[").Append(CStr(_blockLoc.X)).Append(",").Append(CStr(_blockLoc.Y)).Append("], ") _
+            .Append("BlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _
+            .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
+            .Append("Quarters = [")
+        For Each _qtr As BlockStitchQuarter In _quarters
+            _sb.Append(_qtr.ToString).Append(",")
+        Next
+        _sb.Append("], ") _
+            .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _
+            .Append("]")
+        Return _sb.ToString()
     End Function
 End Class

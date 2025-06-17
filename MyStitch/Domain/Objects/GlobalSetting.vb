@@ -51,6 +51,7 @@ Namespace Domain.Objects
             _name = pName
             _type = pType
             _value = pValue
+            '       LogUtil.Info(Me.ToString, "GlobalSetting")
         End Sub
 #End Region
 #Region "methods"

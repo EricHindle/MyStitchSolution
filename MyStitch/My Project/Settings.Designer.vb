@@ -412,6 +412,42 @@ Namespace My
                 Me("FileRetentionPeriod") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property IsShowBlockstitches() As Boolean
+            Get
+                Return CType(Me("IsShowBlockstitches"),Boolean)
+            End Get
+            Set
+                Me("IsShowBlockstitches") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property IsShowBackstitches() As Boolean
+            Get
+                Return CType(Me("IsShowBackstitches"),Boolean)
+            End Get
+            Set
+                Me("IsShowBackstitches") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property IsShowKnots() As Boolean
+            Get
+                Return CType(Me("IsShowKnots"),Boolean)
+            End Get
+            Set
+                Me("IsShowKnots") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

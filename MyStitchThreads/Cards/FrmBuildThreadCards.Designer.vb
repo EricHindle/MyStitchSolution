@@ -494,7 +494,7 @@ Partial Class FrmBuildThreadCards
         Me.BtnAddThread.Name = "BtnAddThread"
         Me.BtnAddThread.Size = New System.Drawing.Size(26, 26)
         Me.BtnAddThread.TabIndex = 158
-        Me.ToolTip1.SetToolTip(Me.BtnAddThread, "Add Thread")
+        Me.ToolTip1.SetToolTip(Me.BtnAddThread, "Add ProjectThread")
         Me.BtnAddThread.UseVisualStyleBackColor = True
         '
         'BtnDown
@@ -567,7 +567,7 @@ Partial Class FrmBuildThreadCards
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmBuildThreadCards"
-        Me.Text = "Build Thread Cards"
+        Me.Text = "Build ProjectThread Cards"
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).EndInit()

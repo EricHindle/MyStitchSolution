@@ -98,6 +98,7 @@ Public Class Cell
         _knotQtr = pKnotQtr
         _knotCellPos = pKnotCellPos
         _knotQtrLoc = pKnotQtrLoc
+        '    LogUtil.Info(Me.ToString, "Cell")
     End Sub
     Public Overrides Function ToString() As String
         Return JsonConvert.SerializeObject(Me)

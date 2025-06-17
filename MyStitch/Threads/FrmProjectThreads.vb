@@ -107,7 +107,7 @@ Public Class FrmProjectThreads
     End Sub
 
     Private Sub LoadThreadList()
-        LogUtil.LogInfo("Load Thread list", MyBase.Name)
+        LogUtil.LogInfo("Load ProjectThread list", MyBase.Name)
         Dim _usedThreadList As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
         Dim _threads As List(Of Thread) = GetThreads()
         Dim _unusedThreads As New List(Of Thread)
@@ -174,8 +174,8 @@ Public Class FrmProjectThreads
                     Dim _projectThread As ProjectThread = ProjectThreadBuilder _
                                                                 .AProjectThread _
                                                                 .StartingWithNothing _
-                                                                .WithProject(_selectedProject) _
-                                                                .WithThread(oThread) _
+                                                                .WithProjectId(_selectedProject.ProjectId) _
+                                                                .WithThreadId(oThread.ThreadId) _
                                                                 .Build
                     InsertProjectThread(_projectThread)
                 End If
@@ -185,8 +185,8 @@ Public Class FrmProjectThreads
                     Dim _projectThread As ProjectThread = ProjectThreadBuilder _
                                                                 .AProjectThread _
                                                                 .StartingWithNothing _
-                                                                .WithProject(_selectedProject) _
-                                                                .WithThread(oThread) _
+                                                                .WithProjectId(_selectedProject.ProjectId) _
+                                                                .WithThreadId(oThread.ThreadId) _
                                                                 .Build
                     DeleteProjectThread(_projectThread)
                 End If
@@ -269,7 +269,7 @@ Public Class FrmProjectThreads
             End If
         Next
         If Not _isFound Then
-            MsgBox("Thread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
+            MsgBox("ProjectThread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
         End If
     End Sub
 

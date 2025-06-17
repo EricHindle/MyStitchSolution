@@ -317,7 +317,7 @@ Partial Class FrmProjectThreads
         Me.BtnClear.Name = "BtnClear"
         Me.BtnClear.Size = New System.Drawing.Size(86, 42)
         Me.BtnClear.TabIndex = 148
-        Me.BtnClear.Text = "Clear Thread Selections"
+        Me.BtnClear.Text = "Clear ProjectThread Selections"
         Me.BtnClear.UseVisualStyleBackColor = False
         '
         'BtnGenerateCards

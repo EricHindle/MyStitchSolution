@@ -105,7 +105,7 @@ Public Class FrmThreadSymbols
         End If
     End Sub
     Private Sub LoadThreadList()
-        LogUtil.LogInfo("Load Thread list", MyBase.Name)
+        LogUtil.LogInfo("Load ProjectThread list", MyBase.Name)
         Dim _usedThreadList As List(Of ProjectThread) = GetProjectThreads(_selectedProject.ProjectId)
         DgvThreads.Rows.Clear()
         For Each oThread As ProjectThread In _usedThreadList
