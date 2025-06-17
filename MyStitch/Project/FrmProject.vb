@@ -59,6 +59,7 @@ Public Class FrmProject
     End Sub
     Private Sub BtnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
         InsertNewProject()
+
     End Sub
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
         UpdateSelectedProject()

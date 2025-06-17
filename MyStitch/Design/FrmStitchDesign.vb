@@ -121,7 +121,9 @@ Public Class FrmStitchDesign
         LogUtil.LogInfo("Opening design", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
         isLoading = True
+        PicDesign.Enabled = False
         InitialiseForm()
+        PicDesign.Enabled = True
         isLoading = False
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -619,6 +621,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
+        If oDesignBitmap Is Nothing Then Exit Sub
         Dim rect As Rectangle
         Dim picx As Single = iPpc * topcorner.X
         Dim picy As Single = iPpc * topcorner.Y
@@ -891,6 +894,10 @@ Public Class FrmStitchDesign
 
     End Sub
     Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
+        OpenProjectThreadsForm()
+    End Sub
+
+    Private Sub OpenProjectThreadsForm()
         If oProject.ProjectId > 0 Then
             LogUtil.Info("Opening Project Threads form", MyBase.Name)
             Using _projthreads As New FrmProjectThreads
@@ -935,7 +942,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MnuSelectPaletteColours_Click(sender As Object, e As EventArgs) Handles MnuSelectPaletteColours.Click
-
+        OpenProjectThreadsForm()
     End Sub
 
     Private Sub MnuRemoveUnusedColours_Click(sender As Object, e As EventArgs) Handles MnuRemoveUnusedColours.Click
@@ -1032,8 +1039,17 @@ Public Class FrmStitchDesign
         Dim _blackThread As New Thread(0, String.Empty, "Black", Color.Black, 0)
         SelectFullBlockstitch()
         SetCurrentActionClass()
-
         PnlSelectedColor.BackColor = SystemColors.Control
+        Do While oProjectThreads.Count = 0
+            oProjectThreads = GetProjectThreads(oProject.ProjectId)
+            If oProjectThreads.Count = 0 Then
+                If MsgBox("Select threads to continue with the project?", MsgBoxStyle.OkCancel Or MsgBoxStyle.Question, "No Project Threads") = MsgBoxResult.Cancel Then
+                    Close()
+                    Exit Sub
+                End If
+                OpenProjectThreadsForm()
+            End If
+        Loop
         If oProject.IsLoaded Then
             oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
             If Not oProjectDesign.IsLoaded Then
@@ -1108,7 +1124,8 @@ Public Class FrmStitchDesign
                                 oCurrentAction = DesignAction.ThreeQuarterBlockstitchTopRight Or
                                 oCurrentAction = DesignAction.BlockstitchQuarters
     End Sub
-    Private Sub InitialisePalette()
+    Private Function InitialisePalette() As Boolean
+        Dim isOK As Boolean = True
         If isInitialised Then
             ThreadLayoutPanel.Controls.Clear()
             oProjectThreads = GetProjectThreads(oProject.ProjectId)
@@ -1147,9 +1164,12 @@ Public Class FrmStitchDesign
                 ThreadLayoutPanel.Controls.Add(_picThread)
                 _firstPicThread = If(_firstPicThread, _picThread)
             Next
-            SelectPaletteColour(_firstPicThread)
+            If _firstPicThread IsNot Nothing Then
+                SelectPaletteColour(_firstPicThread)
+            End If
         End If
-    End Sub
+        Return isOK
+    End Function
     Private Function ShrinkPic(pFlp As FlowLayoutPanel, pThreadCt As Integer) As Integer
         Dim _panelWidth As Integer = pFlp.Width
         Dim _panelHeight As Integer = pFlp.Height
@@ -1332,7 +1352,7 @@ Public Class FrmStitchDesign
         DisplayImage(pImage, 0, 0)
     End Sub
     Private Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer)
-
+        If oDesignBitmap Is Nothing Then Exit Sub
         Dim rect As Rectangle
         Dim picx As Single = iPpc * topcorner.X
         Dim picy As Single = iPpc * topcorner.Y
