@@ -193,6 +193,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flip() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flip", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flood() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flood", resourceCulture)
@@ -336,6 +346,16 @@ Namespace My.Resources
         Friend ReadOnly Property minus() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("minus", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property mirror() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("mirror", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

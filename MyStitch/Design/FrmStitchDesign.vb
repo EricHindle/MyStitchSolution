@@ -115,6 +115,7 @@ Public Class FrmStitchDesign
         Move
         Paste
         Flip
+        Mirror
         none
     End Enum
 #End Region
@@ -222,6 +223,8 @@ Public Class FrmStitchDesign
                 StartSelection(pCell.Position)
             Case DesignAction.Flip
                 StartSelection(pCell.Position)
+            Case DesignAction.Mirror
+                StartSelection(pCell.Position)
         End Select
     End Sub
 
@@ -267,6 +270,10 @@ Public Class FrmStitchDesign
                 EndCopySelection(pCell.Position)
                 EndFlip(pCell.Position)
                 ClearSelection()
+            Case DesignAction.Mirror
+                EndCopySelection(pCell.Position)
+                EndMirror(pCell.Position)
+                ClearSelection()
         End Select
     End Sub
     Private Sub MouseUpRightSelecting()
@@ -301,6 +308,9 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub EndFlip(pCellPosition As Point)
         FlipMouseDown(pCellPosition)
+    End Sub
+    Private Sub EndMirror(pCellPosition As Point)
+        MirrorMouseDown(pCellPosition)
     End Sub
     Private Sub RemoveSelectedCells()
         If oCurrentSelectedBlockStitch.Count > 0 Then
@@ -807,7 +817,13 @@ Public Class FrmStitchDesign
 
 
     End Sub
+    Private Sub BtnMirror_Click(sender As Object, e As EventArgs) Handles BtnMirror.Click
+        BeginMirror()
+    End Sub
 
+    Private Sub BtnFlip_Click(sender As Object, e As EventArgs) Handles BtnFlip.Click
+        BeginFlip()
+    End Sub
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
 
     End Sub
@@ -948,11 +964,11 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub FlipToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuFlipSelection.Click
-        beginFlip
+        BeginFlip()
     End Sub
 
     Private Sub MirrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuMirrorSelection.Click
-
+        BeginMirror
     End Sub
 
     Private Sub RotateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuRotate.Click
@@ -1396,16 +1412,43 @@ Public Class FrmStitchDesign
                     _bs.BlockLocation = New Point(_bs.BlockLocation.X, _sum - _bs.BlockLocation.Y)
                 Next
             End If
-            'If oCurrentSelectedKnot.Count > 0 Then
-            '    For Each _knot As Knot In oCurrentSelectedKnot
-            '        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y)
-            '    Next
-            'End If
+            If oCurrentSelectedKnot.Count > 0 Then
+                For Each _knot As Knot In oCurrentSelectedKnot
+                    If _knot.BlockQuarter = BlockQuarter.BottomLeft Or _knot.BlockQuarter = BlockQuarter.BottomRight Then
+                        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y)
+                    Else
+                        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y + 1)
+                    End If
+                Next
+            End If
             'If oCurrentSelectedBackstitch.Count > 0 Then
             '    For Each _bkst As BackStitch In oCurrentSelectedBackstitch
 
             '    Next
             'End If
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+        End If
+        oCurrentAction = DesignAction.none
+
+    End Sub
+    Private Sub MirrorMouseDown(pPosition As Point)
+        If oCurrentSelection.Length > 0 Then
+            Dim _sum As Integer = oCurrentSelection(1).X + oCurrentSelection(0).X - 1
+            If oCurrentSelectedBlockStitch.Count > 0 Then
+                For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
+                    _bs.BlockLocation = New Point(_sum - _bs.BlockLocation.X, _bs.BlockLocation.Y)
+                Next
+            End If
+            If oCurrentSelectedKnot.Count > 0 Then
+                For Each _knot As Knot In oCurrentSelectedKnot
+                    If _knot.BlockQuarter = BlockQuarter.TopLeft Or _knot.BlockQuarter = BlockQuarter.BottomLeft Then
+                        _knot.BlockLocation = New Point(_sum - _knot.BlockLocation.X + 1, _knot.BlockLocation.Y)
+                    Else
+                        _knot.BlockLocation = New Point(_sum - _knot.BlockLocation.X, _knot.BlockLocation.Y)
+                    End If
+                Next
+            End If
             DrawGrid(oProject, oProjectDesign)
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         End If
@@ -1425,7 +1468,7 @@ Public Class FrmStitchDesign
             End If
             If oCurrentSelectedKnot.Count > 0 Then
                 For Each _knot As Knot In oCurrentSelectedKnot
-                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithBlockLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
                     AddKnot(_newProjectDesign, _newKnot)
                 Next
             End If
@@ -1547,10 +1590,16 @@ Public Class FrmStitchDesign
         isMoveInProgress = True
     End Sub
     Private Sub BeginFlip()
-        oCurrentAction = DesignAction.flip
+        oCurrentAction = DesignAction.Flip
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         LblSelectMessage.Text = "Select area to flip"
+    End Sub
+    Private Sub BeginMirror()
+        oCurrentAction = DesignAction.Mirror
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        LblSelectMessage.Text = "Select area to mirror"
     End Sub
     Private Sub StartTimer()
         ' Create a timer with a two second interval.
@@ -2003,6 +2052,7 @@ Public Class FrmStitchDesign
             RedrawDesign()
         End If
     End Sub
+
 
 #End Region
 End Class

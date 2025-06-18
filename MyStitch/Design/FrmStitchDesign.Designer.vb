@@ -48,8 +48,6 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuFlipSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuMirrorSelection = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VerticalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HorizontalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuRotate = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuClearArea = New System.Windows.Forms.ToolStripMenuItem()
@@ -80,8 +78,6 @@ Partial Class FrmStitchDesign
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.LblPixelColourName = New System.Windows.Forms.Label()
-        Me.PicGrid = New System.Windows.Forms.PictureBox()
-        Me.PicStitch = New System.Windows.Forms.PictureBox()
         Me.PnlSelectedColor = New System.Windows.Forms.Panel()
         Me.LblCurrentColour = New System.Windows.Forms.Label()
         Me.LblCursorPos = New System.Windows.Forms.Label()
@@ -90,19 +86,30 @@ Partial Class FrmStitchDesign
         Me.LblSelection = New System.Windows.Forms.Label()
         Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.BtnSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
+        Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PicDesign = New System.Windows.Forms.PictureBox()
+        Me.BtnSave = New System.Windows.Forms.ToolStripButton()
         Me.BtnCopy = New System.Windows.Forms.ToolStripButton()
         Me.BtnCut = New System.Windows.Forms.ToolStripButton()
         Me.BtnMove = New System.Windows.Forms.ToolStripButton()
         Me.BtnPaste = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BtnMirror = New System.Windows.Forms.ToolStripButton()
+        Me.BtnFlip = New System.Windows.Forms.ToolStripButton()
         Me.BtnUndo = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnRedo = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnFill = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnZoom = New System.Windows.Forms.ToolStripButton()
         Me.BtnEnlarge = New System.Windows.Forms.ToolStripButton()
         Me.BtnShrink = New System.Windows.Forms.ToolStripButton()
@@ -110,7 +117,6 @@ Partial Class FrmStitchDesign
         Me.BtnHeight = New System.Windows.Forms.ToolStripButton()
         Me.BtnCentre = New System.Windows.Forms.ToolStripButton()
         Me.BtnClose = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
         Me.BtnFullStitch = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTL = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTR = New System.Windows.Forms.ToolStripButton()
@@ -123,32 +129,26 @@ Partial Class FrmStitchDesign
         Me.BtnQtrBR = New System.Windows.Forms.ToolStripButton()
         Me.BtnQtrBL = New System.Windows.Forms.ToolStripButton()
         Me.BtnQuarters = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnFullBackstitchThin = New System.Windows.Forms.ToolStripButton()
         Me.BtnHalfBackStitchThin = New System.Windows.Forms.ToolStripButton()
         Me.BtnFullBackStitchThick = New System.Windows.Forms.ToolStripButton()
         Me.BtnHalfBackStitchThick = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnKnot = New System.Windows.Forms.ToolStripButton()
         Me.BtnBead = New System.Windows.Forms.ToolStripButton()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PicDesign = New System.Windows.Forms.PictureBox()
-        Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
-        Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PicGrid = New System.Windows.Forms.PictureBox()
+        Me.PicStitch = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -296,22 +296,9 @@ Partial Class FrmStitchDesign
         '
         'MnuMirrorSelection
         '
-        Me.MnuMirrorSelection.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerticalToolStripMenuItem, Me.HorizontalToolStripMenuItem})
         Me.MnuMirrorSelection.Name = "MnuMirrorSelection"
         Me.MnuMirrorSelection.Size = New System.Drawing.Size(152, 22)
         Me.MnuMirrorSelection.Text = "Mirror"
-        '
-        'VerticalToolStripMenuItem
-        '
-        Me.VerticalToolStripMenuItem.Name = "VerticalToolStripMenuItem"
-        Me.VerticalToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
-        Me.VerticalToolStripMenuItem.Text = "Vertical"
-        '
-        'HorizontalToolStripMenuItem
-        '
-        Me.HorizontalToolStripMenuItem.Name = "HorizontalToolStripMenuItem"
-        Me.HorizontalToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
-        Me.HorizontalToolStripMenuItem.Text = "Horizontal"
         '
         'MnuRotate
         '
@@ -382,49 +369,49 @@ Partial Class FrmStitchDesign
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuStitchTypes
         '
         Me.MnuStitchTypes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBlockStitches, Me.MnuBackStitches, Me.MnuKnots})
         Me.MnuStitchTypes.Name = "MnuStitchTypes"
-        Me.MnuStitchTypes.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchTypes.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchTypes.Text = "Stitch Types"
         '
         'MnuBlockStitches
@@ -433,7 +420,7 @@ Partial Class FrmStitchDesign
         Me.MnuBlockStitches.CheckOnClick = True
         Me.MnuBlockStitches.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuBlockStitches.Name = "MnuBlockStitches"
-        Me.MnuBlockStitches.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBlockStitches.Size = New System.Drawing.Size(161, 22)
         Me.MnuBlockStitches.Text = "Block Stitches"
         '
         'MnuBackStitches
@@ -442,7 +429,7 @@ Partial Class FrmStitchDesign
         Me.MnuBackStitches.CheckOnClick = True
         Me.MnuBackStitches.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuBackStitches.Name = "MnuBackStitches"
-        Me.MnuBackStitches.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBackStitches.Size = New System.Drawing.Size(161, 22)
         Me.MnuBackStitches.Text = "Back Stitches"
         '
         'MnuKnots
@@ -451,7 +438,7 @@ Partial Class FrmStitchDesign
         Me.MnuKnots.CheckOnClick = True
         Me.MnuKnots.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuKnots.Name = "MnuKnots"
-        Me.MnuKnots.Size = New System.Drawing.Size(180, 22)
+        Me.MnuKnots.Size = New System.Drawing.Size(161, 22)
         Me.MnuKnots.Text = "Knots and Beads"
         '
         'MnuTools
@@ -529,28 +516,6 @@ Partial Class FrmStitchDesign
         Me.LblPixelColourName.TabIndex = 6
         Me.LblPixelColourName.Text = "No colour selected"
         Me.LblPixelColourName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PicGrid
-        '
-        Me.PicGrid.BackColor = System.Drawing.SystemColors.Control
-        Me.PicGrid.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PicGrid.Location = New System.Drawing.Point(3, 3)
-        Me.PicGrid.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicGrid.Name = "PicGrid"
-        Me.PicGrid.Size = New System.Drawing.Size(20, 20)
-        Me.PicGrid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicGrid.TabIndex = 0
-        Me.PicGrid.TabStop = False
-        '
-        'PicStitch
-        '
-        Me.PicStitch.Location = New System.Drawing.Point(3, 26)
-        Me.PicStitch.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicStitch.Name = "PicStitch"
-        Me.PicStitch.Size = New System.Drawing.Size(20, 21)
-        Me.PicStitch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicStitch.TabIndex = 1
-        Me.PicStitch.TabStop = False
         '
         'PnlSelectedColor
         '
@@ -635,13 +600,138 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.AutoSize = False
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnUndo, Me.ToolStripSeparator3, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnMirror, Me.BtnFlip, Me.ToolStripSeparator3, Me.BtnUndo, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose})
         Me.ToolStrip1.Location = New System.Drawing.Point(6, 5)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
         Me.ToolStrip1.Size = New System.Drawing.Size(697, 26)
         Me.ToolStrip1.TabIndex = 135
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 24)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 24)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 24)
+        '
+        'ToolStripSeparator7
+        '
+        Me.ToolStripSeparator7.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(6, 24)
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 24)
+        '
+        'ToolStrip2
+        '
+        Me.ToolStrip2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ToolStrip2.AutoSize = False
+        Me.ToolStrip2.BackColor = System.Drawing.SystemColors.Control
+        Me.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None
+        Me.ToolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnFullStitch, Me.Btn3QtrsTL, Me.Btn3QtrsTR, Me.Btn3QtrsBR, Me.Btn3QtrsBL, Me.BtnHalfForward, Me.BtnHalfBack, Me.BtnQtrTL, Me.BtnQtrTR, Me.BtnQtrBR, Me.BtnQtrBL, Me.BtnQuarters, Me.ToolStripSeparator2, Me.BtnFullBackstitchThin, Me.BtnHalfBackStitchThin, Me.BtnFullBackStitchThick, Me.BtnHalfBackStitchThick, Me.ToolStripSeparator6, Me.BtnKnot, Me.BtnBead})
+        Me.ToolStrip2.Location = New System.Drawing.Point(6, 31)
+        Me.ToolStrip2.Name = "ToolStrip2"
+        Me.ToolStrip2.Padding = New System.Windows.Forms.Padding(2, 1, 2, 2)
+        Me.ToolStrip2.Size = New System.Drawing.Size(697, 26)
+        Me.ToolStrip2.TabIndex = 136
+        Me.ToolStrip2.Text = "ToolStrip2"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 23)
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 23)
+        '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.PicDesign)
+        Me.Panel1.Controls.Add(Me.HScrollBar1)
+        Me.Panel1.Controls.Add(Me.VScrollBar1)
+        Me.Panel1.Location = New System.Drawing.Point(6, 63)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(703, 466)
+        Me.Panel1.TabIndex = 137
+        '
+        'HScrollBar1
+        '
+        Me.HScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.HScrollBar1.Location = New System.Drawing.Point(3, 442)
+        Me.HScrollBar1.Name = "HScrollBar1"
+        Me.HScrollBar1.Size = New System.Drawing.Size(669, 20)
+        Me.HScrollBar1.TabIndex = 135
+        '
+        'VScrollBar1
+        '
+        Me.VScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.VScrollBar1.Location = New System.Drawing.Point(675, 3)
+        Me.VScrollBar1.Name = "VScrollBar1"
+        Me.VScrollBar1.Size = New System.Drawing.Size(20, 433)
+        Me.VScrollBar1.TabIndex = 134
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer1.Location = New System.Drawing.Point(6, 27)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip2)
+        Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SplitContainer1.Size = New System.Drawing.Size(848, 536)
+        Me.SplitContainer1.SplitterDistance = 128
+        Me.SplitContainer1.TabIndex = 136
+        '
+        'PicDesign
+        '
+        Me.PicDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicDesign.BackColor = System.Drawing.Color.White
+        Me.PicDesign.Location = New System.Drawing.Point(3, 3)
+        Me.PicDesign.Name = "PicDesign"
+        Me.PicDesign.Size = New System.Drawing.Size(669, 433)
+        Me.PicDesign.TabIndex = 133
+        Me.PicDesign.TabStop = False
         '
         'BtnSave
         '
@@ -656,12 +746,6 @@ Partial Class FrmStitchDesign
         Me.BtnSave.Size = New System.Drawing.Size(23, 22)
         Me.BtnSave.Text = "ToolStripButton1"
         Me.BtnSave.ToolTipText = "Save Design"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 24)
         '
         'BtnCopy
         '
@@ -709,7 +793,7 @@ Partial Class FrmStitchDesign
         '
         Me.BtnPaste.AutoSize = False
         Me.BtnPaste.BackColor = System.Drawing.SystemColors.Control
-        Me.BtnPaste.BackgroundImage = CType(resources.GetObject("BtnPaste.BackgroundImage"), System.Drawing.Image)
+        Me.BtnPaste.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
         Me.BtnPaste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.BtnPaste.Image = Global.MyStitch.My.Resources.Resources.paste2
         Me.BtnPaste.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -719,11 +803,29 @@ Partial Class FrmStitchDesign
         Me.BtnPaste.Text = "ToolStripButton1"
         Me.BtnPaste.ToolTipText = "Paste Selection"
         '
-        'ToolStripSeparator4
+        'BtnMirror
         '
-        Me.ToolStripSeparator4.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 24)
+        Me.BtnMirror.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnMirror.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnMirror.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnMirror.Image = Global.MyStitch.My.Resources.Resources.mirror
+        Me.BtnMirror.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnMirror.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnMirror.Name = "BtnMirror"
+        Me.BtnMirror.Size = New System.Drawing.Size(23, 24)
+        Me.BtnMirror.Text = "ToolStripButton1"
+        '
+        'BtnFlip
+        '
+        Me.BtnFlip.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnFlip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnFlip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnFlip.Image = Global.MyStitch.My.Resources.Resources.flip
+        Me.BtnFlip.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnFlip.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnFlip.Name = "BtnFlip"
+        Me.BtnFlip.Size = New System.Drawing.Size(23, 24)
+        Me.BtnFlip.Text = "ToolStripButton2"
         '
         'BtnUndo
         '
@@ -739,12 +841,6 @@ Partial Class FrmStitchDesign
         Me.BtnUndo.Text = "ToolStripButton1"
         Me.BtnUndo.ToolTipText = "Undo change"
         '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 24)
-        '
         'BtnRedo
         '
         Me.BtnRedo.AutoSize = False
@@ -759,12 +855,6 @@ Partial Class FrmStitchDesign
         Me.BtnRedo.Text = "BtnRedo"
         Me.BtnRedo.ToolTipText = "Redo Change"
         '
-        'ToolStripSeparator7
-        '
-        Me.ToolStripSeparator7.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(6, 24)
-        '
         'BtnFill
         '
         Me.BtnFill.AutoSize = False
@@ -778,12 +868,6 @@ Partial Class FrmStitchDesign
         Me.BtnFill.Size = New System.Drawing.Size(23, 22)
         Me.BtnFill.Text = "ToolStripButton1"
         Me.BtnFill.ToolTipText = "Fill"
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 24)
         '
         'BtnZoom
         '
@@ -882,22 +966,6 @@ Partial Class FrmStitchDesign
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(46, 22)
         Me.BtnClose.Text = "Close"
-        '
-        'ToolStrip2
-        '
-        Me.ToolStrip2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ToolStrip2.AutoSize = False
-        Me.ToolStrip2.BackColor = System.Drawing.SystemColors.Control
-        Me.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None
-        Me.ToolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnFullStitch, Me.Btn3QtrsTL, Me.Btn3QtrsTR, Me.Btn3QtrsBR, Me.Btn3QtrsBL, Me.BtnHalfForward, Me.BtnHalfBack, Me.BtnQtrTL, Me.BtnQtrTR, Me.BtnQtrBR, Me.BtnQtrBL, Me.BtnQuarters, Me.ToolStripSeparator2, Me.BtnFullBackstitchThin, Me.BtnHalfBackStitchThin, Me.BtnFullBackStitchThick, Me.BtnHalfBackStitchThick, Me.ToolStripSeparator6, Me.BtnKnot, Me.BtnBead})
-        Me.ToolStrip2.Location = New System.Drawing.Point(6, 31)
-        Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Padding = New System.Windows.Forms.Padding(2, 1, 2, 2)
-        Me.ToolStrip2.Size = New System.Drawing.Size(697, 26)
-        Me.ToolStrip2.TabIndex = 136
-        Me.ToolStrip2.Text = "ToolStrip2"
         '
         'BtnFullStitch
         '
@@ -1068,12 +1136,6 @@ Partial Class FrmStitchDesign
         Me.BtnQuarters.Text = "ToolStripButton1"
         Me.BtnQuarters.ToolTipText = "Quarters"
         '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 23)
-        '
         'BtnFullBackstitchThin
         '
         Me.BtnFullBackstitchThin.AutoSize = False
@@ -1130,12 +1192,6 @@ Partial Class FrmStitchDesign
         Me.BtnHalfBackStitchThick.Text = "ToolStripButton1"
         Me.BtnHalfBackStitchThick.ToolTipText = "Thick Half Backstitch"
         '
-        'ToolStripSeparator6
-        '
-        Me.ToolStripSeparator6.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 23)
-        '
         'BtnKnot
         '
         Me.BtnKnot.AutoSize = False
@@ -1164,72 +1220,27 @@ Partial Class FrmStitchDesign
         Me.BtnBead.Text = "ToolStripButton1"
         Me.BtnBead.ToolTipText = "Bead"
         '
-        'Panel1
+        'PicGrid
         '
-        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.PicDesign)
-        Me.Panel1.Controls.Add(Me.HScrollBar1)
-        Me.Panel1.Controls.Add(Me.VScrollBar1)
-        Me.Panel1.Location = New System.Drawing.Point(6, 63)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(703, 466)
-        Me.Panel1.TabIndex = 137
+        Me.PicGrid.BackColor = System.Drawing.SystemColors.Control
+        Me.PicGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PicGrid.Location = New System.Drawing.Point(3, 3)
+        Me.PicGrid.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicGrid.Name = "PicGrid"
+        Me.PicGrid.Size = New System.Drawing.Size(20, 20)
+        Me.PicGrid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicGrid.TabIndex = 0
+        Me.PicGrid.TabStop = False
         '
-        'PicDesign
+        'PicStitch
         '
-        Me.PicDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PicDesign.BackColor = System.Drawing.Color.White
-        Me.PicDesign.Location = New System.Drawing.Point(3, 3)
-        Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(669, 433)
-        Me.PicDesign.TabIndex = 133
-        Me.PicDesign.TabStop = False
-        '
-        'HScrollBar1
-        '
-        Me.HScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.HScrollBar1.Location = New System.Drawing.Point(3, 442)
-        Me.HScrollBar1.Name = "HScrollBar1"
-        Me.HScrollBar1.Size = New System.Drawing.Size(669, 20)
-        Me.HScrollBar1.TabIndex = 135
-        '
-        'VScrollBar1
-        '
-        Me.VScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VScrollBar1.Location = New System.Drawing.Point(675, 3)
-        Me.VScrollBar1.Name = "VScrollBar1"
-        Me.VScrollBar1.Size = New System.Drawing.Size(20, 433)
-        Me.VScrollBar1.TabIndex = 134
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer1.Location = New System.Drawing.Point(6, 27)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip2)
-        Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SplitContainer1.Size = New System.Drawing.Size(848, 536)
-        Me.SplitContainer1.SplitterDistance = 128
-        Me.SplitContainer1.TabIndex = 136
+        Me.PicStitch.Location = New System.Drawing.Point(3, 26)
+        Me.PicStitch.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicStitch.Name = "PicStitch"
+        Me.PicStitch.Size = New System.Drawing.Size(20, 21)
+        Me.PicStitch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicStitch.TabIndex = 1
+        Me.PicStitch.TabStop = False
         '
         'FrmStitchDesign
         '
@@ -1247,18 +1258,18 @@ Partial Class FrmStitchDesign
         Me.MenuStrip1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.ToolStrip2.ResumeLayout(False)
         Me.ToolStrip2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1367,8 +1378,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuRemoveUnusedColours As ToolStripMenuItem
     Friend WithEvents MnuThreads As ToolStripMenuItem
     Friend WithEvents MnuPrintThreadCards As ToolStripMenuItem
-    Friend WithEvents VerticalToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HorizontalToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LblSelectMessage As Label
     Friend WithEvents MnuClearSelection As ToolStripMenuItem
     Friend WithEvents LblSelection As Label
@@ -1376,4 +1385,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuBlockStitches As ToolStripMenuItem
     Friend WithEvents MnuBackStitches As ToolStripMenuItem
     Friend WithEvents MnuKnots As ToolStripMenuItem
+    Friend WithEvents BtnMirror As ToolStripButton
+    Friend WithEvents BtnFlip As ToolStripButton
 End Class
