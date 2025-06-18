@@ -1262,6 +1262,7 @@ Public Class FrmStitchDesign
         Dim _designBorderPen As New Pen(Brushes.Black, 2)
 
         oDesignGraphics.FillRectangle(_fabricBrush, New Rectangle(0, 0, oDesignBitmap.Width, oDesignBitmap.Height))
+        FillBeforeGrid()
         If My.Settings.isGridOn Then
             Dim _penWidth As Integer
             Dim _penColor As Brush
@@ -1296,20 +1297,18 @@ Public Class FrmStitchDesign
                 oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
             Next
         End If
+        fillAfterGrid
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-        'If oCurrentSelection.Length > 0 Then
-        '    Dim _width As Integer = (oCurrentSelection(1).X - oCurrentSelection(0).X) * iPpc
-        '    Dim _height As Integer = (oCurrentSelection(1).Y - oCurrentSelection(0).Y) * iPpc
-        '    oDesignGraphics.DrawRectangle(_selPen, oCurrentSelection(0).X * iPpc, oCurrentSelection(0).Y * iPpc, _width, _height)
-        'End If
-        FillGrid()
+
     End Sub
-    Private Sub FillGrid()
+    Private Sub FillBeforeGrid()
         If My.Settings.IsShowBlockstitches Then
             For Each _blockstitch In oProjectDesign.BlockStitches
                 DrawBlockStitch(_blockstitch)
             Next
         End If
+    End Sub
+    Private Sub FillAfterGrid()
         If My.Settings.IsShowBackstitches Then
             For Each _backstitch In oProjectDesign.BackStitches
                 DrawBackstitch(_backstitch)
