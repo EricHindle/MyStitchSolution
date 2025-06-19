@@ -11,6 +11,32 @@ Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmStitchDesign
+#Region "classes"
+    Private Class StitchAction
+        Private _subjectStitch As Stitch
+        Private _doneAction As UndoAction
+        Public Property DoneAction() As UndoAction
+            Get
+                Return _doneAction
+            End Get
+            Set(ByVal value As UndoAction)
+                _doneAction = value
+            End Set
+        End Property
+        Public Property Stitch() As Stitch
+            Get
+                Return _subjectStitch
+            End Get
+            Set(ByVal value As Stitch)
+                _subjectStitch = value
+            End Set
+        End Property
+        Public Sub New(pStitch As Stitch, pAction As UndoAction)
+            _subjectStitch = pStitch
+            _doneAction = pAction
+        End Sub
+    End Class
+#End Region
 #Region "constants"
     Private Const PIXELS_PER_CELL As Integer = 8
     Private Const MAG_STEP As Decimal = 1.3
@@ -38,6 +64,9 @@ Public Class FrmStitchDesign
     Private oDesignGraphics As Graphics
     Private oDesignGraphicsOverlay As Graphics
     Private oProjectDesign As ProjectDesign
+
+    Private oUndoList As New List(Of StitchAction)
+    Private oRedoList As New List(Of StitchAction)
 
     Private isLoading As Boolean
     Private isInitialised As Boolean
@@ -91,6 +120,10 @@ Public Class FrmStitchDesign
     Private isThreadOn As Boolean
 #End Region
 #Region "enum"
+    Private Enum UndoAction
+        Add
+        Remove
+    End Enum
     Private Enum DesignAction
         FullBlockstitch
         HalfBlockstitchForward
@@ -266,6 +299,7 @@ Public Class FrmStitchDesign
                 EndCopySelection(pCell.Position)
                 RemoveSelectedCells()
                 ClearSelection()
+                oCurrentAction = DesignAction.none
             Case DesignAction.Flip
                 EndCopySelection(pCell.Position)
                 EndFlip(pCell.Position)
@@ -384,7 +418,7 @@ Public Class FrmStitchDesign
                     LogUtil.Debug("Removing knot/bead", MyBase.Name)
                     Dim _exists As Knot = FindKnot(_cell.KnotCellPos, _cell.KnotQtr)
                     If _exists IsNot Nothing Then
-                        oProjectDesign.Knots.Remove(_exists)
+                        RemoveKnotFromDesign(oProjectDesign, _exists)
                         isImageChanged = True
                     End If
                 ElseIf isBackstitchAction Then
@@ -433,7 +467,7 @@ Public Class FrmStitchDesign
                     LogUtil.Debug("Removing blockstitch", MyBase.Name)
                     Dim _exists As BlockStitch = FindBlockstitch(_cell.Position)
                     If _exists.IsLoaded Then
-                        oProjectDesign.BlockStitches.Remove(_exists)
+                        RemoveBlockStitchFromDesign(oProjectDesign, _exists)
                         isImageChanged = True
                     End If
                 End If
@@ -536,14 +570,14 @@ Public Class FrmStitchDesign
                     LogUtil.Debug("Remove knot on the move", MyBase.Name)
                     Dim _exists As Knot = FindKnot(_knotPos, _knotqtr)
                     If _exists IsNot Nothing Then
-                        oProjectDesign.Knots.Remove(_exists)
+                        RemoveKnotFromDesign(oProjectDesign, _exists)
                         isImageChanged = True
                     End If
                 Else
                     LogUtil.Debug("Remove blockstitch on the move", MyBase.Name)
                     Dim _exists As BlockStitch = FindBlockstitch(_cellPos)
                     If _exists.IsLoaded Then
-                        oProjectDesign.BlockStitches.Remove(_exists)
+                        RemoveBlockStitchFromDesign(oProjectDesign, _exists)
                         isImageChanged = True
                     End If
                 End If
@@ -825,11 +859,11 @@ Public Class FrmStitchDesign
         BeginFlip()
     End Sub
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
-
+        UndoLastAction
     End Sub
 
     Private Sub BtnRedo_Click(sender As Object, e As EventArgs) Handles BtnRedo.Click
-
+        RedoLastUndo()
     End Sub
 
     Private Sub BtnZoom_Click(sender As Object, e As EventArgs) Handles BtnZoom.Click
@@ -968,7 +1002,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MirrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuMirrorSelection.Click
-        BeginMirror
+        BeginMirror()
     End Sub
 
     Private Sub RotateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuRotate.Click
@@ -1023,6 +1057,8 @@ Public Class FrmStitchDesign
     Private Sub InitialiseForm()
         isInitialised = True
         oProject = GetProjectById(oProjectId)
+        oUndoList = New List(Of StitchAction)
+        oRedoList = New List(Of StitchAction)
         SetGridImage()
         Dim _blackThread As New Thread(0, String.Empty, "Black", Color.Black, 0)
         SelectFullBlockstitch()
@@ -1047,7 +1083,6 @@ Public Class FrmStitchDesign
             InitialisePalette()
             SetStitchTypesMenu()
             ChangeMagnification(1)
-
             Dim _widthRatio As Decimal = Math.Round(PicDesign.Width / iOneToOneSize.Width, 2, MidpointRounding.AwayFromZero)
             Dim _heightRatio As Decimal = Math.Round(PicDesign.Height / iOneToOneSize.Height, 2, MidpointRounding.AwayFromZero)
             If iOneToOneSize.Width <= PicDesign.Width Then
@@ -1297,7 +1332,7 @@ Public Class FrmStitchDesign
                 oDesignGraphics.DrawLine(New Pen(_penColor, _penWidth), New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
             Next
         End If
-        fillAfterGrid
+        FillAfterGrid()
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
 
     End Sub
@@ -1381,6 +1416,59 @@ Public Class FrmStitchDesign
             PicStitch.Image = pButton.Image
         Else
             PicStitch.Image = Nothing
+        End If
+    End Sub
+
+    Private Sub UndoLastAction()
+        If oUndoList.Count > 0 Then
+            Dim _stitchAction As StitchAction = oUndoList.Last
+            oRedoList.Add(_stitchAction)
+            If _stitchAction.DoneAction = UndoAction.Add Then
+                If TypeOf _stitchAction.Stitch Is Knot Then
+                    oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                    oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                    oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                End If
+            Else
+                If TypeOf _stitchAction.Stitch Is Knot Then
+                    oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                    oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                    oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                End If
+            End If
+            oUndoList.Remove(_stitchAction)
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
+        End If
+    End Sub
+    Private Sub RedoLastUndo()
+        If oRedoList.Count > 0 Then
+            Dim _stitchAction As StitchAction = oRedoList.Last
+            oUndoList.Add(_stitchAction)
+            If _stitchAction.DoneAction = UndoAction.Add Then
+                If TypeOf _stitchAction.Stitch Is Knot Then
+                    oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                    oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                    oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                End If
+            Else
+                If TypeOf _stitchAction.Stitch Is Knot Then
+                    oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                    oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                    oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                End If
+            End If
+            oRedoList.Remove(_stitchAction)
+            DrawGrid(oProject, oProjectDesign)
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         End If
     End Sub
 
@@ -1681,15 +1769,15 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub AddBlockStitch(pDesign As ProjectDesign, pStitch As BlockStitch)
         RemoveExistingBlockStitch(pStitch.BlockLocation, pDesign)
-        pDesign.BlockStitches.Add(pStitch)
+        AddBlockStitchToDesign(pDesign, pStitch)
     End Sub
     Private Sub AddKnot(pDesign As ProjectDesign, pKnot As Knot)
         RemoveExistingKnot(pKnot.BlockLocation, pKnot.BlockQuarter, pDesign)
-        pDesign.Knots.Add(pKnot)
+        AddKnotToDesign(pDesign, pKnot)
     End Sub
     Private Sub AddBackStitch(pDesign As ProjectDesign, pStitch As BackStitch)
         RemoveExistingBackStitch(pStitch.FromBlockLocation, pStitch.ToBlockLocation, pDesign)
-        pDesign.BackStitches.Add(pStitch)
+        AddBackStitchToDesign(pDesign, pStitch)
     End Sub
 
     Private Function AddQuarterBlockstitch(pActionPoint As Point, pQtr As BlockQuarter) As BlockStitch
@@ -1707,10 +1795,10 @@ Public Class FrmStitchDesign
     Private Sub AddKnot(pActionPoint As Point, pQtr As BlockQuarter, pIsBead As Boolean)
         Dim _exists = FindKnot(pActionPoint, pQtr)
         If _exists IsNot Nothing Then
-            oProjectDesign.Knots.Remove(_exists)
+            RemoveKnotFromDesign(oProjectDesign, _exists)
         End If
         Dim newBead As New Knot(pActionPoint, pQtr, 1, oCurrentThread.ThreadId, oProject.ProjectId, pIsBead)
-        oProjectDesign.Knots.Add(newBead)
+        AddKnotToDesign(oProjectDesign, newBead)
     End Sub
 
     Private Function BackstitchMouseDown(pCellLocation As Point, pIsHalf As Boolean, pIsThick As Boolean) As Boolean
@@ -1745,7 +1833,7 @@ Public Class FrmStitchDesign
         If isBackstitchInProgress Then
             oBackstitchInProgress.ToBlockQuarter = pQtr
             oBackstitchInProgress.ToBlockLocation = pCellLocation
-            oProjectDesign.BackStitches.Add(BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
+   AddBackStitchToDesign(         oProjectDesign,BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
             oBackstitchInProgress.FromBlockQuarter = pQtr
             oBackstitchInProgress.FromBlockLocation = pCellLocation
             DrawGrid(oProject, oProjectDesign)
@@ -1921,6 +2009,36 @@ Public Class FrmStitchDesign
         oDesignGraphics.FillEllipse(New SolidBrush(pKnot.ProjThread.Thread.Colour), _rect)
     End Sub
 
+    Private Sub RemoveKnotFromDesign(ByRef pDesign As ProjectDesign, pKnot As Knot)
+        pDesign.Knots.Remove(pKnot)
+        oUndoList.Add(New StitchAction(pKnot, UndoAction.Remove))
+        oRedoList.Clear()
+    End Sub
+    Private Sub RemoveBlockStitchFromDesign(ByRef pDesign As ProjectDesign, pBlockstitch As BlockStitch)
+        pDesign.BlockStitches.Remove(pBlockstitch)
+        oUndoList.Add(New StitchAction(pBlockstitch, UndoAction.Remove))
+        oRedoList.Clear()
+    End Sub
+    Private Sub RemoveBackStitchFromDesign(ByRef pDesign As ProjectDesign, pBackstitch As BackStitch)
+        pDesign.BackStitches.Remove(pBackstitch)
+        oUndoList.Add(New StitchAction(pBackstitch, UndoAction.Remove))
+        oRedoList.Clear()
+    End Sub
+    Private Sub AddKnotToDesign(ByRef pDesign As ProjectDesign, pKnot As Knot)
+        pDesign.Knots.Add(pKnot)
+        oUndoList.Add(New StitchAction(pKnot, UndoAction.Add))
+        oRedoList.Clear()
+    End Sub
+    Private Sub AddBlockStitchToDesign(ByRef pDesign As ProjectDesign, pBlockstitch As BlockStitch)
+        pDesign.BlockStitches.Add(pBlockstitch)
+        oUndoList.Add(New StitchAction(pBlockstitch, UndoAction.Add))
+        oRedoList.Clear()
+    End Sub
+    Private Sub AddBackStitchToDesign(ByRef pDesign As ProjectDesign, pBackstitch As BackStitch)
+        pDesign.BackStitches.Add(pBackstitch)
+        oUndoList.Add(New StitchAction(pBackstitch, UndoAction.Add))
+        oRedoList.Clear()
+    End Sub
 #End Region
 #Region "functions"
     Private Function FindKnot(pActionPoint As Point, pQtr As BlockQuarter) As Knot
@@ -1946,14 +2064,14 @@ Public Class FrmStitchDesign
             .WithLocation(pActionPoint) _
             .WithQuarters(New List(Of BlockStitchQuarter)) _
             .Build
-            oProjectDesign.BlockStitches.Add(_found)
+            AddBlockStitchToDesign(oProjectDesign, _found)
         End If
         Return _found
     End Function
     Private Sub RemoveExistingBlockStitch(pActionPoint As Point, pDesign As ProjectDesign)
         For Each _blockStitch As BlockStitch In pDesign.BlockStitches
             If _blockStitch.BlockLocation = pActionPoint Then
-                pDesign.BlockStitches.Remove(_blockStitch)
+                RemoveBlockStitchFromDesign(pDesign, _blockStitch)
                 Exit For
             End If
         Next
@@ -1961,7 +2079,7 @@ Public Class FrmStitchDesign
     Private Sub RemoveExistingBackStitch(pActionFromPoint As Point, pActionToPoint As Point, pDesign As ProjectDesign)
         For Each _backStitch As BackStitch In pDesign.BackStitches
             If _backStitch.FromBlockLocation = pActionFromPoint And _backStitch.ToBlockLocation = pActionToPoint Then
-                pDesign.BackStitches.Remove(_backStitch)
+                RemoveBackStitchFromDesign(pDesign, _backStitch)
                 Exit For
             End If
         Next
@@ -1969,7 +2087,7 @@ Public Class FrmStitchDesign
     Private Sub RemoveExistingKnot(pActionPoint As Point, pQtr As BlockQuarter, pDesign As ProjectDesign)
         For Each _knot As Knot In pDesign.Knots
             If _knot.BlockLocation = pActionPoint And _knot.BlockQuarter = pQtr Then
-                pDesign.Knots.Remove(_knot)
+                RemoveKnotFromDesign(pDesign, _knot)
                 Exit For
             End If
         Next
