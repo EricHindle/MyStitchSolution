@@ -98,6 +98,7 @@ Partial Class FrmProject
         Me.MnuUndoOn = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BtnTest = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -808,11 +809,28 @@ Partial Class FrmProject
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
+        'BtnTest
+        '
+        Me.BtnTest.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnTest.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnTest.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnTest.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnTest.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnTest.Location = New System.Drawing.Point(311, 493)
+        Me.BtnTest.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnTest.Name = "BtnTest"
+        Me.BtnTest.Size = New System.Drawing.Size(75, 53)
+        Me.BtnTest.TabIndex = 131
+        Me.BtnTest.Text = "Test"
+        Me.BtnTest.UseVisualStyleBackColor = False
+        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(709, 575)
+        Me.Controls.Add(Me.BtnTest)
         Me.Controls.Add(Me.BtnDesign)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.PnlForm)
@@ -920,4 +938,5 @@ Partial Class FrmProject
     Friend WithEvents MnuRestore As ToolStripMenuItem
     Friend WithEvents MnuOpenDesign As ToolStripMenuItem
     Friend WithEvents MnuResizeDesign As ToolStripMenuItem
+    Friend WithEvents BtnTest As Button
 End Class

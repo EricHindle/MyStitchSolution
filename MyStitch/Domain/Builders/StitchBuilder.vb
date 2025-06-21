@@ -39,6 +39,7 @@ Public Class StitchBuilder
             _strands = .Strands
             _threadId = .ThreadId
             _projectId = .ProjectId
+            _stitchType = .StitchType
         End With
         Return Me
     End Function
@@ -49,6 +50,10 @@ Public Class StitchBuilder
     End Function
     Public Function WithQuarter(pQtr As BlockQuarter) As StitchBuilder
         _blockQtr = pQtr
+        Return Me
+    End Function
+    Public Function WithStitchType(pType As BlockStitchType) As StitchBuilder
+        _stitchType = pType
         Return Me
     End Function
     Public Function WithStrandCount(pStrands As Integer) As StitchBuilder

@@ -32,76 +32,76 @@ Module ModDesign
 #Region "variables"
     Friend iXOffset As Integer
     Friend iYOffset As Integer
-    Friend iPpc As Integer
+    Friend iPixelsPerCell As Integer
     Friend topcorner As New Point(0, 0)
 #End Region
 #Region "functions"
     Public Function FindCellFromClickLocation(e As MouseEventArgs) As Cell
         Dim pCellBuilder As CellBuilder = CellBuilder.ACell.StartingWithNothing
-        Dim pos_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
-        Dim pos_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
-        Dim loc_x As Integer = (pos_x) * iPpc
-        Dim loc_y As Integer = (pos_y) * iPpc
+        Dim pos_x As Integer = Math.Floor(e.X / iPixelsPerCell) - iXOffset + topcorner.X
+        Dim pos_y As Integer = Math.Floor(e.Y / iPixelsPerCell) - iYOffset + topcorner.Y
+        Dim loc_x As Integer = (pos_x) * iPixelsPerCell
+        Dim loc_y As Integer = (pos_y) * iPixelsPerCell
 
         pCellBuilder.WithPosition(New Point(pos_x, pos_y))
         pCellBuilder.WithLocation(New Point(loc_x, loc_y))
 
-        Dim _xrmd As Integer = e.X Mod iPpc
-        Dim _yrmd As Integer = e.Y Mod iPpc
+        Dim _xrmd As Integer = e.X Mod iPixelsPerCell
+        Dim _yrmd As Integer = e.Y Mod iPixelsPerCell
         Dim _qtr As BlockQuarter
         Dim _qtrLoc As New Point(loc_x, loc_y)
         Dim _qtrPos As New Point(pos_x, pos_y)
         Select Case True
-            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+            Case (_xrmd >= 0 AndAlso _xrmd < iPixelsPerCell / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPixelsPerCell / 2)
                 _qtrLoc = New Point(loc_x, loc_y)
                 _qtr = BlockQuarter.TopLeft
-            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
-                _qtrLoc = New Point(loc_x + (iPpc / 2), loc_y + (iPpc / 2))
+            Case _xrmd > iPixelsPerCell / 2 AndAlso _yrmd > iPixelsPerCell / 2
+                _qtrLoc = New Point(loc_x + (iPixelsPerCell / 2), loc_y + (iPixelsPerCell / 2))
                 _qtr = BlockQuarter.BottomRight
-            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
-                _qtrLoc = New Point(loc_x, loc_y + (iPpc / 2))
+            Case (_xrmd >= 0 AndAlso _xrmd < iPixelsPerCell / 2) AndAlso _yrmd > iPixelsPerCell / 2
+                _qtrLoc = New Point(loc_x, loc_y + (iPixelsPerCell / 2))
                 _qtr = BlockQuarter.BottomLeft
-            Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
-                _qtrLoc = New Point(loc_x + (iPpc / 2), loc_y)
+            Case _xrmd > iPixelsPerCell / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPixelsPerCell / 2)
+                _qtrLoc = New Point(loc_x + (iPixelsPerCell / 2), loc_y)
                 _qtr = BlockQuarter.TopRight
         End Select
         pCellBuilder.WithStitchQtr(_qtr).WithStitchQtrLoc(_qtrLoc)
-        If _yrmd >= 0 And _yrmd < iPpc / 4 Then
-            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+        If _yrmd >= 0 And _yrmd < iPixelsPerCell / 4 Then
+            If _xrmd >= 0 And _xrmd < iPixelsPerCell / 4 Then
                 _qtr = BlockQuarter.TopLeft
             End If
-            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell / 4 And _xrmd < iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.TopRight
             End If
-            If _xrmd >= iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.TopLeft
                 _qtrPos.X += 1
             End If
         End If
 
-        If _yrmd >= iPpc / 4 And _yrmd < iPpc * 3 / 4 Then
-            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+        If _yrmd >= iPixelsPerCell / 4 And _yrmd < iPixelsPerCell * 3 / 4 Then
+            If _xrmd >= 0 And _xrmd < iPixelsPerCell / 4 Then
                 _qtr = BlockQuarter.BottomLeft
             End If
-            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell / 4 And _xrmd < iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.BottomRight
             End If
-            If _xrmd >= iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.BottomLeft
                 _qtrPos.X += 1
             End If
         End If
 
-        If _yrmd >= iPpc * 3 / 4 Then
-            If _xrmd >= 0 And _xrmd < iPpc / 4 Then
+        If _yrmd >= iPixelsPerCell * 3 / 4 Then
+            If _xrmd >= 0 And _xrmd < iPixelsPerCell / 4 Then
                 _qtr = BlockQuarter.TopLeft
                 _qtrPos.Y += 1
             End If
-            If _xrmd >= iPpc / 4 And _xrmd < iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell / 4 And _xrmd < iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.TopRight
                 _qtrPos.Y += 1
             End If
-            If _xrmd >= iPpc * 3 / 4 Then
+            If _xrmd >= iPixelsPerCell * 3 / 4 Then
                 _qtr = BlockQuarter.TopLeft
                 _qtrPos.Y += 1
                 _qtrPos.X += 1
@@ -110,12 +110,12 @@ Module ModDesign
 
         Select Case _qtr
             Case BlockQuarter.TopRight
-                _qtrLoc.X += Math.Floor(iPpc / 2)
+                _qtrLoc.X += Math.Floor(iPixelsPerCell / 2)
             Case BlockQuarter.BottomLeft
-                _qtrLoc.Y += Math.Floor(iPpc / 2)
+                _qtrLoc.Y += Math.Floor(iPixelsPerCell / 2)
             Case BlockQuarter.BottomRight
-                _qtrLoc.X += Math.Floor(iPpc / 2)
-                _qtrLoc.Y += Math.Floor(iPpc / 2)
+                _qtrLoc.X += Math.Floor(iPixelsPerCell / 2)
+                _qtrLoc.Y += Math.Floor(iPixelsPerCell / 2)
         End Select
 
         pCellBuilder.WithKnotQuarter(_qtr).WithKnotCellPos(_qtrPos).WithKnotQtrLoc(_qtrLoc)
@@ -174,8 +174,8 @@ Module ModDesign
         Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
         Dim _projectDesign As New ProjectDesign
         If My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-                For Each _entry As ZipArchiveEntry In _chapterFile.Entries
+            Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+                For Each _entry As ZipArchiveEntry In _archiveFile.Entries
                     If _entry.Name.EndsWith(JSON_EXT) Then
                         Using _input As New StreamReader(_entry.Open())
                             Dim _jsonText As String = _input.ReadLine()

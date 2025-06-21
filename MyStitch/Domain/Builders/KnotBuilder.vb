@@ -16,6 +16,17 @@ Public Class KnotBuilder
         _isBead = False
         Return Me
     End Function
+    Public Overloads Function StartingWith(pStitch As Stitch) As KnotBuilder
+        With pStitch
+            _blockLoc = .BlockLocation
+            _blockQtr = .BlockQuarter
+            _strands = .Strands
+            _threadId = .ThreadId
+            _projectId = .ProjectId
+            _stitchType = .StitchType
+        End With
+        Return Me
+    End Function
     Public Overloads Function StartingWith(pKnot As Knot) As KnotBuilder
         With pKnot
             _blockLoc = .BlockLocation

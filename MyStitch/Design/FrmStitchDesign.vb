@@ -199,7 +199,7 @@ Public Class FrmStitchDesign
 
     Private Sub MouseDownLeft(e As MouseEventArgs, pCell As Cell)
         If isSelectionInProgress Then
-            '       MouseDownLeftSelecting(e, pCell)
+
         ElseIf isMoveInProgress Then
             MouseDownLeftMoving(e, pCell)
         Else
@@ -233,11 +233,11 @@ Public Class FrmStitchDesign
                 _height = oCurrentSelection(1).Y - oCurrentSelection(0).Y - 1
             End If
             If _width > -1 And _height > -1 Then
-                oSelectionPenWidth = Math.Max(2, iPpc / 16)
-                _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPpc
-                _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPpc
-                _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPpc
-                _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPpc
+                oSelectionPenWidth = Math.Max(2, iPixelsPerCell / 16)
+                _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPixelsPerCell
+                _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+                _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPixelsPerCell
+                _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPixelsPerCell
                 Dim _selPenColour As Color = Color.Black
                 _selPen = New Pen(_selPenColour, oStitchPenWidth)
                 PicDesign.Invalidate()
@@ -678,12 +678,12 @@ Public Class FrmStitchDesign
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
         If oDesignBitmap Is Nothing Then Exit Sub
         Dim rect As Rectangle
-        Dim picx As Single = iPpc * topcorner.X
-        Dim picy As Single = iPpc * topcorner.Y
+        Dim picx As Single = iPixelsPerCell * topcorner.X
+        Dim picy As Single = iPixelsPerCell * topcorner.Y
         Dim picw As Single = oDesignBitmap.Width - picx
         Dim pich As Single = oDesignBitmap.Height - picy
-        Dim atX As Single = iXOffset * iPpc
-        Dim atY As Single = iYOffset * iPpc
+        Dim atX As Single = iXOffset * iPixelsPerCell
+        Dim atY As Single = iYOffset * iPixelsPerCell
         rect = New Rectangle(picx, picy, picw, pich)
 
         e.Graphics.DrawImage(oDesignBitmap, atX, atY, rect, GraphicsUnit.Pixel)
@@ -694,8 +694,8 @@ Public Class FrmStitchDesign
             e.Graphics.DrawLine(_bsPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
         End If
         If isSelectionInProgress Or isMoveInProgress Then
-            Dim _width As Integer = _toCellLocation_x - _fromCellLocation_x + iPpc
-            Dim _height As Integer = _toCellLocation_y - _fromCellLocation_y + iPpc
+            Dim _width As Integer = _toCellLocation_x - _fromCellLocation_x + iPixelsPerCell
+            Dim _height As Integer = _toCellLocation_y - _fromCellLocation_y + iPixelsPerCell
             e.Graphics.DrawRectangle(_selPen, _fromCellLocation_x, _fromCellLocation_y, _width, _height)
         End If
 
@@ -859,7 +859,7 @@ Public Class FrmStitchDesign
         BeginFlip()
     End Sub
     Private Sub BtnUndo_Click(sender As Object, e As EventArgs) Handles BtnUndo.Click
-        UndoLastAction
+        UndoLastAction()
     End Sub
 
     Private Sub BtnRedo_Click(sender As Object, e As EventArgs) Handles BtnRedo.Click
@@ -1217,8 +1217,8 @@ Public Class FrmStitchDesign
         VScrollBar1.Value = oProjectDesign.Rows - 1 + iYOffset - topcorner.Y
     End Sub
     Private Sub CalculateScrollBarMaximumValues()
-        HScrollBar1.Maximum = (PicDesign.Width / iPpc) + (oProjectDesign.Columns) + 7
-        VScrollBar1.Maximum = (PicDesign.Height / iPpc) + (oProjectDesign.Rows) + 7
+        HScrollBar1.Maximum = (PicDesign.Width / iPixelsPerCell) + (oProjectDesign.Columns) + 7
+        VScrollBar1.Maximum = (PicDesign.Height / iPixelsPerCell) + (oProjectDesign.Rows) + 7
     End Sub
     Private Sub SetValuesAfterHorizontalChange(_newOff_x As Integer)
 
@@ -1247,8 +1247,8 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub ChangeMagnification(pNewValue As Decimal)
         magnification = pNewValue
-        iPpc = Math.Floor(PIXELS_PER_CELL * magnification)
-        iOneToOneSize = New Size(oProjectDesign.Columns * iPpc, oProjectDesign.Rows * iPpc)
+        iPixelsPerCell = Math.Floor(PIXELS_PER_CELL * magnification)
+        iOneToOneSize = New Size(oProjectDesign.Columns * iPixelsPerCell, oProjectDesign.Rows * iPixelsPerCell)
         CalculateScrollBarMaximumValues()
     End Sub
     Private Sub IncreaseMagnification()
@@ -1267,8 +1267,8 @@ Public Class FrmStitchDesign
         isLoading = False
     End Sub
     Private Sub CalculateOffsetForCentre(pDesignBitmap)
-        Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / (2 * iPpc)
-        Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / (2 * iPpc)
+        Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / (2 * iPixelsPerCell)
+        Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / (2 * iPixelsPerCell)
         SetValuesAfterHorizontalChange(x)
         SetValuesAfterVerticalChange(y)
         DisplayImage(oDesignBitmap, iXOffset, iYOffset)
@@ -1284,7 +1284,7 @@ Public Class FrmStitchDesign
 
         ' Create image the size of the design
 
-        oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * iPpc), CInt(oProjectDesign.Rows * iPpc))
+        oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * iPixelsPerCell), CInt(oProjectDesign.Rows * iPixelsPerCell))
         '   oDesignBitmap.SetResolution(DPI, DPI)
 
         'Create graphics from image
@@ -1292,7 +1292,7 @@ Public Class FrmStitchDesign
         oDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         Dim _widthInColumns As Integer = pProjectDesign.Columns
         Dim _heightInRows As Integer = pProjectDesign.Rows
-        Dim gap As Integer = iPpc
+        Dim gap As Integer = iPixelsPerCell
         Dim wct As Integer = oDesignBitmap.Width / gap
         Dim _fabricColour As Color = GetColourFromProject(pProject.FabricColour, oFabricColour)
         Dim _fabricBrush As New SolidBrush(_fabricColour)
@@ -1378,16 +1378,16 @@ Public Class FrmStitchDesign
     Private Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer)
         If oDesignBitmap Is Nothing Then Exit Sub
         Dim rect As Rectangle
-        Dim picx As Single = iPpc * topcorner.X
-        Dim picy As Single = iPpc * topcorner.Y
+        Dim picx As Single = iPixelsPerCell * topcorner.X
+        Dim picy As Single = iPixelsPerCell * topcorner.Y
         Dim picw As Single = oDesignBitmap.Width - picx
         Dim pich As Single = oDesignBitmap.Height - picy
-        Dim atX As Single = pX * iPpc
-        Dim atY As Single = pY * iPpc
+        Dim atX As Single = pX * iPixelsPerCell
+        Dim atY As Single = pY * iPixelsPerCell
 
         rect = New Rectangle(picx, picy, picw, pich)
         Dim myfg As Graphics = PicDesign.CreateGraphics
-        myfg.Clear(PicDesign.BackColor)
+        '       myfg.Clear(PicDesign.BackColor)
 
         Try
             myfg.DrawImage(pImage, atX, atY, rect, GraphicsUnit.Pixel)
@@ -1623,11 +1623,11 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub DrawSelectionInProgress(pCell As Point)
         oInProgressTerminus = New Point(pCell.X - 1, pCell.Y - 1)
-        oSelectionPenWidth = Math.Max(2, iPpc / 16)
-        _fromCellLocation_x = (oInProgressAnchor.X + iXOffset - topcorner.X) * iPpc
-        _fromCellLocation_y = (oInProgressAnchor.Y + iYOffset - topcorner.Y) * iPpc
-        _toCellLocation_x = (oInProgressTerminus.X + iXOffset - topcorner.X) * iPpc
-        _toCellLocation_y = (oInProgressTerminus.Y + iYOffset - topcorner.Y) * iPpc
+        oSelectionPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        _fromCellLocation_x = (oInProgressAnchor.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oInProgressAnchor.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oInProgressTerminus.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oInProgressTerminus.Y + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _selPenColour As Color = Color.Black
         _selPen = New Pen(_selPenColour, oStitchPenWidth)
         PicDesign.Invalidate()
@@ -1711,10 +1711,10 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub OnTimedEvent()
         isThreadOn = Not isThreadOn
-        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iXOffset - topcorner.X) * iPpc
-        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
-        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iXOffset - topcorner.X) * iPpc
-        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
+        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
 
         _bsPen = New Pen(Color.White, oStitchPenWidth * oRemoveBackstitch.Strands)
         If isThreadOn Then
@@ -1768,6 +1768,10 @@ Public Class FrmStitchDesign
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
     End Sub
     Private Sub AddFullBlockStitch(celLocation As Point)
+        Dim _existingStitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(FindBlockstitch(celLocation)).Build
+        If _existingStitch.IsLoaded Then
+            AddToUndoList(_existingStitch, UndoAction.Remove)
+        End If
         Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
         AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
@@ -1776,6 +1780,8 @@ Public Class FrmStitchDesign
         _blockstitch.ProjThread = Nothing
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
+        AddToUndoList(_blockstitch, UndoAction.Add)
+        BtnUndo.Enabled = True
     End Sub
     Private Sub AddBlockStitch(pDesign As ProjectDesign, pStitch As BlockStitch)
         RemoveExistingBlockStitch(pStitch.BlockLocation, pDesign)
@@ -1843,7 +1849,7 @@ Public Class FrmStitchDesign
         If isBackstitchInProgress Then
             oBackstitchInProgress.ToBlockQuarter = pQtr
             oBackstitchInProgress.ToBlockLocation = pCellLocation
-   AddBackStitchToDesign(         oProjectDesign,BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
+            AddBackStitchToDesign(oProjectDesign, BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
             oBackstitchInProgress.FromBlockQuarter = pQtr
             oBackstitchInProgress.FromBlockLocation = pCellLocation
             DrawGrid(oProject, oProjectDesign)
@@ -1862,8 +1868,8 @@ Public Class FrmStitchDesign
     '   Draw stitches
     '
     Private Sub DrawBlockStitch(pBlockStitch As BlockStitch)
-        oStitchPenWidth = Math.Max(2, iPpc / 8)
-        Dim _cellLocation As New Point(pBlockStitch.BlockLocation.X * iPpc, pBlockStitch.BlockLocation.Y * iPpc)
+        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
+        Dim _cellLocation As New Point(pBlockStitch.BlockLocation.X * iPixelsPerCell, pBlockStitch.BlockLocation.Y * iPixelsPerCell)
         For Each _blockQtr As BlockStitchQuarter In pBlockStitch.Quarters
             DrawQtrBlockStitch(_blockQtr, _cellLocation.X, _cellLocation.Y)
         Next
@@ -1881,7 +1887,7 @@ Public Class FrmStitchDesign
     Private Function MakeImage(pBlockStitch As BlockStitch) As Image
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
         Dim _symbol As Symbol = GetSymbolById(_projectThread.SymbolId)
-        Dim _image As Image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPpc, iPpc)
+        Dim _image As Image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPixelsPerCell, iPixelsPerCell)
         Return _image
     End Function
     Private Sub DrawQtrBlockStitch(pBlockQtr As BlockStitchQuarter, pX As Integer, pY As Integer)
@@ -1892,7 +1898,7 @@ Public Class FrmStitchDesign
         }
         Dim _blockPen As New Pen(New SolidBrush(pBlockQtr.Thread.Colour), 1)
         Dim _brush As New SolidBrush(pBlockQtr.Thread.Colour)
-        Dim _rectSize As Integer = Math.Floor(iPpc / 2)
+        Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
         Dim _middleX As Integer = CInt(pX + _rectSize)
         Dim _middleY As Integer = CInt(pY + _rectSize)
         Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
@@ -1901,11 +1907,11 @@ Public Class FrmStitchDesign
                 Case BlockQuarter.TopLeft
                     oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY)
                 Case BlockQuarter.TopRight
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPpc, pY)
+                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY)
                 Case BlockQuarter.BottomLeft
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY + iPpc)
+                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY + iPixelsPerCell)
                 Case BlockQuarter.BottomRight
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPpc, pY + iPpc)
+                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY + iPixelsPerCell)
             End Select
         End If
         If _stitchDisplayStyle = StitchDisplayStyle.Blocks Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
@@ -1931,32 +1937,32 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub DrawBackstitch(pBackstitch As BackStitch)
-        oStitchPenWidth = Math.Max(2, iPpc / 16)
-        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockLocation.X * iPpc)
-        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockLocation.Y * iPpc)
-        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockLocation.X * iPpc)
-        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockLocation.Y * iPpc)
+        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockLocation.X * iPixelsPerCell)
+        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockLocation.Y * iPixelsPerCell)
+        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockLocation.X * iPixelsPerCell)
+        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockLocation.Y * iPixelsPerCell)
         Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
         }
         Select Case pBackstitch.FromBlockQuarter
             Case BlockQuarter.TopRight
-                _fromCellLocation_x += iPpc / 2
+                _fromCellLocation_x += iPixelsPerCell / 2
             Case BlockQuarter.BottomLeft
-                _fromCellLocation_y += iPpc / 2
+                _fromCellLocation_y += iPixelsPerCell / 2
             Case BlockQuarter.BottomRight
-                _fromCellLocation_x += iPpc / 2
-                _fromCellLocation_y += iPpc / 2
+                _fromCellLocation_x += iPixelsPerCell / 2
+                _fromCellLocation_y += iPixelsPerCell / 2
         End Select
         Select Case pBackstitch.ToBlockQuarter
             Case BlockQuarter.TopRight
-                _toCellLocation_x += iPpc / 2
+                _toCellLocation_x += iPixelsPerCell / 2
             Case BlockQuarter.BottomLeft
-                _toCellLocation_y += iPpc / 2
+                _toCellLocation_y += iPixelsPerCell / 2
             Case BlockQuarter.BottomRight
-                _toCellLocation_x += iPpc / 2
-                _toCellLocation_y += iPpc / 2
+                _toCellLocation_x += iPixelsPerCell / 2
+                _toCellLocation_y += iPixelsPerCell / 2
         End Select
         oDesignGraphics.DrawLine(_pen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
 
@@ -1966,14 +1972,14 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub DrawBackstitchInProgress(pCell As Point, pCellQtr As BlockQuarter, pIsHalfStitch As Boolean, pIsUseSelectColour As Boolean)
         LogUtil.Debug("Drawing backstitch in progress", MyBase.Name)
-        Dim _qtrLocationAdjust As Integer = If(pIsHalfStitch, iPpc / 2, iPpc)
+        Dim _qtrLocationAdjust As Integer = If(pIsHalfStitch, iPixelsPerCell / 2, iPixelsPerCell)
         oBackstitchInProgress.ToBlockQuarter = pCellQtr
         oBackstitchInProgress.ToBlockLocation = pCell
-        oStitchPenWidth = Math.Max(2, iPpc / 16)
-        _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iXOffset - topcorner.X) * iPpc
-        _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
-        _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iXOffset - topcorner.X) * iPpc
-        _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPpc
+        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _bsPenColour As Color = If(pIsUseSelectColour, Color.Black, oBackstitchInProgress.ProjThread.Thread.Colour)
         _bsPen = New Pen(oBackstitchInProgress.ProjThread.Thread.Colour, oStitchPenWidth * oBackstitchInProgress.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
@@ -2003,60 +2009,49 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub DrawKnot(pKnot As Knot)
-        Dim _knotlocation_x As Integer = (pKnot.BlockLocation.X * iPpc) - (iPpc / 4)
-        Dim _knotlocation_y As Integer = (pKnot.BlockLocation.Y * iPpc) - (iPpc / 4)
+        Dim _knotlocation_x As Integer = (pKnot.BlockLocation.X * iPixelsPerCell) - (iPixelsPerCell / 4)
+        Dim _knotlocation_y As Integer = (pKnot.BlockLocation.Y * iPixelsPerCell) - (iPixelsPerCell / 4)
         Select Case pKnot.BlockQuarter
             Case BlockQuarter.BottomLeft
-                _knotlocation_y += iPpc / 2
+                _knotlocation_y += iPixelsPerCell / 2
             Case BlockQuarter.BottomRight
-                _knotlocation_y += iPpc / 2
-                _knotlocation_x += iPpc / 2
+                _knotlocation_y += iPixelsPerCell / 2
+                _knotlocation_x += iPixelsPerCell / 2
             Case BlockQuarter.TopRight
-                _knotlocation_x += iPpc / 2
+                _knotlocation_x += iPixelsPerCell / 2
         End Select
-        Dim _rect As New Rectangle(_knotlocation_x, _knotlocation_y, iPpc / 2, iPpc / 2)
+        Dim _rect As New Rectangle(_knotlocation_x, _knotlocation_y, iPixelsPerCell / 2, iPixelsPerCell / 2)
 
         oDesignGraphics.FillEllipse(New SolidBrush(pKnot.ProjThread.Thread.Colour), _rect)
     End Sub
 
     Private Sub RemoveKnotFromDesign(ByRef pDesign As ProjectDesign, pKnot As Knot)
         pDesign.Knots.Remove(pKnot)
-        oUndoList.Add(New StitchAction(pKnot, UndoAction.Remove))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+        AddToUndoList(pKnot, UndoAction.Remove)
     End Sub
     Private Sub RemoveBlockStitchFromDesign(ByRef pDesign As ProjectDesign, pBlockstitch As BlockStitch)
         pDesign.BlockStitches.Remove(pBlockstitch)
-        oUndoList.Add(New StitchAction(pBlockstitch, UndoAction.Remove))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+        AddToUndoList(pBlockstitch, UndoAction.Remove)
     End Sub
     Private Sub RemoveBackStitchFromDesign(ByRef pDesign As ProjectDesign, pBackstitch As BackStitch)
         pDesign.BackStitches.Remove(pBackstitch)
-        oUndoList.Add(New StitchAction(pBackstitch, UndoAction.Remove))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+        AddToUndoList(pBackstitch, UndoAction.Remove)
     End Sub
     Private Sub AddKnotToDesign(ByRef pDesign As ProjectDesign, pKnot As Knot)
         pDesign.Knots.Add(pKnot)
-        oUndoList.Add(New StitchAction(pKnot, UndoAction.Add))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+        AddToUndoList(pKnot, UndoAction.Add)
     End Sub
     Private Sub AddBlockStitchToDesign(ByRef pDesign As ProjectDesign, pBlockstitch As BlockStitch)
         pDesign.BlockStitches.Add(pBlockstitch)
-        oUndoList.Add(New StitchAction(pBlockstitch, UndoAction.Add))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+        AddToUndoList(pBlockstitch, UndoAction.Add)
     End Sub
     Private Sub AddBackStitchToDesign(ByRef pDesign As ProjectDesign, pBackstitch As BackStitch)
         pDesign.BackStitches.Add(pBackstitch)
-        oUndoList.Add(New StitchAction(pBackstitch, UndoAction.Add))
+        AddToUndoList(pBackstitch, UndoAction.Add)
+    End Sub
+    Private Sub AddToUndoList(pStitch As Stitch, pAction As UndoAction)
+        LogUtil.LogInfo("Add to undo for " & pStitch.ToString & " : " & pAction.ToString, MyBase.Name)
+        oUndoList.Add(New StitchAction(pStitch, pAction))
         oRedoList.Clear()
         BtnUndo.Enabled = True
         BtnRedo.Enabled = False
@@ -2125,8 +2120,8 @@ Public Class FrmStitchDesign
         Return _list
     End Function
     Private Function GetPixelColour(e As MouseEventArgs) As Color
-        Dim start_x As Integer = Math.Floor(e.X) + (topcorner.X - iXOffset) * iPpc
-        Dim start_y As Integer = Math.Floor(e.Y) + (topcorner.Y - iYOffset) * iPpc
+        Dim start_x As Integer = Math.Floor(e.X) + (topcorner.X - iXOffset) * iPixelsPerCell
+        Dim start_y As Integer = Math.Floor(e.Y) + (topcorner.Y - iYOffset) * iPixelsPerCell
         Dim _colour As Color = Color.FromArgb(oProject.FabricColour)
         If start_x > 0 AndAlso start_x < oDesignBitmap.Width AndAlso start_y > 0 AndAlso start_y < oDesignBitmap.Height Then
             _colour = oDesignBitmap.GetPixel(start_x, start_y)
@@ -2134,28 +2129,28 @@ Public Class FrmStitchDesign
         Return _colour
     End Function
     Private Function FindQtrFromClickLocation(e As MouseEventArgs, ByRef pQtr As BlockQuarter) As Point
-        Dim start_x As Integer = Math.Floor(e.X / iPpc) - iXOffset + topcorner.X
-        Dim start_y As Integer = Math.Floor(e.Y / iPpc) - iYOffset + topcorner.Y
+        Dim start_x As Integer = Math.Floor(e.X / iPixelsPerCell) - iXOffset + topcorner.X
+        Dim start_y As Integer = Math.Floor(e.Y / iPixelsPerCell) - iYOffset + topcorner.Y
 
-        Dim cel_x As Integer = (start_x) * iPpc
+        Dim cel_x As Integer = (start_x) * iPixelsPerCell
 
-        Dim cel_y As Integer = (start_y) * iPpc
+        Dim cel_y As Integer = (start_y) * iPixelsPerCell
 
         Dim celLocation As New Point(cel_x, cel_y)
 
-        Dim _xrmd As Integer = e.X Mod iPpc
-        Dim _yrmd As Integer = e.Y Mod iPpc
+        Dim _xrmd As Integer = e.X Mod iPixelsPerCell
+        Dim _yrmd As Integer = e.Y Mod iPixelsPerCell
         Select Case True
-            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+            Case (_xrmd >= 0 AndAlso _xrmd < iPixelsPerCell / 2) AndAlso (_yrmd >= 0 AndAlso _yrmd < iPixelsPerCell / 2)
                 '    celLocation = New Point(cel_x, cel_y)
                 pQtr = BlockQuarter.TopLeft
-            Case _xrmd > iPpc / 2 AndAlso _yrmd > iPpc / 2
+            Case _xrmd > iPixelsPerCell / 2 AndAlso _yrmd > iPixelsPerCell / 2
                 '     celLocation = New Point(cel_x + (iPpc / 2), cel_y + (iPpc / 2))
                 pQtr = BlockQuarter.BottomRight
-            Case (_xrmd >= 0 AndAlso _xrmd < iPpc / 2) AndAlso _yrmd > iPpc / 2
+            Case (_xrmd >= 0 AndAlso _xrmd < iPixelsPerCell / 2) AndAlso _yrmd > iPixelsPerCell / 2
                 '     celLocation = New Point(cel_x, cel_y + (iPpc / 2))
                 pQtr = BlockQuarter.TopRight
-            Case _xrmd > iPpc / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPpc / 2)
+            Case _xrmd > iPixelsPerCell / 2 AndAlso (_yrmd >= 0 AndAlso _yrmd < iPixelsPerCell / 2)
                 '      celLocation = New Point(cel_x + (iPpc / 2), cel_y)
                 pQtr = BlockQuarter.BottomLeft
         End Select

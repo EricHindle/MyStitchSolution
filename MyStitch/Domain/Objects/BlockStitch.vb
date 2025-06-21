@@ -22,13 +22,14 @@ Public Class BlockStitch
         Initialise()
         _quarters = New List(Of BlockStitchQuarter)
     End Sub
-    Public Sub New(pLocation As Point, pQuarters As List(Of BlockStitchQuarter), pStrands As Integer, pThreadId As Integer, pStitchType As BlockStitchType, pProjectId As Integer)
+    Public Sub New(pLocation As Point, pQtr As BlockQuarter, pQuarters As List(Of BlockStitchQuarter), pStrands As Integer, pThreadId As Integer, pStitchType As BlockStitchType, pProjectId As Integer)
         _blockLoc = pLocation
         _quarters = pQuarters
         _strands = pStrands
         _threadId = pThreadId
         _projectId = pProjectId
         _stitchType = pStitchType
+        _blockQtr = pQtr
         _thread = Nothing
         '     Dim _string As String = Me.ToString
         '    LogUtil.LogInfo(_string, "Blockstitch")
@@ -49,9 +50,14 @@ Public Class BlockStitch
         For Each _qtr As BlockStitchQuarter In _quarters
             _sb.Append(_qtr.ToString).Append(",")
         Next
-        _sb.Append("], ") _
-            .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _
-            .Append("]")
+        _sb.Append("], ")
+        If ProjThread IsNot Nothing Then
+            _sb.Append(ProjThread.ToString)
+        Else
+            _sb.Append("ProjectThread = [nothing]")
+        End If
+
+        _sb.Append("]")
         Return _sb.ToString()
     End Function
 End Class

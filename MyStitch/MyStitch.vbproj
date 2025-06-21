@@ -84,6 +84,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\FrmGraphicsTest.Designer.vb">
+      <DependentUpon>FrmGraphicsTest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmGraphicsTest.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Design\FrmStitchDisplayStyle.Designer.vb">
       <DependentUpon>FrmStitchDisplayStyle.vb</DependentUpon>
     </Compile>
@@ -224,6 +230,9 @@
     <Compile Include="Utilities\ModCommon.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Design\FrmGraphicsTest.resx">
+      <DependentUpon>FrmGraphicsTest.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </EmbeddedResource>

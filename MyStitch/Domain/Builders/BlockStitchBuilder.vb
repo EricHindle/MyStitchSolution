@@ -16,6 +16,17 @@ Public Class BlockStitchBuilder
         _quarters = New List(Of BlockStitchQuarter)
         Return Me
     End Function
+    Public Overloads Function StartingWith(pStitch As Stitch) As BlockStitchBuilder
+        With pStitch
+            _blockLoc = .BlockLocation
+            _blockQtr = .BlockQuarter
+            _strands = .Strands
+            _threadId = .ThreadId
+            _projectId = .ProjectId
+            _stitchType = .StitchType
+        End With
+        Return Me
+    End Function
     Public Overloads Function StartingWith(pBlockstitch As BlockStitch) As BlockStitchBuilder
         With pBlockstitch
             _blockLoc = .BlockLocation
@@ -37,6 +48,6 @@ Public Class BlockStitchBuilder
         Return Me
     End Function
     Public Overloads Function Build() As BlockStitch
-        Return New BlockStitch(_blockLoc, _quarters, _strands, _threadId, _stitchType, _projectId)
+        Return New BlockStitch(_blockLoc, _blockQtr, _quarters, _strands, _threadId, _stitchType, _projectId)
     End Function
 End Class
