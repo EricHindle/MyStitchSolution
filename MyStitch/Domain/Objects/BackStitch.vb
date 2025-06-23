@@ -9,23 +9,39 @@ Imports System.Text
 
 Public Class BackStitch
     Inherits Stitch
-    Private _toBlockLoc As Point
+    Private _toBlockPos As Point
     Private _toBlockQtr As BlockQuarter
 
-    Public Property ToBlockLocation() As Point
+    Public Property ToBlockPosition() As Point
         Get
-            Return _toBlockLoc
+            Return _toBlockPos
         End Get
         Set(ByVal value As Point)
-            _toBlockLoc = value
+            _toBlockPos = value
+        End Set
+    End Property
+    Public Property FromBlockPosition() As Point
+        Get
+            Return _blockPos
+        End Get
+        Set(ByVal value As Point)
+            _blockPos = value
+        End Set
+    End Property
+    Public Property ToBlockLocation() As Point
+        Get
+            Return _toBlockPos
+        End Get
+        Set(ByVal value As Point)
+            _toBlockPos = value
         End Set
     End Property
     Public Property FromBlockLocation() As Point
         Get
-            Return _blockLoc
+            Return _blockPos
         End Get
         Set(ByVal value As Point)
-            _blockLoc = value
+            _blockPos = value
         End Set
     End Property
     Public Property FromBlockQuarter() As BlockQuarter
@@ -47,13 +63,13 @@ Public Class BackStitch
 
     Public Sub New()
         Initialise()
-        _toBlockLoc = New Point(0, 0)
+        _toBlockPos = New Point(0, 0)
         _toBlockQtr = BlockQuarter.TopLeft
     End Sub
-    Public Sub New(pFromLoc As Point, pFromQtr As BlockQuarter, pToloc As Point, pToQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
-        _blockLoc = pFromLoc
+    Public Sub New(pFromPos As Point, pFromQtr As BlockQuarter, pToPos As Point, pToQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
+        _blockPos = pFromPos
         _blockQtr = pFromQtr
-        _toBlockLoc = pToloc
+        _toBlockPos = pToPos
         _toBlockQtr = pToQtr
         _strands = pStrands
         _threadId = pThreadId
@@ -67,9 +83,9 @@ Public Class BackStitch
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
             .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
-            .Append("FromBlockLocation =[").Append(CStr(_blockLoc.X)).Append(",").Append(CStr(_blockLoc.Y)).Append("], ") _
+            .Append("FromBlockPosition =[").Append(CStr(_blockPos.X)).Append(",").Append(CStr(_blockPos.Y)).Append("], ") _
             .Append("FromBlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _
-            .Append("ToBlockLocation =[").Append(CStr(_toBlockLoc.X)).Append(",").Append(CStr(_toBlockLoc.Y)).Append("], ") _
+            .Append("ToBlockPosition =[").Append(CStr(_toBlockPos.X)).Append(",").Append(CStr(_toBlockPos.Y)).Append("], ") _
             .Append("ToBlockQuarter =[").Append(_toBlockQtr.ToString).Append("], ") _
             .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
             .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _

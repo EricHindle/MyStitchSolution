@@ -21,8 +21,8 @@ Public Class BackstitchBuilder
     End Function
     Public Overloads Function StartingWith(pBackStitch As BackStitch) As BackstitchBuilder
         With pBackStitch
-            _blockLoc = .FromBlockLocation
-            _toBlockLoc = .ToBlockLocation
+            _blockPos = .FromBlockPosition
+            _toBlockLoc = .ToBlockPosition
             _blockQtr = .FromBlockQuarter
             _toBlockQtr = .ToBlockQuarter
             _strands = .Strands
@@ -33,7 +33,7 @@ Public Class BackstitchBuilder
     End Function
 
     Public Function WithFromBlockLocation(pLoc As Point) As BackstitchBuilder
-        _blockLoc = pLoc
+        _blockPos = pLoc
         Return Me
     End Function
     Public Function WithToBlockLocation(pLoc As Point) As BackstitchBuilder
@@ -50,6 +50,6 @@ Public Class BackstitchBuilder
     End Function
 
     Public Overloads Function Build() As BackStitch
-        Return New BackStitch(_blockLoc, _blockQtr, _toBlockLoc, _toBlockQtr, _strands, _threadId, _projectId)
+        Return New BackStitch(_blockPos, _blockQtr, _toBlockLoc, _toBlockQtr, _strands, _threadId, _projectId)
     End Function
 End Class

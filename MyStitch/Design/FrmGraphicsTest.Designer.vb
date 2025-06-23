@@ -84,6 +84,7 @@ Partial Class FrmGraphicsTest
         Me.PnlPixelColour = New System.Windows.Forms.Panel()
         Me.LblSelectMessage = New System.Windows.Forms.Label()
         Me.LblSelection = New System.Windows.Forms.Label()
+        Me.LblStatus = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
@@ -807,6 +808,7 @@ Partial Class FrmGraphicsTest
         Me.TableLayoutPanel1.Controls.Add(Me.PnlPixelColour, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.LblSelectMessage, 4, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.LblSelection, 5, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.LblStatus, 2, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 503)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -915,6 +917,17 @@ Partial Class FrmGraphicsTest
         Me.LblSelection.TabIndex = 8
         Me.LblSelection.Text = "From 0,0 To 0,0"
         Me.LblSelection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LblStatus
+        '
+        Me.LblStatus.AutoSize = True
+        Me.LblStatus.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStatus.Location = New System.Drawing.Point(52, 29)
+        Me.LblStatus.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(0, 14)
+        Me.LblStatus.TabIndex = 9
+        Me.LblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'MenuStrip1
         '
@@ -1134,49 +1147,49 @@ Partial Class FrmGraphicsTest
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuStitchTypes
         '
         Me.MnuStitchTypes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBlockStitches, Me.MnuBackStitches, Me.MnuKnots})
         Me.MnuStitchTypes.Name = "MnuStitchTypes"
-        Me.MnuStitchTypes.Size = New System.Drawing.Size(173, 22)
+        Me.MnuStitchTypes.Size = New System.Drawing.Size(180, 22)
         Me.MnuStitchTypes.Text = "Stitch Types"
         '
         'MnuBlockStitches
@@ -1185,7 +1198,7 @@ Partial Class FrmGraphicsTest
         Me.MnuBlockStitches.CheckOnClick = True
         Me.MnuBlockStitches.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuBlockStitches.Name = "MnuBlockStitches"
-        Me.MnuBlockStitches.Size = New System.Drawing.Size(161, 22)
+        Me.MnuBlockStitches.Size = New System.Drawing.Size(180, 22)
         Me.MnuBlockStitches.Text = "Block Stitches"
         '
         'MnuBackStitches
@@ -1194,7 +1207,7 @@ Partial Class FrmGraphicsTest
         Me.MnuBackStitches.CheckOnClick = True
         Me.MnuBackStitches.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuBackStitches.Name = "MnuBackStitches"
-        Me.MnuBackStitches.Size = New System.Drawing.Size(161, 22)
+        Me.MnuBackStitches.Size = New System.Drawing.Size(180, 22)
         Me.MnuBackStitches.Text = "Back Stitches"
         '
         'MnuKnots
@@ -1203,7 +1216,7 @@ Partial Class FrmGraphicsTest
         Me.MnuKnots.CheckOnClick = True
         Me.MnuKnots.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MnuKnots.Name = "MnuKnots"
-        Me.MnuKnots.Size = New System.Drawing.Size(161, 22)
+        Me.MnuKnots.Size = New System.Drawing.Size(180, 22)
         Me.MnuKnots.Text = "Knots and Beads"
         '
         'MnuTools
@@ -1388,4 +1401,5 @@ Partial Class FrmGraphicsTest
     Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
     Friend WithEvents MnuShowDesignStats As ToolStripMenuItem
     Friend WithEvents MnuOptions As ToolStripMenuItem
+    Friend WithEvents LblStatus As Label
 End Class

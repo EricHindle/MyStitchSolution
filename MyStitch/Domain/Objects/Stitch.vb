@@ -22,7 +22,7 @@ Public Enum BlockQuarter
     BottomRight
 End Enum
 Public Class Stitch
-    Friend _blockLoc As Point
+    Friend _blockPos As Point
     Friend _blockQtr As BlockQuarter
     Friend _thread As ProjectThread
     Friend _strands As Integer
@@ -53,12 +53,20 @@ Public Class Stitch
             _stitchType = value
         End Set
     End Property
-    Public Property BlockLocation() As Point
+    Public Property BlockPosition() As Point
         Get
-            Return _blockLoc
+            Return _blockPos
         End Get
         Set(ByVal value As Point)
-            _blockLoc = value
+            _blockPos = value
+        End Set
+    End Property
+    Public Property BlockLocation() As Point
+        Get
+            Return _blockPos
+        End Get
+        Set(ByVal value As Point)
+            _blockPos = value
         End Set
     End Property
     Public Property BlockQuarter() As BlockQuarter
@@ -89,7 +97,7 @@ Public Class Stitch
         End Set
     End Property
     Friend Sub Initialise()
-        _blockLoc = New Point(0, 0)
+        _blockPos = New Point(0, 0)
         _blockQtr = BlockQuarter.TopLeft
         _strands = 2
         _thread = Nothing
@@ -100,8 +108,8 @@ Public Class Stitch
     Public Sub New()
         Initialise()
     End Sub
-    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
-        _blockLoc = pLoc
+    Public Sub New(pPos As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
+        _blockPos = pPos
         _blockQtr = pQtr
         _strands = pStrands
         _threadId = pThreadId

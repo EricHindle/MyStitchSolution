@@ -18,7 +18,7 @@ Public Class KnotBuilder
     End Function
     Public Overloads Function StartingWith(pStitch As Stitch) As KnotBuilder
         With pStitch
-            _blockLoc = .BlockLocation
+            _blockPos = .BlockPosition
             _blockQtr = .BlockQuarter
             _strands = .Strands
             _threadId = .ThreadId
@@ -29,7 +29,7 @@ Public Class KnotBuilder
     End Function
     Public Overloads Function StartingWith(pKnot As Knot) As KnotBuilder
         With pKnot
-            _blockLoc = .BlockLocation
+            _blockPos = .BlockPosition
             _blockQtr = .BlockQuarter
             _strands = .Strands
             _thread = Nothing
@@ -44,11 +44,11 @@ Public Class KnotBuilder
         Return Me
     End Function
     Public Function WithKnotLocation(pLoc As Point) As KnotBuilder
-        _blockLoc = pLoc
+        _blockPos = pLoc
         Return Me
     End Function
     Public Overloads Function Build() As Knot
-        Return New Knot(_blockLoc, _blockQtr, _strands, _threadId, _projectId, _isBead)
+        Return New Knot(_blockPos, _blockQtr, _strands, _threadId, _projectId, _isBead)
     End Function
 
 End Class

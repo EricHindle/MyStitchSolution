@@ -8,7 +8,7 @@
 Imports MyStitch.Domain.Objects
 
 Public Class StitchBuilder
-    Friend _blockLoc As Point
+    Friend _blockPos As Point
     Friend _blockQtr As BlockQuarter
     Friend _thread As ProjectThread
     Friend _strands As Integer
@@ -17,7 +17,7 @@ Public Class StitchBuilder
     Friend _projectId As Integer
 
     Friend Sub Initialise()
-        _blockLoc = New Point(0, 0)
+        _blockPos = New Point(0, 0)
         _blockQtr = BlockQuarter.TopLeft
         _strands = 1
         _threadId = -1
@@ -34,7 +34,7 @@ Public Class StitchBuilder
     End Function
     Public Function StartingWith(pStitch As Stitch) As StitchBuilder
         With pStitch
-            _blockLoc = .BlockLocation
+            _blockPos = .BlockPosition
             _blockQtr = .BlockQuarter
             _strands = .Strands
             _threadId = .ThreadId
@@ -45,7 +45,7 @@ Public Class StitchBuilder
     End Function
 
     Public Function WithBlockLocation(pLoc As Point) As StitchBuilder
-        _blockLoc = pLoc
+        _blockPos = pLoc
         Return Me
     End Function
     Public Function WithQuarter(pQtr As BlockQuarter) As StitchBuilder
@@ -69,7 +69,7 @@ Public Class StitchBuilder
         Return Me
     End Function
     Public Function Build() As Stitch
-        Return New Stitch(_blockLoc, _blockQtr, _strands, _threadId, _projectId)
+        Return New Stitch(_blockPos, _blockQtr, _strands, _threadId, _projectId)
     End Function
 
 End Class

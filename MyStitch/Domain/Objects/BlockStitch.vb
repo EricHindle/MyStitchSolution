@@ -22,8 +22,8 @@ Public Class BlockStitch
         Initialise()
         _quarters = New List(Of BlockStitchQuarter)
     End Sub
-    Public Sub New(pLocation As Point, pQtr As BlockQuarter, pQuarters As List(Of BlockStitchQuarter), pStrands As Integer, pThreadId As Integer, pStitchType As BlockStitchType, pProjectId As Integer)
-        _blockLoc = pLocation
+    Public Sub New(pPosition As Point, pQtr As BlockQuarter, pQuarters As List(Of BlockStitchQuarter), pStrands As Integer, pThreadId As Integer, pStitchType As BlockStitchType, pProjectId As Integer)
+        _blockPos = pPosition
         _quarters = pQuarters
         _strands = pStrands
         _threadId = pThreadId
@@ -43,7 +43,7 @@ Public Class BlockStitch
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
             .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
-            .Append("BlockLocation =[").Append(CStr(_blockLoc.X)).Append(",").Append(CStr(_blockLoc.Y)).Append("], ") _
+            .Append("BlockPosition =[").Append(CStr(_blockPos.X)).Append(",").Append(CStr(_blockPos.Y)).Append("], ") _
             .Append("BlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _
             .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
             .Append("Quarters = [")

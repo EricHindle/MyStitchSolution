@@ -24,7 +24,7 @@ Public Class Knot
         _isBead = False
     End Sub
     Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer, pIsBead As Boolean)
-        _blockLoc = pLoc
+        _blockPos = pLoc
         _blockQtr = pQtr
         _strands = pStrands
         _threadId = pThreadId
@@ -39,7 +39,7 @@ Public Class Knot
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
             .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
-            .Append("BlockLocation =[").Append(CStr(_blockLoc.X)).Append(",").Append(CStr(_blockLoc.Y)).Append("], ") _
+            .Append("BlockPosition =[").Append(CStr(_blockPos.X)).Append(",").Append(CStr(_blockPos.Y)).Append("], ") _
             .Append("BlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _
             .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
             .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _

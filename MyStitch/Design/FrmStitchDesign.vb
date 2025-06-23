@@ -349,17 +349,17 @@ Public Class FrmStitchDesign
     Private Sub RemoveSelectedCells()
         If oCurrentSelectedBlockStitch.Count > 0 Then
             For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                RemoveExistingBlockStitch(_bs.BlockLocation, oProjectDesign)
+                RemoveExistingBlockStitch(_bs.BlockPosition, oProjectDesign)
             Next
         End If
         If oCurrentSelectedKnot.Count > 0 Then
             For Each _knot As Knot In oCurrentSelectedKnot
-                RemoveExistingKnot(_knot.BlockLocation, _knot.BlockQuarter, oProjectDesign)
+                RemoveExistingKnot(_knot.BlockPosition, _knot.BlockQuarter, oProjectDesign)
             Next
         End If
         If oCurrentSelectedBackstitch.Count > 0 Then
             For Each _bkst As BackStitch In oCurrentSelectedBackstitch
-                RemoveExistingBackStitch(_bkst.FromBlockLocation, _bkst.ToBlockLocation, oProjectDesign)
+                RemoveExistingBackStitch(_bkst.FromBlockPosition, _bkst.ToBlockPosition, oProjectDesign)
             Next
         End If
         DrawGrid(oProject, oProjectDesign)
@@ -373,21 +373,21 @@ Public Class FrmStitchDesign
         Dim _newProjectDesign As ProjectDesign = oProjectDesign
         If oCurrentSelectedBlockStitch.Count > 0 Then
             For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithLocation(New Point(_bs.BlockLocation.X + _xChange, _bs.BlockLocation.Y + _yChange)).Build
+                Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithPosition(New Point(_bs.BlockPosition.X + _xChange, _bs.BlockPosition.Y + _yChange)).Build
                 AddBlockStitch(_newProjectDesign, _newBs)
             Next
         End If
         If oCurrentSelectedKnot.Count > 0 Then
             For Each _knot As Knot In oCurrentSelectedKnot
-                Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockPosition.X + _xChange, _knot.BlockPosition.Y + _yChange)).Build
                 AddKnot(_newProjectDesign, _newKnot)
             Next
         End If
         If oCurrentSelectedBackstitch.Count > 0 Then
             For Each _bkst As BackStitch In oCurrentSelectedBackstitch
                 Dim _newBkst As BackStitch = BackstitchBuilder.ABackStitch.StartingWith(_bkst) _
-                        .WithFromBlockLocation(New Point(_bkst.FromBlockLocation.X + _xChange, _bkst.FromBlockLocation.Y + _yChange)) _
-                        .WithToBlockLocation(New Point(_bkst.ToBlockLocation.X + _xChange, _bkst.ToBlockLocation.Y + _yChange)) _
+                        .WithFromBlockLocation(New Point(_bkst.FromBlockPosition.X + _xChange, _bkst.FromBlockPosition.Y + _yChange)) _
+                        .WithToBlockLocation(New Point(_bkst.ToBlockPosition.X + _xChange, _bkst.ToBlockPosition.Y + _yChange)) _
                         .Build
                 AddBackStitch(_newProjectDesign, _newBkst)
             Next
@@ -433,8 +433,8 @@ Public Class FrmStitchDesign
                             LogUtil.LogInfo("Stopping timer", MyBase.Name)
                             StopTimer()
                             If e.Button = MouseButtons.Left Then
-                                RemoveExistingBackStitch(oNearestBackstitches(oSelectedBackstitchIndex).FromBlockLocation,
-                                                     oNearestBackstitches(oSelectedBackstitchIndex).ToBlockLocation,
+                                RemoveExistingBackStitch(oNearestBackstitches(oSelectedBackstitchIndex).FromBlockPosition,
+                                                     oNearestBackstitches(oSelectedBackstitchIndex).ToBlockPosition,
                                                      oProjectDesign)
                                 oSelectedBackstitchIndex = -1
                             Else
@@ -1506,15 +1506,15 @@ Public Class FrmStitchDesign
             Dim _sum As Integer = oCurrentSelection(1).Y + oCurrentSelection(0).Y - 1
             If oCurrentSelectedBlockStitch.Count > 0 Then
                 For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                    _bs.BlockLocation = New Point(_bs.BlockLocation.X, _sum - _bs.BlockLocation.Y)
+                    _bs.BlockPosition = New Point(_bs.BlockPosition.X, _sum - _bs.BlockPosition.Y)
                 Next
             End If
             If oCurrentSelectedKnot.Count > 0 Then
                 For Each _knot As Knot In oCurrentSelectedKnot
                     If _knot.BlockQuarter = BlockQuarter.BottomLeft Or _knot.BlockQuarter = BlockQuarter.BottomRight Then
-                        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y)
+                        _knot.BlockPosition = New Point(_knot.BlockPosition.X, _sum - _knot.BlockPosition.Y)
                     Else
-                        _knot.BlockLocation = New Point(_knot.BlockLocation.X, _sum - _knot.BlockLocation.Y + 1)
+                        _knot.BlockPosition = New Point(_knot.BlockPosition.X, _sum - _knot.BlockPosition.Y + 1)
                     End If
                 Next
             End If
@@ -1534,15 +1534,15 @@ Public Class FrmStitchDesign
             Dim _sum As Integer = oCurrentSelection(1).X + oCurrentSelection(0).X - 1
             If oCurrentSelectedBlockStitch.Count > 0 Then
                 For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                    _bs.BlockLocation = New Point(_sum - _bs.BlockLocation.X, _bs.BlockLocation.Y)
+                    _bs.BlockPosition = New Point(_sum - _bs.BlockPosition.X, _bs.BlockPosition.Y)
                 Next
             End If
             If oCurrentSelectedKnot.Count > 0 Then
                 For Each _knot As Knot In oCurrentSelectedKnot
                     If _knot.BlockQuarter = BlockQuarter.TopLeft Or _knot.BlockQuarter = BlockQuarter.BottomLeft Then
-                        _knot.BlockLocation = New Point(_sum - _knot.BlockLocation.X + 1, _knot.BlockLocation.Y)
+                        _knot.BlockPosition = New Point(_sum - _knot.BlockPosition.X + 1, _knot.BlockPosition.Y)
                     Else
-                        _knot.BlockLocation = New Point(_sum - _knot.BlockLocation.X, _knot.BlockLocation.Y)
+                        _knot.BlockPosition = New Point(_sum - _knot.BlockPosition.X, _knot.BlockPosition.Y)
                     End If
                 Next
             End If
@@ -1559,21 +1559,21 @@ Public Class FrmStitchDesign
             Dim _newProjectDesign As ProjectDesign = oProjectDesign
             If oCurrentSelectedBlockStitch.Count > 0 Then
                 For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithLocation(New Point(_bs.BlockLocation.X + _xChange, _bs.BlockLocation.Y + _yChange)).Build
+                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithPosition(New Point(_bs.BlockPosition.X + _xChange, _bs.BlockPosition.Y + _yChange)).Build
                     AddBlockStitch(_newProjectDesign, _newBs)
                 Next
             End If
             If oCurrentSelectedKnot.Count > 0 Then
                 For Each _knot As Knot In oCurrentSelectedKnot
-                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockPosition.X + _xChange, _knot.BlockPosition.Y + _yChange)).Build
                     AddKnot(_newProjectDesign, _newKnot)
                 Next
             End If
             If oCurrentSelectedBackstitch.Count > 0 Then
                 For Each _bkst As BackStitch In oCurrentSelectedBackstitch
                     Dim _newBkst As BackStitch = BackstitchBuilder.ABackStitch.StartingWith(_bkst) _
-                        .WithFromBlockLocation(New Point(_bkst.FromBlockLocation.X + _xChange, _bkst.FromBlockLocation.Y + _yChange)) _
-                        .WithToBlockLocation(New Point(_bkst.ToBlockLocation.X + _xChange, _bkst.ToBlockLocation.Y + _yChange)) _
+                        .WithFromBlockLocation(New Point(_bkst.FromBlockPosition.X + _xChange, _bkst.FromBlockPosition.Y + _yChange)) _
+                        .WithToBlockLocation(New Point(_bkst.ToBlockPosition.X + _xChange, _bkst.ToBlockPosition.Y + _yChange)) _
                         .Build
                     AddBackStitch(_newProjectDesign, _newBkst)
                 Next
@@ -1640,22 +1640,22 @@ Public Class FrmStitchDesign
         Dim _to_y As Integer = oCurrentSelection(1).Y
         oCurrentSelectedBlockStitch = New List(Of BlockStitch)
         For Each _bs As BlockStitch In oProjectDesign.BlockStitches
-            If _bs.BlockLocation.X >= _from_x And _bs.BlockLocation.X < _to_x _
-                And _bs.BlockLocation.Y >= _from_y And _bs.BlockLocation.Y < _to_y Then
+            If _bs.BlockPosition.X >= _from_x And _bs.BlockPosition.X < _to_x _
+                And _bs.BlockPosition.Y >= _from_y And _bs.BlockPosition.Y < _to_y Then
                 oCurrentSelectedBlockStitch.Add(_bs)
             End If
         Next
         oCurrentSelectedKnot = New List(Of Knot)
         For Each _knot In oProjectDesign.Knots
-            If _knot.BlockLocation.X >= _from_x And _knot.BlockLocation.X <= _to_x _
-                And _knot.BlockLocation.Y >= _from_y And _knot.BlockLocation.Y <= _to_y Then
+            If _knot.BlockPosition.X >= _from_x And _knot.BlockPosition.X <= _to_x _
+                And _knot.BlockPosition.Y >= _from_y And _knot.BlockPosition.Y <= _to_y Then
                 oCurrentSelectedKnot.Add(_knot)
             End If
         Next
         oCurrentSelectedBackstitch = New List(Of BackStitch)
         For Each _bkst As BackStitch In oProjectDesign.BackStitches
-            If _bkst.FromBlockLocation.X >= _from_x And _bkst.FromBlockLocation.X <= _to_x _
-                And _bkst.FromBlockLocation.Y >= _from_y And _bkst.FromBlockLocation.Y <= _to_y Then
+            If _bkst.FromBlockPosition.X >= _from_x And _bkst.FromBlockPosition.X <= _to_x _
+                And _bkst.FromBlockPosition.Y >= _from_y And _bkst.FromBlockPosition.Y <= _to_y Then
                 oCurrentSelectedBackstitch.Add(_bkst)
             End If
         Next
@@ -1711,10 +1711,10 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub OnTimedEvent()
         isThreadOn = Not isThreadOn
-        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _fromCellLocation_x = (oRemoveBackstitch.FromBlockPosition.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oRemoveBackstitch.FromBlockPosition.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oRemoveBackstitch.ToBlockPosition.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oRemoveBackstitch.ToBlockPosition.Y + iYOffset - topcorner.Y) * iPixelsPerCell
 
         _bsPen = New Pen(Color.White, oStitchPenWidth * oRemoveBackstitch.Strands)
         If isThreadOn Then
@@ -1734,6 +1734,7 @@ Public Class FrmStitchDesign
         _blockstitch.StitchType = BlockStitchType.ThreeQuarter
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
+        _blockstitch.BlockQuarter = BlockQuarter.TopRight
     End Sub
     Private Sub Add3QtrStitchTL(celLocation As Point)
         Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
@@ -1742,6 +1743,7 @@ Public Class FrmStitchDesign
         _blockstitch.StitchType = BlockStitchType.ThreeQuarter
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
+        _blockstitch.BlockQuarter = BlockQuarter.TopLeft
     End Sub
     Private Sub Add3QtrStitchBR(celLocation As Point)
         Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.BottomRight)
@@ -1750,6 +1752,7 @@ Public Class FrmStitchDesign
         _blockstitch.StitchType = BlockStitchType.ThreeQuarter
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
+        _blockstitch.BlockQuarter = BlockQuarter.BottomRight
     End Sub
     Private Sub Add3QtrStitchBL(celLocation As Point)
         Dim _blockstitch As BlockStitch = AddQuarterBlockstitch(celLocation, BlockQuarter.TopLeft)
@@ -1758,6 +1761,7 @@ Public Class FrmStitchDesign
         _blockstitch.StitchType = BlockStitchType.ThreeQuarter
         _blockstitch.ThreadId = oCurrentThread.ThreadId
         _blockstitch.ProjectId = oProject.ProjectId
+        _blockstitch.BlockQuarter = BlockQuarter.BottomLeft
     End Sub
     Private Sub AddHalfBlockForwardStitch(celLocation As Point)
         AddQuarterBlockstitch(celLocation, BlockQuarter.TopRight)
@@ -1784,15 +1788,15 @@ Public Class FrmStitchDesign
         BtnUndo.Enabled = True
     End Sub
     Private Sub AddBlockStitch(pDesign As ProjectDesign, pStitch As BlockStitch)
-        RemoveExistingBlockStitch(pStitch.BlockLocation, pDesign)
+        RemoveExistingBlockStitch(pStitch.BlockPosition, pDesign)
         AddBlockStitchToDesign(pDesign, pStitch)
     End Sub
     Private Sub AddKnot(pDesign As ProjectDesign, pKnot As Knot)
-        RemoveExistingKnot(pKnot.BlockLocation, pKnot.BlockQuarter, pDesign)
+        RemoveExistingKnot(pKnot.BlockPosition, pKnot.BlockQuarter, pDesign)
         AddKnotToDesign(pDesign, pKnot)
     End Sub
     Private Sub AddBackStitch(pDesign As ProjectDesign, pStitch As BackStitch)
-        RemoveExistingBackStitch(pStitch.FromBlockLocation, pStitch.ToBlockLocation, pDesign)
+        RemoveExistingBackStitch(pStitch.FromBlockPosition, pStitch.ToBlockPosition, pDesign)
         AddBackStitchToDesign(pDesign, pStitch)
     End Sub
 
@@ -1848,10 +1852,10 @@ Public Class FrmStitchDesign
         LogUtil.Debug("Ending backstitch", MyBase.Name)
         If isBackstitchInProgress Then
             oBackstitchInProgress.ToBlockQuarter = pQtr
-            oBackstitchInProgress.ToBlockLocation = pCellLocation
+            oBackstitchInProgress.ToBlockPosition = pCellLocation
             AddBackStitchToDesign(oProjectDesign, BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
             oBackstitchInProgress.FromBlockQuarter = pQtr
-            oBackstitchInProgress.FromBlockLocation = pCellLocation
+            oBackstitchInProgress.FromBlockPosition = pCellLocation
             DrawGrid(oProject, oProjectDesign)
             DisplayImage(oDesignBitmap, iXOffset, iYOffset)
         Else
@@ -1869,7 +1873,7 @@ Public Class FrmStitchDesign
     '
     Private Sub DrawBlockStitch(pBlockStitch As BlockStitch)
         oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
-        Dim _cellLocation As New Point(pBlockStitch.BlockLocation.X * iPixelsPerCell, pBlockStitch.BlockLocation.Y * iPixelsPerCell)
+        Dim _cellLocation As New Point(pBlockStitch.BlockPosition.X * iPixelsPerCell, pBlockStitch.BlockPosition.Y * iPixelsPerCell)
         For Each _blockQtr As BlockStitchQuarter In pBlockStitch.Quarters
             DrawQtrBlockStitch(_blockQtr, _cellLocation.X, _cellLocation.Y)
         Next
@@ -1938,10 +1942,10 @@ Public Class FrmStitchDesign
 
     Private Sub DrawBackstitch(pBackstitch As BackStitch)
         oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
-        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockLocation.X * iPixelsPerCell)
-        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockLocation.Y * iPixelsPerCell)
-        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockLocation.X * iPixelsPerCell)
-        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockLocation.Y * iPixelsPerCell)
+        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockPosition.X * iPixelsPerCell)
+        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockPosition.Y * iPixelsPerCell)
+        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockPosition.X * iPixelsPerCell)
+        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockPosition.Y * iPixelsPerCell)
         Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -1974,12 +1978,12 @@ Public Class FrmStitchDesign
         LogUtil.Debug("Drawing backstitch in progress", MyBase.Name)
         Dim _qtrLocationAdjust As Integer = If(pIsHalfStitch, iPixelsPerCell / 2, iPixelsPerCell)
         oBackstitchInProgress.ToBlockQuarter = pCellQtr
-        oBackstitchInProgress.ToBlockLocation = pCell
+        oBackstitchInProgress.ToBlockPosition = pCell
         oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
-        _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-        _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _fromCellLocation_x = (oBackstitchInProgress.FromBlockPosition.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oBackstitchInProgress.FromBlockPosition.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oBackstitchInProgress.ToBlockPosition.X + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oBackstitchInProgress.ToBlockPosition.Y + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _bsPenColour As Color = If(pIsUseSelectColour, Color.Black, oBackstitchInProgress.ProjThread.Thread.Colour)
         _bsPen = New Pen(oBackstitchInProgress.ProjThread.Thread.Colour, oStitchPenWidth * oBackstitchInProgress.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
@@ -2009,8 +2013,8 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub DrawKnot(pKnot As Knot)
-        Dim _knotlocation_x As Integer = (pKnot.BlockLocation.X * iPixelsPerCell) - (iPixelsPerCell / 4)
-        Dim _knotlocation_y As Integer = (pKnot.BlockLocation.Y * iPixelsPerCell) - (iPixelsPerCell / 4)
+        Dim _knotlocation_x As Integer = (pKnot.BlockPosition.X * iPixelsPerCell) - (iPixelsPerCell / 4)
+        Dim _knotlocation_y As Integer = (pKnot.BlockPosition.Y * iPixelsPerCell) - (iPixelsPerCell / 4)
         Select Case pKnot.BlockQuarter
             Case BlockQuarter.BottomLeft
                 _knotlocation_y += iPixelsPerCell / 2
@@ -2061,7 +2065,7 @@ Public Class FrmStitchDesign
     Private Function FindKnot(pActionPoint As Point, pQtr As BlockQuarter) As Knot
         Dim _exists As Knot = Nothing
         For Each _knot As Knot In oProjectDesign.Knots
-            If _knot.BlockLocation = pActionPoint AndAlso _knot.BlockQuarter = pQtr Then
+            If _knot.BlockPosition = pActionPoint AndAlso _knot.BlockQuarter = pQtr Then
                 _exists = _knot
             End If
         Next
@@ -2071,14 +2075,14 @@ Public Class FrmStitchDesign
     Private Function FindBlockstitch(pActionPoint As Point) As BlockStitch
         Dim _found As BlockStitch = Nothing
         For Each _blockStitch As BlockStitch In oProjectDesign.BlockStitches
-            If _blockStitch.BlockLocation = pActionPoint Then
+            If _blockStitch.BlockPosition = pActionPoint Then
                 _found = _blockStitch
                 Exit For
             End If
         Next
         If _found Is Nothing Then
             _found = BlockStitchBuilder.ABlockStitch.StartingWithNothing _
-            .WithLocation(pActionPoint) _
+            .WithPosition(pActionPoint) _
             .WithQuarters(New List(Of BlockStitchQuarter)) _
             .Build
             AddBlockStitchToDesign(oProjectDesign, _found)
@@ -2087,7 +2091,7 @@ Public Class FrmStitchDesign
     End Function
     Private Sub RemoveExistingBlockStitch(pActionPoint As Point, pDesign As ProjectDesign)
         For Each _blockStitch As BlockStitch In pDesign.BlockStitches
-            If _blockStitch.BlockLocation = pActionPoint Then
+            If _blockStitch.BlockPosition = pActionPoint Then
                 RemoveBlockStitchFromDesign(pDesign, _blockStitch)
                 Exit For
             End If
@@ -2095,7 +2099,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub RemoveExistingBackStitch(pActionFromPoint As Point, pActionToPoint As Point, pDesign As ProjectDesign)
         For Each _backStitch As BackStitch In pDesign.BackStitches
-            If _backStitch.FromBlockLocation = pActionFromPoint And _backStitch.ToBlockLocation = pActionToPoint Then
+            If _backStitch.FromBlockPosition = pActionFromPoint And _backStitch.ToBlockPosition = pActionToPoint Then
                 RemoveBackStitchFromDesign(pDesign, _backStitch)
                 Exit For
             End If
@@ -2103,7 +2107,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub RemoveExistingKnot(pActionPoint As Point, pQtr As BlockQuarter, pDesign As ProjectDesign)
         For Each _knot As Knot In pDesign.Knots
-            If _knot.BlockLocation = pActionPoint And _knot.BlockQuarter = pQtr Then
+            If _knot.BlockPosition = pActionPoint And _knot.BlockQuarter = pQtr Then
                 RemoveKnotFromDesign(pDesign, _knot)
                 Exit For
             End If
@@ -2113,7 +2117,7 @@ Public Class FrmStitchDesign
     Private Function FindBackstitches(pActionPoint As Point) As List(Of BackStitch)
         Dim _list As New List(Of BackStitch)
         For Each _backStitch As BackStitch In oProjectDesign.BackStitches
-            If _backStitch.FromBlockLocation = pActionPoint Or _backStitch.ToBlockLocation = pActionPoint Then
+            If _backStitch.FromBlockPosition = pActionPoint Or _backStitch.ToBlockPosition = pActionPoint Then
                 _list.Add(_backStitch)
             End If
         Next
