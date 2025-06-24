@@ -1587,12 +1587,10 @@ Public Class FrmStitchDesign
 
     ' Cell selection
     Private Sub StartSelection(pCellLocation As Point)
-        LogUtil.Debug("Starting selection", MyBase.Name)
         oInProgressAnchor = pCellLocation
         oInProgressTerminus = New Point(pCellLocation.X, pCellLocation.Y)
         isSelectionInProgress = True
         SelectionMessage("Selection in progress")
-        LogUtil.Debug("Backstitch IS in progress", MyBase.Name)
     End Sub
     Private Sub SelectionMessage(pText As String)
         LblSelectMessage.Text = pText
