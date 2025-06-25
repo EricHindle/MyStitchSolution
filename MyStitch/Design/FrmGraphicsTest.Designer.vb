@@ -1166,7 +1166,7 @@ Partial Class FrmGraphicsTest
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
