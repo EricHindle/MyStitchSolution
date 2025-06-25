@@ -949,30 +949,30 @@ Partial Class FrmGraphicsTest
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open"
         '
         'MnuSaveDesign
         '
         Me.MnuSaveDesign.Name = "MnuSaveDesign"
-        Me.MnuSaveDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesign.Text = "Save"
         '
         'MnuSaveDesignAs
         '
         Me.MnuSaveDesignAs.Name = "MnuSaveDesignAs"
-        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesignAs.Text = "Save As..."
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
         '
         'MnuExit
         '
         Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(123, 22)
+        Me.MnuExit.Size = New System.Drawing.Size(180, 22)
         Me.MnuExit.Text = "Exit"
         '
         'MnuThreads
@@ -1166,7 +1166,7 @@ Partial Class FrmGraphicsTest
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
