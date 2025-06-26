@@ -84,10 +84,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\FrmGraphicsTest.Designer.vb">
-      <DependentUpon>FrmGraphicsTest.vb</DependentUpon>
+    <Compile Include="Design\FrmStitchDesign.Designer.vb">
+      <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </Compile>
-    <Compile Include="Design\FrmGraphicsTest.vb">
+    <Compile Include="Design\FrmStitchDesign.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Design\FrmStitchDisplayStyle.Designer.vb">
@@ -129,13 +129,6 @@
     <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
-    <Compile Include="Design\FrmStitchDesign.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Design\FrmStitchDesign.Designer.vb">
-      <DependentUpon>FrmStitchDesign.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,9 +223,6 @@
     <Compile Include="Utilities\ModCommon.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Design\FrmGraphicsTest.resx">
-      <DependentUpon>FrmGraphicsTest.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </EmbeddedResource>

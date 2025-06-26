@@ -359,9 +359,9 @@ Public Class FrmProject
 
     End Sub
 
-    Private Sub BtnTest_Click(sender As Object, e As EventArgs) Handles BtnTest.Click
+    Private Sub BtnTest_Click(sender As Object, e As EventArgs) 
         If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
-            Using _design As New FrmGraphicsTest
+            Using _design As New FrmStitchDesign
                 _design.ProjectId = _selectedProject.ProjectId
                 _design.ShowDialog()
             End Using

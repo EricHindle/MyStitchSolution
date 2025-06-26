@@ -7,6 +7,7 @@
 
 Imports System.IO
 Imports System.IO.Compression
+Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
 Module ModDesign
@@ -133,6 +134,7 @@ Module ModDesign
     End Function
     Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
+        pDesign = SortStitches(pDesign)
         Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
         Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
         '  If Not My.Computer.FileSystem.FileExists(_zipFile) Then
@@ -149,6 +151,26 @@ Module ModDesign
         End Using
         Return isOK
     End Function
+
+    Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
+        pDesign.BlockStitches.Sort(Function(pStitch1 As BlockStitch, pStitch2 As BlockStitch)
+                                       Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+                                       Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+                                       Return Pos1.CompareTo(Pos2)
+                                   End Function)
+        pDesign.Knots.Sort(Function(pStitch1 As Knot, pStitch2 As Knot)
+                               Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+                               Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+                               Return Pos1.CompareTo(Pos2)
+                           End Function)
+        pDesign.BackStitches.Sort(Function(pStitch1 As BackStitch, pStitch2 As BackStitch)
+                                      Dim Pos1 As Integer = pStitch1.FromBlockLocation.Y + (pStitch1.FromBlockLocation.X * pDesign.Rows)
+                                      Dim Pos2 As Integer = pStitch2.FromBlockLocation.Y + (pStitch2.FromBlockLocation.X * pDesign.Rows)
+                                      Return Pos1.CompareTo(Pos2)
+                                  End Function)
+        Return pDesign
+    End Function
+
     Public Function SaveDesignXML(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & XML_EXT)
