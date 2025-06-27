@@ -296,6 +296,8 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\centreon.png" />
+    <None Include="Resources\centreoff.png" />
     <None Include="Resources\mirror.png" />
     <None Include="Resources\flip.png" />
     <None Include="Resources\move.png" />

@@ -197,7 +197,7 @@ Namespace Domain.Objects
                        pGrid5Colour As Integer,
                        pGrid10Colour As Integer,
                        pDesign As ProjectDesign,
-                       pFilename As String,
+                       pDesignFilename As String,
                        pOriginX As Integer,
                        pOriginY As Integer)
             Initialiseproject()
@@ -214,7 +214,7 @@ Namespace Domain.Objects
             _grid5Colour = pGrid5Colour
             _grid10Colour = pGrid10Colour
             _design = pDesign
-            _designFileName = pFilename
+            _designFileName = pDesignFilename
             _originX = pOriginX
             _originY = pOriginY
             '        LogUtil.Info(Me.ToString, "Project")

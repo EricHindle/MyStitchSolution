@@ -5,6 +5,8 @@
 ' Author Eric Hindle
 '
 
+Imports System.IO
+Imports System.IO.Compression
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
@@ -152,8 +154,9 @@ Public Class FrmProject
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
                                                     .WithGrid1Colour(_g1colr) _
-                                                     .WithGrid5Colour(_g5colr) _
-                                                     .WithGrid10Colour(_g10colr) _
+                                                    .WithGrid5Colour(_g5colr) _
+                                                    .WithGrid10Colour(_g10colr) _
+                                                    .WithDesignFilename(Replace(TxtName.Text, " ", "_").ToLower) _
                                                  .Build()
         Return _project
     End Function
@@ -176,15 +179,40 @@ Public Class FrmProject
     Private Sub UpdateSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
             LogUtil.LogInfo("Updating project", MyBase.Name)
-            Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
-            UpdateProject(_project)
+            Dim _previousProject As Project = _selectedProject
+            Dim _newProject As Project = BuildProjectFromForm(_selectedProject.ProjectId)
+            UpdateProject(_newProject)
             LoadProjectTable()
             SelectProjectInList(_selectedProject.ProjectId)
+            If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
+                If MsgBox("Rename Project File?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Rename") = MsgBoxResult.Yes Then
+                    RenameProjectFile(_selectedProject, _previousProject)
+                End If
+            End If
             LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)
-        Else
-            LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
+            Else
+                LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
+
+    Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
+        Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & JSON_EXT
+        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, ZIP_EXT)
+        Dim _newDesignFile As String = MakeFilename(pSelectedProject) & JSON_EXT
+        Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
+        Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)
+            Dim entry As ZipArchiveEntry = sourceArchive.GetEntry(_existingDesignFile)
+            Using destArchive As ZipArchive = ZipFile.Open(_newZipFile, ZipArchiveMode.Update)
+                Using existingFileStream As Stream = entry.Open()
+                    Dim newFile As ZipArchiveEntry = destArchive.CreateEntry(_newDesignFile)
+                    Using newFileStream As Stream = newFile.Open()
+                        existingFileStream.CopyTo(newFileStream)
+                    End Using
+                End Using
+            End Using
+        End Using
+    End Sub
+
     Private Sub LoadProjectTable()
         isLoading = True
         LoadProjectList(DgvProjects, MyBase.Name)

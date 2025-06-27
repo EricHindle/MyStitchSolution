@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.IO
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
@@ -34,5 +35,19 @@ Module ModProject
             End If
         Next
         Return _index
+    End Function
+    Public Function MakeFilename(pProject As Project) As String
+        Dim _filename As String = pProject.DesignFileName
+        If String.IsNullOrEmpty(_filename) Then
+            _filename = Replace(pProject.ProjectName, " ", "_").ToLower
+        End If
+        Return _filename
+    End Function
+
+    Public Function MakeFullFileName(pProject As Project, pFileType As String) As String
+        Dim _baseFilename As String = MakeFilename(pProject) & pFileType
+        Dim _designFilePath As String = My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
+        Dim _fullFilename As String = Path.Combine(_designFilePath, _baseFilename)
+        Return _fullFilename
     End Function
 End Module

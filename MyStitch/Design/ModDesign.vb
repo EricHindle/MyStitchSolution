@@ -125,7 +125,7 @@ Module ModDesign
     Public Function GetColourFromProject(pProjectColour As Integer, pColours As List(Of Color)) As Color
         Dim _color As Color
         Select Case pProjectColour
-            Case 1 To pColours.Count - 1
+            Case 1 To pColours.Count
                 _color = pColours(pProjectColour - 1)
             Case Else
                 _color = Color.FromArgb(pProjectColour)

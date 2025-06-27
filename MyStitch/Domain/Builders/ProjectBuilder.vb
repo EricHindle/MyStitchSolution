@@ -145,7 +145,7 @@ Namespace Domain.Builders
             _design = pDesign
             Return Me
         End Function
-        Public Function WithFilename(pFilename As String) As ProjectBuilder
+        Public Function WithDesignFilename(pFilename As String) As ProjectBuilder
             _designFileName = pFilename
             Return Me
         End Function

@@ -75,6 +75,7 @@ Partial Class FrmStitchDesign
         Me.BtnKnot = New System.Windows.Forms.ToolStripButton()
         Me.BtnBead = New System.Windows.Forms.ToolStripButton()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.PicCentreLines = New System.Windows.Forms.PictureBox()
         Me.LblPixelColourName = New System.Windows.Forms.Label()
         Me.PicGrid = New System.Windows.Forms.PictureBox()
         Me.PicStitch = New System.Windows.Forms.PictureBox()
@@ -138,6 +139,7 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuShowDesignStats = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCentreOn = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -147,6 +149,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        CType(Me.PicCentreLines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
@@ -799,6 +802,7 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
+        Me.TableLayoutPanel1.Controls.Add(Me.PicCentreLines, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.LblPixelColourName, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PicGrid, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PicStitch, 0, 1)
@@ -817,6 +821,18 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(865, 50)
         Me.TableLayoutPanel1.TabIndex = 138
+        '
+        'PicCentreLines
+        '
+        Me.PicCentreLines.BackColor = System.Drawing.SystemColors.Control
+        Me.PicCentreLines.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PicCentreLines.Location = New System.Drawing.Point(26, 26)
+        Me.PicCentreLines.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicCentreLines.Name = "PicCentreLines"
+        Me.PicCentreLines.Size = New System.Drawing.Size(20, 21)
+        Me.PicCentreLines.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicCentreLines.TabIndex = 10
+        Me.PicCentreLines.TabStop = False
         '
         'LblPixelColourName
         '
@@ -955,24 +971,24 @@ Partial Class FrmStitchDesign
         'MnuSaveDesign
         '
         Me.MnuSaveDesign.Name = "MnuSaveDesign"
-        Me.MnuSaveDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSaveDesign.Size = New System.Drawing.Size(123, 22)
         Me.MnuSaveDesign.Text = "Save"
         '
         'MnuSaveDesignAs
         '
         Me.MnuSaveDesignAs.Name = "MnuSaveDesignAs"
-        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(123, 22)
         Me.MnuSaveDesignAs.Text = "Save As..."
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(120, 6)
         '
         'MnuExit
         '
         Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(180, 22)
+        Me.MnuExit.Size = New System.Drawing.Size(123, 22)
         Me.MnuExit.Text = "Exit"
         '
         'MnuThreads
@@ -1140,7 +1156,7 @@ Partial Class FrmStitchDesign
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuRedraw, Me.MnuZoomIn, Me.MnuZoomOut, Me.MnuZoom, Me.ToolStripSeparator12, Me.MnuGridOn, Me.MnuStitchDisplayStyle, Me.MnuStitchTypes})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuRedraw, Me.MnuZoomIn, Me.MnuZoomOut, Me.MnuZoom, Me.ToolStripSeparator12, Me.MnuGridOn, Me.MnuCentreOn, Me.MnuStitchDisplayStyle, Me.MnuStitchTypes})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ViewToolStripMenuItem.Text = "View"
@@ -1148,49 +1164,49 @@ Partial Class FrmStitchDesign
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuStitchTypes
         '
         Me.MnuStitchTypes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBlockStitches, Me.MnuBackStitches, Me.MnuKnots})
         Me.MnuStitchTypes.Name = "MnuStitchTypes"
-        Me.MnuStitchTypes.Size = New System.Drawing.Size(173, 22)
+        Me.MnuStitchTypes.Size = New System.Drawing.Size(180, 22)
         Me.MnuStitchTypes.Text = "Stitch Types"
         '
         'MnuBlockStitches
@@ -1256,7 +1272,14 @@ Partial Class FrmStitchDesign
         Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
         Me.MnuOptions.Text = "Options"
         '
-        'FrmGraphicsTest
+        'MnuCentreOn
+        '
+        Me.MnuCentreOn.CheckOnClick = True
+        Me.MnuCentreOn.Name = "MnuCentreOn"
+        Me.MnuCentreOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCentreOn.Text = "Centre Lines"
+        '
+        'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -1266,7 +1289,7 @@ Partial Class FrmStitchDesign
         Me.Controls.Add(Me.SplitContainer1)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.Name = "FrmGraphicsTest"
+        Me.Name = "FrmStitchDesign"
         Me.Text = "FrmGraphicsTest"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
@@ -1280,6 +1303,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        CType(Me.PicCentreLines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
@@ -1403,4 +1427,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuShowDesignStats As ToolStripMenuItem
     Friend WithEvents MnuOptions As ToolStripMenuItem
     Friend WithEvents LblStatus As Label
+    Friend WithEvents PicCentreLines As PictureBox
+    Friend WithEvents MnuCentreOn As ToolStripMenuItem
 End Class

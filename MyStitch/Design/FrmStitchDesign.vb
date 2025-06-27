@@ -107,6 +107,8 @@ Public Class FrmStitchDesign
     Dim _grid10width As Integer = 1
     Dim _grid10Brush As Brush = Brushes.Black
     Dim _grid10Pen = New Pen(_grid10Brush, _grid10width)
+    Dim _centreBrush As Brush = Brushes.Red
+    Dim _centrePen = New Pen(_centreBrush, 2)
     Dim _fabricColour As Color
     Dim _fabricBrush As SolidBrush
 
@@ -188,6 +190,9 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub PicGrid_Click(sender As Object, e As EventArgs) Handles PicGrid.Click
         ToggleGrid()
+    End Sub
+    Private Sub PicCentreLines_Click(sender As Object, e As EventArgs) Handles PicCentreLines.Click
+        ToggleCentre()
     End Sub
     Private Sub Palette_Click(sender As Object, e As EventArgs)
         For Each _control As Control In ThreadLayoutPanel.Controls
@@ -486,11 +491,6 @@ Public Class FrmStitchDesign
                     SetPasteDestination(e, _cell)
             End Select
         End If
-        '        If isImageChanged Then
-        '            LogUtil.Debug("Drawing changes after move", MyBase.Name)
-        '            DrawGrid(oProject, oProjectDesign)
-        '            DisplayImage(oDesignBitmap, iXOffset, iYOffset)
-        '        End If
         PicDesign.Invalidate()
     End Sub
     Private Sub CancelBackstitch()
@@ -956,6 +956,7 @@ Public Class FrmStitchDesign
         BtnUndo.Enabled = False
         BtnRedo.Enabled = False
         SetIsGridOn()
+        SetIsCentreOn()
         SetShowStitchTypesMenu()
         SelectFullBlockstitch()
         PnlSelectedColor.BackColor = SystemColors.Control
@@ -989,6 +990,7 @@ Public Class FrmStitchDesign
         LblStatus.Text = String.Empty
     End Sub
     Private Sub Bgw_DoWork(sender As Object, e As DoWorkEventArgs) Handles oBackgroundWorker.DoWork
+        ' Open project design in new thread
         oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
         isLoadComplete = True
     End Sub
@@ -1215,6 +1217,10 @@ Public Class FrmStitchDesign
 
         Dim _designBorderPen As New Pen(Brushes.Black, 2)
 
+        Dim _halfColumn As Integer = Math.Floor(_widthInColumns / 2)
+        Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
+
+
         If My.Settings.isGridOn Then
             For x = 0 To _widthInColumns
                 oDesignGraphics.DrawLine(_grid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
@@ -1234,7 +1240,13 @@ Public Class FrmStitchDesign
             For y = 10 To _heightInRows Step 10
                 oDesignGraphics.DrawLine(_grid10Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
             Next
+
         End If
+        If My.Settings.IsCentreOn Then
+            oDesignGraphics.DrawLine(_centrePen, New Point(0, gap * _halfRow), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * _halfRow))
+        oDesignGraphics.DrawLine(_centrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
+        End If
+
         '   FillAfterGrid()
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         _designBorderPen.Dispose()
@@ -1278,12 +1290,26 @@ Public Class FrmStitchDesign
         SetIsGridOn()
         RedrawDesign()
     End Sub
+    Private Sub ToggleCentre()
+        My.Settings.IsCentreOn = Not My.Settings.IsCentreOn
+        My.Settings.Save()
+        SetIsCentreOn()
+        RedrawDesign()
+    End Sub
     Private Sub SetIsGridOn()
         MnuGridOn.Checked = My.Settings.isGridOn
         If My.Settings.isGridOn Then
             PicGrid.Image = My.Resources.gridon
         Else
             PicGrid.Image = My.Resources.gridoff
+        End If
+    End Sub
+    Private Sub SetIsCentreOn()
+        MnuCentreOn.Checked = My.Settings.IsCentreOn
+        If My.Settings.IsCentreOn Then
+            PicCentreLines.Image = My.Resources.centreon
+        Else
+            PicCentreLines.Image = My.Resources.centreoff
         End If
     End Sub
 
@@ -1307,13 +1333,7 @@ Public Class FrmStitchDesign
             Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
         End Try
     End Sub
-    Private Function MakeFilename(pProject As Project) As String
-        Dim _filename As String = oProject.DesignFileName
-        If String.IsNullOrEmpty(_filename) Then
-            _filename = Replace(oProject.ProjectName, " ", "_").ToLower
-        End If
-        Return _filename
-    End Function
+
     Private Sub StitchButtonSelected()
         StitchButtonSelected(Nothing)
     End Sub
@@ -2196,6 +2216,14 @@ Public Class FrmStitchDesign
         If isComponentInitialised AndAlso Not isLoading Then
             RedrawDesign()
         End If
+    End Sub
+
+    Private Sub MnuCentreOn_Click(sender As Object, e As EventArgs) Handles MnuCentreOn.Click
+        ToggleCentre()
+    End Sub
+
+    Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
+
     End Sub
 
 #End Region
