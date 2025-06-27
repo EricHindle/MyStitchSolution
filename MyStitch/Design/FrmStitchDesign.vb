@@ -1889,9 +1889,14 @@ Public Class FrmStitchDesign
 
     End Sub
     Private Function MakeImage(pBlockStitch As BlockStitch) As Image
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
-        Dim _symbol As Symbol = GetSymbolById(_projectThread.SymbolId)
-        Dim _image As Image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPixelsPerCell, iPixelsPerCell)
+        Dim _image As Image = New Bitmap(1, 1)
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
+        If _projectThread Is Nothing Then
+            LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, MyBase.Name, False)
+        Else
+            Dim _symbol As Symbol = GetSymbolById(_projectThread.SymbolId)
+            _image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPixelsPerCell, iPixelsPerCell)
+        End If
         Return _image
     End Function
 
@@ -2141,7 +2146,6 @@ Public Class FrmStitchDesign
         AddToUndoList(pBackstitch, UndoAction.Add)
     End Sub
     Private Sub AddToUndoList(pStitch As Stitch, pAction As UndoAction)
-        LogUtil.LogInfo("Add to undo for " & pStitch.ToString & " : " & pAction.ToString, MyBase.Name)
         oUndoList.Add(New StitchAction(pStitch, pAction))
         oRedoList.Clear()
         BtnUndo.Enabled = True
