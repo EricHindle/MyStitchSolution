@@ -53,12 +53,19 @@ Partial Class FrmOptions
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ChkCentreOn = New System.Windows.Forms.CheckBox()
+        Me.PicCentreColour = New System.Windows.Forms.PictureBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.NudCentreThick = New System.Windows.Forms.NumericUpDown()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -361,6 +368,11 @@ Partial Class FrmOptions
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.NudCentreThick)
+        Me.GroupBox5.Controls.Add(Me.Label5)
+        Me.GroupBox5.Controls.Add(Me.Label4)
+        Me.GroupBox5.Controls.Add(Me.PicCentreColour)
+        Me.GroupBox5.Controls.Add(Me.ChkCentreOn)
         Me.GroupBox5.Controls.Add(Me.ChkGridOn)
         Me.GroupBox5.Location = New System.Drawing.Point(16, 162)
         Me.GroupBox5.Name = "GroupBox5"
@@ -368,6 +380,54 @@ Partial Class FrmOptions
         Me.GroupBox5.TabIndex = 38
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design"
+        '
+        'ChkCentreOn
+        '
+        Me.ChkCentreOn.AutoSize = True
+        Me.ChkCentreOn.Location = New System.Drawing.Point(16, 49)
+        Me.ChkCentreOn.Name = "ChkCentreOn"
+        Me.ChkCentreOn.Size = New System.Drawing.Size(83, 18)
+        Me.ChkCentreOn.TabIndex = 30
+        Me.ChkCentreOn.Text = "Centre On"
+        Me.ChkCentreOn.UseVisualStyleBackColor = True
+        '
+        'PicCentreColour
+        '
+        Me.PicCentreColour.BackColor = System.Drawing.Color.White
+        Me.PicCentreColour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicCentreColour.Location = New System.Drawing.Point(143, 73)
+        Me.PicCentreColour.Name = "PicCentreColour"
+        Me.PicCentreColour.Size = New System.Drawing.Size(23, 23)
+        Me.PicCentreColour.TabIndex = 152
+        Me.PicCentreColour.TabStop = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(13, 77)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(103, 14)
+        Me.Label4.TabIndex = 153
+        Me.Label4.Text = "Centre line colour"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(13, 106)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(120, 14)
+        Me.Label5.TabIndex = 154
+        Me.Label5.Text = "Centre line thickness"
+        '
+        'NudCentreThick
+        '
+        Me.NudCentreThick.Location = New System.Drawing.Point(143, 104)
+        Me.NudCentreThick.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudCentreThick.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudCentreThick.Name = "NudCentreThick"
+        Me.NudCentreThick.Size = New System.Drawing.Size(36, 22)
+        Me.NudCentreThick.TabIndex = 155
+        Me.NudCentreThick.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'FrmOptions
         '
@@ -401,6 +461,8 @@ Partial Class FrmOptions
         Me.GroupBox3.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -434,4 +496,9 @@ Partial Class FrmOptions
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents ChkCentreOn As CheckBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents PicCentreColour As PictureBox
+    Friend WithEvents NudCentreThick As NumericUpDown
 End Class

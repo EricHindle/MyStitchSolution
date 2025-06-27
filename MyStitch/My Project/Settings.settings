@@ -109,5 +109,11 @@
     <Setting Name="IsCentreOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="CentrelineColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="CentrelineThickness" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

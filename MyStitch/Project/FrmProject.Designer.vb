@@ -126,8 +126,11 @@ Partial Class FrmProject
         '
         'LblStatus
         '
+        Me.LblStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
+        Me.LblStatus.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.LblStatus.Name = "LblStatus"
-        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
+        Me.LblStatus.Padding = New System.Windows.Forms.Padding(2, 0, 3, 0)
+        Me.LblStatus.Size = New System.Drawing.Size(9, 17)
         '
         'BtnClear
         '

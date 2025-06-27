@@ -460,6 +460,30 @@ Namespace My
                 Me("IsCentreOn") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Red")>  _
+        Public Property CentrelineColour() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("CentrelineColour"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("CentrelineColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property CentrelineThickness() As String
+            Get
+                Return CType(Me("CentrelineThickness"),String)
+            End Get
+            Set
+                Me("CentrelineThickness") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

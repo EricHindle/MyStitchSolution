@@ -7,6 +7,7 @@
 
 Imports System.IO
 Imports System.IO.Compression
+Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
@@ -196,21 +197,38 @@ Public Class FrmProject
     End Sub
 
     Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
+        Dim _exceptionText As String = "Exception renaming project design file"
         Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & JSON_EXT
         Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, ZIP_EXT)
-        Dim _newDesignFile As String = MakeFilename(pSelectedProject) & JSON_EXT
-        Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
-        Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)
-            Dim entry As ZipArchiveEntry = sourceArchive.GetEntry(_existingDesignFile)
-            Using destArchive As ZipArchive = ZipFile.Open(_newZipFile, ZipArchiveMode.Update)
-                Using existingFileStream As Stream = entry.Open()
-                    Dim newFile As ZipArchiveEntry = destArchive.CreateEntry(_newDesignFile)
-                    Using newFileStream As Stream = newFile.Open()
-                        existingFileStream.CopyTo(newFileStream)
+        If My.Computer.FileSystem.FileExists(_existingZipFile) Then
+            Dim _newDesignFile As String = MakeFilename(pSelectedProject) & JSON_EXT
+            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
+            Try
+                LogUtil.ShowStatus("Renaming " & _existingDesignFile & " to " & _newDesignFile, LblStatus, True, MyBase.Name, False)
+                Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)
+                    Dim entry As ZipArchiveEntry = sourceArchive.GetEntry(_existingDesignFile)
+                    Using destArchive As ZipArchive = ZipFile.Open(_newZipFile, ZipArchiveMode.Update)
+                        Using existingFileStream As Stream = entry.Open()
+                            Dim newFile As ZipArchiveEntry = destArchive.CreateEntry(_newDesignFile)
+                            Using newFileStream As Stream = newFile.Open()
+                                existingFileStream.CopyTo(newFileStream)
+                            End Using
+                        End Using
                     End Using
                 End Using
-            End Using
-        End Using
+            Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is PathTooLongException _
+                                OrElse TypeOf ex Is DirectoryNotFoundException _
+                                OrElse TypeOf ex Is IOException _
+                                OrElse TypeOf ex Is UnauthorizedAccessException _
+                                OrElse TypeOf ex Is InvalidDataException _
+                                OrElse TypeOf ex Is NotSupportedException _
+                                OrElse TypeOf ex Is ObjectDisposedException)
+                LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
+            End Try
+        Else
+            LogUtil.ShowStatus("No project design file found", LblStatus, True, MyBase.Name, True)
+        End If
     End Sub
 
     Private Sub LoadProjectTable()

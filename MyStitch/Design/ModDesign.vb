@@ -7,6 +7,8 @@
 
 Imports System.IO
 Imports System.IO.Compression
+Imports System.Reflection
+Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
@@ -192,21 +194,34 @@ Module ModDesign
         Return isOK
     End Function
     Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
+        Dim _exceptionText As String = "Exception reading project design file"
+
         Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
         Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
         Dim _projectDesign As New ProjectDesign
-        If My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-                For Each _entry As ZipArchiveEntry In _archiveFile.Entries
-                    If _entry.Name.EndsWith(JSON_EXT) Then
-                        Using _input As New StreamReader(_entry.Open())
-                            Dim _jsonText As String = _input.ReadLine()
-                            _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
-                        End Using
-                    End If
-                Next
-            End Using
-        End If
+        Try
+            If My.Computer.FileSystem.FileExists(_zipFile) Then
+                Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+                    For Each _entry As ZipArchiveEntry In _archiveFile.Entries
+                        If _entry.Name.EndsWith(JSON_EXT) Then
+                            Using _input As New StreamReader(_entry.Open())
+                                Dim _jsonText As String = _input.ReadLine()
+                                _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
+                            End Using
+                        End If
+                    Next
+                End Using
+            End If
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is PathTooLongException _
+                                OrElse TypeOf ex Is DirectoryNotFoundException _
+                                OrElse TypeOf ex Is IOException _
+                                OrElse TypeOf ex Is UnauthorizedAccessException _
+                                OrElse TypeOf ex Is InvalidDataException _
+                                OrElse TypeOf ex Is NotSupportedException _
+                                OrElse TypeOf ex Is ObjectDisposedException)
+            LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
+        End Try
         Return _projectDesign
     End Function
     Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign

@@ -410,12 +410,12 @@ Public Class FrmStitchDesign
         If oCurrentAction = DesignAction.none Then
 
             If e.Button = MouseButtons.Right Then
-                If oCurrentStitchType = DesignAction.Bead Or oCurrentStitchType = DesignAction.Knot Then
+                If isKnotAction Then
                     Dim _exists As Knot = FindKnot(_cell)
                     If _exists IsNot Nothing Then
                         RemoveKnotFromDesign(_exists)
                     End If
-                Else
+                ElseIf isBlockstitchAction Then
                     LogUtil.Debug("Remove blockstitch on the move", MyBase.Name)
                     Dim _exists As BlockStitch = FindBlockstitch(_cellPos)
                     If _exists IsNot Nothing Then
@@ -1240,6 +1240,11 @@ Public Class FrmStitchDesign
             For y = 10 To _heightInRows Step 10
                 oDesignGraphics.DrawLine(_grid10Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
             Next
+            Dim _triwidth As Integer = Math.Max(4, Math.Ceiling(iPixelsPerCell / 2))
+            Dim _triPointsTop As Point() = {New Point((gap * _halfColumn) - _triwidth, 0), New Point((gap * _halfColumn) + _triwidth, 0), New Point((gap * _halfColumn), _triwidth)}
+            Dim _triPointsSide As Point() = {New Point(0, (gap * _halfRow) - _triwidth), New Point(0, (gap * _halfRow) + _triwidth), New Point(_triwidth, (gap * _halfRow))}
+            oDesignGraphics.FillPolygon(_centreBrush, _triPointsTop)
+            oDesignGraphics.FillPolygon(_centreBrush, _triPointsSide)
 
         End If
         If My.Settings.IsCentreOn Then

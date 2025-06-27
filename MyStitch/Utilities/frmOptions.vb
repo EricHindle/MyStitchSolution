@@ -33,7 +33,9 @@ Public NotInheritable Class FrmOptions
         My.Settings.BackupArchive = ChkBackupArchive.Checked
         My.Settings.BackupAddDate = ChkBackupAddDate.Checked
         My.Settings.BackupRevision = ChkBackupRevision.Checked
-
+        My.Settings.IsCentreOn = ChkCentreOn.Checked
+        My.Settings.CentrelineColour = PicCentreColour.BackColor
+        My.Settings.CentrelineThickness = NudCentreThick.Value
         My.Settings.Save()
     End Sub
 
@@ -57,7 +59,9 @@ Public NotInheritable Class FrmOptions
         ChkBackupArchive.Checked = My.Settings.BackupArchive
         ChkBackupAddDate.Checked = My.Settings.BackupAddDate
         ChkBackupRevision.Checked = My.Settings.BackupRevision
-
+        ChkCentreOn.Checked = My.Settings.IsCentreOn
+        PicCentreColour.BackColor = My.Settings.CentrelineColour
+        NudCentreThick.Value = My.Settings.CentrelineThickness
     End Sub
 
     Private Sub BtnResetForms_Click(sender As Object, e As EventArgs) Handles BtnResetForms.Click
@@ -115,5 +119,9 @@ Public NotInheritable Class FrmOptions
         Catch ex As Exception
             LogUtil.Exception("Problem tidying files", ex, "TidyFiles")
         End Try
+    End Sub
+
+    Private Sub PicCentreColour_Click(sender As Object, e As EventArgs) Handles PicCentreColour.Click
+        PicCentreColour.BackColor = SelectColor(PicCentreColour.BackColor)
     End Sub
 End Class
