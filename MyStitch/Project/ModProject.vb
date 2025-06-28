@@ -11,6 +11,7 @@ Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Module ModProject
     Public MIN_DATE As New DateTime(2001, 1, 1)
+    Public oTimerForm As FrmProjectTimer
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load project list", pBaseName)
         pDgv.Rows.Clear()
@@ -50,4 +51,24 @@ Module ModProject
         Dim _fullFilename As String = Path.Combine(_designFilePath, _baseFilename)
         Return _fullFilename
     End Function
+    Public Function StartProjectTimer(pProject As Project) As String
+        Dim _rtnMsg As String
+        If pProject.IsLoaded Then
+            If oTimerForm Is Nothing OrElse oTimerForm.IsDisposed Then
+                oTimerForm = New FrmProjectTimer
+            End If
+            oTimerForm.Project = pProject
+            oTimerForm.Show()
+            oTimerForm.TopMost = True
+            _rtnMsg = "Timer started"
+        Else
+            _rtnMsg = "No project selected"
+        End If
+        Return _rtnMsg
+    End Function
+    Public Sub CloseTimer()
+        If oTimerForm IsNot Nothing AndAlso Not oTimerForm.IsDisposed Then
+            oTimerForm.Close()
+        End If
+    End Sub
 End Module

@@ -42,7 +42,7 @@ Public Class FrmProject
         My.Settings.Save()
     End Sub
 
-    Private Sub DgvBooks_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
+    Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
@@ -62,7 +62,6 @@ Public Class FrmProject
     End Sub
     Private Sub BtnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
         InsertNewProject()
-
     End Sub
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
         UpdateSelectedProject()
@@ -161,7 +160,6 @@ Public Class FrmProject
                                                  .Build()
         Return _project
     End Function
-
     Friend Sub SaveProject()
         If _selectedProject.ProjectId >= 0 Then
             UpdateSelectedProject()
@@ -191,8 +189,8 @@ Public Class FrmProject
                 End If
             End If
             LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)
-            Else
-                LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
+        Else
+            LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
 
@@ -341,7 +339,7 @@ Public Class FrmProject
     End Sub
 
     Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
-        OpenThreadListForm
+        OpenThreadListForm()
     End Sub
     Private Shared Sub OpenThreadListForm()
         Using _threads As New FrmThread
@@ -405,7 +403,7 @@ Public Class FrmProject
 
     End Sub
 
-    Private Sub BtnTest_Click(sender As Object, e As EventArgs) 
+    Private Sub BtnTest_Click(sender As Object, e As EventArgs)
         If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
             Using _design As New FrmStitchDesign
                 _design.ProjectId = _selectedProject.ProjectId

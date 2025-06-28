@@ -493,6 +493,36 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property starttimer() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("starttimer", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property stoptimer() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("stoptimer", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property timer() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("timer", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property undo() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("undo", resourceCulture)

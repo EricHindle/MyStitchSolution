@@ -53,19 +53,23 @@ Partial Class FrmOptions
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.ChkCentreOn = New System.Windows.Forms.CheckBox()
-        Me.PicCentreColour = New System.Windows.Forms.PictureBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.NudCentreThick = New System.Windows.Forms.NumericUpDown()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.PicCentreColour = New System.Windows.Forms.PictureBox()
+        Me.ChkCentreOn = New System.Windows.Forms.CheckBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.ChkTimerAutoSave = New System.Windows.Forms.CheckBox()
+        Me.ChkTimerAutoStart = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
-        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -381,15 +385,33 @@ Partial Class FrmOptions
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design"
         '
-        'ChkCentreOn
+        'NudCentreThick
         '
-        Me.ChkCentreOn.AutoSize = True
-        Me.ChkCentreOn.Location = New System.Drawing.Point(16, 49)
-        Me.ChkCentreOn.Name = "ChkCentreOn"
-        Me.ChkCentreOn.Size = New System.Drawing.Size(83, 18)
-        Me.ChkCentreOn.TabIndex = 30
-        Me.ChkCentreOn.Text = "Centre On"
-        Me.ChkCentreOn.UseVisualStyleBackColor = True
+        Me.NudCentreThick.Location = New System.Drawing.Point(143, 104)
+        Me.NudCentreThick.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudCentreThick.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudCentreThick.Name = "NudCentreThick"
+        Me.NudCentreThick.Size = New System.Drawing.Size(36, 22)
+        Me.NudCentreThick.TabIndex = 155
+        Me.NudCentreThick.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(13, 106)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(120, 14)
+        Me.Label5.TabIndex = 154
+        Me.Label5.Text = "Centre line thickness"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(13, 77)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(103, 14)
+        Me.Label4.TabIndex = 153
+        Me.Label4.Text = "Centre line colour"
         '
         'PicCentreColour
         '
@@ -401,33 +423,46 @@ Partial Class FrmOptions
         Me.PicCentreColour.TabIndex = 152
         Me.PicCentreColour.TabStop = False
         '
-        'Label4
+        'ChkCentreOn
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(13, 77)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(103, 14)
-        Me.Label4.TabIndex = 153
-        Me.Label4.Text = "Centre line colour"
+        Me.ChkCentreOn.AutoSize = True
+        Me.ChkCentreOn.Location = New System.Drawing.Point(16, 49)
+        Me.ChkCentreOn.Name = "ChkCentreOn"
+        Me.ChkCentreOn.Size = New System.Drawing.Size(83, 18)
+        Me.ChkCentreOn.TabIndex = 30
+        Me.ChkCentreOn.Text = "Centre On"
+        Me.ChkCentreOn.UseVisualStyleBackColor = True
         '
-        'Label5
+        'GroupBox6
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(13, 106)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(120, 14)
-        Me.Label5.TabIndex = 154
-        Me.Label5.Text = "Centre line thickness"
+        Me.GroupBox6.Controls.Add(Me.ChkTimerAutoSave)
+        Me.GroupBox6.Controls.Add(Me.ChkTimerAutoStart)
+        Me.GroupBox6.Location = New System.Drawing.Point(16, 328)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(200, 100)
+        Me.GroupBox6.TabIndex = 39
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Project Timer"
         '
-        'NudCentreThick
+        'ChkTimerAutoSave
         '
-        Me.NudCentreThick.Location = New System.Drawing.Point(143, 104)
-        Me.NudCentreThick.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
-        Me.NudCentreThick.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NudCentreThick.Name = "NudCentreThick"
-        Me.NudCentreThick.Size = New System.Drawing.Size(36, 22)
-        Me.NudCentreThick.TabIndex = 155
-        Me.NudCentreThick.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.ChkTimerAutoSave.AutoSize = True
+        Me.ChkTimerAutoSave.Location = New System.Drawing.Point(16, 53)
+        Me.ChkTimerAutoSave.Name = "ChkTimerAutoSave"
+        Me.ChkTimerAutoSave.Size = New System.Drawing.Size(161, 18)
+        Me.ChkTimerAutoSave.TabIndex = 31
+        Me.ChkTimerAutoSave.Text = "Auto Save on form close"
+        Me.ChkTimerAutoSave.UseVisualStyleBackColor = True
+        '
+        'ChkTimerAutoStart
+        '
+        Me.ChkTimerAutoStart.AutoSize = True
+        Me.ChkTimerAutoStart.Location = New System.Drawing.Point(16, 29)
+        Me.ChkTimerAutoStart.Name = "ChkTimerAutoStart"
+        Me.ChkTimerAutoStart.Size = New System.Drawing.Size(163, 18)
+        Me.ChkTimerAutoStart.TabIndex = 30
+        Me.ChkTimerAutoStart.Text = "Auto Start on form open"
+        Me.ChkTimerAutoStart.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '
@@ -435,6 +470,7 @@ Partial Class FrmOptions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
         Me.ClientSize = New System.Drawing.Size(690, 589)
+        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
@@ -461,8 +497,10 @@ Partial Class FrmOptions
         Me.GroupBox3.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -501,4 +539,7 @@ Partial Class FrmOptions
     Friend WithEvents Label4 As Label
     Friend WithEvents PicCentreColour As PictureBox
     Friend WithEvents NudCentreThick As NumericUpDown
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents ChkTimerAutoStart As CheckBox
+    Friend WithEvents ChkTimerAutoSave As CheckBox
 End Class

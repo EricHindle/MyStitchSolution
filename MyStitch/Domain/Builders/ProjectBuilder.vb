@@ -24,6 +24,7 @@ Namespace Domain.Builders
         Private _designFileName As String
         Private _originX As Integer
         Private _originY As Integer
+        Private _totalMinutes As Integer
         Public Shared Function AProject() As ProjectBuilder
             Return New ProjectBuilder
         End Function
@@ -44,12 +45,13 @@ Namespace Domain.Builders
             _designFileName = String.Empty
             _originX = 0
             _originY = 0
+            _totalMinutes = 0
             Return Me
         End Function
-        Public Function StartingWith(ByRef pproject As Project) As ProjectBuilder
+        Public Function StartingWith(ByRef pProject As Project) As ProjectBuilder
             StartingWithNothing()
-            If pproject IsNot Nothing Then
-                With pproject
+            If pProject IsNot Nothing Then
+                With pProject
                     _projectId = .ProjectId
                     _projectName = .ProjectName
                     _dateStarted = .DateStarted
@@ -66,6 +68,7 @@ Namespace Domain.Builders
                     _designFileName = .DesignFileName
                     _originX = .OriginX
                     _originY = .OriginY
+                    _totalMinutes = .TotalMinutes
                 End With
             End If
             Return Me
@@ -89,6 +92,7 @@ Namespace Domain.Builders
                     _designFileName = .design_file
                     _originX = .origin_x
                     _originY = .origin_y
+                    _totalMinutes = .total_minutes
                 End With
             End If
             Return Me
@@ -162,6 +166,10 @@ Namespace Domain.Builders
             _originY = pOrigin.Y
             Return Me
         End Function
+        Public Function WithTotalMinutes(pTotalMinutes As Integer) As ProjectBuilder
+            _totalMinutes = pTotalMinutes
+            Return Me
+        End Function
         Public Function Build() As Project
             Return New Project(_projectId,
                                _projectName,
@@ -178,7 +186,8 @@ Namespace Domain.Builders
                                _design,
                                _designFileName,
                                _originX,
-                               _originY)
+                               _originY,
+                               _totalMinutes)
         End Function
 
     End Class

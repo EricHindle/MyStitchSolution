@@ -25,6 +25,15 @@ Namespace Domain.Objects
         Private _designFileName As String
         Private _originX As Integer
         Private _originY As Integer
+        Private _totalMinutes As Integer
+        Public Property TotalMinutes() As Integer
+            Get
+                Return _totalMinutes
+            End Get
+            Set(ByVal value As Integer)
+                _totalMinutes = value
+            End Set
+        End Property
         Public ReadOnly Property Origin As Point
             Get
                 Return New Point(_originX, _originY)
@@ -174,6 +183,7 @@ Namespace Domain.Objects
             _designFileName = String.Empty
             _originX = 0
             _originY = 0
+            _totalMinutes = 0
         End Sub
         Public Sub New()
             Initialiseproject()
@@ -199,7 +209,8 @@ Namespace Domain.Objects
                        pDesign As ProjectDesign,
                        pDesignFilename As String,
                        pOriginX As Integer,
-                       pOriginY As Integer)
+                       pOriginY As Integer,
+                       pTotalMinutes As Integer)
             Initialiseproject()
             _projectId = pId
             _projectName = pProjectName
@@ -217,6 +228,7 @@ Namespace Domain.Objects
             _designFileName = pDesignFilename
             _originX = pOriginX
             _originY = pOriginY
+            _totalMinutes = pTotalMinutes
             '        LogUtil.Info(Me.ToString, "Project")
         End Sub
 #End Region

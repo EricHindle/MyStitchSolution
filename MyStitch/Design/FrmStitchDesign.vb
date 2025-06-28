@@ -176,6 +176,9 @@ Public Class FrmStitchDesign
         LogUtil.LogInfo("Opening design", MyBase.Name)
         GetFormPos(Me, My.Settings.DesignFormPos)
         InitialiseForm()
+        If My.Settings.isTimerAutoStart Then
+            StartProjectTimer(oProject)
+        End If
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Me.Close()
@@ -185,6 +188,7 @@ Public Class FrmStitchDesign
         _grid1Pen.Dispose()
         _grid5Pen.Dispose()
         _grid10Pen.Dispose()
+        CloseTimer()
         My.Settings.DesignFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -2233,6 +2237,10 @@ Public Class FrmStitchDesign
 
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
 
+    End Sub
+
+    Private Sub BtnTimer_Click(sender As Object, e As EventArgs) Handles BtnTimer.Click
+        StartProjectTimer(oProject)
     End Sub
 
 #End Region

@@ -267,23 +267,11 @@ Public Class FrmBackup
                 AddProgress("Creating folder " & _path, 2)
                 My.Computer.FileSystem.CreateDirectory(_path)
             End If
-        Catch ex As ArgumentException
-            LogUtil.DisplayException(ex, "File creation", MyBase.Name)
-            AddProgress("Failed : " & ex.Message, 2, 4)
-            isOK = False
-        Catch ex As PathTooLongException
-            LogUtil.DisplayException(ex, "File creation", MyBase.Name)
-            AddProgress("Failed : " & ex.Message, 2, 4)
-            isOK = False
-        Catch ex As NotSupportedException
-            LogUtil.DisplayException(ex, "File creation", MyBase.Name)
-            AddProgress("Failed : " & ex.Message, 2, 4)
-            isOK = False
-        Catch ex As IOException
-            LogUtil.DisplayException(ex, "File creation", MyBase.Name)
-            AddProgress("Failed : " & ex.Message, 2, 4)
-            isOK = False
-        Catch ex As UnauthorizedAccessException
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                                 Or TypeOf ex Is PathTooLongException _
+                                 Or TypeOf ex Is NotSupportedException _
+                                 Or TypeOf ex Is IOException _
+                                 Or TypeOf ex Is UnauthorizedAccessException)
             LogUtil.DisplayException(ex, "File creation", MyBase.Name)
             AddProgress("Failed : " & ex.Message, 2, 4)
             isOK = False
@@ -462,6 +450,9 @@ Public Class FrmBackup
                         _isTableSaved = True
                     Case "Settings"
                         _itemList.Add(BackupTable(GetSettingsTable))
+                        _isTableSaved = True
+                    Case "ProjectWorkTimes"
+                        _itemList.Add(BackupTable(GetProjectWorkTimesTable))
                         _isTableSaved = True
                 End Select
                 If _isTableSaved Then

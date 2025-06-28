@@ -108,6 +108,7 @@
     <Compile Include="Domain\Builders\ProjectDesignBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectWorkTimeBuilder.vb" />
     <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
@@ -126,6 +127,7 @@
     <Compile Include="Domain\Objects\ProjectDesign.vb" />
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Domain\Objects\ProjectWorkTime.vb" />
     <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
@@ -154,6 +156,12 @@
       <DependentUpon>FrmProject.vb</DependentUpon>
     </Compile>
     <Compile Include="Project\FrmProject.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project\FrmProjectTimer.Designer.vb">
+      <DependentUpon>FrmProjectTimer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Project\FrmProjectTimer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Project\ModProject.vb" />
@@ -238,6 +246,9 @@
     <EmbeddedResource Include="Project\FrmProject.resx">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Project\FrmProjectTimer.resx">
+      <DependentUpon>FrmProjectTimer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmColourCapture.resx">
       <DependentUpon>FrmColourCapture.vb</DependentUpon>
     </EmbeddedResource>
@@ -296,6 +307,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\timer.png" />
+    <None Include="Resources\stoptimer.png" />
+    <None Include="Resources\starttimer.png" />
     <None Include="Resources\centreon.png" />
     <None Include="Resources\centreoff.png" />
     <None Include="Resources\mirror.png" />

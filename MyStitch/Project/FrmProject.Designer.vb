@@ -637,7 +637,7 @@ Partial Class FrmProject
         Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(121, 493)
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(156, 493)
         Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnProjectThreads.Name = "BtnProjectThreads"
         Me.BtnProjectThreads.Size = New System.Drawing.Size(75, 53)
@@ -669,7 +669,7 @@ Partial Class FrmProject
         Me.BtnDesign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDesign.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDesign.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDesign.Location = New System.Drawing.Point(215, 493)
+        Me.BtnDesign.Location = New System.Drawing.Point(295, 493)
         Me.BtnDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDesign.Name = "BtnDesign"
         Me.BtnDesign.Size = New System.Drawing.Size(75, 53)

@@ -484,6 +484,42 @@ Namespace My
                 Me("CentrelineThickness") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ProjectTimerFormPos() As String
+            Get
+                Return CType(Me("ProjectTimerFormPos"),String)
+            End Get
+            Set
+                Me("ProjectTimerFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isTimerAutoStart() As Boolean
+            Get
+                Return CType(Me("isTimerAutoStart"),Boolean)
+            End Get
+            Set
+                Me("isTimerAutoStart") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isTimerAutoSave() As Boolean
+            Get
+                Return CType(Me("isTimerAutoSave"),Boolean)
+            End Get
+            Set
+                Me("isTimerAutoSave") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

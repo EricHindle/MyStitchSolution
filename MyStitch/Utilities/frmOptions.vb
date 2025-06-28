@@ -36,6 +36,8 @@ Public NotInheritable Class FrmOptions
         My.Settings.IsCentreOn = ChkCentreOn.Checked
         My.Settings.CentrelineColour = PicCentreColour.BackColor
         My.Settings.CentrelineThickness = NudCentreThick.Value
+        My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
+        My.Settings.isTimerAutoSave = ChkTimerAutoSave.Checked
         My.Settings.Save()
     End Sub
 
@@ -62,6 +64,8 @@ Public NotInheritable Class FrmOptions
         ChkCentreOn.Checked = My.Settings.IsCentreOn
         PicCentreColour.BackColor = My.Settings.CentrelineColour
         NudCentreThick.Value = My.Settings.CentrelineThickness
+        ChkTimerAutoStart.Checked = My.Settings.isTimerAutoStart
+        ChkTimerAutoSave.Checked = My.Settings.isTimerAutoSave
     End Sub
 
     Private Sub BtnResetForms_Click(sender As Object, e As EventArgs) Handles BtnResetForms.Click
@@ -124,4 +128,5 @@ Public NotInheritable Class FrmOptions
     Private Sub PicCentreColour_Click(sender As Object, e As EventArgs) Handles PicCentreColour.Click
         PicCentreColour.BackColor = SelectColor(PicCentreColour.BackColor)
     End Sub
+
 End Class

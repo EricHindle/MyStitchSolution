@@ -33,6 +33,7 @@ Namespace Domain
             ProjectCardThread
             Settings
             Symbols
+            ProjectWorkTimes
         End Enum
 #End Region
 #Region "dataset"
@@ -50,6 +51,9 @@ Namespace Domain
         Private ReadOnly oSettingsTable As New MyStitchDataSet.SettingsDataTable
         Private ReadOnly oSymbolsTa As New MyStitchDataSetTableAdapters.SymbolsTableAdapter
         Private ReadOnly oSymbolsTable As New MyStitchDataSet.SymbolsDataTable
+        Private ReadOnly oProjectWorkTimesTa As New MyStitchDataSetTableAdapters.ProjectWorkTimesTableAdapter
+        Private ReadOnly oProjectWorkTimesTable As New MyStitchDataSet.ProjectWorkTimesDataTable
+
 #End Region
 #Region "variables"
         ' List of dB tables used in backup and restore
@@ -245,9 +249,9 @@ Namespace Domain
             Try
                 With oProject
                     If projectId < 0 Then
-                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY)
+                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes)
                     Else
-                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY)
+                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes)
                     End If
                 End With
             Catch ex As SqlException
@@ -259,7 +263,7 @@ Namespace Domain
             LogUtil.LogInfo("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
             Try
                 With oProject
-                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY, oProject.ProjectId)
+                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .Grid1Colour, .Grid5Colour, .Grid10Colour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes, oProject.ProjectId)
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -269,6 +273,16 @@ Namespace Domain
             LogUtil.LogInfo("Updating project filename", MethodBase.GetCurrentMethod.Name)
             Try
                 oProjectTa.UpdateDesignFile(pFilename, pProjectId)
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+        End Sub
+        Public Sub UpdateProjectTotalTime(oProject As Project)
+            LogUtil.LogInfo("Updating Project Total Time", MethodBase.GetCurrentMethod.Name)
+            Try
+                With oProject
+                    oProjectTa.UpdateProjectWorkTime(.TotalMinutes, .ProjectId)
+                End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
@@ -701,6 +715,46 @@ Namespace Domain
             End Try
             Return _rtn
         End Function
+#End Region
+#Region "projectworktimes"
+        Public Function GetProjectWorkTimesTable() As MyStitchDataSet.ProjectWorkTimesDataTable
+            Return oProjectWorkTimesTa.GetData()
+        End Function
+        Public Function GetWorkPeriodsForProject(pProjectId As Integer) As List(Of ProjectWorkTime)
+            Dim oPeriods As New List(Of ProjectWorkTime)
+            Try
+                oProjectWorkTimesTa.FillByProjectId(oProjectWorkTimesTable, pProjectId)
+                For Each oRow As MyStitchDataSet.ProjectWorkTimesRow In oProjectWorkTimesTable.Rows
+                    oPeriods.Add(ProjectWorkTimeBuilder.AProjectWorkTime.StartingWith(oRow).Build)
+                Next
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oPeriods
+        End Function
+        Public Function InsertProjectWorkTime(ByRef pProjectWorkTime As ProjectWorkTime)
+            LogUtil.LogInfo("Inserting ProjectWorkTime", MethodBase.GetCurrentMethod.Name)
+            Dim _rtnVal As Integer = -1
+            Try
+                With pProjectWorkTime
+                    _rtnVal = oProjectWorkTimesTa.InsertWorkPeriod(.ProjectId, .TimeStarted, .TimeEnded, .Minutes)
+                End With
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _rtnVal
+        End Function
+        Public Sub UpdateProjectWorkTime(oProjectWorkTime As ProjectWorkTime)
+            LogUtil.LogInfo("Updating ProjectWorkTime", MethodBase.GetCurrentMethod.Name)
+            Try
+                With oProjectWorkTime
+                    oProjectWorkTimesTa.UpdateWorkPeriod(.TimeEnded, .Minutes, .ProjectId, .TimeStarted)
+                End With
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+        End Sub
+
 #End Region
     End Module
 End Namespace
