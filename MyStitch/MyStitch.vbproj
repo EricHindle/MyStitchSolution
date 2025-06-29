@@ -307,6 +307,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\singlecolour.png" />
     <None Include="Resources\timer.png" />
     <None Include="Resources\stoptimer.png" />
     <None Include="Resources\starttimer.png" />

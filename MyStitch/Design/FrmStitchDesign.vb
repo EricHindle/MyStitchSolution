@@ -98,19 +98,20 @@ Public Class FrmStitchDesign
     Private iOldHScrollbarValue As Integer = 0
     Private iOldVScrollbarValue As Integer = 0
 
-    Dim _grid1width As Integer = 1
-    Dim _grid1Brush As Brush = Brushes.LightGray
-    Dim _grid1Pen = New Pen(_grid1Brush, _grid1width)
-    Dim _grid5width As Integer = 1
-    Dim _grid5Brush As Brush = Brushes.DarkGray
-    Dim _grid5Pen = New Pen(_grid5Brush, _grid5width)
-    Dim _grid10width As Integer = 1
-    Dim _grid10Brush As Brush = Brushes.Black
-    Dim _grid10Pen = New Pen(_grid10Brush, _grid10width)
-    Dim _centreBrush As Brush = Brushes.Red
-    Dim _centrePen = New Pen(_centreBrush, 2)
-    Dim _fabricColour As Color
-    Dim _fabricBrush As SolidBrush
+    Private _grid1width As Integer = 1
+    Private _grid1Brush As Brush = Brushes.LightGray
+    Private _grid1Pen = New Pen(_grid1Brush, _grid1width)
+    Private _grid5width As Integer = 1
+    Private _grid5Brush As Brush = Brushes.DarkGray
+    Private _grid5Pen = New Pen(_grid5Brush, _grid5width)
+    Private _grid10width As Integer = 1
+    Private _grid10Brush As Brush = Brushes.Black
+    Private _grid10Pen = New Pen(_grid10Brush, _grid10width)
+    Private _centreBrush As Brush = Brushes.Red
+    Private _centrePen = New Pen(_centreBrush, 2)
+    Private _fabricColour As Color
+    Private _fabricBrush As SolidBrush
+    Private isSingleColour As Boolean
 
     Private isSelectionInProgress As Boolean
     Private isMoveInProgress As Boolean
@@ -1265,18 +1266,20 @@ Public Class FrmStitchDesign
         If My.Settings.IsShowBlockstitches Then
             For Each _blockstitch In oProjectDesign.BlockStitches
                 If _blockstitch.IsLoaded Then
-                    Select Case _blockstitch.StitchType
-                        Case BlockStitchType.Full
-                            DrawFullBlockStitch(_blockstitch)
-                        Case BlockStitchType.Half
-                            DrawHalfBlockStitch(_blockstitch, True)
-                        Case BlockStitchType.Quarter
-                            DrawQuarterBlockStitch(_blockstitch)
-                        Case BlockStitchType.ThreeQuarter
-                            DrawThreeQuarterBlockStitch(_blockstitch)
-                        Case Else
-                            DrawQuarterBlockStitch(_blockstitch)
-                    End Select
+                    If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
+                        Select Case _blockstitch.StitchType
+                            Case BlockStitchType.Full
+                                DrawFullBlockStitch(_blockstitch)
+                            Case BlockStitchType.Half
+                                DrawHalfBlockStitch(_blockstitch, True)
+                            Case BlockStitchType.Quarter
+                                DrawQuarterBlockStitch(_blockstitch)
+                            Case BlockStitchType.ThreeQuarter
+                                DrawThreeQuarterBlockStitch(_blockstitch)
+                            Case Else
+                                DrawQuarterBlockStitch(_blockstitch)
+                        End Select
+                    End If
                 End If
             Next
         End If
@@ -1284,12 +1287,16 @@ Public Class FrmStitchDesign
     Private Sub FillAfterGrid()
         If My.Settings.IsShowBackstitches Then
             For Each _backstitch In oProjectDesign.BackStitches
-                DrawBackstitch(_backstitch)
+                If Not isSingleColour OrElse _backstitch.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
+                    DrawBackstitch(_backstitch)
+                End If
             Next
         End If
         If My.Settings.IsShowKnots Then
             For Each _knot As Knot In oProjectDesign.Knots
-                DrawKnot(_knot)
+                If Not isSingleColour OrElse _knot.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
+                    DrawKnot(_knot)
+                End If
             Next
         End If
     End Sub
@@ -2241,6 +2248,20 @@ Public Class FrmStitchDesign
 
     Private Sub BtnTimer_Click(sender As Object, e As EventArgs) Handles BtnTimer.Click
         StartProjectTimer(oProject)
+    End Sub
+
+    Private Sub BtnSingleColour_Click(sender As Object, e As EventArgs) Handles BtnSingleColour.Click
+        ToggleSingleColour()
+    End Sub
+    Private Sub ToggleSingleColour()
+        isSingleColour = Not isSingleColour
+        BtnSingleColour.BackgroundImage = If(isSingleColour, My.Resources.BtnBkgrdDown, My.Resources.BtnBkgrd)
+        MnuSingleColour.Checked = isSingleColour
+        RedrawDesign()
+    End Sub
+
+    Private Sub MnuSingleColour_Click(sender As Object, e As EventArgs) Handles MnuSingleColour.Click
+        ToggleSingleColour()
     End Sub
 
 #End Region

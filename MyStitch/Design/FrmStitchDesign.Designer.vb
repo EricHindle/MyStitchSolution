@@ -102,6 +102,8 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuShowDesignStats = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuSingleColour = New System.Windows.Forms.ToolStripMenuItem()
         Me.PicCentreLines = New System.Windows.Forms.PictureBox()
         Me.PicGrid = New System.Windows.Forms.PictureBox()
         Me.PicStitch = New System.Windows.Forms.PictureBox()
@@ -124,6 +126,7 @@ Partial Class FrmStitchDesign
         Me.BtnCentre = New System.Windows.Forms.ToolStripButton()
         Me.BtnClose = New System.Windows.Forms.ToolStripButton()
         Me.BtnTimer = New System.Windows.Forms.ToolStripButton()
+        Me.BtnSingleColour = New System.Windows.Forms.ToolStripButton()
         Me.BtnFullStitch = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTL = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTR = New System.Windows.Forms.ToolStripButton()
@@ -229,7 +232,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.AutoSize = False
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnMirror, Me.BtnFlip, Me.ToolStripSeparator3, Me.BtnUndo, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose, Me.ToolStripSeparator14, Me.BtnTimer})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnMove, Me.BtnPaste, Me.ToolStripSeparator4, Me.BtnMirror, Me.BtnFlip, Me.ToolStripSeparator3, Me.BtnUndo, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnEnlarge, Me.BtnShrink, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.BtnClose, Me.ToolStripSeparator14, Me.BtnTimer, Me.ToolStripSeparator15, Me.BtnSingleColour})
         Me.ToolStrip1.Location = New System.Drawing.Point(6, 5)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
@@ -630,7 +633,7 @@ Partial Class FrmStitchDesign
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuRedraw, Me.MnuZoomIn, Me.MnuZoomOut, Me.MnuZoom, Me.ToolStripSeparator12, Me.MnuGridOn, Me.MnuCentreOn, Me.MnuStitchDisplayStyle, Me.MnuStitchTypes})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuRedraw, Me.MnuZoomIn, Me.MnuZoomOut, Me.MnuZoom, Me.ToolStripSeparator12, Me.MnuGridOn, Me.MnuCentreOn, Me.MnuSingleColour, Me.MnuStitchDisplayStyle, Me.MnuStitchTypes})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ViewToolStripMenuItem.Text = "View"
@@ -752,6 +755,18 @@ Partial Class FrmStitchDesign
         Me.MnuOptions.Name = "MnuOptions"
         Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
         Me.MnuOptions.Text = "Options"
+        '
+        'ToolStripSeparator15
+        '
+        Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(6, 24)
+        '
+        'MnuSingleColour
+        '
+        Me.MnuSingleColour.CheckOnClick = True
+        Me.MnuSingleColour.Name = "MnuSingleColour"
+        Me.MnuSingleColour.Size = New System.Drawing.Size(173, 22)
+        Me.MnuSingleColour.Text = "Single Colour"
         '
         'PicCentreLines
         '
@@ -1044,6 +1059,18 @@ Partial Class FrmStitchDesign
         Me.BtnTimer.Name = "BtnTimer"
         Me.BtnTimer.Size = New System.Drawing.Size(23, 22)
         Me.BtnTimer.Text = "ToolStripButton1"
+        Me.BtnTimer.ToolTipText = "Start Project Timer"
+        '
+        'BtnSingleColour
+        '
+        Me.BtnSingleColour.AutoSize = False
+        Me.BtnSingleColour.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnSingleColour.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnSingleColour.Image = Global.MyStitch.My.Resources.Resources.singlecolour
+        Me.BtnSingleColour.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnSingleColour.Name = "BtnSingleColour"
+        Me.BtnSingleColour.Size = New System.Drawing.Size(23, 22)
+        Me.BtnSingleColour.ToolTipText = "Display Single Colour"
         '
         'BtnFullStitch
         '
@@ -1450,4 +1477,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuCentreOn As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator14 As ToolStripSeparator
     Friend WithEvents BtnTimer As ToolStripButton
+    Friend WithEvents ToolStripSeparator15 As ToolStripSeparator
+    Friend WithEvents BtnSingleColour As ToolStripButton
+    Friend WithEvents MnuSingleColour As ToolStripMenuItem
 End Class
