@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 Imports System.ComponentModel
+Imports System.Diagnostics.Eventing.Reader
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
@@ -504,6 +505,7 @@ Public Class FrmStitchDesign
 
     Private Sub MouseMoveLeft(e As MouseEventArgs, pCell As Cell)
         If isSelectionInProgress Then
+            pCell = AdjustCellOntoDesign(pCell)
             oInProgressTerminus = pCell.Position
             DrawSelectionInProgress(pCell.Position)
         End If
@@ -570,13 +572,15 @@ Public Class FrmStitchDesign
         topcorner = oCurrentSelection(0)
         iXOffset = 0
         iYOffset = 0
-        CalculateScrollBarValues()
+        HScrollBar1.Value = HScrollBar1.Maximum - oProjectDesign.Columns + topcorner.X - 8
+        VScrollBar1.Value = VScrollBar1.Maximum - oProjectDesign.Rows + topcorner.Y - 8
         iOldHScrollbarValue = HScrollBar1.Value
         iOldVScrollbarValue = VScrollBar1.Value
         RedrawDesign(False)
         isLoading = False
     End Sub
     Private Sub EndCopySelection(pCell As Cell)
+        pCell = AdjustCellOntoDesign(pCell)
         oInProgressTerminus = pCell.Position
         oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
         GetSelectedCells()
@@ -1254,7 +1258,7 @@ Public Class FrmStitchDesign
         End If
         If My.Settings.IsCentreOn Then
             oDesignGraphics.DrawLine(_centrePen, New Point(0, gap * _halfRow), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * _halfRow))
-        oDesignGraphics.DrawLine(_centrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
+            oDesignGraphics.DrawLine(_centrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         End If
 
         '   FillAfterGrid()
@@ -1266,7 +1270,8 @@ Public Class FrmStitchDesign
         If My.Settings.IsShowBlockstitches Then
             For Each _blockstitch In oProjectDesign.BlockStitches
                 If _blockstitch.IsLoaded Then
-                    If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
+
+                    If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour.ToArgb = oCurrentThread.Thread.Colour.ToArgb Then
                         Select Case _blockstitch.StitchType
                             Case BlockStitchType.Full
                                 DrawFullBlockStitch(_blockstitch)
@@ -1534,11 +1539,29 @@ Public Class FrmStitchDesign
 
     '    ' Cell selection
     Private Sub StartSelection(pCell As Cell)
+        pCell = AdjustCellOntoDesign(pCell)
+        Dim x As Integer = Math.Max(pCell.Position.X, 0)
+        Dim y As Integer = Math.Max(pCell.Position.Y, 0)
+        x = Math.Min(x, oProjectDesign.Columns - 1)
+        x = Math.Min(y, oProjectDesign.Rows - 1)
         oInProgressAnchor = pCell.Position
-        oInProgressTerminus = New Point(pCell.Position.X, pCell.Position.Y)
+        oInProgressTerminus = New Point(x, y)
         isSelectionInProgress = True
         SelectionMessage("Selection in progress")
     End Sub
+
+    Private Function AdjustCellOntoDesign(pCell As Cell) As Cell
+        Dim pos_x As Integer = Math.Max(pCell.Position.X, 0)
+        Dim pos_y As Integer = Math.Max(pCell.Position.Y, 0)
+        pos_x = Math.Min(pos_x, oProjectDesign.Columns)
+        pos_y = Math.Min(pos_y, oProjectDesign.Rows)
+        Dim loc_x As Integer = (pos_x + iXOffset - topcorner.X) * iPixelsPerCell
+        Dim loc_y As Integer = (pos_y + iYOffset - topcorner.Y) * iPixelsPerCell
+        pCell.Position = New Point(pos_x, pos_y)
+        pCell.Location = New Point(loc_x, loc_y)
+        Return pCell
+    End Function
+
     Private Sub SelectionMessage(pText As String)
         LblSelectMessage.Text = pText
         If pText = String.Empty Then
@@ -2257,7 +2280,7 @@ Public Class FrmStitchDesign
         isSingleColour = Not isSingleColour
         BtnSingleColour.BackgroundImage = If(isSingleColour, My.Resources.BtnBkgrdDown, My.Resources.BtnBkgrd)
         MnuSingleColour.Checked = isSingleColour
-        RedrawDesign()
+        RedrawDesign(False)
     End Sub
 
     Private Sub MnuSingleColour_Click(sender As Object, e As EventArgs) Handles MnuSingleColour.Click
