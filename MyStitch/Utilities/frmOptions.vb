@@ -38,6 +38,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.CentrelineThickness = NudCentreThick.Value
         My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
         My.Settings.isTimerAutoSave = ChkTimerAutoSave.Checked
+        My.Settings.isShowStockLevels = ChkShowStock.Checked
         My.Settings.Save()
     End Sub
 
@@ -66,6 +67,7 @@ Public NotInheritable Class FrmOptions
         NudCentreThick.Value = My.Settings.CentrelineThickness
         ChkTimerAutoStart.Checked = My.Settings.isTimerAutoStart
         ChkTimerAutoSave.Checked = My.Settings.isTimerAutoSave
+        ChkShowStock.Checked = My.Settings.isShowStockLevels
     End Sub
 
     Private Sub BtnResetForms_Click(sender As Object, e As EventArgs) Handles BtnResetForms.Click

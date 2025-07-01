@@ -205,8 +205,10 @@ Public Class FrmBuildThreadCards
     End Sub
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
-        LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, isShowStock, MyBase.Name)
-        LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock)
+        If Not isLoading Then
+            LoadProjectThreadList(DgvThreads, oSelectedProject.ProjectId, isShowStock, MyBase.Name)
+            LoadCardThreadList(DgvCardThreads, oSelectedProject.ProjectId, oSelectedCardNo, isShowStock)
+        End If
     End Sub
 #End Region
 #Region "subroutines"
@@ -215,6 +217,7 @@ Public Class FrmBuildThreadCards
         LoadProjectList(DgvProjects, MyBase.Name)
         PnlThreads.Visible = False
         PnlCardThreads.Visible = False
+        ChkShowStock.Checked = My.Settings.isShowStockLevels
         LogUtil.ShowStatus("Select a project", LblStatus)
     End Sub
     Private Sub AddThreadRow(oThread As Thread, isUsed As Boolean)

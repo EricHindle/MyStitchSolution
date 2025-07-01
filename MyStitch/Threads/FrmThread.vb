@@ -75,9 +75,11 @@ Public Class FrmThread
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ThreadFormPos)
-        isShowStock = ChkShowStock.Checked
+        isLoading = True
+        ChkShowStock.Checked = My.Settings.isShowStockLevels
         LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
         ClearThreadForm()
+        isLoading = False
     End Sub
     Private Sub ClearThreadForm()
         DgvThreads.ClearSelection()
@@ -209,7 +211,9 @@ Public Class FrmThread
 
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
-        LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
+        If Not isLoading Then
+            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
+        End If
     End Sub
 
 #End Region

@@ -75,6 +75,7 @@ Public Class FrmProjectThreads
         PnlThreads.Visible = False
         LoadProjectList(DgvProjects, MyBase.Name)
         DgvProjects.ClearSelection()
+        ChkShowStock.Checked = My.Settings.isShowStockLevels
         isLoading = False
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
             PnlThreads.Visible = True
@@ -223,7 +224,9 @@ Public Class FrmProjectThreads
 
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
-        LoadThreadList()
+        If Not isLoading Then
+            LoadThreadList()
+        End If
     End Sub
 
     Private Sub BtnPaletteList_Click(sender As Object, e As EventArgs) Handles BtnPaletteList.Click
@@ -279,6 +282,7 @@ Public Class FrmProjectThreads
             _symbols.ShowDialog()
         End Using
     End Sub
+
 
 #End Region
 

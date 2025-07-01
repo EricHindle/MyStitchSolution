@@ -61,6 +61,8 @@ Partial Class FrmOptions
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ChkTimerAutoSave = New System.Windows.Forms.CheckBox()
         Me.ChkTimerAutoStart = New System.Windows.Forms.CheckBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -70,6 +72,7 @@ Partial Class FrmOptions
         CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -464,12 +467,33 @@ Partial Class FrmOptions
         Me.ChkTimerAutoStart.Text = "Auto Start on form open"
         Me.ChkTimerAutoStart.UseVisualStyleBackColor = True
         '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.ChkShowStock)
+        Me.GroupBox7.Location = New System.Drawing.Point(485, 162)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(192, 100)
+        Me.GroupBox7.TabIndex = 40
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Threads"
+        '
+        'ChkShowStock
+        '
+        Me.ChkShowStock.AutoSize = True
+        Me.ChkShowStock.Location = New System.Drawing.Point(13, 27)
+        Me.ChkShowStock.Name = "ChkShowStock"
+        Me.ChkShowStock.Size = New System.Drawing.Size(129, 18)
+        Me.ChkShowStock.TabIndex = 0
+        Me.ChkShowStock.Text = "Show Stock Levels"
+        Me.ChkShowStock.UseVisualStyleBackColor = True
+        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
         Me.ClientSize = New System.Drawing.Size(690, 589)
+        Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox3)
@@ -501,6 +525,8 @@ Partial Class FrmOptions
         CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -542,4 +568,6 @@ Partial Class FrmOptions
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents ChkTimerAutoStart As CheckBox
     Friend WithEvents ChkTimerAutoSave As CheckBox
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents ChkShowStock As CheckBox
 End Class
