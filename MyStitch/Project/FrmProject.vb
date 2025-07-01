@@ -90,8 +90,6 @@ Public Class FrmProject
             LblSelectedProject.Text = .ProjectName
             LblProjectId.Visible = True
             TxtName.Text = .ProjectName
-            DtpStart.Value = .DateStarted
-            DtpEnd.Value = .DateEnded
             NudDesignHeight.Value = .DesignHeight
             NudDesignWidth.Value = .DesignWidth
             NudOriginX.Value = .OriginX
@@ -126,7 +124,7 @@ Public Class FrmProject
                 Case Else
                     CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
             End Select
-
+            UpdateProjectTime()
         End With
     End Sub
 
@@ -146,8 +144,6 @@ Public Class FrmProject
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
-                                                    .WithStarted(DtpStart.Value) _
-                                                    .WithEnded(DtpEnd.Value) _
                                                     .WithDesignHeight(NudDesignHeight.Value) _
                                                     .WithDesignWidth(NudDesignWidth.Value) _
                                                     .WithFabricHeight(NudFabricHeight.Value) _
@@ -311,9 +307,24 @@ Public Class FrmProject
                 _design.ProjectId = _selectedProject.ProjectId
                 _design.ShowDialog()
             End Using
+            UpdateProjectTime
         Else
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
+    End Sub
+
+    Private Sub UpdateProjectTime()
+        Dim _workList As List(Of ProjectWorkTime) = GetWorkPeriodsForProject(_selectedProject.ProjectId)
+        Dim _startDate As DateTime = Date.MinValue
+        Dim _endDate As DateTime = Date.MinValue
+        Dim _timeElapsed As TimeSpan = TimeSpan.FromMinutes(_selectedProject.TotalMinutes)
+        If _workList.Count > 0 Then
+            _startDate = _workList.First.TimeStarted
+            _endDate = _workList.Last.TimeEnded
+        End If
+        LblStartTime.Text = If(_startDate > Date.MinValue, Format(_startDate, "dd MMM yyyy HH:mm"), String.Empty)
+        LblEndTime.Text = If(_startDate > Date.MinValue, Format(_endDate, "dd MMM yyyy HH:mm"), String.Empty)
+        LblElapsedTime.Text = _timeElapsed.Hours.ToString("D2") & ":" & _timeElapsed.Minutes.ToString("D2")
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click

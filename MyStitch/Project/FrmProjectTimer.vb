@@ -11,6 +11,7 @@ Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain
 Public Class FrmProjectTimer
     Private oStartTime As DateTime
+    Private oPrevMinutes As Integer
     Private oEndTime As DateTime
     Private oProject As Project
     Private IsSaveTime As Boolean
@@ -25,6 +26,9 @@ Public Class FrmProjectTimer
     Private Sub FrmProjectTimer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening timer", MyBase.Name)
         GetFormPos(Me, My.Settings.ProjectTimerFormPos)
+        If oProject.IsLoaded Then
+            oPrevMinutes = oProject.TotalMinutes
+        End If
         If My.Settings.isTimerAutoStart Then
             Timer1.Enabled = True
             oStartTime = Now
@@ -58,6 +62,10 @@ Public Class FrmProjectTimer
             .Build
         InsertProjectWorkTime(_workPeriod)
         oProject.TotalMinutes += _minutesAdded
+        oProject.DateEnded = oEndTime
+        If oProject.DateStarted = Date.MinValue Then
+            oProject.DateStarted = oStartTime
+        End If
         UpdateProjectTotalTime(oProject)
     End Sub
 
@@ -76,7 +84,10 @@ Public Class FrmProjectTimer
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Dim elapsedTime As TimeSpan = Now.Subtract(oStartTime)
+        Dim totalElapsedTime As TimeSpan = elapsedTime.Add(TimeSpan.FromMinutes(oPrevMinutes))
         LblElapsedTime.Text = elapsedTime.Hours.ToString("D2") & ":" & elapsedTime.Minutes.ToString("D2") & ":" & elapsedTime.Seconds.ToString("D2")
+        LblTotalElapsedTime.Text = totalElapsedTime.Hours.ToString("D2") & ":" & totalElapsedTime.Minutes.ToString("D2") & ":" & totalElapsedTime.Seconds.ToString("D2")
+
     End Sub
 
 End Class

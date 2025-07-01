@@ -281,7 +281,7 @@ Namespace Domain
             LogUtil.LogInfo("Updating Project Total Time", MethodBase.GetCurrentMethod.Name)
             Try
                 With oProject
-                    oProjectTa.UpdateProjectWorkTime(.TotalMinutes, .ProjectId)
+                    oProjectTa.UpdateProjectWorkTime(.TotalMinutes, .DateStarted, .DateEnded, .ProjectId)
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)

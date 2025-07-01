@@ -36,6 +36,7 @@ Partial Class FrmProjectTimer
         Me.BtnStart = New System.Windows.Forms.Button()
         Me.BtnStop = New System.Windows.Forms.Button()
         Me.BtnCancel = New System.Windows.Forms.Button()
+        Me.LblTotalElapsedTime = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'LblElapsedTime
@@ -58,7 +59,7 @@ Partial Class FrmProjectTimer
         Me.BtnStart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.BtnStart.FlatAppearance.BorderSize = 0
         Me.BtnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnStart.Location = New System.Drawing.Point(12, 42)
+        Me.BtnStart.Location = New System.Drawing.Point(12, 61)
         Me.BtnStart.Name = "BtnStart"
         Me.BtnStart.Size = New System.Drawing.Size(35, 35)
         Me.BtnStart.TabIndex = 10
@@ -70,7 +71,7 @@ Partial Class FrmProjectTimer
         Me.BtnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.BtnStop.FlatAppearance.BorderSize = 0
         Me.BtnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnStop.Location = New System.Drawing.Point(84, 42)
+        Me.BtnStop.Location = New System.Drawing.Point(84, 61)
         Me.BtnStop.Name = "BtnStop"
         Me.BtnStop.Size = New System.Drawing.Size(35, 35)
         Me.BtnStop.TabIndex = 11
@@ -83,7 +84,7 @@ Partial Class FrmProjectTimer
         Me.BtnCancel.FlatAppearance.BorderSize = 0
         Me.BtnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCancel.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCancel.Location = New System.Drawing.Point(35, 86)
+        Me.BtnCancel.Location = New System.Drawing.Point(35, 102)
         Me.BtnCancel.Margin = New System.Windows.Forms.Padding(0)
         Me.BtnCancel.Name = "BtnCancel"
         Me.BtnCancel.Size = New System.Drawing.Size(60, 20)
@@ -91,12 +92,24 @@ Partial Class FrmProjectTimer
         Me.BtnCancel.Text = "Cancel"
         Me.BtnCancel.UseVisualStyleBackColor = False
         '
+        'LblTotalElapsedTime
+        '
+        Me.LblTotalElapsedTime.AutoSize = True
+        Me.LblTotalElapsedTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTotalElapsedTime.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.LblTotalElapsedTime.Location = New System.Drawing.Point(32, 35)
+        Me.LblTotalElapsedTime.Name = "LblTotalElapsedTime"
+        Me.LblTotalElapsedTime.Size = New System.Drawing.Size(66, 17)
+        Me.LblTotalElapsedTime.TabIndex = 13
+        Me.LblTotalElapsedTime.Text = "00:00:00"
+        '
         'FrmProjectTimer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(131, 113)
+        Me.ClientSize = New System.Drawing.Size(131, 129)
         Me.ControlBox = False
+        Me.Controls.Add(Me.LblTotalElapsedTime)
         Me.Controls.Add(Me.BtnCancel)
         Me.Controls.Add(Me.BtnStop)
         Me.Controls.Add(Me.BtnStart)
@@ -116,4 +129,5 @@ Partial Class FrmProjectTimer
     Friend WithEvents BtnStart As Button
     Friend WithEvents BtnStop As Button
     Friend WithEvents BtnCancel As Button
+    Friend WithEvents LblTotalElapsedTime As Label
 End Class
