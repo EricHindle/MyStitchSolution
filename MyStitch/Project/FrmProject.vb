@@ -307,7 +307,8 @@ Public Class FrmProject
                 _design.ProjectId = _selectedProject.ProjectId
                 _design.ShowDialog()
             End Using
-            UpdateProjectTime
+            _selectedProject = GetProjectById(_selectedProject.ProjectId)
+            UpdateProjectTime()
         Else
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
