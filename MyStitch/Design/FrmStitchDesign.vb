@@ -1730,6 +1730,7 @@ Public Class FrmStitchDesign
                 _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId))
         End Select
         _blockstitch.Quarters = _blockStitchQtrList
+        AddBlockStitchToDesign(_blockstitch)
         DrawThreeQuarterBlockStitch(_blockstitch)
 
     End Sub

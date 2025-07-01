@@ -108,8 +108,9 @@ Public Class Stitch
     Public Sub New()
         Initialise()
     End Sub
-    Public Sub New(pPos As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
+    Public Sub New(pPos As Point, pType As BlockStitchType, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer)
         _blockPos = pPos
+        _stitchType = pType
         _blockQtr = pQtr
         _strands = pStrands
         _threadId = pThreadId

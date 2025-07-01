@@ -69,7 +69,7 @@ Public Class StitchBuilder
         Return Me
     End Function
     Public Function Build() As Stitch
-        Return New Stitch(_blockPos, _blockQtr, _strands, _threadId, _projectId)
+        Return New Stitch(_blockPos, _stitchType, _blockQtr, _strands, _threadId, _projectId)
     End Function
 
 End Class
