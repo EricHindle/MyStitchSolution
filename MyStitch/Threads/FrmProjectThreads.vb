@@ -195,18 +195,18 @@ Public Class FrmProjectThreads
         End If
     End Sub
 
-    'Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
-    '    If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
-    '        LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
-    '    Else
-    '        Using _print As New FrmBuildThreadCards
-    '            LogUtil.Info("Opening Build Cards Form", MyBase.Name)
-    '            _print.SelectedProject = _selectedProject
-    '            _print.ShowDialog()
-    '        End Using
-    '        LoadThreadList()
-    '    End If
-    'End Sub
+    Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
+        If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
+            LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
+        Else
+            Using _print As New FrmBuildThreadCards
+                LogUtil.Info("Opening Build Cards Form", MyBase.Name)
+                _print.SelectedProject = _selectedProject
+                _print.ShowDialog()
+            End Using
+            LoadThreadList()
+        End If
+    End Sub
 
     'Private Sub BtnAddThreads_Click(sender As Object, e As EventArgs) Handles BtnAddThreads.Click
     '    LogUtil.Info("Opening Threads form", MyBase.Name)
@@ -271,6 +271,13 @@ Public Class FrmProjectThreads
         If Not _isFound Then
             MsgBox("ProjectThread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
         End If
+    End Sub
+
+    Private Sub BtnAssignSymbols_Click(sender As Object, e As EventArgs) Handles BtnAssignSymbols.Click
+        Using _symbols As New FrmThreadSymbols
+            _symbols.SelectedProject = _selectedProject
+            _symbols.ShowDialog()
+        End Using
     End Sub
 
 #End Region

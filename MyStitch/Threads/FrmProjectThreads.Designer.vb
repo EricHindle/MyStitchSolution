@@ -64,6 +64,7 @@ Partial Class FrmProjectThreads
         Me.BtnSelAll = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.BtnImport = New System.Windows.Forms.Button()
+        Me.BtnAssignSymbols = New System.Windows.Forms.Button()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -134,7 +135,7 @@ Partial Class FrmProjectThreads
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(265, 308)
+        Me.DgvProjects.Size = New System.Drawing.Size(265, 320)
         Me.DgvProjects.TabIndex = 143
         '
         'projectId
@@ -161,7 +162,7 @@ Partial Class FrmProjectThreads
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(570, 538)
+        Me.BtnClose.Location = New System.Drawing.Point(570, 593)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 31)
@@ -209,7 +210,7 @@ Partial Class FrmProjectThreads
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(340, 416)
+        Me.DgvThreads.Size = New System.Drawing.Size(340, 471)
         Me.DgvThreads.TabIndex = 140
         '
         'threadId
@@ -267,7 +268,7 @@ Partial Class FrmProjectThreads
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(17, 431)
+        Me.BtnUpdate.Location = New System.Drawing.Point(17, 430)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
         Me.BtnUpdate.Size = New System.Drawing.Size(200, 40)
@@ -278,7 +279,7 @@ Partial Class FrmProjectThreads
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 578)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 633)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(663, 22)
         Me.StatusStrip1.TabIndex = 146
@@ -291,6 +292,7 @@ Partial Class FrmProjectThreads
         '
         'BtnAddThreads
         '
+        Me.BtnAddThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnAddThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnAddThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnAddThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -312,12 +314,12 @@ Partial Class FrmProjectThreads
         Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClear.Location = New System.Drawing.Point(17, 378)
+        Me.BtnClear.Location = New System.Drawing.Point(18, 381)
         Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClear.Name = "BtnClear"
         Me.BtnClear.Size = New System.Drawing.Size(86, 42)
         Me.BtnClear.TabIndex = 148
-        Me.BtnClear.Text = "Clear ProjectThread Selections"
+        Me.BtnClear.Text = "Clear Selections"
         Me.BtnClear.UseVisualStyleBackColor = False
         '
         'BtnGenerateCards
@@ -328,7 +330,7 @@ Partial Class FrmProjectThreads
         Me.BtnGenerateCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnGenerateCards.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGenerateCards.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnGenerateCards.Location = New System.Drawing.Point(17, 486)
+        Me.BtnGenerateCards.Location = New System.Drawing.Point(17, 540)
         Me.BtnGenerateCards.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnGenerateCards.Name = "BtnGenerateCards"
         Me.BtnGenerateCards.Size = New System.Drawing.Size(200, 40)
@@ -346,15 +348,15 @@ Partial Class FrmProjectThreads
         Me.PnlThreads.Controls.Add(Me.Label7)
         Me.PnlThreads.Location = New System.Drawing.Point(285, 12)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(365, 461)
+        Me.PnlThreads.Size = New System.Drawing.Size(365, 516)
         Me.PnlThreads.TabIndex = 150
         Me.PnlThreads.Visible = False
         '
         'TxtNumber
         '
-        Me.TxtNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.TxtNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtNumber.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtNumber.Location = New System.Drawing.Point(547, 480)
+        Me.TxtNumber.Location = New System.Drawing.Point(547, 535)
         Me.TxtNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtNumber.Name = "TxtNumber"
         Me.TxtNumber.Size = New System.Drawing.Size(73, 27)
@@ -362,10 +364,10 @@ Partial Class FrmProjectThreads
         '
         'Label1
         '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.Label1.Location = New System.Drawing.Point(507, 486)
+        Me.Label1.Location = New System.Drawing.Point(507, 541)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(33, 17)
         Me.Label1.TabIndex = 152
@@ -376,7 +378,7 @@ Partial Class FrmProjectThreads
         Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkShowStock.AutoSize = True
         Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkShowStock.Location = New System.Drawing.Point(285, 486)
+        Me.ChkShowStock.Location = New System.Drawing.Point(285, 541)
         Me.ChkShowStock.Name = "ChkShowStock"
         Me.ChkShowStock.Size = New System.Drawing.Size(118, 18)
         Me.ChkShowStock.TabIndex = 153
@@ -387,7 +389,7 @@ Partial Class FrmProjectThreads
         '
         Me.TxtPaletteList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TxtPaletteList.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtPaletteList.Location = New System.Drawing.Point(17, 554)
+        Me.TxtPaletteList.Location = New System.Drawing.Point(17, 609)
         Me.TxtPaletteList.Name = "TxtPaletteList"
         Me.TxtPaletteList.Size = New System.Drawing.Size(394, 20)
         Me.TxtPaletteList.TabIndex = 155
@@ -399,7 +401,7 @@ Partial Class FrmProjectThreads
         Me.BtnPaletteList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPaletteList.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPaletteList.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPaletteList.Location = New System.Drawing.Point(203, 378)
+        Me.BtnPaletteList.Location = New System.Drawing.Point(204, 381)
         Me.BtnPaletteList.Name = "BtnPaletteList"
         Me.BtnPaletteList.Size = New System.Drawing.Size(75, 42)
         Me.BtnPaletteList.TabIndex = 156
@@ -412,7 +414,7 @@ Partial Class FrmProjectThreads
         Me.BtnCopy.FlatAppearance.BorderSize = 0
         Me.BtnCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCopy.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCopy.Location = New System.Drawing.Point(415, 549)
+        Me.BtnCopy.Location = New System.Drawing.Point(415, 604)
         Me.BtnCopy.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnCopy.Name = "BtnCopy"
         Me.BtnCopy.Size = New System.Drawing.Size(28, 28)
@@ -425,7 +427,7 @@ Partial Class FrmProjectThreads
         Me.BtnPaste.FlatAppearance.BorderSize = 0
         Me.BtnPaste.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPaste.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnPaste.Location = New System.Drawing.Point(445, 549)
+        Me.BtnPaste.Location = New System.Drawing.Point(445, 604)
         Me.BtnPaste.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnPaste.Name = "BtnPaste"
         Me.BtnPaste.Size = New System.Drawing.Size(28, 28)
@@ -440,7 +442,7 @@ Partial Class FrmProjectThreads
         Me.BtnSelAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSelAll.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelAll.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSelAll.Location = New System.Drawing.Point(119, 378)
+        Me.BtnSelAll.Location = New System.Drawing.Point(120, 381)
         Me.BtnSelAll.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSelAll.Name = "BtnSelAll"
         Me.BtnSelAll.Size = New System.Drawing.Size(68, 42)
@@ -453,7 +455,7 @@ Partial Class FrmProjectThreads
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(14, 538)
+        Me.Label2.Location = New System.Drawing.Point(14, 593)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(60, 13)
         Me.Label2.TabIndex = 160
@@ -466,18 +468,35 @@ Partial Class FrmProjectThreads
         Me.BtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnImport.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnImport.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnImport.Location = New System.Drawing.Point(285, 521)
+        Me.BtnImport.Location = New System.Drawing.Point(285, 576)
         Me.BtnImport.Name = "BtnImport"
         Me.BtnImport.Size = New System.Drawing.Size(126, 27)
         Me.BtnImport.TabIndex = 161
         Me.BtnImport.Text = "Import palette list"
         Me.BtnImport.UseVisualStyleBackColor = False
         '
+        'BtnAssignSymbols
+        '
+        Me.BtnAssignSymbols.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnAssignSymbols.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnAssignSymbols.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnAssignSymbols.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnAssignSymbols.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnAssignSymbols.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnAssignSymbols.Location = New System.Drawing.Point(17, 485)
+        Me.BtnAssignSymbols.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnAssignSymbols.Name = "BtnAssignSymbols"
+        Me.BtnAssignSymbols.Size = New System.Drawing.Size(200, 40)
+        Me.BtnAssignSymbols.TabIndex = 162
+        Me.BtnAssignSymbols.Text = "Assign Symbols"
+        Me.BtnAssignSymbols.UseVisualStyleBackColor = False
+        '
         'FrmProjectThreads
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(663, 600)
+        Me.ClientSize = New System.Drawing.Size(663, 655)
+        Me.Controls.Add(Me.BtnAssignSymbols)
         Me.Controls.Add(Me.BtnImport)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.BtnSelAll)
@@ -540,4 +559,5 @@ Partial Class FrmProjectThreads
     Friend WithEvents BtnSelAll As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents BtnImport As Button
+    Friend WithEvents BtnAssignSymbols As Button
 End Class

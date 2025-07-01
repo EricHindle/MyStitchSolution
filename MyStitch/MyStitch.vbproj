@@ -84,6 +84,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\FrmBuildThreadCards.Designer.vb">
+      <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\FrmBuildThreadCards.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\FrmPrintThreadCards.Designer.vb">
+      <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Cards\FrmPrintThreadCards.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cards\ModCards.vb" />
     <Compile Include="Design\FrmStitchDesign.Designer.vb">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </Compile>
@@ -231,6 +244,12 @@
     <Compile Include="Utilities\ModCommon.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Cards\FrmBuildThreadCards.resx">
+      <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cards\FrmPrintThreadCards.resx">
+      <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </EmbeddedResource>
@@ -307,6 +326,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\down24.png" />
+    <None Include="Resources\up24.png" />
+    <None Include="Resources\right24.png" />
+    <None Include="Resources\left24.png" />
     <None Include="Resources\singlecolour.png" />
     <None Include="Resources\timer.png" />
     <None Include="Resources\stoptimer.png" />

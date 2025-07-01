@@ -6,7 +6,6 @@
 '
 
 Imports System.Text
-Imports HindlewareLib.Logging
 Imports Newtonsoft.Json
 
 Public Class ProjectDesign

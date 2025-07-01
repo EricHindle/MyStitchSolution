@@ -6,7 +6,6 @@
 '
 
 Imports System.Text
-Imports MyStitch.Domain.Objects
 
 Public Class Knot
     Inherits Stitch

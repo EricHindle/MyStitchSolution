@@ -29,7 +29,7 @@ Partial Class FrmProject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -42,6 +42,11 @@ Partial Class FrmProject
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.LblElapsedTime = New System.Windows.Forms.Label()
+        Me.LblEndTime = New System.Windows.Forms.Label()
+        Me.LblStartTime = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.NudOriginY = New System.Windows.Forms.NumericUpDown()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -82,7 +87,15 @@ Partial Class FrmProject
         Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuResizeDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuFullThreadList = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuMaintainSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ThreadCardsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBuildCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPrintCards = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuLogging = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShowLog = New System.Windows.Forms.ToolStripMenuItem()
@@ -92,15 +105,9 @@ Partial Class FrmProject
         Me.MnuRestore = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MnuUndoOn = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.LblStartTime = New System.Windows.Forms.Label()
-        Me.LblEndTime = New System.Windows.Forms.Label()
-        Me.LblElapsedTime = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
+        Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -216,14 +223,14 @@ Partial Class FrmProject
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DgvProjects.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvProjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
         Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
@@ -303,6 +310,59 @@ Partial Class FrmProject
         Me.PnlForm.Name = "PnlForm"
         Me.PnlForm.Size = New System.Drawing.Size(302, 450)
         Me.PnlForm.TabIndex = 126
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(199, 128)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(45, 14)
+        Me.Label15.TabIndex = 161
+        Me.Label15.Text = "hh:mm"
+        '
+        'LblElapsedTime
+        '
+        Me.LblElapsedTime.AutoSize = True
+        Me.LblElapsedTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblElapsedTime.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.LblElapsedTime.Location = New System.Drawing.Point(148, 127)
+        Me.LblElapsedTime.Name = "LblElapsedTime"
+        Me.LblElapsedTime.Size = New System.Drawing.Size(45, 17)
+        Me.LblElapsedTime.TabIndex = 160
+        Me.LblElapsedTime.Text = "00:00"
+        '
+        'LblEndTime
+        '
+        Me.LblEndTime.AutoSize = True
+        Me.LblEndTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblEndTime.ForeColor = System.Drawing.Color.Maroon
+        Me.LblEndTime.Location = New System.Drawing.Point(148, 105)
+        Me.LblEndTime.Name = "LblEndTime"
+        Me.LblEndTime.Size = New System.Drawing.Size(76, 17)
+        Me.LblEndTime.TabIndex = 159
+        Me.LblEndTime.Text = "not started"
+        '
+        'LblStartTime
+        '
+        Me.LblStartTime.AutoSize = True
+        Me.LblStartTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStartTime.ForeColor = System.Drawing.Color.SeaGreen
+        Me.LblStartTime.Location = New System.Drawing.Point(148, 83)
+        Me.LblStartTime.Name = "LblStartTime"
+        Me.LblStartTime.Size = New System.Drawing.Size(76, 17)
+        Me.LblStartTime.TabIndex = 158
+        Me.LblStartTime.Text = "not started"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(48, 128)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(94, 14)
+        Me.Label14.TabIndex = 157
+        Me.Label14.Text = "Total work time"
         '
         'Label12
         '
@@ -623,7 +683,7 @@ Partial Class FrmProject
         Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(156, 493)
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(147, 493)
         Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnProjectThreads.Name = "BtnProjectThreads"
         Me.BtnProjectThreads.Size = New System.Drawing.Size(75, 53)
@@ -655,7 +715,7 @@ Partial Class FrmProject
         Me.BtnDesign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDesign.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDesign.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDesign.Location = New System.Drawing.Point(295, 493)
+        Me.BtnDesign.Location = New System.Drawing.Point(266, 493)
         Me.BtnDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDesign.Name = "BtnDesign"
         Me.BtnDesign.Size = New System.Drawing.Size(75, 53)
@@ -676,7 +736,7 @@ Partial Class FrmProject
         'MnuButton
         '
         Me.MnuButton.AutoSize = False
-        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator1, Me.MnuExit})
         Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
         Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -690,43 +750,94 @@ Partial Class FrmProject
         Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuResizeDesign})
         Me.MnuDesign.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MnuDesign.Name = "MnuDesign"
-        Me.MnuDesign.Size = New System.Drawing.Size(157, 22)
+        Me.MnuDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuDesign.Text = "Design"
         '
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(106, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open"
         '
         'MnuResizeDesign
         '
         Me.MnuResizeDesign.Name = "MnuResizeDesign"
-        Me.MnuResizeDesign.Size = New System.Drawing.Size(106, 22)
+        Me.MnuResizeDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuResizeDesign.Text = "Resize"
         '
         'MnuThreads
         '
+        Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuFullThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols})
         Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(157, 22)
+        Me.MnuThreads.Size = New System.Drawing.Size(180, 22)
         Me.MnuThreads.Text = "Threads"
+        '
+        'MnuFullThreadList
+        '
+        Me.MnuFullThreadList.Name = "MnuFullThreadList"
+        Me.MnuFullThreadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuFullThreadList.Text = "Full Thread List"
+        '
+        'MnuProjectThreads
+        '
+        Me.MnuProjectThreads.Name = "MnuProjectThreads"
+        Me.MnuProjectThreads.Size = New System.Drawing.Size(199, 22)
+        Me.MnuProjectThreads.Text = "Project Threads"
+        '
+        'MnuProjectThreadSymbols
+        '
+        Me.MnuProjectThreadSymbols.Name = "MnuProjectThreadSymbols"
+        Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
         '
         'MnuSymbols
         '
+        Me.MnuSymbols.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuMaintainSymbols, Me.MnuProjectSymbols})
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(157, 22)
+        Me.MnuSymbols.Size = New System.Drawing.Size(180, 22)
         Me.MnuSymbols.Text = "Symbols"
+        '
+        'MnuMaintainSymbols
+        '
+        Me.MnuMaintainSymbols.Name = "MnuMaintainSymbols"
+        Me.MnuMaintainSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuMaintainSymbols.Text = "Maintain Symbols"
+        '
+        'MnuProjectSymbols
+        '
+        Me.MnuProjectSymbols.Name = "MnuProjectSymbols"
+        Me.MnuProjectSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuProjectSymbols.Text = "Project Thread Symbols"
+        '
+        'ThreadCardsToolStripMenuItem
+        '
+        Me.ThreadCardsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBuildCards, Me.MnuPrintCards})
+        Me.ThreadCardsToolStripMenuItem.Name = "ThreadCardsToolStripMenuItem"
+        Me.ThreadCardsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ThreadCardsToolStripMenuItem.Text = "Thread Cards"
+        '
+        'MnuBuildCards
+        '
+        Me.MnuBuildCards.Name = "MnuBuildCards"
+        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuBuildCards.Text = "Build Cards"
+        '
+        'MnuPrintCards
+        '
+        Me.MnuPrintCards.Name = "MnuPrintCards"
+        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuPrintCards.Text = "Print Cards"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(154, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         'MnuLogging
         '
         Me.MnuLogging.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebugOn})
         Me.MnuLogging.Name = "MnuLogging"
-        Me.MnuLogging.Size = New System.Drawing.Size(157, 22)
+        Me.MnuLogging.Size = New System.Drawing.Size(180, 22)
         Me.MnuLogging.Text = "Logging"
         '
         'MnuShowLog
@@ -746,7 +857,7 @@ Partial Class FrmProject
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
-        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.BackupToolStripMenuItem.Text = "Backup/Restore"
         '
         'MnuBackup
@@ -763,92 +874,33 @@ Partial Class FrmProject
         '
         'MnuOptions
         '
-        Me.MnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.ToolStripSeparator2, Me.MnuUndoOn})
+        Me.MnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.MnuGlobalSettings})
         Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(157, 22)
+        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
         Me.MnuOptions.Text = "Preferences"
         '
         'MnuPreferences
         '
         Me.MnuPreferences.Name = "MnuPreferences"
-        Me.MnuPreferences.Size = New System.Drawing.Size(135, 22)
+        Me.MnuPreferences.Size = New System.Drawing.Size(180, 22)
         Me.MnuPreferences.Text = "Preferences"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(132, 6)
-        '
-        'MnuUndoOn
-        '
-        Me.MnuUndoOn.CheckOnClick = True
-        Me.MnuUndoOn.Name = "MnuUndoOn"
-        Me.MnuUndoOn.Size = New System.Drawing.Size(135, 22)
-        Me.MnuUndoOn.Text = "Undo On"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(154, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
-        'ExitToolStripMenuItem
+        'MnuExit
         '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
+        Me.MnuExit.Name = "MnuExit"
+        Me.MnuExit.Size = New System.Drawing.Size(180, 22)
+        Me.MnuExit.Text = "Exit"
         '
-        'Label14
+        'MnuGlobalSettings
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(48, 128)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(94, 14)
-        Me.Label14.TabIndex = 157
-        Me.Label14.Text = "Total work time"
-        '
-        'LblStartTime
-        '
-        Me.LblStartTime.AutoSize = True
-        Me.LblStartTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblStartTime.ForeColor = System.Drawing.Color.SeaGreen
-        Me.LblStartTime.Location = New System.Drawing.Point(148, 83)
-        Me.LblStartTime.Name = "LblStartTime"
-        Me.LblStartTime.Size = New System.Drawing.Size(76, 17)
-        Me.LblStartTime.TabIndex = 158
-        Me.LblStartTime.Text = "not started"
-        '
-        'LblEndTime
-        '
-        Me.LblEndTime.AutoSize = True
-        Me.LblEndTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblEndTime.ForeColor = System.Drawing.Color.Maroon
-        Me.LblEndTime.Location = New System.Drawing.Point(148, 105)
-        Me.LblEndTime.Name = "LblEndTime"
-        Me.LblEndTime.Size = New System.Drawing.Size(76, 17)
-        Me.LblEndTime.TabIndex = 159
-        Me.LblEndTime.Text = "not started"
-        '
-        'LblElapsedTime
-        '
-        Me.LblElapsedTime.AutoSize = True
-        Me.LblElapsedTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblElapsedTime.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.LblElapsedTime.Location = New System.Drawing.Point(148, 127)
-        Me.LblElapsedTime.Name = "LblElapsedTime"
-        Me.LblElapsedTime.Size = New System.Drawing.Size(45, 17)
-        Me.LblElapsedTime.TabIndex = 160
-        Me.LblElapsedTime.Text = "00:00"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(199, 128)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(45, 14)
-        Me.Label15.TabIndex = 161
-        Me.Label15.Text = "hh:mm"
+        Me.MnuGlobalSettings.Name = "MnuGlobalSettings"
+        Me.MnuGlobalSettings.Size = New System.Drawing.Size(180, 22)
+        Me.MnuGlobalSettings.Text = "Global Settings"
         '
         'FrmProject
         '
@@ -945,13 +997,11 @@ Partial Class FrmProject
     Friend WithEvents MnuLogging As ToolStripMenuItem
     Friend WithEvents MnuOptions As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuExit As ToolStripMenuItem
     Friend WithEvents MnuDesign As ToolStripMenuItem
     Friend WithEvents MnuShowLog As ToolStripMenuItem
     Friend WithEvents MnuDebugOn As ToolStripMenuItem
-    Friend WithEvents MnuUndoOn As ToolStripMenuItem
     Friend WithEvents MnuPreferences As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents MnuSymbols As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents MnuThreads As ToolStripMenuItem
@@ -965,4 +1015,13 @@ Partial Class FrmProject
     Friend WithEvents LblEndTime As Label
     Friend WithEvents LblStartTime As Label
     Friend WithEvents Label15 As Label
+    Friend WithEvents MnuFullThreadList As ToolStripMenuItem
+    Friend WithEvents MnuProjectThreads As ToolStripMenuItem
+    Friend WithEvents MnuProjectThreadSymbols As ToolStripMenuItem
+    Friend WithEvents MnuMaintainSymbols As ToolStripMenuItem
+    Friend WithEvents MnuProjectSymbols As ToolStripMenuItem
+    Friend WithEvents ThreadCardsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MnuBuildCards As ToolStripMenuItem
+    Friend WithEvents MnuPrintCards As ToolStripMenuItem
+    Friend WithEvents MnuGlobalSettings As ToolStripMenuItem
 End Class

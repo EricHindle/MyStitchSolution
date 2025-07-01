@@ -31,7 +31,6 @@ Public Class FrmThreadSymbols
     Private Sub FrmThreadSymbols_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Project thread symbols", MyBase.Name)
         InitialiseForm()
-
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
@@ -107,6 +106,7 @@ Public Class FrmThreadSymbols
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load ProjectThread list", MyBase.Name)
         Dim _usedThreadList As List(Of ProjectThread) = GetProjectThreads(_selectedProject.ProjectId)
+        _usedThreadList.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
         DgvThreads.Rows.Clear()
         For Each oThread As ProjectThread In _usedThreadList
             Dim _index = AddProjectThreadSymbolRow(DgvThreads, oThread)

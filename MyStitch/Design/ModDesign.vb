@@ -9,7 +9,6 @@ Imports System.IO
 Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
 Module ModDesign

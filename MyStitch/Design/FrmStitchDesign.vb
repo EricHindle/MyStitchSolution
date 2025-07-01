@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 Imports System.ComponentModel
-Imports System.Diagnostics.Eventing.Reader
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
@@ -1229,7 +1228,6 @@ Public Class FrmStitchDesign
         Dim _halfColumn As Integer = Math.Floor(_widthInColumns / 2)
         Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
 
-
         If My.Settings.isGridOn Then
             For x = 0 To _widthInColumns
                 oDesignGraphics.DrawLine(_grid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
@@ -1448,7 +1446,6 @@ Public Class FrmStitchDesign
             RedrawDesign()
         End If
     End Sub
-
 
     Private Sub FlipSelectedCells()
         If oCurrentSelection.Length > 0 Then
@@ -1737,7 +1734,6 @@ Public Class FrmStitchDesign
 
     End Sub
 
-
     Private Sub AddHalfBlockStitch(pCell As Cell, isBack As Boolean)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
             .WithStitchType(BlockStitchType.Half) _
@@ -1793,8 +1789,6 @@ Public Class FrmStitchDesign
         AddKnotToDesign(_bead)
         DrawKnot(_bead)
     End Sub
-
-
 
     Private Sub AddQuarterBlockstitch(pCell As Cell, pQtr As BlockQuarter)
 
@@ -1863,7 +1857,6 @@ Public Class FrmStitchDesign
         isRemoveBackstitchInProgress = False
         PicDesign.Invalidate()
     End Sub
-
 
     Private Sub DrawFullBlockStitch(pBlockStitch As BlockStitch)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
@@ -2230,7 +2223,6 @@ Public Class FrmStitchDesign
         End If
         Return _colour
     End Function
-
 
     Private Sub MnuClearSelection_Click(sender As Object, e As EventArgs) Handles MnuClearSelection.Click
         ClearSelection()

@@ -520,6 +520,30 @@ Namespace My
                 Me("isTimerAutoSave") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BuildCardsFormPos() As String
+            Get
+                Return CType(Me("BuildCardsFormPos"),String)
+            End Get
+            Set
+                Me("BuildCardsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PrintThreadCardsFormPos() As String
+            Get
+                Return CType(Me("PrintThreadCardsFormPos"),String)
+            End Get
+            Set
+                Me("PrintThreadCardsFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

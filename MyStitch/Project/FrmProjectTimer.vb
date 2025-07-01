@@ -6,9 +6,9 @@
 '
 
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
-Imports MyStitch.Domain
 Public Class FrmProjectTimer
     Private oStartTime As DateTime
     Private oPrevMinutes As Integer
