@@ -172,26 +172,7 @@ Module ModDesign
         Return pDesign
     End Function
 
-    Public Function SaveDesignXML(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
-        Dim isOK As Boolean
-        Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & XML_EXT)
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-        If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _fs As New FileStream(_zipFile, FileMode.Create)
-            End Using
-        End If
-        Using zipToOpen As New FileStream(_zipFile, FileMode.Open)
-            Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                Dim designEntry As ZipArchiveEntry = archive.CreateEntry(pDesignFileName & XML_EXT)
-                Using _output As New StreamWriter(designEntry.Open())
-                    writer.Serialize(_output, pDesign)
-                End Using
-            End Using
-        End Using
 
-        Return isOK
-    End Function
     Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
         Dim _exceptionText As String = "Exception reading project design file"
 

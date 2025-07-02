@@ -122,6 +122,9 @@
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectWorkTimeBuilder.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveBackstitchBuilder.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveBlockstitchBuilder.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveDesignBuilder.vb" />
     <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
@@ -141,6 +144,9 @@
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
     <Compile Include="Domain\Objects\ProjectWorkTime.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveBackstitch.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveBlockstitch.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveProjectDesign.vb" />
     <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
@@ -165,6 +171,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Project Files\ModFileHandling.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveKnot.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveKnotBuilder.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveStitch.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveStitchQuarter.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveStitchBuilder.vb" />
+    <Compile Include="Project Files\SaveObjects\SaveStitchQuarterBuilder.vb" />
     <Compile Include="Project\FrmProject.Designer.vb">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </Compile>
@@ -210,10 +223,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Threads\ModThreads.vb" />
-    <Compile Include="Utilities\FrmBackup.Designer.vb">
+    <Compile Include="Project Files\FrmBackup.Designer.vb">
       <DependentUpon>FrmBackup.vb</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\FrmBackup.vb">
+    <Compile Include="Project Files\FrmBackup.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\FrmGlobalSettings.designer.vb">
@@ -228,10 +241,10 @@
     <Compile Include="Utilities\frmOptions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\FrmRestore.Designer.vb">
+    <Compile Include="Project Files\FrmRestore.Designer.vb">
       <DependentUpon>FrmRestore.vb</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\FrmRestore.vb">
+    <Compile Include="Project Files\FrmRestore.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
@@ -246,6 +259,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Cards\FrmBuildThreadCards.resx">
       <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Cards\FrmPrintThreadCards.resx">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
@@ -283,7 +297,7 @@
     <EmbeddedResource Include="Threads\FrmThreadSymbols.resx">
       <DependentUpon>FrmThreadSymbols.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmBackup.resx">
+    <EmbeddedResource Include="Project Files\FrmBackup.resx">
       <DependentUpon>FrmBackup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
@@ -292,7 +306,7 @@
     <EmbeddedResource Include="Utilities\frmOptions.resx">
       <DependentUpon>frmOptions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmRestore.resx">
+    <EmbeddedResource Include="Project Files\FrmRestore.resx">
       <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">

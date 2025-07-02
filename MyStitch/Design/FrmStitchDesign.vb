@@ -746,6 +746,8 @@ Public Class FrmStitchDesign
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         Dim _filename As String = MakeFilename(oProject)
         SaveDesignJson(oProjectDesign, My.Settings.DesignFilePath, _filename)
+
+        SaveDesign(oProjectDesign)
     End Sub
 
     Private Sub BtnCopy_Click(sender As Object, e As EventArgs) Handles BtnCopy.Click
@@ -1000,6 +1002,7 @@ Public Class FrmStitchDesign
     Private Sub Bgw_DoWork(sender As Object, e As DoWorkEventArgs) Handles oBackgroundWorker.DoWork
         ' Open project design in new thread
         oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
+        oProjectDesign.ProjectId = oProject.ProjectId
         isLoadComplete = True
     End Sub
     Private Sub SetInitialMagnification()
@@ -1540,7 +1543,7 @@ Public Class FrmStitchDesign
         Dim x As Integer = Math.Max(pCell.Position.X, 0)
         Dim y As Integer = Math.Max(pCell.Position.Y, 0)
         x = Math.Min(x, oProjectDesign.Columns - 1)
-        x = Math.Min(y, oProjectDesign.Rows - 1)
+        y = Math.Min(y, oProjectDesign.Rows - 1)
         oInProgressAnchor = pCell.Position
         oInProgressTerminus = New Point(x, y)
         isSelectionInProgress = True
