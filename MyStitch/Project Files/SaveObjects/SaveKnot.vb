@@ -30,5 +30,11 @@ Public Class SaveKnot
         _projectId = pProjectId
         _isBead = pIsBead
     End Sub
-
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append(ToStitchString).Append("~") _
+        .Append(CStr(_isBead))
+        Return _sb.ToString
+    End Function
 End Class

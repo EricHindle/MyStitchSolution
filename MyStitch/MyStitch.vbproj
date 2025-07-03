@@ -122,9 +122,6 @@
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectWorkTimeBuilder.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveBackstitchBuilder.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveBlockstitchBuilder.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveDesignBuilder.vb" />
     <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
@@ -144,9 +141,6 @@
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
     <Compile Include="Domain\Objects\ProjectWorkTime.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveBackstitch.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveBlockstitch.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveProjectDesign.vb" />
     <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />
     <Compile Include="Domain\Objects\Thread.vb" />
@@ -172,12 +166,6 @@
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Project Files\ModFileHandling.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveKnot.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveKnotBuilder.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveStitch.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveStitchQuarter.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveStitchBuilder.vb" />
-    <Compile Include="Project Files\SaveObjects\SaveStitchQuarterBuilder.vb" />
     <Compile Include="Project\FrmProject.Designer.vb">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </Compile>

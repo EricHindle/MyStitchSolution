@@ -70,4 +70,11 @@ Public Class BlockStitchQuarter
             .Append("]")
         Return _sb.ToString()
     End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb.Append(CStr(_threadId)).Append("/") _
+            .Append(_blockQuarter).Append("/") _
+            .Append(CStr(_strandCount))
+        Return _sb.ToString
+    End Function
 End Class

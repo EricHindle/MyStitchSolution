@@ -34,5 +34,13 @@ Public Class SaveBlockstitch
     Public Function IsLoaded() As Boolean
         Return _quarters IsNot Nothing AndAlso _quarters.Count > 0
     End Function
-
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+            .Append(ToStitchString).Append("~")
+        For Each _qtr As SaveStitchQuarter In _quarters
+            _sb.Append(_qtr.ToSaveString).Append("]")
+        Next
+        Return _sb.ToString
+    End Function
 End Class

@@ -60,4 +60,13 @@ Public Class BlockStitch
         _sb.Append("]")
         Return _sb.ToString()
     End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+            .Append(ToStitchString).Append("~")
+        For Each _qtr As BlockStitchQuarter In _quarters
+            _sb.Append(_qtr.ToSaveString).Append("]")
+        Next
+        Return _sb.ToString
+    End Function
 End Class

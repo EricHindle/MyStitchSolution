@@ -745,7 +745,7 @@ Public Class FrmStitchDesign
     '#Region "action buttons"
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         Dim _filename As String = MakeFilename(oProject)
-        SaveDesignJson(oProjectDesign, My.Settings.DesignFilePath, _filename)
+        '     SaveDesignJson(oProjectDesign, My.Settings.DesignFilePath, _filename)
 
         SaveDesign(oProjectDesign)
     End Sub
@@ -858,7 +858,7 @@ Public Class FrmStitchDesign
         Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Save, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
         If Not String.IsNullOrEmpty(_filename) Then
             LogUtil.Info("Saving design", MyBase.Name)
-            SaveDesignJson(oProjectDesign, My.Settings.DesignFilePath, _filename)
+            ' SaveDesignJson(oProjectDesign, My.Settings.DesignFilePath, _filename)
             LogUtil.Info("Design saved to " & _filename, MyBase.Name)
         End If
     End Sub
@@ -924,7 +924,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub RedrawToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuRedraw.Click
-        oProjectDesign = SortStitches(oProjectDesign)
+        '      oProjectDesign = SortStitches(oProjectDesign)
         RedrawDesign()
     End Sub
 
@@ -983,12 +983,21 @@ Public Class FrmStitchDesign
     Private Sub LoadProjectDesignFromFile()
         isLoadComplete = False
         LblStatus.Text = "Loading"
-        oBackgroundWorker.RunWorkerAsync()
-        Do Until isLoadComplete
-            Threading.Thread.Sleep(100)
-            LblStatus.Text &= "."
-            LblStatus.Refresh()
-        Loop
+        Dim oDesignString As String = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(oProject))
+        '  oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
+        oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oDesignString).Build
+        oProjectDesign.ProjectId = oProject.ProjectId
+        isLoadComplete = True
+
+
+
+
+        'oBackgroundWorker.RunWorkerAsync()
+        'Do Until isLoadComplete
+        '    Threading.Thread.Sleep(100)
+        '    LblStatus.Text &= "."
+        '    LblStatus.Refresh()
+        'Loop
         If Not oProjectDesign.IsLoaded Then
             oProjectDesign.Rows = oProject.DesignHeight
             oProjectDesign.Columns = oProject.DesignWidth

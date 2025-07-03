@@ -39,6 +39,15 @@ Public Class KnotBuilder
         End With
         Return Me
     End Function
+    Public Overloads Function StartingWith(pKnotString As String) As KnotBuilder
+        Dim _stitchStrings As String() = pKnotString.Split(BLOCK_DELIM)
+        If _stitchStrings.Length = 2 Then
+            Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWith(_stitchStrings(0)).Build
+            StartingWith(_stitch)
+            _isBead = CBool(_stitchStrings(1))
+        End If
+        Return Me
+    End Function
     Public Function WithIsBead(pIsBead As Boolean) As KnotBuilder
         _isBead = pIsBead
         Return Me

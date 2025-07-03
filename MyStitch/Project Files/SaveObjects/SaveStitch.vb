@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Text
 Imports MyStitch.Domain.Objects
 
 Public Class SaveStitch
@@ -89,5 +90,14 @@ Public Class SaveStitch
         _threadId = pThreadId
         _projectId = pProjectId
     End Sub
-
+    Public Function ToStitchString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append(_threadId).Append("]") _
+        .Append(_blockPos.X).Append("/") _
+        .Append(_blockPos.Y).Append("]") _
+        .Append(_blockQtr).Append("]") _
+        .Append(_strands)
+        Return _sb.ToString
+    End Function
 End Class

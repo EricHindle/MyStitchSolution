@@ -92,4 +92,12 @@ Public Class BackStitch
             .Append("]")
         Return _sb.ToString()
     End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append(ToStitchString).Append("~") _
+        .Append(_toBlockPos.X).Append("/").Append(_toBlockPos.Y).Append("~") _
+        .Append(_toBlockQtr).Append("~")
+        Return _sb.ToString
+    End Function
 End Class

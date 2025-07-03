@@ -43,7 +43,19 @@ Public Class StitchBuilder
         End With
         Return Me
     End Function
-
+    Public Function StartingWith(pStitchString As String) As StitchBuilder
+        Dim _parts As String() = pStitchString.Split(STITCH_DELIM)
+        If _parts.Length > 0 Then
+            _projectId = _parts(0)
+            _threadId = _parts(1)
+            Dim _Pos As String() = _parts(2).Split(POINT_DELIM)
+            _blockPos = New Point(_Pos(0), _Pos(1))
+            _blockQtr = _parts(3)
+            _stitchType = _parts(4)
+            _strands = _parts(5)
+        End If
+        Return Me
+    End Function
     Public Function WithBlockLocation(pLoc As Point) As StitchBuilder
         _blockPos = pLoc
         Return Me

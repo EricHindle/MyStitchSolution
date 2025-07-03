@@ -17,7 +17,9 @@ Module ModDesign
     Public Const JSON_EXT As String = ".json"
     Public Const XML_EXT As String = ".xml"
     Public Const ZIP_EXT As String = ".hsz"
+    Public Const HSZ_EXT As String = ".zip"
     Public Const ARC_EXT As String = ".hsa"
+    Public Const DEL_EXT As String = ".hsd"
     Public oFabricColour As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
     Public oGridColour As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
 #End Region
@@ -133,44 +135,44 @@ Module ModDesign
         End Select
         Return _color
     End Function
-    Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
-        Dim isOK As Boolean
-        pDesign = SortStitches(pDesign)
-        Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        '  If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-        Using _fs As New FileStream(_zipFile, FileMode.Create)
-        End Using
-        '  End If
-        Using zipToOpen As New FileStream(_zipFile, FileMode.Create)
-            Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                Dim designEntry As ZipArchiveEntry = archive.CreateEntry(pDesignFileName & JSON_EXT)
-                Using _output As New StreamWriter(designEntry.Open())
-                    _output.WriteLine(pDesign.SerializeJson)
-                End Using
-            End Using
-        End Using
-        Return isOK
-    End Function
+    'Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
+    '    Dim isOK As Boolean
+    '    pDesign = SortStitches(pDesign)
+    '    Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
+    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
+    '    '  If Not My.Computer.FileSystem.FileExists(_zipFile) Then
+    '    Using _fs As New FileStream(_zipFile, FileMode.Create)
+    '    End Using
+    '    '  End If
+    '    Using zipToOpen As New FileStream(_zipFile, FileMode.Create)
+    '        Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
+    '            Dim designEntry As ZipArchiveEntry = archive.CreateEntry(pDesignFileName & JSON_EXT)
+    '            Using _output As New StreamWriter(designEntry.Open())
+    '                _output.WriteLine(pDesign.SerializeJson)
+    '            End Using
+    '        End Using
+    '    End Using
+    '    Return isOK
+    'End Function
 
-    Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
-        pDesign.BlockStitches.Sort(Function(pStitch1 As BlockStitch, pStitch2 As BlockStitch)
-                                       Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
-                                       Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
-                                       Return Pos1.CompareTo(Pos2)
-                                   End Function)
-        pDesign.Knots.Sort(Function(pStitch1 As Knot, pStitch2 As Knot)
-                               Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
-                               Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
-                               Return Pos1.CompareTo(Pos2)
-                           End Function)
-        pDesign.BackStitches.Sort(Function(pStitch1 As BackStitch, pStitch2 As BackStitch)
-                                      Dim Pos1 As Integer = pStitch1.FromBlockLocation.Y + (pStitch1.FromBlockLocation.X * pDesign.Rows)
-                                      Dim Pos2 As Integer = pStitch2.FromBlockLocation.Y + (pStitch2.FromBlockLocation.X * pDesign.Rows)
-                                      Return Pos1.CompareTo(Pos2)
-                                  End Function)
-        Return pDesign
-    End Function
+    'Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
+    '    pDesign.BlockStitches.Sort(Function(pStitch1 As BlockStitch, pStitch2 As BlockStitch)
+    '                                   Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+    '                                   Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+    '                                   Return Pos1.CompareTo(Pos2)
+    '                               End Function)
+    '    pDesign.Knots.Sort(Function(pStitch1 As Knot, pStitch2 As Knot)
+    '                           Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+    '                           Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+    '                           Return Pos1.CompareTo(Pos2)
+    '                       End Function)
+    '    pDesign.BackStitches.Sort(Function(pStitch1 As BackStitch, pStitch2 As BackStitch)
+    '                                  Dim Pos1 As Integer = pStitch1.FromBlockLocation.Y + (pStitch1.FromBlockLocation.X * pDesign.Rows)
+    '                                  Dim Pos2 As Integer = pStitch2.FromBlockLocation.Y + (pStitch2.FromBlockLocation.X * pDesign.Rows)
+    '                                  Return Pos1.CompareTo(Pos2)
+    '                              End Function)
+    '    Return pDesign
+    'End Function
 
 
     Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign

@@ -45,4 +45,11 @@ Public Class Knot
             .Append("]")
         Return _sb.ToString()
     End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append(ToStitchString).Append("~") _
+        .Append(CStr(_isBead))
+        Return _sb.ToString
+    End Function
 End Class

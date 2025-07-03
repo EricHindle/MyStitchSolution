@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Text
 Imports Newtonsoft.Json
 
 Public Class SaveProjectDesign
@@ -80,5 +81,29 @@ Public Class SaveProjectDesign
     End Sub
     Public Function SerializeJson() As String
         Return JsonConvert.SerializeObject(Me)
+    End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append("Design^") _
+        .Append(CStr(_projectId)).Append("^") _
+        .Append("Blockstitch^")
+        For Each _bls As SaveBlockstitch In _blockStitches
+            _sb.Append(_bls.ToSaveString).Append("|")
+        Next
+        _sb.Append("^") _
+        .Append("Backstitch^")
+        For Each _bas As SaveBackstitch In _backStitches
+            _sb.Append(_bas.ToSaveString).Append("|")
+        Next
+        _sb.Append("^") _
+        .Append("Knot^")
+        For Each _knot As SaveKnot In _knots
+            _sb.Append(_knot.ToSaveString).Append("|")
+        Next
+        _sb.Append("^")
+        _sb.Append(_rows).Append("^")
+        _sb.Append(_columns).Append("^")
+        Return _sb.ToString
     End Function
 End Class

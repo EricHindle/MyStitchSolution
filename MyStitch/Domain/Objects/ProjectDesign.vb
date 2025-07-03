@@ -112,4 +112,28 @@ Public Class ProjectDesign
               .Append("]]")
         Return _sb.ToString()
     End Function
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb _
+        .Append(DESIGN_HDR).Append(DESIGN_DELIM) _
+        .Append(CStr(_projectId)).Append("^") _
+        .Append("Blockstitch^")
+        For Each _bls As BlockStitch In _blockStitches
+            _sb.Append(_bls.ToSaveString).Append("|")
+        Next
+        _sb.Append("^") _
+        .Append("Backstitch^")
+        For Each _bas As BackStitch In _backStitches
+            _sb.Append(_bas.ToSaveString).Append("|")
+        Next
+        _sb.Append("^") _
+        .Append("Knot^")
+        For Each _knot As Knot In _knots
+            _sb.Append(_knot.ToSaveString).Append("|")
+        Next
+        _sb.Append("^")
+        _sb.Append(_rows).Append("^")
+        _sb.Append(_columns).Append("^")
+        Return _sb.ToString
+    End Function
 End Class

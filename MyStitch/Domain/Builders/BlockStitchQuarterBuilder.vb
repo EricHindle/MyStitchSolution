@@ -18,6 +18,13 @@ Public Class BlockStitchQuarterBuilder
         _threadid = -1
         Return Me
     End Function
+    Public Function StartingWith(pQuarterString As String) As BlockStitchQuarterBuilder
+        Dim _parts As String() = pQuarterString.Split(POINT_DELIM)
+        _threadid = _parts(0)
+        _blockQuarter = _parts(1)
+        _strandCount = _parts(2)
+        Return Me
+    End Function
     Public Function WithQuarter(pQtr As BlockQuarter) As BlockStitchQuarterBuilder
         _blockQuarter = pQtr
         Return Me

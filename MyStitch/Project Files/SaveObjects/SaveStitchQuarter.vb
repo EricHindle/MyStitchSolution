@@ -48,5 +48,12 @@ Public Class SaveStitchQuarter
         _strandCount = pStrandCt
         _threadId = pThreadId
     End Sub
+    Public Function ToSaveString() As String
+        Dim _sb As New StringBuilder
+        _sb.Append(CStr(_threadId)).Append("/") _
+            .Append(_blockQuarter).Append("/") _
+            .Append(CStr(_strandCount))
+        Return _sb.ToString
+    End Function
 
 End Class

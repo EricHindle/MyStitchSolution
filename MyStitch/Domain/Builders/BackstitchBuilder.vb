@@ -31,7 +31,17 @@ Public Class BackstitchBuilder
         End With
         Return Me
     End Function
-
+    Public Overloads Function StartingWith(pBlockString As String) As BackstitchBuilder
+        Dim _stitchStrings As String() = pBlockString.Split(BLOCK_DELIM)
+        If _stitchStrings.Length >= 3 Then
+            Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWith(_stitchStrings(0)).Build
+            StartingWith(_stitch)
+            Dim _Pos As String() = _stitchStrings(1).Split(POINT_DELIM)
+            _toBlockLoc = New Point(_Pos(0), _Pos(1))
+            _toBlockQtr = _stitchStrings(2)
+        End If
+        Return Me
+    End Function
     Public Function WithFromBlockLocation(pLoc As Point) As BackstitchBuilder
         _blockPos = pLoc
         Return Me

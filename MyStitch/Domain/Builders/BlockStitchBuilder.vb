@@ -27,6 +27,21 @@ Public Class BlockStitchBuilder
         End With
         Return Me
     End Function
+    Public Overloads Function StartingWith(pBlockString As String) As BlockStitchBuilder
+        Dim _stitchStrings As String() = pBlockString.Split(BLOCK_DELIM)
+        _quarters = New List(Of BlockStitchQuarter)
+        If _stitchStrings.Length = 2 Then
+            Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWith(_stitchStrings(0)).Build
+            StartingWith(_stitch)
+            Dim _qtrs As String() = _stitchStrings(1).Split(STITCH_DELIM)
+            For Each _qtr As String In _qtrs
+                If Not String.IsNullOrWhiteSpace(_qtr) Then
+                    _quarters.Add(BlockStitchQuarterBuilder.ABlockStitchQuarter.StartingWith(_qtr).Build)
+                End If
+            Next
+        End If
+        Return Me
+    End Function
     Public Overloads Function StartingWith(pBlockstitch As BlockStitch) As BlockStitchBuilder
         With pBlockstitch
             _blockPos = .BlockPosition
