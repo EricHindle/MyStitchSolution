@@ -13,13 +13,6 @@ Imports Newtonsoft.Json
 
 Module ModDesign
 #Region "constants"
-
-    Public Const JSON_EXT As String = ".json"
-    Public Const XML_EXT As String = ".xml"
-    Public Const ZIP_EXT As String = ".hsz"
-    Public Const HSZ_EXT As String = ".zip"
-    Public Const ARC_EXT As String = ".hsa"
-    Public Const DEL_EXT As String = ".hsd"
     Public oFabricColour As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
     Public oGridColour As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
 #End Region
@@ -173,56 +166,54 @@ Module ModDesign
     '                              End Function)
     '    Return pDesign
     'End Function
+    'Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
+    'Dim _exceptionText As String = "Exception reading project design file"
 
-
-    Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
-        Dim _exceptionText As String = "Exception reading project design file"
-
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-        Dim _projectDesign As New ProjectDesign
-        Try
-            If My.Computer.FileSystem.FileExists(_zipFile) Then
-                Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-                    For Each _entry As ZipArchiveEntry In _archiveFile.Entries
-                        If _entry.Name.EndsWith(JSON_EXT) Then
-                            Using _input As New StreamReader(_entry.Open())
-                                Dim _jsonText As String = _input.ReadLine()
-                                _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
-                            End Using
-                        End If
-                    Next
-                End Using
-            End If
-        Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                                OrElse TypeOf ex Is PathTooLongException _
-                                OrElse TypeOf ex Is DirectoryNotFoundException _
-                                OrElse TypeOf ex Is IOException _
-                                OrElse TypeOf ex Is UnauthorizedAccessException _
-                                OrElse TypeOf ex Is InvalidDataException _
-                                OrElse TypeOf ex Is NotSupportedException _
-                                OrElse TypeOf ex Is ObjectDisposedException)
-            LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
-        End Try
-        Return _projectDesign
-    End Function
-    Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-        Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-        Dim _projectDesign As New ProjectDesign
-        If My.Computer.FileSystem.FileExists(_zipFile) Then
-            Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-                For Each _entry As ZipArchiveEntry In _chapterFile.Entries
-                    If _entry.Name.EndsWith(XML_EXT) Then
-                        Using _input As New StreamReader(_entry.Open())
-                            _projectDesign = CType(serializer.Deserialize(_input), ProjectDesign)
-                        End Using
-                    End If
-                Next
-            End Using
-        End If
-        Return _projectDesign
-    End Function
+    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
+    '    Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
+    '    Dim _projectDesign As New ProjectDesign
+    '    Try
+    '        If My.Computer.FileSystem.FileExists(_zipFile) Then
+    '            Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+    '                For Each _entry As ZipArchiveEntry In _archiveFile.Entries
+    '                    If _entry.Name.EndsWith(JSON_EXT) Then
+    '                        Using _input As New StreamReader(_entry.Open())
+    '                            Dim _jsonText As String = _input.ReadLine()
+    '                            _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
+    '                        End Using
+    '                    End If
+    '                Next
+    '            End Using
+    '        End If
+    '    Catch ex As Exception When (TypeOf ex Is ArgumentException _
+    '                            OrElse TypeOf ex Is PathTooLongException _
+    '                            OrElse TypeOf ex Is DirectoryNotFoundException _
+    '                            OrElse TypeOf ex Is IOException _
+    '                            OrElse TypeOf ex Is UnauthorizedAccessException _
+    '                            OrElse TypeOf ex Is InvalidDataException _
+    '                            OrElse TypeOf ex Is NotSupportedException _
+    '                            OrElse TypeOf ex Is ObjectDisposedException)
+    '        LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
+    '    End Try
+    '    Return _projectDesign
+    'End Function
+    'Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
+    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
+    '    Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
+    '    Dim _projectDesign As New ProjectDesign
+    '    If My.Computer.FileSystem.FileExists(_zipFile) Then
+    '        Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
+    '            For Each _entry As ZipArchiveEntry In _chapterFile.Entries
+    '                If _entry.Name.EndsWith(XML_EXT) Then
+    '                    Using _input As New StreamReader(_entry.Open())
+    '                        _projectDesign = CType(serializer.Deserialize(_input), ProjectDesign)
+    '                    End Using
+    '                End If
+    '            Next
+    '        End Using
+    '    End If
+    '    Return _projectDesign
+    'End Function
 
 #End Region
 

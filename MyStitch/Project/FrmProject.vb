@@ -303,11 +303,11 @@ Public Class FrmProject
     End Sub
     Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
         Dim _exceptionText As String = "Exception renaming project design file"
-        Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & JSON_EXT
-        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, ZIP_EXT)
+        Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & DEL_EXT
+        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, HSZ_EXT)
         If My.Computer.FileSystem.FileExists(_existingZipFile) Then
-            Dim _newDesignFile As String = MakeFilename(pSelectedProject) & JSON_EXT
-            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
+            Dim _newDesignFile As String = MakeFilename(pSelectedProject) & DEL_EXT
+            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, HSZ_EXT)
             Try
                 LogUtil.ShowStatus("Renaming " & _existingDesignFile & " to " & _newDesignFile, LblStatus, True, MyBase.Name, False)
                 Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)

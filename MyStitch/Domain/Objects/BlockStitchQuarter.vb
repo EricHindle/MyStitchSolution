@@ -4,7 +4,6 @@
 '
 ' Author Eric Hindle
 '
-
 Imports System.Text
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
@@ -72,8 +71,8 @@ Public Class BlockStitchQuarter
     End Function
     Public Function ToSaveString() As String
         Dim _sb As New StringBuilder
-        _sb.Append(CStr(_threadId)).Append("/") _
-            .Append(_blockQuarter).Append("/") _
+        _sb.Append(CStr(_threadId)).Append(POINT_DELIM) _
+            .Append(_blockQuarter).Append(POINT_DELIM) _
             .Append(CStr(_strandCount))
         Return _sb.ToString
     End Function

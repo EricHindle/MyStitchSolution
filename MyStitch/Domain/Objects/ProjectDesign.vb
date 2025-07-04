@@ -4,10 +4,8 @@
 '
 ' Author Eric Hindle
 '
-
 Imports System.Text
 Imports Newtonsoft.Json
-
 Public Class ProjectDesign
     Private _projectId As Integer
     Private _blockStitches As List(Of BlockStitch)
@@ -116,24 +114,24 @@ Public Class ProjectDesign
         Dim _sb As New StringBuilder
         _sb _
         .Append(DESIGN_HDR).Append(DESIGN_DELIM) _
-        .Append(CStr(_projectId)).Append("^") _
-        .Append("Blockstitch^")
+        .Append(CStr(_projectId)).Append(DESIGN_DELIM) _
+        .Append("Blockstitch").Append(DESIGN_DELIM)
         For Each _bls As BlockStitch In _blockStitches
-            _sb.Append(_bls.ToSaveString).Append("|")
+            _sb.Append(_bls.ToSaveString).Append(LIST_DELIM)
         Next
-        _sb.Append("^") _
-        .Append("Backstitch^")
+        _sb.Append(DESIGN_DELIM) _
+        .Append("Backstitch").Append(DESIGN_DELIM)
         For Each _bas As BackStitch In _backStitches
-            _sb.Append(_bas.ToSaveString).Append("|")
+            _sb.Append(_bas.ToSaveString).Append(LIST_DELIM)
         Next
-        _sb.Append("^") _
-        .Append("Knot^")
+        _sb.Append(DESIGN_DELIM) _
+        .Append("Knot").Append(DESIGN_DELIM)
         For Each _knot As Knot In _knots
-            _sb.Append(_knot.ToSaveString).Append("|")
+            _sb.Append(_knot.ToSaveString).Append(LIST_DELIM)
         Next
-        _sb.Append("^")
-        _sb.Append(_rows).Append("^")
-        _sb.Append(_columns).Append("^")
+        _sb.Append(DESIGN_DELIM)
+        _sb.Append(_rows).Append(DESIGN_DELIM)
+        _sb.Append(_columns)
         Return _sb.ToString
     End Function
 End Class

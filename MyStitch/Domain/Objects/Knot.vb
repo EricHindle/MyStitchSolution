@@ -4,9 +4,7 @@
 '
 ' Author Eric Hindle
 '
-
 Imports System.Text
-
 Public Class Knot
     Inherits Stitch
     Private _isBead As Boolean
@@ -48,7 +46,7 @@ Public Class Knot
     Public Function ToSaveString() As String
         Dim _sb As New StringBuilder
         _sb _
-        .Append(ToStitchString).Append("~") _
+        .Append(ToStitchString).Append(BLOCK_DELIM) _
         .Append(CStr(_isBead))
         Return _sb.ToString
     End Function

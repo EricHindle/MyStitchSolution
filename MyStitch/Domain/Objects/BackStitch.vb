@@ -4,14 +4,11 @@
 '
 ' Author Eric Hindle
 '
-
 Imports System.Text
-
 Public Class BackStitch
     Inherits Stitch
     Private _toBlockPos As Point
     Private _toBlockQtr As BlockQuarter
-
     Public Property ToBlockPosition() As Point
         Get
             Return _toBlockPos
@@ -60,7 +57,6 @@ Public Class BackStitch
             _toBlockQtr = value
         End Set
     End Property
-
     Public Sub New()
         Initialise()
         _toBlockPos = New Point(0, 0)
@@ -76,7 +72,6 @@ Public Class BackStitch
         _projectId = pProjectId
         '    LogUtil.Info(Me.ToString, "Backstitch")
     End Sub
-
     Public Overrides Function ToString() As String
         Dim _sb As New StringBuilder
         _sb.Append("Backstitch=[") _
@@ -95,9 +90,9 @@ Public Class BackStitch
     Public Function ToSaveString() As String
         Dim _sb As New StringBuilder
         _sb _
-        .Append(ToStitchString).Append("~") _
-        .Append(_toBlockPos.X).Append("/").Append(_toBlockPos.Y).Append("~") _
-        .Append(_toBlockQtr).Append("~")
+        .Append(ToStitchString).Append(BLOCK_DELIM) _
+        .Append(_toBlockPos.X).Append("/").Append(_toBlockPos.Y).Append(BLOCK_DELIM) _
+        .Append(_toBlockQtr)
         Return _sb.ToString
     End Function
 End Class

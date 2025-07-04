@@ -24,10 +24,6 @@ Public Class ProjectDesignBuilder
         _columns = 0
         Return Me
     End Function
-    Public Function StartingWith(pPath As String, pFilename As String) As ProjectDesignBuilder
-        StartingWith(OpenDesignJSON(pPath, pFilename))
-        Return Me
-    End Function
     Public Function StartingWith(pSavedDesign As String) As ProjectDesignBuilder
         Dim _designString As String() = pSavedDesign.Split(DESIGN_DELIM)
         If _designString.Length > 0 Then

@@ -121,12 +121,12 @@ Public Class Stitch
     Public Function ToStitchString() As String
         Dim _sb As New StringBuilder
         _sb _
-        .Append(_projectId).Append("]") _
-        .Append(_threadId).Append("]") _
-        .Append(_blockPos.X).Append("/") _
-        .Append(_blockPos.Y).Append("]") _
-        .Append(_blockQtr).Append("]") _
-        .Append(_stitchType).Append("]") _
+        .Append(_projectId).Append(STITCH_DELIM) _
+        .Append(_threadId).Append(STITCH_DELIM) _
+        .Append(_blockPos.X).Append(POINT_DELIM) _
+        .Append(_blockPos.Y).Append(STITCH_DELIM) _
+        .Append(_blockQtr).Append(STITCH_DELIM) _
+        .Append(_stitchType).Append(STITCH_DELIM) _
         .Append(_strands)
         Return _sb.ToString
     End Function

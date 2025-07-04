@@ -4,9 +4,7 @@
 '
 ' Author Eric Hindle
 '
-
 Imports System.Text
-
 Public Class BlockStitch
     Inherits Stitch
     Private _quarters As List(Of BlockStitchQuarter)
@@ -63,10 +61,10 @@ Public Class BlockStitch
     Public Function ToSaveString() As String
         Dim _sb As New StringBuilder
         _sb _
-            .Append(ToStitchString).Append("~")
+            .Append(ToStitchString).Append(BLOCK_DELIM)
         For Each _qtr As BlockStitchQuarter In _quarters
-            _sb.Append(_qtr.ToSaveString).Append("]")
+            _sb.Append(_qtr.ToSaveString).Append(STITCH_DELIM)
         Next
-        Return _sb.ToString
+        Return _sb.ToString.TrimEnd(STITCH_DELIM)
     End Function
 End Class

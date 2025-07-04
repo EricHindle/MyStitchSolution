@@ -14,6 +14,12 @@ Imports MyStitch.Domain
 Imports Newtonsoft.Json
 
 Module ModFileHandling
+    'Public Const JSON_EXT As String = ".json"
+    'Public Const XML_EXT As String = ".xml"
+    Public Const ZIP_EXT As String = ".zip"
+    Public Const HSZ_EXT As String = ".hsz"
+    Public Const ARC_EXT As String = ".hsa"
+    Public Const DEL_EXT As String = ".hsd"
     Public Const DESIGN_DELIM As String = "^"
     Public Const LIST_DELIM As String = "|"
     Public Const BLOCK_DELIM As String = "~"
@@ -50,12 +56,6 @@ Module ModFileHandling
         End Try
         Return _designText
     End Function
-    Public Sub SaveDesign(pProjectDesign As ProjectDesign)
-        '   Dim oSaveDesign As SaveProjectDesign = SaveDesignBuilder.ASaveDesign.StartingWith(pProjectDesign).Build
-        Dim _filename As String = MakeFilename(GetProjectById(pProjectDesign.ProjectId))
-        '   SaveDesignJson(oSaveDesign, My.Settings.DesignFilePath, "json_" & _filename)
-        SaveDesignDelimited(pProjectDesign, My.Settings.DesignFilePath, _filename)
-    End Sub
     Public Function SaveDesignDelimited(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _pathname As String = pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
@@ -77,8 +77,6 @@ Module ModFileHandling
             End Using
         End Using
         Return isOK
-
-
     End Function
     'Public Function SaveDesignXML(pDesign As SaveProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
     '    Dim isOK As Boolean
