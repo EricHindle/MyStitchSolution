@@ -69,6 +69,7 @@ Namespace Domain
             FillTableListFromTableEnum()
         End Sub
         Private Sub FillTableListFromTableEnum()
+            tableList.Clear()
             Dim _enumArray As Array = [Enum].GetValues(GetType(Tables))
             For Each _enum In _enumArray
                 tableList.Add(_enum.ToString)
