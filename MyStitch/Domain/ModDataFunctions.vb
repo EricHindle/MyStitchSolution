@@ -20,6 +20,7 @@ Namespace Domain
         Public Const DOC_TAG As String = "D~"
         Public Const IMAGE_TAG As String = "I~"
         Public Const REV_TAG As String = "R~"
+        Public Const ARC_TAG As String = "A~"
         Public Const TRUNCATING_TABLE As String = "Truncating table"
         Public Const ADDING_RECORDS As String = "Adding records from backup file"
         Public MIN_DATE As New DateTime(2001, 1, 1)

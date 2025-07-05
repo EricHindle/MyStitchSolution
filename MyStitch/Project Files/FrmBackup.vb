@@ -6,6 +6,7 @@
 '
 
 Imports System.IO
+Imports System.Reflection
 Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -23,6 +24,7 @@ Public Class FrmBackup
     Private dataPath As String
     Private optionsPath As String
     Private designPath As String
+    Private designArchivePath As String
     Private imagePath As String
     Private oProjectList As List(Of Project)
     Private isFormInitialised As Boolean
@@ -39,17 +41,13 @@ Public Class FrmBackup
         PbCopyProgress.Visible = False
         ApplySettings()
         AddProgress("Selecting Data", 1, 1)
-        AddProgress("Filling dB Table Tree", 2)
-        FillTableTree(TvDatatables)
-        tableCheckCount = 0
-        TvDatatables.ExpandAll()
+        LoadTables()
         LoadImages()
-        LoadDesigns
+        LoadDesigns()
         KeyPreview = True
     End Sub
 
     Friend Sub ApplySettings()
-        '        RbCurrentBook.Checked = My.Settings.BackupCurrentBookOnly
         TxtBackupPath.Text = My.Settings.BackupPath
         chkAddDate.Checked = My.Settings.BackupAddDate
         ChkArchive.Checked = My.Settings.BackupArchive
@@ -127,31 +125,50 @@ Public Class FrmBackup
     End Sub
     Private Sub ChkArchive_CheckedChanged(sender As Object, e As EventArgs) Handles ChkArchive.CheckedChanged
         If isFormInitialised Then
-            LoadImages()
+            LoadDesigns()
         End If
     End Sub
 #End Region
 #Region "subroutines"
     Private Function CountCheckedTableNodes() As Integer
         Dim _tablesnode As TreeNode = TvDatatables.Nodes(0)
-        Return CountCheckedNodes(_tablesnode)
+        Return CountCheckedNodes(_tablesnode, TABLE_TAG)
     End Function
     Private Function CountCheckedDesignNodes() As Integer
-        Return CountCheckedNodes(TvDesigns.Nodes(0))
+        Dim oArcNode As TreeNode = Nothing
+        For Each _node As TreeNode In TvDesigns.Nodes(0).Nodes
+            If _node.Name.StartsWith(ARC_TAG) Then
+                oArcNode = _node
+            End If
+        Next
+        Dim _designCt As Integer = CountCheckedNodes(TvDesigns.Nodes(0), DOC_TAG)
+        Dim _archiveCt As Integer = 0
+        If oArcNode IsNot Nothing Then
+            _archiveCt = CountCheckedNodes(oArcNode, DOC_TAG)
+        End If
+        Return _designCt + _archiveCt
     End Function
     Private Function CountCheckedImageNodes() As Integer
         Dim _imagenode As TreeNode = TvImages.Nodes(0).Nodes(0)
-        Return CountCheckedNodes(_imagenode)
+        Return CountCheckedNodes(_imagenode, IMAGE_TAG)
     End Function
-    Private Function CountCheckedNodes(pNode As TreeNode) As Integer
+    Private Function CountCheckedNodes(pNode As TreeNode, pTag As String) As Integer
         Dim checkedNodeCount As Integer = 0
         For Each _subnode As TreeNode In pNode.Nodes
             If _subnode.Checked Then
-                checkedNodeCount += 1
+                If _subnode.Name.StartsWith(pTag) Then
+                    checkedNodeCount += 1
+                End If
             End If
         Next
         Return checkedNodeCount
     End Function
+    Private Sub LoadTables()
+        AddProgress("Filling dB Table Tree", 2)
+        FillTableTree(TvDatatables)
+        tableCheckCount = 0
+        TvDatatables.ExpandAll()
+    End Sub
     Private Sub LoadImages()
         AddProgress("Filling Image Tree", 2)
         FillImageTree()
@@ -219,6 +236,15 @@ Public Class FrmBackup
             Dim _fname As String = Path.GetFileName(_filename)
             Dim _fileNode As TreeNode = _designNode.Nodes.Add(DOC_TAG & _filename, _fname)
         Next
+        If ChkArchive.Checked Then
+            Dim _archiveNode As TreeNode = _designNode.Nodes.Add(ARC_TAG & "Archive", "Archive files")
+            _filepath = Path.Combine(My.Settings.DesignFilePath, "archive")
+            fileList = My.Computer.FileSystem.GetFiles(_filepath)
+            For Each _filename As String In fileList
+                Dim _fname As String = Path.GetFileName(_filename)
+                Dim _fileNode As TreeNode = _archiveNode.Nodes.Add(DOC_TAG & _filename, _fname)
+            Next
+        End If
     End Sub
     Private Function CheckPaths() As Boolean
         AddProgress("Checking paths", 1, 1)
@@ -236,6 +262,7 @@ Public Class FrmBackup
                     backupPath = If(chkAddDate.Checked, Path.Combine(TxtBackupPath.Text.Trim, Format(Today, "yyyyMMdd")), TxtBackupPath.Text.Trim)
                     imagePath = Path.Combine(backupPath, "images")
                     designPath = Path.Combine(backupPath, "designs")
+                    designArchivePath = Path.Combine(designPath, "archive")
                     If Not CheckPathExists(backupPath) Then isOKToBackup = False
                     If ChkIncludeDb.Checked Then
                         dbBackupPath = Path.Combine(backupPath, "MSSQL")
@@ -245,15 +272,15 @@ Public Class FrmBackup
                         dataPath = Path.Combine(backupPath, "data")
                         If Not CheckPathExists(dataPath) Then isOKToBackup = False
                     End If
-                    '    optionsPath = Path.Combine(backupPath, "options")
-                    '    If Not CheckPathExists(optionsPath) Then isOKToBackup = False
 
                     If Not CheckPathExists(imagePath) Then isOKToBackup = False
 
                     If Not CheckPathExists(designPath) Then isOKToBackup = False
-
+                    If ChkArchive.Checked Then
+                        If Not CheckPathExists(designArchivePath) Then isOKToBackup = False
+                    End If
                 Else
-                    AddProgress("No destination. No backup.")
+                        AddProgress("No destination. No backup.")
                     isOKToBackup = False
                 End If
             End If
@@ -278,7 +305,7 @@ Public Class FrmBackup
         End Try
         Return isOK
     End Function
-    Private Sub ImageBackup(ByRef _itemList As List(Of String))
+    Private Sub ImageBackup()
         AddProgress("Image backup", 4, 2)
         For Each oNode As TreeNode In TvImages.Nodes(0).Nodes
             If oNode.Checked Then
@@ -291,7 +318,6 @@ Public Class FrmBackup
                 End If
                 My.Computer.FileSystem.CopyFile(_fullname, destination, True)
                 AddProgress(_filename & " copied" & _overwritten, 5)
-                _itemList.Add("  " & _filename)
                 PbCopyProgress.PerformStep()
                 StatusStrip1.Refresh()
                 oNode.Checked = False
@@ -353,59 +379,66 @@ Public Class FrmBackup
     End Sub
     Private Sub ImagesBackup()
         AddProgress("Images backup", 2, 2)
-        Dim _itemList As New List(Of String) From {
-            " Images:"
-        }
         imagePath = Path.Combine(backupPath, "images")
-        ImageBackup(_itemList)
+        ImageBackup()
 
     End Sub
     Private Sub DesignsBackup()
         AddProgress("Designs backup", 2, 2)
-        Dim _itemList As New List(Of String) From {
-            " Designs:"
-        }
         designPath = Path.Combine(backupPath, "designs")
-        DesignBackup(_itemList)
-
+        DesignBackup()
     End Sub
 
-    Private Sub DesignBackup(ByRef _itemList As List(Of String))
-        For Each oTypeNode As TreeNode In TvDesigns.Nodes
-            DisplayProgressBar(oTypeNode)
-            AddProgress(oTypeNode.Text, 3, 2)
-            For Each oNode As TreeNode In oTypeNode.Nodes
+    Private Sub DesignBackup()
+        For Each oDesignNode As TreeNode In TvDesigns.Nodes
+            DisplayProgressBar(oDesignNode)
+            AddProgress(oDesignNode.Text, 3, 2)
+            For Each oNode As TreeNode In oDesignNode.Nodes
                 If oNode.Checked Then
-                    Dim _filename As String = oNode.Text
-                    Dim _fullname As String = oNode.Name.Replace(DOC_TAG, "")
-                    Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)
-                    Dim _destExtention As String = Path.GetExtension(_filename)
-                    Dim _destVersion As String = String.Empty
-                    If oNode.Nodes.Count > 0 Then
-                        _destVersion = "#" & oNode.Nodes(0).Text
-                    End If
-                    If My.Computer.FileSystem.FileExists(_fullname) Then
-                        Dim filenameWithVersion As String = _destFilename & _destVersion & _destExtention
-                        Dim destination As String = Path.Combine(designPath, filenameWithVersion)
-                        Dim _overwritten As String = ""
-                        If My.Computer.FileSystem.FileExists(destination) Then
-                            _overwritten = " (*)"
-                        End If
-                        My.Computer.FileSystem.CopyFile(_fullname, destination, True)
-                        AddProgress(_filename & " copied" & _overwritten, 6)
-                        _itemList.Add("  " & _filename)
-                        PbCopyProgress.PerformStep()
-                        StatusStrip1.Refresh()
-                        oNode.Checked = False
-                    Else
-                        AddProgress("!!!! Error :" & oNode.Text & " does not exist !!!!")
+                    If oNode.Name.StartsWith(DOC_TAG) Then
+                        oNode = BackupDocFile(oNode, False)
+                    ElseIf oNode.Name.StartsWith(ARC_TAG) Then
+                        AddProgress(oNode.Text, 3, 2)
+                        For Each aNode As TreeNode In oNode.Nodes
+                            If aNode.Checked Then
+                                If aNode.Name.StartsWith(DOC_TAG) Then
+                                    aNode = BackupDocFile(aNode, True)
+                                End If
+                            End If
+                        Next
                     End If
                 End If
             Next
-            oTypeNode.Checked = False
+            oDesignNode.Checked = False
         Next
         PbCopyProgress.Visible = False
     End Sub
+
+    Private Function BackupDocFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
+        Dim _filename As String = oNode.Text
+        Dim _fullname As String = oNode.Name.Replace(DOC_TAG, "")
+        Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)
+        Dim _destExtention As String = Path.GetExtension(_filename)
+        Dim _destVersion As String = String.Empty
+        If My.Computer.FileSystem.FileExists(_fullname) Then
+            Dim filenameWithVersion As String = _destFilename & _destVersion & _destExtention
+            Dim destination As String = Path.Combine(If(pIsArchive, designArchivePath, designPath), filenameWithVersion)
+            Dim _overwritten As String = ""
+            If My.Computer.FileSystem.FileExists(destination) Then
+                _overwritten = " (*)"
+            End If
+            TryCopyFile(_fullname, destination, True)
+            AddProgress(_filename & " copied" & _overwritten, 6)
+            PbCopyProgress.PerformStep()
+            StatusStrip1.Refresh()
+            oNode.Checked = False
+        Else
+            AddProgress("!!!! Error :" & oNode.Text & " does not exist !!!!")
+        End If
+
+        Return oNode
+    End Function
+
     Private Sub OptionsBackup()
 
     End Sub
@@ -492,11 +525,6 @@ Public Class FrmBackup
         StatusStrip1.Refresh()
         Return sTableName
     End Function
-
-    'Private Sub ChkRevision_CheckedChanged(sender As Object, e As EventArgs) Handles ChkRevision.CheckedChanged
-    '    FillDocumentTree()
-    '    ExpandDocumentTree()
-    'End Sub
 
 #End Region
 End Class

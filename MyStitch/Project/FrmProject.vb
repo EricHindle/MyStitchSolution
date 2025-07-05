@@ -29,6 +29,7 @@ Public Class FrmProject
         InitialiseLogging()
         LogUtil.LogInfo("Project maintenence", MyBase.Name)
         isLoading = True
+        CheckAppPaths()
         InitialiseForm()
         isLoading = False
     End Sub

@@ -6,6 +6,7 @@
 '
 
 Imports System.IO
+Imports System.Reflection
 Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -49,7 +50,6 @@ Public Class FrmBackup
     End Sub
 
     Friend Sub ApplySettings()
-        '        RbCurrentBook.Checked = My.Settings.BackupCurrentBookOnly
         TxtBackupPath.Text = My.Settings.BackupPath
         chkAddDate.Checked = My.Settings.BackupAddDate
         ChkArchive.Checked = My.Settings.BackupArchive
@@ -124,7 +124,7 @@ Public Class FrmBackup
     End Sub
     Private Sub ChkArchive_CheckedChanged(sender As Object, e As EventArgs) Handles ChkArchive.CheckedChanged
         If isFormInitialised Then
-            LoadImages()
+
         End If
     End Sub
 #End Region
@@ -298,7 +298,7 @@ Public Class FrmBackup
                 If My.Computer.FileSystem.FileExists(destination) Then
                     _overwritten = " (*)"
                 End If
-                My.Computer.FileSystem.CopyFile(_fullname, destination, True)
+                TryCopyFile(_fullname, destination, True)
                 AddProgress(_filename & " copied" & _overwritten, 5)
                 _itemList.Add("  " & _filename)
                 PbCopyProgress.PerformStep()
@@ -401,7 +401,7 @@ Public Class FrmBackup
                         If My.Computer.FileSystem.FileExists(destination) Then
                             _overwritten = " (*)"
                         End If
-                        My.Computer.FileSystem.CopyFile(_fullname, destination, True)
+                        TryCopyFile(_fullname, destination, True)
                         AddProgress(_filename & " copied" & _overwritten, 6)
                         _itemList.Add("  " & _filename)
                         PbCopyProgress.PerformStep()

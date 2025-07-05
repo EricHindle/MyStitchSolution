@@ -39,6 +39,8 @@ Public NotInheritable Class FrmOptions
         My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
         My.Settings.isTimerAutoSave = ChkTimerAutoSave.Checked
         My.Settings.isShowStockLevels = ChkShowStock.Checked
+        My.Settings.LogZoomValue = NudZoomValue.Value
+        My.Settings.isAutoArchiveOnSave = ChkArchiveOnSave.Checked
         My.Settings.Save()
     End Sub
 
@@ -68,6 +70,8 @@ Public NotInheritable Class FrmOptions
         ChkTimerAutoStart.Checked = My.Settings.isTimerAutoStart
         ChkTimerAutoSave.Checked = My.Settings.isTimerAutoSave
         ChkShowStock.Checked = My.Settings.isShowStockLevels
+        NudZoomValue.Value = My.Settings.LogZoomValue
+        ChkArchiveOnSave.Checked = My.Settings.isAutoArchiveOnSave
     End Sub
 
     Private Sub BtnResetForms_Click(sender As Object, e As EventArgs) Handles BtnResetForms.Click

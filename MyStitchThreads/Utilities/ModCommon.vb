@@ -5,6 +5,8 @@
 ' Author Eric Hindle
 '
 Imports System.Globalization
+Imports System.IO
+Imports System.Reflection
 Imports HindlewareLib.Logging
 Module ModCommon
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
@@ -42,4 +44,17 @@ Module ModCommon
         LogUtil.Debug("Generated form position: " & sPos, "SetFormPos")
         Return sPos
     End Function
+    Public Sub TryCopyFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
+        Try
+            My.Computer.FileSystem.CopyFile(pFullname, pDestination, pOverwrite)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                        OrElse TypeOf ex Is FileNotFoundException _
+                        OrElse TypeOf ex Is IOException _
+                        OrElse TypeOf ex Is NotSupportedException _
+                        OrElse TypeOf ex Is PathTooLongException _
+                        OrElse TypeOf ex Is UnauthorizedAccessException _
+                        OrElse TypeOf ex Is Security.SecurityException)
+            LogUtil.DisplayException(ex, "Archive file", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 End Module

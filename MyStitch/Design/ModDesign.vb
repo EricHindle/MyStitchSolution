@@ -25,6 +25,34 @@ Module ModDesign
         BlackWhiteSymbols
         BlocksWithSymbols
     End Enum
+    Public Enum DesignAction
+        FullBlockstitch
+        HalfBlockstitchForward
+        HalfBlockstitchBack
+        QuarterBlockstitchTopLeft
+        QuarterBlockstitchTopRight
+        QuarterBlockstitchBottomRight
+        QuarterBlockstitchBottonLeft
+        ThreeQuarterBlockstitchTopLeft
+        ThreeQuarterBlockstitchTopRight
+        ThreeQuarterBlockstitchBottomRight
+        ThreeQuarterBlockstitchBottomLeft
+        BlockstitchQuarters
+        BackStitchFullThin
+        BackstitchHalfThin
+        BackstitchFullThick
+        BackStitchHalfThick
+        Knot
+        Bead
+        Copy
+        Cut
+        Move
+        Paste
+        Flip
+        Mirror
+        Zoom
+        none
+    End Enum
 #End Region
 #Region "variables"
     Friend iXOffset As Integer

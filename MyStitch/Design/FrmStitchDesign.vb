@@ -4,6 +4,8 @@
 '
 ' Author Eric Hindle
 '
+Imports System.IO
+Imports System.Reflection
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
@@ -43,7 +45,6 @@ Public Class FrmStitchDesign
     Private oSelectionPenWidth As Single = 2
     Private _blackThread As New Thread(0, "BLACK", "Black", Color.Black, 0)
     Private PALETTE_COLOUR_SIZE As Integer = 55
-    Private isLoadComplete As Boolean
 #End Region
 #Region "properties"
     Private oProjectId As Integer
@@ -62,6 +63,7 @@ Public Class FrmStitchDesign
     Private oRedoList As New List(Of StitchAction)
 
     Private isLoading As Boolean
+    Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
 
     Private dMagnification As Decimal
@@ -129,34 +131,6 @@ Public Class FrmStitchDesign
     Private Enum UndoAction
         Add
         Remove
-    End Enum
-    Private Enum DesignAction
-        FullBlockstitch
-        HalfBlockstitchForward
-        HalfBlockstitchBack
-        QuarterBlockstitchTopLeft
-        QuarterBlockstitchTopRight
-        QuarterBlockstitchBottomRight
-        QuarterBlockstitchBottonLeft
-        ThreeQuarterBlockstitchTopLeft
-        ThreeQuarterBlockstitchTopRight
-        ThreeQuarterBlockstitchBottomRight
-        ThreeQuarterBlockstitchBottomLeft
-        BlockstitchQuarters
-        BackStitchFullThin
-        BackstitchHalfThin
-        BackstitchFullThick
-        BackStitchHalfThick
-        Knot
-        Bead
-        Copy
-        Cut
-        Move
-        Paste
-        Flip
-        Mirror
-        Zoom
-        none
     End Enum
 #End Region
 #Region "form control event handlers"
@@ -361,50 +335,34 @@ Public Class FrmStitchDesign
                 Select Case oCurrentStitchType
                     Case DesignAction.Bead
                         AddKnot(_cell, True)
-
                     Case DesignAction.Knot
                         AddKnot(_cell, False)
-
                     Case DesignAction.FullBlockstitch
                         AddFullBlockStitch(_cell)
-
                     Case DesignAction.HalfBlockstitchBack
                         AddHalfBlockStitch(_cell, True)
-
                     Case DesignAction.HalfBlockstitchForward
                         AddHalfBlockStitch(_cell, False)
-
                     Case DesignAction.QuarterBlockstitchBottomRight
                         AddQuarterBlockstitch(_cell, BlockQuarter.BottomRight)
-
                     Case DesignAction.QuarterBlockstitchBottonLeft
                         AddQuarterBlockstitch(_cell, BlockQuarter.BottomLeft)
-
                     Case DesignAction.QuarterBlockstitchTopLeft
                         AddQuarterBlockstitch(_cell, BlockQuarter.TopLeft)
-
                     Case DesignAction.QuarterBlockstitchTopRight
                         AddQuarterBlockstitch(_cell, BlockQuarter.TopRight)
-
                     Case DesignAction.ThreeQuarterBlockstitchBottomLeft
                         AddThreeQuarterStitch(_cell, BlockQuarter.BottomLeft)
-
                     Case DesignAction.ThreeQuarterBlockstitchBottomRight
                         AddThreeQuarterStitch(_cell, BlockQuarter.BottomRight)
-
                     Case DesignAction.ThreeQuarterBlockstitchTopLeft
                         AddThreeQuarterStitch(_cell, BlockQuarter.TopLeft)
-
                     Case DesignAction.ThreeQuarterBlockstitchTopRight
                         AddThreeQuarterStitch(_cell, BlockQuarter.TopRight)
-
                     Case DesignAction.BlockstitchQuarters
                         AddQuarterBlockstitch(_cell, _cellQtr)
-
                 End Select
-
             End If
-
             If isBackstitchInProgress Then
                 Select Case oCurrentStitchType
                     Case DesignAction.BackstitchFullThick, DesignAction.BackStitchFullThin
@@ -481,11 +439,13 @@ Public Class FrmStitchDesign
         Dim _picBox As PictureBox = CType(sender, PictureBox)
         SelectPaletteColour(_picBox)
     End Sub
-
 #End Region
 #Region "menus"
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
-
+        If MsgBox("Re-open design and replace work-in-progress?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+            Dim _filename As String = "Archive/" & Path.GetFileName(MakeFilename(oProject)) & ARC_EXT
+            SaveDesign(_filename)
+        End If
     End Sub
     Private Sub MnuSaveDesign_Click(sender As Object, e As EventArgs) Handles MnuSaveDesign.Click
         SaveDesign()
@@ -1481,9 +1441,22 @@ Public Class FrmStitchDesign
     Private Sub SaveDesign(pFilename As String)
         LblStatus.Text = "Saving design..."
         LogUtil.Info("Saving design", MyBase.Name)
+        If My.Settings.isAutoArchiveOnSave Then
+            ArchiveExistingFile(pFilename)
+        End If
         SaveDesignDelimited(oProjectDesign, My.Settings.DesignFilePath, pFilename)
         LogUtil.Info("Design saved to " & pFilename, MyBase.Name)
         LblStatus.Text = "Save complete"
+    End Sub
+    Private Sub ArchiveExistingFile(pFilename As String)
+        Dim _pathname As String = My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
+        Dim _archivePathname As String = Path.Combine(_pathname, "archive")
+        Dim _existingFilename As String = Path.Combine(_pathname, pFilename & HSZ_EXT)
+        If My.Computer.FileSystem.FileExists(_existingFilename) Then
+            LogUtil.LogInfo("Archiving design before save", MyBase.Name)
+            Dim _destinationFilename As String = Path.Combine(_archivePathname, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & HSZ_EXT)
+            TryCopyFile(_existingFilename, _destinationFilename, True)
+        End If
     End Sub
     Private Sub UndoLastAction()
         If oUndoList.Count > 0 Then
