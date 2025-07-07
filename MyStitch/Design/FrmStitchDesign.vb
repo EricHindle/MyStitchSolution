@@ -843,8 +843,11 @@ Public Class FrmStitchDesign
         isLoadComplete = False
         LblStatus.Text = "Loading"
         Dim oDesignString As String = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(oProject))
-        '  oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(My.Settings.DesignFilePath, MakeFilename(oProject)).Build
-        oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oDesignString).Build
+        If String.IsNullOrEmpty(oDesignString) Then
+            oProjectDesign = New ProjectDesign
+        Else
+            oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oDesignString).Build
+        End If
         oProjectDesign.ProjectId = oProject.ProjectId
         isLoadComplete = True
 
