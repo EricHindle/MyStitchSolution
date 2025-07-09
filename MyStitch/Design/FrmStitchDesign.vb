@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 Imports System.IO
-Imports System.Reflection
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
@@ -66,7 +65,7 @@ Public Class FrmStitchDesign
     Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
 
-    Private dMagnification As Decimal
+    Private dMagnification As Decimal = 1
 
     Private iOneToOneSize As Size
 
@@ -1085,9 +1084,9 @@ Public Class FrmStitchDesign
             For Each _bkst As BackStitch In oCurrentSelectedBackstitch
                 RemoveBackStitchFromDesign(_bkst)
             Next
+            RedrawDesign(False)
         End If
     End Sub
-
 
     Private Function AdjustCellOntoDesign(pCell As Cell) As Cell
         Dim pos_x As Integer = Math.Max(pCell.Position.X, 0)
@@ -1214,16 +1213,11 @@ Public Class FrmStitchDesign
         Loop While _maxThreads < pThreadCt
         Return _picSize
     End Function
-    Private Sub CalculateScrollBarValues()
-        HScrollBar1.Value = oProjectDesign.Columns - 1 + iXOffset - topcorner.X
-        VScrollBar1.Value = oProjectDesign.Rows - 1 + iYOffset - topcorner.Y
-    End Sub
     Private Sub CalculateScrollBarMaximumValues()
         HScrollBar1.Maximum = (PicDesign.Width / iPixelsPerCell) + (oProjectDesign.Columns) + 7
         VScrollBar1.Maximum = (PicDesign.Height / iPixelsPerCell) + (oProjectDesign.Rows) + 7
     End Sub
     Private Sub SetValuesAfterHorizontalChange(_newOff_x As Integer)
-
         Dim _newTc_x As Integer
         If _newOff_x < 0 Then
             _newTc_x = _newOff_x * -1
@@ -1231,7 +1225,6 @@ Public Class FrmStitchDesign
             _newTc_x = 0
         End If
         If _newOff_x < 0 Then _newOff_x = 0
-
         iXOffset = _newOff_x
         topcorner = New Point(_newTc_x, topcorner.Y)
     End Sub
@@ -1243,7 +1236,6 @@ Public Class FrmStitchDesign
             _newTc_y = 0
         End If
         If _newOff_y < 0 Then _newOff_y = 0
-
         iYOffset = _newOff_y
         topcorner = New Point(topcorner.X, _newTc_y)
     End Sub
@@ -1256,23 +1248,31 @@ Public Class FrmStitchDesign
     Private Sub IncreaseMagnification()
         isLoading = True
         ChangeMagnification(Math.Round(dMagnification * MAGNIFICATION_STEP, 2, MidpointRounding.AwayFromZero))
-        RedrawDesign()
-        CalculateOffsetForCentre(oDesignBitmap)
+        Dim xChange As Integer = (iXOffset * (MAGNIFICATION_STEP / 2)) - topcorner.X
+        Dim yChange As Integer = (iYOffset * (MAGNIFICATION_STEP / 2)) - topcorner.Y
+        CalculateOffsetAfterChange(xChange, yChange)
+        RedrawDesign(False)
         isLoading = False
     End Sub
     Private Sub DecreaseMagnification()
         isLoading = True
         ChangeMagnification(Math.Round(dMagnification / MAGNIFICATION_STEP, 2, MidpointRounding.AwayFromZero))
-        RedrawDesign()
-        CalculateOffsetForCentre(oDesignBitmap)
+        Dim xChange As Integer = (iXOffset / (MAGNIFICATION_STEP / 2)) - topcorner.X
+        Dim yChange As Integer = (iYOffset / (MAGNIFICATION_STEP / 2)) - topcorner.Y
+        CalculateOffsetAfterChange(xChange, yChange)
+        RedrawDesign(False)
         isLoading = False
     End Sub
-    Private Sub CalculateOffsetForCentre(pDesignBitmap)
+    Private Sub CalculateOffsetForCentre(pDesignBitmap As Bitmap)
         Dim x As Integer = (PicDesign.Width - pDesignBitmap.Width) / (2 * iPixelsPerCell)
         Dim y As Integer = (PicDesign.Height - pDesignBitmap.Height) / (2 * iPixelsPerCell)
-        SetValuesAfterHorizontalChange(x)
-        SetValuesAfterVerticalChange(y)
-        CalculateScrollBarValues()
+        CalculateOffsetAfterChange(x, y)
+    End Sub
+    Private Sub CalculateOffsetAfterChange(pNewX As Integer, pNewY As Integer)
+        SetValuesAfterHorizontalChange(pNewX)
+        SetValuesAfterVerticalChange(pNewY)
+        HScrollBar1.Value = Math.Max(Math.Min(HScrollBar1.Maximum - oProjectDesign.Columns - iXOffset + topcorner.X - 8, HScrollBar1.Maximum), HScrollBar1.Minimum)
+        VScrollBar1.Value = Math.Max(Math.Min(VScrollBar1.Maximum - oProjectDesign.Rows - iYOffset + topcorner.Y - 8, VScrollBar1.Maximum), VScrollBar1.Minimum)
         iOldHScrollbarValue = HScrollBar1.Value
         iOldVScrollbarValue = VScrollBar1.Value
     End Sub
@@ -1284,8 +1284,6 @@ Public Class FrmStitchDesign
         oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * iPixelsPerCell), CInt(oProjectDesign.Rows * iPixelsPerCell))
         If pIsReCentre Then
             CalculateOffsetForCentre(oDesignBitmap)
-            iOldHScrollbarValue = HScrollBar1.Value
-            iOldVScrollbarValue = VScrollBar1.Value
         End If
         'Draw grid onto graphics
         'Create graphics from image
@@ -1387,13 +1385,13 @@ Public Class FrmStitchDesign
         My.Settings.isGridOn = Not My.Settings.isGridOn
         My.Settings.Save()
         SetIsGridOn()
-        RedrawDesign()
+        RedrawDesign(False)
     End Sub
     Private Sub ToggleCentre()
         My.Settings.IsCentreOn = Not My.Settings.IsCentreOn
         My.Settings.Save()
         SetIsCentreOn()
-        RedrawDesign()
+        RedrawDesign(False)
     End Sub
     Private Sub SetIsGridOn()
         MnuGridOn.Checked = My.Settings.isGridOn
@@ -1487,7 +1485,7 @@ Public Class FrmStitchDesign
             If oUndoList.Count = 0 Then
                 BtnUndo.Enabled = False
             End If
-            RedrawDesign()
+            RedrawDesign(False)
         End If
     End Sub
     Private Sub RedoLastUndo()
@@ -1516,7 +1514,7 @@ Public Class FrmStitchDesign
             If oRedoList.Count = 0 Then
                 BtnRedo.Enabled = False
             End If
-            RedrawDesign()
+            RedrawDesign(False)
         End If
     End Sub
 
@@ -1616,7 +1614,7 @@ Public Class FrmStitchDesign
     Private Sub RemoveBackStitchFromDesign(pBackstitch As BackStitch)
         oProjectDesign.BackStitches.Remove(pBackstitch)
         AddToUndoList(pBackstitch, UndoAction.Remove)
-        RedrawDesign()
+        '      RedrawDesign()
     End Sub
 
     Private Function FindBackstitches(pActionPoint As Point) As List(Of BackStitch)
@@ -1750,7 +1748,7 @@ Public Class FrmStitchDesign
                                oRemoveBackstitch.ToBlockLocation)
         oSelectedBackstitchIndex = -1
         ClearSelection()
-        RedrawDesign()
+        RedrawDesign(False)
     End Sub
     Private Sub NextBackstitchToRemove()
         LogUtil.LogInfo("Stopping timer", MyBase.Name)
@@ -1909,7 +1907,6 @@ Public Class FrmStitchDesign
         _existingBlockstitch.StitchType = BlockStitchType.Mixed
         DrawQuarterBlockStitch(_existingBlockstitch)
     End Sub
-
 
     Private Function FindBlockstitch(pCellPosition As Point) As BlockStitch
         Return CType(oProjectDesign.BlockStitches.Find(Function(p) p.BlockPosition = pCellPosition), BlockStitch)
