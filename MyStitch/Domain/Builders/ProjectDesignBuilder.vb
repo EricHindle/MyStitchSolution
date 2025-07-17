@@ -36,9 +36,12 @@ Public Class ProjectDesignBuilder
                 Dim _backsStrings As String() = _designString(5).Split(LIST_DELIM)
                 Dim _knotsStrings As String() = _designString(7).Split(LIST_DELIM)
                 If _blocksStrings.Length > 0 Then
-                    For Each _bls As String In _blocksStrings
-                        If Not String.IsNullOrWhiteSpace(_bls) Then
-                            _blockStitches.Add(BlockStitchBuilder.ABlockStitch.StartingWith(_bls).Build)
+                    For Each _blockString As String In _blocksStrings
+                        If Not String.IsNullOrWhiteSpace(_blockString) Then
+                            Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_blockString).Build
+                            If _blockstitch.IsLoaded Then
+                                _blockStitches.Add(_blockstitch)
+                            End If
                         End If
                     Next
                 End If

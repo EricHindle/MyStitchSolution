@@ -39,6 +39,8 @@ Public Class BlockStitchBuilder
                     _quarters.Add(BlockStitchQuarterBuilder.ABlockStitchQuarter.StartingWith(_qtr).Build)
                 End If
             Next
+        Else
+            MsgBox("Blockstitch string is not valid: " & pBlockString, MsgBoxStyle.Exclamation, "Invalid Blockstitch")
         End If
         Return Me
     End Function
