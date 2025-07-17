@@ -9,6 +9,7 @@ Imports System.IO
 Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
 Module ModDesign
@@ -51,6 +52,7 @@ Module ModDesign
         Flip
         Mirror
         Zoom
+        Fill
         none
     End Enum
 #End Region
@@ -156,6 +158,8 @@ Module ModDesign
         End Select
         Return _color
     End Function
+
+
     'Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
     '    Dim isOK As Boolean
     '    pDesign = SortStitches(pDesign)
