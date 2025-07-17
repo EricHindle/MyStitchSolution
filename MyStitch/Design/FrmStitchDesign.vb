@@ -58,9 +58,9 @@ Public Class FrmStitchDesign
     Private oDesignBitmap As Bitmap
     Private oDesignGraphics As Graphics
     Private oProjectDesign As ProjectDesign
-    Private oUndoList As New List(Of StitchAction)
-    Private oRedoList As New List(Of StitchAction)
-
+    Private oCurrentUndoList As New List(Of StitchAction)
+    Private oUndoList As New List(Of List(Of StitchAction))
+    Private oRedoList As New List(Of List(Of StitchAction))
     Private isLoading As Boolean
     Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
@@ -292,7 +292,25 @@ Public Class FrmStitchDesign
         If isSelectionInProgress Then
             EndSelectionAndContinueAction(e, _cell)
         End If
+        If oCurrentUndoList.Count > 0 Then
+            AddActionsToUndoList(oCurrentUndoList)
+            oCurrentUndoList.Clear()
+            oRedoList.Clear()
+            BtnRedo.Enabled = False
+            BtnUndo.Enabled = True
+        End If
     End Sub
+    Private Sub AddActionsToUndoList(pCurrentList As List(Of StitchAction))
+        Dim _newList As New List(Of StitchAction)
+        For Each _action In pCurrentList
+            _newList.Add(New StitchAction(_action.Stitch, _action.DoneAction))
+        Next
+        oUndoList.Add(_newList)
+    End Sub
+
+
+
+
     Private Sub PicDesign_MouseMove(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseMove
         Dim _cell As Cell = FindCellFromClickLocation(e)
         Dim isImageChanged As Boolean = False
@@ -779,8 +797,9 @@ Public Class FrmStitchDesign
         PicDesign.Enabled = False
         Refresh()
         oProject = GetProjectById(oProjectId)
-        oUndoList = New List(Of StitchAction)
-        oRedoList = New List(Of StitchAction)
+        oCurrentUndoList = New List(Of StitchAction)
+        oUndoList = New List(Of List(Of StitchAction))
+        oRedoList = New List(Of List(Of StitchAction))
         BtnUndo.Enabled = False
         BtnRedo.Enabled = False
         SetIsGridOn()
@@ -796,6 +815,7 @@ Public Class FrmStitchDesign
             Close()
         End If
         PicDesign.Enabled = True
+        InitialiseTimer
         isLoading = False
     End Sub
     Private Function InitialisePalette() As Boolean
@@ -840,7 +860,8 @@ Public Class FrmStitchDesign
     End Function
     Private Sub LoadProjectDesignFromFile()
         isLoadComplete = False
-        LblStatus.Text = "Loading"
+        LblStatus.Text = "Loading..."
+        LblStatus.Refresh()
         Dim oDesignString As String = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(oProject))
         If String.IsNullOrEmpty(oDesignString) Then
             oProjectDesign = New ProjectDesign
@@ -862,6 +883,9 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub SelectPaletteColour(pPicBox As PictureBox)
+        If isSingleColour Then
+            ToggleSingleColour()
+        End If
         pPicBox.BorderStyle = BorderStyle.Fixed3D
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
         Dim _thread As Thread = _projectThread.Thread
@@ -970,11 +994,8 @@ Public Class FrmStitchDesign
             End Select
         End If
     End Sub
-    Private Sub AddToUndoList(pStitch As Stitch, pAction As UndoAction)
-        oUndoList.Add(New StitchAction(pStitch, pAction))
-        oRedoList.Clear()
-        BtnUndo.Enabled = True
-        BtnRedo.Enabled = False
+    Private Sub AddToCurrentUndoList(pStitch As Stitch, pAction As UndoAction)
+        oCurrentUndoList.Add(New StitchAction(pStitch, pAction))
     End Sub
 
 #Region "mouse action"
@@ -1461,59 +1482,75 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub UndoLastAction()
         If oUndoList.Count > 0 Then
-            Dim _stitchAction As StitchAction = oUndoList.Last
-            oRedoList.Add(_stitchAction)
-            BtnRedo.Enabled = True
-            If _stitchAction.DoneAction = UndoAction.Add Then
-                If TypeOf _stitchAction.Stitch Is Knot Then
-                    oProjectDesign.Knots.Remove(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                    oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                    oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+            Dim _stitchActions As List(Of StitchAction) = oUndoList.Last
+            Dim _redoList As New List(Of StitchAction)
+            Do While _stitchActions.Count > 0
+                Dim _stitchAction As StitchAction = _stitchActions.Last
+                _redoList.Add(New StitchAction(_stitchAction.Stitch, _stitchAction.DoneAction))
+                If _stitchAction.DoneAction = UndoAction.Add Then
+                    If TypeOf _stitchAction.Stitch Is Knot Then
+                        oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                        oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                        oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                    End If
+                Else
+                    If TypeOf _stitchAction.Stitch Is Knot Then
+                        oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                        oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                        oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                    End If
                 End If
-            Else
-                If TypeOf _stitchAction.Stitch Is Knot Then
-                    oProjectDesign.Knots.Add(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                    oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                    oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
-                End If
+                _stitchActions.Remove(_stitchAction)
+            Loop
+            If _redoList.Count > 0 Then
+                oRedoList.Add(_redoList)
             End If
-            oUndoList.Remove(_stitchAction)
+            oUndoList.Remove(_stitchActions)
             If oUndoList.Count = 0 Then
                 BtnUndo.Enabled = False
             End If
+            BtnRedo.Enabled = True
             RedrawDesign(False)
         End If
     End Sub
     Private Sub RedoLastUndo()
         If oRedoList.Count > 0 Then
-            Dim _stitchAction As StitchAction = oRedoList.Last
-            oUndoList.Add(_stitchAction)
-            BtnUndo.Enabled = True
-            If _stitchAction.DoneAction = UndoAction.Add Then
-                If TypeOf _stitchAction.Stitch Is Knot Then
-                    oProjectDesign.Knots.Add(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                    oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                    oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+            Dim _stitchActions As List(Of StitchAction) = oRedoList.Last
+            Dim _undoList As New List(Of StitchAction)
+            Do While _stitchActions.Count > 0
+                Dim _stitchAction As StitchAction = _stitchActions.Last
+                _undoList.Add(New StitchAction(_stitchAction.Stitch, _stitchAction.DoneAction))
+                If _stitchAction.DoneAction = UndoAction.Add Then
+                    If TypeOf _stitchAction.Stitch Is Knot Then
+                        oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                        oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                        oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                    End If
+                Else
+                    If TypeOf _stitchAction.Stitch Is Knot Then
+                        oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                        oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                        oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                    End If
                 End If
-            Else
-                If TypeOf _stitchAction.Stitch Is Knot Then
-                    oProjectDesign.Knots.Remove(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                    oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
-                ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                    oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
-                End If
+                _stitchActions.Remove(_stitchAction)
+            Loop
+            If _undoList.Count > 0 Then
+                oUndoList.Add(_undoList)
             End If
-            oRedoList.Remove(_stitchAction)
+            oRedoList.Remove(_stitchActions)
             If oRedoList.Count = 0 Then
                 BtnRedo.Enabled = False
             End If
+            BtnUndo.Enabled = True
             RedrawDesign(False)
         End If
     End Sub
@@ -1609,11 +1646,11 @@ Public Class FrmStitchDesign
 #Region "backstitch"
     Private Sub AddBackStitchToDesign(pBackstitch As BackStitch)
         oProjectDesign.BackStitches.Add(pBackstitch)
-        AddToUndoList(pBackstitch, UndoAction.Add)
+        AddToCurrentUndoList(pBackstitch, UndoAction.Add)
     End Sub
     Private Sub RemoveBackStitchFromDesign(pBackstitch As BackStitch)
         oProjectDesign.BackStitches.Remove(pBackstitch)
-        AddToUndoList(pBackstitch, UndoAction.Remove)
+        AddToCurrentUndoList(pBackstitch, UndoAction.Remove)
         '      RedrawDesign()
     End Sub
 
@@ -1784,12 +1821,12 @@ Public Class FrmStitchDesign
 #Region "blockstitch"
     Private Sub AddBlockStitchToDesign(pBlockstitch As BlockStitch)
         oProjectDesign.BlockStitches.Add(pBlockstitch)
-        AddToUndoList(pBlockstitch, UndoAction.Add)
+        AddToCurrentUndoList(pBlockstitch, UndoAction.Add)
     End Sub
     Private Sub RemoveBlockStitchFromDesign(pBlockstitch As BlockStitch)
         oProjectDesign.BlockStitches.Remove(pBlockstitch)
         RemoveBlockStitchFromImage(pBlockstitch)
-        AddToUndoList(pBlockstitch, UndoAction.Remove)
+        AddToCurrentUndoList(pBlockstitch, UndoAction.Remove)
     End Sub
     Private Sub RemoveBlockStitchFromImage(pBlockStitch As BlockStitch)
         Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
@@ -2086,7 +2123,7 @@ Public Class FrmStitchDesign
 
     Private Sub AddKnotToDesign(pKnot As Knot)
         oProjectDesign.Knots.Add(pKnot)
-        AddToUndoList(pKnot, UndoAction.Add)
+        AddToCurrentUndoList(pKnot, UndoAction.Add)
     End Sub
     Private Function RemoveExistingKnot(pCell As Cell) As Knot
         LogUtil.Debug("Removing knot/bead", MyBase.Name)
@@ -2099,7 +2136,7 @@ Public Class FrmStitchDesign
     Private Sub RemoveKnotFromDesign(pKnot As Knot)
         oProjectDesign.Knots.Remove(pKnot)
         RemoveKnotFromImage(pKnot)
-        AddToUndoList(pKnot, UndoAction.Remove)
+        AddToCurrentUndoList(pKnot, UndoAction.Remove)
     End Sub
 
     Private Function FindKnot(pCell As Cell) As Knot
@@ -2135,12 +2172,15 @@ Public Class FrmStitchDesign
 
 #End Region
 #Region "timer"
-    Private Sub StartTimer()
-        ' Create a timer with a two second interval.
+    Private Sub InitialiseTimer()
+        ' Create a timer with a fifth second interval.
         aTimer = New System.Timers.Timer(200)
+        StopTimer()
         ' Hook up the Elapsed event for the timer. 
         AddHandler aTimer.Elapsed, AddressOf OnTimedEvent
         aTimer.AutoReset = True
+    End Sub
+    Private Sub StartTimer()
         aTimer.Enabled = True
     End Sub
     Private Sub StopTimer()
