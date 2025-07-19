@@ -4,6 +4,7 @@
 '
 ' Author Eric Hindle
 '
+Imports System.Drawing.Imaging
 Imports System.IO
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
@@ -808,11 +809,12 @@ Public Class FrmStitchDesign
             Close()
         End If
         PicDesign.Enabled = True
-        InitialiseTimer
+        InitialiseTimer()
         isLoading = False
     End Sub
     Private Function InitialisePalette() As Boolean
         Dim isOK As Boolean = True
+        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.PaletteStitchDisplay
         If isComponentInitialised Then
             ThreadLayoutPanel.Controls.Clear()
             oProjectThreads = GetProjectThreads(oProject.ProjectId)
@@ -823,23 +825,59 @@ Public Class FrmStitchDesign
                 Dim _threadCt As Integer = oProjectThreads.Count
                 Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt)
                 Dim _firstPicThread As PictureBox = Nothing
+
                 For Each _projectThread As ProjectThread In oProjectThreads
                     Dim _thread As Thread = _projectThread.Thread
                     Dim _picThread As New PictureBox()
+                    Dim _image As Image = New Bitmap(_picSize, _picSize)
+                    Dim _pen As New Pen(_thread.Colour, _picSize / 8) With {
+                                                    .StartCap = Drawing2D.LineCap.Round,
+                                                    .EndCap = Drawing2D.LineCap.Round
+                                                }
                     With _picThread
                         .Name = CStr(_thread.ThreadId)
                         .Size = New Size(_picSize, _picSize)
-                        .BackColor = _thread.Colour
                         .BorderStyle = BorderStyle.None
+                        .SizeMode = PictureBoxSizeMode.Zoom
+                        .BackColor = Color.White
+                        Select Case _stitchDisplayStyle
+                            Case StitchDisplayStyle.Blocks
+                                .BackColor = _thread.Colour
+                            Case StitchDisplayStyle.BlocksWithSymbols
+                                .BackColor = _thread.Colour
+                                If _projectThread.SymbolId > 0 Then
+                                    _image = GetSymbolById(_projectThread.SymbolId).SymbolImage
+                                End If
+                            Case StitchDisplayStyle.Crosses
+                                Using _graphics As Graphics = Graphics.FromImage(_image)
+                                    _graphics.DrawLine(_pen, 2, 2, _picSize - 2, _picSize - 2)
+                                    _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
+                                End Using
+                            Case StitchDisplayStyle.Strokes
+                                Using _graphics As Graphics = Graphics.FromImage(_image)
+                                    _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
+                                End Using
+                            Case StitchDisplayStyle.BlackWhiteSymbols
+                                If _projectThread.SymbolId > 0 Then
+                                    _image = GetSymbolById(_projectThread.SymbolId).SymbolImage
+                                End If
+                            Case StitchDisplayStyle.ColouredSymbols
+                                If _projectThread.SymbolId > 0 Then
+                                    _image = GetSymbolById(_projectThread.SymbolId).SymbolImage
+                                    If _image IsNot Nothing Then
+                                        Dim _symbolColour As Color = _thread.Colour
+                                        Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(_thread)
+                                        Using _graphics As Graphics = Graphics.FromImage(_image)
+                                            _graphics.DrawImage(_image, New Rectangle(New Point(0, 0), _image.Size), 0, 0, _image.Width, _image.Height, GraphicsUnit.Pixel, _imageAttributes)
+                                        End Using
+                                    End If
+                                End If
+                        End Select
                         Dim tt As New ToolTip
                         tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
                         AddHandler .Click, AddressOf Palette_Click
-                        If _projectThread.SymbolId > 0 Then
-                            If My.Settings.PaletteStitchDisplay = StitchDisplayStyle.BlocksWithSymbols Then
-                                .Image = GetSymbolById(_projectThread.SymbolId).SymbolImage
-                                .SizeMode = PictureBoxSizeMode.Zoom
-                            End If
-                        End If
+                        .Image = _image
+                        _pen.Dispose()
                     End With
                     ThreadLayoutPanel.Controls.Add(_picThread)
                     _firstPicThread = If(_firstPicThread, _picThread)
@@ -1358,7 +1396,6 @@ Public Class FrmStitchDesign
         If My.Settings.IsShowBlockstitches Then
             For Each _blockstitch In oProjectDesign.BlockStitches
                 If _blockstitch.IsLoaded Then
-
                     If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour.ToArgb = oCurrentThread.Thread.Colour.ToArgb Then
                         Select Case _blockstitch.StitchType
                             Case BlockStitchType.Full
@@ -1971,10 +2008,29 @@ Public Class FrmStitchDesign
         If _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
             oDesignGraphics.DrawImage(MakeImage(pBlockStitch), _tl)
         End If
-
+        If _stitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
+            Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
+            oDesignGraphics.DrawImage(MakeImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, iPixelsPerCell, iPixelsPerCell, GraphicsUnit.Pixel, _imageAttributes)
+        End If
         _crossPen.Dispose()
-
     End Sub
+
+    Private Shared Function MakeColourChangeAttributes(pThread As Thread) As ImageAttributes
+        Dim _thread As Thread = pThread
+        Dim red As Single = _thread.Colour.R / 255.0F
+        Dim green As Single = _thread.Colour.G / 255.0F
+        Dim blue As Single = _thread.Colour.B / 255.0F
+        Dim _imageAttributes As New ImageAttributes()
+        _imageAttributes.SetColorMatrix(New ColorMatrix(New Single()() {
+            New Single() {1, 0, 0, 0, 0},
+            New Single() {0, 1, 0, 0, 0},
+            New Single() {0, 0, 1, 0, 0},
+            New Single() {0, 0, 0, 1, 0},
+            New Single() {red, green, blue, 0, 1}
+        }))
+        Return _imageAttributes
+    End Function
+
     Private Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
         Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
