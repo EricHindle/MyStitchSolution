@@ -319,9 +319,17 @@ Public Class FrmStitchDesign
                 If _blockstitch IsNot Nothing Then
                     Dim _projectThread As ProjectThread = _blockstitch.ProjThread
                     If _projectThread IsNot Nothing Then
-                        oCurrentThread = _projectThread
-                        PnlSelectedColor.BackColor = oCurrentThread.Thread.Colour
-                        LblCurrentColour.Text = oCurrentThread.Thread.ColourName & " : DMC " & CStr(oCurrentThread.Thread.ThreadNo)
+                        For Each _control As Control In ThreadLayoutPanel.Controls
+                            Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
+                            If _colourBox IsNot Nothing Then
+                                If CInt(_colourBox.Name) = _projectThread.ThreadId Then
+                                    _colourBox.BorderStyle = BorderStyle.Fixed3D
+                                    SelectPaletteColour(_colourBox)
+                                Else
+                                    _colourBox.BorderStyle = BorderStyle.None
+                                End If
+                            End If
+                        Next
                     End If
                 End If
                 ClearSelection()
@@ -654,9 +662,6 @@ Public Class FrmStitchDesign
         End Using
         RedrawDesign(False)
         InitialisePalette()
-    End Sub
-    Private Sub MnuClearSelection_Click(sender As Object, e As EventArgs) Handles MnuClearSelection.Click
-        ClearSelection()
     End Sub
     Private Sub MnuSingleColour_Click(sender As Object, e As EventArgs) Handles MnuSingleColour.Click
         ToggleSingleColour()
@@ -1609,19 +1614,19 @@ Public Class FrmStitchDesign
                 Select Case _stitchAction.DoneAction
                     Case UndoAction.Add
                         If TypeOf _stitchAction.Stitch Is Knot Then
-                            oProjectDesign.Knots.Add(_stitchAction.Stitch)
-                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                            oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
-                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                            oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
-                        End If
-                    Case UndoAction.Remove
-                        If TypeOf _stitchAction.Stitch Is Knot Then
                             oProjectDesign.Knots.Remove(_stitchAction.Stitch)
                         ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
                             oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
                         ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
                             oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                        End If
+                    Case UndoAction.Remove
+                        If TypeOf _stitchAction.Stitch Is Knot Then
+                            oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                            oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                            oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
                         End If
                     Case UndoAction.ChangeThread
                         If TypeOf _stitchAction.Stitch Is Knot Then
@@ -1667,19 +1672,19 @@ Public Class FrmStitchDesign
                 Select Case _stitchAction.DoneAction
                     Case UndoAction.Add
                         If TypeOf _stitchAction.Stitch Is Knot Then
-                            oProjectDesign.Knots.Remove(_stitchAction.Stitch)
-                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                            oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
-                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                            oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
-                        End If
-                    Case UndoAction.Remove
-                        If TypeOf _stitchAction.Stitch Is Knot Then
                             oProjectDesign.Knots.Add(_stitchAction.Stitch)
                         ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
                             oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
                         ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
                             oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                        End If
+                    Case UndoAction.Remove
+                        If TypeOf _stitchAction.Stitch Is Knot Then
+                            oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                            oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                            oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
                         End If
                     Case UndoAction.ChangeThread
                         If TypeOf _stitchAction.Stitch Is Knot Then
