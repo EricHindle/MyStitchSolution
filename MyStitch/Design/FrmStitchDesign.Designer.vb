@@ -117,7 +117,6 @@ Partial Class FrmStitchDesign
         Me.MnuMirrorSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuRotate = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MnuClearArea = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuClearSelection = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuDraw = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuDrawShape = New System.Windows.Forms.ToolStripMenuItem()
@@ -145,6 +144,10 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuShowDesignStats = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator16 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuPickColour = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuChangeColour = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDeleteColour = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -1004,30 +1007,30 @@ Partial Class FrmStitchDesign
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open"
         '
         'MnuSaveDesign
         '
         Me.MnuSaveDesign.Name = "MnuSaveDesign"
-        Me.MnuSaveDesign.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesign.Text = "Save"
         '
         'MnuSaveDesignAs
         '
         Me.MnuSaveDesignAs.Name = "MnuSaveDesignAs"
-        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(123, 22)
+        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesignAs.Text = "Save As..."
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
         '
         'MnuExit
         '
         Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(123, 22)
+        Me.MnuExit.Size = New System.Drawing.Size(180, 22)
         Me.MnuExit.Text = "Exit"
         '
         'MnuThreads
@@ -1038,7 +1041,7 @@ Partial Class FrmStitchDesign
         '
         'MnuPalette
         '
-        Me.MnuPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols})
+        Me.MnuPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols, Me.ToolStripSeparator16, Me.MnuPickColour, Me.MnuChangeColour, Me.MnuDeleteColour})
         Me.MnuPalette.Name = "MnuPalette"
         Me.MnuPalette.Size = New System.Drawing.Size(55, 20)
         Me.MnuPalette.Text = "Palette"
@@ -1088,7 +1091,7 @@ Partial Class FrmStitchDesign
         '
         'MnuEdit
         '
-        Me.MnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCopySelection, Me.MnuMoveSelection, Me.MnuCutSelection, Me.MnuPaste, Me.ToolStripSeparator9, Me.MnuFlipSelection, Me.MnuMirrorSelection, Me.MnuRotate, Me.ToolStripSeparator10, Me.MnuClearArea, Me.MnuClearSelection})
+        Me.MnuEdit.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCopySelection, Me.MnuMoveSelection, Me.MnuCutSelection, Me.MnuPaste, Me.ToolStripSeparator9, Me.MnuFlipSelection, Me.MnuMirrorSelection, Me.MnuRotate, Me.ToolStripSeparator10, Me.MnuClearSelection})
         Me.MnuEdit.Name = "MnuEdit"
         Me.MnuEdit.Size = New System.Drawing.Size(39, 20)
         Me.MnuEdit.Text = "Edit"
@@ -1096,65 +1099,59 @@ Partial Class FrmStitchDesign
         'MnuCopySelection
         '
         Me.MnuCopySelection.Name = "MnuCopySelection"
-        Me.MnuCopySelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuCopySelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuCopySelection.Text = "Copy"
         '
         'MnuMoveSelection
         '
         Me.MnuMoveSelection.Name = "MnuMoveSelection"
-        Me.MnuMoveSelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuMoveSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuMoveSelection.Text = "Move"
         '
         'MnuCutSelection
         '
         Me.MnuCutSelection.Name = "MnuCutSelection"
-        Me.MnuCutSelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuCutSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuCutSelection.Text = "Cut"
         '
         'MnuPaste
         '
         Me.MnuPaste.Name = "MnuPaste"
-        Me.MnuPaste.Size = New System.Drawing.Size(152, 22)
+        Me.MnuPaste.Size = New System.Drawing.Size(180, 22)
         Me.MnuPaste.Text = "Paste"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(177, 6)
         '
         'MnuFlipSelection
         '
         Me.MnuFlipSelection.Name = "MnuFlipSelection"
-        Me.MnuFlipSelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuFlipSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuFlipSelection.Text = "Flip"
         '
         'MnuMirrorSelection
         '
         Me.MnuMirrorSelection.Name = "MnuMirrorSelection"
-        Me.MnuMirrorSelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuMirrorSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuMirrorSelection.Text = "Mirror"
         '
         'MnuRotate
         '
         Me.MnuRotate.Name = "MnuRotate"
-        Me.MnuRotate.Size = New System.Drawing.Size(152, 22)
+        Me.MnuRotate.Size = New System.Drawing.Size(180, 22)
         Me.MnuRotate.Text = "Rotate"
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(149, 6)
-        '
-        'MnuClearArea
-        '
-        Me.MnuClearArea.Name = "MnuClearArea"
-        Me.MnuClearArea.Size = New System.Drawing.Size(152, 22)
-        Me.MnuClearArea.Text = "Clear Area"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(177, 6)
         '
         'MnuClearSelection
         '
         Me.MnuClearSelection.Name = "MnuClearSelection"
-        Me.MnuClearSelection.Size = New System.Drawing.Size(152, 22)
+        Me.MnuClearSelection.Size = New System.Drawing.Size(180, 22)
         Me.MnuClearSelection.Text = "Clear Selection"
         '
         'MnuDraw
@@ -1167,24 +1164,24 @@ Partial Class FrmStitchDesign
         'MnuDrawShape
         '
         Me.MnuDrawShape.Name = "MnuDrawShape"
-        Me.MnuDrawShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawShape.Size = New System.Drawing.Size(180, 22)
         Me.MnuDrawShape.Text = "Draw Shape"
         '
         'MnuDrawFilledShape
         '
         Me.MnuDrawFilledShape.Name = "MnuDrawFilledShape"
-        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(180, 22)
         Me.MnuDrawFilledShape.Text = "Draw Filled Shape"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(164, 6)
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(177, 6)
         '
         'MnuFloodFill
         '
         Me.MnuFloodFill.Name = "MnuFloodFill"
-        Me.MnuFloodFill.Size = New System.Drawing.Size(167, 22)
+        Me.MnuFloodFill.Size = New System.Drawing.Size(180, 22)
         Me.MnuFloodFill.Text = "Flood Fill"
         '
         'MnuText
@@ -1325,6 +1322,29 @@ Partial Class FrmStitchDesign
         Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
         Me.MnuOptions.Text = "Options"
         '
+        'ToolStripSeparator16
+        '
+        Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(193, 6)
+        '
+        'MnuPickColour
+        '
+        Me.MnuPickColour.Name = "MnuPickColour"
+        Me.MnuPickColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuPickColour.Text = "Pick colour"
+        '
+        'MnuChangeColour
+        '
+        Me.MnuChangeColour.Name = "MnuChangeColour"
+        Me.MnuChangeColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuChangeColour.Text = "Change colour"
+        '
+        'MnuDeleteColour
+        '
+        Me.MnuDeleteColour.Name = "MnuDeleteColour"
+        Me.MnuDeleteColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuDeleteColour.Text = "Delete colour"
+        '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -1446,7 +1466,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuMirrorSelection As ToolStripMenuItem
     Friend WithEvents MnuRotate As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
-    Friend WithEvents MnuClearArea As ToolStripMenuItem
     Friend WithEvents MnuClearSelection As ToolStripMenuItem
     Friend WithEvents MnuDraw As ToolStripMenuItem
     Friend WithEvents MnuDrawShape As ToolStripMenuItem
@@ -1480,4 +1499,8 @@ Partial Class FrmStitchDesign
     Friend WithEvents ToolStripSeparator15 As ToolStripSeparator
     Friend WithEvents BtnSingleColour As ToolStripButton
     Friend WithEvents MnuSingleColour As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator16 As ToolStripSeparator
+    Friend WithEvents MnuPickColour As ToolStripMenuItem
+    Friend WithEvents MnuChangeColour As ToolStripMenuItem
+    Friend WithEvents MnuDeleteColour As ToolStripMenuItem
 End Class

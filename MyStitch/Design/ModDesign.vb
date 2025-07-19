@@ -53,6 +53,9 @@ Module ModDesign
         Mirror
         Zoom
         Fill
+        PickColour
+        ChangeColour
+        DeleteColour
         none
     End Enum
 #End Region
