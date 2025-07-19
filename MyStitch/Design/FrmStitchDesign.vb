@@ -1664,23 +1664,44 @@ Public Class FrmStitchDesign
             Do While _stitchActions.Count > 0
                 Dim _stitchAction As StitchAction = _stitchActions.Last
                 _undoList.Add(New StitchAction(_stitchAction.Stitch, _stitchAction.DoneAction, _stitchAction.NewThread))
-                If _stitchAction.DoneAction = UndoAction.Add Then
-                    If TypeOf _stitchAction.Stitch Is Knot Then
-                        oProjectDesign.Knots.Add(_stitchAction.Stitch)
-                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                        oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
-                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                        oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
-                    End If
-                Else
-                    If TypeOf _stitchAction.Stitch Is Knot Then
-                        oProjectDesign.Knots.Remove(_stitchAction.Stitch)
-                    ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
-                        oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
-                    ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
-                        oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
-                    End If
-                End If
+                Select Case _stitchAction.DoneAction
+                    Case UndoAction.Add
+                        If TypeOf _stitchAction.Stitch Is Knot Then
+                            oProjectDesign.Knots.Remove(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                            oProjectDesign.BlockStitches.Remove(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                            oProjectDesign.BackStitches.Remove(_stitchAction.Stitch)
+                        End If
+                    Case UndoAction.Remove
+                        If TypeOf _stitchAction.Stitch Is Knot Then
+                            oProjectDesign.Knots.Add(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                            oProjectDesign.BlockStitches.Add(_stitchAction.Stitch)
+                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                            oProjectDesign.BackStitches.Add(_stitchAction.Stitch)
+                        End If
+                    Case UndoAction.ChangeThread
+                        If TypeOf _stitchAction.Stitch Is Knot Then
+                            Dim _knot As Knot = CType(_stitchAction.Stitch, Knot)
+                            Dim _existingknot As Knot = FindKnot(_knot)
+                            If _existingknot IsNot Nothing Then
+                                _existingknot.ProjThread = _stitchAction.NewThread
+                            End If
+                        ElseIf TypeOf _stitchAction.Stitch Is BlockStitch Then
+                            Dim _blockStitch As BlockStitch = CType(_stitchAction.Stitch, BlockStitch)
+                            Dim _existingBlockStitch As BlockStitch = FindBlockstitch(_blockStitch.BlockPosition)
+                            If _existingBlockStitch IsNot Nothing Then
+                                _existingBlockStitch.ProjThread = _stitchAction.NewThread
+                            End If
+                        ElseIf TypeOf _stitchAction.Stitch Is BackStitch Then
+                            Dim _backStitch As BackStitch = CType(_stitchAction.Stitch, BackStitch)
+                            Dim _existingBackStitch As BackStitch = FindBackstitch(_backStitch.FromBlockLocation, _backStitch.ToBlockLocation)
+                            If _existingBackStitch IsNot Nothing Then
+                                _existingBackStitch.ProjThread = _stitchAction.NewThread
+                            End If
+                        End If
+                End Select
                 _stitchActions.Remove(_stitchAction)
             Loop
             If _undoList.Count > 0 Then
