@@ -562,7 +562,7 @@ Public Class FrmStitchDesign
         Using _stitchStyle As New FrmStitchDisplayStyle
             _stitchStyle.ShowDialog()
         End Using
-        RedrawDesign()
+        RedrawDesign(False)
         InitialisePalette()
     End Sub
     Private Sub MnuClearSelection_Click(sender As Object, e As EventArgs) Handles MnuClearSelection.Click
