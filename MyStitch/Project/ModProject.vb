@@ -20,6 +20,16 @@ Module ModProject
         Next
         pDgv.ClearSelection()
     End Sub
+
+    Public Sub SelectProjectInList(pDgv As DataGridView, pProjectId As Integer)
+        For Each orow As DataGridViewRow In pDgv.Rows
+            If orow.Cells("projectId").Value = pProjectId Then
+                orow.Selected = True
+                Exit For
+            End If
+        Next
+    End Sub
+
     Private Sub AddProjectRow(ByRef pDgv As DataGridView, oProject As Project)
         Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
         oRow.Cells(pDgv.Columns(0).Name).Value = oProject.ProjectId

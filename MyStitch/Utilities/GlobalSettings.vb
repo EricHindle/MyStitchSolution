@@ -76,17 +76,17 @@ Public NotInheritable Class GlobalSettings
         Return rtnIntegerValue
     End Function
 
-    Public Shared Function SetSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String, ByVal Optional settingGroup As String = "") As Boolean
+    Public Shared Function SetSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
         Dim rtnVal As Boolean = True
         Try
-            oTa.UpdateSetting(settingValue, settingType, settingGroup, settingName)
+            oTa.UpdateSetting(settingValue, settingType, settingName)
         Catch ex As DbException
             rtnVal = False
         End Try
         Return rtnVal
     End Function
 
-    Public Shared Function NewSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String, ByVal Optional settingGroup As String = "") As Boolean
+    Public Shared Function NewSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
         Dim rtnVal As Boolean = True
         Try
             oTa.InsertSetting(settingName, settingValue, settingType)

@@ -135,4 +135,11 @@ Public NotInheritable Class FrmOptions
         PicCentreColour.BackColor = SelectColor(PicCentreColour.BackColor)
     End Sub
 
+    Private Sub BtnPrintSettings_Click(sender As Object, e As EventArgs) Handles BtnPrintSettings.Click
+        Hide()
+        Using _printSettings As New FrmPrintOptions
+            _printSettings.ShowDialog()
+        End Using
+        Show()
+    End Sub
 End Class

@@ -78,10 +78,10 @@ Public Class FrmGlobalSettings
         If cbSelect.SelectedIndex > -1 Then
             Dim recordId As String = cbSelect.SelectedValue
 
-            If GlobalSettings.SetSetting(recordId, cbType.SelectedItem, txtValue.Text, TxtGroup.Text) Then
-                LogStatus(recordId & " updated")
+            If GlobalSettings.SetSetting(recordId, cbType.SelectedItem, txtValue.Text) Then
+                LogUtil.ShowStatus(recordId & " updated", lblStatus)
             Else
-                LogStatus(recordId & " NOT updated")
+                LogUtil.ShowStatus(recordId & " NOT updated", lblStatus)
             End If
         Else
             MsgBox("Pick an item from the list", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Selection error")
@@ -91,9 +91,7 @@ Public Class FrmGlobalSettings
     End Sub
 #End Region
 #Region "Subroutines"
-    Private Sub LogStatus(ByVal sText As String)
-        lblStatus.Text = sText
-    End Sub
+
     'Form overrides dispose to clean up the component list.
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try

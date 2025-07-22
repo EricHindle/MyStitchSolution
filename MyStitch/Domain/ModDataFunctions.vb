@@ -615,11 +615,11 @@ Namespace Domain
             End Try
             Return isFound
         End Function
-        Public Function ChangeSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String, ByVal Optional settingGroup As String = "") As Boolean
+        Public Function ChangeSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
             LogUtil.Info("Change setting " & settingName, MethodBase.GetCurrentMethod.Name)
             Dim rtnVal As Boolean
             Try
-                rtnVal = oSettingsTa.UpdateSetting(settingValue, settingType, settingGroup, settingName) = 1
+                rtnVal = oSettingsTa.UpdateSetting(settingValue, settingType, settingName) = 1
             Catch ex As DbException
                 rtnVal = False
             End Try

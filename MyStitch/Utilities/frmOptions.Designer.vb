@@ -54,6 +54,7 @@ Partial Class FrmOptions
         Me.NudZoomValue = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.ChkArchiveOnSave = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.NudCentreThick = New System.Windows.Forms.NumericUpDown()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -65,7 +66,7 @@ Partial Class FrmOptions
         Me.ChkTimerAutoStart = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
-        Me.ChkArchiveOnSave = New System.Windows.Forms.CheckBox()
+        Me.BtnPrintSettings = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,7 +85,7 @@ Partial Class FrmOptions
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnCancel.Location = New System.Drawing.Point(590, 566)
+        Me.btnCancel.Location = New System.Drawing.Point(590, 537)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(87, 41)
         Me.btnCancel.TabIndex = 0
@@ -96,7 +97,7 @@ Partial Class FrmOptions
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnSave.Location = New System.Drawing.Point(381, 566)
+        Me.btnSave.Location = New System.Drawing.Point(381, 537)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(87, 41)
         Me.btnSave.TabIndex = 1
@@ -157,7 +158,7 @@ Partial Class FrmOptions
         Me.Version.BackColor = System.Drawing.Color.Transparent
         Me.Version.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Version.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.Version.Location = New System.Drawing.Point(12, 588)
+        Me.Version.Location = New System.Drawing.Point(12, 559)
         Me.Version.Name = "Version"
         Me.Version.Size = New System.Drawing.Size(214, 28)
         Me.Version.TabIndex = 8
@@ -168,7 +169,7 @@ Partial Class FrmOptions
         Me.BtnResetForms.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnResetForms.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnResetForms.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnResetForms.Location = New System.Drawing.Point(16, 492)
+        Me.BtnResetForms.Location = New System.Drawing.Point(18, 442)
         Me.BtnResetForms.Name = "BtnResetForms"
         Me.BtnResetForms.Size = New System.Drawing.Size(86, 60)
         Me.BtnResetForms.TabIndex = 9
@@ -213,7 +214,7 @@ Partial Class FrmOptions
         Me.BtnGlobalSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnGlobalSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGlobalSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnGlobalSettings.Location = New System.Drawing.Point(119, 492)
+        Me.BtnGlobalSettings.Location = New System.Drawing.Point(123, 442)
         Me.BtnGlobalSettings.Name = "BtnGlobalSettings"
         Me.BtnGlobalSettings.Size = New System.Drawing.Size(86, 60)
         Me.BtnGlobalSettings.TabIndex = 20
@@ -225,7 +226,7 @@ Partial Class FrmOptions
         Me.BtnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnBackup.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnBackup.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnBackup.Location = New System.Drawing.Point(222, 492)
+        Me.BtnBackup.Location = New System.Drawing.Point(333, 442)
         Me.BtnBackup.Name = "BtnBackup"
         Me.BtnBackup.Size = New System.Drawing.Size(86, 60)
         Me.BtnBackup.TabIndex = 25
@@ -401,6 +402,16 @@ Partial Class FrmOptions
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Backup"
         '
+        'ChkArchiveOnSave
+        '
+        Me.ChkArchiveOnSave.AutoSize = True
+        Me.ChkArchiveOnSave.Location = New System.Drawing.Point(219, 69)
+        Me.ChkArchiveOnSave.Name = "ChkArchiveOnSave"
+        Me.ChkArchiveOnSave.Size = New System.Drawing.Size(145, 18)
+        Me.ChkArchiveOnSave.TabIndex = 35
+        Me.ChkArchiveOnSave.Text = "Auto Archive on Save"
+        Me.ChkArchiveOnSave.UseVisualStyleBackColor = True
+        '
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.NudCentreThick)
@@ -515,22 +526,25 @@ Partial Class FrmOptions
         Me.ChkShowStock.Text = "Show Stock Levels"
         Me.ChkShowStock.UseVisualStyleBackColor = True
         '
-        'ChkArchiveOnSave
+        'BtnPrintSettings
         '
-        Me.ChkArchiveOnSave.AutoSize = True
-        Me.ChkArchiveOnSave.Location = New System.Drawing.Point(219, 69)
-        Me.ChkArchiveOnSave.Name = "ChkArchiveOnSave"
-        Me.ChkArchiveOnSave.Size = New System.Drawing.Size(145, 18)
-        Me.ChkArchiveOnSave.TabIndex = 35
-        Me.ChkArchiveOnSave.Text = "Auto Archive on Save"
-        Me.ChkArchiveOnSave.UseVisualStyleBackColor = True
+        Me.BtnPrintSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnPrintSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPrintSettings.ForeColor = System.Drawing.Color.RoyalBlue
+        Me.BtnPrintSettings.Location = New System.Drawing.Point(228, 442)
+        Me.BtnPrintSettings.Name = "BtnPrintSettings"
+        Me.BtnPrintSettings.Size = New System.Drawing.Size(86, 60)
+        Me.BtnPrintSettings.TabIndex = 41
+        Me.BtnPrintSettings.Text = "Print Settings"
+        Me.BtnPrintSettings.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(690, 619)
+        Me.ClientSize = New System.Drawing.Size(690, 590)
+        Me.Controls.Add(Me.BtnPrintSettings)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox5)
@@ -612,4 +626,5 @@ Partial Class FrmOptions
     Friend WithEvents NudZoomValue As NumericUpDown
     Friend WithEvents Label6 As Label
     Friend WithEvents ChkArchiveOnSave As CheckBox
+    Friend WithEvents BtnPrintSettings As Button
 End Class

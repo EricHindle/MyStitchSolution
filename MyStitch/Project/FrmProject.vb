@@ -430,6 +430,30 @@ Public Class FrmProject
             _restore.ShowDialog()
         End Using
     End Sub
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
+        ShowPrintForm()
+    End Sub
+    Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
+        ShowPrintSettingsForm()
+    End Sub
+
+    Private Sub ShowPrintSettingsForm()
+        Using _printSettings As New FrmPrintOptions
+            _printSettings.ShowDialog()
+        End Using
+    End Sub
+
+    Private Sub ShowPrintForm()
+        Using _printDialog As New FrmPrintProject
+            _printDialog.SelectedProject = _selectedProject
+            _printDialog.ShowDialog()
+        End Using
+
+    End Sub
+
+    Private Sub MnuPrint_Click_1(sender As Object, e As EventArgs) Handles MnuPrint.Click
+        ShowPrintForm()
+    End Sub
 
 #End Region
 

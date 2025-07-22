@@ -568,6 +568,354 @@ Namespace My
                 Me("isAutoArchiveOnSave") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PrintFormPos() As String
+            Get
+                Return CType(Me("PrintFormPos"),String)
+            End Get
+            Set
+                Me("PrintFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isPrintKey() As Boolean
+            Get
+                Return CType(Me("isPrintKey"),Boolean)
+            End Get
+            Set
+                Me("isPrintKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintKeyOrder() As Integer
+            Get
+                Return CType(Me("PrintKeyOrder"),Integer)
+            End Get
+            Set
+                Me("PrintKeyOrder") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isKeySeparate() As Boolean
+            Get
+                Return CType(Me("isKeySeparate"),Boolean)
+            End Get
+            Set
+                Me("isKeySeparate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isPrintGrid() As Boolean
+            Get
+                Return CType(Me("isPrintGrid"),Boolean)
+            End Get
+            Set
+                Me("isPrintGrid") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isPrintCentreMarks() As Boolean
+            Get
+                Return CType(Me("isPrintCentreMarks"),Boolean)
+            End Get
+            Set
+                Me("isPrintCentreMarks") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isPrintCentreLines() As Boolean
+            Get
+                Return CType(Me("isPrintCentreLines"),Boolean)
+            End Get
+            Set
+                Me("isPrintCentreLines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isBlankBorder() As Boolean
+            Get
+                Return CType(Me("isBlankBorder"),Boolean)
+            End Get
+            Set
+                Me("isBlankBorder") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property BlankBorderSize() As Integer
+            Get
+                Return CType(Me("BlankBorderSize"),Integer)
+            End Get
+            Set
+                Me("BlankBorderSize") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintStitchDisplay() As Integer
+            Get
+                Return CType(Me("PrintStitchDisplay"),Integer)
+            End Get
+            Set
+                Me("PrintStitchDisplay") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintSquaresPerInch() As Integer
+            Get
+                Return CType(Me("PrintSquaresPerInch"),Integer)
+            End Get
+            Set
+                Me("PrintSquaresPerInch") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property TilingOverlap() As Integer
+            Get
+                Return CType(Me("TilingOverlap"),Integer)
+            End Get
+            Set
+                Me("TilingOverlap") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property OverlapShading() As Integer
+            Get
+                Return CType(Me("OverlapShading"),Integer)
+            End Get
+            Set
+                Me("OverlapShading") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isShowPageOrder() As Boolean
+            Get
+                Return CType(Me("isShowPageOrder"),Boolean)
+            End Get
+            Set
+                Me("isShowPageOrder") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property AbbrevKey() As Integer
+            Get
+                Return CType(Me("AbbrevKey"),Integer)
+            End Get
+            Set
+                Me("AbbrevKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintMarginTop() As Single
+            Get
+                Return CType(Me("PrintMarginTop"),Single)
+            End Get
+            Set
+                Me("PrintMarginTop") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintMarginLeft() As Single
+            Get
+                Return CType(Me("PrintMarginLeft"),Single)
+            End Get
+            Set
+                Me("PrintMarginLeft") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintMarginBottom() As Single
+            Get
+                Return CType(Me("PrintMarginBottom"),Single)
+            End Get
+            Set
+                Me("PrintMarginBottom") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintMarginRight() As Single
+            Get
+                Return CType(Me("PrintMarginRight"),Single)
+            End Get
+            Set
+                Me("PrintMarginRight") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid1Lines() As Integer
+            Get
+                Return CType(Me("PrintGrid1Lines"),Integer)
+            End Get
+            Set
+                Me("PrintGrid1Lines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid5Lines() As Integer
+            Get
+                Return CType(Me("PrintGrid5Lines"),Integer)
+            End Get
+            Set
+                Me("PrintGrid5Lines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid10Lines() As Integer
+            Get
+                Return CType(Me("PrintGrid10Lines"),Integer)
+            End Get
+            Set
+                Me("PrintGrid10Lines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintBackstitchLines() As Integer
+            Get
+                Return CType(Me("PrintBackstitchLines"),Integer)
+            End Get
+            Set
+                Me("PrintBackstitchLines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isTitleAboveGrid() As Boolean
+            Get
+                Return CType(Me("isTitleAboveGrid"),Boolean)
+            End Get
+            Set
+                Me("isTitleAboveGrid") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isTitleAboveKey() As Boolean
+            Get
+                Return CType(Me("isTitleAboveKey"),Boolean)
+            End Get
+            Set
+                Me("isTitleAboveKey") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DesignBy() As String
+            Get
+                Return CType(Me("DesignBy"),String)
+            End Get
+            Set
+                Me("DesignBy") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property CopyrightBy() As String
+            Get
+                Return CType(Me("CopyrightBy"),String)
+            End Get
+            Set
+                Me("CopyrightBy") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property OptionsFormPos() As String
+            Get
+                Return CType(Me("OptionsFormPos"),String)
+            End Get
+            Set
+                Me("OptionsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PrintOptionsFormPos() As String
+            Get
+                Return CType(Me("PrintOptionsFormPos"),String)
+            End Get
+            Set
+                Me("PrintOptionsFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

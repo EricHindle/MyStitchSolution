@@ -6864,12 +6864,11 @@ Namespace MyStitchDataSetTableAdapters
             Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(4).Connection = Me.Connection
             Me._commandCollection(4).CommandText = "UPDATE       Settings"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                pValue = @pValue, pType = @pType"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE"& _ 
-                "        (pKey = @Original_pKey); "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT pKey, pValue, pType FROM Settings WHER"& _ 
-                "E (pKey = @pKey)"
+                "        (pKey = @pKey);  "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT pKey, pValue, pType FROM Settings WHERE (pKey "& _ 
+                "= @pKey)"
             Me._commandCollection(4).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pValue", Global.System.Data.SqlDbType.NVarChar, 250, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pType", Global.System.Data.SqlDbType.NVarChar, 10, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pKey", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._commandCollection(4).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pKey", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
         
@@ -7134,7 +7133,7 @@ Namespace MyStitchDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, false)>  _
-        Public Overloads Overridable Function UpdateSetting(ByVal pValue As String, ByVal pType As String, ByVal Original_pKey As String, ByVal pKey As String) As Integer
+        Public Overloads Overridable Function UpdateSetting(ByVal pValue As String, ByVal pType As String, ByVal pKey As String) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = Me.CommandCollection(4)
             If (pValue Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pValue")
@@ -7146,15 +7145,10 @@ Namespace MyStitchDataSetTableAdapters
             Else
                 command.Parameters(1).Value = CType(pType,String)
             End If
-            If (Original_pKey Is Nothing) Then
-                Throw New Global.System.ArgumentNullException("Original_pKey")
-            Else
-                command.Parameters(2).Value = CType(Original_pKey,String)
-            End If
             If (pKey Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pKey")
             Else
-                command.Parameters(3).Value = CType(pKey,String)
+                command.Parameters(2).Value = CType(pKey,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _

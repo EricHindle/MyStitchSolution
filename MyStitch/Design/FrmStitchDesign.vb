@@ -669,6 +669,11 @@ Public Class FrmStitchDesign
     Private Sub MnuCentreOn_Click(sender As Object, e As EventArgs) Handles MnuCentreOn.Click
         ToggleCentre()
     End Sub
+
+    Private Sub MnuPrint_Click(sender As Object, e As EventArgs) Handles MnuPrint.Click
+        ShowPrintForm()
+    End Sub
+
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -768,6 +773,10 @@ Public Class FrmStitchDesign
 #Region "action buttons"
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         SaveDesign()
+    End Sub
+
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
+        ShowPrintForm()
     End Sub
     Private Sub BtnCopy_Click(sender As Object, e As EventArgs) Handles BtnCopy.Click
         BeginCopy()
@@ -1130,7 +1139,13 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
+    Private Sub ShowPrintForm()
+        Using _printDialog As New FrmPrintProject
+            _printDialog.SelectedProject = oProject
+            _printDialog.ShowDialog()
+        End Using
 
+    End Sub
 #Region "mouse action"
     Private Sub StartSelection(pCell As Cell)
         pCell = AdjustCellOntoDesign(pCell)

@@ -79,18 +79,10 @@ Public Class FrmProjectThreads
         isLoading = False
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
             PnlThreads.Visible = True
-            SelectProjectInList()
+            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
         End If
     End Sub
 
-    Private Sub SelectProjectInList()
-        For Each orow As DataGridViewRow In DgvProjects.Rows
-            If orow.Cells(projectId.Name).Value = _selectedProject.ProjectId Then
-                orow.Selected = True
-                Exit For
-            End If
-        Next
-    End Sub
     Private Sub CheckThreadInList(pThread As Thread)
         Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
         SelectThreadInList(DgvThreads, threadId.Name, pThread.ThreadId, _rowNo)
@@ -130,16 +122,6 @@ Public Class FrmProjectThreads
         Next
         DgvThreads.ClearSelection()
     End Sub
-
-    Private Sub SelectProjectInList(_projectId As Integer)
-        For Each orow As DataGridViewRow In DgvProjects.Rows
-            If orow.Cells(projectId.Name).Value = _projectId Then
-                orow.Selected = True
-                Exit For
-            End If
-        Next
-    End Sub
-
     Private Sub AddProjectRow(oProject As Project)
         Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
         oRow.Cells(projectId.Name).Value = oProject.ProjectId

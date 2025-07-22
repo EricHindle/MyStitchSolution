@@ -97,6 +97,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cards\ModCards.vb" />
+    <Compile Include="Design\FrmPrintProject.Designer.vb">
+      <DependentUpon>FrmPrintProject.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmPrintProject.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Design\FrmStitchDesign.Designer.vb">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
     </Compile>
@@ -235,6 +241,12 @@
     <Compile Include="Project Files\FrmRestore.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utilities\FrmPrintOptions.Designer.vb">
+      <DependentUpon>FrmPrintOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmPrintOptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>
     </Compile>
@@ -251,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cards\FrmPrintThreadCards.resx">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmPrintProject.resx">
+      <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
       <DependentUpon>FrmStitchDesign.vb</DependentUpon>
@@ -297,6 +312,9 @@
     <EmbeddedResource Include="Project Files\FrmRestore.resx">
       <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmPrintOptions.resx">
+      <DependentUpon>FrmPrintOptions.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">
       <DependentUpon>FrmStitchSplash.vb</DependentUpon>
     </EmbeddedResource>
@@ -328,6 +346,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\print.png" />
     <None Include="Resources\down24.png" />
     <None Include="Resources\up24.png" />
     <None Include="Resources\right24.png" />
