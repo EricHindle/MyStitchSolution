@@ -77,5 +77,4 @@ Public Class FrmPrintOptions
         TxtCopyright.Text = My.Settings.CopyrightBy
     End Sub
 
-
 End Class

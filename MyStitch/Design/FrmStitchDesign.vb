@@ -626,6 +626,7 @@ Public Class FrmStitchDesign
         Using _stitchStyle As New FrmStitchDisplayStyle
             _stitchStyle.ShowDialog()
         End Using
+        oStitchDisplayStyle = My.Settings.DesignStitchDisplay
         RedrawDesign(False)
         InitialisePalette()
     End Sub
@@ -866,6 +867,7 @@ Public Class FrmStitchDesign
         BtnRedo.Enabled = False
         isGridOn = My.Settings.isGridOn
         isCentreOn = My.Settings.IsCentreOn
+        oStitchDisplayStyle = My.Settings.DesignStitchDisplay
         SetIsGridOn()
         SetIsCentreOn()
         SetShowStitchTypesMenu()
@@ -1090,11 +1092,11 @@ Public Class FrmStitchDesign
     Private Sub ShowPrintForm()
         Hide()
         Using _printDialog As New FrmPrintProject
-            _printDialog.SelectedProject = oProject
+            _printDialog.ProjectId = oProject.ProjectId
             _printDialog.ShowDialog()
-            InitialiseForm()
         End Using
         Show()
+        InitialiseForm()
     End Sub
 #Region "mouse action"
     Private Sub StartSelection(pCell As Cell)

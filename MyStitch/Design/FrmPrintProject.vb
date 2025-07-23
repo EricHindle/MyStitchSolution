@@ -10,25 +10,23 @@ Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain
 Public Class FrmPrintProject
 #Region "properties"
-
-    Private _selectedProject As Project
-
-    Public Property SelectedProject() As Project
-        Get
-            Return _selectedProject
-        End Get
-        Set(ByVal value As Project)
-            _selectedProject = value
+    Private oProjectId As Integer
+    Public WriteOnly Property ProjectId() As Integer
+        Set(ByVal value As Integer)
+            oProjectId = value
         End Set
     End Property
+
 #End Region
 #Region "variables"
     Private isLoading As Boolean = False
+    Private isComponentInitialised As Boolean
 #End Region
 #Region "form control handlers"
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening print", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintFormPos)
+        PnlPageImage.Width = PnlPageImage.Height / 297 * 210
         InitialiseForm()
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -39,35 +37,21 @@ Public Class FrmPrintProject
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
-
-    Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
-        If Not isLoading Then
-            If DgvProjects.SelectedRows.Count = 1 Then
-                Dim selectedRow As DataGridViewRow = DgvProjects.SelectedRows(0)
-                Dim projectId As Integer = Convert.ToInt32(selectedRow.Cells("projectId").Value)
-                oProject = GetProjectById(projectId)
-                BtnPrint.Enabled = True
-            Else
-                oProject = New Project()
-                BtnPrint.Enabled = False
-            End If
-            LoadFormFromProject()
-        End If
-    End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
         DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
     End Sub
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
+        isComponentInitialised = True
         isLoading = True
+        oProject = GetProjectById(oProjectId)
         BtnPrint.Enabled = False
-        LoadProjectList(DgvProjects, MyBase.Name)
-        isLoading = False
-        If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
-            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
-        End If
         LoadFormFromSettings()
+        If oProject IsNot Nothing AndAlso oProject.IsLoaded Then
+            LoadFormFromProject()
+        End If
+        isLoading = False
     End Sub
     Private Sub LoadFormFromSettings()
         ChkPrintKey.Checked = My.Settings.isPrintKey
@@ -79,7 +63,7 @@ Public Class FrmPrintProject
         isPrintGridOn = My.Settings.isPrintGrid
         ChkBlankBorder.Checked = My.Settings.isBlankBorder
         NudBlankBorder.Value = My.Settings.BlankBorderSize
-        CbDesignStitchDisplay.SelectedIndex = My.Settings.DesignStitchDisplay
+        CbPrintStitchDisplay.SelectedIndex = My.Settings.DesignStitchDisplay
         NudSqrPerInch.Value = My.Settings.PrintSquaresPerInch
         NudOverlap.Value = My.Settings.TilingOverlap
         CbShading.SelectedIndex = My.Settings.OverlapShading
@@ -93,7 +77,6 @@ Public Class FrmPrintProject
         NudGrid5Lines.Value = My.Settings.PrintGrid5Lines
         NudGrid10Lines.Value = My.Settings.PrintGrid10Lines
         NudBackstitchLines.Value = My.Settings.PrintBackstitchLines
-        TxtTitle.Text = oProject.ProjectName
         ChkTitleAboveGrid.Checked = My.Settings.isTitleAboveGrid
         ChkTitleAboveKey.Checked = My.Settings.isTitleAboveKey
         TxtDesignBy.Text = My.Settings.DesignBy
@@ -108,7 +91,7 @@ Public Class FrmPrintProject
         My.Settings.isPrintCentreLines = ChkCentreLines.Checked
         My.Settings.isBlankBorder = ChkBlankBorder.Checked
         My.Settings.BlankBorderSize = NudBlankBorder.Value
-        My.Settings.DesignStitchDisplay = CbDesignStitchDisplay.SelectedIndex
+        My.Settings.DesignStitchDisplay = CbPrintStitchDisplay.SelectedIndex
         My.Settings.PrintSquaresPerInch = NudSqrPerInch.Value
         My.Settings.TilingOverlap = NudOverlap.Value
         My.Settings.OverlapShading = CbShading.SelectedIndex
@@ -132,6 +115,51 @@ Public Class FrmPrintProject
         TxtTitle.Text = oProject.ProjectName
         oProjectThreads = GetProjectThreads(oProject.ProjectId)
         LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn)
+        AdjustMagnification()
+    End Sub
+
+    Private Sub AdjustMagnification()
+        isLoading = True
+        Dim _xOffset As Integer = 0
+        Dim _yOffset As Integer = 0
+        If ChkBlankBorder.Checked Then
+            _xOffset = NudBlankBorder.Value
+            _yOffset = NudBlankBorder.Value
+        End If
+        _xOffset += NudLeftMargin.Value
+        _yOffset += NudTopMargin.Value
+        Dim totalcellsavailable As Integer = NudSqrPerInch.Value * 8.27
+        totalcellsavailable = totalcellsavailable - _xOffset - NudRightMargin.Value - NudLeftMargin.Value
+        iPixelsPerCell = PicDesign.Width / totalcellsavailable
+        dMagnification = iPixelsPerCell / PIXELS_PER_CELL
+        CalculateOffsetAfterChange_NoScrollBars(_xOffset, _yOffset)
+        RedrawDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
+        isLoading = False
+    End Sub
+    Private Sub ChkPrintGrid_CheckedChanged(sender As Object, e As EventArgs) Handles ChkPrintGrid.CheckedChanged
+        isPrintGridOn = Not isPrintGridOn
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+        End If
+    End Sub
+
+    Private Sub ChkCentreLines_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCentreLines.CheckedChanged
+        isPrintCentreOn = Not isPrintCentreOn
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+        End If
+    End Sub
+
+    Private Sub CbDesignStitchDisplay_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbPrintStitchDisplay.SelectedIndexChanged
+        oStitchDisplayStyle = CbPrintStitchDisplay.SelectedIndex
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+        End If
+    End Sub
+
+    Private Sub PnlPageImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlPageImage.SizeChanged
+
+        PnlPageImage.Width = PnlPageImage.Height / 297 * 210
     End Sub
 #End Region
 End Class

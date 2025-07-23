@@ -9,16 +9,13 @@ Imports System.IO
 Imports HindlewareLib.Logging
 
 Public NotInheritable Class FrmOptions
-
     Private Sub BtnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Close()
     End Sub
-
     Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
         SaveOptions()
         Close()
     End Sub
-
     Private Sub SaveOptions()
         My.Settings.ImagePath = TxtImagePath.Text
         My.Settings.DesignFilePath = TxtDesignFilePath.Text
@@ -43,13 +40,11 @@ Public NotInheritable Class FrmOptions
         My.Settings.isAutoArchiveOnSave = ChkArchiveOnSave.Checked
         My.Settings.Save()
     End Sub
-
     Private Sub FrmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         LogUtil.Info("Loading", MyBase.Name)
         LoadOptions()
         Version.Text = System.String.Format(myStringFormatProvider, Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
     End Sub
-
     Private Sub LoadOptions()
         TxtLogFilePath.Text = My.Settings.LogFolder
         TxtBackupPath.Text = My.Settings.BackupPath
@@ -73,31 +68,25 @@ Public NotInheritable Class FrmOptions
         NudZoomValue.Value = My.Settings.LogZoomValue
         ChkArchiveOnSave.Checked = My.Settings.isAutoArchiveOnSave
     End Sub
-
     Private Sub BtnResetForms_Click(sender As Object, e As EventArgs) Handles BtnResetForms.Click
 
         My.Settings.Save()
     End Sub
-
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
-
         Using _settings As New FrmGlobalSettings
             _settings.ShowDialog()
         End Using
         Show()
     End Sub
-
     Private Sub FrmOptions_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.Info("Closing", MyBase.Name)
     End Sub
-
     Private Sub BtnBackup_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
         Using _backup As New FrmBackup
             _backup.ShowDialog()
         End Using
     End Sub
-
     Private Sub BtnHousekeeping_Click(sender As Object, e As EventArgs) Handles BtnHousekeeping.Click
         Dim logFolder As String = My.Settings.LogFolder
         Dim retentionPeriod As Integer = My.Settings.FileRetentionPeriod
@@ -130,11 +119,9 @@ Public NotInheritable Class FrmOptions
             LogUtil.Exception("Problem tidying files", ex, "TidyFiles")
         End Try
     End Sub
-
     Private Sub PicCentreColour_Click(sender As Object, e As EventArgs) Handles PicCentreColour.Click
         PicCentreColour.BackColor = SelectColor(PicCentreColour.BackColor)
     End Sub
-
     Private Sub BtnPrintSettings_Click(sender As Object, e As EventArgs) Handles BtnPrintSettings.Click
         Hide()
         Using _printSettings As New FrmPrintOptions

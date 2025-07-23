@@ -29,16 +29,11 @@ Partial Class FrmPrintProject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPrintProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.PnlCardImage = New System.Windows.Forms.Panel()
+        Me.PnlPageImage = New System.Windows.Forms.Panel()
         Me.PicDesign = New System.Windows.Forms.PictureBox()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.DgvProjects = New System.Windows.Forms.DataGridView()
-        Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BtnPrint = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -48,7 +43,7 @@ Partial Class FrmPrintProject
         Me.NudSqrPerInch = New System.Windows.Forms.NumericUpDown()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.CbDesignStitchDisplay = New System.Windows.Forms.ComboBox()
+        Me.CbPrintStitchDisplay = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.NudBlankBorder = New System.Windows.Forms.NumericUpDown()
         Me.ChkBlankBorder = New System.Windows.Forms.CheckBox()
@@ -96,9 +91,8 @@ Partial Class FrmPrintProject
         Me.TxtTitle = New System.Windows.Forms.TextBox()
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
-        Me.PnlCardImage.SuspendLayout()
+        Me.PnlPageImage.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudBlankBorder, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -123,7 +117,7 @@ Partial Class FrmPrintProject
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 628)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(1106, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(959, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -132,17 +126,14 @@ Partial Class FrmPrintProject
         Me.LblStatus.Name = "LblStatus"
         Me.LblStatus.Size = New System.Drawing.Size(0, 17)
         '
-        'PnlCardImage
+        'PnlPageImage
         '
-        Me.PnlCardImage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PnlCardImage.Controls.Add(Me.PicDesign)
-        Me.PnlCardImage.Location = New System.Drawing.Point(536, 6)
-        Me.PnlCardImage.Margin = New System.Windows.Forms.Padding(4)
-        Me.PnlCardImage.Name = "PnlCardImage"
-        Me.PnlCardImage.Size = New System.Drawing.Size(557, 562)
-        Me.PnlCardImage.TabIndex = 152
+        Me.PnlPageImage.Controls.Add(Me.PicDesign)
+        Me.PnlPageImage.Location = New System.Drawing.Point(536, 6)
+        Me.PnlPageImage.Margin = New System.Windows.Forms.Padding(4)
+        Me.PnlPageImage.Name = "PnlPageImage"
+        Me.PnlPageImage.Size = New System.Drawing.Size(410, 562)
+        Me.PnlPageImage.TabIndex = 152
         '
         'PicDesign
         '
@@ -154,73 +145,10 @@ Partial Class FrmPrintProject
         Me.PicDesign.Location = New System.Drawing.Point(4, 4)
         Me.PicDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(549, 553)
+        Me.PicDesign.Size = New System.Drawing.Size(402, 553)
         Me.PicDesign.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicDesign.TabIndex = 0
         Me.PicDesign.TabStop = False
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.BackColor = System.Drawing.SystemColors.Control
-        Me.Label44.Font = New System.Drawing.Font("Felix Titling", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label44.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label44.Location = New System.Drawing.Point(15, 11)
-        Me.Label44.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(100, 23)
-        Me.Label44.TabIndex = 151
-        Me.Label44.Text = "PROJECTS"
-        '
-        'DgvProjects
-        '
-        Me.DgvProjects.AllowUserToAddRows = False
-        Me.DgvProjects.AllowUserToDeleteRows = False
-        Me.DgvProjects.AllowUserToResizeRows = False
-        Me.DgvProjects.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.DgvProjects.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvProjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
-        Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.DgvProjects.Location = New System.Drawing.Point(20, 44)
-        Me.DgvProjects.Margin = New System.Windows.Forms.Padding(5)
-        Me.DgvProjects.MultiSelect = False
-        Me.DgvProjects.Name = "DgvProjects"
-        Me.DgvProjects.ReadOnly = True
-        Me.DgvProjects.RowHeadersVisible = False
-        Me.DgvProjects.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(231, Byte), Integer), CType(CType(217, Byte), Integer), CType(CType(217, Byte), Integer))
-        Me.DgvProjects.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
-        Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(309, 155)
-        Me.DgvProjects.TabIndex = 150
-        '
-        'projectId
-        '
-        Me.projectId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.projectId.HeaderText = "Id"
-        Me.projectId.Name = "projectId"
-        Me.projectId.ReadOnly = True
-        Me.projectId.Visible = False
-        Me.projectId.Width = 50
-        '
-        'projectName
-        '
-        Me.projectName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.projectName.HeaderText = "Name"
-        Me.projectName.Name = "projectName"
-        Me.projectName.ReadOnly = True
         '
         'BtnPrint
         '
@@ -230,7 +158,7 @@ Partial Class FrmPrintProject
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(782, 572)
+        Me.BtnPrint.Location = New System.Drawing.Point(740, 577)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(77, 46)
@@ -246,7 +174,7 @@ Partial Class FrmPrintProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(1014, 572)
+        Me.BtnClose.Location = New System.Drawing.Point(865, 577)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(77, 46)
@@ -262,7 +190,7 @@ Partial Class FrmPrintProject
         Me.GroupBox1.Controls.Add(Me.NudSqrPerInch)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.CbDesignStitchDisplay)
+        Me.GroupBox1.Controls.Add(Me.CbPrintStitchDisplay)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.NudBlankBorder)
         Me.GroupBox1.Controls.Add(Me.ChkBlankBorder)
@@ -272,7 +200,7 @@ Partial Class FrmPrintProject
         Me.GroupBox1.Controls.Add(Me.CbKeyOrder)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.ChkPrintKey)
-        Me.GroupBox1.Location = New System.Drawing.Point(19, 208)
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 12)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
@@ -333,14 +261,14 @@ Partial Class FrmPrintProject
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Printout Size"
         '
-        'CbDesignStitchDisplay
+        'CbPrintStitchDisplay
         '
-        Me.CbDesignStitchDisplay.FormattingEnabled = True
-        Me.CbDesignStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Strokes", "Black/White Symbols", "Blocks With Symbols"})
-        Me.CbDesignStitchDisplay.Location = New System.Drawing.Point(152, 236)
-        Me.CbDesignStitchDisplay.Name = "CbDesignStitchDisplay"
-        Me.CbDesignStitchDisplay.Size = New System.Drawing.Size(121, 24)
-        Me.CbDesignStitchDisplay.TabIndex = 10
+        Me.CbPrintStitchDisplay.FormattingEnabled = True
+        Me.CbPrintStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Strokes", "Black/White Symbols", "Blocks With Symbols"})
+        Me.CbPrintStitchDisplay.Location = New System.Drawing.Point(152, 236)
+        Me.CbPrintStitchDisplay.Name = "CbPrintStitchDisplay"
+        Me.CbPrintStitchDisplay.Size = New System.Drawing.Size(121, 24)
+        Me.CbPrintStitchDisplay.TabIndex = 10
         '
         'Label2
         '
@@ -433,7 +361,6 @@ Partial Class FrmPrintProject
         '
         'GroupBox2
         '
-        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.CbAbbrKey)
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.NudOverlap)
@@ -608,7 +535,6 @@ Partial Class FrmPrintProject
         '
         'GroupBox4
         '
-        Me.GroupBox4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox4.Controls.Add(Me.NudBackstitchLines)
         Me.GroupBox4.Controls.Add(Me.NudGrid10Lines)
         Me.GroupBox4.Controls.Add(Me.NudGrid1Lines)
@@ -695,7 +621,6 @@ Partial Class FrmPrintProject
         '
         'GroupBox5
         '
-        Me.GroupBox5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox5.Controls.Add(Me.Label21)
         Me.GroupBox5.Controls.Add(Me.Label20)
         Me.GroupBox5.Controls.Add(Me.TxtCopyright)
@@ -788,7 +713,7 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveSettings.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveSettings.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveSettings.Location = New System.Drawing.Point(550, 572)
+        Me.BtnSaveSettings.Location = New System.Drawing.Point(612, 577)
         Me.BtnSaveSettings.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSaveSettings.Name = "BtnSaveSettings"
         Me.BtnSaveSettings.Size = New System.Drawing.Size(77, 46)
@@ -800,7 +725,7 @@ Partial Class FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1106, 650)
+        Me.ClientSize = New System.Drawing.Size(959, 650)
         Me.Controls.Add(Me.BtnSaveSettings)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
@@ -809,9 +734,7 @@ Partial Class FrmPrintProject
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BtnPrint)
         Me.Controls.Add(Me.BtnClose)
-        Me.Controls.Add(Me.PnlCardImage)
-        Me.Controls.Add(Me.Label44)
-        Me.Controls.Add(Me.DgvProjects)
+        Me.Controls.Add(Me.PnlPageImage)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -820,9 +743,8 @@ Partial Class FrmPrintProject
         Me.Text = "Print Project"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.PnlCardImage.ResumeLayout(False)
+        Me.PnlPageImage.ResumeLayout(False)
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).EndInit()
@@ -851,12 +773,8 @@ Partial Class FrmPrintProject
 
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents LblStatus As ToolStripStatusLabel
-    Friend WithEvents PnlCardImage As Panel
+    Friend WithEvents PnlPageImage As Panel
     Friend WithEvents PicDesign As PictureBox
-    Friend WithEvents Label44 As Label
-    Friend WithEvents DgvProjects As DataGridView
-    Friend WithEvents projectId As DataGridViewTextBoxColumn
-    Friend WithEvents projectName As DataGridViewTextBoxColumn
     Friend WithEvents BtnPrint As Button
     Friend WithEvents BtnClose As Button
     Friend WithEvents GroupBox1 As GroupBox
@@ -869,7 +787,7 @@ Partial Class FrmPrintProject
     Friend WithEvents NudBlankBorder As NumericUpDown
     Friend WithEvents ChkBlankBorder As CheckBox
     Friend WithEvents ChkCentreLines As CheckBox
-    Friend WithEvents CbDesignStitchDisplay As ComboBox
+    Friend WithEvents CbPrintStitchDisplay As ComboBox
     Friend WithEvents NudSqrPerInch As NumericUpDown
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label

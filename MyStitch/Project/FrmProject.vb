@@ -425,7 +425,6 @@ Public Class FrmProject
     End Sub
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         ShowPrintForm()
-        SelectProjectInList(oProject.ProjectId)
     End Sub
     Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
         ShowPrintSettingsForm()
@@ -438,12 +437,16 @@ Public Class FrmProject
     End Sub
 
     Private Sub ShowPrintForm()
-        Using _printDialog As New FrmPrintProject
-            _printDialog.SelectedProject = _selectedProject
-            _printDialog.ShowDialog()
-
-        End Using
-
+        If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
+            oProject = _selectedProject
+            Using _printDialog As New FrmPrintProject
+                _printDialog.ProjectId = _selectedProject.ProjectId
+                _printDialog.ShowDialog()
+            End Using
+            SelectProjectInList(oProject.ProjectId)
+        Else
+            LogUtil.ShowStatus("No Project selected", LblStatus, True)
+        End If
     End Sub
 
     Private Sub MnuPrint_Click_1(sender As Object, e As EventArgs) Handles MnuPrint.Click

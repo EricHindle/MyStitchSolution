@@ -18,6 +18,8 @@ Module ModDesign
     Public Const MAGNIFICATION_STEP As Decimal = 1.3
     Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0)
     Public PALETTE_COLOUR_SIZE As Integer = 55
+    Public Const A4_WIDTH_PIXELS As Integer = 3508
+    Public Const A4_HEIGHT_PIXELS As Integer = 2480
 #End Region
 #Region "enum"
     Public Enum StitchDisplayStyle
@@ -99,6 +101,7 @@ Module ModDesign
     Friend isGridOn As Boolean
     Friend isPrintCentreOn As Boolean
     Friend isPrintGridOn As Boolean
+    Friend oStitchDisplayStyle As StitchDisplayStyle
 #End Region
 #Region "functions"
     Public Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer, e As PaintEventArgs)
@@ -157,7 +160,7 @@ Module ModDesign
             End If
         End If
     End Sub
-    Private Sub ChangeMagnification(pNewValue As Decimal)
+    Public Sub ChangeMagnification(pNewValue As Decimal)
         dMagnification = pNewValue
         iPixelsPerCell = Math.Floor(PIXELS_PER_CELL * dMagnification)
         iOneToOneSize = New Size(oProjectDesign.Columns * iPixelsPerCell, oProjectDesign.Rows * iPixelsPerCell)
@@ -282,7 +285,7 @@ Module ModDesign
             .EndCap = Drawing2D.LineCap.Round
         }
 
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
+        Dim _stitchDisplayStyle As StitchDisplayStyle = oStitchDisplayStyle
 
         If _stitchDisplayStyle = StitchDisplayStyle.Blocks Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
             oDesignGraphics.FillRectangle(New SolidBrush(_threadColour), New Rectangle(_tl, _size))
@@ -456,7 +459,6 @@ Module ModDesign
         End If
         oDesignGraphics.FillEllipse(_brush, _rect)
     End Sub
-
     Public Function MakeColourChangeAttributes(pThread As Thread) As ImageAttributes
         Dim _thread As Thread = pThread
         Dim red As Single = _thread.Colour.R / 255.0F
@@ -488,7 +490,7 @@ Module ModDesign
         Dim y As Integer = (pPictureBox.Height - pDesignBitmap.Height) / (2 * iPixelsPerCell)
         CalculateOffsetAfterChange_NoScrollBars(x, y)
     End Sub
-    Private Sub CalculateOffsetAfterChange_NoScrollBars(pNewX As Integer, pNewY As Integer)
+    Public Sub CalculateOffsetAfterChange_NoScrollBars(pNewX As Integer, pNewY As Integer)
         SetValuesAfterHorizontalChange(pNewX)
         SetValuesAfterVerticalChange(pNewY)
     End Sub
@@ -514,7 +516,6 @@ Module ModDesign
         iYOffset = _newOff_y
         topcorner = New Point(topcorner.X, _newTc_y)
     End Sub
-
     Public Function FindCellFromClickLocation(e As MouseEventArgs) As Cell
         Dim pCellBuilder As CellBuilder = CellBuilder.ACell.StartingWithNothing
         Dim pos_x As Integer = Math.Floor(e.X / iPixelsPerCell) - iXOffset + topcorner.X
@@ -610,94 +611,5 @@ Module ModDesign
         End Select
         Return _color
     End Function
-
-    'Public Function SaveDesignJson(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
-    '    Dim isOK As Boolean
-    '    pDesign = SortStitches(pDesign)
-    '    Dim _designFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & JSON_EXT)
-    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-    '    '  If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-    '    Using _fs As New FileStream(_zipFile, FileMode.Create)
-    '    End Using
-    '    '  End If
-    '    Using zipToOpen As New FileStream(_zipFile, FileMode.Create)
-    '        Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-    '            Dim designEntry As ZipArchiveEntry = archive.CreateEntry(pDesignFileName & JSON_EXT)
-    '            Using _output As New StreamWriter(designEntry.Open())
-    '                _output.WriteLine(pDesign.SerializeJson)
-    '            End Using
-    '        End Using
-    '    End Using
-    '    Return isOK
-    'End Function
-
-    'Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
-    '    pDesign.BlockStitches.Sort(Function(pStitch1 As BlockStitch, pStitch2 As BlockStitch)
-    '                                   Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
-    '                                   Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
-    '                                   Return Pos1.CompareTo(Pos2)
-    '                               End Function)
-    '    pDesign.Knots.Sort(Function(pStitch1 As Knot, pStitch2 As Knot)
-    '                           Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
-    '                           Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
-    '                           Return Pos1.CompareTo(Pos2)
-    '                       End Function)
-    '    pDesign.BackStitches.Sort(Function(pStitch1 As BackStitch, pStitch2 As BackStitch)
-    '                                  Dim Pos1 As Integer = pStitch1.FromBlockLocation.Y + (pStitch1.FromBlockLocation.X * pDesign.Rows)
-    '                                  Dim Pos2 As Integer = pStitch2.FromBlockLocation.Y + (pStitch2.FromBlockLocation.X * pDesign.Rows)
-    '                                  Return Pos1.CompareTo(Pos2)
-    '                              End Function)
-    '    Return pDesign
-    'End Function
-    'Public Function OpenDesignJSON(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
-    'Dim _exceptionText As String = "Exception reading project design file"
-
-    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-    '    Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-    '    Dim _projectDesign As New ProjectDesign
-    '    Try
-    '        If My.Computer.FileSystem.FileExists(_zipFile) Then
-    '            Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-    '                For Each _entry As ZipArchiveEntry In _archiveFile.Entries
-    '                    If _entry.Name.EndsWith(JSON_EXT) Then
-    '                        Using _input As New StreamReader(_entry.Open())
-    '                            Dim _jsonText As String = _input.ReadLine()
-    '                            _projectDesign = JsonConvert.DeserializeObject(Of ProjectDesign)(_jsonText)
-    '                        End Using
-    '                    End If
-    '                Next
-    '            End Using
-    '        End If
-    '    Catch ex As Exception When (TypeOf ex Is ArgumentException _
-    '                            OrElse TypeOf ex Is PathTooLongException _
-    '                            OrElse TypeOf ex Is DirectoryNotFoundException _
-    '                            OrElse TypeOf ex Is IOException _
-    '                            OrElse TypeOf ex Is UnauthorizedAccessException _
-    '                            OrElse TypeOf ex Is InvalidDataException _
-    '                            OrElse TypeOf ex Is NotSupportedException _
-    '                            OrElse TypeOf ex Is ObjectDisposedException)
-    '        LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
-    '    End Try
-    '    Return _projectDesign
-    'End Function
-    'Public Function OpenDesignXML(pDesignPathName As String, pDesignFileName As String) As ProjectDesign
-    '    Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
-    '    Dim serializer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectDesign))
-    '    Dim _projectDesign As New ProjectDesign
-    '    If My.Computer.FileSystem.FileExists(_zipFile) Then
-    '        Using _chapterFile As ZipArchive = ZipFile.OpenRead(_zipFile)
-    '            For Each _entry As ZipArchiveEntry In _chapterFile.Entries
-    '                If _entry.Name.EndsWith(XML_EXT) Then
-    '                    Using _input As New StreamReader(_entry.Open())
-    '                        _projectDesign = CType(serializer.Deserialize(_input), ProjectDesign)
-    '                    End Using
-    '                End If
-    '            Next
-    '        End Using
-    '    End If
-    '    Return _projectDesign
-    'End Function
-
 #End Region
-
 End Module
