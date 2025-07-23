@@ -26,7 +26,6 @@ Public Class FrmPrintOptions
         My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
         My.Settings.isKeySeparate = ChkKeySeparate.Checked
         My.Settings.isPrintGrid = ChkPrintGrid.Checked
-        My.Settings.isPrintCentreMarks = ChkPrintCentre.Checked
         My.Settings.isPrintCentreLines = ChkCentreLines.Checked
         My.Settings.isBlankBorder = ChkBlankBorder.Checked
         My.Settings.BlankBorderSize = NudBlankBorder.Value
@@ -55,7 +54,6 @@ Public Class FrmPrintOptions
         CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
         ChkKeySeparate.Checked = My.Settings.isKeySeparate
         ChkPrintGrid.Checked = My.Settings.isPrintGrid
-        ChkPrintCentre.Checked = My.Settings.isPrintCentreMarks
         ChkCentreLines.Checked = My.Settings.isPrintCentreLines
         ChkBlankBorder.Checked = My.Settings.isBlankBorder
         NudBlankBorder.Value = My.Settings.BlankBorderSize

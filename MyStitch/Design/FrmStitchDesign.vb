@@ -6,7 +6,6 @@
 '
 Imports System.Drawing.Imaging
 Imports System.IO
-Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -41,11 +40,6 @@ Public Class FrmStitchDesign
                 _newThread = value
             End Set
         End Property
-        'Public Sub New(pStitch As Stitch, pAction As UndoAction)
-        '    _subjectStitch = pStitch
-        '    _doneAction = pAction
-        '    _newThread = Nothing
-        'End Sub
         Public Sub New(pStitch As Stitch, pAction As UndoAction, pThread As ProjectThread)
             _subjectStitch = pStitch
             _doneAction = pAction
@@ -54,10 +48,7 @@ Public Class FrmStitchDesign
     End Class
 #End Region
 #Region "constants"
-    Private Const PIXELS_PER_CELL As Integer = 8
-    Private Const MAGNIFICATION_STEP As Decimal = 1.3
-    Private BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0)
-    Private PALETTE_COLOUR_SIZE As Integer = 55
+
 #End Region
 #Region "properties"
     Private oProjectId As Integer
@@ -68,22 +59,12 @@ Public Class FrmStitchDesign
     End Property
 #End Region
 #Region "variables"
-    Private oProject As Project
-    Private oDesignBitmap As Bitmap
-    Private oDesignGraphics As Graphics
-    Private oProjectDesign As ProjectDesign
     Private oCurrentUndoList As New List(Of StitchAction)
     Private oUndoList As New List(Of List(Of StitchAction))
     Private oRedoList As New List(Of List(Of StitchAction))
     Private isLoading As Boolean
     Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
-
-    Private dMagnification As Decimal = 1
-    Private oStitchPenWidth As Single = 2
-    Private oSelectionPenWidth As Single = 2
-
-    Private iOneToOneSize As Size
 
     Private oCurrentAction As DesignAction = DesignAction.none
     Private oCurrentStitchType As DesignAction = DesignAction.none
@@ -96,26 +77,9 @@ Public Class FrmStitchDesign
     Private isBlockstitchAction As Boolean
     Private isBackstitchAction As Boolean
     Private isKnotAction As Boolean
-    Private oCurrentThread As ProjectThread
-    Private oProjectThreads As New List(Of ProjectThread)
 
     Private iOldHScrollbarValue As Integer = 0
     Private iOldVScrollbarValue As Integer = 0
-
-    Private _grid1width As Integer = 1
-    Private _grid1Brush As Brush = Brushes.LightGray
-    Private _grid1Pen = New Pen(_grid1Brush, _grid1width)
-    Private _grid5width As Integer = 1
-    Private _grid5Brush As Brush = Brushes.DarkGray
-    Private _grid5Pen = New Pen(_grid5Brush, _grid5width)
-    Private _grid10width As Integer = 1
-    Private _grid10Brush As Brush = Brushes.Black
-    Private _grid10Pen = New Pen(_grid10Brush, _grid10width)
-    Private _centreBrush As Brush = Brushes.Red
-    Private _centrePen = New Pen(_centreBrush, 2)
-    Private _fabricColour As Color
-    Private _fabricBrush As SolidBrush
-    Private isSingleColour As Boolean
 
     Private isSelectionInProgress As Boolean
     Private isMoveInProgress As Boolean
@@ -164,11 +128,8 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         _backstitchPen.Dispose()
-        _grid1Pen.Dispose()
-        _grid5Pen.Dispose()
-        _grid10Pen.Dispose()
-        _centrePen.dispose
         _selPen.Dispose()
+        oDesignBitmap = Nothing
         CloseTimer()
         My.Settings.DesignFormPos = SetFormPos(Me)
         My.Settings.Save()
@@ -539,6 +500,12 @@ Public Class FrmStitchDesign
             RedrawDesign()
         End If
     End Sub
+    Private Sub RedrawDesign()
+        ModDesign.RedrawDesign(PicDesign, isGridOn, isCentreOn)
+    End Sub
+    Private Sub RedrawDesign(pIsReCentre As Boolean)
+        ModDesign.RedrawDesign(PicDesign, pIsReCentre, isGridOn, isCentreOn)
+    End Sub
     Private Sub Palette_Click(sender As Object, e As EventArgs)
         For Each _control As Control In ThreadLayoutPanel.Controls
             Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
@@ -585,7 +552,6 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MnuZoomOut_Click(sender As Object, e As EventArgs) Handles MnuZoomOut.Click
         DecreaseMagnification()
-
     End Sub
     Private Sub MnuGridOn_Click(sender As Object, e As EventArgs) Handles MnuGridOn.Click
         ToggleGrid()
@@ -597,10 +563,10 @@ Public Class FrmStitchDesign
 
     End Sub
     Private Sub MnuCreateThreadCards_Click(sender As Object, e As EventArgs) Handles MnuCreateThreadCards.Click
-
+        OpenBuildCardsForm(oProject)
     End Sub
     Private Sub MnuPrintThreadCards_Click(sender As Object, e As EventArgs) Handles MnuPrintThreadCards.Click
-
+        OpenPrintCardsForm()
     End Sub
     Private Sub MnuCopySelection_Click(sender As Object, e As EventArgs) Handles MnuCopySelection.Click
         BeginCopy()
@@ -630,7 +596,7 @@ Public Class FrmStitchDesign
 
     End Sub
     Private Sub MnuFloodFill_Click(sender As Object, e As EventArgs) Handles MnuFloodFill.Click
-
+        BeginFloodFill()
     End Sub
     Private Sub MnuRedraw_Click(sender As Object, e As EventArgs) Handles MnuRedraw.Click
         oProjectDesign = SortStitches(oProjectDesign)
@@ -669,7 +635,6 @@ Public Class FrmStitchDesign
     Private Sub MnuCentreOn_Click(sender As Object, e As EventArgs) Handles MnuCentreOn.Click
         ToggleCentre()
     End Sub
-
     Private Sub MnuPrint_Click(sender As Object, e As EventArgs) Handles MnuPrint.Click
         ShowPrintForm()
     End Sub
@@ -774,7 +739,6 @@ Public Class FrmStitchDesign
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         SaveDesign()
     End Sub
-
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         ShowPrintForm()
     End Sub
@@ -892,6 +856,7 @@ Public Class FrmStitchDesign
         isComponentInitialised = True
         isLoading = True
         PicDesign.Enabled = False
+        oDesignBitmap = Nothing
         Refresh()
         oProject = GetProjectById(oProjectId)
         oCurrentUndoList = New List(Of StitchAction)
@@ -899,6 +864,8 @@ Public Class FrmStitchDesign
         oRedoList = New List(Of List(Of StitchAction))
         BtnUndo.Enabled = False
         BtnRedo.Enabled = False
+        isGridOn = My.Settings.isGridOn
+        isCentreOn = My.Settings.IsCentreOn
         SetIsGridOn()
         SetIsCentreOn()
         SetShowStitchTypesMenu()
@@ -906,7 +873,11 @@ Public Class FrmStitchDesign
         PnlSelectedColor.BackColor = SystemColors.Control
         If oProject.IsLoaded Then
             InitialisePalette()
-            LoadProjectDesignFromFile()
+            LblStatus.Text = "Loading..."
+            LblStatus.Refresh()
+            LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn)
+            CalculateScrollBarMaximumValues()
+            LblStatus.Text = String.Empty
         Else
             MsgBox("No project found", MsgBoxStyle.Exclamation, "Error")
             Close()
@@ -992,29 +963,6 @@ Public Class FrmStitchDesign
         End If
         Return isOK
     End Function
-    Private Sub LoadProjectDesignFromFile()
-        isLoadComplete = False
-        LblStatus.Text = "Loading..."
-        LblStatus.Refresh()
-        Dim oDesignString As String = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(oProject))
-        If String.IsNullOrEmpty(oDesignString) Then
-            oProjectDesign = New ProjectDesign
-        Else
-            oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oDesignString).Build
-        End If
-        oProjectDesign.ProjectId = oProject.ProjectId
-        isLoadComplete = True
-
-        If Not oProjectDesign.IsLoaded Then
-            oProjectDesign.Rows = oProject.DesignHeight
-            oProjectDesign.Columns = oProject.DesignWidth
-        End If
-        _fabricColour = GetColourFromProject(oProject.FabricColour, oFabricColour)
-        _fabricBrush = New SolidBrush(_fabricColour)
-        SetInitialMagnification()
-        RedrawDesign()
-        LblStatus.Text = String.Empty
-    End Sub
     Private Sub SelectPaletteColour(pPicBox As PictureBox)
         If isSingleColour Then
             ToggleSingleColour()
@@ -1140,11 +1088,13 @@ Public Class FrmStitchDesign
         oUndoList.Add(_newList)
     End Sub
     Private Sub ShowPrintForm()
+        Hide()
         Using _printDialog As New FrmPrintProject
             _printDialog.SelectedProject = oProject
             _printDialog.ShowDialog()
+            InitialiseForm()
         End Using
-
+        Show()
     End Sub
 #Region "mouse action"
     Private Sub StartSelection(pCell As Cell)
@@ -1438,155 +1388,35 @@ Public Class FrmStitchDesign
         iOldHScrollbarValue = HScrollBar1.Value
         iOldVScrollbarValue = VScrollBar1.Value
     End Sub
-    Private Sub RedrawDesign()
-        RedrawDesign(True)
-    End Sub
-    Private Sub RedrawDesign(pIsReCentre As Boolean)
-        ' Create image the size of the design
-        oDesignBitmap = New Bitmap(CInt(oProjectDesign.Columns * iPixelsPerCell), CInt(oProjectDesign.Rows * iPixelsPerCell))
-        If pIsReCentre Then
-            CalculateOffsetForCentre(oDesignBitmap)
-        End If
-        'Draw grid onto graphics
-        'Create graphics from image
-        oDesignGraphics = Graphics.FromImage(oDesignBitmap)
-        oDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
-        oDesignGraphics.FillRectangle(_fabricBrush, New Rectangle(0, 0, oDesignBitmap.Width, oDesignBitmap.Height))
-        FillBeforeGrid()
-        DrawGrid(oProject, oProjectDesign)
-        FillAfterGrid()
-        PicDesign.Invalidate()
-    End Sub
-    Private Sub DrawGrid(ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign)
-        Dim _widthInColumns As Integer = pProjectDesign.Columns
-        Dim _heightInRows As Integer = pProjectDesign.Rows
-        Dim gap As Integer = iPixelsPerCell
-        Dim wct As Integer = oDesignBitmap.Width / gap
-
-        Dim _designBorderPen As New Pen(Brushes.Black, 2)
-
-        Dim _halfColumn As Integer = Math.Floor(_widthInColumns / 2)
-        Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
-
-        If My.Settings.isGridOn Then
-            For x = 0 To _widthInColumns
-                oDesignGraphics.DrawLine(_grid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-            Next
-            For y = 0 To _heightInRows
-                oDesignGraphics.DrawLine(_grid1Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
-            Next
-            For x = 5 To _widthInColumns Step 10
-                oDesignGraphics.DrawLine(_grid5Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-            Next
-            For y = 5 To _heightInRows Step 10
-                oDesignGraphics.DrawLine(_grid5Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
-            Next
-            For x = 10 To _widthInColumns Step 10
-                oDesignGraphics.DrawLine(_grid10Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-            Next
-            For y = 10 To _heightInRows Step 10
-                oDesignGraphics.DrawLine(_grid10Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * y))
-            Next
-            Dim _triwidth As Integer = Math.Max(4, Math.Ceiling(iPixelsPerCell / 2))
-            Dim _triPointsTop As Point() = {New Point((gap * _halfColumn) - _triwidth, 0), New Point((gap * _halfColumn) + _triwidth, 0), New Point((gap * _halfColumn), _triwidth)}
-            Dim _triPointsSide As Point() = {New Point(0, (gap * _halfRow) - _triwidth), New Point(0, (gap * _halfRow) + _triwidth), New Point(_triwidth, (gap * _halfRow))}
-            oDesignGraphics.FillPolygon(_centreBrush, _triPointsTop)
-            oDesignGraphics.FillPolygon(_centreBrush, _triPointsSide)
-
-        End If
-        If My.Settings.IsCentreOn Then
-            oDesignGraphics.DrawLine(_centrePen, New Point(0, gap * _halfRow), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * _halfRow))
-            oDesignGraphics.DrawLine(_centrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-        End If
-
-        '   FillAfterGrid()
-        oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
-        _designBorderPen.Dispose()
-
-    End Sub
-    Private Sub FillBeforeGrid()
-        If My.Settings.IsShowBlockstitches Then
-            For Each _blockstitch In oProjectDesign.BlockStitches
-                If _blockstitch.IsLoaded Then
-                    If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour.ToArgb = oCurrentThread.Thread.Colour.ToArgb Then
-                        Select Case _blockstitch.StitchType
-                            Case BlockStitchType.Full
-                                DrawFullBlockStitch(_blockstitch)
-                            Case BlockStitchType.Half
-                                DrawHalfBlockStitch(_blockstitch, True)
-                            Case BlockStitchType.Quarter
-                                DrawQuarterBlockStitch(_blockstitch)
-                            Case BlockStitchType.ThreeQuarter
-                                DrawThreeQuarterBlockStitch(_blockstitch)
-                            Case Else
-                                DrawQuarterBlockStitch(_blockstitch)
-                        End Select
-                    End If
-                End If
-            Next
-        End If
-    End Sub
-    Private Sub FillAfterGrid()
-        If My.Settings.IsShowBackstitches Then
-            For Each _backstitch In oProjectDesign.BackStitches
-                If Not isSingleColour OrElse _backstitch.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
-                    DrawBackstitch(_backstitch)
-                End If
-            Next
-        End If
-        If My.Settings.IsShowKnots Then
-            For Each _knot As Knot In oProjectDesign.Knots
-                If Not isSingleColour OrElse _knot.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
-                    DrawKnot(_knot)
-                End If
-            Next
-        End If
-    End Sub
     Private Sub ToggleGrid()
-        My.Settings.isGridOn = Not My.Settings.isGridOn
+        isGridOn = Not isGridOn
+        My.Settings.isGridOn = isGridOn
         My.Settings.Save()
         SetIsGridOn()
         RedrawDesign(False)
     End Sub
     Private Sub ToggleCentre()
-        My.Settings.IsCentreOn = Not My.Settings.IsCentreOn
+        isCentreOn = Not isCentreOn
+        My.Settings.IsCentreOn = isCentreOn
         My.Settings.Save()
         SetIsCentreOn()
         RedrawDesign(False)
     End Sub
     Private Sub SetIsGridOn()
-        MnuGridOn.Checked = My.Settings.isGridOn
-        If My.Settings.isGridOn Then
+        MnuGridOn.Checked = isGridOn
+        If isGridOn Then
             PicGrid.Image = My.Resources.gridon
         Else
             PicGrid.Image = My.Resources.gridoff
         End If
     End Sub
     Private Sub SetIsCentreOn()
-        MnuCentreOn.Checked = My.Settings.IsCentreOn
-        If My.Settings.IsCentreOn Then
+        MnuCentreOn.Checked = isCentreOn
+        If isCentreOn Then
             PicCentreLines.Image = My.Resources.centreon
         Else
             PicCentreLines.Image = My.Resources.centreoff
         End If
-    End Sub
-    Private Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer, e As PaintEventArgs)
-        If oDesignBitmap Is Nothing Then Exit Sub
-        Dim rect As Rectangle
-        Dim picx As Single = iPixelsPerCell * topcorner.X
-        Dim picy As Single = iPixelsPerCell * topcorner.Y
-        Dim picw As Single = oDesignBitmap.Width - picx
-        Dim pich As Single = oDesignBitmap.Height - picy
-        Dim atX As Single = pX * iPixelsPerCell
-        Dim atY As Single = pY * iPixelsPerCell
-
-        rect = New Rectangle(picx, picy, picw, pich)
-
-        Try
-            e.Graphics.DrawImage(pImage, atX, atY, rect, GraphicsUnit.Pixel)
-        Catch ex As Exception
-            Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
-        End Try
     End Sub
 #End Region
 #Region "actions"
@@ -1889,37 +1719,6 @@ Public Class FrmStitchDesign
         isRemoveBackstitchInProgress = False
         PicDesign.Invalidate()
     End Sub
-    Private Sub DrawBackstitch(pBackstitch As BackStitch)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
-        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockPosition.X * iPixelsPerCell)
-        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockPosition.Y * iPixelsPerCell)
-        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockPosition.X * iPixelsPerCell)
-        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockPosition.Y * iPixelsPerCell)
-        Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-        Select Case pBackstitch.FromBlockQuarter
-            Case BlockQuarter.TopRight
-                _fromCellLocation_x += iPixelsPerCell / 2
-            Case BlockQuarter.BottomLeft
-                _fromCellLocation_y += iPixelsPerCell / 2
-            Case BlockQuarter.BottomRight
-                _fromCellLocation_x += iPixelsPerCell / 2
-                _fromCellLocation_y += iPixelsPerCell / 2
-        End Select
-        Select Case pBackstitch.ToBlockQuarter
-            Case BlockQuarter.TopRight
-                _toCellLocation_x += iPixelsPerCell / 2
-            Case BlockQuarter.BottomLeft
-                _toCellLocation_y += iPixelsPerCell / 2
-            Case BlockQuarter.BottomRight
-                _toCellLocation_x += iPixelsPerCell / 2
-                _toCellLocation_y += iPixelsPerCell / 2
-        End Select
-        oDesignGraphics.DrawLine(_pen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
-
-    End Sub
     Private Sub DrawBackstitchInProgress(pCell As Point, pCellQtr As BlockQuarter, pIsHalfStitch As Boolean)
         DrawBackstitchInProgress(pCell, pCellQtr, pIsHalfStitch, False)
     End Sub
@@ -2020,13 +1819,13 @@ Public Class FrmStitchDesign
         For Each _qtr As BlockStitchQuarter In pBlockStitch.Quarters
             Select Case _qtr.BlockQuarter
                 Case BlockQuarter.TopLeft
-                    oDesignGraphics.FillRectangle(New SolidBrush(_fabricColour), New Rectangle(_tl, _size))
+                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tl, _size))
                 Case BlockQuarter.TopRight
-                    oDesignGraphics.FillRectangle(New SolidBrush(_fabricColour), New Rectangle(_tr, _size))
+                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tr, _size))
                 Case BlockQuarter.BottomLeft
-                    oDesignGraphics.FillRectangle(New SolidBrush(_fabricColour), New Rectangle(_bl, _size))
+                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_bl, _size))
                 Case BlockQuarter.BottomRight
-                    oDesignGraphics.FillRectangle(New SolidBrush(_fabricColour), New Rectangle(_br, _size))
+                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_br, _size))
             End Select
         Next
     End Sub
@@ -2136,170 +1935,6 @@ Public Class FrmStitchDesign
         End If
         Return _existingBlockstitch
     End Function
-    Private Sub DrawFullBlockStitch(pBlockStitch As BlockStitch)
-        Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        Dim _size As New Size(iPixelsPerCell, iPixelsPerCell)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-
-        If _stitchDisplayStyle = StitchDisplayStyle.Blocks Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            oDesignGraphics.FillRectangle(New SolidBrush(_threadColour), New Rectangle(_tl, _size))
-        End If
-        If _stitchDisplayStyle = StitchDisplayStyle.Crosses Then
-            oDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            oDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        If _stitchDisplayStyle = StitchDisplayStyle.Strokes Then
-            oDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        If _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            oDesignGraphics.DrawImage(MakeImage(pBlockStitch), _tl)
-        End If
-        If _stitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
-            Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            oDesignGraphics.DrawImage(MakeImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, iPixelsPerCell, iPixelsPerCell, GraphicsUnit.Pixel, _imageAttributes)
-        End If
-        _crossPen.Dispose()
-    End Sub
-
-    Private Shared Function MakeColourChangeAttributes(pThread As Thread) As ImageAttributes
-        Dim _thread As Thread = pThread
-        Dim red As Single = _thread.Colour.R / 255.0F
-        Dim green As Single = _thread.Colour.G / 255.0F
-        Dim blue As Single = _thread.Colour.B / 255.0F
-        Dim _imageAttributes As New ImageAttributes()
-        _imageAttributes.SetColorMatrix(New ColorMatrix(New Single()() {
-            New Single() {1, 0, 0, 0, 0},
-            New Single() {0, 1, 0, 0, 0},
-            New Single() {0, 0, 1, 0, 0},
-            New Single() {0, 0, 0, 1, 0},
-            New Single() {red, green, blue, 0, 1}
-        }))
-        Return _imageAttributes
-    End Function
-
-    Private Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean)
-        Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-
-        Dim _cellLocation As New Point(pX, pY)
-        If pIsBack Then
-            oDesignGraphics.DrawLine(_crossPen, _tl, _br)
-        Else
-            oDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        _crossPen.Dispose()
-
-    End Sub
-    Private Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch)
-        Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockstitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockstitch.BlockPosition.Y * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
-
-        Dim _cellLocation As New Point(pX, pY)
-
-        Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
-        Dim _middleX As Integer = CInt(pX + _rectSize)
-        Dim _middleY As Integer = CInt(pY + _rectSize)
-        Dim _middlePoint As New Point(_middleX, _middleY)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-        'If _stitchDisplayStyle = StitchDisplayStyle.Crosses Then
-
-        '     For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-        .StartCap = Drawing2D.LineCap.Round,
-        .EndCap = Drawing2D.LineCap.Round
-    }
-        Select Case pBlockstitch.BlockQuarter
-            Case BlockQuarter.TopLeft
-                oDesignGraphics.DrawLine(_crossPen, _tl, _middlePoint)
-                oDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-            Case BlockQuarter.TopRight
-                oDesignGraphics.DrawLine(_crossPen, _tr, _middlePoint)
-                oDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomLeft
-                oDesignGraphics.DrawLine(_crossPen, _bl, _middlePoint)
-                oDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomRight
-                oDesignGraphics.DrawLine(_crossPen, _br, _middlePoint)
-                oDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End Select
-        _crossPen.Dispose()
-        '  Next
-
-    End Sub
-    Private Sub DrawQuarterBlockStitch(pBlockstitch As BlockStitch)
-        Dim pX As Integer = pBlockstitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockstitch.BlockPosition.Y * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
-        Dim _cellLocation As New Point(pX, pY)
-        Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
-        Dim _middleX As Integer = CInt(pX + _rectSize)
-        Dim _middleY As Integer = CInt(pY + _rectSize)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-
-        For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-            Dim _threadColour As Color = _qtr.Thread.Colour
-            Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-            Select Case _qtr.BlockQuarter
-                Case BlockQuarter.TopLeft
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY)
-                Case BlockQuarter.TopRight
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY)
-                Case BlockQuarter.BottomLeft
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY + iPixelsPerCell)
-                Case BlockQuarter.BottomRight
-                    oDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY + iPixelsPerCell)
-            End Select
-            _crossPen.Dispose()
-        Next
-
-    End Sub
-    Private Function MakeImage(pBlockStitch As BlockStitch) As Image
-        Dim _image As Image = New Bitmap(1, 1)
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
-        If _projectThread Is Nothing Then
-            LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, MyBase.Name, False)
-        Else
-            Dim _symbol As Symbol = GetSymbolById(_projectThread.SymbolId)
-            _image = ImageUtil.ResizeImage(_symbol.SymbolImage, iPixelsPerCell, iPixelsPerCell)
-        End If
-        Return _image
-    End Function
 #End Region
 #Region "knots"
     Private Sub AddKnot(pCell As Cell, pIsBead As Boolean)
@@ -2342,28 +1977,6 @@ Public Class FrmStitchDesign
     End Function
     Private Sub RemoveKnotFromImage(pKnot As Knot)
         DrawKnot(pKnot, True)
-    End Sub
-    Private Sub DrawKnot(pKnot As Knot)
-        DrawKnot(pKnot, False)
-    End Sub
-    Private Sub DrawKnot(pKnot As Knot, isRemove As Boolean)
-        Dim _knotlocation_x As Integer = (pKnot.BlockPosition.X * iPixelsPerCell) - (iPixelsPerCell / 4)
-        Dim _knotlocation_y As Integer = (pKnot.BlockPosition.Y * iPixelsPerCell) - (iPixelsPerCell / 4)
-        Select Case pKnot.BlockQuarter
-            Case BlockQuarter.BottomLeft
-                _knotlocation_y += iPixelsPerCell / 2
-            Case BlockQuarter.BottomRight
-                _knotlocation_y += iPixelsPerCell / 2
-                _knotlocation_x += iPixelsPerCell / 2
-            Case BlockQuarter.TopRight
-                _knotlocation_x += iPixelsPerCell / 2
-        End Select
-        Dim _rect As New Rectangle(_knotlocation_x, _knotlocation_y, iPixelsPerCell / 2, iPixelsPerCell / 2)
-        Dim _brush As New SolidBrush(pKnot.ProjThread.Thread.Colour)
-        If isRemove Then
-            _brush = _fabricBrush
-        End If
-        oDesignGraphics.FillEllipse(_brush, _rect)
     End Sub
 #End Region
 #Region "timer"
@@ -2462,41 +2075,33 @@ Public Class FrmStitchDesign
             DepthFirstSearch(pCell.Position, _existingColour, pThread, pBlockStitchType)
         End If
     End Sub
-
     Private Sub BtnFill_Click(sender As Object, e As EventArgs) Handles BtnFill.Click
-        BeginfloodFill()
+        BeginFloodFill()
     End Sub
     Private Sub BeginFloodFill()
         oCurrentAction = DesignAction.Fill
         SelectionMessage("Click in area to fill")
     End Sub
-
     Private Sub MnuPickColour_Click(sender As Object, e As EventArgs) Handles MnuPickColour.Click
         BeginPickColour()
     End Sub
-
     Private Sub BeginPickColour()
         oCurrentAction = DesignAction.PickColour
         SelectionMessage("Click on stitch to select colour")
     End Sub
-
     Private Sub MnuChangeColour_Click(sender As Object, e As EventArgs) Handles MnuChangeColour.Click
-        BeginChangeColour
+        BeginChangeColour()
     End Sub
-
     Private Sub BeginChangeColour()
         oCurrentAction = DesignAction.ChangeColour
         SelectionMessage("Click on stitch to change colour")
     End Sub
-
     Private Sub MnuDeleteColour_Click(sender As Object, e As EventArgs) Handles MnuDeleteColour.Click
-        BeginDeleteColour
+        BeginDeleteColour()
     End Sub
-
     Private Sub BeginDeleteColour()
         oCurrentAction = DesignAction.DeleteColour
         SelectionMessage("Click on stitch to delete colour")
     End Sub
-
 #End Region
 End Class

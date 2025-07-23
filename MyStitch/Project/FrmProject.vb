@@ -38,6 +38,10 @@ Public Class FrmProject
     End Sub
     Private Sub FrmProject_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
+        oGrid1Pen.Dispose()
+        oGrid5Pen.Dispose()
+        oGrid10Pen.Dispose()
+        oCentrePen.dispose
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -99,25 +103,25 @@ Public Class FrmProject
     Private Sub CbFabricColour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbFabricColour.SelectedIndexChanged
         Select Case CbFabricColour.SelectedIndex
             Case 0 To CbFabricColour.Items.Count - 2
-                PicFabricColour.BackColor = oFabricColour(CbFabricColour.SelectedIndex)
+                PicFabricColour.BackColor = oFabricColourList(CbFabricColour.SelectedIndex)
         End Select
     End Sub
     Private Sub CbGrid1Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged
         Select Case CbGrid1Colour.SelectedIndex
             Case 0 To CbGrid1Colour.Items.Count - 2
-                PicGrid1Colour.BackColor = oGridColour(CbGrid1Colour.SelectedIndex)
+                PicGrid1Colour.BackColor = oGridColourList(CbGrid1Colour.SelectedIndex)
         End Select
     End Sub
     Private Sub CbGrid5Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid5Colour.SelectedIndexChanged
         Select Case CbGrid5Colour.SelectedIndex
             Case 0 To CbGrid5Colour.Items.Count - 2
-                PicGrid5Colour.BackColor = oGridColour(CbGrid5Colour.SelectedIndex)
+                PicGrid5Colour.BackColor = oGridColourList(CbGrid5Colour.SelectedIndex)
         End Select
     End Sub
     Private Sub CbGrid10Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid10Colour.SelectedIndexChanged
         Select Case CbGrid10Colour.SelectedIndex
             Case 0 To CbGrid10Colour.Items.Count - 2
-                PicGrid10Colour.BackColor = oGridColour(CbGrid10Colour.SelectedIndex)
+                PicGrid10Colour.BackColor = oGridColourList(CbGrid10Colour.SelectedIndex)
         End Select
     End Sub
     Private Sub BtnDesign_Click(sender As Object, e As EventArgs) Handles BtnDesign.Click
@@ -181,7 +185,7 @@ Public Class FrmProject
         OpenProjectThreadSymbolForm()
     End Sub
     Private Sub MnuBuildCards_Click(sender As Object, e As EventArgs) Handles MnuBuildCards.Click
-        OpenBuildCardsForm()
+        OpenBuildCardsForm(_selectedProject)
     End Sub
     Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
         OpenPrintCardsForm()
@@ -210,10 +214,10 @@ Public Class FrmProject
             NudOriginY.Value = .OriginY
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
-            PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColour)
-            PicGrid1Colour.BackColor = GetColourFromProject(.Grid1Colour, oGridColour)
-            PicGrid5Colour.BackColor = GetColourFromProject(.Grid5Colour, oGridColour)
-            PicGrid10Colour.BackColor = GetColourFromProject(.Grid10Colour, oGridColour)
+            PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColourList)
+            PicGrid1Colour.BackColor = GetColourFromProject(.Grid1Colour, oGridColourList)
+            PicGrid5Colour.BackColor = GetColourFromProject(.Grid5Colour, oGridColourList)
+            PicGrid10Colour.BackColor = GetColourFromProject(.Grid10Colour, oGridColourList)
             Select Case .FabricColour
                 Case 1 To 4
                     CbFabricColour.SelectedIndex = .FabricColour - 1
@@ -404,17 +408,6 @@ Public Class FrmProject
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
     End Sub
-    Private Sub OpenBuildCardsForm()
-        Using _buildCards As New FrmBuildThreadCards
-            _buildCards.SelectedProject = _selectedProject
-            _buildCards.ShowDialog()
-        End Using
-    End Sub
-    Private Sub OpenPrintCardsForm()
-        Using _PrintCards As New FrmPrintThreadCards
-            _PrintCards.ShowDialog()
-        End Using
-    End Sub
     Private Sub OpenPreferencesForm()
         Using _options As New FrmOptions
             _options.ShowDialog()
@@ -432,6 +425,7 @@ Public Class FrmProject
     End Sub
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         ShowPrintForm()
+        SelectProjectInList(oProject.ProjectId)
     End Sub
     Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
         ShowPrintSettingsForm()
@@ -447,6 +441,7 @@ Public Class FrmProject
         Using _printDialog As New FrmPrintProject
             _printDialog.SelectedProject = _selectedProject
             _printDialog.ShowDialog()
+
         End Using
 
     End Sub

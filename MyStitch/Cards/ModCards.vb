@@ -10,7 +10,17 @@ Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Module ModCards
     Public isCardsLoading As Boolean
-
+    Public Sub OpenBuildCardsForm(pProject As Project)
+        Using _buildCards As New FrmBuildThreadCards
+            _buildCards.SelectedProject = pProject
+            _buildCards.ShowDialog()
+        End Using
+    End Sub
+    Public Sub OpenPrintCardsForm()
+        Using _PrintCards As New FrmPrintThreadCards
+            _PrintCards.ShowDialog()
+        End Using
+    End Sub
     Public Function LoadCardList(pProjectId As Integer, ByRef pListBox As ListBox, pBasename As String) As Integer
         LogUtil.LogInfo("Load card list", pBasename)
         isCardsLoading = True

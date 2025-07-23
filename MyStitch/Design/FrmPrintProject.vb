@@ -7,11 +7,12 @@
 
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Objects
-
+Imports MyStitch.Domain
 Public Class FrmPrintProject
 #Region "properties"
 
     Private _selectedProject As Project
+
     Public Property SelectedProject() As Project
         Get
             Return _selectedProject
@@ -21,8 +22,10 @@ Public Class FrmPrintProject
         End Set
     End Property
 #End Region
+#Region "variables"
+    Private isLoading As Boolean = False
+#End Region
 #Region "form control handlers"
-
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening print", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintFormPos)
@@ -32,26 +35,48 @@ Public Class FrmPrintProject
         Me.Close()
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        oDesignBitmap = Nothing
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
+    End Sub
+
+    Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
+        If Not isLoading Then
+            If DgvProjects.SelectedRows.Count = 1 Then
+                Dim selectedRow As DataGridViewRow = DgvProjects.SelectedRows(0)
+                Dim projectId As Integer = Convert.ToInt32(selectedRow.Cells("projectId").Value)
+                oProject = GetProjectById(projectId)
+                BtnPrint.Enabled = True
+            Else
+                oProject = New Project()
+                BtnPrint.Enabled = False
+            End If
+            LoadFormFromProject()
+        End If
+    End Sub
+    Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
+        DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
     End Sub
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
+        isLoading = True
+        BtnPrint.Enabled = False
         LoadProjectList(DgvProjects, MyBase.Name)
-        If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
+        isLoading = False
+        If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
             SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
         End If
-        LoadFormFromSettings
+        LoadFormFromSettings()
     End Sub
-
     Private Sub LoadFormFromSettings()
         ChkPrintKey.Checked = My.Settings.isPrintKey
         CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
         ChkKeySeparate.Checked = My.Settings.isKeySeparate
         ChkPrintGrid.Checked = My.Settings.isPrintGrid
-        ChkPrintCentre.Checked = My.Settings.isPrintCentreMarks
         ChkCentreLines.Checked = My.Settings.isPrintCentreLines
+        isPrintCentreOn = My.Settings.isPrintCentreLines
+        isPrintGridOn = My.Settings.isPrintGrid
         ChkBlankBorder.Checked = My.Settings.isBlankBorder
         NudBlankBorder.Value = My.Settings.BlankBorderSize
         CbDesignStitchDisplay.SelectedIndex = My.Settings.DesignStitchDisplay
@@ -68,7 +93,7 @@ Public Class FrmPrintProject
         NudGrid5Lines.Value = My.Settings.PrintGrid5Lines
         NudGrid10Lines.Value = My.Settings.PrintGrid10Lines
         NudBackstitchLines.Value = My.Settings.PrintBackstitchLines
-        TxtTitle.Text = _selectedProject.ProjectName
+        TxtTitle.Text = oProject.ProjectName
         ChkTitleAboveGrid.Checked = My.Settings.isTitleAboveGrid
         ChkTitleAboveKey.Checked = My.Settings.isTitleAboveKey
         TxtDesignBy.Text = My.Settings.DesignBy
@@ -80,7 +105,6 @@ Public Class FrmPrintProject
         My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
         My.Settings.isKeySeparate = ChkKeySeparate.Checked
         My.Settings.isPrintGrid = ChkPrintGrid.Checked
-        My.Settings.isPrintCentreMarks = ChkPrintCentre.Checked
         My.Settings.isPrintCentreLines = ChkCentreLines.Checked
         My.Settings.isBlankBorder = ChkBlankBorder.Checked
         My.Settings.BlankBorderSize = NudBlankBorder.Value
@@ -103,6 +127,11 @@ Public Class FrmPrintProject
         My.Settings.DesignBy = TxtDesignBy.Text
         My.Settings.CopyrightBy = TxtCopyright.Text
         My.Settings.Save()
+    End Sub
+    Private Sub LoadFormFromProject()
+        TxtTitle.Text = oProject.ProjectName
+        oProjectThreads = GetProjectThreads(oProject.ProjectId)
+        LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn)
     End Sub
 #End Region
 End Class
