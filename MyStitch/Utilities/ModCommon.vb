@@ -49,10 +49,14 @@ Module ModCommon
     Public Sub RunHousekeeping()
         LogUtil.Info("Housekeeping started", MethodBase.GetCurrentMethod.Name)
         Dim retentionPeriod As Integer = My.Settings.FileRetentionPeriod
-        LogUtil.Info("Tidying log files", MethodBase.GetCurrentMethod.Name)
-        TidyLogFiles(LogFolderName, "*.*", retentionPeriod)
-        LogUtil.Info("Tidying Design archive files", MethodBase.GetCurrentMethod.Name)
-        TidyLogFiles(DesignArchiveFolderName, "*.*", retentionPeriod)
+        If My.Settings.isHkLogs Then
+            LogUtil.Info("Tidying log files", MethodBase.GetCurrentMethod.Name)
+            TidyLogFiles(LogFolderName, "*.*", retentionPeriod)
+        End If
+        If My.Settings.isHkArchive Then
+            LogUtil.Info("Tidying Design files", MethodBase.GetCurrentMethod.Name)
+            TidyLogFiles(DesignArchiveFolderName, "*.*", retentionPeriod)
+        End If
         LogUtil.Info("Housekeeping complete", MethodBase.GetCurrentMethod.Name)
     End Sub
     Public Sub TidyLogFiles(ByVal sFolder As String, ByVal sPattern As String, ByVal iRetain As Integer, Optional ByVal bSubfolders As Boolean = False)

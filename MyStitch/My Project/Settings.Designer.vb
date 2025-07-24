@@ -928,6 +928,30 @@ Namespace My
                 Me("isAutoRunHousekeeping") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isHkLogs() As Boolean
+            Get
+                Return CType(Me("isHkLogs"),Boolean)
+            End Get
+            Set
+                Me("isHkLogs") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isHkArchive() As Boolean
+            Get
+                Return CType(Me("isHkArchive"),Boolean)
+            End Get
+            Set
+                Me("isHkArchive") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -239,9 +239,11 @@ Partial Class FrmPrintProject
         'NudSqrPerInch
         '
         Me.NudSqrPerInch.Location = New System.Drawing.Point(116, 273)
+        Me.NudSqrPerInch.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.NudSqrPerInch.Name = "NudSqrPerInch"
         Me.NudSqrPerInch.Size = New System.Drawing.Size(62, 24)
         Me.NudSqrPerInch.TabIndex = 13
+        Me.NudSqrPerInch.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
         'Label4
         '
@@ -554,30 +556,38 @@ Partial Class FrmPrintProject
         'NudBackstitchLines
         '
         Me.NudBackstitchLines.Location = New System.Drawing.Point(118, 100)
+        Me.NudBackstitchLines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudBackstitchLines.Name = "NudBackstitchLines"
         Me.NudBackstitchLines.Size = New System.Drawing.Size(48, 20)
         Me.NudBackstitchLines.TabIndex = 158
+        Me.NudBackstitchLines.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'NudGrid10Lines
         '
         Me.NudGrid10Lines.Location = New System.Drawing.Point(118, 75)
+        Me.NudGrid10Lines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudGrid10Lines.Name = "NudGrid10Lines"
         Me.NudGrid10Lines.Size = New System.Drawing.Size(48, 20)
         Me.NudGrid10Lines.TabIndex = 157
+        Me.NudGrid10Lines.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'NudGrid1Lines
         '
         Me.NudGrid1Lines.Location = New System.Drawing.Point(118, 25)
+        Me.NudGrid1Lines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudGrid1Lines.Name = "NudGrid1Lines"
         Me.NudGrid1Lines.Size = New System.Drawing.Size(48, 20)
         Me.NudGrid1Lines.TabIndex = 156
+        Me.NudGrid1Lines.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'NudGrid5Lines
         '
         Me.NudGrid5Lines.Location = New System.Drawing.Point(118, 49)
+        Me.NudGrid5Lines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudGrid5Lines.Name = "NudGrid5Lines"
         Me.NudGrid5Lines.Size = New System.Drawing.Size(48, 20)
         Me.NudGrid5Lines.TabIndex = 155
+        Me.NudGrid5Lines.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label18
         '

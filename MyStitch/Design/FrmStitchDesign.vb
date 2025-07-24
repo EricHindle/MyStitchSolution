@@ -497,7 +497,7 @@ Public Class FrmStitchDesign
                                                                                  MnuBackStitches.CheckedChanged
         SetStitchTypesSettings()
         If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign()
+            RedrawDesign(False)
         End If
     End Sub
     Private Sub RedrawDesign()
@@ -2105,5 +2105,6 @@ Public Class FrmStitchDesign
         oCurrentAction = DesignAction.DeleteColour
         SelectionMessage("Click on stitch to delete colour")
     End Sub
+
 #End Region
 End Class

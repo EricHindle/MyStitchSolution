@@ -6,7 +6,6 @@
 '
 
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain
 Public Class FrmPrintProject
 #Region "properties"
@@ -82,7 +81,6 @@ Public Class FrmPrintProject
         TxtDesignBy.Text = My.Settings.DesignBy
         TxtCopyright.Text = My.Settings.CopyrightBy
     End Sub
-
     Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
         My.Settings.isPrintKey = ChkPrintKey.Checked
         My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
@@ -117,7 +115,6 @@ Public Class FrmPrintProject
         LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn)
         AdjustMagnification()
     End Sub
-
     Private Sub AdjustMagnification()
         isLoading = True
         Dim _xOffset As Integer = 0
@@ -142,23 +139,19 @@ Public Class FrmPrintProject
             RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
-
     Private Sub ChkCentreLines_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCentreLines.CheckedChanged
         isPrintCentreOn = Not isPrintCentreOn
         If isComponentInitialised AndAlso Not isLoading Then
             RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
-
     Private Sub CbDesignStitchDisplay_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbPrintStitchDisplay.SelectedIndexChanged
         oStitchDisplayStyle = CbPrintStitchDisplay.SelectedIndex
         If isComponentInitialised AndAlso Not isLoading Then
             RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
-
     Private Sub PnlPageImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlPageImage.SizeChanged
-
         PnlPageImage.Width = PnlPageImage.Height / 297 * 210
     End Sub
 #End Region
