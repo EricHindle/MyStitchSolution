@@ -65,6 +65,7 @@ Public Class FrmStitchDesign
     Private isLoading As Boolean
     Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
+    Private isSaved As Boolean = True
 
     Private oCurrentAction As DesignAction = DesignAction.none
     Private oCurrentStitchType As DesignAction = DesignAction.none
@@ -127,6 +128,16 @@ Public Class FrmStitchDesign
         Me.Close()
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.LogInfo("Closing design", MyBase.Name)
+        If Not isSaved Then
+            Dim _result As DialogResult = MsgBox("Save changes to design?", MsgBoxStyle.YesNoCancel Or MsgBoxStyle.Question, "Confirm")
+            If _result = DialogResult.Yes Then
+                SaveDesign()
+            ElseIf _result = DialogResult.Cancel Then
+                e.Cancel = True
+                Return
+            End If
+        End If
         _backstitchPen.Dispose()
         _selPen.Dispose()
         oDesignBitmap = Nothing
@@ -457,6 +468,11 @@ Public Class FrmStitchDesign
         End If
         PicDesign.Invalidate()
     End Sub
+    Private Sub PicDesign_MouseWheel(sender As Object, e As MouseEventArgs) Handles PicDesign.MouseWheel
+        ' Update the drawing based upon the mouse wheel scrolling.
+        Dim numberOfTextLinesToMove As Integer = CInt(e.Delta * SystemInformation.MouseWheelScrollLines / 120)
+        VScrollBar1.Value = Math.Max(0, Math.Min(VScrollBar1.Maximum, VScrollBar1.Value - numberOfTextLinesToMove * VScrollBar1.SmallChange))
+    End Sub
     Private Sub HScrollBar1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles HScrollBar1.ValueChanged
         If Not isLoading Then
             Dim _h_change As Integer = (iOldHScrollbarValue - HScrollBar1.Value)
@@ -600,7 +616,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MnuRedraw_Click(sender As Object, e As EventArgs) Handles MnuRedraw.Click
         oProjectDesign = SortStitches(oProjectDesign)
-        RedrawDesign()
+        RedrawDesign(False)
     End Sub
     Private Sub MnuZoom_Click(sender As Object, e As EventArgs) Handles MnuZoom.Click
         BeginZoom()
@@ -1438,6 +1454,7 @@ Public Class FrmStitchDesign
             ArchiveExistingFile(pFilename)
         End If
         SaveDesignDelimited(oProjectDesign, My.Settings.DesignFilePath, pFilename)
+        isSaved = True
         LogUtil.Info("Design saved to " & pFilename, MyBase.Name)
         LblStatus.Text = "Save complete"
     End Sub
@@ -1498,6 +1515,7 @@ Public Class FrmStitchDesign
                 End Select
                 _stitchActions.Remove(_stitchAction)
             Loop
+            isSaved = False
             If _redoList.Count > 0 Then
                 oRedoList.Add(_redoList)
             End If
@@ -1556,6 +1574,7 @@ Public Class FrmStitchDesign
                 End Select
                 _stitchActions.Remove(_stitchAction)
             Loop
+            isSaved = False
             If _undoList.Count > 0 Then
                 oUndoList.Add(_undoList)
             End If
@@ -1658,10 +1677,12 @@ Public Class FrmStitchDesign
     Private Sub AddBackStitchToDesign(pBackstitch As BackStitch)
         oProjectDesign.BackStitches.Add(pBackstitch)
         AddToCurrentUndoList(pBackstitch, UndoAction.Add)
+        isSaved = False
     End Sub
     Private Sub RemoveBackStitchFromDesign(pBackstitch As BackStitch)
         oProjectDesign.BackStitches.Remove(pBackstitch)
         AddToCurrentUndoList(pBackstitch, UndoAction.Remove)
+        isSaved = False
         '      RedrawDesign()
     End Sub
     Private Function FindBackstitches(pActionPoint As Point) As List(Of BackStitch)
@@ -1803,11 +1824,13 @@ Public Class FrmStitchDesign
     Private Sub AddBlockStitchToDesign(pBlockstitch As BlockStitch)
         oProjectDesign.BlockStitches.Add(pBlockstitch)
         AddToCurrentUndoList(pBlockstitch, UndoAction.Add)
+        isSaved = False
     End Sub
     Private Sub RemoveBlockStitchFromDesign(pBlockstitch As BlockStitch)
         oProjectDesign.BlockStitches.Remove(pBlockstitch)
         RemoveBlockStitchFromImage(pBlockstitch)
         AddToCurrentUndoList(pBlockstitch, UndoAction.Remove)
+        isSaved = False
     End Sub
     Private Sub RemoveBlockStitchFromImage(pBlockStitch As BlockStitch)
         Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
@@ -1924,6 +1947,7 @@ Public Class FrmStitchDesign
         _existingBlockstitch.Quarters = _blockStitchQtrList
         _existingBlockstitch.StitchType = BlockStitchType.Mixed
         DrawQuarterBlockStitch(_existingBlockstitch)
+        isSaved = False
     End Sub
     Private Function FindBlockstitch(pCellPosition As Point) As BlockStitch
         Dim _blockstitch As BlockStitch = CType(oProjectDesign.BlockStitches.Find(Function(p) p.BlockPosition = pCellPosition), BlockStitch)
@@ -1970,6 +1994,7 @@ Public Class FrmStitchDesign
         oProjectDesign.Knots.Remove(pKnot)
         RemoveKnotFromImage(pKnot)
         AddToCurrentUndoList(pKnot, UndoAction.Remove)
+        isSaved = False
     End Sub
     Private Function FindKnot(pCell As Cell) As Knot
         Return CType(oProjectDesign.Knots.Find(Function(p) p.BlockPosition = pCell.KnotCellPos AndAlso p.BlockQuarter = pCell.KnotQtr), Knot)
@@ -2105,6 +2130,5 @@ Public Class FrmStitchDesign
         oCurrentAction = DesignAction.DeleteColour
         SelectionMessage("Click on stitch to delete colour")
     End Sub
-
 #End Region
 End Class
