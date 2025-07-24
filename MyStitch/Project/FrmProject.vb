@@ -38,7 +38,7 @@ Public Class FrmProject
         KeyPreview = True
     End Sub
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        KeyHandler(Me, e)
+        KeyHandler(Me, FormType.Project, e)
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
@@ -315,11 +315,11 @@ Public Class FrmProject
     End Sub
     Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
         Dim _exceptionText As String = "Exception renaming project design file"
-        Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & DEL_EXT
-        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, HSZ_EXT)
+        Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & DESIGN_EXT
+        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, ZIP_EXT)
         If My.Computer.FileSystem.FileExists(_existingZipFile) Then
-            Dim _newDesignFile As String = MakeFilename(pSelectedProject) & DEL_EXT
-            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, HSZ_EXT)
+            Dim _newDesignFile As String = MakeFilename(pSelectedProject) & DESIGN_EXT
+            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
             Try
                 LogUtil.ShowStatus("Renaming " & _existingDesignFile & " to " & _newDesignFile, LblStatus, True, MyBase.Name, False)
                 Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)

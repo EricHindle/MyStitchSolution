@@ -16,10 +16,9 @@ Imports Newtonsoft.Json
 Module ModFileHandling
     'Public Const JSON_EXT As String = ".json"
     'Public Const XML_EXT As String = ".xml"
-    Public Const ZIP_EXT As String = ".zip"
-    Public Const HSZ_EXT As String = ".hsz"
+    Public Const ZIP_EXT As String = ".hsz"
     Public Const ARC_EXT As String = ".hsa"
-    Public Const DEL_EXT As String = ".hsd"
+    Public Const DESIGN_EXT As String = ".hsd"
     Public Const DESIGN_DELIM As String = "^"
     Public Const LIST_DELIM As String = "|"
     Public Const BLOCK_DELIM As String = "~"
@@ -28,14 +27,14 @@ Module ModFileHandling
     Public Const DESIGN_HDR As String = "Design:"
     Public Function OpenDesignFile(pDesignPathName As String, pDesignFileName As String) As String
         Dim _exceptionText As String = "Exception reading project design file"
-        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & HSZ_EXT)
+        Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
         Dim _designText As String = String.Empty
 
         Try
             If My.Computer.FileSystem.FileExists(_zipFile) Then
                 Using _archiveFile As ZipArchive = ZipFile.OpenRead(_zipFile)
                     For Each _entry As ZipArchiveEntry In _archiveFile.Entries
-                        If _entry.Name.EndsWith(DEL_EXT) Then
+                        If _entry.Name.EndsWith(DESIGN_EXT) Then
                             Using _input As New StreamReader(_entry.Open())
                                 _designText = _input.ReadLine()
 
@@ -59,9 +58,9 @@ Module ModFileHandling
     Public Function SaveDesignDelimited(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _pathname As String = pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
-        Dim _entryName As String = pDesignFileName & DEL_EXT
+        Dim _entryName As String = pDesignFileName & DESIGN_EXT
         Dim _designFile As String = Path.Combine(_pathname, _entryName)
-        Dim _zipFile As String = Path.Combine(_pathname, pDesignFileName & HSZ_EXT)
+        Dim _zipFile As String = Path.Combine(_pathname, pDesignFileName & ZIP_EXT)
 
         If Not My.Computer.FileSystem.FileExists(_zipFile) Then
             Using _fs As New FileStream(_zipFile, FileMode.Create)

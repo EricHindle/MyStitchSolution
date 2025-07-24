@@ -123,6 +123,10 @@ Public Class FrmStitchDesign
         If My.Settings.isTimerAutoStart Then
             StartProjectTimer(oProject)
         End If
+        KeyPreview = True
+    End Sub
+    Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+        KeyHandler(Me, FormType.Design, e)
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Me.Close()
@@ -339,6 +343,7 @@ Public Class FrmStitchDesign
                             RemoveBackStitchFromDesign(_backstitch)
                         Next
                     End If
+                    isSaved = False
                 End If
                 ClearSelection()
             Case DesignAction.ChangeColour
@@ -365,6 +370,7 @@ Public Class FrmStitchDesign
                             End If
                         Next
                     End If
+                    isSaved = False
                 End If
                 ClearSelection()
                 RedrawDesign(False)
@@ -1438,7 +1444,7 @@ Public Class FrmStitchDesign
     End Sub
 #End Region
 #Region "actions"
-    Private Sub SaveDesign()
+    Friend Sub SaveDesign()
         If oProject.IsLoaded Then
             Dim _filename As String = MakeFilename(oProject)
             SaveDesign(_filename)
@@ -1451,23 +1457,29 @@ Public Class FrmStitchDesign
         LblStatus.Text = "Saving design..."
         LogUtil.Info("Saving design", MyBase.Name)
         If My.Settings.isAutoArchiveOnSave Then
-            ArchiveExistingFile(pFilename)
+            If Not ArchiveExistingFile(pFilename) Then
+                LblStatus.Text = "Error archiving existing file"
+                Beep()
+                Return
+            End If
         End If
         SaveDesignDelimited(oProjectDesign, My.Settings.DesignFilePath, pFilename)
         isSaved = True
         LogUtil.Info("Design saved to " & pFilename, MyBase.Name)
         LblStatus.Text = "Save complete"
     End Sub
-    Private Sub ArchiveExistingFile(pFilename As String)
+    Private Function ArchiveExistingFile(pFilename As String) As Boolean
+        Dim isMovedOK As Boolean = False
         Dim _pathname As String = My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
         Dim _archivePathname As String = Path.Combine(_pathname, "archive")
-        Dim _existingFilename As String = Path.Combine(_pathname, pFilename & HSZ_EXT)
+        Dim _existingFilename As String = Path.Combine(_pathname, pFilename & ZIP_EXT)
         If My.Computer.FileSystem.FileExists(_existingFilename) Then
             LogUtil.LogInfo("Archiving design before save", MyBase.Name)
-            Dim _destinationFilename As String = Path.Combine(_archivePathname, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & HSZ_EXT)
-            TryCopyFile(_existingFilename, _destinationFilename, True)
+            Dim _destinationFilename As String = Path.Combine(_archivePathname, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & ARC_EXT)
+            isMovedOK = TryMoveFile(_existingFilename, _destinationFilename, True)
         End If
-    End Sub
+        Return isMovedOK
+    End Function
     Private Sub UndoLastAction()
         If oUndoList.Count > 0 Then
             Dim _stitchActions As List(Of StitchAction) = oUndoList.Last

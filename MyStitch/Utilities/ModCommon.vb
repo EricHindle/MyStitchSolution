@@ -20,6 +20,10 @@ Module ModCommon
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
     Public isUpgradedSettings As Boolean = False
     Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
+    Public Enum FormType
+        Project
+        Design
+    End Enum
     Public Sub InitialiseSettings()
         If My.Settings.CallUpgrade = 0 Then
             My.Settings.Upgrade()
@@ -146,6 +150,23 @@ Module ModCommon
         LogUtil.Debug("Generated form position: " & sPos, "SetFormPos")
         Return sPos
     End Function
+    Public Function TryMoveFile(pFullname As String, pDestination As String, pOverwrite As Boolean) As Boolean
+        ' Move a file to a new location, overwriting if necessary
+        Dim isOK As Boolean = True
+        Try
+            My.Computer.FileSystem.MoveFile(pFullname, pDestination, pOverwrite)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                        OrElse TypeOf ex Is FileNotFoundException _
+                        OrElse TypeOf ex Is IOException _
+                        OrElse TypeOf ex Is NotSupportedException _
+                        OrElse TypeOf ex Is PathTooLongException _
+                        OrElse TypeOf ex Is UnauthorizedAccessException _
+                        OrElse TypeOf ex Is Security.SecurityException)
+            LogUtil.DisplayException(ex, "Archive file", MethodBase.GetCurrentMethod.Name)
+            isOK = False
+        End Try
+        Return isOK
+    End Function
     Public Sub TryCopyFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
         Try
             My.Computer.FileSystem.CopyFile(pFullname, pDestination, pOverwrite)
@@ -159,7 +180,8 @@ Module ModCommon
             LogUtil.DisplayException(ex, "Archive file", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Public Sub KeyHandler(ByRef _form As Form, ByRef e As System.Windows.Forms.KeyEventArgs)
+    Public Sub KeyHandler(ByRef _form As Form, pFormType As FormType, ByRef e As System.Windows.Forms.KeyEventArgs)
+        ' Handle key events for the form
         If e.Control Then
             ' Handle control key combinations
             Dim _hotkey As Keys = e.KeyCode
@@ -184,6 +206,17 @@ Module ModCommon
                     ' Run housekeeping process
                     RunHousekeeping()
                     e.Handled = True
+                Case Keys.X
+                    _form.Close()
+                    e.Handled = True
+                Case Keys.S
+                    If pFormType = FormType.Design Then
+                        ' Save Design
+                        If TypeOf _form Is FrmStitchDesign Then
+                            CType(_form, FrmStitchDesign).SaveDesign()
+                        End If
+                        e.Handled = True
+                    End If
             End Select
         End If
     End Sub
