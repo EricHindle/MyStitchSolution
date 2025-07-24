@@ -904,6 +904,30 @@ Namespace My
                 Me("PrintOptionsFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property GlobalSettingsFormPos() As String
+            Get
+                Return CType(Me("GlobalSettingsFormPos"),String)
+            End Get
+            Set
+                Me("GlobalSettingsFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property isAutoRunHousekeeping() As Boolean
+            Get
+                Return CType(Me("isAutoRunHousekeeping"),Boolean)
+            End Get
+            Set
+                Me("isAutoRunHousekeeping") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

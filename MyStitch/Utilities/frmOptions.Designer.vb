@@ -67,6 +67,7 @@ Partial Class FrmOptions
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         Me.BtnPrintSettings = New System.Windows.Forms.Button()
+        Me.ChkAutoRunHousekeeping = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -238,7 +239,7 @@ Partial Class FrmOptions
         Me.BtnHousekeeping.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnHousekeeping.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnHousekeeping.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnHousekeeping.Location = New System.Drawing.Point(24, 80)
+        Me.BtnHousekeeping.Location = New System.Drawing.Point(21, 103)
         Me.BtnHousekeeping.Name = "BtnHousekeeping"
         Me.BtnHousekeeping.Size = New System.Drawing.Size(86, 35)
         Me.BtnHousekeeping.TabIndex = 26
@@ -247,12 +248,13 @@ Partial Class FrmOptions
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.ChkAutoRunHousekeeping)
         Me.GroupBox4.Controls.Add(Me.Label14)
         Me.GroupBox4.Controls.Add(Me.NudRetention)
         Me.GroupBox4.Controls.Add(Me.BtnHousekeeping)
         Me.GroupBox4.Location = New System.Drawing.Point(548, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(133, 133)
+        Me.GroupBox4.Size = New System.Drawing.Size(133, 144)
         Me.GroupBox4.TabIndex = 27
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Housekeeping"
@@ -538,6 +540,16 @@ Partial Class FrmOptions
         Me.BtnPrintSettings.Text = "Print Settings"
         Me.BtnPrintSettings.UseVisualStyleBackColor = True
         '
+        'ChkAutoRunHousekeeping
+        '
+        Me.ChkAutoRunHousekeeping.AutoSize = True
+        Me.ChkAutoRunHousekeeping.Location = New System.Drawing.Point(21, 77)
+        Me.ChkAutoRunHousekeeping.Name = "ChkAutoRunHousekeeping"
+        Me.ChkAutoRunHousekeeping.Size = New System.Drawing.Size(78, 18)
+        Me.ChkAutoRunHousekeeping.TabIndex = 29
+        Me.ChkAutoRunHousekeeping.Text = "Auto Run"
+        Me.ChkAutoRunHousekeeping.UseVisualStyleBackColor = True
+        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -627,4 +639,5 @@ Partial Class FrmOptions
     Friend WithEvents Label6 As Label
     Friend WithEvents ChkArchiveOnSave As CheckBox
     Friend WithEvents BtnPrintSettings As Button
+    Friend WithEvents ChkAutoRunHousekeeping As CheckBox
 End Class

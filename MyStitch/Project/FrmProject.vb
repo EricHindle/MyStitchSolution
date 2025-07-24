@@ -27,11 +27,18 @@ Public Class FrmProject
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitialiseSettings()
         InitialiseLogging()
-        LogUtil.LogInfo("Project maintenence", MyBase.Name)
-        isLoading = True
         CheckAppPaths()
+        If My.Settings.isAutoRunHousekeeping Then
+            RunHousekeeping()
+        End If
+        LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
+        isLoading = True
         InitialiseForm()
         isLoading = False
+        KeyPreview = True
+    End Sub
+    Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+        KeyHandler(Me, e)
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
@@ -408,16 +415,7 @@ Public Class FrmProject
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
     End Sub
-    Private Sub OpenPreferencesForm()
-        Using _options As New FrmOptions
-            _options.ShowDialog()
-        End Using
-    End Sub
-    Private Shared Sub OpenBackupForm()
-        Using _backup As New FrmBackup
-            _backup.ShowDialog()
-        End Using
-    End Sub
+
     Private Shared Sub OpenRestoreForm()
         Using _restore As New FrmRestore
             _restore.ShowDialog()

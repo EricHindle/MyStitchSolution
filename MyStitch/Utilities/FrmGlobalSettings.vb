@@ -20,11 +20,14 @@ Public Class FrmGlobalSettings
 #End Region
 #Region "Form"
     Private Sub Form_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-
+        My.Settings.GlobalSettingsFormPos = SetFormPos(Me)
+        My.Settings.Save()
     End Sub
 
     Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.Info("Loading", MyBase.Name)
+        GetFormPos(Me, My.Settings.GlobalSettingsFormPos)
+
         Try
             oTa.Fill(oTable)
         Catch ex As DbException

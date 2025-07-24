@@ -9,18 +9,23 @@ Imports HindlewareLib.Logging
 
 Public Class FrmPrintOptions
     Private Sub FrmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        LogUtil.Info("Loading", MyBase.Name)
+        LogUtil.Info("Loading Print Options", MyBase.Name)
+        GetFormPos(Me, My.Settings.PrintOptionsFormPos)
         LoadOptions()
     End Sub
     Private Sub BtnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Close()
     End Sub
-
     Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+        LogUtil.Info("Saving Print Options", MyBase.Name)
         SaveOptions()
         Close()
     End Sub
-
+    Private Sub FrmPrintOptions_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.Info("Closing", MyBase.Name)
+        My.Settings.PrintOptionsFormPos = SetFormPos(Me)
+        My.Settings.Save()
+    End Sub
     Private Sub SaveOptions()
         My.Settings.isPrintKey = ChkPrintKey.Checked
         My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
@@ -76,5 +81,4 @@ Public Class FrmPrintOptions
         TxtDesignBy.Text = My.Settings.DesignBy
         TxtCopyright.Text = My.Settings.CopyrightBy
     End Sub
-
 End Class
