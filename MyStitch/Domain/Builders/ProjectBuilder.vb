@@ -17,9 +17,6 @@ Namespace Domain.Builders
         Private _fabricWidth As Integer
         Private _fabricHeight As Integer
         Private _fabricColour As Integer
-        Private _grid1Colour As Integer
-        Private _grid5Colour As Integer
-        Private _grid10Colour As Integer
         Private _design As ProjectDesign
         Private _designFileName As String
         Private _originX As Integer
@@ -38,9 +35,6 @@ Namespace Domain.Builders
             _fabricWidth = 1
             _fabricHeight = 1
             _fabricColour = 1
-            _grid1Colour = 2
-            _grid5Colour = 3
-            _grid10Colour = 4
             _design = New ProjectDesign
             _designFileName = String.Empty
             _originX = 0
@@ -61,9 +55,6 @@ Namespace Domain.Builders
                     _fabricWidth = .FabricWidth
                     _fabricHeight = .FabricHeight
                     _fabricColour = .FabricColour
-                    _grid1Colour = .Grid1Colour
-                    _grid5Colour = .Grid5Colour
-                    _grid10Colour = .Grid10Colour
                     _design = .Design
                     _designFileName = .DesignFileName
                     _originX = .OriginX
@@ -86,9 +77,6 @@ Namespace Domain.Builders
                     _fabricWidth = .fabric_width
                     _fabricHeight = .fabric_height
                     _fabricColour = .fabric_colour
-                    _grid1Colour = .grid1_colour
-                    _grid5Colour = .grid5_colour
-                    _grid10Colour = .grid10_colour
                     _designFileName = .design_file
                     _originX = .origin_x
                     _originY = .origin_y
@@ -133,18 +121,6 @@ Namespace Domain.Builders
             _fabricColour = pFabricColour
             Return Me
         End Function
-        Public Function WithGrid1Colour(pGrid1Colour As Integer) As ProjectBuilder
-            _grid1Colour = pGrid1Colour
-            Return Me
-        End Function
-        Public Function WithGrid5Colour(pGrid5Colour As Integer) As ProjectBuilder
-            _grid5Colour = pGrid5Colour
-            Return Me
-        End Function
-        Public Function WithGrid10Colour(pGrid10Colour As Integer) As ProjectBuilder
-            _grid10Colour = pGrid10Colour
-            Return Me
-        End Function
         Public Function WithDesign(pDesign As ProjectDesign) As ProjectBuilder
             _design = pDesign
             Return Me
@@ -180,9 +156,6 @@ Namespace Domain.Builders
                                _fabricWidth,
                                _fabricHeight,
                                _fabricColour,
-                               _grid1Colour,
-                               _grid5Colour,
-                               _grid10Colour,
                                _design,
                                _designFileName,
                                _originX,

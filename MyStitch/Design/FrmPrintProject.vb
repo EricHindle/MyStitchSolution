@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Drawing.Printing
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Public Class FrmPrintProject
@@ -20,6 +21,9 @@ Public Class FrmPrintProject
 #Region "variables"
     Private isLoading As Boolean = False
     Private isComponentInitialised As Boolean
+    Private myPrintDoc As New Printing.PrintDocument
+    Private leftmargin As Integer
+    Private topmargin As Integer
 #End Region
 #Region "form control handlers"
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -123,11 +127,11 @@ Public Class FrmPrintProject
             _xOffset = NudBlankBorder.Value
             _yOffset = NudBlankBorder.Value
         End If
-        _xOffset += NudLeftMargin.Value
-        _yOffset += NudTopMargin.Value
-        Dim totalcellsavailable As Integer = NudSqrPerInch.Value * 8.27
-        totalcellsavailable = totalcellsavailable - _xOffset - NudRightMargin.Value - NudLeftMargin.Value
-        iPixelsPerCell = PicDesign.Width / totalcellsavailable
+
+        Dim totalCellsAvailable As Integer = NudSqrPerInch.Value * 8.27
+        totalCellsAvailable = totalCellsAvailable - _xOffset * 2
+        iPixelsPerCell = PicDesign.Width / totalCellsAvailable
+
         dMagnification = iPixelsPerCell / PIXELS_PER_CELL
         CalculateOffsetAfterChange_NoScrollBars(_xOffset, _yOffset)
         RedrawDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
@@ -154,5 +158,55 @@ Public Class FrmPrintProject
     Private Sub PnlPageImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlPageImage.SizeChanged
         PnlPageImage.Width = PnlPageImage.Height / 297 * 210
     End Sub
+
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
+        LogUtil.ShowStatus("Printing design", LblStatus, MyBase.Name)
+        oGrid1width = NudGrid1Lines.Value
+        oGrid5width = NudGrid5Lines.Value
+        oGrid10width = NudGrid10Lines.Value
+        oCentreWidth = nudcentreLines.Value
+        Dim _paperKind As PaperKind = PaperKind.A4
+        myPrintDoc = New PrintDocument
+        ' Set default paper size
+        For Each ps As Printing.PaperSize In myPrintDoc.PrinterSettings.PaperSizes
+            If ps.RawKind = _paperKind Then
+                myPrintDoc.DefaultPageSettings.PaperSize = ps
+                Exit For
+            End If
+        Next
+        ' Set handler to print image 
+        AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
+        ' Set default page settings
+        myPrintDoc.DefaultPageSettings.Landscape = True
+        myPrintDoc.DefaultPageSettings.Margins.Left = 0
+        myPrintDoc.DefaultPageSettings.Margins.Right = 0
+        myPrintDoc.DefaultPageSettings.Margins.Top = 0
+        myPrintDoc.DefaultPageSettings.Margins.Bottom = 0
+        ' Print the image (calls PrintPage handler (see above))
+        myPrintDoc.Print()
+
+    End Sub
+    Private Sub OnPrintImage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
+        LogUtil.ShowStatus("Sending card to printer", LblStatus, MyBase.Name)
+        'print options
+        ' 0 = print to fill available space
+        ' 1 =
+        ' 2 = print maximum size retaining aspect ratio
+        ' 3 = print into half the available space
+        ' 4 = print actual size
+
+        ' DRAW THE IMAGE scaled to the print area
+
+        ' Set margins to allow for printers hard margins
+        leftmargin = e.PageSettings.HardMarginX * 3
+        topmargin = e.PageSettings.HardMarginY * 3
+        'Dim targetWidth As Integer = sourceBitmap.Width - leftmargin
+        'Dim targetHeight As Integer = sourceBitmap.Height - topmargin
+
+        '' Print the image, cutting off the left and top parts that the printer cannot print
+        'e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
+        LogUtil.ShowStatus("Printing done", LblStatus, MyBase.Name)
+    End Sub
+
 #End Region
 End Class

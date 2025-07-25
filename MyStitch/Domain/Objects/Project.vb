@@ -18,9 +18,6 @@ Namespace Domain.Objects
         Private _fabricWidth As Integer
         Private _fabricHeight As Integer
         Private _fabricColour As Integer
-        Private _grid1Colour As Integer
-        Private _grid5Colour As Integer
-        Private _grid10Colour As Integer
         Private _design As ProjectDesign
         Private _designFileName As String
         Private _originX As Integer
@@ -69,30 +66,6 @@ Namespace Domain.Objects
             End Get
             Set(ByVal value As ProjectDesign)
                 _design = value
-            End Set
-        End Property
-        Public Property Grid10Colour() As Integer
-            Get
-                Return _grid10Colour
-            End Get
-            Set(ByVal value As Integer)
-                _grid10Colour = value
-            End Set
-        End Property
-        Public Property Grid5Colour() As Integer
-            Get
-                Return _grid5Colour
-            End Get
-            Set(ByVal value As Integer)
-                _grid5Colour = value
-            End Set
-        End Property
-        Public Property Grid1Colour() As Integer
-            Get
-                Return _grid1Colour
-            End Get
-            Set(ByVal value As Integer)
-                _grid1Colour = value
             End Set
         End Property
         Public Property FabricColour() As Integer
@@ -203,9 +176,6 @@ Namespace Domain.Objects
                        pFabricWidth As Integer,
                        pFabricHeight As Integer,
                        pFabricColour As Integer,
-                       pGrid1Colour As Integer,
-                       pGrid5Colour As Integer,
-                       pGrid10Colour As Integer,
                        pDesign As ProjectDesign,
                        pDesignFilename As String,
                        pOriginX As Integer,
@@ -221,15 +191,11 @@ Namespace Domain.Objects
             _fabricWidth = pFabricWidth
             _fabricHeight = pFabricHeight
             _fabricColour = pFabricColour
-            _grid1Colour = pGrid1Colour
-            _grid5Colour = pGrid5Colour
-            _grid10Colour = pGrid10Colour
             _design = pDesign
             _designFileName = pDesignFilename
             _originX = pOriginX
             _originY = pOriginY
             _totalMinutes = pTotalMinutes
-            '        LogUtil.Info(Me.ToString, "Project")
         End Sub
 #End Region
 #Region "methods"

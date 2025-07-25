@@ -40,6 +40,8 @@ Partial Class FrmOptions
         Me.BtnBackup = New System.Windows.Forms.Button()
         Me.BtnHousekeeping = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.ChkDesignArchive = New System.Windows.Forms.CheckBox()
+        Me.ChkLogs = New System.Windows.Forms.CheckBox()
         Me.ChkAutoRunHousekeeping = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.NudRetention = New System.Windows.Forms.NumericUpDown()
@@ -57,6 +59,21 @@ Partial Class FrmOptions
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ChkArchiveOnSave = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.NudGrid1Thickness = New System.Windows.Forms.NumericUpDown()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.NudGrid5Thickness = New System.Windows.Forms.NumericUpDown()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.NudGrid10Thickness = New System.Windows.Forms.NumericUpDown()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.CbGrid10Colour = New System.Windows.Forms.ComboBox()
+        Me.PicGrid10Colour = New System.Windows.Forms.PictureBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.CbGrid5Colour = New System.Windows.Forms.ComboBox()
+        Me.PicGrid5Colour = New System.Windows.Forms.PictureBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.CbGrid1Colour = New System.Windows.Forms.ComboBox()
+        Me.PicGrid1Colour = New System.Windows.Forms.PictureBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.NudCentreThick = New System.Windows.Forms.NumericUpDown()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -68,8 +85,6 @@ Partial Class FrmOptions
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         Me.BtnPrintSettings = New System.Windows.Forms.Button()
-        Me.ChkLogs = New System.Windows.Forms.CheckBox()
-        Me.ChkDesignArchive = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +92,12 @@ Partial Class FrmOptions
         CType(Me.NudZoomValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
+        CType(Me.NudGrid1Thickness, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudGrid5Thickness, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudGrid10Thickness, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -88,7 +109,7 @@ Partial Class FrmOptions
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnCancel.Location = New System.Drawing.Point(590, 537)
+        Me.btnCancel.Location = New System.Drawing.Point(590, 564)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(87, 41)
         Me.btnCancel.TabIndex = 0
@@ -100,7 +121,7 @@ Partial Class FrmOptions
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnSave.Location = New System.Drawing.Point(381, 537)
+        Me.btnSave.Location = New System.Drawing.Point(381, 564)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(87, 41)
         Me.btnSave.TabIndex = 1
@@ -161,7 +182,7 @@ Partial Class FrmOptions
         Me.Version.BackColor = System.Drawing.Color.Transparent
         Me.Version.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Version.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.Version.Location = New System.Drawing.Point(12, 559)
+        Me.Version.Location = New System.Drawing.Point(12, 586)
         Me.Version.Name = "Version"
         Me.Version.Size = New System.Drawing.Size(214, 28)
         Me.Version.TabIndex = 8
@@ -172,7 +193,7 @@ Partial Class FrmOptions
         Me.BtnResetForms.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnResetForms.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnResetForms.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnResetForms.Location = New System.Drawing.Point(18, 442)
+        Me.BtnResetForms.Location = New System.Drawing.Point(20, 491)
         Me.BtnResetForms.Name = "BtnResetForms"
         Me.BtnResetForms.Size = New System.Drawing.Size(86, 60)
         Me.BtnResetForms.TabIndex = 9
@@ -217,7 +238,7 @@ Partial Class FrmOptions
         Me.BtnGlobalSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnGlobalSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGlobalSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnGlobalSettings.Location = New System.Drawing.Point(123, 442)
+        Me.BtnGlobalSettings.Location = New System.Drawing.Point(125, 491)
         Me.BtnGlobalSettings.Name = "BtnGlobalSettings"
         Me.BtnGlobalSettings.Size = New System.Drawing.Size(86, 60)
         Me.BtnGlobalSettings.TabIndex = 20
@@ -229,7 +250,7 @@ Partial Class FrmOptions
         Me.BtnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnBackup.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnBackup.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnBackup.Location = New System.Drawing.Point(333, 442)
+        Me.BtnBackup.Location = New System.Drawing.Point(335, 491)
         Me.BtnBackup.Name = "BtnBackup"
         Me.BtnBackup.Size = New System.Drawing.Size(86, 60)
         Me.BtnBackup.TabIndex = 25
@@ -241,7 +262,7 @@ Partial Class FrmOptions
         Me.BtnHousekeeping.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnHousekeeping.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnHousekeeping.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnHousekeeping.Location = New System.Drawing.Point(435, 442)
+        Me.BtnHousekeeping.Location = New System.Drawing.Point(437, 491)
         Me.BtnHousekeeping.Name = "BtnHousekeeping"
         Me.BtnHousekeeping.Size = New System.Drawing.Size(112, 60)
         Me.BtnHousekeeping.TabIndex = 26
@@ -261,6 +282,26 @@ Partial Class FrmOptions
         Me.GroupBox4.TabIndex = 27
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Housekeeping"
+        '
+        'ChkDesignArchive
+        '
+        Me.ChkDesignArchive.AutoSize = True
+        Me.ChkDesignArchive.Location = New System.Drawing.Point(21, 120)
+        Me.ChkDesignArchive.Name = "ChkDesignArchive"
+        Me.ChkDesignArchive.Size = New System.Drawing.Size(106, 18)
+        Me.ChkDesignArchive.TabIndex = 31
+        Me.ChkDesignArchive.Text = "Design Archive"
+        Me.ChkDesignArchive.UseVisualStyleBackColor = True
+        '
+        'ChkLogs
+        '
+        Me.ChkLogs.AutoSize = True
+        Me.ChkLogs.Location = New System.Drawing.Point(21, 99)
+        Me.ChkLogs.Name = "ChkLogs"
+        Me.ChkLogs.Size = New System.Drawing.Size(51, 18)
+        Me.ChkLogs.TabIndex = 30
+        Me.ChkLogs.Text = "Logs"
+        Me.ChkLogs.UseVisualStyleBackColor = True
         '
         'ChkAutoRunHousekeeping
         '
@@ -429,6 +470,21 @@ Partial Class FrmOptions
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.NudGrid1Thickness)
+        Me.GroupBox5.Controls.Add(Me.Label13)
+        Me.GroupBox5.Controls.Add(Me.NudGrid5Thickness)
+        Me.GroupBox5.Controls.Add(Me.Label11)
+        Me.GroupBox5.Controls.Add(Me.NudGrid10Thickness)
+        Me.GroupBox5.Controls.Add(Me.Label10)
+        Me.GroupBox5.Controls.Add(Me.CbGrid10Colour)
+        Me.GroupBox5.Controls.Add(Me.PicGrid10Colour)
+        Me.GroupBox5.Controls.Add(Me.Label9)
+        Me.GroupBox5.Controls.Add(Me.CbGrid5Colour)
+        Me.GroupBox5.Controls.Add(Me.PicGrid5Colour)
+        Me.GroupBox5.Controls.Add(Me.Label7)
+        Me.GroupBox5.Controls.Add(Me.CbGrid1Colour)
+        Me.GroupBox5.Controls.Add(Me.PicGrid1Colour)
+        Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Controls.Add(Me.NudCentreThick)
         Me.GroupBox5.Controls.Add(Me.Label5)
         Me.GroupBox5.Controls.Add(Me.Label4)
@@ -437,10 +493,157 @@ Partial Class FrmOptions
         Me.GroupBox5.Controls.Add(Me.ChkGridOn)
         Me.GroupBox5.Location = New System.Drawing.Point(16, 162)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(245, 160)
+        Me.GroupBox5.Size = New System.Drawing.Size(245, 319)
         Me.GroupBox5.TabIndex = 38
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design"
+        '
+        'NudGrid1Thickness
+        '
+        Me.NudGrid1Thickness.Location = New System.Drawing.Point(143, 237)
+        Me.NudGrid1Thickness.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudGrid1Thickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudGrid1Thickness.Name = "NudGrid1Thickness"
+        Me.NudGrid1Thickness.Size = New System.Drawing.Size(36, 22)
+        Me.NudGrid1Thickness.TabIndex = 170
+        Me.NudGrid1Thickness.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(13, 239)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(93, 14)
+        Me.Label13.TabIndex = 169
+        Me.Label13.Text = "Grid 1 thickness"
+        '
+        'NudGrid5Thickness
+        '
+        Me.NudGrid5Thickness.Location = New System.Drawing.Point(143, 263)
+        Me.NudGrid5Thickness.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudGrid5Thickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudGrid5Thickness.Name = "NudGrid5Thickness"
+        Me.NudGrid5Thickness.Size = New System.Drawing.Size(36, 22)
+        Me.NudGrid5Thickness.TabIndex = 168
+        Me.NudGrid5Thickness.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(13, 265)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(93, 14)
+        Me.Label11.TabIndex = 167
+        Me.Label11.Text = "Grid 5 thickness"
+        '
+        'NudGrid10Thickness
+        '
+        Me.NudGrid10Thickness.Location = New System.Drawing.Point(143, 291)
+        Me.NudGrid10Thickness.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudGrid10Thickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudGrid10Thickness.Name = "NudGrid10Thickness"
+        Me.NudGrid10Thickness.Size = New System.Drawing.Size(36, 22)
+        Me.NudGrid10Thickness.TabIndex = 166
+        Me.NudGrid10Thickness.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(13, 293)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(100, 14)
+        Me.Label10.TabIndex = 165
+        Me.Label10.Text = "Grid 10 thickness"
+        '
+        'CbGrid10Colour
+        '
+        Me.CbGrid10Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid10Colour.FormattingEnabled = True
+        Me.CbGrid10Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid10Colour.Location = New System.Drawing.Point(156, 204)
+        Me.CbGrid10Colour.Name = "CbGrid10Colour"
+        Me.CbGrid10Colour.Size = New System.Drawing.Size(79, 22)
+        Me.CbGrid10Colour.TabIndex = 164
+        '
+        'PicGrid10Colour
+        '
+        Me.PicGrid10Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid10Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid10Colour.Location = New System.Drawing.Point(127, 204)
+        Me.PicGrid10Colour.Name = "PicGrid10Colour"
+        Me.PicGrid10Colour.Size = New System.Drawing.Size(23, 23)
+        Me.PicGrid10Colour.TabIndex = 163
+        Me.PicGrid10Colour.TabStop = False
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(9, 207)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(84, 14)
+        Me.Label9.TabIndex = 162
+        Me.Label9.Text = "Grid 10 Colour"
+        '
+        'CbGrid5Colour
+        '
+        Me.CbGrid5Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid5Colour.FormattingEnabled = True
+        Me.CbGrid5Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid5Colour.Location = New System.Drawing.Point(156, 176)
+        Me.CbGrid5Colour.Name = "CbGrid5Colour"
+        Me.CbGrid5Colour.Size = New System.Drawing.Size(79, 22)
+        Me.CbGrid5Colour.TabIndex = 161
+        '
+        'PicGrid5Colour
+        '
+        Me.PicGrid5Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid5Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid5Colour.Location = New System.Drawing.Point(127, 176)
+        Me.PicGrid5Colour.Name = "PicGrid5Colour"
+        Me.PicGrid5Colour.Size = New System.Drawing.Size(23, 23)
+        Me.PicGrid5Colour.TabIndex = 160
+        Me.PicGrid5Colour.TabStop = False
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(9, 179)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(77, 14)
+        Me.Label7.TabIndex = 159
+        Me.Label7.Text = "Grid 5 Colour"
+        '
+        'CbGrid1Colour
+        '
+        Me.CbGrid1Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid1Colour.FormattingEnabled = True
+        Me.CbGrid1Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid1Colour.Location = New System.Drawing.Point(156, 148)
+        Me.CbGrid1Colour.Name = "CbGrid1Colour"
+        Me.CbGrid1Colour.Size = New System.Drawing.Size(79, 22)
+        Me.CbGrid1Colour.TabIndex = 158
+        '
+        'PicGrid1Colour
+        '
+        Me.PicGrid1Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid1Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid1Colour.Location = New System.Drawing.Point(127, 148)
+        Me.PicGrid1Colour.Name = "PicGrid1Colour"
+        Me.PicGrid1Colour.Size = New System.Drawing.Size(23, 23)
+        Me.PicGrid1Colour.TabIndex = 157
+        Me.PicGrid1Colour.TabStop = False
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(9, 151)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(77, 14)
+        Me.Label8.TabIndex = 156
+        Me.Label8.Text = "Grid 1 Colour"
         '
         'NudCentreThick
         '
@@ -494,7 +697,7 @@ Partial Class FrmOptions
         '
         Me.GroupBox6.Controls.Add(Me.ChkTimerAutoSave)
         Me.GroupBox6.Controls.Add(Me.ChkTimerAutoStart)
-        Me.GroupBox6.Location = New System.Drawing.Point(16, 328)
+        Me.GroupBox6.Location = New System.Drawing.Point(279, 381)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(200, 100)
         Me.GroupBox6.TabIndex = 39
@@ -546,39 +749,19 @@ Partial Class FrmOptions
         Me.BtnPrintSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnPrintSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrintSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnPrintSettings.Location = New System.Drawing.Point(228, 442)
+        Me.BtnPrintSettings.Location = New System.Drawing.Point(230, 491)
         Me.BtnPrintSettings.Name = "BtnPrintSettings"
         Me.BtnPrintSettings.Size = New System.Drawing.Size(86, 60)
         Me.BtnPrintSettings.TabIndex = 41
         Me.BtnPrintSettings.Text = "Print Settings"
         Me.BtnPrintSettings.UseVisualStyleBackColor = True
         '
-        'ChkLogs
-        '
-        Me.ChkLogs.AutoSize = True
-        Me.ChkLogs.Location = New System.Drawing.Point(21, 99)
-        Me.ChkLogs.Name = "ChkLogs"
-        Me.ChkLogs.Size = New System.Drawing.Size(51, 18)
-        Me.ChkLogs.TabIndex = 30
-        Me.ChkLogs.Text = "Logs"
-        Me.ChkLogs.UseVisualStyleBackColor = True
-        '
-        'ChkDesignArchive
-        '
-        Me.ChkDesignArchive.AutoSize = True
-        Me.ChkDesignArchive.Location = New System.Drawing.Point(21, 120)
-        Me.ChkDesignArchive.Name = "ChkDesignArchive"
-        Me.ChkDesignArchive.Size = New System.Drawing.Size(106, 18)
-        Me.ChkDesignArchive.TabIndex = 31
-        Me.ChkDesignArchive.Text = "Design Archive"
-        Me.ChkDesignArchive.UseVisualStyleBackColor = True
-        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(690, 590)
+        Me.ClientSize = New System.Drawing.Size(690, 617)
         Me.Controls.Add(Me.BtnPrintSettings)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox6)
@@ -610,6 +793,12 @@ Partial Class FrmOptions
         Me.GroupBox3.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
+        CType(Me.NudGrid1Thickness, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudGrid5Thickness, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudGrid10Thickness, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudCentreThick, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCentreColour, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
@@ -666,4 +855,19 @@ Partial Class FrmOptions
     Friend WithEvents ChkAutoRunHousekeeping As CheckBox
     Friend WithEvents ChkDesignArchive As CheckBox
     Friend WithEvents ChkLogs As CheckBox
+    Friend WithEvents NudGrid1Thickness As NumericUpDown
+    Friend WithEvents Label13 As Label
+    Friend WithEvents NudGrid5Thickness As NumericUpDown
+    Friend WithEvents Label11 As Label
+    Friend WithEvents NudGrid10Thickness As NumericUpDown
+    Friend WithEvents Label10 As Label
+    Friend WithEvents CbGrid10Colour As ComboBox
+    Friend WithEvents PicGrid10Colour As PictureBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents CbGrid5Colour As ComboBox
+    Friend WithEvents PicGrid5Colour As PictureBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents CbGrid1Colour As ComboBox
+    Friend WithEvents PicGrid1Colour As PictureBox
+    Friend WithEvents Label8 As Label
 End Class

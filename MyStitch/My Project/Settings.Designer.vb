@@ -952,6 +952,174 @@ Namespace My
                 Me("isHkArchive") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Grid1Colour() As Integer
+            Get
+                Return CType(Me("Grid1Colour"),Integer)
+            End Get
+            Set
+                Me("Grid1Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Grid5Colour() As Integer
+            Get
+                Return CType(Me("Grid5Colour"),Integer)
+            End Get
+            Set
+                Me("Grid5Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Grid10Colour() As Integer
+            Get
+                Return CType(Me("Grid10Colour"),Integer)
+            End Get
+            Set
+                Me("Grid10Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property Grid1Thickness() As Integer
+            Get
+                Return CType(Me("Grid1Thickness"),Integer)
+            End Get
+            Set
+                Me("Grid1Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property Grid5Thickness() As Integer
+            Get
+                Return CType(Me("Grid5Thickness"),Integer)
+            End Get
+            Set
+                Me("Grid5Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property Grid10Thickness() As Integer
+            Get
+                Return CType(Me("Grid10Thickness"),Integer)
+            End Get
+            Set
+                Me("Grid10Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid1Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid1Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid1Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid5Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid5Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid5Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintGrid10Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid10Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid10Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property PrintCentrelineColour() As Integer
+            Get
+                Return CType(Me("PrintCentrelineColour"),Integer)
+            End Get
+            Set
+                Me("PrintCentrelineColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property PrintGrid1Thickness() As Integer
+            Get
+                Return CType(Me("PrintGrid1Thickness"),Integer)
+            End Get
+            Set
+                Me("PrintGrid1Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property PrintGrid5Thickness() As Integer
+            Get
+                Return CType(Me("PrintGrid5Thickness"),Integer)
+            End Get
+            Set
+                Me("PrintGrid5Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property PrintGrid10Thickness() As Integer
+            Get
+                Return CType(Me("PrintGrid10Thickness"),Integer)
+            End Get
+            Set
+                Me("PrintGrid10Thickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property PrintCentreLineThickness() As Integer
+            Get
+                Return CType(Me("PrintCentreLineThickness"),Integer)
+            End Get
+            Set
+                Me("PrintCentreLineThickness") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

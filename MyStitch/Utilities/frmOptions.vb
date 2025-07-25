@@ -46,6 +46,12 @@ Public NotInheritable Class FrmOptions
         My.Settings.LogZoomValue = NudZoomValue.Value
         My.Settings.isAutoArchiveOnSave = ChkArchiveOnSave.Checked
         My.Settings.isAutoRunHousekeeping = ChkAutoRunHousekeeping.Checked
+        My.Settings.Grid10Colour = If(CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1, PicGrid10Colour.BackColor.ToArgb, CbGrid10Colour.SelectedIndex + 1)
+        My.Settings.Grid10Thickness = NudGrid10Thickness.Value
+        My.Settings.Grid1Colour = If(CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1, PicGrid1Colour.BackColor.ToArgb, CbGrid1Colour.SelectedIndex + 1)
+        My.Settings.Grid1Thickness = NudGrid1Thickness.Value
+        My.Settings.Grid5Colour = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
+        My.Settings.Grid5Thickness = NudGrid5Thickness.Value
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -73,6 +79,12 @@ Public NotInheritable Class FrmOptions
         NudZoomValue.Value = My.Settings.LogZoomValue
         ChkArchiveOnSave.Checked = My.Settings.isAutoArchiveOnSave
         ChkAutoRunHousekeeping.Checked = My.Settings.isAutoRunHousekeeping
+        SetLineColour(PicGrid10Colour, CbGrid10Colour, My.Settings.Grid10Colour)
+        SetLineColour(PicGrid1Colour, CbGrid1Colour, My.Settings.Grid1Colour)
+        SetLineColour(PicGrid5Colour, CbGrid5Colour, My.Settings.Grid5Colour)
+        NudGrid10Thickness.Value = My.Settings.Grid10Thickness
+        NudGrid1Thickness.Value = My.Settings.Grid1Thickness
+        NudGrid5Thickness.Value = My.Settings.Grid5Thickness
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
@@ -104,5 +116,48 @@ Public NotInheritable Class FrmOptions
             _printSettings.ShowDialog()
         End Using
         Show()
+    End Sub
+    Private Sub PicColour_Click(sender As Object, e As EventArgs) Handles PicGrid1Colour.Click,
+                                                                            PicGrid5Colour.Click,
+                                                                            PicGrid10Colour.Click
+        Dim pic As PictureBox = CType(sender, PictureBox)
+        pic.BackColor = SelectColor(pic.BackColor)
+        Select Case pic.Name
+            Case "PicGrid1Colour"
+                CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
+            Case "PicGrid5Colour"
+                CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
+            Case "PicGrid10Colour"
+                CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
+        End Select
+    End Sub
+    Private Sub CbColour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged,
+                                                                        CbGrid5Colour.SelectedIndexChanged,
+                                                                        CbGrid10Colour.SelectedIndexChanged
+        Dim comboBox As ComboBox = CType(sender, ComboBox)
+        Select Case comboBox.SelectedIndex
+            Case 0 To comboBox.Items.Count - 2
+                Dim pic As PictureBox = Nothing
+                Select Case comboBox.Name
+                    Case "CbGrid1Colour"
+                        pic = PicGrid1Colour
+                        pic.BackColor = oGridColourList(comboBox.SelectedIndex)
+                    Case "CbGrid5Colour"
+                        pic = PicGrid5Colour
+                        pic.BackColor = oGridColourList(comboBox.SelectedIndex)
+                    Case "CbGrid10Colour"
+                        pic = PicGrid10Colour
+                        pic.BackColor = oGridColourList(comboBox.SelectedIndex)
+                End Select
+        End Select
+    End Sub
+    Private Sub SetLineColour(pPic As PictureBox, pComboBox As ComboBox, pColourSetting As Integer)
+        pPic.BackColor = GetColourFromProject(pColourSetting, oGridColourList)
+        Select Case pColourSetting
+            Case 1 To 4
+                pComboBox.SelectedIndex = pColourSetting - 1
+            Case Else
+                pComboBox.SelectedIndex = pComboBox.Items.Count - 1
+        End Select
     End Sub
 End Class

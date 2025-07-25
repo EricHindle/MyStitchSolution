@@ -40,6 +40,8 @@ Partial Class FrmPrintOptions
         Me.ChkTitleAboveKey = New System.Windows.Forms.CheckBox()
         Me.ChkTitleAboveGrid = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.NudCentreLines = New System.Windows.Forms.NumericUpDown()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.NudBackstitchLines = New System.Windows.Forms.NumericUpDown()
         Me.NudGrid10Lines = New System.Windows.Forms.NumericUpDown()
         Me.NudGrid1Lines = New System.Windows.Forms.NumericUpDown()
@@ -67,6 +69,8 @@ Partial Class FrmPrintOptions
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.NudSqrPerInch = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.CbDesignStitchDisplay = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -78,10 +82,22 @@ Partial Class FrmPrintOptions
         Me.CbKeyOrder = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChkPrintKey = New System.Windows.Forms.CheckBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.NudSqrPerInch = New System.Windows.Forms.NumericUpDown()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.CbCentrelineColour = New System.Windows.Forms.ComboBox()
+        Me.PicCentrelineColour = New System.Windows.Forms.PictureBox()
+        Me.CbGrid10Colour = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.PicGrid10Colour = New System.Windows.Forms.PictureBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.CbGrid5Colour = New System.Windows.Forms.ComboBox()
+        Me.PicGrid5Colour = New System.Windows.Forms.PictureBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.CbGrid1Colour = New System.Windows.Forms.ComboBox()
+        Me.PicGrid1Colour = New System.Windows.Forms.PictureBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudBackstitchLines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudGrid10Lines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudGrid1Lines, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -94,8 +110,13 @@ Partial Class FrmPrintOptions
         Me.GroupBox2.SuspendLayout()
         CType(Me.NudOverlap, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.NudBlankBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudBlankBorder, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
+        CType(Me.PicCentrelineColour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnSave
@@ -103,7 +124,7 @@ Partial Class FrmPrintOptions
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnSave.Location = New System.Drawing.Point(416, 354)
+        Me.btnSave.Location = New System.Drawing.Point(660, 371)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(102, 50)
@@ -116,7 +137,7 @@ Partial Class FrmPrintOptions
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnCancel.Location = New System.Drawing.Point(660, 352)
+        Me.btnCancel.Location = New System.Drawing.Point(660, 443)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(102, 50)
@@ -137,7 +158,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox5.Size = New System.Drawing.Size(210, 165)
+        Me.GroupBox5.Size = New System.Drawing.Size(210, 140)
         Me.GroupBox5.TabIndex = 163
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design Information"
@@ -202,6 +223,8 @@ Partial Class FrmPrintOptions
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.NudCentreLines)
+        Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.NudBackstitchLines)
         Me.GroupBox4.Controls.Add(Me.NudGrid10Lines)
         Me.GroupBox4.Controls.Add(Me.NudGrid1Lines)
@@ -211,18 +234,37 @@ Partial Class FrmPrintOptions
         Me.GroupBox4.Controls.Add(Me.Label16)
         Me.GroupBox4.Controls.Add(Me.Label17)
         Me.GroupBox4.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(350, 201)
+        Me.GroupBox4.Location = New System.Drawing.Point(350, 169)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox4.Size = New System.Drawing.Size(210, 140)
+        Me.GroupBox4.Size = New System.Drawing.Size(210, 160)
         Me.GroupBox4.TabIndex = 162
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Line Thickness"
         '
+        'NudCentreLines
+        '
+        Me.NudCentreLines.Location = New System.Drawing.Point(138, 105)
+        Me.NudCentreLines.Margin = New System.Windows.Forms.Padding(4)
+        Me.NudCentreLines.Name = "NudCentreLines"
+        Me.NudCentreLines.Size = New System.Drawing.Size(56, 20)
+        Me.NudCentreLines.TabIndex = 160
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(6, 112)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(64, 13)
+        Me.Label23.TabIndex = 159
+        Me.Label23.Text = "Centre lines"
+        '
         'NudBackstitchLines
         '
-        Me.NudBackstitchLines.Location = New System.Drawing.Point(138, 106)
+        Me.NudBackstitchLines.Location = New System.Drawing.Point(138, 132)
         Me.NudBackstitchLines.Margin = New System.Windows.Forms.Padding(4)
         Me.NudBackstitchLines.Name = "NudBackstitchLines"
         Me.NudBackstitchLines.Size = New System.Drawing.Size(56, 20)
@@ -256,7 +298,7 @@ Partial Class FrmPrintOptions
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(26, 108)
+        Me.Label18.Location = New System.Drawing.Point(6, 139)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(79, 13)
@@ -267,7 +309,7 @@ Partial Class FrmPrintOptions
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(26, 80)
+        Me.Label15.Location = New System.Drawing.Point(6, 85)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(65, 13)
@@ -278,7 +320,7 @@ Partial Class FrmPrintOptions
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(26, 52)
+        Me.Label16.Location = New System.Drawing.Point(6, 57)
         Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(59, 13)
@@ -289,7 +331,7 @@ Partial Class FrmPrintOptions
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(26, 24)
+        Me.Label17.Location = New System.Drawing.Point(6, 29)
         Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(59, 13)
@@ -308,7 +350,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox3.Controls.Add(Me.Label11)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(568, 201)
+        Me.GroupBox3.Location = New System.Drawing.Point(568, 194)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
@@ -509,9 +551,27 @@ Partial Class FrmPrintOptions
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBox1.Size = New System.Drawing.Size(327, 327)
+        Me.GroupBox1.Size = New System.Drawing.Size(327, 417)
         Me.GroupBox1.TabIndex = 164
         Me.GroupBox1.TabStop = False
+        '
+        'NudSqrPerInch
+        '
+        Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 258)
+        Me.NudSqrPerInch.Margin = New System.Windows.Forms.Padding(4)
+        Me.NudSqrPerInch.Name = "NudSqrPerInch"
+        Me.NudSqrPerInch.Size = New System.Drawing.Size(72, 24)
+        Me.NudSqrPerInch.TabIndex = 13
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(178, 260)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(108, 17)
+        Me.Label4.TabIndex = 12
+        Me.Label4.Text = "squares per inch"
         '
         'Label3
         '
@@ -628,30 +688,155 @@ Partial Class FrmPrintOptions
         Me.ChkPrintKey.Text = "Print Key"
         Me.ChkPrintKey.UseVisualStyleBackColor = True
         '
-        'Label4
+        'GroupBox6
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(178, 260)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(108, 17)
-        Me.Label4.TabIndex = 12
-        Me.Label4.Text = "squares per inch"
+        Me.GroupBox6.Controls.Add(Me.CbCentrelineColour)
+        Me.GroupBox6.Controls.Add(Me.PicCentrelineColour)
+        Me.GroupBox6.Controls.Add(Me.CbGrid10Colour)
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.PicGrid10Colour)
+        Me.GroupBox6.Controls.Add(Me.Label5)
+        Me.GroupBox6.Controls.Add(Me.CbGrid5Colour)
+        Me.GroupBox6.Controls.Add(Me.PicGrid5Colour)
+        Me.GroupBox6.Controls.Add(Me.Label6)
+        Me.GroupBox6.Controls.Add(Me.CbGrid1Colour)
+        Me.GroupBox6.Controls.Add(Me.PicGrid1Colour)
+        Me.GroupBox6.Controls.Add(Me.Label19)
+        Me.GroupBox6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox6.Location = New System.Drawing.Point(350, 336)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(210, 148)
+        Me.GroupBox6.TabIndex = 165
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Line Colour"
         '
-        'NudSqrPerInch
+        'CbCentrelineColour
         '
-        Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 258)
-        Me.NudSqrPerInch.Margin = New System.Windows.Forms.Padding(4)
-        Me.NudSqrPerInch.Name = "NudSqrPerInch"
-        Me.NudSqrPerInch.Size = New System.Drawing.Size(72, 24)
-        Me.NudSqrPerInch.TabIndex = 13
+        Me.CbCentrelineColour.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbCentrelineColour.FormattingEnabled = True
+        Me.CbCentrelineColour.Items.AddRange(New Object() {"Red", "Green", "Blue", "Black", "Other"})
+        Me.CbCentrelineColour.Location = New System.Drawing.Point(123, 106)
+        Me.CbCentrelineColour.Name = "CbCentrelineColour"
+        Me.CbCentrelineColour.Size = New System.Drawing.Size(79, 21)
+        Me.CbCentrelineColour.TabIndex = 173
+        '
+        'PicCentrelineColour
+        '
+        Me.PicCentrelineColour.BackColor = System.Drawing.Color.White
+        Me.PicCentrelineColour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicCentrelineColour.Location = New System.Drawing.Point(94, 106)
+        Me.PicCentrelineColour.Name = "PicCentrelineColour"
+        Me.PicCentrelineColour.Size = New System.Drawing.Size(23, 21)
+        Me.PicCentrelineColour.TabIndex = 172
+        Me.PicCentrelineColour.TabStop = False
+        '
+        'CbGrid10Colour
+        '
+        Me.CbGrid10Colour.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid10Colour.FormattingEnabled = True
+        Me.CbGrid10Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid10Colour.Location = New System.Drawing.Point(123, 79)
+        Me.CbGrid10Colour.Name = "CbGrid10Colour"
+        Me.CbGrid10Colour.Size = New System.Drawing.Size(79, 21)
+        Me.CbGrid10Colour.TabIndex = 173
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(6, 110)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(64, 13)
+        Me.Label22.TabIndex = 171
+        Me.Label22.Text = "Centre lines"
+        '
+        'PicGrid10Colour
+        '
+        Me.PicGrid10Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid10Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid10Colour.Location = New System.Drawing.Point(94, 79)
+        Me.PicGrid10Colour.Name = "PicGrid10Colour"
+        Me.PicGrid10Colour.Size = New System.Drawing.Size(23, 21)
+        Me.PicGrid10Colour.TabIndex = 172
+        Me.PicGrid10Colour.TabStop = False
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(6, 83)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(65, 13)
+        Me.Label5.TabIndex = 171
+        Me.Label5.Text = "Grid 10 lines"
+        '
+        'CbGrid5Colour
+        '
+        Me.CbGrid5Colour.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid5Colour.FormattingEnabled = True
+        Me.CbGrid5Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid5Colour.Location = New System.Drawing.Point(123, 51)
+        Me.CbGrid5Colour.Name = "CbGrid5Colour"
+        Me.CbGrid5Colour.Size = New System.Drawing.Size(79, 21)
+        Me.CbGrid5Colour.TabIndex = 170
+        '
+        'PicGrid5Colour
+        '
+        Me.PicGrid5Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid5Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid5Colour.Location = New System.Drawing.Point(94, 51)
+        Me.PicGrid5Colour.Name = "PicGrid5Colour"
+        Me.PicGrid5Colour.Size = New System.Drawing.Size(23, 21)
+        Me.PicGrid5Colour.TabIndex = 169
+        Me.PicGrid5Colour.TabStop = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(6, 55)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(59, 13)
+        Me.Label6.TabIndex = 168
+        Me.Label6.Text = "Grid 5 lines"
+        '
+        'CbGrid1Colour
+        '
+        Me.CbGrid1Colour.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbGrid1Colour.FormattingEnabled = True
+        Me.CbGrid1Colour.Items.AddRange(New Object() {"Light Grey", "Dark Grey", "Dim Grey", "Black", "Other"})
+        Me.CbGrid1Colour.Location = New System.Drawing.Point(123, 23)
+        Me.CbGrid1Colour.Name = "CbGrid1Colour"
+        Me.CbGrid1Colour.Size = New System.Drawing.Size(79, 21)
+        Me.CbGrid1Colour.TabIndex = 167
+        '
+        'PicGrid1Colour
+        '
+        Me.PicGrid1Colour.BackColor = System.Drawing.Color.White
+        Me.PicGrid1Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicGrid1Colour.Location = New System.Drawing.Point(94, 23)
+        Me.PicGrid1Colour.Name = "PicGrid1Colour"
+        Me.PicGrid1Colour.Size = New System.Drawing.Size(23, 21)
+        Me.PicGrid1Colour.TabIndex = 166
+        Me.PicGrid1Colour.TabStop = False
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(6, 27)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(59, 13)
+        Me.Label19.TabIndex = 165
+        Me.Label19.Text = "Grid 1 lines"
         '
         'FrmPrintOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(780, 417)
+        Me.ClientSize = New System.Drawing.Size(780, 508)
+        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.GroupBox4)
@@ -668,6 +853,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox5.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudBackstitchLines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudGrid10Lines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudGrid1Lines, System.ComponentModel.ISupportInitialize).EndInit()
@@ -683,8 +869,14 @@ Partial Class FrmPrintOptions
         CType(Me.NudOverlap, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.NudBlankBorder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudBlankBorder, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
+        CType(Me.PicCentrelineColour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -739,4 +931,19 @@ Partial Class FrmPrintOptions
     Friend WithEvents ChkPrintKey As CheckBox
     Friend WithEvents NudSqrPerInch As NumericUpDown
     Friend WithEvents Label4 As Label
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents CbGrid10Colour As ComboBox
+    Friend WithEvents PicGrid10Colour As PictureBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents CbGrid5Colour As ComboBox
+    Friend WithEvents PicGrid5Colour As PictureBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents CbGrid1Colour As ComboBox
+    Friend WithEvents PicGrid1Colour As PictureBox
+    Friend WithEvents Label19 As Label
+    Friend WithEvents NudCentreLines As NumericUpDown
+    Friend WithEvents Label23 As Label
+    Friend WithEvents CbCentrelineColour As ComboBox
+    Friend WithEvents PicCentrelineColour As PictureBox
+    Friend WithEvents Label22 As Label
 End Class

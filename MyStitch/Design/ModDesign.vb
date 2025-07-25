@@ -14,6 +14,7 @@ Module ModDesign
 #Region "constants"
     Public oFabricColourList As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
     Public oGridColourList As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
+    Public oCentreColourList As List(Of Color) = {Color.Red, Color.Green, Color.Blue, Color.Black}.ToList
     Public Const PIXELS_PER_CELL As Integer = 8
     Public Const MAGNIFICATION_STEP As Decimal = 1.3
     Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0)
@@ -93,8 +94,9 @@ Module ModDesign
     Friend oGrid10width As Integer = 1
     Friend oGrid10Brush As Brush = Brushes.Black
     Friend oGrid10Pen = New Pen(oGrid10Brush, oGrid10width)
+    Friend oCentreWidth As Integer = 2
     Friend oCentreBrush As Brush = Brushes.Red
-    Friend oCentrePen = New Pen(oCentreBrush, 2)
+    Friend oCentrePen = New Pen(oCentreBrush, oCentreWidth)
     Friend isSingleColour As Boolean
 
     Friend isCentreOn As Boolean
@@ -137,6 +139,14 @@ Module ModDesign
             oProjectDesign.Columns = pProject.DesignWidth
         End If
         SetInitialMagnification(pPictureBox)
+        oGrid1width = My.Settings.Grid1Thickness
+        oGrid5width = My.Settings.Grid5Thickness
+        oGrid10width = My.Settings.Grid10Thickness
+        oCentreWidth = My.Settings.CentrelineThickness
+        oGrid1Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid1Colour, oGridColourList))
+        oGrid5Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid5Colour, oGridColourList))
+        oGrid10Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid10Colour, oGridColourList))
+        oCentreBrush = New SolidBrush(My.Settings.CentrelineColour)
         RedrawDesign(pPictureBox, pIsGridOn, pIsCentreOn)
         Return oProjectDesign
     End Function
@@ -234,6 +244,7 @@ Module ModDesign
         Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
 
         If pIsGridOn Then
+            MakeGridPens
             For x = 0 To _widthInColumns
                 oDesignGraphics.DrawLine(oGrid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
             Next
@@ -269,6 +280,12 @@ Module ModDesign
         oDesignGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, oDesignBitmap.Width), Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         _designBorderPen.Dispose()
 
+    End Sub
+    Private Sub MakeGridPens()
+        oGrid1Pen = New Pen(oGrid1Brush, oGrid1width)
+        oGrid5Pen = New Pen(oGrid5Brush, oGrid5width)
+        oGrid10Pen = New Pen(oGrid10Brush, oGrid10width)
+        oCentrePen = New Pen(oCentreBrush, oCentreWidth)
     End Sub
     Public Sub DrawFullBlockStitch(pBlockStitch As BlockStitch)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour

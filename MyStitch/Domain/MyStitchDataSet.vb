@@ -13,3 +13,8 @@ Namespace MyStitchDataSetTableAdapters
     Partial Public Class ProjectsTableAdapter
     End Class
 End Namespace
+
+Namespace MyStitchDataSetTableAdapters
+    Partial Public Class ProjectsTableAdapter
+    End Class
+End Namespace

@@ -92,31 +92,6 @@ Public Class FrmProject
                     PicFabricColour.BackColor = Color.FromArgb(.FabricColour)
                     CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
             End Select
-            Select Case .Grid1Colour
-                Case 1 To 4
-                    PicGrid1Colour.BackColor = oGridColour(.Grid1Colour - 1)
-                    CbGrid1Colour.SelectedIndex = .Grid1Colour - 1
-                Case Else
-                    PicGrid1Colour.BackColor = Color.FromArgb(.Grid1Colour)
-                    CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
-            End Select
-            Select Case .Grid5Colour
-                Case 1 To 4
-                    PicGrid5Colour.BackColor = oGridColour(.Grid5Colour - 1)
-                    CbGrid5Colour.SelectedIndex = .Grid5Colour - 1
-                Case Else
-                    PicGrid5Colour.BackColor = Color.FromArgb(.Grid5Colour)
-                    CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
-            End Select
-            Select Case .Grid10Colour
-                Case 1 To 4
-                    PicGrid10Colour.BackColor = oGridColour(.Grid10Colour - 1)
-                    CbGrid10Colour.SelectedIndex = .Grid10Colour - 1
-                Case Else
-                    PicGrid10Colour.BackColor = Color.FromArgb(.Grid10Colour)
-                    CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
-            End Select
-
         End With
     End Sub
 
@@ -130,9 +105,6 @@ Public Class FrmProject
     End Sub
     Private Function BuildProjectFromForm(pId As Integer) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
-        Dim _g1colr As Integer = If(CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1, PicGrid1Colour.BackColor.ToArgb, CbGrid1Colour.SelectedIndex + 1)
-        Dim _g5colr As Integer = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
-        Dim _g10colr As Integer = If(CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1, PicGrid10Colour.BackColor.ToArgb, CbGrid10Colour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
@@ -143,9 +115,6 @@ Public Class FrmProject
                                                     .WithFabricHeight(NudFabricHeight.Value) _
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
-                                                    .WithGrid1Colour(_g1colr) _
-                                                     .WithGrid5Colour(_g5colr) _
-                                                     .WithGrid10Colour(_g10colr) _
                                                  .Build()
         Return _project
     End Function

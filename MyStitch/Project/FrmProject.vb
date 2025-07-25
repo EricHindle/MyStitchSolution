@@ -95,40 +95,10 @@ Public Class FrmProject
         PicFabricColour.BackColor = SelectColor(PicFabricColour.BackColor)
         CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
     End Sub
-    Private Sub PicGrid1Colour_Click(sender As Object, e As EventArgs) Handles PicGrid1Colour.Click
-        PicGrid1Colour.BackColor = SelectColor(PicGrid1Colour.BackColor)
-        CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
-    End Sub
-    Private Sub PicGrid5Colour_Click(sender As Object, e As EventArgs) Handles PicGrid5Colour.Click
-        PicGrid5Colour.BackColor = SelectColor(PicGrid5Colour.BackColor)
-        CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
-    End Sub
-    Private Sub PicGrid10Colour_Click(sender As Object, e As EventArgs) Handles PicGrid10Colour.Click
-        PicGrid10Colour.BackColor = SelectColor(PicGrid10Colour.BackColor)
-        CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
-    End Sub
     Private Sub CbFabricColour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbFabricColour.SelectedIndexChanged
         Select Case CbFabricColour.SelectedIndex
             Case 0 To CbFabricColour.Items.Count - 2
                 PicFabricColour.BackColor = oFabricColourList(CbFabricColour.SelectedIndex)
-        End Select
-    End Sub
-    Private Sub CbGrid1Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged
-        Select Case CbGrid1Colour.SelectedIndex
-            Case 0 To CbGrid1Colour.Items.Count - 2
-                PicGrid1Colour.BackColor = oGridColourList(CbGrid1Colour.SelectedIndex)
-        End Select
-    End Sub
-    Private Sub CbGrid5Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid5Colour.SelectedIndexChanged
-        Select Case CbGrid5Colour.SelectedIndex
-            Case 0 To CbGrid5Colour.Items.Count - 2
-                PicGrid5Colour.BackColor = oGridColourList(CbGrid5Colour.SelectedIndex)
-        End Select
-    End Sub
-    Private Sub CbGrid10Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid10Colour.SelectedIndexChanged
-        Select Case CbGrid10Colour.SelectedIndex
-            Case 0 To CbGrid10Colour.Items.Count - 2
-                PicGrid10Colour.BackColor = oGridColourList(CbGrid10Colour.SelectedIndex)
         End Select
     End Sub
     Private Sub BtnDesign_Click(sender As Object, e As EventArgs) Handles BtnDesign.Click
@@ -222,32 +192,11 @@ Public Class FrmProject
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
             PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColourList)
-            PicGrid1Colour.BackColor = GetColourFromProject(.Grid1Colour, oGridColourList)
-            PicGrid5Colour.BackColor = GetColourFromProject(.Grid5Colour, oGridColourList)
-            PicGrid10Colour.BackColor = GetColourFromProject(.Grid10Colour, oGridColourList)
             Select Case .FabricColour
                 Case 1 To 4
                     CbFabricColour.SelectedIndex = .FabricColour - 1
                 Case Else
                     CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
-            End Select
-            Select Case .Grid1Colour
-                Case 1 To 4
-                    CbGrid1Colour.SelectedIndex = .Grid1Colour - 1
-                Case Else
-                    CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
-            End Select
-            Select Case .Grid5Colour
-                Case 1 To 4
-                    CbGrid5Colour.SelectedIndex = .Grid5Colour - 1
-                Case Else
-                    CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
-            End Select
-            Select Case .Grid10Colour
-                Case 1 To 4
-                    CbGrid10Colour.SelectedIndex = .Grid10Colour - 1
-                Case Else
-                    CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
             End Select
             UpdateProjectTime()
         End With
@@ -262,9 +211,6 @@ Public Class FrmProject
     End Sub
     Private Function BuildProjectFromForm(pId As Integer) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
-        Dim _g1colr As Integer = If(CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1, PicGrid1Colour.BackColor.ToArgb, CbGrid1Colour.SelectedIndex + 1)
-        Dim _g5colr As Integer = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
-        Dim _g10colr As Integer = If(CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1, PicGrid10Colour.BackColor.ToArgb, CbGrid10Colour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
@@ -273,9 +219,6 @@ Public Class FrmProject
                                                     .WithFabricHeight(NudFabricHeight.Value) _
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
-                                                    .WithGrid1Colour(_g1colr) _
-                                                    .WithGrid5Colour(_g5colr) _
-                                                    .WithGrid10Colour(_g10colr) _
                                                     .WithDesignFilename(Replace(TxtName.Text, " ", "_").ToLower) _
                                                  .Build()
         Return _project

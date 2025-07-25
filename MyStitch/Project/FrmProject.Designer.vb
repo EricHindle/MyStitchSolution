@@ -29,7 +29,7 @@ Partial Class FrmProject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -51,15 +51,6 @@ Partial Class FrmProject
         Me.NudOriginY = New System.Windows.Forms.NumericUpDown()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.NudOriginX = New System.Windows.Forms.NumericUpDown()
-        Me.CbGrid10Colour = New System.Windows.Forms.ComboBox()
-        Me.PicGrid10Colour = New System.Windows.Forms.PictureBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.CbGrid5Colour = New System.Windows.Forms.ComboBox()
-        Me.PicGrid5Colour = New System.Windows.Forms.PictureBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.CbGrid1Colour = New System.Windows.Forms.ComboBox()
-        Me.PicGrid1Colour = New System.Windows.Forms.PictureBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.CbFabricColour = New System.Windows.Forms.ComboBox()
         Me.PicFabricColour = New System.Windows.Forms.PictureBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -116,9 +107,6 @@ Partial Class FrmProject
         Me.PnlForm.SuspendLayout()
         CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFabricColour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudFabricHeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudFabricWidth, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -226,14 +214,14 @@ Partial Class FrmProject
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DgvProjects.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvProjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
         Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
@@ -281,15 +269,6 @@ Partial Class FrmProject
         Me.PnlForm.Controls.Add(Me.NudOriginY)
         Me.PnlForm.Controls.Add(Me.Label13)
         Me.PnlForm.Controls.Add(Me.NudOriginX)
-        Me.PnlForm.Controls.Add(Me.CbGrid10Colour)
-        Me.PnlForm.Controls.Add(Me.PicGrid10Colour)
-        Me.PnlForm.Controls.Add(Me.Label11)
-        Me.PnlForm.Controls.Add(Me.CbGrid5Colour)
-        Me.PnlForm.Controls.Add(Me.PicGrid5Colour)
-        Me.PnlForm.Controls.Add(Me.Label10)
-        Me.PnlForm.Controls.Add(Me.CbGrid1Colour)
-        Me.PnlForm.Controls.Add(Me.PicGrid1Colour)
-        Me.PnlForm.Controls.Add(Me.Label9)
         Me.PnlForm.Controls.Add(Me.CbFabricColour)
         Me.PnlForm.Controls.Add(Me.PicFabricColour)
         Me.PnlForm.Controls.Add(Me.Label8)
@@ -308,17 +287,17 @@ Partial Class FrmProject
         Me.PnlForm.Controls.Add(Me.Label1)
         Me.PnlForm.Controls.Add(Me.TxtName)
         Me.PnlForm.ForeColor = System.Drawing.Color.FromArgb(CType(CType(10, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(120, Byte), Integer))
-        Me.PnlForm.Location = New System.Drawing.Point(394, 35)
+        Me.PnlForm.Location = New System.Drawing.Point(394, 62)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(302, 450)
+        Me.PnlForm.Size = New System.Drawing.Size(302, 365)
         Me.PnlForm.TabIndex = 126
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(199, 128)
+        Me.Label15.Location = New System.Drawing.Point(199, 125)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(45, 14)
         Me.Label15.TabIndex = 161
@@ -329,7 +308,7 @@ Partial Class FrmProject
         Me.LblElapsedTime.AutoSize = True
         Me.LblElapsedTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblElapsedTime.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.LblElapsedTime.Location = New System.Drawing.Point(148, 127)
+        Me.LblElapsedTime.Location = New System.Drawing.Point(148, 124)
         Me.LblElapsedTime.Name = "LblElapsedTime"
         Me.LblElapsedTime.Size = New System.Drawing.Size(45, 17)
         Me.LblElapsedTime.TabIndex = 160
@@ -340,7 +319,7 @@ Partial Class FrmProject
         Me.LblEndTime.AutoSize = True
         Me.LblEndTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblEndTime.ForeColor = System.Drawing.Color.Maroon
-        Me.LblEndTime.Location = New System.Drawing.Point(148, 105)
+        Me.LblEndTime.Location = New System.Drawing.Point(148, 102)
         Me.LblEndTime.Name = "LblEndTime"
         Me.LblEndTime.Size = New System.Drawing.Size(76, 17)
         Me.LblEndTime.TabIndex = 159
@@ -351,7 +330,7 @@ Partial Class FrmProject
         Me.LblStartTime.AutoSize = True
         Me.LblStartTime.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblStartTime.ForeColor = System.Drawing.Color.SeaGreen
-        Me.LblStartTime.Location = New System.Drawing.Point(148, 83)
+        Me.LblStartTime.Location = New System.Drawing.Point(148, 80)
         Me.LblStartTime.Name = "LblStartTime"
         Me.LblStartTime.Size = New System.Drawing.Size(76, 17)
         Me.LblStartTime.TabIndex = 158
@@ -361,7 +340,7 @@ Partial Class FrmProject
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(48, 128)
+        Me.Label14.Location = New System.Drawing.Point(48, 125)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(94, 14)
         Me.Label14.TabIndex = 157
@@ -371,7 +350,7 @@ Partial Class FrmProject
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(48, 250)
+        Me.Label12.Location = New System.Drawing.Point(48, 235)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(95, 14)
         Me.Label12.TabIndex = 156
@@ -380,7 +359,7 @@ Partial Class FrmProject
         'NudOriginY
         '
         Me.NudOriginY.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudOriginY.Location = New System.Drawing.Point(195, 246)
+        Me.NudOriginY.Location = New System.Drawing.Point(195, 231)
         Me.NudOriginY.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginY.Name = "NudOriginY"
         Me.NudOriginY.Size = New System.Drawing.Size(74, 22)
@@ -390,7 +369,7 @@ Partial Class FrmProject
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(48, 222)
+        Me.Label13.Location = New System.Drawing.Point(48, 207)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(94, 14)
         Me.Label13.TabIndex = 154
@@ -399,108 +378,18 @@ Partial Class FrmProject
         'NudOriginX
         '
         Me.NudOriginX.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudOriginX.Location = New System.Drawing.Point(195, 218)
+        Me.NudOriginX.Location = New System.Drawing.Point(195, 203)
         Me.NudOriginX.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginX.Name = "NudOriginX"
         Me.NudOriginX.Size = New System.Drawing.Size(74, 22)
         Me.NudOriginX.TabIndex = 153
-        '
-        'CbGrid10Colour
-        '
-        Me.CbGrid10Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbGrid10Colour.FormattingEnabled = True
-        Me.CbGrid10Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid10Colour.Location = New System.Drawing.Point(195, 421)
-        Me.CbGrid10Colour.Name = "CbGrid10Colour"
-        Me.CbGrid10Colour.Size = New System.Drawing.Size(79, 22)
-        Me.CbGrid10Colour.TabIndex = 152
-        '
-        'PicGrid10Colour
-        '
-        Me.PicGrid10Colour.BackColor = System.Drawing.Color.White
-        Me.PicGrid10Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid10Colour.Location = New System.Drawing.Point(166, 421)
-        Me.PicGrid10Colour.Name = "PicGrid10Colour"
-        Me.PicGrid10Colour.Size = New System.Drawing.Size(23, 23)
-        Me.PicGrid10Colour.TabIndex = 151
-        Me.PicGrid10Colour.TabStop = False
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(48, 425)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(84, 14)
-        Me.Label11.TabIndex = 150
-        Me.Label11.Text = "Grid 10 Colour"
-        '
-        'CbGrid5Colour
-        '
-        Me.CbGrid5Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbGrid5Colour.FormattingEnabled = True
-        Me.CbGrid5Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid5Colour.Location = New System.Drawing.Point(195, 394)
-        Me.CbGrid5Colour.Name = "CbGrid5Colour"
-        Me.CbGrid5Colour.Size = New System.Drawing.Size(79, 22)
-        Me.CbGrid5Colour.TabIndex = 149
-        '
-        'PicGrid5Colour
-        '
-        Me.PicGrid5Colour.BackColor = System.Drawing.Color.White
-        Me.PicGrid5Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid5Colour.Location = New System.Drawing.Point(166, 394)
-        Me.PicGrid5Colour.Name = "PicGrid5Colour"
-        Me.PicGrid5Colour.Size = New System.Drawing.Size(23, 23)
-        Me.PicGrid5Colour.TabIndex = 148
-        Me.PicGrid5Colour.TabStop = False
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(48, 398)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(77, 14)
-        Me.Label10.TabIndex = 147
-        Me.Label10.Text = "Grid 5 Colour"
-        '
-        'CbGrid1Colour
-        '
-        Me.CbGrid1Colour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbGrid1Colour.FormattingEnabled = True
-        Me.CbGrid1Colour.Items.AddRange(New Object() {"Light Grey", "Mid Grey", "Dark Gray", "Black", "Other"})
-        Me.CbGrid1Colour.Location = New System.Drawing.Point(195, 367)
-        Me.CbGrid1Colour.Name = "CbGrid1Colour"
-        Me.CbGrid1Colour.Size = New System.Drawing.Size(79, 22)
-        Me.CbGrid1Colour.TabIndex = 146
-        '
-        'PicGrid1Colour
-        '
-        Me.PicGrid1Colour.BackColor = System.Drawing.Color.White
-        Me.PicGrid1Colour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicGrid1Colour.Location = New System.Drawing.Point(166, 367)
-        Me.PicGrid1Colour.Name = "PicGrid1Colour"
-        Me.PicGrid1Colour.Size = New System.Drawing.Size(23, 23)
-        Me.PicGrid1Colour.TabIndex = 145
-        Me.PicGrid1Colour.TabStop = False
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(48, 371)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(77, 14)
-        Me.Label9.TabIndex = 144
-        Me.Label9.Text = "Grid 1 Colour"
         '
         'CbFabricColour
         '
         Me.CbFabricColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbFabricColour.FormattingEnabled = True
         Me.CbFabricColour.Items.AddRange(New Object() {"White", "Cream", "Blue", "Pink", "Other"})
-        Me.CbFabricColour.Location = New System.Drawing.Point(195, 340)
+        Me.CbFabricColour.Location = New System.Drawing.Point(195, 315)
         Me.CbFabricColour.Name = "CbFabricColour"
         Me.CbFabricColour.Size = New System.Drawing.Size(79, 22)
         Me.CbFabricColour.TabIndex = 143
@@ -509,7 +398,7 @@ Partial Class FrmProject
         '
         Me.PicFabricColour.BackColor = System.Drawing.Color.White
         Me.PicFabricColour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicFabricColour.Location = New System.Drawing.Point(166, 340)
+        Me.PicFabricColour.Location = New System.Drawing.Point(166, 315)
         Me.PicFabricColour.Name = "PicFabricColour"
         Me.PicFabricColour.Size = New System.Drawing.Size(23, 23)
         Me.PicFabricColour.TabIndex = 142
@@ -519,7 +408,7 @@ Partial Class FrmProject
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(48, 344)
+        Me.Label8.Location = New System.Drawing.Point(48, 318)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(76, 14)
         Me.Label8.TabIndex = 141
@@ -529,7 +418,7 @@ Partial Class FrmProject
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(48, 306)
+        Me.Label7.Location = New System.Drawing.Point(48, 291)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(78, 14)
         Me.Label7.TabIndex = 140
@@ -538,7 +427,7 @@ Partial Class FrmProject
         'NudFabricHeight
         '
         Me.NudFabricHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricHeight.Location = New System.Drawing.Point(195, 302)
+        Me.NudFabricHeight.Location = New System.Drawing.Point(195, 287)
         Me.NudFabricHeight.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricHeight.Name = "NudFabricHeight"
@@ -550,7 +439,7 @@ Partial Class FrmProject
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(48, 278)
+        Me.Label6.Location = New System.Drawing.Point(48, 263)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(75, 14)
         Me.Label6.TabIndex = 138
@@ -559,7 +448,7 @@ Partial Class FrmProject
         'NudFabricWidth
         '
         Me.NudFabricWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricWidth.Location = New System.Drawing.Point(195, 274)
+        Me.NudFabricWidth.Location = New System.Drawing.Point(195, 259)
         Me.NudFabricWidth.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricWidth.Name = "NudFabricWidth"
@@ -571,7 +460,7 @@ Partial Class FrmProject
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(48, 194)
+        Me.Label5.Location = New System.Drawing.Point(48, 179)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(83, 14)
         Me.Label5.TabIndex = 136
@@ -580,7 +469,7 @@ Partial Class FrmProject
         'NudDesignHeight
         '
         Me.NudDesignHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudDesignHeight.Location = New System.Drawing.Point(195, 190)
+        Me.NudDesignHeight.Location = New System.Drawing.Point(195, 175)
         Me.NudDesignHeight.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudDesignHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignHeight.Name = "NudDesignHeight"
@@ -592,7 +481,7 @@ Partial Class FrmProject
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(48, 166)
+        Me.Label4.Location = New System.Drawing.Point(48, 151)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 14)
         Me.Label4.TabIndex = 134
@@ -601,7 +490,7 @@ Partial Class FrmProject
         'NudDesignWidth
         '
         Me.NudDesignWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudDesignWidth.Location = New System.Drawing.Point(195, 162)
+        Me.NudDesignWidth.Location = New System.Drawing.Point(195, 147)
         Me.NudDesignWidth.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudDesignWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignWidth.Name = "NudDesignWidth"
@@ -613,7 +502,7 @@ Partial Class FrmProject
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(48, 106)
+        Me.Label3.Location = New System.Drawing.Point(48, 103)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(50, 14)
         Me.Label3.TabIndex = 132
@@ -623,7 +512,7 @@ Partial Class FrmProject
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(48, 84)
+        Me.Label2.Location = New System.Drawing.Point(48, 81)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(48, 14)
         Me.Label2.TabIndex = 131
@@ -964,9 +853,6 @@ Partial Class FrmProject
         Me.PnlForm.PerformLayout()
         CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicGrid10Colour, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicGrid5Colour, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicGrid1Colour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFabricColour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudFabricHeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudFabricWidth, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1009,15 +895,6 @@ Partial Class FrmProject
     Friend WithEvents NudDesignWidth As NumericUpDown
     Friend WithEvents CbFabricColour As ComboBox
     Friend WithEvents PicFabricColour As PictureBox
-    Friend WithEvents CbGrid10Colour As ComboBox
-    Friend WithEvents PicGrid10Colour As PictureBox
-    Friend WithEvents Label11 As Label
-    Friend WithEvents CbGrid5Colour As ComboBox
-    Friend WithEvents PicGrid5Colour As PictureBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents CbGrid1Colour As ComboBox
-    Friend WithEvents PicGrid1Colour As PictureBox
-    Friend WithEvents Label9 As Label
     Friend WithEvents ColorDialog1 As ColorDialog
     Friend WithEvents BtnDesign As Button
     Friend WithEvents Label12 As Label
