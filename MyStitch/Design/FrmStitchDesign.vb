@@ -992,6 +992,7 @@ Public Class FrmStitchDesign
             ToggleSingleColour()
         End If
         pPicBox.BorderStyle = BorderStyle.Fixed3D
+        pPicBox.BackgroundImage = My.Resources.ColrBtnDown
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
         Dim _thread As Thread = _projectThread.Thread
         oCurrentThread = _projectThread

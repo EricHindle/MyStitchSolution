@@ -352,14 +352,6 @@
         lKsAAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="BtnFullBackstitchThin.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABpSURBVDhPY/jw4cN/SjEDugA5GMUQc3Pz/zo6OkRhkFoM
-        Q0CCol2i/xkaGIjCmpM1/1tbW6MaAjIdJMnLy4thKzaM1SUwQ0A0sheJwaOGYOJRQzAxSrIHJWXklEgs
-        RsmAsLxAKqZKUQAAX/qtetEaLA0AAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="BtnHalfBackStitchThin.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
