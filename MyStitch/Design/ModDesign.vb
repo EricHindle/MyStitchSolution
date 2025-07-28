@@ -61,6 +61,7 @@ Module ModDesign
         PickColour
         ChangeColour
         DeleteColour
+        Rotate
         none
     End Enum
 #End Region

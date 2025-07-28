@@ -257,6 +257,9 @@ Public Class FrmStitchDesign
                         Case DesignAction.Move
                             RemoveSelectedCells()
                             EndCopy(_cell)
+                        Case DesignAction.Rotate
+                            RemoveSelectedCells(True, False, False)
+                            EndRotate(_cell)
                     End Select
                     ClearSelection()
                 Else
@@ -266,7 +269,8 @@ Public Class FrmStitchDesign
                                  DesignAction.Flip,
                                  DesignAction.Mirror,
                                  DesignAction.Move,
-                                 DesignAction.Zoom
+                                 DesignAction.Zoom,
+                                 DesignAction.Rotate
                             StartSelection(_cell)
                         Case DesignAction.Fill
                             FloodFill(_cell, oCurrentThread.Thread, oCurrentStitchType)
@@ -276,7 +280,7 @@ Public Class FrmStitchDesign
                 End If
             Else
                 Select Case oCurrentAction
-                    Case DesignAction.Copy, DesignAction.Move, DesignAction.Paste
+                    Case DesignAction.Copy, DesignAction.Move, DesignAction.Paste, DesignAction.Rotate
                         ClearSelection()
 
                 End Select
@@ -609,7 +613,7 @@ Public Class FrmStitchDesign
         BeginMirror()
     End Sub
     Private Sub MnuRotate_Click(sender As Object, e As EventArgs) Handles MnuRotate.Click
-
+        BeginRotate
     End Sub
     Private Sub MnuDrawShape_Click(sender As Object, e As EventArgs) Handles MnuDrawShape.Click
 
@@ -870,7 +874,12 @@ Public Class FrmStitchDesign
         StitchButtonSelected()
         SelectionMessage("Select area to mirror")
     End Sub
-
+    Private Sub BeginRotate()
+        oCurrentAction = DesignAction.Rotate
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        SelectionMessage("Select area to rotate")
+    End Sub
 #End Region
 #End Region
 #End Region
@@ -1151,6 +1160,10 @@ Public Class FrmStitchDesign
             oPasteDestination.X < oProject.DesignWidth AndAlso oPasteDestination.Y < oProject.DesignHeight Then
             Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
             Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
+            If oCurrentAction = DesignAction.Rotate Then
+                _width = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
+                _height = oInProgressTerminus.X - oInProgressAnchor.X - 1
+            End If
             If oCurrentAction = DesignAction.Paste And oCurrentSelection.Length > 1 Then
                 _width = oCurrentSelection(1).X - oCurrentSelection(0).X - 1
                 _height = oCurrentSelection(1).Y - oCurrentSelection(0).Y - 1
@@ -1187,6 +1200,8 @@ Public Class FrmStitchDesign
                 MirrorSelectedCells()
                 PasteSelectedCells(oCurrentSelection(0))
                 ClearSelection()
+            Case DesignAction.Rotate
+                StartMoveSelection()
             Case DesignAction.Zoom
                 ResizeImageForSelectedCells()
                 ClearSelection()
@@ -1210,20 +1225,26 @@ Public Class FrmStitchDesign
     Private Sub EndPaste(pCell As Cell)
         PasteSelectedCells(pCell.Position)
     End Sub
+    Private Sub EndRotate(pCell As Cell)
+        RotateAndPasteSelectedCells(pCell.Position)
+    End Sub
     Private Sub RemoveSelectedCells()
-        If oCurrentSelectedBlockStitch.Count > 0 Then
+        RemoveSelectedCells(True, True, True)
+    End Sub
+    Private Sub RemoveSelectedCells(pIsRemoveBlockstitch As Boolean, pIsRemoveKnots As Boolean, pIsRemoveBackstitch As Boolean)
+        If pIsRemoveBlockstitch AndAlso oCurrentSelectedBlockStitch.Count > 0 Then
             For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
                 RemoveBlockStitchFromDesign(_bs)
                 RemoveBlockStitchFromImage(_bs)
             Next
         End If
-        If oCurrentSelectedKnot.Count > 0 Then
+        If pIsRemoveKnots AndAlso oCurrentSelectedKnot.Count > 0 Then
             For Each _knot As Knot In oCurrentSelectedKnot
                 RemoveKnotFromDesign(_knot)
                 RemoveKnotFromImage(_knot)
             Next
         End If
-        If oCurrentSelectedBackstitch.Count > 0 Then
+        If pIsRemoveBackstitch AndAlso oCurrentSelectedBackstitch.Count > 0 Then
             For Each _bkst As BackStitch In oCurrentSelectedBackstitch
                 RemoveBackStitchFromDesign(_bkst)
             Next
@@ -1639,8 +1660,50 @@ Public Class FrmStitchDesign
             End If
         End If
         oCurrentAction = DesignAction.none
-
     End Sub
+    Private Sub RotateAndPasteSelectedCells(pCellPosition As Point)
+        If oCurrentSelection.Length > 0 Then
+            Dim _xChange As Integer = pCellPosition.X - oCurrentSelection(0).X
+            Dim _yChange As Integer = pCellPosition.Y - oCurrentSelection(0).Y
+            Dim _oldH As Integer = oCurrentSelection(1).Y - oCurrentSelection(0).Y
+            Dim _originX As Integer = oCurrentSelection(0).X
+            Dim _originY As Integer = oCurrentSelection(0).Y
+            If oCurrentSelectedBlockStitch.Count > 0 Then
+                For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
+                    Dim _relX As Integer = _bs.BlockLocation.X - _originX
+                    Dim _relY As Integer = _bs.BlockLocation.Y - _originY
+                    Dim _newY As Integer = _relX + _originY + _yChange
+                    Dim _newX As Integer = _oldH - _relY + _originX - 1 + _xChange
+                    Dim _newPastePos As New Point(_newX, _newY)
+                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs) _
+                        .WithPosition(_newPastePos).Build
+                    RemoveExistingBlockStitch(_newBs.BlockPosition)
+                    AddBlockStitchToDesign(_newBs)
+                    Select Case _newBs.StitchType
+                        Case BlockStitchType.Full
+                            DrawFullBlockStitch(_newBs)
+                        Case BlockStitchType.Half
+                            DrawHalfBlockStitch(_newBs, True)
+                        Case BlockStitchType.Quarter
+                            DrawQuarterBlockStitch(_newBs)
+                        Case BlockStitchType.ThreeQuarter
+                            DrawThreeQuarterBlockStitch(_newBs)
+                        Case Else
+                            DrawQuarterBlockStitch(_newBs)
+                    End Select
+                Next
+            End If
+            If oCurrentSelectedKnot.Count > 0 Then
+                For Each _knot As Knot In oCurrentSelectedKnot
+                    Dim _newKnot As Knot = KnotBuilder.AKnot.StartingWith(_knot).WithKnotLocation(New Point(_knot.BlockLocation.X + _xChange, _knot.BlockLocation.Y + _yChange)).Build
+                    AddKnotToDesign(_newKnot)
+                    DrawKnot(_newKnot)
+                Next
+            End If
+            PicDesign.Invalidate()
+        End If
+    End Sub
+
     Private Sub PasteSelectedCells(pCellPosition As Point)
 
         If oCurrentSelection.Length > 0 Then
@@ -1648,7 +1711,9 @@ Public Class FrmStitchDesign
             Dim _yChange As Integer = pCellPosition.Y - oCurrentSelection(0).Y
             If oCurrentSelectedBlockStitch.Count > 0 Then
                 For Each _bs As BlockStitch In oCurrentSelectedBlockStitch
-                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs).WithPosition(New Point(_bs.BlockLocation.X + _xChange, _bs.BlockLocation.Y + _yChange)).Build
+                    Dim _newBs As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_bs) _
+                        .WithPosition(New Point(_bs.BlockLocation.X + _xChange, _bs.BlockLocation.Y + _yChange)) _
+                        .Build
                     RemoveExistingBlockStitch(_newBs.BlockPosition)
                     AddBlockStitchToDesign(_newBs)
                     Select Case _newBs.StitchType
@@ -2142,6 +2207,10 @@ Public Class FrmStitchDesign
     Private Sub BeginDeleteColour()
         oCurrentAction = DesignAction.DeleteColour
         SelectionMessage("Click on stitch to delete colour")
+    End Sub
+
+    Private Sub BtnRotate_Click(sender As Object, e As EventArgs) Handles BtnRotate.Click
+        BeginRotate()
     End Sub
 #End Region
 End Class
