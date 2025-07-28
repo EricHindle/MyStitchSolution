@@ -346,12 +346,18 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\mirror.png" />
+    <None Include="Resources\flip.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\redo.png" />
+    <None Include="Resources\zoom.png" />
+    <None Include="Resources\shrink.png" />
+    <None Include="Resources\enlarge.png" />
+    <None Include="Resources\StatusBar.png" />
     <None Include="Resources\plus.png" />
     <None Include="Resources\minus.png" />
     <None Include="Resources\width.png" />
-    <None Include="Resources\mirror.png" />
     <None Include="Resources\height.png" />
-    <None Include="Resources\flip.png" />
     <None Include="Resources\knot.png" />
     <None Include="Resources\Bead.png" />
     <None Include="Resources\quarters.png" />
@@ -396,12 +402,7 @@
     <None Include="packages.config" />
     <None Include="Resources\cross-stitch.png" />
     <None Include="Resources\save.png" />
-    <None Include="Resources\zoom.png" />
-    <None Include="Resources\undo.png" />
-    <None Include="Resources\shrink.png" />
-    <None Include="Resources\redo.png" />
     <None Include="Resources\flood.png" />
-    <None Include="Resources\enlarge.png" />
     <None Include="Resources\cut.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
