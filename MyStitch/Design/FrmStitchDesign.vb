@@ -69,7 +69,7 @@ Public Class FrmStitchDesign
 
     Private oCurrentAction As DesignAction = DesignAction.none
     Private oCurrentStitchType As DesignAction = DesignAction.none
-
+    Private oCurrentShapeType As ShapeType = ShapeType.None
     Private oCurrentSelection(-1) As Point
     Private oCurrentSelectedBlockStitch As New List(Of BlockStitch)
     Private oCurrentSelectedKnot As New List(Of Knot)
@@ -270,16 +270,9 @@ Public Class FrmStitchDesign
                                  DesignAction.Mirror,
                                  DesignAction.Move,
                                  DesignAction.Zoom,
-                                 DesignAction.Rotate
+                                 DesignAction.Rotate,
+                                 DesignAction.DrawShape
                             StartSelection(_cell)
-                            'Case DesignAction.Fill
-                            '    FloodFill(_cell, oCurrentThread.Thread, oCurrentStitchType)
-                            '    PicDesign.Invalidate()
-                            '    ClearSelection()
-                            'Case DesignAction.Clear
-                            '    FloodFill(_cell, Nothing, oCurrentStitchType)
-                            '    PicDesign.Invalidate()
-                            '    ClearSelection()
                     End Select
                 End If
             Else
@@ -617,10 +610,7 @@ Public Class FrmStitchDesign
         BeginMirror()
     End Sub
     Private Sub MnuRotate_Click(sender As Object, e As EventArgs) Handles MnuRotate.Click
-        BeginRotate
-    End Sub
-    Private Sub MnuDrawShape_Click(sender As Object, e As EventArgs) Handles MnuDrawShape.Click
-
+        BeginRotate()
     End Sub
     Private Sub MnuDrawFilledShape_Click(sender As Object, e As EventArgs) Handles MnuDrawFilledShape.Click
 
@@ -901,6 +891,13 @@ Public Class FrmStitchDesign
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to rotate")
+    End Sub
+    Private Sub BeginDrawShape(pShape As ShapeType)
+        oCurrentAction = DesignAction.DrawShape
+        oCurrentStitchType = DesignAction.none
+        oCurrentShapeType = pShape
+        StitchButtonSelected()
+        SelectionMessage("Select location for shape")
     End Sub
     Private Sub BeginDeleteColour()
         oCurrentAction = DesignAction.DeleteColour
@@ -1243,8 +1240,37 @@ Public Class FrmStitchDesign
             Case DesignAction.Zoom
                 ResizeImageForSelectedCells()
                 ClearSelection()
+            Case DesignAction.DrawShape
+                PlaceShape(oCurrentShapeType, oInProgressAnchor, oInProgressTerminus)
+                ClearSelection()
         End Select
     End Sub
+
+    Private Sub PlaceShape(oCurrentShapeType As ShapeType, oInProgressAnchor As Point, oInProgressTerminus As Point)
+        Dim _tempBitmap As New Bitmap(oCurrentSelection(1).X - oCurrentSelection(0).X, oCurrentSelection(1).Y - oCurrentSelection(0).Y)
+        Using _graphics As Graphics = Graphics.FromImage(_tempBitmap)
+            Select Case oCurrentShapeType
+                Case ShapeType.Rectangle
+                    _graphics.DrawRectangle(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
+                Case ShapeType.Ellipse
+                    _graphics.DrawEllipse(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
+                Case ShapeType.FilledRectangle
+                    _graphics.FillRectangle(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
+                Case ShapeType.FilledEllipse
+                    _graphics.FillEllipse(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
+            End Select
+            For Each _x As Integer In Enumerable.Range(0, _tempBitmap.Width)
+                For Each _y As Integer In Enumerable.Range(0, _tempBitmap.Height)
+                    Dim _pixelColour As Color = _tempBitmap.GetPixel(_x, _y)
+                    If _pixelColour = oCurrentThread.Thread.Colour Then
+                        AddBlockStitch(oProject, oProjectDesign, New Point(oInProgressAnchor.X + _x, oInProgressAnchor.Y + _y), oCurrentThread.Thread, BlockStitchType.Full)
+                    End If
+                Next
+            Next
+        End Using
+        PicDesign.Invalidate()
+    End Sub
+
     Private Sub EndCopySelection(pCell As Cell)
         pCell = AdjustCellOntoDesign(pCell)
         oInProgressTerminus = pCell.Position
@@ -1735,7 +1761,7 @@ Public Class FrmStitchDesign
         If isBackstitchWidthVariable Then
             oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
         Else
-            oStitchPenWidth = obackStitchPenDefaultWidth
+            oStitchPenWidth = oBackstitchPenDefaultWidth
         End If
         oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
         _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
@@ -2233,6 +2259,23 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
+
+    Private Sub EllipseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuEllipse.Click
+        BeginDrawShape(ShapeType.Ellipse)
+    End Sub
+
+    Private Sub RectangleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuRectangle.Click
+        BeginDrawShape(ShapeType.Rectangle)
+    End Sub
+
+    Private Sub MnuFilledEllipse_Click(sender As Object, e As EventArgs) Handles MnuFilledEllipse.Click
+        BeginDrawShape(ShapeType.FilledEllipse)
+    End Sub
+
+    Private Sub MnuFilledRecangle_Click(sender As Object, e As EventArgs) Handles MnuFilledRecangle.Click
+        BeginDrawShape(ShapeType.FilledRectangle)
+    End Sub
+
 #End Region
 #End Region
 End Class

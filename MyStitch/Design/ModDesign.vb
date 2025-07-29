@@ -32,6 +32,13 @@ Module ModDesign
         BlackWhiteSymbols
         BlocksWithSymbols
     End Enum
+    Public Enum ShapeType
+        Ellipse
+        Rectangle
+        FilledEllipse
+        FilledRectangle
+        None
+    End Enum
     Public Enum DesignAction
         FullBlockstitch
         HalfBlockstitchForward
@@ -64,6 +71,7 @@ Module ModDesign
         DeleteColour
         Rotate
         Clear
+        DrawShape
         none
     End Enum
 #End Region
