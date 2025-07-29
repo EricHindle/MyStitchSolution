@@ -272,10 +272,14 @@ Public Class FrmStitchDesign
                                  DesignAction.Zoom,
                                  DesignAction.Rotate
                             StartSelection(_cell)
-                        Case DesignAction.Fill
-                            FloodFill(_cell, oCurrentThread.Thread, oCurrentStitchType)
-                            PicDesign.Invalidate()
-                            ClearSelection()
+                            'Case DesignAction.Fill
+                            '    FloodFill(_cell, oCurrentThread.Thread, oCurrentStitchType)
+                            '    PicDesign.Invalidate()
+                            '    ClearSelection()
+                            'Case DesignAction.Clear
+                            '    FloodFill(_cell, Nothing, oCurrentStitchType)
+                            '    PicDesign.Invalidate()
+                            '    ClearSelection()
                     End Select
                 End If
             Else
@@ -378,6 +382,12 @@ Public Class FrmStitchDesign
                 End If
                 ClearSelection()
                 RedrawDesign(False)
+            Case DesignAction.Fill
+                FloodFill(_cell, oCurrentThread.Thread, oCurrentStitchType)
+                ClearSelection()
+            Case DesignAction.Clear
+                FloodFill(_cell, Nothing, oCurrentStitchType)
+                ClearSelection()
         End Select
         If oCurrentUndoList.Count > 0 Then
             AddActionsToUndoList(oCurrentUndoList)
@@ -618,6 +628,9 @@ Public Class FrmStitchDesign
     Private Sub MnuFloodFill_Click(sender As Object, e As EventArgs) Handles MnuFloodFill.Click
         BeginFloodFill()
     End Sub
+    Private Sub MnuClearArea_Click(sender As Object, e As EventArgs) Handles MnuClearArea.Click
+        BeginClearArea()
+    End Sub
     Private Sub MnuRedraw_Click(sender As Object, e As EventArgs) Handles MnuRedraw.Click
         oProjectDesign = SortStitches(oProjectDesign)
         RedrawDesign(False)
@@ -631,7 +644,7 @@ Public Class FrmStitchDesign
     Private Sub MnuExtendDesign_Click(sender As Object, e As EventArgs) Handles MnuExtendDesign.Click
 
     End Sub
-    Private Sub MnuShowDesignStats_Click(sender As Object, e As EventArgs) Handles MnuShowDesignStats.Click
+    Private Sub MnuShowDesignStats_Click(sender As Object, e As EventArgs)
 
     End Sub
     Private Sub MnuOptions_Click(sender As Object, e As EventArgs) Handles MnuOptions.Click
@@ -905,7 +918,10 @@ Public Class FrmStitchDesign
         oCurrentAction = DesignAction.Fill
         SelectionMessage("Click in area to fill")
     End Sub
-
+    Private Sub BeginClearArea()
+        oCurrentAction = DesignAction.Clear
+        SelectionMessage("Click in area to clear")
+    End Sub
 #End Region
 #End Region
 #End Region
@@ -2059,7 +2075,11 @@ Public Class FrmStitchDesign
             OrElse _cellColour <> pOldColour Then
             Return
         End If
-        AddBlockStitch(oProject, oProjectDesign, pCellPosition, pNewThread, pBlockStitchType)
+        If pNewThread Is Nothing Then
+            RemoveExistingBlockStitch(pCellPosition)
+        Else
+            AddBlockStitch(oProject, oProjectDesign, pCellPosition, pNewThread, pBlockStitchType)
+        End If
         DepthFirstSearch(New Point(pCellPosition.X - 1, pCellPosition.Y), pOldColour, pNewThread, pBlockStitchType) ' Left
         DepthFirstSearch(New Point(pCellPosition.X + 1, pCellPosition.Y), pOldColour, pNewThread, pBlockStitchType) ' Right
         DepthFirstSearch(New Point(pCellPosition.X, pCellPosition.Y - 1), pOldColour, pNewThread, pBlockStitchType) ' Up
@@ -2067,8 +2087,14 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub FloodFill(pCell As Cell, pThread As Thread, pBlockStitchType As BlockStitchType)
         Dim _existingColour As Color = FindColourFromCellPosition(pCell.Position)
-        If _existingColour <> pThread.Colour Then
-            DepthFirstSearch(pCell.Position, _existingColour, pThread, pBlockStitchType)
+        If pThread Is Nothing Then
+            If _existingColour <> Color.Transparent Then
+                DepthFirstSearch(pCell.Position, _existingColour, pThread, pBlockStitchType)
+            End If
+        Else
+            If _existingColour <> pThread.Colour Then
+                DepthFirstSearch(pCell.Position, _existingColour, pThread, pBlockStitchType)
+            End If
         End If
     End Sub
     Private Sub BtnFill_Click(sender As Object, e As EventArgs) Handles BtnFill.Click

@@ -41,6 +41,7 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnMirror = New System.Windows.Forms.ToolStripButton()
         Me.BtnFlip = New System.Windows.Forms.ToolStripButton()
+        Me.BtnRotate = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnUndo = New System.Windows.Forms.ToolStripButton()
         Me.BtnRedo = New System.Windows.Forms.ToolStripButton()
@@ -147,9 +148,8 @@ Partial Class FrmStitchDesign
         Me.MnuCropDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuExtendDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MnuShowDesignStats = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BtnRotate = New System.Windows.Forms.ToolStripButton()
+        Me.MnuClearArea = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -386,6 +386,19 @@ Partial Class FrmStitchDesign
         Me.BtnFlip.Name = "BtnFlip"
         Me.BtnFlip.Size = New System.Drawing.Size(23, 24)
         Me.BtnFlip.Text = "ToolStripButton2"
+        '
+        'BtnRotate
+        '
+        Me.BtnRotate.AutoSize = False
+        Me.BtnRotate.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnRotate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnRotate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnRotate.Image = Global.MyStitch.My.Resources.Resources.rotate
+        Me.BtnRotate.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnRotate.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnRotate.Name = "BtnRotate"
+        Me.BtnRotate.Size = New System.Drawing.Size(23, 24)
+        Me.BtnRotate.Text = "ToolStripButton2"
         '
         'ToolStripSeparator3
         '
@@ -1229,7 +1242,7 @@ Partial Class FrmStitchDesign
         '
         'MnuDraw
         '
-        Me.MnuDraw.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDrawShape, Me.MnuDrawFilledShape, Me.ToolStripSeparator11, Me.MnuFloodFill})
+        Me.MnuDraw.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDrawShape, Me.MnuDrawFilledShape, Me.ToolStripSeparator11, Me.MnuFloodFill, Me.MnuClearArea})
         Me.MnuDraw.Name = "MnuDraw"
         Me.MnuDraw.Size = New System.Drawing.Size(46, 20)
         Me.MnuDraw.Text = "Draw"
@@ -1237,24 +1250,24 @@ Partial Class FrmStitchDesign
         'MnuDrawShape
         '
         Me.MnuDrawShape.Name = "MnuDrawShape"
-        Me.MnuDrawShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawShape.Size = New System.Drawing.Size(180, 22)
         Me.MnuDrawShape.Text = "Draw Shape"
         '
         'MnuDrawFilledShape
         '
         Me.MnuDrawFilledShape.Name = "MnuDrawFilledShape"
-        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(167, 22)
+        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(180, 22)
         Me.MnuDrawFilledShape.Text = "Draw Filled Shape"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(164, 6)
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(177, 6)
         '
         'MnuFloodFill
         '
         Me.MnuFloodFill.Name = "MnuFloodFill"
-        Me.MnuFloodFill.Size = New System.Drawing.Size(167, 22)
+        Me.MnuFloodFill.Size = New System.Drawing.Size(180, 22)
         Me.MnuFloodFill.Text = "Flood Fill"
         '
         'MnuText
@@ -1361,7 +1374,7 @@ Partial Class FrmStitchDesign
         '
         'MnuTools
         '
-        Me.MnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCropDesign, Me.MnuExtendDesign, Me.ToolStripSeparator13, Me.MnuShowDesignStats, Me.MnuOptions})
+        Me.MnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCropDesign, Me.MnuExtendDesign, Me.ToolStripSeparator13, Me.MnuOptions})
         Me.MnuTools.Name = "MnuTools"
         Me.MnuTools.Size = New System.Drawing.Size(47, 20)
         Me.MnuTools.Text = "Tools"
@@ -1369,44 +1382,31 @@ Partial Class FrmStitchDesign
         'MnuCropDesign
         '
         Me.MnuCropDesign.Name = "MnuCropDesign"
-        Me.MnuCropDesign.Size = New System.Drawing.Size(116, 22)
+        Me.MnuCropDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuCropDesign.Text = "Crop"
         '
         'MnuExtendDesign
         '
         Me.MnuExtendDesign.Name = "MnuExtendDesign"
-        Me.MnuExtendDesign.Size = New System.Drawing.Size(116, 22)
+        Me.MnuExtendDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuExtendDesign.Text = "Extend"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(113, 6)
-        '
-        'MnuShowDesignStats
-        '
-        Me.MnuShowDesignStats.Name = "MnuShowDesignStats"
-        Me.MnuShowDesignStats.Size = New System.Drawing.Size(116, 22)
-        Me.MnuShowDesignStats.Text = "Show"
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(177, 6)
         '
         'MnuOptions
         '
         Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
+        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
         Me.MnuOptions.Text = "Options"
         '
-        'BtnRotate
+        'MnuClearArea
         '
-        Me.BtnRotate.AutoSize = False
-        Me.BtnRotate.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
-        Me.BtnRotate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnRotate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnRotate.Image = Global.MyStitch.My.Resources.Resources.rotate
-        Me.BtnRotate.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnRotate.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnRotate.Name = "BtnRotate"
-        Me.BtnRotate.Size = New System.Drawing.Size(23, 24)
-        Me.BtnRotate.Text = "ToolStripButton2"
+        Me.MnuClearArea.Name = "MnuClearArea"
+        Me.MnuClearArea.Size = New System.Drawing.Size(180, 22)
+        Me.MnuClearArea.Text = "Clear Area"
         '
         'FrmStitchDesign
         '
@@ -1550,7 +1550,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuCropDesign As ToolStripMenuItem
     Friend WithEvents MnuExtendDesign As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
-    Friend WithEvents MnuShowDesignStats As ToolStripMenuItem
     Friend WithEvents MnuOptions As ToolStripMenuItem
     Friend WithEvents LblStatus As Label
     Friend WithEvents PicCentreLines As PictureBox
@@ -1569,4 +1568,5 @@ Partial Class FrmStitchDesign
     Friend WithEvents BtnSave As ToolStripButton
     Friend WithEvents BtnPrint As ToolStripButton
     Friend WithEvents BtnRotate As ToolStripButton
+    Friend WithEvents MnuClearArea As ToolStripMenuItem
 End Class
