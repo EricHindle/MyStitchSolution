@@ -476,12 +476,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public Property CentrelineThickness() As String
+        Public Property CentrelineWidth() As String
             Get
-                Return CType(Me("CentrelineThickness"),String)
+                Return CType(Me("CentrelineWidth"),String)
             End Get
             Set
-                Me("CentrelineThickness") = value
+                Me("CentrelineWidth") = value
             End Set
         End Property
         
@@ -1118,6 +1118,90 @@ Namespace My
             End Get
             Set
                 Me("PrintCentreLineThickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Black")>  _
+        Public Property SelectionBorderColour() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("SelectionBorderColour"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("SelectionBorderColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property BackstitchWidth() As Integer
+            Get
+                Return CType(Me("BackstitchWidth"),Integer)
+            End Get
+            Set
+                Me("BackstitchWidth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property SelectionBorderWidth() As Integer
+            Get
+                Return CType(Me("SelectionBorderWidth"),Integer)
+            End Get
+            Set
+                Me("SelectionBorderWidth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isSelectionWidthVariable() As Boolean
+            Get
+                Return CType(Me("isSelectionWidthVariable"),Boolean)
+            End Get
+            Set
+                Me("isSelectionWidthVariable") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isBackstitchWidthVariable() As Boolean
+            Get
+                Return CType(Me("isBackstitchWidthVariable"),Boolean)
+            End Get
+            Set
+                Me("isBackstitchWidthVariable") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isCentrelineWidthVariable() As Boolean
+            Get
+                Return CType(Me("isCentrelineWidthVariable"),Boolean)
+            End Get
+            Set
+                Me("isCentrelineWidthVariable") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("16")>  _
+        Public Property VariableFraction() As Integer
+            Get
+                Return CType(Me("VariableFraction"),Integer)
+            End Get
+            Set
+                Me("VariableFraction") = value
             End Set
         End Property
     End Class

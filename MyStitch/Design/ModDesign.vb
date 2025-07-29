@@ -6,6 +6,7 @@
 '
 
 Imports System.Drawing.Imaging
+Imports System.Windows
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -79,13 +80,15 @@ Module ModDesign
     Friend topcorner As New Point(0, 0)
     Friend dMagnification As Decimal = 1
     Friend oStitchPenWidth As Single = 2
-    Friend oSelectionPenWidth As Single = 2
     Friend iOneToOneSize As Size
     Friend iOldHScrollbarValue As Integer = 0
     Friend iOldVScrollbarValue As Integer = 0
     Friend oFabricColour As Color
     Friend oFabricBrush As SolidBrush
-
+    Friend oSelectionPenColour As Color
+    Friend oSelectionPenWidth As Single
+    Friend oSelectionPenDefaultWidth As Single
+    Friend oSelectionPen As Pen
     Friend oGrid1width As Integer = 1
     Friend oGrid1Brush As Brush = Brushes.LightGray
     Friend oGrid1Pen = New Pen(oGrid1Brush, oGrid1width)
@@ -95,9 +98,17 @@ Module ModDesign
     Friend oGrid10width As Integer = 1
     Friend oGrid10Brush As Brush = Brushes.Black
     Friend oGrid10Pen = New Pen(oGrid10Brush, oGrid10width)
-    Friend oCentreWidth As Integer = 2
-    Friend oCentreBrush As Brush = Brushes.Red
-    Friend oCentrePen = New Pen(oCentreBrush, oCentreWidth)
+    Friend oCentrePenWidth As Integer
+    Friend oCentrePenDefaultWidth As Integer
+    Friend oCentrePenColor As Color
+    Friend oCentrePen As Pen
+    Friend oCentreBrush As SolidBrush
+    Friend oBackstitchWidth As Integer
+    Friend oBackstitchPenDefaultWidth As Integer
+    Friend isBackstitchWidthVariable As Boolean
+    Friend isCentreWidthVariable As Boolean
+    Friend isSelectionWidthVariable As Boolean
+    Friend oVariableWidthFraction As Integer
     Friend isSingleColour As Boolean
 
     Friend isCentreOn As Boolean
@@ -143,11 +154,12 @@ Module ModDesign
         oGrid1width = My.Settings.Grid1Thickness
         oGrid5width = My.Settings.Grid5Thickness
         oGrid10width = My.Settings.Grid10Thickness
-        oCentreWidth = My.Settings.CentrelineThickness
         oGrid1Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid1Colour, oGridColourList))
         oGrid5Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid5Colour, oGridColourList))
         oGrid10Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid10Colour, oGridColourList))
-        oCentreBrush = New SolidBrush(My.Settings.CentrelineColour)
+        oCentrePenWidth = My.Settings.CentrelineWidth
+        oCentrePenColor = My.Settings.CentrelineColour
+        oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
         RedrawDesign(pPictureBox, pIsGridOn, pIsCentreOn)
         Return oProjectDesign
     End Function
@@ -245,7 +257,8 @@ Module ModDesign
         Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
 
         If pIsGridOn Then
-            MakeGridPens
+            MakeGridPens()
+
             For x = 0 To _widthInColumns
                 oDesignGraphics.DrawLine(oGrid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
             Next
@@ -273,6 +286,12 @@ Module ModDesign
             End If
         End If
         If pIsCentreOn Then
+            If isCentreWidthVariable Then
+                oCentrePenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
+            Else
+                oCentrePenWidth = oCentrePenDefaultWidth
+            End If
+            oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
             oDesignGraphics.DrawLine(oCentrePen, New Point(0, gap * _halfRow), New Point(Math.Min(gap * _widthInColumns, oDesignBitmap.Width), gap * _halfRow))
             oDesignGraphics.DrawLine(oCentrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
         End If
@@ -286,7 +305,7 @@ Module ModDesign
         oGrid1Pen = New Pen(oGrid1Brush, oGrid1width)
         oGrid5Pen = New Pen(oGrid5Brush, oGrid5width)
         oGrid10Pen = New Pen(oGrid10Brush, oGrid10width)
-        oCentrePen = New Pen(oCentreBrush, oCentreWidth)
+        oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
     End Sub
     Public Sub DrawFullBlockStitch(pBlockStitch As BlockStitch)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
@@ -425,7 +444,11 @@ Module ModDesign
 
     End Sub
     Public Sub DrawBackstitch(pBackstitch As BackStitch)
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        If isBackstitchWidthVariable Then
+            oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
+        Else
+            oStitchPenWidth = oBackstitchPenDefaultWidth
+        End If
         Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockPosition.X * iPixelsPerCell)
         Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockPosition.Y * iPixelsPerCell)
         Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockPosition.X * iPixelsPerCell)

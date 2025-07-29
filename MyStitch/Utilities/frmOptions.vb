@@ -9,6 +9,15 @@ Imports System.IO
 Imports HindlewareLib.Logging
 
 Public NotInheritable Class FrmOptions
+    Private _originForm As Form
+    Public Property OriginForm() As Form
+        Get
+            Return _originForm
+        End Get
+        Set(ByVal value As Form)
+            _originForm = value
+        End Set
+    End Property
     Private Sub FrmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         LogUtil.Info("Loading Option settings", MyBase.Name)
         GetFormPos(Me, My.Settings.OptionsFormPos)
@@ -38,8 +47,8 @@ Public NotInheritable Class FrmOptions
         My.Settings.BackupAddDate = ChkBackupAddDate.Checked
         My.Settings.BackupRevision = ChkBackupRevision.Checked
         My.Settings.IsCentreOn = ChkCentreOn.Checked
-        My.Settings.CentrelineColour = PicCentreColour.BackColor
-        My.Settings.CentrelineThickness = NudCentreThick.Value
+        My.Settings.CentrelineColour = PicCentreLineColour.BackColor
+        My.Settings.CentrelineWidth = NudCentreLineWidth.Value
         My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
         My.Settings.isTimerAutoSave = ChkTimerAutoSave.Checked
         My.Settings.isShowStockLevels = ChkShowStock.Checked
@@ -52,6 +61,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.Grid1Thickness = NudGrid1Thickness.Value
         My.Settings.Grid5Colour = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
         My.Settings.Grid5Thickness = NudGrid5Thickness.Value
+        My.Settings.SelectionBorderColour = PicSelectionBorderColour.BackColor
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -71,8 +81,8 @@ Public NotInheritable Class FrmOptions
         ChkBackupAddDate.Checked = My.Settings.BackupAddDate
         ChkBackupRevision.Checked = My.Settings.BackupRevision
         ChkCentreOn.Checked = My.Settings.IsCentreOn
-        PicCentreColour.BackColor = My.Settings.CentrelineColour
-        NudCentreThick.Value = My.Settings.CentrelineThickness
+        PicCentreLineColour.BackColor = My.Settings.CentrelineColour
+        NudCentreLineWidth.Value = My.Settings.CentrelineWidth
         ChkTimerAutoStart.Checked = My.Settings.isTimerAutoStart
         ChkTimerAutoSave.Checked = My.Settings.isTimerAutoSave
         ChkShowStock.Checked = My.Settings.isShowStockLevels
@@ -85,6 +95,7 @@ Public NotInheritable Class FrmOptions
         NudGrid10Thickness.Value = My.Settings.Grid10Thickness
         NudGrid1Thickness.Value = My.Settings.Grid1Thickness
         NudGrid5Thickness.Value = My.Settings.Grid5Thickness
+        PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
@@ -104,10 +115,10 @@ Public NotInheritable Class FrmOptions
     Private Sub BtnHousekeeping_Click(sender As Object, e As EventArgs) Handles BtnHousekeeping.Click
         RunHousekeeping()
     End Sub
-
-    Private Sub PicCentreColour_Click(sender As Object, e As EventArgs) Handles PicCentreColour.Click
+    Private Sub PictureBox_Click(sender As Object, e As EventArgs) Handles PicCentreLineColour.Click, PicSelectionBorderColour.Click
         LogUtil.Info("Selecting centre lines colour", MyBase.Name)
-        PicCentreColour.BackColor = SelectColor(PicCentreColour.BackColor)
+        Dim _picBox As PictureBox = CType(sender, PictureBox)
+        _picBox.BackColor = SelectColor(_picBox.BackColor)
     End Sub
     Private Sub BtnPrintSettings_Click(sender As Object, e As EventArgs) Handles BtnPrintSettings.Click
         LogUtil.Info("Print Settings", MyBase.Name)
@@ -160,4 +171,5 @@ Public NotInheritable Class FrmOptions
                 pComboBox.SelectedIndex = pComboBox.Items.Count - 1
         End Select
     End Sub
+
 End Class

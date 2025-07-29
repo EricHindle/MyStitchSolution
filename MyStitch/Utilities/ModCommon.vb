@@ -196,7 +196,7 @@ Module ModCommon
                     e.Handled = True
                 Case Keys.O
                     ' Open Options form
-                    OpenPreferencesForm()
+                    OpenPreferencesForm(_form)
                     e.Handled = True
                 Case Keys.G
                     ' Open Global Settings form
@@ -220,11 +220,47 @@ Module ModCommon
             End Select
         End If
     End Sub
-    Public Sub OpenPreferencesForm()
+    Public Sub OpenPreferencesForm(pForm As Form)
         Using _options As New FrmOptions
             _options.ShowDialog()
+            _options.OriginForm = pForm
         End Using
+        LoadSettings(pForm)
     End Sub
+    Public Sub LoadSettings(pForm As Form)
+        oCentrePenColor = My.Settings.CentrelineColour
+        oCentrePenDefaultWidth = My.Settings.CentrelineWidth
+        oCentrePen = New Pen(oCentrePenColor, oCentrePenDefaultWidth)
+        oCentreBrush = New SolidBrush(oCentrePenColor)
+        oSelectionPenColour = My.Settings.SelectionBorderColour
+        oSelectionPenDefaultWidth = My.Settings.SelectionBorderWidth
+        oSelectionPen = New Pen(oSelectionPenColour, oSelectionPenDefaultWidth)
+        oGrid1width = My.Settings.Grid1Thickness
+        oGrid5width = My.Settings.Grid5Thickness
+        oGrid10width = My.Settings.Grid10Thickness
+        oGrid1Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid1Colour, oGridColourList))
+        oGrid5Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid5Colour, oGridColourList))
+        oGrid10Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid10Colour, oGridColourList))
+        oGrid1Pen = New Pen(oGrid1Brush, oGrid1width)
+        oGrid5Pen = New Pen(oGrid5Brush, oGrid5width)
+        oGrid10Pen = New Pen(oGrid10Brush, oGrid10width)
+        oBackstitchPenDefaultWidth = My.Settings.BackstitchWidth
+        oVariableWidthFraction = My.Settings.VariableFraction
+        isSelectionWidthVariable = My.Settings.isSelectionWidthVariable
+        isBackstitchWidthVariable = My.Settings.isBackstitchWidthVariable
+        isCentreWidthVariable = My.Settings.isCentrelineWidthVariable
+        isGridOn = My.Settings.isGridOn
+        isCentreOn = My.Settings.IsCentreOn
+        If TypeOf pForm Is FrmStitchDesign Then
+            Dim pDesignForm As FrmStitchDesign = CType(pForm, FrmStitchDesign)
+            pDesignForm.LoadDesignSettings()
+        End If
+        If TypeOf pForm Is FrmProject Then
+            Dim pProjectForm As FrmProject = CType(pForm, FrmProject)
+            pProjectForm.LoadProjectSettings()
+        End If
+    End Sub
+
     Public Sub OpenBackupForm()
         Using _backup As New FrmBackup
             _backup.ShowDialog()

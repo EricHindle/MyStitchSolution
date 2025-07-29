@@ -112,7 +112,7 @@
     <Setting Name="CentrelineColour" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Red</Value>
     </Setting>
-    <Setting Name="CentrelineThickness" Type="System.String" Scope="User">
+    <Setting Name="CentrelineWidth" Type="System.String" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ProjectTimerFormPos" Type="System.String" Scope="User">
@@ -273,6 +273,27 @@
     </Setting>
     <Setting Name="PrintCentreLineThickness" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="SelectionBorderColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="BackstitchWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="SelectionBorderWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="isSelectionWidthVariable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="isBackstitchWidthVariable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="isCentrelineWidthVariable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VariableFraction" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16</Value>
     </Setting>
   </Settings>
 </SettingsFile>

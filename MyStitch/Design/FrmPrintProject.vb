@@ -164,7 +164,7 @@ Public Class FrmPrintProject
         oGrid1width = NudGrid1Lines.Value
         oGrid5width = NudGrid5Lines.Value
         oGrid10width = NudGrid10Lines.Value
-        oCentreWidth = nudcentreLines.Value
+        oCentrePenWidth = nudcentreLines.Value
         Dim _paperKind As PaperKind = PaperKind.A4
         myPrintDoc = New PrintDocument
         ' Set default paper size

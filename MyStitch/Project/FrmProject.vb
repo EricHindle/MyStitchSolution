@@ -26,6 +26,7 @@ Public Class FrmProject
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitialiseSettings()
+        LoadSettings(Me)
         InitialiseLogging()
         CheckAppPaths()
         If My.Settings.isAutoRunHousekeeping Then
@@ -133,7 +134,7 @@ Public Class FrmProject
         OpenRestoreForm()
     End Sub
     Private Sub MnuPreferences_Click(sender As Object, e As EventArgs) Handles MnuPreferences.Click
-        OpenPreferencesForm()
+        OpenPreferencesForm(Me)
     End Sub
     Private Sub DgvProjects_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DgvProjects.CellDoubleClick
         Dim _row As DataGridViewRow = DgvProjects.Rows(e.RowIndex)
@@ -172,8 +173,10 @@ Public Class FrmProject
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ProjectFormPos)
-        MnuDebugOn.Checked = My.Settings.isDebugOn
         LoadProjectList(DgvProjects, MyBase.Name)
+    End Sub
+    Friend Sub LoadProjectSettings()
+        MnuDebugOn.Checked = My.Settings.isDebugOn
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
