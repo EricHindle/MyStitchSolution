@@ -816,7 +816,8 @@ Public Class FrmStitchDesign
         Dim _newPpc As Decimal = PicDesign.Height / oProjectDesign.Rows
         Dim _heightRatio As Decimal = _newPpc / PIXELS_PER_CELL
         ChangeMagnification(_heightRatio)
-        RedrawDesign()
+        CalculateOffsetAfterChange(0, 0)
+        RedrawDesign(False)
         isLoading = False
     End Sub
     Private Sub BtnWidth_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnWidth.Click
@@ -824,7 +825,8 @@ Public Class FrmStitchDesign
         Dim _newPpc As Decimal = PicDesign.Width / oProjectDesign.Columns
         Dim _widthRatio As Decimal = _newPpc / PIXELS_PER_CELL
         ChangeMagnification(_widthRatio)
-        RedrawDesign()
+        CalculateOffsetAfterChange(0, 0)
+        RedrawDesign(False)
         isLoading = False
     End Sub
     Private Sub BtnTimer_Click(sender As Object, e As EventArgs) Handles BtnTimer.Click
