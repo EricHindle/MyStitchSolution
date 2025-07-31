@@ -5,34 +5,36 @@
 ' Author Eric Hindle
 '
 Imports System.Text
-Public Class Knot
-    Inherits Stitch
-    Private _isBead As Boolean
-    Public Property IsBead() As Boolean
-        Get
-            Return _isBead
-        End Get
-        Set(ByVal value As Boolean)
-            _isBead = value
-        End Set
-    End Property
-    Public Sub New()
-        Initialise()
-        _isBead = False
-    End Sub
-    Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer, pIsBead As Boolean)
-        _blockPos = pLoc
-        _blockQtr = pQtr
-        _strands = pStrands
-        _threadId = pThreadId
-        _projectId = pProjectId
-        _thread = Nothing
-        _isBead = pIsBead
-        '    LogUtil.Info(Me.ToString, "Knot")
-    End Sub
-    Public Overrides Function ToString() As String
-        Dim _sb As New StringBuilder
-        _sb.Append(If(_isBead, "Bead", "Knot")).Append("=[") _
+Namespace Domain.Objects
+
+    Public Class Knot
+        Inherits Stitch
+        Private _isBead As Boolean
+        Public Property IsBead() As Boolean
+            Get
+                Return _isBead
+            End Get
+            Set(ByVal value As Boolean)
+                _isBead = value
+            End Set
+        End Property
+        Public Sub New()
+            Initialise()
+            _isBead = False
+        End Sub
+        Public Sub New(pLoc As Point, pQtr As BlockQuarter, pStrands As Integer, pThreadId As Integer, pProjectId As Integer, pIsBead As Boolean)
+            _blockPos = pLoc
+            _blockQtr = pQtr
+            _strands = pStrands
+            _threadId = pThreadId
+            _projectId = pProjectId
+            _thread = Nothing
+            _isBead = pIsBead
+            '    LogUtil.Info(Me.ToString, "Knot")
+        End Sub
+        Public Overrides Function ToString() As String
+            Dim _sb As New StringBuilder
+            _sb.Append(If(_isBead, "Bead", "Knot")).Append("=[") _
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
             .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
@@ -41,13 +43,14 @@ Public Class Knot
             .Append("Strands =[").Append(CStr(_strands)).Append("], ") _
             .Append("ProjectThread = [").Append(ProjThread.ToString).Append("]") _
             .Append("]")
-        Return _sb.ToString()
-    End Function
-    Public Function ToSaveString() As String
-        Dim _sb As New StringBuilder
-        _sb _
+            Return _sb.ToString()
+        End Function
+        Public Function ToSaveString() As String
+            Dim _sb As New StringBuilder
+            _sb _
         .Append(ToStitchString).Append(BLOCK_DELIM) _
         .Append(CStr(_isBead))
-        Return _sb.ToString
-    End Function
-End Class
+            Return _sb.ToString
+        End Function
+    End Class
+End Namespace

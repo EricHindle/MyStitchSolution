@@ -11,6 +11,7 @@ Imports System.Reflection
 Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Imports Newtonsoft.Json
 
 Module ModFileHandling
@@ -19,12 +20,14 @@ Module ModFileHandling
     Public Const ZIP_EXT As String = ".hsz"
     Public Const ARC_EXT As String = ".hsa"
     Public Const DESIGN_EXT As String = ".hsd"
+    Public Const PROJECT_EXT As String = ".hsp"
     Public Const DESIGN_DELIM As String = "^"
     Public Const LIST_DELIM As String = "|"
     Public Const BLOCK_DELIM As String = "~"
     Public Const STITCH_DELIM As String = "]"
     Public Const POINT_DELIM As String = "/"
     Public Const DESIGN_HDR As String = "Design:"
+    Public Const PROJECT_HDR As String = "Project:"
     Public Function OpenDesignFile(pDesignPathName As String, pDesignFileName As String) As String
         Dim _exceptionText As String = "Exception reading project design file"
         Dim _zipFile As String = Path.Combine(pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath), pDesignFileName & ZIP_EXT)
@@ -55,11 +58,13 @@ Module ModFileHandling
         End Try
         Return _designText
     End Function
-    Public Function SaveDesignDelimited(pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
+    Public Function SaveDesignDelimited(pProject As Project, pDesign As ProjectDesign, pDesignPathName As String, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _pathname As String = pDesignPathName.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
-        Dim _entryName As String = pDesignFileName & DESIGN_EXT
-        Dim _designFile As String = Path.Combine(_pathname, _entryName)
+        Dim _designEntryName As String = pDesignFileName & DESIGN_EXT
+        Dim _designFile As String = Path.Combine(_pathname, _designEntryName)
+        Dim _projectEntryName As String = pDesignFileName & PROJECT_EXT
+        Dim _projectFile As String = Path.Combine(_pathname, _projectEntryName)
         Dim _zipFile As String = Path.Combine(_pathname, pDesignFileName & ZIP_EXT)
 
         If Not My.Computer.FileSystem.FileExists(_zipFile) Then
@@ -68,7 +73,14 @@ Module ModFileHandling
         End If
         Using zipToOpen As New FileStream(_zipFile, FileMode.Open)
             Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
-                Dim designEntry As ZipArchiveEntry = archive.CreateEntry(_entryName)
+                ' Save the project file
+                Dim projectEntry As ZipArchiveEntry = archive.CreateEntry(_projectEntryName)
+                Using _output As New StreamWriter(projectEntry.Open())
+                    _output.WriteLine(pProject.ToSaveString)
+                    _output.Close()
+                End Using
+                ' Save the design file
+                Dim designEntry As ZipArchiveEntry = archive.CreateEntry(_designEntryName)
                 Using _output As New StreamWriter(designEntry.Open())
                     _output.WriteLine(pDesign.ToSaveString)
                     _output.Close()

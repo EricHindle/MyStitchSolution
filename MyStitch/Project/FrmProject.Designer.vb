@@ -29,7 +29,7 @@ Partial Class FrmProject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -214,14 +214,14 @@ Partial Class FrmProject
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DgvProjects.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvProjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
         Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
@@ -272,6 +272,7 @@ Partial Class FrmProject
         Me.PnlForm.Controls.Add(Me.CbFabricColour)
         Me.PnlForm.Controls.Add(Me.PicFabricColour)
         Me.PnlForm.Controls.Add(Me.Label8)
+        Me.PnlForm.Controls.Add(Me.BtnProjectThreads)
         Me.PnlForm.Controls.Add(Me.Label7)
         Me.PnlForm.Controls.Add(Me.NudFabricHeight)
         Me.PnlForm.Controls.Add(Me.Label6)
@@ -290,7 +291,7 @@ Partial Class FrmProject
         Me.PnlForm.Location = New System.Drawing.Point(394, 62)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(302, 365)
+        Me.PnlForm.Size = New System.Drawing.Size(302, 423)
         Me.PnlForm.TabIndex = 126
         '
         'Label15
@@ -575,10 +576,10 @@ Partial Class FrmProject
         Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(44, 493)
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(102, 360)
         Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnProjectThreads.Name = "BtnProjectThreads"
-        Me.BtnProjectThreads.Size = New System.Drawing.Size(75, 53)
+        Me.BtnProjectThreads.Size = New System.Drawing.Size(122, 32)
         Me.BtnProjectThreads.TabIndex = 128
         Me.BtnProjectThreads.Text = "Project Threads"
         Me.BtnProjectThreads.UseVisualStyleBackColor = False
@@ -607,7 +608,7 @@ Partial Class FrmProject
         Me.BtnDesign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDesign.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDesign.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDesign.Location = New System.Drawing.Point(189, 493)
+        Me.BtnDesign.Location = New System.Drawing.Point(121, 493)
         Me.BtnDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDesign.Name = "BtnDesign"
         Me.BtnDesign.Size = New System.Drawing.Size(75, 53)
@@ -814,7 +815,7 @@ Partial Class FrmProject
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(334, 493)
+        Me.BtnPrint.Location = New System.Drawing.Point(311, 493)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(75, 53)
@@ -839,7 +840,6 @@ Partial Class FrmProject
         Me.Controls.Add(Me.BtnUpdate)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.BtnProjectThreads)
         Me.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1

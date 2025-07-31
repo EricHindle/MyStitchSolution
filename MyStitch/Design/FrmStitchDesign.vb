@@ -10,6 +10,7 @@ Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
+Imports MyStitch.Domain.Builders
 Public Class FrmStitchDesign
 #Region "classes"
     Private Class StitchAction
@@ -669,9 +670,6 @@ Public Class FrmStitchDesign
     Private Sub MnuDeleteColour_Click(sender As Object, e As EventArgs) Handles MnuDeleteColour.Click
         BeginDeleteColour()
     End Sub
-
-
-
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -1558,7 +1556,7 @@ Public Class FrmStitchDesign
                 Return
             End If
         End If
-        SaveDesignDelimited(oProjectDesign, My.Settings.DesignFilePath, pFilename)
+        SaveDesignDelimited(oProject, oProjectDesign, My.Settings.DesignFilePath, pFilename)
         isSaved = True
         LogUtil.Info("Design saved to " & pFilename, MyBase.Name)
         LblStatus.Text = "Save complete"

@@ -11,6 +11,7 @@ Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
+Imports MyStitch.Domain.Builders
 Module ModDesign
 #Region "constants"
     Public oFabricColourList As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
