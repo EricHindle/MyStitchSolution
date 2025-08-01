@@ -6,12 +6,12 @@
 '
 
 Imports System.Drawing.Imaging
-Imports System.Windows
+Imports System.IO
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
-Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Module ModDesign
 #Region "constants"
     Public oFabricColourList As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
@@ -128,6 +128,24 @@ Module ModDesign
     Friend oStitchDisplayStyle As StitchDisplayStyle
 #End Region
 #Region "functions"
+    Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
+        pDesign.BlockStitches.Sort(Function(pStitch1 As BlockStitch, pStitch2 As BlockStitch)
+                                       Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+                                       Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+                                       Return Pos1.CompareTo(Pos2)
+                                   End Function)
+        pDesign.Knots.Sort(Function(pStitch1 As Knot, pStitch2 As Knot)
+                               Dim Pos1 As Integer = pStitch1.BlockPosition.Y + (pStitch1.BlockPosition.X * pDesign.Rows)
+                               Dim Pos2 As Integer = pStitch2.BlockPosition.Y + (pStitch2.BlockPosition.X * pDesign.Rows)
+                               Return Pos1.CompareTo(Pos2)
+                           End Function)
+        pDesign.BackStitches.Sort(Function(pStitch1 As BackStitch, pStitch2 As BackStitch)
+                                      Dim Pos1 As Integer = pStitch1.FromBlockLocation.Y + (pStitch1.FromBlockLocation.X * pDesign.Rows)
+                                      Dim Pos2 As Integer = pStitch2.FromBlockLocation.Y + (pStitch2.FromBlockLocation.X * pDesign.Rows)
+                                      Return Pos1.CompareTo(Pos2)
+                                  End Function)
+        Return pDesign
+    End Function
     Public Sub DisplayImage(pImage As Bitmap, pX As Integer, pY As Integer, e As PaintEventArgs)
         If oDesignBitmap Is Nothing Then Exit Sub
         Dim rect As Rectangle
@@ -149,14 +167,18 @@ Module ModDesign
     Public Function LoadProjectDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean)
         oFabricColour = GetColourFromProject(oProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)
-        Dim oDesignString As String = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(pProject))
-        If String.IsNullOrEmpty(oDesignString) Then
-            oProjectDesign = New ProjectDesign
-        Else
-            oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oDesignString).Build
-        End If
+        Dim oDesignString As List(Of String) = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(pProject) & ZIP_EXT)
+        oProjectDesign = New ProjectDesign
+        For Each oLine As String In oDesignString
+            If Not String.IsNullOrEmpty(oLine) Then
+                If oLine.StartsWith(DESIGN_HDR) Then
+                    oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oLine).Build
+                    Exit For
+                End If
+            End If
+        Next
         oProjectDesign.ProjectId = pProject.ProjectId
-        If Not oProjectDesign.IsLoaded Then
+            If Not oProjectDesign.IsLoaded Then
             oProjectDesign.Rows = pProject.DesignHeight
             oProjectDesign.Columns = pProject.DesignWidth
         End If

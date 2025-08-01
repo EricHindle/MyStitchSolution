@@ -66,8 +66,6 @@ Public Class FrmStitchDesign
     Private isLoading As Boolean
     Private isLoadComplete As Boolean
     Private isComponentInitialised As Boolean
-    Private isSaved As Boolean = True
-
     Private oCurrentAction As DesignAction = DesignAction.none
     Private oCurrentStitchType As DesignAction = DesignAction.none
     Private oCurrentShapeType As ShapeType = ShapeType.None
@@ -545,8 +543,18 @@ Public Class FrmStitchDesign
 #Region "menus"
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
         If MsgBox("Re-open design and replace work-in-progress?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-            Dim _filename As String = "Archive/" & Path.GetFileName(MakeFilename(oProject)) & ARC_EXT
-            SaveDesign(_filename)
+            Dim _archivePath As String = Path.Combine(My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath), "Archive")
+            Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSA, _archivePath)
+            Dim _designString As List(Of String) = OpenDesignFile(_archivePath, _filename)
+            For Each _line As String In _designString
+                If Not String.IsNullOrEmpty(_line) Then
+                    If _line.StartsWith(DESIGN_HDR) Then
+                        oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_line).Build()
+                        Exit For
+                    End If
+                End If
+            Next
+            RedrawDesign(False)
         End If
     End Sub
     Private Sub MnuSaveDesign_Click(sender As Object, e As EventArgs) Handles MnuSaveDesign.Click
@@ -1537,42 +1545,6 @@ Public Class FrmStitchDesign
     End Sub
 #End Region
 #Region "actions"
-    Friend Sub SaveDesign()
-        If oProject.IsLoaded Then
-            Dim _filename As String = MakeFilename(oProject)
-            SaveDesign(_filename)
-        Else
-            LblStatus.Text = "No project selected"
-            Beep()
-        End If
-    End Sub
-    Private Sub SaveDesign(pFilename As String)
-        LblStatus.Text = "Saving design..."
-        LogUtil.Info("Saving design", MyBase.Name)
-        If My.Settings.isAutoArchiveOnSave Then
-            If Not ArchiveExistingFile(pFilename) Then
-                LblStatus.Text = "Error archiving existing file"
-                Beep()
-                Return
-            End If
-        End If
-        SaveDesignDelimited(oProject, oProjectDesign, My.Settings.DesignFilePath, pFilename)
-        isSaved = True
-        LogUtil.Info("Design saved to " & pFilename, MyBase.Name)
-        LblStatus.Text = "Save complete"
-    End Sub
-    Private Function ArchiveExistingFile(pFilename As String) As Boolean
-        Dim isMovedOK As Boolean = False
-        Dim _pathname As String = My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
-        Dim _archivePathname As String = Path.Combine(_pathname, "archive")
-        Dim _existingFilename As String = Path.Combine(_pathname, pFilename & ZIP_EXT)
-        If My.Computer.FileSystem.FileExists(_existingFilename) Then
-            LogUtil.LogInfo("Archiving design before save", MyBase.Name)
-            Dim _destinationFilename As String = Path.Combine(_archivePathname, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & ARC_EXT)
-            isMovedOK = TryMoveFile(_existingFilename, _destinationFilename, True)
-        End If
-        Return isMovedOK
-    End Function
     Private Sub FlipSelectedCells()
         If oCurrentSelection.Length > 0 Then
             Dim _sum As Integer = oCurrentSelection(1).Y + oCurrentSelection(0).Y - 1

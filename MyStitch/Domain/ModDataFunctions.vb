@@ -243,7 +243,8 @@ Namespace Domain
             Return oProject
         End Function
         Public Function InsertProject(ByRef project As Project) As Integer
-            Return InsertProject(project, -1)
+            Dim _newId As Integer = InsertProject(project, -1)
+            Return _newId
         End Function
         Public Function InsertProject(ByRef oProject As Project, projectId As Integer)
             LogUtil.LogInfo("Inserting " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)

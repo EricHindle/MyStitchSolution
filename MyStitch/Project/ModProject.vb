@@ -5,13 +5,77 @@
 ' Author Eric Hindle
 '
 
-Imports System.IO
+Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Module ModProject
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
+    Public isSaved As Boolean = True
+    Public Function SaveDesign() As String
+        Dim _reply As String
+        If oProject.IsLoaded Then
+            If String.IsNullOrEmpty(oProject.DesignFileName) Then
+                oProject.DesignFileName = MakeFilename(oProject)
+                UpdateProject(oProject)
+            End If
+            _reply = SaveDesign(oProject.DesignFileName)
+        Else
+            _reply = "No project selected"
+            Beep()
+        End If
+        Return _reply
+    End Function
+    Public Function SaveDesign(pFilename As String) As String
+        Dim _reply As String = String.Empty
+        LogUtil.Info("Saving design", MethodBase.GetCurrentMethod.Name)
+        If My.Settings.isAutoArchiveOnSave Then
+            If Not ArchiveExistingFile(pFilename) Then
+                _reply = "Error archiving existing file"
+                Beep()
+                Return _reply
+            End If
+        End If
+        SaveDesignDelimited(oProject, oProjectDesign, My.Settings.DesignFilePath, pFilename)
+        isSaved = True
+        LogUtil.LogInfo("Design saved to " & pFilename, MethodBase.GetCurrentMethod.Name)
+        _reply = "Save complete"
+        Return _reply
+    End Function
+    Public Function OpenProjectFile(pFilename As String) As String
+        Dim oReply As String = "Project Loaded OK"
+        LogUtil.LogInfo("Opening project file " & pFilename, MethodBase.GetCurrentMethod.Name)
+        If Not String.IsNullOrEmpty(pFilename) Then
+            If My.Computer.FileSystem.FileExists(pFilename) = True Then
+                Dim _projectStrings As List(Of String) = OpenDesignFile(pFilename)
+                For Each _string As String In _projectStrings
+                    Select Case True
+                        Case _string.StartsWith(PROJECT_HDR)
+                            oProject = ProjectBuilder.AProject.StartingWith(_string.Split(DESIGN_DELIM)).Build
+                            If Not oProject.IsLoaded Then
+                                oReply = "Project not loaded"
+                                Exit For
+                            End If
+                        Case _string.StartsWith(DESIGN_HDR)
+                            oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_string).Build
+                            If Not oProjectDesign.IsLoaded Then
+                                oReply = "Design not loaded"
+                                Exit For
+                            End If
+                        Case Else
+                            oReply = "Unknown data in project file"
+                    End Select
+                Next
+            Else
+                oReply = "Project file not found"
+            End If
+        Else
+            oReply = "No project file selected"
+        End If
+        Return oReply
+    End Function
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load project list", pBaseName)
         pDgv.Rows.Clear()
@@ -20,7 +84,6 @@ Module ModProject
         Next
         pDgv.ClearSelection()
     End Sub
-
     Public Sub SelectProjectInList(pDgv As DataGridView, pProjectId As Integer)
         For Each orow As DataGridViewRow In pDgv.Rows
             If orow.Cells("projectId").Value = pProjectId Then
@@ -29,7 +92,6 @@ Module ModProject
             End If
         Next
     End Sub
-
     Private Sub AddProjectRow(ByRef pDgv As DataGridView, oProject As Project)
         Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
         oRow.Cells(pDgv.Columns(0).Name).Value = oProject.ProjectId
@@ -46,20 +108,6 @@ Module ModProject
             End If
         Next
         Return _index
-    End Function
-    Public Function MakeFilename(pProject As Project) As String
-        Dim _filename As String = pProject.DesignFileName
-        If String.IsNullOrEmpty(_filename) Then
-            _filename = Replace(pProject.ProjectName, " ", "_").ToLower
-        End If
-        Return _filename
-    End Function
-
-    Public Function MakeFullFileName(pProject As Project, pFileType As String) As String
-        Dim _baseFilename As String = MakeFilename(pProject) & pFileType
-        Dim _designFilePath As String = My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath)
-        Dim _fullFilename As String = Path.Combine(_designFilePath, _baseFilename)
-        Return _fullFilename
     End Function
     Public Function StartProjectTimer(pProject As Project) As String
         Dim _rtnMsg As String

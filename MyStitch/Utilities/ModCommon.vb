@@ -213,7 +213,7 @@ Module ModCommon
                     If pFormType = FormType.Design Then
                         ' Save Design
                         If TypeOf _form Is FrmStitchDesign Then
-                            CType(_form, FrmStitchDesign).SaveDesign()
+                            SaveDesign()
                         End If
                         e.Handled = True
                     End If

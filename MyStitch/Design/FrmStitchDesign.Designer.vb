@@ -1255,55 +1255,55 @@ Partial Class FrmStitchDesign
         '
         Me.MnuDrawShape.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuEllipse, Me.MnuRectangle})
         Me.MnuDrawShape.Name = "MnuDrawShape"
-        Me.MnuDrawShape.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDrawShape.Size = New System.Drawing.Size(167, 22)
         Me.MnuDrawShape.Text = "Draw Shape"
         '
         'MnuEllipse
         '
         Me.MnuEllipse.Name = "MnuEllipse"
-        Me.MnuEllipse.Size = New System.Drawing.Size(180, 22)
+        Me.MnuEllipse.Size = New System.Drawing.Size(126, 22)
         Me.MnuEllipse.Text = "Ellipse"
         '
         'MnuRectangle
         '
         Me.MnuRectangle.Name = "MnuRectangle"
-        Me.MnuRectangle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRectangle.Size = New System.Drawing.Size(126, 22)
         Me.MnuRectangle.Text = "Rectangle"
         '
         'MnuDrawFilledShape
         '
         Me.MnuDrawFilledShape.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuFilledEllipse, Me.MnuFilledRecangle})
         Me.MnuDrawFilledShape.Name = "MnuDrawFilledShape"
-        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDrawFilledShape.Size = New System.Drawing.Size(167, 22)
         Me.MnuDrawFilledShape.Text = "Draw Filled Shape"
         '
         'MnuFilledEllipse
         '
         Me.MnuFilledEllipse.Name = "MnuFilledEllipse"
-        Me.MnuFilledEllipse.Size = New System.Drawing.Size(180, 22)
+        Me.MnuFilledEllipse.Size = New System.Drawing.Size(126, 22)
         Me.MnuFilledEllipse.Text = "Ellipse"
         '
         'MnuFilledRecangle
         '
         Me.MnuFilledRecangle.Name = "MnuFilledRecangle"
-        Me.MnuFilledRecangle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuFilledRecangle.Size = New System.Drawing.Size(126, 22)
         Me.MnuFilledRecangle.Text = "Rectangle"
         '
         'ToolStripSeparator11
         '
         Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
-        Me.ToolStripSeparator11.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(164, 6)
         '
         'MnuFloodFill
         '
         Me.MnuFloodFill.Name = "MnuFloodFill"
-        Me.MnuFloodFill.Size = New System.Drawing.Size(180, 22)
+        Me.MnuFloodFill.Size = New System.Drawing.Size(167, 22)
         Me.MnuFloodFill.Text = "Flood Fill"
         '
         'MnuClearArea
         '
         Me.MnuClearArea.Name = "MnuClearArea"
-        Me.MnuClearArea.Size = New System.Drawing.Size(180, 22)
+        Me.MnuClearArea.Size = New System.Drawing.Size(167, 22)
         Me.MnuClearArea.Text = "Clear Area"
         '
         'MnuText
@@ -1448,9 +1448,10 @@ Partial Class FrmStitchDesign
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmStitchDesign"
-        Me.Text = "FrmGraphicsTest"
+        Me.Text = "Stitch Design"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -9,6 +9,7 @@ Imports System.IO
 Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
+Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
@@ -37,6 +38,46 @@ Public Class FrmProject
         InitialiseForm()
         isLoading = False
         KeyPreview = True
+        Dim _params As String() = System.Environment.GetCommandLineArgs
+        Dim _filename As String = Nothing
+        ' Check if a project file is passed as a parameter
+        If _params.Length > 1 Then
+            If My.Computer.FileSystem.FileExists(_params(1)) Then
+                Dim _suffix As String = Path.GetExtension(_params(1)).ToLower
+                If _suffix = ARC_EXT Or _suffix = ZIP_EXT Then
+                    _filename = _params(1)
+                End If
+            Else
+                LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
+            End If
+            If _filename IsNot Nothing Then
+                LblStatus.Text = OpenProjectFile(_filename)
+                If oProject.IsLoaded Then
+                    LogUtil.LogInfo("Project file opened: " & _filename, MyBase.Name)
+
+                    Dim _existingProject As Project = GetProjectById(oProject.ProjectId)
+                    If _existingProject.IsLoaded Then
+                        If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
+                            UpdateProject(_existingProject)
+                            SaveDesign()
+                            LogUtil.LogInfo("Project updated: " & _existingProject.ProjectName, MyBase.Name)
+                        Else
+                            LogUtil.LogInfo("Project not updated: " & _existingProject.ProjectName, MyBase.Name)
+                        End If
+                    Else
+                        LogUtil.LogInfo("New project loaded: " & oProject.ProjectName, MyBase.Name)
+                        oProject.ProjectId = InsertProject(oProject)
+                        SaveDesign()
+                        LoadProjectTable()
+                    End If
+
+
+                    LoadProjectForm(oProject)
+                    SelectProjectInList(oProject.ProjectId)
+
+                End If
+            End If
+        End If
     End Sub
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         KeyHandler(Me, FormType.Project, e)
@@ -67,6 +108,9 @@ Public Class FrmProject
                 NudDesignWidth.Enabled = True
                 NudOriginX.Enabled = True
                 NudOriginY.Enabled = True
+                oProjectDesign = New ProjectDesign
+                oProjectThreads = New List(Of ProjectThread)
+                oDesignBitmap = New Bitmap(1, 1)
             End If
             LoadProjectForm(_selectedProject)
         End If
@@ -110,9 +154,6 @@ Public Class FrmProject
     End Sub
     Private Sub MnuShowLog_Click(sender As Object, e As EventArgs) Handles MnuShowLog.Click
         ShowLog()
-    End Sub
-    Private Sub MnuUndoOn_Click(sender As Object, e As EventArgs)
-
     End Sub
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
         OpenProjectDesign()
@@ -222,8 +263,12 @@ Public Class FrmProject
                                                     .WithFabricHeight(NudFabricHeight.Value) _
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
-                                                    .WithDesignFilename(Replace(TxtName.Text, " ", "_").ToLower) _
-                                                 .Build()
+                                                    .WithOriginX(NudOriginX.Value) _
+                                                    .WithOriginY(NudOriginY.Value) _
+                                                    .WithTotalMinutes(0) _
+                                                    .WithStarted(DateTime.Now) _
+                                                    .WithEnded(DateTime.Now) _
+                                                    .Build()
         Return _project
     End Function
     Friend Sub SaveProject()
@@ -235,11 +280,13 @@ Public Class FrmProject
     End Sub
     Private Sub InsertNewProject()
         LogUtil.LogInfo("New project", MyBase.Name)
-        Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
+        Dim _project As Project = BuildProjectFromForm(-1)
         _project.ProjectId = InsertProject(_project)
         LoadProjectTable()
         SelectProjectInList(_project.ProjectId)
-        LogUtil.ShowStatus("project Added", LblStatus, MyBase.Name)
+        oProject = _selectedProject
+        SaveDesign()
+        LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
     End Sub
     Private Sub UpdateSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
@@ -247,6 +294,7 @@ Public Class FrmProject
             Dim _previousProject As Project = _selectedProject
             Dim _newProject As Project = BuildProjectFromForm(_selectedProject.ProjectId)
             UpdateProject(_newProject)
+            SaveDesign
             LoadProjectTable()
             SelectProjectInList(_selectedProject.ProjectId)
             If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
@@ -395,6 +443,16 @@ Public Class FrmProject
 
     Private Sub MnuPrint_Click_1(sender As Object, e As EventArgs) Handles MnuPrint.Click
         ShowPrintForm()
+    End Sub
+
+    Private Sub MnuOpenSelectedProject_Click(sender As Object, e As EventArgs) Handles MnuOpenSelectedProject.Click
+        '      OpenProjectFile(oProject.ProjectId)
+    End Sub
+
+    Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
+        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
+        LblStatus.Text = OpenProjectFile(_filename)
+
     End Sub
 
 #End Region

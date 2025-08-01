@@ -6,7 +6,6 @@
 '
 
 Imports System.Text
-Imports Newtonsoft.Json
 Namespace Domain.Objects
     Public Class Project
 #Region "properties"

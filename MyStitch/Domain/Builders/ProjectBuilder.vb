@@ -4,6 +4,7 @@
 '
 ' Author Eric Hindle
 '
+Imports System.IO
 Imports MyStitch.Domain.Objects
 
 Namespace Domain.Builders
@@ -40,6 +41,24 @@ Namespace Domain.Builders
             _originX = 0
             _originY = 0
             _totalMinutes = 0
+            Return Me
+        End Function
+        Public Function StartingWith(pProject As String()) As ProjectBuilder
+            StartingWithNothing()
+            _projectId = pProject(1)
+            _projectName = pProject(2)
+            _dateStarted = New Date(pProject(3))
+            _dateEnded = New Date(pProject(4))
+            _designHeight = pProject(5)
+            _designWidth = pProject(6)
+            _fabricWidth = pProject(7)
+            _fabricHeight = pProject(8)
+            _fabricColour = pProject(9)
+            _design = Nothing
+            _designFileName = pProject(10)
+            _originX = pProject(11)
+            _originY = pProject(12)
+            _totalMinutes = pProject(13)
             Return Me
         End Function
         Public Function StartingWith(ByRef pProject As Project) As ProjectBuilder
