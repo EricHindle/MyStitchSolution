@@ -459,17 +459,17 @@ Namespace Domain
             End Try
             Return newId
         End Function
-        Public Function GetProjectThreads(pProjectId) As List(Of ProjectThread)
-            Dim _list As New List(Of ProjectThread)
+        Public Function GetProjectThreads(pProjectId) As ProjectThreadCollection
+            Dim _threadCollection As New ProjectThreadCollection
             Try
                 oProjectThreadTa.FillByProject(oProjectThreadTable, pProjectId)
                 For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
-                    _list.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
+                    _threadCollection.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
                 Next
             Catch ex As Exception
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
-            Return _list
+            Return _threadCollection
         End Function
         Public Function GetThreadsForProject(ByRef pProjectId) As List(Of Thread)
             Dim _list As New List(Of Thread)

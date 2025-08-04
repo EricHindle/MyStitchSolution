@@ -400,7 +400,7 @@ Public Class FrmStitchDesign
         LblCursorPos.Text = "X:" & CStr(_cellPos.X + 1) & ", Y:" & CStr(_cellPos.Y + 1)
         PnlPixelColour.BackColor = GetPixelColour(e)
         Dim _colourName As String = String.Empty
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.Colour = PnlPixelColour.BackColor), ProjectThread)
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.Thread.Colour = PnlPixelColour.BackColor), ProjectThread)
         If _projectThread IsNot Nothing Then
             _colourName = _projectThread.Thread.ColourName & " : DMC " & CStr(_projectThread.Thread.ThreadNo)
         End If
@@ -543,9 +543,8 @@ Public Class FrmStitchDesign
 #Region "menus"
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
         If MsgBox("Re-open design and replace work-in-progress?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
-            Dim _archivePath As String = Path.Combine(My.Settings.DesignFilePath.Replace("%applicationpath%", My.Application.Info.DirectoryPath), "Archive")
-            Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSA, _archivePath)
-            Dim _designString As List(Of String) = OpenDesignFile(_archivePath, _filename)
+            Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSA, oDesignArchiveFolderName)
+            Dim _designString As List(Of String) = OpenDesignFile(oDesignArchiveFolderName, _filename)
             For Each _line As String In _designString
                 If Not String.IsNullOrEmpty(_line) Then
                     If _line.StartsWith(DESIGN_HDR) Then
@@ -563,7 +562,7 @@ Public Class FrmStitchDesign
     Private Sub MnuSaveDesignAs_Click(sender As Object, e As EventArgs) Handles MnuSaveDesignAs.Click
         Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Save, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
         If Not String.IsNullOrEmpty(_filename) Then
-            SaveDesign(_filename)
+            SaveDesignToFile(_filename)
         End If
     End Sub
     Private Sub MnuExit_Click(sender As Object, e As EventArgs) Handles MnuExit.Click
@@ -776,7 +775,7 @@ Public Class FrmStitchDesign
 #End Region
 #Region "action buttons"
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
-        SaveDesign()
+        LblStatus.Text = SaveDesign()
     End Sub
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         ShowPrintForm()
@@ -977,14 +976,14 @@ Public Class FrmStitchDesign
             ThreadLayoutPanel.Controls.Clear()
             oProjectThreads = GetProjectThreads(oProject.ProjectId)
             If IsProjectHasThreads() Then
-                oProjectThreads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+                oProjectThreads.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
                 Dim _panelWidth As Integer = ThreadLayoutPanel.Width
                 Dim _panelHeight As Integer = ThreadLayoutPanel.Height
                 Dim _threadCt As Integer = oProjectThreads.Count
                 Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt)
                 Dim _firstPicThread As PictureBox = Nothing
 
-                For Each _projectThread As ProjectThread In oProjectThreads
+                For Each _projectThread As ProjectThread In oProjectThreads.Threads
                     Dim _thread As Thread = _projectThread.Thread
                     Dim _picThread As New PictureBox()
                     Dim _image As Image = New Bitmap(_picSize, _picSize)
@@ -1053,7 +1052,7 @@ Public Class FrmStitchDesign
         End If
         pPicBox.BorderStyle = BorderStyle.Fixed3D
         pPicBox.BackgroundImage = My.Resources.ColrBtnDown
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
         Dim _thread As Thread = _projectThread.Thread
         oCurrentThread = _projectThread
         PnlSelectedColor.BackColor = _thread.Colour

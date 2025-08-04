@@ -21,14 +21,14 @@ Module ModProject
                 oProject.DesignFileName = MakeFilename(oProject)
                 UpdateProject(oProject)
             End If
-            _reply = SaveDesign(oProject.DesignFileName)
+            _reply = SaveDesignToFile(oProject.DesignFileName)
         Else
             _reply = "No project selected"
             Beep()
         End If
         Return _reply
     End Function
-    Public Function SaveDesign(pFilename As String) As String
+    Public Function SaveDesignToFile(pFilename As String) As String
         Dim _reply As String = String.Empty
         LogUtil.Info("Saving design", MethodBase.GetCurrentMethod.Name)
         If My.Settings.isAutoArchiveOnSave Then
@@ -38,7 +38,7 @@ Module ModProject
                 Return _reply
             End If
         End If
-        SaveDesignDelimited(oProject, oProjectDesign, My.Settings.DesignFilePath, pFilename)
+        SaveDesignDelimited(oProject, oProjectDesign, oProjectThreads, pFilename)
         isSaved = True
         LogUtil.LogInfo("Design saved to " & pFilename, MethodBase.GetCurrentMethod.Name)
         _reply = "Save complete"
@@ -49,7 +49,7 @@ Module ModProject
         LogUtil.LogInfo("Opening project file " & pFilename, MethodBase.GetCurrentMethod.Name)
         If Not String.IsNullOrEmpty(pFilename) Then
             If My.Computer.FileSystem.FileExists(pFilename) = True Then
-                Dim _projectStrings As List(Of String) = OpenDesignFile(pFilename)
+                Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
                 For Each _string As String In _projectStrings
                     Select Case True
                         Case _string.StartsWith(PROJECT_HDR)
@@ -62,6 +62,13 @@ Module ModProject
                             oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_string).Build
                             If Not oProjectDesign.IsLoaded Then
                                 oReply = "Design not loaded"
+                                Exit For
+                            End If
+                        Case _string.StartsWith(PROJECT_THREADS_HDR)
+                            Dim _threadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
+                            oProjectThreads = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWith(_threadStrings).Build
+                            If oProjectThreads Is Nothing OrElse oProjectThreads.Count = 0 Then
+                                oReply = "No threads loaded"
                                 Exit For
                             End If
                         Case Else

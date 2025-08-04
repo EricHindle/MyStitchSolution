@@ -105,10 +105,10 @@ Public Class FrmThreadSymbols
     End Sub
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load ProjectThread list", MyBase.Name)
-        Dim _usedThreadList As List(Of ProjectThread) = GetProjectThreads(_selectedProject.ProjectId)
-        _usedThreadList.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+        Dim _usedThreadList As ProjectThreadCollection = GetProjectThreads(_selectedProject.ProjectId)
+        _usedThreadList.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
         DgvThreads.Rows.Clear()
-        For Each oThread As ProjectThread In _usedThreadList
+        For Each oThread As ProjectThread In _usedThreadList.Threads
             Dim _index = AddProjectThreadSymbolRow(DgvThreads, oThread)
             Dim _symbolBox As PictureBox = FindSymbolInTable(oThread.SymbolId)
             If _symbolBox IsNot Nothing Then

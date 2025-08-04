@@ -28,12 +28,13 @@ Public Class FrmProject
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitialiseSettings()
         LoadSettings(Me)
+        LoadPathSettings()
         InitialiseLogging()
+        LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
         CheckAppPaths()
         If My.Settings.isAutoRunHousekeeping Then
             RunHousekeeping()
         End If
-        LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -51,34 +52,36 @@ Public Class FrmProject
                 LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
             End If
             If _filename IsNot Nothing Then
-                LblStatus.Text = OpenProjectFile(_filename)
-                If oProject.IsLoaded Then
-                    LogUtil.LogInfo("Project file opened: " & _filename, MyBase.Name)
-
-                    Dim _existingProject As Project = GetProjectById(oProject.ProjectId)
-                    If _existingProject.IsLoaded Then
-                        If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
-                            UpdateProject(_existingProject)
-                            SaveDesign()
-                            LogUtil.LogInfo("Project updated: " & _existingProject.ProjectName, MyBase.Name)
-                        Else
-                            LogUtil.LogInfo("Project not updated: " & _existingProject.ProjectName, MyBase.Name)
-                        End If
-                    Else
-                        LogUtil.LogInfo("New project loaded: " & oProject.ProjectName, MyBase.Name)
-                        oProject.ProjectId = InsertProject(oProject)
-                        SaveDesign()
-                        LoadProjectTable()
-                    End If
-
-
-                    LoadProjectForm(oProject)
-                    SelectProjectInList(oProject.ProjectId)
-
-                End If
+                OpenProjectFromFile(_filename)
             End If
         End If
     End Sub
+    Private Sub OpenProjectFromFile(_filename As String)
+        LblStatus.Text = ModProject.OpenProjectFile(_filename)
+        If oProject.IsLoaded Then
+            LogUtil.LogInfo("Project file opened: " & _filename, MyBase.Name)
+            Dim _existingProject As Project = GetProjectById(oProject.ProjectId)
+            If _existingProject.IsLoaded Then
+                'If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
+                '    UpdateProject(_existingProject)
+                '    SaveDesign()
+                '    LogUtil.LogInfo("Project updated: " & _existingProject.ProjectName, MyBase.Name)
+                'Else
+                '    LogUtil.LogInfo("Project not updated: " & _existingProject.ProjectName, MyBase.Name)
+                'End If
+            Else
+                'LogUtil.LogInfo("New project loaded: " & oProject.ProjectName, MyBase.Name)
+                'oProject.ProjectId = InsertProject(oProject)
+                'SaveDesign()
+                'LoadProjectTable()
+            End If
+
+            LoadProjectForm(oProject)
+            SelectProjectInList(oProject.ProjectId)
+
+        End If
+    End Sub
+
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         KeyHandler(Me, FormType.Project, e)
     End Sub
@@ -90,7 +93,7 @@ Public Class FrmProject
         oGrid1Pen.Dispose()
         oGrid5Pen.Dispose()
         oGrid10Pen.Dispose()
-        oCentrePen.dispose
+        oCentrePen.Dispose()
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -109,7 +112,7 @@ Public Class FrmProject
                 NudOriginX.Enabled = True
                 NudOriginY.Enabled = True
                 oProjectDesign = New ProjectDesign
-                oProjectThreads = New List(Of ProjectThread)
+                oProjectThreads = New ProjectThreadCollection
                 oDesignBitmap = New Bitmap(1, 1)
             End If
             LoadProjectForm(_selectedProject)
@@ -294,7 +297,7 @@ Public Class FrmProject
             Dim _previousProject As Project = _selectedProject
             Dim _newProject As Project = BuildProjectFromForm(_selectedProject.ProjectId)
             UpdateProject(_newProject)
-            SaveDesign
+            SaveDesign()
             LoadProjectTable()
             SelectProjectInList(_selectedProject.ProjectId)
             If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
@@ -451,7 +454,7 @@ Public Class FrmProject
 
     Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
         Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
-        LblStatus.Text = OpenProjectFile(_filename)
+        LblStatus.Text = ModProject.OpenProjectFile(_filename)
 
     End Sub
 

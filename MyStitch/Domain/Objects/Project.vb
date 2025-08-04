@@ -205,20 +205,20 @@ Namespace Domain.Objects
         Public Function ToSaveString() As String
             Dim _sb As New StringBuilder
             _sb _
-        .Append(PROJECT_HDR).Append(DESIGN_DELIM) _
-        .Append(CStr(_projectId)).Append(DESIGN_DELIM)
-            _sb.Append(_projectName).Append(DESIGN_DELIM)
-            _sb.Append(_dateStarted.ToString("yyyy-MM-dd HH:mm:ss")).Append(DESIGN_DELIM)
-            _sb.Append(_dateEnded.ToString("yyyy-MM-dd HH:mm:ss")).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_designWidth)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_designHeight)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_fabricWidth)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_fabricHeight)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_fabricColour)).Append(DESIGN_DELIM)
-            _sb.Append(_designFileName).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_originX)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_originY)).Append(DESIGN_DELIM)
-            _sb.Append(CStr(_totalMinutes))
+            .Append(PROJECT_HDR).Append(DESIGN_DELIM) _
+            .Append(CStr(_projectId)).Append(DESIGN_DELIM) _
+            .Append(_projectName).Append(DESIGN_DELIM) _
+            .Append(_dateStarted.ToString("yyyy-MM-dd HH:mm:ss")).Append(DESIGN_DELIM) _
+            .Append(_dateEnded.ToString("yyyy-MM-dd HH:mm:ss")).Append(DESIGN_DELIM) _
+            .Append(CStr(_designWidth)).Append(DESIGN_DELIM) _
+            .Append(CStr(_designHeight)).Append(DESIGN_DELIM) _
+            .Append(CStr(_fabricWidth)).Append(DESIGN_DELIM) _
+            .Append(CStr(_fabricHeight)).Append(DESIGN_DELIM) _
+            .Append(CStr(_fabricColour)).Append(DESIGN_DELIM) _
+            .Append(_designFileName).Append(DESIGN_DELIM) _
+            .Append(CStr(_originX)).Append(DESIGN_DELIM) _
+            .Append(CStr(_originY)).Append(DESIGN_DELIM) _
+            .Append(CStr(_totalMinutes))
             Return _sb.ToString
         End Function
 #End Region

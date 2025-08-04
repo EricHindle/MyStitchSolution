@@ -48,6 +48,16 @@ Namespace Domain.Builders
             End If
             Return Me
         End Function
+        Public Function StartingWith(oString As String) As ProjectThreadBuilder
+            StartingWithNothing()
+            Dim _values As String() = oString.Split(DESIGN_DELIM)
+            _project = Nothing
+            _thread = Nothing
+            If _values.Length > 0 Then _projectId = _values(0)
+            If _values.Length > 1 Then _threadId = _values(1)
+            If _values.Length > 2 Then _symbolId = _values(2)
+            Return Me
+        End Function
         Public Function WithThreadId(pId As Integer) As ProjectThreadBuilder
             _threadId = pId
             Return Me

@@ -11,12 +11,13 @@ Imports System.Reflection
 Imports HindlewareLib.Logging
 
 Module ModCommon
-    Public DesignFolderName As String = My.Settings.DesignFilePath
-    Public DesignArchiveFolderName As String = Path.Combine(DesignFolderName, "Archive")
-    Public ImageFolderName As String = My.Settings.ImagePath
-    Public BackupFolderName As String = My.Settings.BackupPath
-    Public BackupArchiveFolderName As String = Path.Combine(BackupFolderName, "Archive")
-    Public LogFolderName As String = My.Settings.LogFolder
+    Public oApplicationPath As String
+    Public oDesignFolderName As String
+    Public oDesignArchiveFolderName As String
+    Public oImageFolderName As String
+    Public oBackupFolderName As String
+    Public oBackupArchiveFolderName As String
+    Public oLogFolderName As String
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
     Public isUpgradedSettings As Boolean = False
     Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
@@ -33,33 +34,33 @@ Module ModCommon
         End If
     End Sub
     Public Sub InitialiseLogging()
-        If String.IsNullOrEmpty(LogFolderName) Then
-            LogFolderName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyStitchLogs")
+        If String.IsNullOrEmpty(oLogFolderName) Then
+            oLogFolderName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyStitchLogs")
         End If
-        CreateFolder(LogFolderName, True)
-        LogUtil.LogFolder = LogFolderName
+        CreateFolder(oLogFolderName, True)
+        LogUtil.LogFolder = oLogFolderName
         LogUtil.IsDebugOn = My.Settings.isDebugOn
         LogUtil.StartLogging(My.Settings.MyStitchConnectionString)
         LogUtil.LogInfo("Settings " & If(isUpgradedSettings, "", "not ") & "upgraded ", "InitialiseLogging")
     End Sub
     Public Sub CheckAppPaths()
         LogUtil.LogInfo("Checking folders", MethodBase.GetCurrentMethod.Name)
-        CreateFolder(DesignFolderName)
-        CreateFolder(DesignArchiveFolderName)
-        CreateFolder(ImageFolderName)
-        CreateFolder(BackupFolderName)
-        CreateFolder(BackupArchiveFolderName)
+        CreateFolder(oDesignFolderName)
+        CreateFolder(oDesignArchiveFolderName)
+        CreateFolder(oImageFolderName)
+        CreateFolder(oBackupFolderName)
+        CreateFolder(oBackupArchiveFolderName)
     End Sub
     Public Sub RunHousekeeping()
         LogUtil.Info("Housekeeping started", MethodBase.GetCurrentMethod.Name)
         Dim retentionPeriod As Integer = My.Settings.FileRetentionPeriod
         If My.Settings.isHkLogs Then
             LogUtil.Info("Tidying log files", MethodBase.GetCurrentMethod.Name)
-            TidyLogFiles(LogFolderName, "*.*", retentionPeriod)
+            TidyLogFiles(oLogFolderName, "*.*", retentionPeriod)
         End If
         If My.Settings.isHkArchive Then
             LogUtil.Info("Tidying Design files", MethodBase.GetCurrentMethod.Name)
-            TidyLogFiles(DesignArchiveFolderName, "*.*", retentionPeriod)
+            TidyLogFiles(oDesignArchiveFolderName, "*.*", retentionPeriod)
         End If
         LogUtil.Info("Housekeeping complete", MethodBase.GetCurrentMethod.Name)
     End Sub
@@ -259,6 +260,21 @@ Module ModCommon
             Dim pProjectForm As FrmProject = CType(pForm, FrmProject)
             pProjectForm.LoadProjectSettings()
         End If
+    End Sub
+    Public Sub LoadPathSettings()
+        ' Load the application paths from settings
+        oApplicationPath = My.Settings.ApplicationPath
+        If String.IsNullOrEmpty(oApplicationPath) Then
+            oApplicationPath = My.Application.Info.DirectoryPath
+            My.Settings.ApplicationPath = oApplicationPath
+            My.Settings.Save()
+        End If
+        oDesignFolderName = My.Settings.DesignFilePath.Replace("%applicationpath%", oApplicationPath)
+        oDesignArchiveFolderName = Path.Combine(oDesignFolderName, "Archive")
+        oImageFolderName = My.Settings.ImagePath.Replace("%applicationpath%", oApplicationPath)
+        oBackupFolderName = My.Settings.BackupPath.Replace("%applicationpath%", oApplicationPath)
+        oBackupArchiveFolderName = Path.Combine(oBackupFolderName, "Archive")
+        oLogFolderName = My.Settings.LogFolder.Replace("%applicationpath%", oApplicationPath)
     End Sub
 
     Public Sub OpenBackupForm()

@@ -127,6 +127,7 @@
     <Compile Include="Domain\Builders\ProjectDesignBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectThreadCardBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectThreadCollectionBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectWorkTimeBuilder.vb" />
     <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
@@ -146,6 +147,7 @@
     <Compile Include="Domain\Objects\ProjectDesign.vb" />
     <Compile Include="Domain\Objects\ProjectThread.vb" />
     <Compile Include="Domain\Objects\ProjectThreadCard.vb" />
+    <Compile Include="Domain\Objects\ProjectThreadCollection.vb" />
     <Compile Include="Domain\Objects\ProjectWorkTime.vb" />
     <Compile Include="Domain\Objects\Stitch.vb" />
     <Compile Include="Domain\Objects\Symbol.vb" />

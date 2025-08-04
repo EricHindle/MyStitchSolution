@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.IO
 Imports HindlewareLib.Logging
 
 Public NotInheritable Class FrmOptions
@@ -62,6 +61,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.Grid5Colour = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
         My.Settings.Grid5Thickness = NudGrid5Thickness.Value
         My.Settings.SelectionBorderColour = PicSelectionBorderColour.BackColor
+        My.Settings.ApplicationPath = TxtAppPath.Text
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -96,13 +96,13 @@ Public NotInheritable Class FrmOptions
         NudGrid1Thickness.Value = My.Settings.Grid1Thickness
         NudGrid5Thickness.Value = My.Settings.Grid5Thickness
         PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
+        TxtAppPath.Text = My.Settings.ApplicationPath
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
         OpenGlobalSettingsForm()
         Show()
     End Sub
-
 
     Private Sub FrmOptions_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.Info("Closing", MyBase.Name)
@@ -148,7 +148,7 @@ Public NotInheritable Class FrmOptions
         Dim comboBox As ComboBox = CType(sender, ComboBox)
         Select Case comboBox.SelectedIndex
             Case 0 To comboBox.Items.Count - 2
-                Dim pic As PictureBox = Nothing
+                Dim pic As PictureBox
                 Select Case comboBox.Name
                     Case "CbGrid1Colour"
                         pic = PicGrid1Colour

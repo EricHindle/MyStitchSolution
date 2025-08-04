@@ -82,8 +82,8 @@ Module ModDesign
     Friend oDesignBitmap As Bitmap
     Friend oDesignGraphics As Graphics
     Friend oCurrentThread As ProjectThread
-    Friend oProjectThreads As New List(Of ProjectThread)
-
+    '  Friend oProjectThreads As New List(Of ProjectThread)
+    Friend oProjectThreads As ProjectThreadCollection
     Friend iXOffset As Integer
     Friend iYOffset As Integer
     Friend iPixelsPerCell As Integer
@@ -167,7 +167,7 @@ Module ModDesign
     Public Function LoadProjectDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean)
         oFabricColour = GetColourFromProject(oProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)
-        Dim oDesignString As List(Of String) = OpenDesignFile(My.Settings.DesignFilePath, MakeFilename(pProject) & ZIP_EXT)
+        Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & ZIP_EXT)
         oProjectDesign = New ProjectDesign
         For Each oLine As String In oDesignString
             If Not String.IsNullOrEmpty(oLine) Then
@@ -549,7 +549,7 @@ Module ModDesign
     End Function
     Public Function MakeImage(pBlockStitch As BlockStitch) As Image
         Dim _image As Image = New Bitmap(1, 1)
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
+        Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
         If _projectThread Is Nothing Then
             LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, "MakeImage", False)
         Else

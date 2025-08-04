@@ -1204,6 +1204,18 @@ Namespace My
                 Me("VariableFraction") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ApplicationPath() As String
+            Get
+                Return CType(Me("ApplicationPath"),String)
+            End Get
+            Set
+                Me("ApplicationPath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

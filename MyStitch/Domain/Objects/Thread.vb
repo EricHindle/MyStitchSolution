@@ -128,6 +128,17 @@ Namespace Domain.Objects
             End If
             Return _int
         End Function
+        Public Function ToSaveString() As String
+            Dim _sb As New StringBuilder
+            _sb _
+                .Append(CStr(_threadId)).Append(STITCH_DELIM) _
+                .Append(_threadNo).Append(STITCH_DELIM) _
+                .Append(_colourName).Append(STITCH_DELIM) _
+                .Append(CStr(_colour.ToArgb)).Append(STITCH_DELIM) _
+                .Append(CStr(_sortNumber)).Append(STITCH_DELIM) _
+                .Append(CStr(_stock_level))
+            Return _sb.ToString()
+        End Function
 #End Region
     End Class
 End Namespace

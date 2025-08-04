@@ -74,7 +74,6 @@ Namespace Domain.Objects
             _projectId = pProjectId
             _threadId = pThreadId
             _symbolId = pSymbolId
-            '       LogUtil.Info(Me.ToString, "ProjectThread")
         End Sub
 #End Region
 #Region "methods"
@@ -91,6 +90,15 @@ Namespace Domain.Objects
                 .Append(Thread.ToString).Append(", ") _
                 .Append("SymbolId=[").Append(CStr(_symbolId)).Append("]") _
                 .Append("]")
+            Return _sb.ToString()
+        End Function
+        Public Function ToSaveString() As String
+            Dim _sb As New StringBuilder
+            _sb _
+            .Append(CStr(_projectId)).Append(DESIGN_DELIM) _
+            .Append(CStr(_threadId)).Append(DESIGN_DELIM) _
+            .Append(CStr(_symbolId)).Append(DESIGN_DELIM) _
+            .Append(Thread.ToSaveString)
             Return _sb.ToString()
         End Function
 #End Region
