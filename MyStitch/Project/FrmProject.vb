@@ -71,26 +71,17 @@ Public Class FrmProject
                 'End If
             Else
                 LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MyBase.Name)
-                If MsgBox("Create new Project from file?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "New Project") = MsgBoxResult.Yes Then
-                    Dim _newId As Integer = InsertProject(oFileProject)
-                    SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
-                    InsertThreadCollection(oFileProjectThreadCollection)
-                    LoadProjectTable()
-                    SelectProjectInList(oFileProject.ProjectId)
-                    oProject = oFileProject
-                    oProjectDesign = oFileProjectDesign
-                    oProjectThreads = oFileProjectThreadCollection
-                    SaveDesign()
-                    OpenProjectDesign()
-                End If
-                'oProject.ProjectId = InsertProject(oProject)
-                'SaveDesign()
-                'LoadProjectTable()
+                Dim _newId As Integer = InsertProject(oFileProject)
+                SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
+                InsertThreadCollection(oFileProjectThreadCollection)
+                LoadProjectTable()
+                SelectProjectInList(oFileProject.ProjectId)
+                oProject = oFileProject
+                oProjectDesign = oFileProjectDesign
+                oProjectThreads = oFileProjectThreadCollection
+                SaveDesign()
+                OpenProjectDesign()
             End If
-
-            'LoadProjectForm(oProject)
-            'SelectProjectInList(oProject.ProjectId)
-
         End If
     End Sub
 
