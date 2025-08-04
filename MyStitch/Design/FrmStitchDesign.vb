@@ -548,7 +548,8 @@ Public Class FrmStitchDesign
             For Each _line As String In _designString
                 If Not String.IsNullOrEmpty(_line) Then
                     If _line.StartsWith(DESIGN_HDR) Then
-                        oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_line).Build()
+                        Dim _designValues As String() = _line.Split(DESIGN_DELIM)
+                        oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build()
                         Exit For
                     End If
                 End If

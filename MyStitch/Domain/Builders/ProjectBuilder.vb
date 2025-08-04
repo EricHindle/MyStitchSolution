@@ -55,7 +55,6 @@ Namespace Domain.Builders
             _fabricHeight = pProject(8)
             _fabricColour = pProject(9)
             _design = Nothing
-            _designFileName = pProject(10)
             _originX = pProject(11)
             _originY = pProject(12)
             _totalMinutes = pProject(13)

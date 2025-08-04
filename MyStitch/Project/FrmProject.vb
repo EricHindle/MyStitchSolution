@@ -57,10 +57,10 @@ Public Class FrmProject
         End If
     End Sub
     Private Sub OpenProjectFromFile(_filename As String)
-        LblStatus.Text = ModProject.OpenProjectFile(_filename)
-        If oProject.IsLoaded Then
+        ModProject.OpenProjectFile(_filename, LblStatus)
+        If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
             LogUtil.LogInfo("Project file opened: " & _filename, MyBase.Name)
-            Dim _existingProject As Project = GetProjectById(oProject.ProjectId)
+            Dim _existingProject As Project = GetProjectById(oFileProject.ProjectId)
             If _existingProject.IsLoaded Then
                 'If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
                 '    UpdateProject(_existingProject)
@@ -70,14 +70,26 @@ Public Class FrmProject
                 '    LogUtil.LogInfo("Project not updated: " & _existingProject.ProjectName, MyBase.Name)
                 'End If
             Else
-                'LogUtil.LogInfo("New project loaded: " & oProject.ProjectName, MyBase.Name)
+                LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MyBase.Name)
+                If MsgBox("Create new Project from file?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "New Project") = MsgBoxResult.Yes Then
+                    Dim _newId As Integer = InsertProject(oFileProject)
+                    SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
+                    InsertThreadCollection(oFileProjectThreadCollection)
+                    LoadProjectTable()
+                    SelectProjectInList(oFileProject.ProjectId)
+                    oProject = oFileProject
+                    oProjectDesign = oFileProjectDesign
+                    oProjectThreads = oFileProjectThreadCollection
+                    SaveDesign()
+                    OpenProjectDesign()
+                End If
                 'oProject.ProjectId = InsertProject(oProject)
                 'SaveDesign()
                 'LoadProjectTable()
             End If
 
-            LoadProjectForm(oProject)
-            SelectProjectInList(oProject.ProjectId)
+            'LoadProjectForm(oProject)
+            'SelectProjectInList(oProject.ProjectId)
 
         End If
     End Sub
@@ -454,8 +466,7 @@ Public Class FrmProject
 
     Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
         Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
-        LblStatus.Text = ModProject.OpenProjectFile(_filename)
-
+        ModProject.OpenProjectFile(_filename, LblStatus)
     End Sub
 
 #End Region

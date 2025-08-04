@@ -23,6 +23,13 @@ Module ModDesign
     Public PALETTE_COLOUR_SIZE As Integer = 55
     Public Const A4_WIDTH_PIXELS As Integer = 3508
     Public Const A4_HEIGHT_PIXELS As Integer = 2480
+    Public Const HDR_FLD As Integer = 0
+    Public Const PROJ_ID As Integer = 1
+    Public Const BLOCK_FLD As Integer = 3
+    Public Const BACKSTITCH_FLD As Integer = 5
+    Public Const KNOTS_FLD As Integer = 7
+    Public Const ROWS_FLD As Integer = 8
+    Public Const COLS_FLD As Integer = 9
 #End Region
 #Region "enum"
     Public Enum StitchDisplayStyle
@@ -172,7 +179,8 @@ Module ModDesign
         For Each oLine As String In oDesignString
             If Not String.IsNullOrEmpty(oLine) Then
                 If oLine.StartsWith(DESIGN_HDR) Then
-                    oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(oLine).Build
+                    Dim _designValues As String() = oLine.Split(DESIGN_DELIM)
+                    oProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
                     Exit For
                 End If
             End If

@@ -25,17 +25,16 @@ Namespace Domain.Builders
             _columns = 0
             Return Me
         End Function
-        Public Function StartingWith(pSavedDesign As String) As ProjectDesignBuilder
-            Dim _designString As String() = pSavedDesign.Split(DESIGN_DELIM)
-            If _designString.Length > 0 Then
-                If _designString(0) = DESIGN_HDR Then
-                    _projectId = CInt(_designString(1))
+        Public Function StartingWith(pDesignString As String()) As ProjectDesignBuilder
+            If pDesignString.Length > 0 Then
+                If pDesignString(HDR_FLD) = DESIGN_HDR Then
+                    _projectId = CInt(pDesignString(PROJ_ID))
                     _blockStitches = New List(Of BlockStitch)
                     _backStitches = New List(Of BackStitch)
                     _knots = New List(Of Knot)
-                    Dim _blocksStrings As String() = _designString(3).Split(LIST_DELIM)
-                    Dim _backsStrings As String() = _designString(5).Split(LIST_DELIM)
-                    Dim _knotsStrings As String() = _designString(7).Split(LIST_DELIM)
+                    Dim _blocksStrings As String() = pDesignString(BLOCK_FLD).Split(LIST_DELIM)
+                    Dim _backsStrings As String() = pDesignString(BACKSTITCH_FLD).Split(LIST_DELIM)
+                    Dim _knotsStrings As String() = pDesignString(KNOTS_FLD).Split(LIST_DELIM)
                     If _blocksStrings.Length > 0 Then
                         For Each _blockString As String In _blocksStrings
                             If Not String.IsNullOrWhiteSpace(_blockString) Then
@@ -60,8 +59,8 @@ Namespace Domain.Builders
                             End If
                         Next
                     End If
-                    _rows = _designString(8)
-                    _columns = _designString(9)
+                    _rows = pDesignString(ROWS_FLD)
+                    _columns = pDesignString(COLS_FLD)
                 End If
             End If
 

@@ -29,9 +29,9 @@ Namespace Domain.Builders
                     _threadList.RemoveAt(0)
                     For Each _threadString As String In _threadList
                         Dim _projThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWith(_threadString).Build
-                        If _projThread.ProjectId > 0 Then
-                            _threads.Add(_projThread)
-                        End If
+                        '         If _projThread.ProjectId > 0 Then
+                        _threads.Add(_projThread)
+                        '         End If
                     Next
                 End If
             End If
