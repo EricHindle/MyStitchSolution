@@ -215,8 +215,8 @@ Public Class FrmProject
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
     End Sub
-    Private Sub LoadProjectForm(oProject As Project)
-        _selectedProject = oProject
+    Private Sub LoadProjectForm(pProject As Project)
+        _selectedProject = pProject
         With _selectedProject
             LblProjectId.Text = .ProjectId
             LblSelectedProject.Text = .ProjectName
