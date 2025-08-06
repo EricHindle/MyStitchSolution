@@ -14,6 +14,7 @@ Module ModProject
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
     Public isSaved As Boolean = True
+    Public isLoading As Boolean
     Public oFileProject As Project
     Public oFileProjectDesign As ProjectDesign
     Public oFileProjectThreadCollection As ProjectThreadCollection
@@ -48,46 +49,129 @@ Module ModProject
         _reply = "Save complete"
         Return _reply
     End Function
-    Public Sub OpenProjectFile(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
-        LogUtil.LogInfo("Opening project file " & pFilename, MethodBase.GetCurrentMethod.Name)
-        If Not String.IsNullOrEmpty(pFilename) Then
-            If My.Computer.FileSystem.FileExists(pFilename) = True Then
-                Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
-                For Each _string As String In _projectStrings
-                    Select Case True
-                        Case _string.StartsWith(PROJECT_HDR)
-                            Dim _projectValues As String() = _string.Split(DESIGN_DELIM)
-                            oFileProject = ProjectBuilder.AProject.StartingWith(_projectValues).Build
-                            If Not oFileProject.IsLoaded Then
-                                LogUtil.ShowStatus("Project not loaded", pStatus)
-                                Exit For
-                            End If
-                        Case _string.StartsWith(DESIGN_HDR)
-                            Dim _designValues As String() = _string.Split(DESIGN_DELIM)
-                            oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
-                            If Not oFileProjectDesign.IsLoaded Then
-                                LogUtil.ShowStatus("Design not loaded", pStatus)
-                                Exit For
-                            End If
-                        Case _string.StartsWith(PROJECT_THREADS_HDR)
-                            Dim _threadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
-                            oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWith(_threadStrings).Build
-                            If oFileProjectThreadCollection Is Nothing OrElse oFileProjectThreadCollection.Count = 0 Then
-                                LogUtil.ShowStatus("No threads loaded", pStatus)
-                                Exit For
-                            End If
-                        Case Else
-                            LogUtil.ShowStatus("Unknown data in project file", pStatus)
-                    End Select
-                Next
-                LogUtil.ShowStatus("Project Loaded OK", pStatus)
+    Public Sub LoadProject(pDgv As DataGridView)
+        LoadProjectTable(pDgv)
+        UpdateThreadsFromDesign(oFileProjectDesign, oFileProjectThreadCollection)
+        InsertProjectThreadCollection(oFileProjectThreadCollection)
+        SelectProjectInList(pDgv, oFileProject.ProjectId)
+        oProject = oFileProject
+        oProjectDesign = oFileProjectDesign
+        oProjectThreads = oFileProjectThreadCollection
+        SaveDesign()
+    End Sub
+
+    Private Sub UpdateThreadsFromDesign(oFileProjectDesign As ProjectDesign, oFileProjectThreadCollection As ProjectThreadCollection)
+        LogUtil.LogInfo("Updating threads from design", MethodBase.GetCurrentMethod.Name)
+        For Each _stitch As Stitch In oFileProjectDesign.BlockStitches
+            UpdateThreadDatabaseTable(_stitch.ProjThread, oFileProjectThreadCollection)
+        Next
+        For Each _stitch As Stitch In oFileProjectDesign.BackStitches
+            UpdateThreadDatabaseTable(_stitch.ProjThread, oFileProjectThreadCollection)
+        Next
+        For Each _stitch As Stitch In oFileProjectDesign.Knots
+            UpdateThreadDatabaseTable(_stitch.ProjThread, oFileProjectThreadCollection)
+        Next
+    End Sub
+    Private Sub UpdateThreadDatabaseTable(ByRef pProjectThread As ProjectThread, pFileProjectThreadCollection As ProjectThreadCollection)
+        Dim _thread As Thread = GetThreadbyNumber(pProjectThread.Thread.ThreadNo)
+        If _thread.IsLoaded Then
+            If _thread.ThreadId <> pProjectThread.ThreadId Then
+                LogUtil.LogInfo("DMC" & pProjectThread.Thread.ThreadNo & " id different", MethodBase.GetCurrentMethod.Name)
+                pProjectThread.ThreadId = _thread.ThreadId
+            End If
+        Else
+            LogUtil.LogInfo("New thread DMC" & pProjectThread.Thread.ThreadNo & " found", MethodBase.GetCurrentMethod.Name)
+            Dim _newThreadId As Integer = InsertThread(_thread)
+            pProjectThread.ThreadId = _newThreadId
+        End If
+        AddMissingProjectThread(pProjectThread, pFileProjectThreadCollection)
+    End Sub
+
+    Private Sub AddMissingProjectThread(pThread As ProjectThread, pFileProjectThreadCollection As ProjectThreadCollection)
+        Dim _foundThread As ProjectThread = CType(oFileProjectThreadCollection.Threads.Find(Function(p) p.Thread.ThreadId = pThread.ThreadId), ProjectThread)
+        If oFileProjectThreadCollection.Threads.Find(Function(p) p.Thread.ThreadId = pThread.ThreadId) Is Nothing Then
+            LogUtil.LogInfo("Adding project thread to collection", MethodBase.GetCurrentMethod.Name)
+            oFileProjectThreadCollection.Threads.Add(pThread)
+        End If
+    End Sub
+    Public Sub SelectProjectInList(pDgv As DataGridView, _projectId As Integer)
+        For Each orow As DataGridViewRow In pDgv.Rows
+            If orow.Cells("projectId").Value = _projectId Then
+                orow.Selected = True
+                Exit For
+            End If
+        Next
+    End Sub
+    Public Sub LoadProjectTable(pDgv As DataGridView)
+        isLoading = True
+        LoadProjectList(pDgv, MethodBase.GetCurrentMethod.Name)
+        isLoading = False
+    End Sub
+    Public Sub OpenProjectFromFile(_filename As String, pDgv As DataGridView, pStatus As ToolStripStatusLabel)
+        ModProject.OpenProjectFile(_filename, pStatus)
+        If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
+            LogUtil.ShowStatus("Project file opened: " & _filename, pStatus, MethodBase.GetCurrentMethod.Name)
+            Dim _existingProject As Project = GetProjectById(oFileProject.ProjectId)
+            If _existingProject.IsLoaded Then
+                If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
+                    UpdateProject(oFileProject)
+                    LoadProject(pDgv)
+                Else
+                    LogUtil.ShowStatus("Project not updated: " & _existingProject.ProjectName, pStatus, MethodBase.GetCurrentMethod.Name)
+                End If
             Else
-                LogUtil.ShowStatus("Project file not found", pStatus)
+                LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MethodBase.GetCurrentMethod.Name)
+                Dim _newId As Integer = InsertProject(oFileProject)
+                SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
+                LoadProject(pDgv)
+            End If
+        End If
+    End Sub
+    Public Sub OpenProjectFile(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
+        If Not String.IsNullOrEmpty(pFilename) Then
+            LogUtil.ShowStatus("Opening project file " & pFilename, pStatus, MethodBase.GetCurrentMethod.Name)
+            If My.Computer.FileSystem.FileExists(pFilename) = True Then
+                CreateProjectArtifactsFromFileContents(pFilename, pStatus)
+                LogUtil.ShowStatus("Project Loaded OK", pStatus, MethodBase.GetCurrentMethod.Name)
+            Else
+                LogUtil.ShowStatus("Project file not found", pStatus, MethodBase.GetCurrentMethod.Name)
             End If
         Else
             LogUtil.ShowStatus("No project file selected", pStatus)
         End If
     End Sub
+
+    Private Sub CreateProjectArtifactsFromFileContents(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
+        Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
+        For Each _string As String In _projectStrings
+            Select Case True
+                Case _string.StartsWith(PROJECT_HDR)
+                    Dim _projectValues As String() = _string.Split(DESIGN_DELIM)
+                    oFileProject = ProjectBuilder.AProject.StartingWith(_projectValues).Build
+                    If Not oFileProject.IsLoaded Then
+                        LogUtil.ShowStatus("Project not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                        Exit For
+                    End If
+                Case _string.StartsWith(DESIGN_HDR)
+                    Dim _designValues As String() = _string.Split(DESIGN_DELIM)
+                    oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
+                    If Not oFileProjectDesign.IsLoaded Then
+                        LogUtil.ShowStatus("Design not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                        Exit For
+                    End If
+                Case _string.StartsWith(PROJECT_THREADS_HDR)
+                    Dim _threadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
+                    oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWith(_threadStrings).Build
+                    If oFileProjectThreadCollection Is Nothing OrElse oFileProjectThreadCollection.Count = 0 Then
+                        LogUtil.ShowStatus("No threads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                        Exit For
+                    End If
+                Case Else
+                    LogUtil.ShowStatus("Unknown data in project file", pStatus, MethodBase.GetCurrentMethod.Name)
+            End Select
+        Next
+    End Sub
+
     Public Sub SetNewProjectId(pId As Integer, ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreadCollection As ProjectThreadCollection)
         pProject.ProjectId = pId
         pProjectDesign.ProjectId = pId
@@ -104,9 +188,11 @@ Module ModProject
             _thread.ProjectId = pId
         Next
     End Sub
-    Public Sub InsertThreadCollection(pThreadCollection As ProjectThreadCollection)
+    Public Sub InsertProjectThreadCollection(pThreadCollection As ProjectThreadCollection)
         For Each _thread As ProjectThread In pThreadCollection.Threads
-            InsertProjectThread(_thread)
+            If Not GetProjectThread(_thread.ProjectId, _thread.ThreadId).IsLoaded Then
+                InsertProjectThread(_thread)
+            End If
         Next
     End Sub
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
@@ -117,14 +203,7 @@ Module ModProject
         Next
         pDgv.ClearSelection()
     End Sub
-    Public Sub SelectProjectInList(pDgv As DataGridView, pProjectId As Integer)
-        For Each orow As DataGridViewRow In pDgv.Rows
-            If orow.Cells("projectId").Value = pProjectId Then
-                orow.Selected = True
-                Exit For
-            End If
-        Next
-    End Sub
+
     Private Sub AddProjectRow(ByRef pDgv As DataGridView, oProject As Project)
         Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
         oRow.Cells(pDgv.Columns(0).Name).Value = oProject.ProjectId

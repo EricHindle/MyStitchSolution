@@ -21,7 +21,7 @@ Public Class FrmProject
 #End Region
 #Region "variables"
     Private _selectedProject As New Project
-    Private isLoading As Boolean
+
 
 #End Region
 #Region "handlers"
@@ -39,51 +39,38 @@ Public Class FrmProject
         InitialiseForm()
         isLoading = False
         KeyPreview = True
-        Dim _params As String() = System.Environment.GetCommandLineArgs
-        Dim _filename As String = Nothing
-        ' Check if a project file is passed as a parameter
-        If _params.Length > 1 Then
-            If My.Computer.FileSystem.FileExists(_params(1)) Then
-                Dim _suffix As String = Path.GetExtension(_params(1)).ToLower
-                If _suffix = ARC_EXT Or _suffix = ZIP_EXT Then
-                    _filename = _params(1)
-                End If
-            Else
-                LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
-            End If
-            If _filename IsNot Nothing Then
-                OpenProjectFromFile(_filename)
-            End If
-        End If
-    End Sub
-    Private Sub OpenProjectFromFile(_filename As String)
-        ModProject.OpenProjectFile(_filename, LblStatus)
-        If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
-            LogUtil.LogInfo("Project file opened: " & _filename, MyBase.Name)
-            Dim _existingProject As Project = GetProjectById(oFileProject.ProjectId)
-            If _existingProject.IsLoaded Then
-                'If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
-                '    UpdateProject(_existingProject)
-                '    SaveDesign()
-                '    LogUtil.LogInfo("Project updated: " & _existingProject.ProjectName, MyBase.Name)
-                'Else
-                '    LogUtil.LogInfo("Project not updated: " & _existingProject.ProjectName, MyBase.Name)
-                'End If
-            Else
-                LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MyBase.Name)
-                Dim _newId As Integer = InsertProject(oFileProject)
-                SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
-                InsertThreadCollection(oFileProjectThreadCollection)
-                LoadProjectTable()
-                SelectProjectInList(oFileProject.ProjectId)
-                oProject = oFileProject
-                oProjectDesign = oFileProjectDesign
-                oProjectThreads = oFileProjectThreadCollection
-                SaveDesign()
+        Dim _projectFile As String = CheckRunTimeParameters()
+        If _projectFile IsNot Nothing Then
+            OpenProjectFromFile(_projectFile, DgvProjects, LblStatus)
+            If oFileProject.IsLoaded Then
+                SelectProjectInList(DgvProjects, oFileProject.ProjectId)
                 OpenProjectDesign()
             End If
         End If
     End Sub
+
+    Private Function CheckRunTimeParameters() As String
+        Dim _params As String() = System.Environment.GetCommandLineArgs
+        Dim _filename As String = Nothing
+        ' Check if a project file is passed as a parameter
+        If _params.Length > 1 Then
+            LogUtil.LogInfo("Runtime parameter found : " & _params(1), MyBase.Name)
+            If My.Computer.FileSystem.FileExists(_params(1)) Then
+                Try
+                    Dim _suffix As String = Path.GetExtension(_params(1)).ToLower
+                    If _suffix = ARC_EXT Or _suffix = ZIP_EXT Then
+                        _filename = _params(1)
+                    End If
+                Catch ex As ArgumentException
+                    LogUtil.ShowException(ex, "Runtime parameter exception", LblStatus, MyBase.Name)
+                End Try
+            Else
+                LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
+            End If
+        End If
+        Return _filename
+    End Function
+
 
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         KeyHandler(Me, FormType.Project, e)
@@ -251,14 +238,7 @@ Public Class FrmProject
             UpdateProjectTime()
         End With
     End Sub
-    Private Sub SelectProjectInList(_projectId As Integer)
-        For Each orow As DataGridViewRow In DgvProjects.Rows
-            If orow.Cells(projectId.Name).Value = _projectId Then
-                orow.Selected = True
-                Exit For
-            End If
-        Next
-    End Sub
+
     Private Function BuildProjectFromForm(pId As Integer) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
@@ -288,8 +268,8 @@ Public Class FrmProject
         LogUtil.LogInfo("New project", MyBase.Name)
         Dim _project As Project = BuildProjectFromForm(-1)
         _project.ProjectId = InsertProject(_project)
-        LoadProjectTable()
-        SelectProjectInList(_project.ProjectId)
+        LoadProjectTable(DgvProjects)
+        SelectProjectInList(DgvProjects, _project.ProjectId)
         oProject = _selectedProject
         SaveDesign()
         LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
@@ -301,8 +281,8 @@ Public Class FrmProject
             Dim _newProject As Project = BuildProjectFromForm(_selectedProject.ProjectId)
             UpdateProject(_newProject)
             SaveDesign()
-            LoadProjectTable()
-            SelectProjectInList(_selectedProject.ProjectId)
+            LoadProjectTable(DgvProjects)
+            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
             If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
                 If MsgBox("Rename Project File?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Rename") = MsgBoxResult.Yes Then
                     RenameProjectFile(_selectedProject, _previousProject)
@@ -347,11 +327,7 @@ Public Class FrmProject
             LogUtil.ShowStatus("No project design file found", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-    Private Sub LoadProjectTable()
-        isLoading = True
-        LoadProjectList(DgvProjects, MyBase.Name)
-        isLoading = False
-    End Sub
+
     Friend Sub DeleteSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
             LogUtil.LogInfo("Delete project", MyBase.Name)
@@ -441,7 +417,7 @@ Public Class FrmProject
                 _printDialog.ProjectId = _selectedProject.ProjectId
                 _printDialog.ShowDialog()
             End Using
-            SelectProjectInList(oProject.ProjectId)
+            SelectProjectInList(DgvProjects, oProject.ProjectId)
         Else
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
@@ -456,8 +432,9 @@ Public Class FrmProject
     End Sub
 
     Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
-        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, My.Settings.DesignFilePath)
-        ModProject.OpenProjectFile(_filename, LblStatus)
+        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
+        OpenProjectFromFile(_filename, DgvProjects, LblStatus)
+        OpenProjectDesign()
     End Sub
 
 #End Region
