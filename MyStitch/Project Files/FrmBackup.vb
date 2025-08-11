@@ -31,6 +31,7 @@ Public Class FrmBackup
     Private tableCheckCount As Integer
     Private docCheckCount As Integer
     Private imageCheckCount As Integer
+    Private isParentCheck As Boolean
 #End Region
 #Region "form control handlers"
     Private Sub FrmBackup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -59,6 +60,7 @@ Public Class FrmBackup
         Close()
     End Sub
     Private Sub TreeView_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck, TvDesigns.AfterCheck, TvImages.AfterCheck
+
         Dim node As TreeNode = e.Node
         If node.Name.StartsWith(TABLE_TAG) Then
             tableCheckCount += If(node.Checked, 1, -1)
@@ -69,12 +71,19 @@ Public Class FrmBackup
         If node.Name.StartsWith(IMAGE_TAG) Then
             imageCheckCount += If(node.Checked, 1, -1)
         End If
+        If node.Checked AndAlso node.Parent IsNot Nothing AndAlso Not node.Parent.Checked Then
+            isParentCheck = True
+            node.Parent.Checked = True
+            isParentCheck = False
+        End If
         Dim ischecked As Boolean = node.Checked
-        For Each subNode As TreeNode In node.Nodes
-            If Not subNode.Checked = ischecked Then
-                subNode.Checked = ischecked
-            End If
-        Next
+        If Not isParentCheck Then
+            For Each subNode As TreeNode In node.Nodes
+                If Not subNode.Checked = ischecked Then
+                    subNode.Checked = ischecked
+                End If
+            Next
+        End If
         LblCounts.Text = String.Format("T:{0} D:{1} I:{2}", CStr(tableCheckCount), CStr(docCheckCount), CStr(imageCheckCount))
         StatusStrip1.Refresh()
     End Sub
@@ -525,6 +534,7 @@ Public Class FrmBackup
         StatusStrip1.Refresh()
         Return sTableName
     End Function
+
 
 #End Region
 End Class
