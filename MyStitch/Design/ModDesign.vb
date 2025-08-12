@@ -6,7 +6,7 @@
 '
 
 Imports System.Drawing.Imaging
-Imports System.IO
+Imports System.Reflection
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -171,7 +171,7 @@ Module ModDesign
             Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
         End Try
     End Sub
-    Public Function LoadProjectDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean)
+    Public Function LoadProjectDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean)
         oFabricColour = GetColourFromProject(oProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)
         Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & ZIP_EXT)
@@ -185,8 +185,10 @@ Module ModDesign
                 End If
             End If
         Next
+        pIsPaletteChanged = CheckPalette()
+        DetermineUsedThreads()
         oProjectDesign.ProjectId = pProject.ProjectId
-            If Not oProjectDesign.IsLoaded Then
+        If Not oProjectDesign.IsLoaded Then
             oProjectDesign.Rows = pProject.DesignHeight
             oProjectDesign.Columns = pProject.DesignWidth
         End If
@@ -692,5 +694,90 @@ Module ModDesign
         End Select
         Return _color
     End Function
+    Public Function DetermineUsedThreads() As List(Of Integer)
+        Return DetermineUsedThreads(False)
+    End Function
+    Public Function DetermineUsedThreads(pIsRemoveUnused) As List(Of Integer)
+        LogUtil.LogInfo("Determining unused threads", MethodBase.GetCurrentMethod.Name)
+        Dim _usedThreads As New List(Of Integer)
+        Dim _removeThreads As New List(Of Integer)
+        For Each _thread As ProjectThread In oProjectThreads.Threads
+            _thread.IsUsed = False
+            Dim _blockstitch As BlockStitch = oProjectDesign.BlockStitches.Find(Function(p) p.ThreadId = _thread.ThreadId)
+            If _blockstitch IsNot Nothing Then
+                _usedThreads.Add(_thread.ThreadId)
+                _thread.IsUsed = True
+                Continue For
+            End If
+            Dim _backstitch As BackStitch = oProjectDesign.BackStitches.Find(Function(p) p.ThreadId = _thread.ThreadId)
+            If _backstitch IsNot Nothing Then
+                _usedThreads.Add(_thread.ThreadId)
+                _thread.IsUsed = True
+                Continue For
+            End If
+            Dim _knot As Knot = oProjectDesign.Knots.Find(Function(p) p.ThreadId = _thread.ThreadId)
+            If _knot IsNot Nothing Then
+                _usedThreads.Add(_thread.ThreadId)
+                _thread.IsUsed = True
+                Continue For
+            End If
+            If pIsRemoveUnused And Not _thread.IsUsed Then
+                DeleteProjectThread(_thread)
+                _removeThreads.Add(_thread.ThreadId)
+            End If
+        Next
+        For Each _rmv As Integer In _removeThreads
+            oProjectThreads.Remove(_rmv)
+        Next
+        For Each _thread As ProjectThread In oProjectThreads.Threads
+            UpdateProjectThreadIsUsed(_thread)
+        Next
+        _usedThreads.Sort()
+        Return _usedThreads
+    End Function
+    Public Sub RemoveUnusedThreads()
+        LogUtil.LogInfo("Removing unused threads", MethodBase.GetCurrentMethod.Name)
+        DetermineUsedThreads(True)
+    End Sub
+    Public Function CheckPalette() As Boolean
+        LogUtil.LogInfo("Checking palette", MethodBase.GetCurrentMethod.Name)
+        Dim _isAdded As Boolean
+        For Each _blockstitch As BlockStitch In oProjectDesign.BlockStitches
+            If Not oProjectThreads.Exists(_blockstitch.ThreadId) Then
+                AddThreadToPalette(oProjectDesign.ProjectId, _blockstitch.ThreadId)
+                _isAdded = True
+            End If
+            For Each _qtr As BlockStitchQuarter In _blockstitch.Quarters
+                If Not oProjectThreads.Exists(_qtr.ThreadId) Then
+                    AddThreadToPalette(oProjectDesign.ProjectId, _qtr.ThreadId)
+                    _isAdded = True
+                End If
+            Next
+        Next
+        For Each _backstitch As BackStitch In oProjectDesign.BackStitches
+            If Not oProjectThreads.Exists(_backstitch.ThreadId) Then
+                AddThreadToPalette(oProjectDesign.ProjectId, _backstitch.ThreadId)
+                _isAdded = True
+            End If
+        Next
+        For Each _knot As Knot In oProjectDesign.Knots
+            If Not oProjectThreads.Exists(_knot.ThreadId) Then
+                AddThreadToPalette(oProjectDesign.ProjectId, _knot.ThreadId)
+                _isAdded = True
+            End If
+        Next
+        Return _isAdded
+    End Function
+
+    Private Sub AddThreadToPalette(pProjectId As Integer, pThreadId As Integer)
+        LogUtil.LogInfo("Adding missing thread to palette. ProjectId:" & CStr(pProjectId) & " ThreadId:" & CStr(pThreadId), MethodBase.GetCurrentMethod.Name)
+        Dim _pt As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
+            .WithProjectId(pProjectId) _
+            .WithThreadId(pThreadId) _
+            .WithIsUsed(True) _
+            .Build
+        InsertProjectThread(_pt)
+    End Sub
+
 #End Region
 End Module

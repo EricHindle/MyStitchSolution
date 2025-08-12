@@ -14,6 +14,15 @@ Namespace Domain.Objects
         Private _projectId As Integer
         Private _threadId As Integer
         Private _symbol As Image
+        Private _isUsed As Boolean
+        Public Property IsUsed() As Boolean
+            Get
+                Return _isUsed
+            End Get
+            Set(ByVal value As Boolean)
+                _isUsed = value
+            End Set
+        End Property
         Public Property ThreadId() As Integer
             Get
                 Return _threadId
@@ -64,16 +73,20 @@ Namespace Domain.Objects
             _projectId = -1
             _threadId = -1
             _symbol = Nothing
+            _isUsed = False
         End Sub
         Public Sub New()
             InitialiseProjectThread()
         End Sub
         Public Sub New(pProjectId As Integer,
                        pThreadId As Integer,
-                       pSymbolId As Integer)
+                       pSymbolId As Integer,
+                       pIsUsed As Boolean)
+            InitialiseProjectThread()
             _projectId = pProjectId
             _threadId = pThreadId
             _symbolId = pSymbolId
+            _isUsed = pIsUsed
         End Sub
 #End Region
 #Region "methods"
@@ -89,6 +102,7 @@ Namespace Domain.Objects
                 .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
                 .Append(Thread.ToString).Append(", ") _
                 .Append("SymbolId=[").Append(CStr(_symbolId)).Append("]") _
+                .Append("Is used=[").Append(_isUsed).Append("]") _
                 .Append("]")
             Return _sb.ToString()
         End Function
@@ -98,6 +112,7 @@ Namespace Domain.Objects
             .Append(CStr(_projectId)).Append(DESIGN_DELIM) _
             .Append(CStr(_threadId)).Append(DESIGN_DELIM) _
             .Append(CStr(_symbolId)).Append(DESIGN_DELIM) _
+            .Append(CStr(_isUsed)).Append(DESIGN_DELIM) _
             .Append(Thread.ToSaveString)
             Return _sb.ToString()
         End Function

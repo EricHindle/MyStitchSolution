@@ -13,6 +13,15 @@ Imports MyStitch.Domain.Objects
 Public Class FrmProjectThreads
 #Region "properties"
     Private _selectedProject As Project
+    Private _usedThreads As List(Of Integer)
+    Public Property UsedThreads() As List(Of Integer)
+        Get
+            Return _usedThreads
+        End Get
+        Set(ByVal value As List(Of Integer))
+            _usedThreads = value
+        End Set
+    End Property
     Public Property SelectedProject() As Project
         Get
             Return _selectedProject
@@ -33,7 +42,6 @@ Public Class FrmProjectThreads
         LogUtil.LogInfo("Project threads", MyBase.Name)
         isShowStock = ChkShowStock.Checked
         InitialiseForm()
-
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
@@ -49,6 +57,7 @@ Public Class FrmProjectThreads
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
+                UsedThreads = GetUsedThreadsForProject(_selectedProject.ProjectId, True)
                 PnlThreads.Visible = True
             Else
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
@@ -96,29 +105,29 @@ Public Class FrmProjectThreads
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
-
     End Sub
 
     Private Sub LoadThreadList()
         LogUtil.LogInfo("Load ProjectThread list", MyBase.Name)
-        Dim _usedThreadList As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
+        Dim _paletteThreadList As List(Of Thread) = GetThreadsForProject(_selectedProject.ProjectId)
         Dim _threads As List(Of Thread) = GetThreads()
-        Dim _unusedThreads As New List(Of Thread)
+        Dim _unselectedThreads As New List(Of Thread)
         For Each oThread As Thread In _threads
-            If Not _usedThreadList.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
-                _unusedThreads.Add(oThread)
+            If Not _paletteThreadList.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
+                _unselectedThreads.Add(oThread)
             End If
         Next
         DgvThreads.Rows.Clear()
-        _usedThreadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
-        _unusedThreads.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
-        For Each oThread As Thread In _usedThreadList
-            Dim _index = AddProjectThreadRow(DgvThreads, oThread, True, isShowStock)
-            DgvThreads.Rows(_index).Cells(threadselected.Name).Value = True
+        _paletteThreadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
+        _unselectedThreads.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))
+        For Each oThread As Thread In _paletteThreadList
+            Dim _isUsedThread As Boolean = UsedThreads.Exists(Function(p) p = oThread.ThreadId)
+            Dim _index = AddProjectThreadRow(DgvThreads, oThread, True, isShowStock, _isUsedThread)
+            '       DgvThreads.Rows(_index).Cells(threadselected.Name).Value = True
         Next
-        For Each oThread As Thread In _unusedThreads
-            Dim _index = AddProjectThreadRow(DgvThreads, oThread, isShowStock)
-            DgvThreads.Rows(_index).Cells(threadselected.Name).Value = False
+        For Each oThread As Thread In _unselectedThreads
+            Dim _index = AddProjectThreadRow(DgvThreads, oThread, False, isShowStock, False)
+            '       DgvThreads.Rows(_index).Cells(threadselected.Name).Value = False
         Next
         DgvThreads.ClearSelection()
     End Sub
@@ -137,7 +146,6 @@ Public Class FrmProjectThreads
             _ChkCell.Value = pIsSelected
         Next
     End Sub
-
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
         LogUtil.ShowStatus("Updating Project Threads", LblStatus, True, MyBase.Name, False)
         If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
@@ -165,13 +173,24 @@ Public Class FrmProjectThreads
             Next
             For Each oThread As Thread In _usedThreadsBefore
                 If Not _usedThreadsAfter.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
-                    Dim _projectThread As ProjectThread = ProjectThreadBuilder _
-                                                                .AProjectThread _
-                                                                .StartingWithNothing _
-                                                                .WithProjectId(_selectedProject.ProjectId) _
-                                                                .WithThreadId(oThread.ThreadId) _
-                                                                .Build
-                    DeleteProjectThread(_projectThread)
+                    Dim _isUsed As Boolean = False
+                    For Each _threadId As Integer In UsedThreads
+                        If _threadId = oThread.ThreadId Then
+                            _isUsed = True
+                            Exit For
+                        End If
+                    Next
+                    If _isUsed Then
+                        MsgBox("Thread [" & oThread.ColourName & "] to be removed is used in the design. No action.", MsgBoxStyle.Information, "Used thread")
+                    Else
+                        Dim _projectThread As ProjectThread = ProjectThreadBuilder _
+                                                                    .AProjectThread _
+                                                                    .StartingWithNothing _
+                                                                    .WithProjectId(_selectedProject.ProjectId) _
+                                                                    .WithThreadId(oThread.ThreadId) _
+                                                                    .Build
+                        DeleteProjectThread(_projectThread)
+                    End If
                 End If
             Next
             LoadThreadList()
@@ -264,8 +283,6 @@ Public Class FrmProjectThreads
             _symbols.ShowDialog()
         End Using
     End Sub
-
-
 #End Region
 
 End Class

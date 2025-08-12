@@ -21,8 +21,6 @@ Public Class FrmProject
 #End Region
 #Region "variables"
     Private _selectedProject As New Project
-
-
 #End Region
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -70,8 +68,6 @@ Public Class FrmProject
         End If
         Return _filename
     End Function
-
-
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         KeyHandler(Me, FormType.Project, e)
     End Sub
@@ -88,6 +84,7 @@ Public Class FrmProject
         My.Settings.Save()
     End Sub
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
+        LogUtil.ClearStatus(LblStatus)
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
@@ -125,8 +122,11 @@ Public Class FrmProject
             LogUtil.Info("Opening Project Threads form", MyBase.Name)
             Using _projthreads As New FrmProjectThreads
                 _projthreads.SelectedProject = _selectedProject
+                _projthreads.UsedThreads = GetUsedThreadsForProject(_selectedProject.ProjectId, True)
                 _projthreads.ShowDialog()
             End Using
+        Else
+            LogUtil.ShowStatus("No project selected", LblStatus, True)
         End If
     End Sub
     Private Sub PicFabricColour_Click(sender As Object, e As EventArgs) Handles PicFabricColour.Click
@@ -340,11 +340,7 @@ Public Class FrmProject
             LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-    Private Shared Sub OpenSymbolsForm()
-        Using _symbols As New FrmSymbols
-            _symbols.ShowDialog()
-        End Using
-    End Sub
+
     Private Shared Sub OpenThreadListForm()
         Using _threads As New FrmThread
             _threads.ShowDialog()
@@ -378,6 +374,7 @@ Public Class FrmProject
     Private Sub OpenProjectThreadListForm()
         Using _threads As New FrmProjectThreads
             _threads.SelectedProject = _selectedProject
+            _threads.UsedThreads = GetUsedThreadsForProject(_selectedProject.ProjectId, True)
             _threads.ShowDialog()
         End Using
     End Sub

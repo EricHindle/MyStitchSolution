@@ -6,8 +6,6 @@
 '
 
 Imports System.Text
-Imports MyStitch.Domain
-Imports MyStitch.Domain.Objects
 Namespace Domain.Objects
 
     Public Enum BlockStitchType

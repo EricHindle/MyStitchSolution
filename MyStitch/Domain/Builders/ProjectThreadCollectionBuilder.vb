@@ -4,7 +4,6 @@
 '
 ' Author Eric Hindle
 '
-Imports System.Runtime.InteropServices
 Imports MyStitch.Domain.Objects
 
 Namespace Domain.Builders

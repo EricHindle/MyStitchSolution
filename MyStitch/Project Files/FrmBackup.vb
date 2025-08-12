@@ -6,7 +6,6 @@
 '
 
 Imports System.IO
-Imports System.Reflection
 Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -289,7 +288,7 @@ Public Class FrmBackup
                         If Not CheckPathExists(designArchivePath) Then isOKToBackup = False
                     End If
                 Else
-                        AddProgress("No destination. No backup.")
+                    AddProgress("No destination. No backup.")
                     isOKToBackup = False
                 End If
             End If
@@ -534,7 +533,6 @@ Public Class FrmBackup
         StatusStrip1.Refresh()
         Return sTableName
     End Function
-
 
 #End Region
 End Class

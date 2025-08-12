@@ -116,7 +116,8 @@ Public Class FrmPrintProject
     Private Sub LoadFormFromProject()
         TxtTitle.Text = oProject.ProjectName
         oProjectThreads = GetProjectThreads(oProject.ProjectId)
-        LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn)
+        Dim _isPaletteChanged As Boolean
+        LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn, _isPaletteChanged)
         AdjustMagnification()
     End Sub
     Private Sub AdjustMagnification()
@@ -129,7 +130,7 @@ Public Class FrmPrintProject
         End If
 
         Dim totalCellsAvailable As Integer = NudSqrPerInch.Value * 8.27
-        totalCellsAvailable = totalCellsAvailable - _xOffset * 2
+        totalCellsAvailable -= _xOffset * 2
         iPixelsPerCell = PicDesign.Width / totalCellsAvailable
 
         dMagnification = iPixelsPerCell / PIXELS_PER_CELL

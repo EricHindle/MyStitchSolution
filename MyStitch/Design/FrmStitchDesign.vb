@@ -5,12 +5,11 @@
 ' Author Eric Hindle
 '
 Imports System.Drawing.Imaging
-Imports System.IO
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
-Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Public Class FrmStitchDesign
 #Region "classes"
     Private Class StitchAction
@@ -381,6 +380,7 @@ Public Class FrmStitchDesign
                 FloodFill(_cell, Nothing, oCurrentStitchType)
                 ClearSelection()
         End Select
+        DetermineUsedThreads()
         If oCurrentUndoList.Count > 0 Then
             AddActionsToUndoList(oCurrentUndoList)
             oCurrentUndoList.Clear()
@@ -518,7 +518,9 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles ThreadLayoutPanel.SizeChanged
-        InitialisePalette()
+        If isComponentInitialised Then
+            InitialisePalette()
+        End If
     End Sub
     Private Sub Stitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBlockStitches.CheckedChanged,
                                                                                  MnuKnots.CheckedChanged,
@@ -592,7 +594,8 @@ Public Class FrmStitchDesign
         OpenProjectThreadsForm()
     End Sub
     Private Sub MnuRemoveUnusedColours_Click(sender As Object, e As EventArgs) Handles MnuRemoveUnusedColours.Click
-
+        RemoveUnusedThreads()
+        InitialisePalette()
     End Sub
     Private Sub MnuCreateThreadCards_Click(sender As Object, e As EventArgs) Handles MnuCreateThreadCards.Click
         OpenBuildCardsForm(oProject)
@@ -952,7 +955,11 @@ Public Class FrmStitchDesign
             InitialisePalette()
             LblStatus.Text = "Loading..."
             LblStatus.Refresh()
-            LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn)
+            Dim _isPaletteChanged As Boolean
+            LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn, _isPaletteChanged)
+            If _isPaletteChanged Then
+                InitialisePalette()
+            End If
             CalculateScrollBarMaximumValues()
             LblStatus.Text = String.Empty
         Else
@@ -971,6 +978,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Function InitialisePalette() As Boolean
+        LogUtil.LogInfo("Initialising palette", MyBase.Name)
         Dim isOK As Boolean = True
         Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.PaletteStitchDisplay
         If isComponentInitialised Then
@@ -1031,6 +1039,12 @@ Public Class FrmStitchDesign
                                     End If
                                 End If
                         End Select
+                        If _projectThread.IsUsed Then
+                            Using _graphics As Graphics = Graphics.FromImage(_image)
+                                Dim _points As Point() = {New Point(0, 0), New Point(0, 8), New Point(8, 0)}
+                                _graphics.FillPolygon(New SolidBrush(ThreadLayoutPanel.BackColor), _points)
+                            End Using
+                        End If
                         Dim tt As New ToolTip
                         tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
                         AddHandler .Click, AddressOf Palette_Click
@@ -1064,8 +1078,10 @@ Public Class FrmStitchDesign
             LogUtil.Info("Opening Project Threads form", MyBase.Name)
             Using _projthreads As New FrmProjectThreads
                 _projthreads.SelectedProject = oProject
+                _projthreads.UsedThreads = DetermineUsedThreads()
                 _projthreads.ShowDialog()
             End Using
+            InitialisePalette()
         End If
     End Sub
     Private Sub SetInitialMagnification()
@@ -2244,6 +2260,11 @@ Public Class FrmStitchDesign
 
     Private Sub MnuFilledRecangle_Click(sender As Object, e As EventArgs) Handles MnuFilledRecangle.Click
         BeginDrawShape(ShapeType.FilledRectangle)
+    End Sub
+
+    Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
+        OpenSymbolsForm()
+        InitialisePalette()
     End Sub
 
 #End Region

@@ -31,6 +31,26 @@ Namespace Domain.Objects
         End Sub
 #End Region
 #Region "methods"
+        Public Function Find(pThreadId As Integer) As ProjectThread
+            Return _threads.Find(Function(p) p.Thread.ThreadId = pThreadId)
+        End Function
+        Public Function Exists(pThreadId As Integer) As Boolean
+            Return _threads.Exists(Function(p) p.Thread.ThreadId = pThreadId)
+        End Function
+        Public Sub Remove(pThreadId As Integer)
+            Dim _threadToRemove As ProjectThread = Find(pThreadId)
+            If _threadToRemove IsNot Nothing Then
+                _threads.Remove(_threadToRemove)
+            End If
+        End Sub
+        Public Function IsThreadUsed(pThreadId As Integer) As Boolean
+            Dim _foundThread As ProjectThread = Find(pThreadId)
+            Dim _isUsed As Boolean = False
+            If _foundThread IsNot Nothing Then
+                _isUsed = _foundThread.IsUsed
+            End If
+            Return _isUsed
+        End Function
         Public Sub Add(pThread As ProjectThread)
             _threads.Add(pThread)
         End Sub

@@ -27,7 +27,7 @@ Module ModThreads
         Dim _threadList As List(Of Thread) = GetThreadsForProject(pProjectId)
         pDgv.Rows.Clear()
         For Each oThread As Thread In _threadList
-            AddProjectThreadRow(pDgv, oThread, False, pShowStock)
+            AddProjectThreadRow(pDgv, oThread, False, pShowStock, False)
         Next
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
@@ -86,9 +86,10 @@ Module ModThreads
         Dim oRow As DataGridViewRow = NewProjectThreadRow(pDgv, pThread, pIsShowStock)
         Return oRow.Index
     End Function
-    Public Function AddProjectThreadRow(ByRef pDgv As DataGridView, pThread As Thread, isUsed As Boolean, pIsShowStock As Boolean) As Integer
+    Public Function AddProjectThreadRow(ByRef pDgv As DataGridView, pThread As Thread, pIsPaletteThread As Boolean, pIsShowStock As Boolean, pIsUsedThread As Boolean) As Integer
         Dim oRow As DataGridViewRow = NewProjectThreadRow(pDgv, pThread, pIsShowStock)
-        oRow.Cells("threadSelected").Value = isUsed
+        oRow.Cells("threadSelected").Value = pIsPaletteThread
+        oRow.Cells("threadSelected").ReadOnly = pIsUsedThread
         Return oRow.Index
     End Function
     Public Sub AddCardThreadRow(pDgv As DataGridView, oThread As ProjectCardThread)

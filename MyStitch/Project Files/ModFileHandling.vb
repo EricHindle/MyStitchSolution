@@ -8,7 +8,6 @@
 Imports System.IO
 Imports System.IO.Compression
 Imports System.Reflection
-Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Objects
 

@@ -452,7 +452,7 @@ Namespace Domain
             Dim newId As Integer = -1
             Try
                 With oProjectThread
-                    newId = oProjectThreadTa.InsertProjectThread(.ProjectId, .ThreadId, .SymbolId)
+                    newId = oProjectThreadTa.InsertProjectThread(.ProjectId, .ThreadId, .SymbolId, If(.IsUsed, 1, 0))
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -484,6 +484,18 @@ Namespace Domain
             Return _list
 
         End Function
+        Public Function GetUsedThreadsForProject(ByRef pProjectId As Integer, pIsUsed As Boolean) As List(Of Integer)
+            Dim _list As New List(Of Integer)
+            Try
+                oProjectThreadTa.FillByUsedThreadsForProject(oProjectThreadTable, pProjectId, If(pIsUsed, 1, 0))
+                For Each oRow As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
+                    _list.Add(oRow.thread_id)
+                Next
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _list
+        End Function
         Public Function GetProjectThread(pProjectId As Integer, pThreadId As Integer) As ProjectThread
             Dim _projectThread As ProjectThread = Nothing
             Try
@@ -500,6 +512,17 @@ Namespace Domain
             Dim isOk As Boolean
             Try
                 isOk = oProjectThreadTa.UpdateProjectThreadSymbolId(pProjectId, pThreadId, pSymbolId) = 1
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return isOk
+        End Function
+        Public Function UpdateProjectThreadIsUsed(pThread As ProjectThread) As Boolean
+            Dim isOk As Boolean
+            Try
+                With pThread
+                    isOk = oProjectThreadTa.UpdateProjectThreadIsUsed(If(.IsUsed, 1, 0), .ProjectId, .ThreadId) = 1
+                End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
