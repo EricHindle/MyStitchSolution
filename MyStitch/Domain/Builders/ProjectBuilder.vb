@@ -44,19 +44,20 @@ Namespace Domain.Builders
         End Function
         Public Function StartingWith(pProject As String()) As ProjectBuilder
             StartingWithNothing()
-            _projectId = pProject(1)
-            _projectName = pProject(2)
-            _dateStarted = CDate(pProject(3))
-            _dateEnded = CDate(pProject(4))
-            _designHeight = pProject(5)
-            _designWidth = pProject(6)
-            _fabricWidth = pProject(7)
-            _fabricHeight = pProject(8)
-            _fabricColour = pProject(9)
+            _projectId = pProject(PROJECT_ID_FLD)
+            _projectName = pProject(PROJECT_NAME_FLD)
+            _dateStarted = CDate(pProject(DATE_STARTED_FLD))
+            _dateEnded = CDate(pProject(DATE_ENDED_FLD))
+            _designWidth = pProject(DESIGN_WIDTH_FLD)
+            _designHeight = pProject(DESIGN_HEIGHT_FLD)
+            _fabricWidth = pProject(FABRIC_WIDTH_FLD)
+            _fabricHeight = pProject(FABRIC_HEIGHT_FLD)
+            _fabricColour = pProject(FABRIC_COLOUR_FLD)
             _design = Nothing
-            _originX = pProject(11)
-            _originY = pProject(12)
-            _totalMinutes = pProject(13)
+            _designFileName = pProject(DESIGN_FILE_NAME_FLD)
+            _originX = pProject(ORIGIN_X_FLD)
+            _originY = pProject(ORIGIN_Y_FLD)
+            _totalMinutes = pProject(TOTAL_MINUTES_FLD)
             Return Me
         End Function
         Public Function StartingWith(ByRef pProject As Project) As ProjectBuilder

@@ -11,6 +11,22 @@ Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Module ModProject
+    Public Const PROJECT_ID_FLD As Integer = 1
+    Public Const PROJECT_NAME_FLD As Integer = 2
+    Public Const DATE_STARTED_FLD As Integer = 3
+    Public Const DATE_ENDED_FLD As Integer = 4
+    Public Const DESIGN_WIDTH_FLD As Integer = 5
+    Public Const DESIGN_HEIGHT_FLD As Integer = 6
+    Public Const FABRIC_WIDTH_FLD As Integer = 7
+    Public Const FABRIC_HEIGHT_FLD As Integer = 8
+    Public Const FABRIC_COLOUR_FLD As Integer = 9
+    Public Const DESIGN_FILE_NAME_FLD As Integer = 10
+    Public Const ORIGIN_X_FLD As Integer = 11
+    Public Const ORIGIN_Y_FLD As Integer = 12
+    Public Const TOTAL_MINUTES_FLD As Integer = 13
+
+
+
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
     Public isSaved As Boolean = True
