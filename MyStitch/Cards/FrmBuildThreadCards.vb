@@ -91,7 +91,12 @@ Public Class FrmBuildThreadCards
     End Sub
     Private Sub BtnAuto_Click(sender As Object, e As EventArgs) Handles BtnAuto.Click
         LogUtil.LogInfo("Auto create cards for project", MyBase.Name)
-        Dim _resp As MsgBoxResult = MsgBox("Replace existing cards?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel, "Overwrite")
+        Dim _resp As MsgBoxResult
+        If LbCards.Items.Count > 0 Then
+            _resp = MsgBox("Replace existing cards?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel, "Overwrite")
+        Else
+            _resp = MsgBoxResult.Yes
+        End If
         If Not _resp = MsgBoxResult.Cancel Then
             Dim isRemoveExisting As Boolean = _resp = MsgBoxResult.Yes
             If isRemoveExisting Then
