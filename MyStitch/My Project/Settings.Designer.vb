@@ -1216,6 +1216,18 @@ Namespace My
                 Me("ApplicationPath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DesignInfoFormPos() As String
+            Get
+                Return CType(Me("DesignInfoFormPos"),String)
+            End Get
+            Set
+                Me("DesignInfoFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -97,6 +97,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cards\ModCards.vb" />
+    <Compile Include="Design\FrmDesignInfo.Designer.vb">
+      <DependentUpon>FrmDesignInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmDesignInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Design\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -265,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cards\FrmPrintThreadCards.resx">
       <DependentUpon>FrmPrintThreadCards.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmDesignInfo.resx">
+      <DependentUpon>FrmDesignInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmPrintProject.resx">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>

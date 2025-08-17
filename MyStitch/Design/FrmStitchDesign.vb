@@ -681,6 +681,34 @@ Public Class FrmStitchDesign
     Private Sub MnuDeleteColour_Click(sender As Object, e As EventArgs) Handles MnuDeleteColour.Click
         BeginDeleteColour()
     End Sub
+    Private Sub MnuEllipse_Click(sender As Object, e As EventArgs) Handles MnuEllipse.Click
+        BeginDrawShape(ShapeType.Ellipse)
+    End Sub
+
+    Private Sub MnuRectangle_Click(sender As Object, e As EventArgs) Handles MnuRectangle.Click
+        BeginDrawShape(ShapeType.Rectangle)
+    End Sub
+
+    Private Sub MnuFilledEllipse_Click(sender As Object, e As EventArgs) Handles MnuFilledEllipse.Click
+        BeginDrawShape(ShapeType.FilledEllipse)
+    End Sub
+
+    Private Sub MnuFilledRecangle_Click(sender As Object, e As EventArgs) Handles MnuFilledRecangle.Click
+        BeginDrawShape(ShapeType.FilledRectangle)
+    End Sub
+
+    Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
+        OpenSymbolsForm()
+        InitialisePalette()
+    End Sub
+
+    Private Sub MnuShow_Click(sender As Object, e As EventArgs) Handles MnuShow.Click
+        Using _designInfo As New FrmDesignInfo()
+            _designInfo.SelectedProject = oProject
+            _designInfo.Design = oProjectDesign
+            _designInfo.ShowDialog()
+        End Using
+    End Sub
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -2246,26 +2274,7 @@ Public Class FrmStitchDesign
         oUndoList.Add(_newList)
     End Sub
 
-    Private Sub EllipseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuEllipse.Click
-        BeginDrawShape(ShapeType.Ellipse)
-    End Sub
 
-    Private Sub RectangleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuRectangle.Click
-        BeginDrawShape(ShapeType.Rectangle)
-    End Sub
-
-    Private Sub MnuFilledEllipse_Click(sender As Object, e As EventArgs) Handles MnuFilledEllipse.Click
-        BeginDrawShape(ShapeType.FilledEllipse)
-    End Sub
-
-    Private Sub MnuFilledRecangle_Click(sender As Object, e As EventArgs) Handles MnuFilledRecangle.Click
-        BeginDrawShape(ShapeType.FilledRectangle)
-    End Sub
-
-    Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
-        OpenSymbolsForm()
-        InitialisePalette()
-    End Sub
 
 #End Region
 #End Region
