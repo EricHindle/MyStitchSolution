@@ -33,6 +33,17 @@ Public Class FrmDesignInfo
 #Region "variables"
     Private isLoading As Boolean
     Private isShowStock As Boolean
+    Private iBlockCount As Integer
+    Private iBackCount As Integer
+    Private iKnotCount As Integer
+    Private iBeadCount As Integer
+    Private iFullCount As Integer
+    Private iHalfCount As Integer
+    Private iQuarterCount As Integer
+    Private iMixedCount As Integer
+    Private iThreeQuarterCount As Integer
+    Private iTotalBackStitchLength As Double
+    Private FABRIC_COUNT As Integer
 #End Region
 #Region "control handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -57,6 +68,7 @@ Public Class FrmDesignInfo
         GetFormPos(Me, My.Settings.DesignInfoFormPos)
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         isShowStock = ChkShowStock.Checked
+        FABRIC_COUNT = My.Settings.DefaultFabricCount
         If _selectedProject.IsLoaded Then
             LoadProjectDetails()
             LoadThreadList()
@@ -65,6 +77,16 @@ Public Class FrmDesignInfo
                 LoadBlockStitchList(_projectDesign.BlockStitches)
                 LoadBackStitchList(_projectDesign.BackStitches)
                 LoadKnotList(_projectDesign.Knots)
+                LblBlockCount.Text = CStr(iBlockCount)
+                LblBackCount.Text = CStr(iBackCount)
+                LblKnotCount.Text = CStr(iKnotCount)
+                LblBeadCount.Text = CStr(iBeadCount)
+                LblFullCount.Text = CStr(iFullCount)
+                LblHalfCount.Text = CStr(iHalfCount)
+                LblQtrCount.Text = CStr(iQuarterCount)
+                LblThreeQtrCount.Text = CStr(iThreeQuarterCount)
+                LblMixedCount.Text = CStr(iMixedCount)
+                LblBackLength.Text = String.Format(LblBackLength.Text, iTotalBackStitchLength)
             Else
 
             End If
@@ -78,15 +100,31 @@ Public Class FrmDesignInfo
             If oThreadRow IsNot Nothing Then
                 oThreadRow.Cells(threadblockcount.Name).Value += 1
             End If
+            iBlockCount += 1
+            Select Case _stitch.StitchType
+                Case BlockStitchType.Full
+                    iFullCount += 1
+                Case BlockStitchType.Half
+                    iHalfCount += 1
+                Case BlockStitchType.Quarter
+                    iQuarterCount += 1
+                Case BlockStitchType.ThreeQuarter
+                    iThreeQuarterCount += 1
+                Case BlockStitchType.Mixed
+                    iMixedCount += 1
+            End Select
         Next
     End Sub
     Private Sub LoadBackStitchList(pBackStitches As List(Of BackStitch))
+
         For Each _stitch As BackStitch In pBackStitches
             NewBackstitchRow(_stitch)
             Dim oThreadRow As DataGridViewRow = FindThreadRow(_stitch.ThreadId)
             If oThreadRow IsNot Nothing Then
                 oThreadRow.Cells(threadbackcount.Name).Value += 1
             End If
+            iBackCount += 1
+            iTotalBackStitchLength += Math.Sqrt(Math.Pow(_stitch.ToBlockPosition.X - _stitch.FromBlockPosition.X, 2) + Math.Pow(_stitch.ToBlockPosition.Y - _stitch.FromBlockPosition.Y, 2)) / FABRIC_COUNT
         Next
     End Sub
     Private Sub LoadKnotList(pKnots As List(Of Knot))
@@ -96,10 +134,16 @@ Public Class FrmDesignInfo
             If oThreadRow IsNot Nothing Then
                 oThreadRow.Cells(threadknotcount.Name).Value += 1
             End If
+            If _stitch.IsBead Then
+                iBeadCount += 1
+            Else
+                iKnotCount += 1
+            End If
         Next
     End Sub
     Private Sub LoadProjectDetails()
         With _selectedProject
+            FABRIC_COUNT = .FabricCount
             LblName.Text = .ProjectName
             LblDesignHeight.Text = .DesignHeight
             LblDesignWidth.Text = .DesignWidth
@@ -107,6 +151,7 @@ Public Class FrmDesignInfo
             LblCentreY.Text = .OriginY
             LblFabricHeight.Text = .FabricHeight
             LblFabricWidth.Text = .FabricWidth
+            LblFabricCount.Text = .FabricCount
             Select Case .FabricColour
                 Case 1 To 4
                     LblFabricColour.Text = oFabricColourList(.FabricColour - 1).Name

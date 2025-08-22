@@ -252,9 +252,9 @@ Namespace Domain
             Try
                 With oProject
                     If projectId < 0 Then
-                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes)
+                        newId = oProjectTa.InsertProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes, .FabricCount)
                     Else
-                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes)
+                        newId = oProjectTa.InsertProjectWithId(projectId, .ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes, .FabricCount)
                     End If
                 End With
             Catch ex As SqlException
@@ -266,7 +266,7 @@ Namespace Domain
             LogUtil.LogInfo("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
             Try
                 With oProject
-                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes, oProject.ProjectId)
+                    oProjectTa.UpdateProject(.ProjectName, .DateStarted, .DateEnded, .DesignWidth, .DesignHeight, .FabricWidth, .FabricHeight, .FabricColour, .DesignFileName, .OriginX, .OriginY, .TotalMinutes, .FabricCount, oProject.ProjectId)
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)

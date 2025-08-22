@@ -1323,63 +1323,63 @@ Partial Class FrmStitchDesign
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuCentreOn
         '
         Me.MnuCentreOn.CheckOnClick = True
         Me.MnuCentreOn.Name = "MnuCentreOn"
-        Me.MnuCentreOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCentreOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuCentreOn.Text = "Centre Lines"
         '
         'MnuSingleColour
         '
         Me.MnuSingleColour.CheckOnClick = True
         Me.MnuSingleColour.Name = "MnuSingleColour"
-        Me.MnuSingleColour.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSingleColour.Size = New System.Drawing.Size(173, 22)
         Me.MnuSingleColour.Text = "Single Colour"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuStitchTypes
         '
         Me.MnuStitchTypes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBlockStitches, Me.MnuBackStitches, Me.MnuKnots})
         Me.MnuStitchTypes.Name = "MnuStitchTypes"
-        Me.MnuStitchTypes.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchTypes.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchTypes.Text = "Stitch Types"
         '
         'MnuBlockStitches
@@ -1443,7 +1443,7 @@ Partial Class FrmStitchDesign
         '
         Me.MnuShow.Name = "MnuShow"
         Me.MnuShow.Size = New System.Drawing.Size(180, 22)
-        Me.MnuShow.Text = "Show"
+        Me.MnuShow.Text = "Info"
         '
         'FrmStitchDesign
         '

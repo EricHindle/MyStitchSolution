@@ -22,6 +22,8 @@ Namespace Domain.Builders
         Private _originX As Integer
         Private _originY As Integer
         Private _totalMinutes As Integer
+        Private _fabricCount As Integer
+
         Public Shared Function AProject() As ProjectBuilder
             Return New ProjectBuilder
         End Function
@@ -35,6 +37,7 @@ Namespace Domain.Builders
             _fabricWidth = 1
             _fabricHeight = 1
             _fabricColour = 1
+            _fabricCount = My.Settings.DefaultFabricCount
             _design = New ProjectDesign
             _designFileName = String.Empty
             _originX = 0
@@ -53,6 +56,7 @@ Namespace Domain.Builders
             _fabricWidth = pProject(FABRIC_WIDTH_FLD)
             _fabricHeight = pProject(FABRIC_HEIGHT_FLD)
             _fabricColour = pProject(FABRIC_COLOUR_FLD)
+            _fabricCount = pProject(FABRIC_COUNT_FLD)
             _design = Nothing
             _designFileName = pProject(DESIGN_FILE_NAME_FLD)
             _originX = pProject(ORIGIN_X_FLD)
@@ -73,6 +77,7 @@ Namespace Domain.Builders
                     _fabricWidth = .FabricWidth
                     _fabricHeight = .FabricHeight
                     _fabricColour = .FabricColour
+                    _fabricCount = .FabricCount
                     _design = .Design
                     _designFileName = .DesignFileName
                     _originX = .OriginX
@@ -95,6 +100,7 @@ Namespace Domain.Builders
                     _fabricWidth = .fabric_width
                     _fabricHeight = .fabric_height
                     _fabricColour = .fabric_colour
+                    _fabricCount = .fabric_count
                     _designFileName = .design_file
                     _originX = .origin_x
                     _originY = .origin_y
@@ -139,6 +145,10 @@ Namespace Domain.Builders
             _fabricColour = pFabricColour
             Return Me
         End Function
+        Public Function WithFabricCount(pFabricCount As Integer) As ProjectBuilder
+            _fabricCount = pFabricCount
+            Return Me
+        End Function
         Public Function WithDesign(pDesign As ProjectDesign) As ProjectBuilder
             _design = pDesign
             Return Me
@@ -174,6 +184,7 @@ Namespace Domain.Builders
                                _fabricWidth,
                                _fabricHeight,
                                _fabricColour,
+                               _fabricCount,
                                _design,
                                _designFileName,
                                _originX,

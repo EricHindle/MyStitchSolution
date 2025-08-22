@@ -703,11 +703,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MnuShow_Click(sender As Object, e As EventArgs) Handles MnuShow.Click
-        Using _designInfo As New FrmDesignInfo()
-            _designInfo.SelectedProject = oProject
-            _designInfo.Design = oProjectDesign
-            _designInfo.ShowDialog()
-        End Using
+        ShowDesignInfo
     End Sub
 #End Region
 #Region "stitch buttons"

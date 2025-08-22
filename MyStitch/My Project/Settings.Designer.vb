@@ -1228,6 +1228,18 @@ Namespace My
                 Me("DesignInfoFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("14")>  _
+        Public Property DefaultFabricCount() As Integer
+            Get
+                Return CType(Me("DefaultFabricCount"),Integer)
+            End Get
+            Set
+                Me("DefaultFabricCount") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

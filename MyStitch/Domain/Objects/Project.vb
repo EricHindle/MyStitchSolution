@@ -23,6 +23,15 @@ Namespace Domain.Objects
         Private _originX As Integer
         Private _originY As Integer
         Private _totalMinutes As Integer
+        Private _fabricCount As Integer
+        Public Property FabricCount() As Integer
+            Get
+                Return _fabricCount
+            End Get
+            Set(ByVal value As Integer)
+                _fabricCount = value
+            End Set
+        End Property
         Public Property TotalMinutes() As Integer
             Get
                 Return _totalMinutes
@@ -157,6 +166,7 @@ Namespace Domain.Objects
             _originX = 0
             _originY = 0
             _totalMinutes = 0
+            _fabricCount = My.Settings.DefaultFabricCount
         End Sub
         Public Sub New()
             Initialiseproject()
@@ -176,6 +186,7 @@ Namespace Domain.Objects
                        pFabricWidth As Integer,
                        pFabricHeight As Integer,
                        pFabricColour As Integer,
+                       pFabricCount As Integer,
                        pDesign As ProjectDesign,
                        pDesignFilename As String,
                        pOriginX As Integer,
@@ -191,6 +202,7 @@ Namespace Domain.Objects
             _fabricWidth = pFabricWidth
             _fabricHeight = pFabricHeight
             _fabricColour = pFabricColour
+            _fabricCount = pFabricCount
             _design = pDesign
             _designFileName = pDesignFilename
             _originX = pOriginX
@@ -215,6 +227,7 @@ Namespace Domain.Objects
             .Append(CStr(_fabricWidth)).Append(DESIGN_DELIM) _
             .Append(CStr(_fabricHeight)).Append(DESIGN_DELIM) _
             .Append(CStr(_fabricColour)).Append(DESIGN_DELIM) _
+            .Append(CStr(_fabricCount)).Append(DESIGN_DELIM) _
             .Append(_designFileName).Append(DESIGN_DELIM) _
             .Append(CStr(_originX)).Append(DESIGN_DELIM) _
             .Append(CStr(_originY)).Append(DESIGN_DELIM) _

@@ -20,10 +20,11 @@ Module ModProject
     Public Const FABRIC_WIDTH_FLD As Integer = 7
     Public Const FABRIC_HEIGHT_FLD As Integer = 8
     Public Const FABRIC_COLOUR_FLD As Integer = 9
-    Public Const DESIGN_FILE_NAME_FLD As Integer = 10
-    Public Const ORIGIN_X_FLD As Integer = 11
-    Public Const ORIGIN_Y_FLD As Integer = 12
-    Public Const TOTAL_MINUTES_FLD As Integer = 13
+    Public Const FABRIC_COUNT_FLD As Integer = 10
+    Public Const DESIGN_FILE_NAME_FLD As Integer = 11
+    Public Const ORIGIN_X_FLD As Integer = 12
+    Public Const ORIGIN_Y_FLD As Integer = 13
+    Public Const TOTAL_MINUTES_FLD As Integer = 14
 
 
 

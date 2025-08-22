@@ -171,6 +171,13 @@ Module ModDesign
             Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
         End Try
     End Sub
+    Public Sub ShowDesignInfo()
+        Using _designInfo As New FrmDesignInfo()
+            _designInfo.SelectedProject = oProject
+            _designInfo.Design = oProjectDesign
+            _designInfo.ShowDialog()
+        End Using
+    End Sub
     Public Function LoadProjectDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean)
         oFabricColour = GetColourFromProject(oProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)

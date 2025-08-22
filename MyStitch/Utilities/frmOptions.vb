@@ -62,6 +62,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.Grid5Thickness = NudGrid5Thickness.Value
         My.Settings.SelectionBorderColour = PicSelectionBorderColour.BackColor
         My.Settings.ApplicationPath = TxtAppPath.Text
+        My.Settings.DefaultFabricCount = NudFabricCount.Value
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -97,6 +98,7 @@ Public NotInheritable Class FrmOptions
         NudGrid5Thickness.Value = My.Settings.Grid5Thickness
         PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
         TxtAppPath.Text = My.Settings.ApplicationPath
+        NudFabricCount.Value = My.Settings.DefaultFabricCount
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()

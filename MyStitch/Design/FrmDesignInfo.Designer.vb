@@ -34,14 +34,44 @@ Partial Class FrmDesignInfo
         Me.LblName = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
+        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.threadblockcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadbackcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadknotcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
-        Me.BtnClose = New System.Windows.Forms.Button()
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.DgvBlock = New System.Windows.Forms.DataGridView()
+        Me.block_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_symbol_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
+        Me.DgvBack = New System.Windows.Forms.DataGridView()
+        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DgvKnot = New System.Windows.Forms.DataGridView()
+        Me.knot_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BtnClose = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -62,36 +92,28 @@ Partial Class FrmDesignInfo
         Me.LblDesignWidth = New System.Windows.Forms.Label()
         Me.LblFinished = New System.Windows.Forms.Label()
         Me.LblStarted = New System.Windows.Forms.Label()
-        Me.DgvBlock = New System.Windows.Forms.DataGridView()
-        Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.threadblockcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadbackcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.threadknotcount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DgvBack = New System.Windows.Forms.DataGridView()
-        Me.DgvKnot = New System.Windows.Forms.DataGridView()
-        Me.block_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_symbol_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.LblBlockCount = New System.Windows.Forms.Label()
+        Me.LblBackCount = New System.Windows.Forms.Label()
+        Me.LblKnotCount = New System.Windows.Forms.Label()
+        Me.LblBeadCount = New System.Windows.Forms.Label()
+        Me.LblFullCount = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.LblThreeQtrCount = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.LblHalfCount = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.LblMixedCount = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.LblQtrCount = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.LblBackLength = New System.Windows.Forms.Label()
+        Me.LblFabricCount = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -101,11 +123,11 @@ Partial Class FrmDesignInfo
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
         Me.SplitContainer2.SuspendLayout()
+        CType(Me.DgvBlock, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer3.Panel1.SuspendLayout()
         Me.SplitContainer3.Panel2.SuspendLayout()
         Me.SplitContainer3.SuspendLayout()
-        CType(Me.DgvBlock, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvBack, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -168,372 +190,8 @@ Partial Class FrmDesignInfo
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(518, 129)
+        Me.DgvThreads.Size = New System.Drawing.Size(612, 129)
         Me.DgvThreads.TabIndex = 156
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(5, 10)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(138, 19)
-        Me.Label1.TabIndex = 157
-        Me.Label1.Text = "BlockStitches"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(5, 10)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(127, 19)
-        Me.Label2.TabIndex = 158
-        Me.Label2.Text = "BACKSTITCHES"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(5, 11)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(66, 19)
-        Me.Label3.TabIndex = 159
-        Me.Label3.Text = "KNOTS"
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer1.Location = New System.Drawing.Point(19, 36)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.ChkShowStock)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.DgvThreads)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(574, 690)
-        Me.SplitContainer1.SplitterDistance = 162
-        Me.SplitContainer1.TabIndex = 160
-        '
-        'SplitContainer2
-        '
-        Me.SplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer2.Name = "SplitContainer2"
-        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer2.Panel1
-        '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.DgvBlock)
-        Me.SplitContainer2.Panel1.Controls.Add(Me.Label1)
-        '
-        'SplitContainer2.Panel2
-        '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(574, 524)
-        Me.SplitContainer2.SplitterDistance = 191
-        Me.SplitContainer2.TabIndex = 0
-        '
-        'SplitContainer3
-        '
-        Me.SplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer3.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer3.Name = "SplitContainer3"
-        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer3.Panel1
-        '
-        Me.SplitContainer3.Panel1.Controls.Add(Me.DgvBack)
-        Me.SplitContainer3.Panel1.Controls.Add(Me.Label2)
-        '
-        'SplitContainer3.Panel2
-        '
-        Me.SplitContainer3.Panel2.Controls.Add(Me.DgvKnot)
-        Me.SplitContainer3.Panel2.Controls.Add(Me.Label3)
-        Me.SplitContainer3.Size = New System.Drawing.Size(574, 329)
-        Me.SplitContainer3.SplitterDistance = 192
-        Me.SplitContainer3.TabIndex = 0
-        '
-        'BtnClose
-        '
-        Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(798, 686)
-        Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnClose.Name = "BtnClose"
-        Me.BtnClose.Size = New System.Drawing.Size(80, 40)
-        Me.BtnClose.TabIndex = 161
-        Me.BtnClose.Text = "Close"
-        Me.BtnClose.UseVisualStyleBackColor = False
-        '
-        'ChkShowStock
-        '
-        Me.ChkShowStock.AutoSize = True
-        Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkShowStock.Location = New System.Drawing.Point(314, 4)
-        Me.ChkShowStock.Name = "ChkShowStock"
-        Me.ChkShowStock.Size = New System.Drawing.Size(123, 18)
-        Me.ChkShowStock.TabIndex = 159
-        Me.ChkShowStock.Text = "Show stock levels"
-        Me.ChkShowStock.UseVisualStyleBackColor = True
-        '
-        'Label14
-        '
-        Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(684, 80)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(94, 14)
-        Me.Label14.TabIndex = 171
-        Me.Label14.Text = "Total work time"
-        '
-        'Label12
-        '
-        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(683, 190)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(95, 14)
-        Me.Label12.TabIndex = 170
-        Me.Label12.Text = "Centre Y co-ord"
-        '
-        'Label13
-        '
-        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(684, 162)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(94, 14)
-        Me.Label13.TabIndex = 169
-        Me.Label13.Text = "Centre X co-ord"
-        '
-        'Label8
-        '
-        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(702, 273)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(76, 14)
-        Me.Label8.TabIndex = 168
-        Me.Label8.Text = "Fabric Colour"
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(700, 246)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(78, 14)
-        Me.Label4.TabIndex = 167
-        Me.Label4.Text = "Fabric Height"
-        '
-        'Label6
-        '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(703, 218)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(75, 14)
-        Me.Label6.TabIndex = 166
-        Me.Label6.Text = "Fabric Width"
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(695, 134)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(83, 14)
-        Me.Label5.TabIndex = 165
-        Me.Label5.Text = "Design Height"
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(698, 106)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(80, 14)
-        Me.Label9.TabIndex = 164
-        Me.Label9.Text = "Design Width"
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(728, 58)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(50, 14)
-        Me.Label10.TabIndex = 163
-        Me.Label10.Text = "Finished"
-        '
-        'Label11
-        '
-        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(730, 36)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(48, 14)
-        Me.Label11.TabIndex = 162
-        Me.Label11.Text = "Started"
-        '
-        'LblTotalTime
-        '
-        Me.LblTotalTime.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblTotalTime.AutoSize = True
-        Me.LblTotalTime.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblTotalTime.Location = New System.Drawing.Point(787, 80)
-        Me.LblTotalTime.Name = "LblTotalTime"
-        Me.LblTotalTime.Size = New System.Drawing.Size(94, 14)
-        Me.LblTotalTime.TabIndex = 181
-        Me.LblTotalTime.Text = "Total work time"
-        '
-        'LblCentreY
-        '
-        Me.LblCentreY.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblCentreY.AutoSize = True
-        Me.LblCentreY.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblCentreY.Location = New System.Drawing.Point(787, 190)
-        Me.LblCentreY.Name = "LblCentreY"
-        Me.LblCentreY.Size = New System.Drawing.Size(95, 14)
-        Me.LblCentreY.TabIndex = 180
-        Me.LblCentreY.Text = "Centre Y co-ord"
-        '
-        'LblCentreX
-        '
-        Me.LblCentreX.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblCentreX.AutoSize = True
-        Me.LblCentreX.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblCentreX.Location = New System.Drawing.Point(787, 162)
-        Me.LblCentreX.Name = "LblCentreX"
-        Me.LblCentreX.Size = New System.Drawing.Size(94, 14)
-        Me.LblCentreX.TabIndex = 179
-        Me.LblCentreX.Text = "Centre X co-ord"
-        '
-        'LblFabricColour
-        '
-        Me.LblFabricColour.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblFabricColour.AutoSize = True
-        Me.LblFabricColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFabricColour.Location = New System.Drawing.Point(787, 273)
-        Me.LblFabricColour.Name = "LblFabricColour"
-        Me.LblFabricColour.Size = New System.Drawing.Size(76, 14)
-        Me.LblFabricColour.TabIndex = 178
-        Me.LblFabricColour.Text = "Fabric Colour"
-        '
-        'LblFabricHeight
-        '
-        Me.LblFabricHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblFabricHeight.AutoSize = True
-        Me.LblFabricHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFabricHeight.Location = New System.Drawing.Point(787, 246)
-        Me.LblFabricHeight.Name = "LblFabricHeight"
-        Me.LblFabricHeight.Size = New System.Drawing.Size(78, 14)
-        Me.LblFabricHeight.TabIndex = 177
-        Me.LblFabricHeight.Text = "Fabric Height"
-        '
-        'LblFabricWidth
-        '
-        Me.LblFabricWidth.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblFabricWidth.AutoSize = True
-        Me.LblFabricWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFabricWidth.Location = New System.Drawing.Point(787, 218)
-        Me.LblFabricWidth.Name = "LblFabricWidth"
-        Me.LblFabricWidth.Size = New System.Drawing.Size(75, 14)
-        Me.LblFabricWidth.TabIndex = 176
-        Me.LblFabricWidth.Text = "Fabric Width"
-        '
-        'LblDesignHeight
-        '
-        Me.LblDesignHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblDesignHeight.AutoSize = True
-        Me.LblDesignHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblDesignHeight.Location = New System.Drawing.Point(787, 134)
-        Me.LblDesignHeight.Name = "LblDesignHeight"
-        Me.LblDesignHeight.Size = New System.Drawing.Size(83, 14)
-        Me.LblDesignHeight.TabIndex = 175
-        Me.LblDesignHeight.Text = "Design Height"
-        '
-        'LblDesignWidth
-        '
-        Me.LblDesignWidth.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblDesignWidth.AutoSize = True
-        Me.LblDesignWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblDesignWidth.Location = New System.Drawing.Point(787, 106)
-        Me.LblDesignWidth.Name = "LblDesignWidth"
-        Me.LblDesignWidth.Size = New System.Drawing.Size(80, 14)
-        Me.LblDesignWidth.TabIndex = 174
-        Me.LblDesignWidth.Text = "Design Width"
-        '
-        'LblFinished
-        '
-        Me.LblFinished.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblFinished.AutoSize = True
-        Me.LblFinished.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFinished.Location = New System.Drawing.Point(787, 58)
-        Me.LblFinished.Name = "LblFinished"
-        Me.LblFinished.Size = New System.Drawing.Size(50, 14)
-        Me.LblFinished.TabIndex = 173
-        Me.LblFinished.Text = "Finished"
-        '
-        'LblStarted
-        '
-        Me.LblStarted.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblStarted.AutoSize = True
-        Me.LblStarted.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblStarted.Location = New System.Drawing.Point(787, 36)
-        Me.LblStarted.Name = "LblStarted"
-        Me.LblStarted.Size = New System.Drawing.Size(48, 14)
-        Me.LblStarted.TabIndex = 172
-        Me.LblStarted.Text = "Started"
-        '
-        'DgvBlock
-        '
-        Me.DgvBlock.AllowUserToAddRows = False
-        Me.DgvBlock.AllowUserToDeleteRows = False
-        Me.DgvBlock.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvBlock.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvBlock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBlock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.block_pos_x, Me.block_pos_y, Me.block_thread_id, Me.block_thread_no, Me.block_symbol_id, Me.block_type})
-        Me.DgvBlock.Location = New System.Drawing.Point(9, 32)
-        Me.DgvBlock.Name = "DgvBlock"
-        Me.DgvBlock.ReadOnly = True
-        Me.DgvBlock.RowHeadersVisible = False
-        Me.DgvBlock.Size = New System.Drawing.Size(558, 152)
-        Me.DgvBlock.TabIndex = 158
         '
         'threadId
         '
@@ -599,39 +257,112 @@ Partial Class FrmDesignInfo
         Me.threadknotcount.ReadOnly = True
         Me.threadknotcount.Width = 50
         '
-        'DgvBack
+        'Label1
         '
-        Me.DgvBack.AllowUserToAddRows = False
-        Me.DgvBack.AllowUserToDeleteRows = False
-        Me.DgvBack.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(5, 10)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(138, 19)
+        Me.Label1.TabIndex = 157
+        Me.Label1.Text = "BlockStitches"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(5, 10)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(127, 19)
+        Me.Label2.TabIndex = 158
+        Me.Label2.Text = "BACKSTITCHES"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(5, 11)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(66, 19)
+        Me.Label3.TabIndex = 159
+        Me.Label3.Text = "KNOTS"
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvBack.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvBack.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBack.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.back_from_x, Me.back_from_y, Me.back_to_x, Me.back_to_y, Me.back_thread_id, Me.back_thread_no, Me.back_strands})
-        Me.DgvBack.Location = New System.Drawing.Point(9, 32)
-        Me.DgvBack.Name = "DgvBack"
-        Me.DgvBack.ReadOnly = True
-        Me.DgvBack.RowHeadersVisible = False
-        Me.DgvBack.Size = New System.Drawing.Size(558, 153)
-        Me.DgvBack.TabIndex = 159
+        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer1.Location = New System.Drawing.Point(19, 36)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
-        'DgvKnot
+        'SplitContainer1.Panel1
         '
-        Me.DgvKnot.AllowUserToAddRows = False
-        Me.DgvKnot.AllowUserToDeleteRows = False
-        Me.DgvKnot.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ChkShowStock)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.DgvThreads)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer2)
+        Me.SplitContainer1.Size = New System.Drawing.Size(668, 690)
+        Me.SplitContainer1.SplitterDistance = 162
+        Me.SplitContainer1.TabIndex = 160
+        '
+        'ChkShowStock
+        '
+        Me.ChkShowStock.AutoSize = True
+        Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkShowStock.Location = New System.Drawing.Point(314, 4)
+        Me.ChkShowStock.Name = "ChkShowStock"
+        Me.ChkShowStock.Size = New System.Drawing.Size(123, 18)
+        Me.ChkShowStock.TabIndex = 159
+        Me.ChkShowStock.Text = "Show stock levels"
+        Me.ChkShowStock.UseVisualStyleBackColor = True
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.DgvBlock)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label1)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
+        Me.SplitContainer2.Size = New System.Drawing.Size(668, 524)
+        Me.SplitContainer2.SplitterDistance = 191
+        Me.SplitContainer2.TabIndex = 0
+        '
+        'DgvBlock
+        '
+        Me.DgvBlock.AllowUserToAddRows = False
+        Me.DgvBlock.AllowUserToDeleteRows = False
+        Me.DgvBlock.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvKnot.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvKnot.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvKnot.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.knot_pos_x, Me.knot_pos_y, Me.knot_thread_id, Me.knot_thread_no, Me.knot_strands, Me.knot_type})
-        Me.DgvKnot.Location = New System.Drawing.Point(9, 33)
-        Me.DgvKnot.Name = "DgvKnot"
-        Me.DgvKnot.ReadOnly = True
-        Me.DgvKnot.RowHeadersVisible = False
-        Me.DgvKnot.Size = New System.Drawing.Size(558, 93)
-        Me.DgvKnot.TabIndex = 160
+        Me.DgvBlock.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBlock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvBlock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.block_pos_x, Me.block_pos_y, Me.block_thread_id, Me.block_thread_no, Me.block_symbol_id, Me.block_type})
+        Me.DgvBlock.Location = New System.Drawing.Point(9, 32)
+        Me.DgvBlock.Name = "DgvBlock"
+        Me.DgvBlock.ReadOnly = True
+        Me.DgvBlock.RowHeadersVisible = False
+        Me.DgvBlock.Size = New System.Drawing.Size(652, 152)
+        Me.DgvBlock.TabIndex = 158
         '
         'block_pos_x
         '
@@ -679,6 +410,44 @@ Partial Class FrmDesignInfo
         Me.block_type.HeaderText = "Type"
         Me.block_type.Name = "block_type"
         Me.block_type.ReadOnly = True
+        '
+        'SplitContainer3
+        '
+        Me.SplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer3.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer3.Name = "SplitContainer3"
+        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer3.Panel1
+        '
+        Me.SplitContainer3.Panel1.Controls.Add(Me.DgvBack)
+        Me.SplitContainer3.Panel1.Controls.Add(Me.Label2)
+        '
+        'SplitContainer3.Panel2
+        '
+        Me.SplitContainer3.Panel2.Controls.Add(Me.DgvKnot)
+        Me.SplitContainer3.Panel2.Controls.Add(Me.Label3)
+        Me.SplitContainer3.Size = New System.Drawing.Size(668, 329)
+        Me.SplitContainer3.SplitterDistance = 192
+        Me.SplitContainer3.TabIndex = 0
+        '
+        'DgvBack
+        '
+        Me.DgvBack.AllowUserToAddRows = False
+        Me.DgvBack.AllowUserToDeleteRows = False
+        Me.DgvBack.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvBack.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBack.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvBack.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.back_from_x, Me.back_from_y, Me.back_to_x, Me.back_to_y, Me.back_thread_id, Me.back_thread_no, Me.back_strands})
+        Me.DgvBack.Location = New System.Drawing.Point(9, 32)
+        Me.DgvBack.Name = "DgvBack"
+        Me.DgvBack.ReadOnly = True
+        Me.DgvBack.RowHeadersVisible = False
+        Me.DgvBack.Size = New System.Drawing.Size(652, 153)
+        Me.DgvBack.TabIndex = 159
         '
         'back_from_x
         '
@@ -736,6 +505,23 @@ Partial Class FrmDesignInfo
         Me.back_strands.ReadOnly = True
         Me.back_strands.Width = 60
         '
+        'DgvKnot
+        '
+        Me.DgvKnot.AllowUserToAddRows = False
+        Me.DgvKnot.AllowUserToDeleteRows = False
+        Me.DgvKnot.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvKnot.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvKnot.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvKnot.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.knot_pos_x, Me.knot_pos_y, Me.knot_thread_id, Me.knot_thread_no, Me.knot_strands, Me.knot_type})
+        Me.DgvKnot.Location = New System.Drawing.Point(9, 33)
+        Me.DgvKnot.Name = "DgvKnot"
+        Me.DgvKnot.ReadOnly = True
+        Me.DgvKnot.RowHeadersVisible = False
+        Me.DgvKnot.Size = New System.Drawing.Size(652, 93)
+        Me.DgvKnot.TabIndex = 160
+        '
         'knot_pos_x
         '
         Me.knot_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
@@ -784,11 +570,510 @@ Partial Class FrmDesignInfo
         Me.knot_type.ReadOnly = True
         Me.knot_type.Width = 90
         '
+        'BtnClose
+        '
+        Me.BtnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClose.Location = New System.Drawing.Point(837, 686)
+        Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnClose.Name = "BtnClose"
+        Me.BtnClose.Size = New System.Drawing.Size(80, 40)
+        Me.BtnClose.TabIndex = 161
+        Me.BtnClose.Text = "Close"
+        Me.BtnClose.UseVisualStyleBackColor = False
+        '
+        'Label14
+        '
+        Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(723, 88)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(94, 14)
+        Me.Label14.TabIndex = 171
+        Me.Label14.Text = "Total work time"
+        '
+        'Label12
+        '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(722, 192)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(95, 14)
+        Me.Label12.TabIndex = 170
+        Me.Label12.Text = "Centre Y co-ord"
+        '
+        'Label13
+        '
+        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(723, 166)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(94, 14)
+        Me.Label13.TabIndex = 169
+        Me.Label13.Text = "Centre X co-ord"
+        '
+        'Label8
+        '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(741, 270)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(76, 14)
+        Me.Label8.TabIndex = 168
+        Me.Label8.Text = "Fabric Colour"
+        '
+        'Label4
+        '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(739, 244)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(78, 14)
+        Me.Label4.TabIndex = 167
+        Me.Label4.Text = "Fabric Height"
+        '
+        'Label6
+        '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(742, 218)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(75, 14)
+        Me.Label6.TabIndex = 166
+        Me.Label6.Text = "Fabric Width"
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(734, 140)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(83, 14)
+        Me.Label5.TabIndex = 165
+        Me.Label5.Text = "Design Height"
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(737, 114)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(80, 14)
+        Me.Label9.TabIndex = 164
+        Me.Label9.Text = "Design Width"
+        '
+        'Label10
+        '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(767, 62)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(50, 14)
+        Me.Label10.TabIndex = 163
+        Me.Label10.Text = "Finished"
+        '
+        'Label11
+        '
+        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(769, 36)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(48, 14)
+        Me.Label11.TabIndex = 162
+        Me.Label11.Text = "Started"
+        '
+        'LblTotalTime
+        '
+        Me.LblTotalTime.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblTotalTime.AutoSize = True
+        Me.LblTotalTime.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblTotalTime.Location = New System.Drawing.Point(826, 88)
+        Me.LblTotalTime.Name = "LblTotalTime"
+        Me.LblTotalTime.Size = New System.Drawing.Size(94, 14)
+        Me.LblTotalTime.TabIndex = 181
+        Me.LblTotalTime.Text = "Total work time"
+        '
+        'LblCentreY
+        '
+        Me.LblCentreY.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblCentreY.AutoSize = True
+        Me.LblCentreY.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCentreY.Location = New System.Drawing.Point(826, 192)
+        Me.LblCentreY.Name = "LblCentreY"
+        Me.LblCentreY.Size = New System.Drawing.Size(95, 14)
+        Me.LblCentreY.TabIndex = 180
+        Me.LblCentreY.Text = "Centre Y co-ord"
+        '
+        'LblCentreX
+        '
+        Me.LblCentreX.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblCentreX.AutoSize = True
+        Me.LblCentreX.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCentreX.Location = New System.Drawing.Point(826, 166)
+        Me.LblCentreX.Name = "LblCentreX"
+        Me.LblCentreX.Size = New System.Drawing.Size(94, 14)
+        Me.LblCentreX.TabIndex = 179
+        Me.LblCentreX.Text = "Centre X co-ord"
+        '
+        'LblFabricColour
+        '
+        Me.LblFabricColour.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFabricColour.AutoSize = True
+        Me.LblFabricColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFabricColour.Location = New System.Drawing.Point(826, 270)
+        Me.LblFabricColour.Name = "LblFabricColour"
+        Me.LblFabricColour.Size = New System.Drawing.Size(76, 14)
+        Me.LblFabricColour.TabIndex = 178
+        Me.LblFabricColour.Text = "Fabric Colour"
+        '
+        'LblFabricHeight
+        '
+        Me.LblFabricHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFabricHeight.AutoSize = True
+        Me.LblFabricHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFabricHeight.Location = New System.Drawing.Point(826, 244)
+        Me.LblFabricHeight.Name = "LblFabricHeight"
+        Me.LblFabricHeight.Size = New System.Drawing.Size(78, 14)
+        Me.LblFabricHeight.TabIndex = 177
+        Me.LblFabricHeight.Text = "Fabric Height"
+        '
+        'LblFabricWidth
+        '
+        Me.LblFabricWidth.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFabricWidth.AutoSize = True
+        Me.LblFabricWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFabricWidth.Location = New System.Drawing.Point(826, 218)
+        Me.LblFabricWidth.Name = "LblFabricWidth"
+        Me.LblFabricWidth.Size = New System.Drawing.Size(75, 14)
+        Me.LblFabricWidth.TabIndex = 176
+        Me.LblFabricWidth.Text = "Fabric Width"
+        '
+        'LblDesignHeight
+        '
+        Me.LblDesignHeight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblDesignHeight.AutoSize = True
+        Me.LblDesignHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDesignHeight.Location = New System.Drawing.Point(826, 140)
+        Me.LblDesignHeight.Name = "LblDesignHeight"
+        Me.LblDesignHeight.Size = New System.Drawing.Size(83, 14)
+        Me.LblDesignHeight.TabIndex = 175
+        Me.LblDesignHeight.Text = "Design Height"
+        '
+        'LblDesignWidth
+        '
+        Me.LblDesignWidth.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblDesignWidth.AutoSize = True
+        Me.LblDesignWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDesignWidth.Location = New System.Drawing.Point(826, 114)
+        Me.LblDesignWidth.Name = "LblDesignWidth"
+        Me.LblDesignWidth.Size = New System.Drawing.Size(80, 14)
+        Me.LblDesignWidth.TabIndex = 174
+        Me.LblDesignWidth.Text = "Design Width"
+        '
+        'LblFinished
+        '
+        Me.LblFinished.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFinished.AutoSize = True
+        Me.LblFinished.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFinished.Location = New System.Drawing.Point(826, 62)
+        Me.LblFinished.Name = "LblFinished"
+        Me.LblFinished.Size = New System.Drawing.Size(50, 14)
+        Me.LblFinished.TabIndex = 173
+        Me.LblFinished.Text = "Finished"
+        '
+        'LblStarted
+        '
+        Me.LblStarted.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblStarted.AutoSize = True
+        Me.LblStarted.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStarted.Location = New System.Drawing.Point(826, 36)
+        Me.LblStarted.Name = "LblStarted"
+        Me.LblStarted.Size = New System.Drawing.Size(48, 14)
+        Me.LblStarted.TabIndex = 172
+        Me.LblStarted.Text = "Started"
+        '
+        'Label15
+        '
+        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(736, 345)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(81, 14)
+        Me.Label15.TabIndex = 182
+        Me.Label15.Text = "Block stitches"
+        '
+        'Label16
+        '
+        Me.Label16.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(739, 500)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(78, 14)
+        Me.Label16.TabIndex = 183
+        Me.Label16.Text = "Back stitches"
+        '
+        'Label17
+        '
+        Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(779, 568)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(38, 14)
+        Me.Label17.TabIndex = 184
+        Me.Label17.Text = "Knots"
+        '
+        'Label18
+        '
+        Me.Label18.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(778, 594)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(39, 14)
+        Me.Label18.TabIndex = 185
+        Me.Label18.Text = "Beads"
+        '
+        'LblBlockCount
+        '
+        Me.LblBlockCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblBlockCount.AutoSize = True
+        Me.LblBlockCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblBlockCount.Location = New System.Drawing.Point(834, 345)
+        Me.LblBlockCount.Name = "LblBlockCount"
+        Me.LblBlockCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblBlockCount.TabIndex = 186
+        Me.LblBlockCount.Text = "0"
+        '
+        'LblBackCount
+        '
+        Me.LblBackCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblBackCount.AutoSize = True
+        Me.LblBackCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblBackCount.Location = New System.Drawing.Point(834, 500)
+        Me.LblBackCount.Name = "LblBackCount"
+        Me.LblBackCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblBackCount.TabIndex = 187
+        Me.LblBackCount.Text = "0"
+        '
+        'LblKnotCount
+        '
+        Me.LblKnotCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblKnotCount.AutoSize = True
+        Me.LblKnotCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblKnotCount.Location = New System.Drawing.Point(834, 569)
+        Me.LblKnotCount.Name = "LblKnotCount"
+        Me.LblKnotCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblKnotCount.TabIndex = 188
+        Me.LblKnotCount.Text = "0"
+        '
+        'LblBeadCount
+        '
+        Me.LblBeadCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblBeadCount.AutoSize = True
+        Me.LblBeadCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblBeadCount.Location = New System.Drawing.Point(834, 594)
+        Me.LblBeadCount.Name = "LblBeadCount"
+        Me.LblBeadCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblBeadCount.TabIndex = 189
+        Me.LblBeadCount.Text = "0"
+        '
+        'LblFullCount
+        '
+        Me.LblFullCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFullCount.AutoSize = True
+        Me.LblFullCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFullCount.Location = New System.Drawing.Point(834, 372)
+        Me.LblFullCount.Name = "LblFullCount"
+        Me.LblFullCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblFullCount.TabIndex = 191
+        Me.LblFullCount.Text = "0"
+        '
+        'Label20
+        '
+        Me.Label20.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(756, 372)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(70, 14)
+        Me.Label20.TabIndex = 190
+        Me.Label20.Text = "Full stitches"
+        '
+        'LblThreeQtrCount
+        '
+        Me.LblThreeQtrCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblThreeQtrCount.AutoSize = True
+        Me.LblThreeQtrCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblThreeQtrCount.Location = New System.Drawing.Point(834, 394)
+        Me.LblThreeQtrCount.Name = "LblThreeQtrCount"
+        Me.LblThreeQtrCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblThreeQtrCount.TabIndex = 193
+        Me.LblThreeQtrCount.Text = "0"
+        '
+        'Label21
+        '
+        Me.Label21.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(750, 394)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(76, 14)
+        Me.Label21.TabIndex = 192
+        Me.Label21.Text = " 3/4 stitches"
+        '
+        'LblHalfCount
+        '
+        Me.LblHalfCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblHalfCount.AutoSize = True
+        Me.LblHalfCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblHalfCount.Location = New System.Drawing.Point(834, 416)
+        Me.LblHalfCount.Name = "LblHalfCount"
+        Me.LblHalfCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblHalfCount.TabIndex = 195
+        Me.LblHalfCount.Text = "0"
+        '
+        'Label23
+        '
+        Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(754, 416)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(72, 14)
+        Me.Label23.TabIndex = 194
+        Me.Label23.Text = "1/2 stitches"
+        '
+        'LblMixedCount
+        '
+        Me.LblMixedCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblMixedCount.AutoSize = True
+        Me.LblMixedCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblMixedCount.Location = New System.Drawing.Point(834, 465)
+        Me.LblMixedCount.Name = "LblMixedCount"
+        Me.LblMixedCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblMixedCount.TabIndex = 197
+        Me.LblMixedCount.Text = "0"
+        '
+        'Label25
+        '
+        Me.Label25.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(742, 465)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(84, 14)
+        Me.Label25.TabIndex = 196
+        Me.Label25.Text = "Mixed stitches"
+        '
+        'Label19
+        '
+        Me.Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(754, 436)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(72, 14)
+        Me.Label19.TabIndex = 194
+        Me.Label19.Text = "1/4 stitches"
+        '
+        'LblQtrCount
+        '
+        Me.LblQtrCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblQtrCount.AutoSize = True
+        Me.LblQtrCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblQtrCount.Location = New System.Drawing.Point(834, 436)
+        Me.LblQtrCount.Name = "LblQtrCount"
+        Me.LblQtrCount.Size = New System.Drawing.Size(14, 14)
+        Me.LblQtrCount.TabIndex = 195
+        Me.LblQtrCount.Text = "0"
+        '
+        'Label22
+        '
+        Me.Label22.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(756, 523)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(46, 14)
+        Me.Label22.TabIndex = 198
+        Me.Label22.Text = "Length"
+        '
+        'LblBackLength
+        '
+        Me.LblBackLength.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblBackLength.AutoSize = True
+        Me.LblBackLength.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblBackLength.Location = New System.Drawing.Point(810, 523)
+        Me.LblBackLength.Name = "LblBackLength"
+        Me.LblBackLength.Size = New System.Drawing.Size(94, 14)
+        Me.LblBackLength.TabIndex = 199
+        Me.LblBackLength.Text = "{0,5:N1} inches"
+        '
+        'LblFabricCount
+        '
+        Me.LblFabricCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblFabricCount.AutoSize = True
+        Me.LblFabricCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFabricCount.Location = New System.Drawing.Point(825, 297)
+        Me.LblFabricCount.Name = "LblFabricCount"
+        Me.LblFabricCount.Size = New System.Drawing.Size(75, 14)
+        Me.LblFabricCount.TabIndex = 201
+        Me.LblFabricCount.Text = "Fabric Count"
+        '
+        'Label26
+        '
+        Me.Label26.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(740, 297)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(75, 14)
+        Me.Label26.TabIndex = 200
+        Me.Label26.Text = "Fabric Count"
+        '
         'FrmDesignInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(891, 738)
+        Me.ClientSize = New System.Drawing.Size(930, 738)
+        Me.Controls.Add(Me.LblFabricCount)
+        Me.Controls.Add(Me.Label26)
+        Me.Controls.Add(Me.LblBackLength)
+        Me.Controls.Add(Me.Label22)
+        Me.Controls.Add(Me.LblMixedCount)
+        Me.Controls.Add(Me.Label25)
+        Me.Controls.Add(Me.LblQtrCount)
+        Me.Controls.Add(Me.LblHalfCount)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.LblThreeQtrCount)
+        Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.LblFullCount)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.LblBeadCount)
+        Me.Controls.Add(Me.LblKnotCount)
+        Me.Controls.Add(Me.LblBackCount)
+        Me.Controls.Add(Me.LblBlockCount)
+        Me.Controls.Add(Me.Label18)
+        Me.Controls.Add(Me.Label17)
+        Me.Controls.Add(Me.Label16)
+        Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.LblTotalTime)
         Me.Controls.Add(Me.LblCentreY)
         Me.Controls.Add(Me.LblCentreX)
@@ -828,13 +1113,13 @@ Partial Class FrmDesignInfo
         Me.SplitContainer2.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer2.ResumeLayout(False)
+        CType(Me.DgvBlock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer3.Panel1.ResumeLayout(False)
         Me.SplitContainer3.Panel1.PerformLayout()
         Me.SplitContainer3.Panel2.ResumeLayout(False)
         Me.SplitContainer3.Panel2.PerformLayout()
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer3.ResumeLayout(False)
-        CType(Me.DgvBlock, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvBack, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -903,4 +1188,26 @@ Partial Class FrmDesignInfo
     Friend WithEvents knot_thread_no As DataGridViewTextBoxColumn
     Friend WithEvents knot_strands As DataGridViewTextBoxColumn
     Friend WithEvents knot_type As DataGridViewTextBoxColumn
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents LblBlockCount As Label
+    Friend WithEvents LblBackCount As Label
+    Friend WithEvents LblKnotCount As Label
+    Friend WithEvents LblBeadCount As Label
+    Friend WithEvents LblFullCount As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents LblThreeQtrCount As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents LblHalfCount As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents LblMixedCount As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents LblQtrCount As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents LblBackLength As Label
+    Friend WithEvents LblFabricCount As Label
+    Friend WithEvents Label26 As Label
 End Class

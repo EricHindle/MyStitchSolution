@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmOptions
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmOptions
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmOptions))
         Me.btnCancel = New System.Windows.Forms.Button()
@@ -34,6 +34,8 @@ Partial Class FrmOptions
         Me.Version = New System.Windows.Forms.Label()
         Me.BtnResetForms = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TxtAppPath = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.TxtLogFilePath = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.BtnGlobalSettings = New System.Windows.Forms.Button()
@@ -98,8 +100,10 @@ Partial Class FrmOptions
         Me.NudSelectionBorder = New System.Windows.Forms.NumericUpDown()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
-        Me.TxtAppPath = New System.Windows.Forms.TextBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -123,6 +127,8 @@ Partial Class FrmOptions
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudSelectionBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox9.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
+        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -239,6 +245,22 @@ Partial Class FrmOptions
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "File Paths"
+        '
+        'TxtAppPath
+        '
+        Me.TxtAppPath.Location = New System.Drawing.Point(171, 21)
+        Me.TxtAppPath.Name = "TxtAppPath"
+        Me.TxtAppPath.Size = New System.Drawing.Size(333, 22)
+        Me.TxtAppPath.TabIndex = 0
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(12, 24)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(95, 14)
+        Me.Label19.TabIndex = 13
+        Me.Label19.Text = "Application Path"
         '
         'TxtLogFilePath
         '
@@ -914,21 +936,45 @@ Partial Class FrmOptions
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Save"
         '
-        'TxtAppPath
+        'GroupBox10
         '
-        Me.TxtAppPath.Location = New System.Drawing.Point(171, 21)
-        Me.TxtAppPath.Name = "TxtAppPath"
-        Me.TxtAppPath.Size = New System.Drawing.Size(333, 22)
-        Me.TxtAppPath.TabIndex = 0
+        Me.GroupBox10.Controls.Add(Me.Label21)
+        Me.GroupBox10.Controls.Add(Me.NudFabricCount)
+        Me.GroupBox10.Controls.Add(Me.Label20)
+        Me.GroupBox10.Location = New System.Drawing.Point(16, 508)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(257, 44)
+        Me.GroupBox10.TabIndex = 16
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Fabric"
         '
-        'Label19
+        'NudFabricCount
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(12, 24)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(95, 14)
-        Me.Label19.TabIndex = 13
-        Me.Label19.Text = "Application Path"
+        Me.NudFabricCount.Location = New System.Drawing.Point(140, 16)
+        Me.NudFabricCount.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NudFabricCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudFabricCount.Name = "NudFabricCount"
+        Me.NudFabricCount.Size = New System.Drawing.Size(50, 22)
+        Me.NudFabricCount.TabIndex = 166
+        Me.NudFabricCount.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(6, 18)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(118, 14)
+        Me.Label20.TabIndex = 167
+        Me.Label20.Text = "Default Fabric Count"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(196, 18)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(51, 14)
+        Me.Label21.TabIndex = 168
+        Me.Label21.Text = "per inch"
         '
         'FrmOptions
         '
@@ -936,6 +982,7 @@ Partial Class FrmOptions
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
         Me.ClientSize = New System.Drawing.Size(726, 688)
+        Me.Controls.Add(Me.GroupBox10)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.BtnPrintSettings)
@@ -989,6 +1036,9 @@ Partial Class FrmOptions
         CType(Me.NudSelectionBorder, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1069,4 +1119,8 @@ Partial Class FrmOptions
     Friend WithEvents NumericUpDown2 As NumericUpDown
     Friend WithEvents TxtAppPath As TextBox
     Friend WithEvents Label19 As Label
+    Friend WithEvents GroupBox10 As GroupBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents NudFabricCount As NumericUpDown
+    Friend WithEvents Label20 As Label
 End Class

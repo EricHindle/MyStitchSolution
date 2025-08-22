@@ -228,6 +228,7 @@ Public Class FrmProject
             NudOriginY.Value = .OriginY
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
+            NudFabricCount.Value = .FabricCount
             PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColourList)
             Select Case .FabricColour
                 Case 1 To 4
@@ -249,6 +250,7 @@ Public Class FrmProject
                                                     .WithFabricHeight(NudFabricHeight.Value) _
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
+                                                    .WithFabricCount(NudFabricCount.Value) _
                                                     .WithOriginX(NudOriginX.Value) _
                                                     .WithOriginY(NudOriginY.Value) _
                                                     .WithTotalMinutes(0) _
