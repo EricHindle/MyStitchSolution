@@ -208,6 +208,8 @@ Public Class FrmProject
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ProjectFormPos)
         LoadProjectList(DgvProjects, MyBase.Name)
+        oProject = New Project
+        oProjectDesign = New ProjectDesign
     End Sub
     Friend Sub LoadProjectSettings()
         MnuDebugOn.Checked = My.Settings.isDebugOn

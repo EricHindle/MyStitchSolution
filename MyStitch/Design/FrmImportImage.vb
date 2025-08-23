@@ -28,6 +28,7 @@ Public Class FrmImportImage
     Private Sub InitialiseForm()
         LoadThreads()
         oProjectDesign = Nothing
+        oImportDesign = Nothing
         oDesignBitmap = Nothing
         oDesignGraphics = Nothing
         topcorner = New Point(0, 0)
@@ -207,4 +208,49 @@ Public Class FrmImportImage
         _crossPen.Dispose()
     End Sub
 
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
+        InsertNewProject()
+    End Sub
+
+    Private Sub InsertNewProject()
+        LogUtil.LogInfo("New project", MyBase.Name)
+        Dim _project As Project = BuildProjectFromForm(-1)
+        If _project IsNot Nothing Then
+            _project.ProjectId = InsertProject(_project)
+            oProject = _project
+            For Each _blockStitch In oImportDesign.BlockStitches
+                _blockStitch.ProjectId = _project.ProjectId
+            Next
+            oProjectDesign = oImportDesign
+
+            SaveDesign()
+        End If
+        LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
+    End Sub
+    Private Function BuildProjectFromForm(pId As Integer) As Project
+        Dim _project As Project
+        If Not String.IsNullOrWhiteSpace(TxtName.Text) Then
+            _project = ProjectBuilder.AProject.StartingWithNothing _
+                                                    .WithId(pId) _
+                                                    .WithName(TxtName.Text) _
+                                                    .WithDesignHeight(NudDesignHeight.Value) _
+                                                    .WithDesignWidth(NudDesignWidth.Value) _
+                                                    .WithFabricHeight(NudFabricHeight.Value) _
+                                                    .WithFabricWidth(NudFabricWidth.Value) _
+                                                    .WithFabricColour(0) _
+                                                    .WithFabricCount(NudFabricCount.Value) _
+                                                    .WithOriginX(NudOriginX.Value) _
+                                                    .WithOriginY(NudOriginY.Value) _
+                                                    .WithTotalMinutes(0) _
+                                                    .WithStarted(DateTime.Now) _
+                                                    .WithEnded(DateTime.Now) _
+                                                        .Build()
+            '_project.DesignFileName = MakeFilename(_project)
+        Else
+            MessageBox.Show("Please enter a project name", "Name required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            _project = Nothing
+        End If
+
+        Return _project
+    End Function
 End Class
