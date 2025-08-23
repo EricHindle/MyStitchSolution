@@ -425,15 +425,21 @@ Public Class FrmProject
     Private Sub MnuPrint_Click_1(sender As Object, e As EventArgs) Handles MnuPrint.Click
         ShowPrintForm()
     End Sub
-
     Private Sub MnuOpenSelectedProject_Click(sender As Object, e As EventArgs) Handles MnuOpenSelectedProject.Click
         '      OpenProjectFile(oProject.ProjectId)
     End Sub
-
     Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
         Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
         OpenProjectFromFile(_filename, DgvProjects, LblStatus)
         OpenProjectDesign()
+    End Sub
+    Private Sub MnuImportImage_Click(sender As Object, e As EventArgs) Handles MnuImportImage.Click
+        ShowImportImageForm()
+    End Sub
+    Private Sub ShowImportImageForm()
+        Using _import As New FrmImportImage
+            _import.ShowDialog()
+        End Using
     End Sub
 
 #End Region

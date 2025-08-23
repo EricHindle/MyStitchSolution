@@ -251,14 +251,14 @@ Module ModDesign
         oDesignGraphics = Graphics.FromImage(oDesignBitmap)
         oDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         oDesignGraphics.FillRectangle(oFabricBrush, New Rectangle(0, 0, oDesignBitmap.Width, oDesignBitmap.Height))
-        FillBeforeGrid()
+        FillBeforeGrid(oProjectDesign)
         DrawGrid(oProjectDesign, pIsGridOn, pIsCentreOn)
         FillAfterGrid()
         pPicturebox.Invalidate()
     End Sub
-    Public Sub FillBeforeGrid()
+    Public Sub FillBeforeGrid(pProjectDesign As ProjectDesign)
         If My.Settings.IsShowBlockstitches Then
-            For Each _blockstitch In oProjectDesign.BlockStitches
+            For Each _blockstitch In pProjectDesign.BlockStitches
                 If _blockstitch.IsLoaded Then
                     If Not isSingleColour OrElse _blockstitch.ProjThread.Thread.Colour.ToArgb = oCurrentThread.Thread.Colour.ToArgb Then
                         Select Case _blockstitch.StitchType
@@ -307,7 +307,6 @@ Module ModDesign
 
         If pIsGridOn Then
             MakeGridPens()
-
             For x = 0 To _widthInColumns
                 oDesignGraphics.DrawLine(oGrid1Pen, New Point(gap * x, 0), New Point(gap * x, Math.Min(gap * _heightInRows, oDesignBitmap.Height)))
             Next

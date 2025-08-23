@@ -77,6 +77,14 @@ Namespace Domain.Builders
             End With
             Return Me
         End Function
+        Public Function WithRows(pRows As Integer) As ProjectDesignBuilder
+            _rows = pRows
+            Return Me
+        End Function
+        Public Function WithColumns(pColumns As Integer) As ProjectDesignBuilder
+            _columns = pColumns
+            Return Me
+        End Function
         Public Function Build() As ProjectDesign
             Return New ProjectDesign(_projectId, _blockStitches, _backStitches, _knots, _rows, _columns)
         End Function

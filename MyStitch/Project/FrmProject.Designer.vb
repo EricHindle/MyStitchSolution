@@ -29,7 +29,7 @@ Partial Class FrmProject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
@@ -42,6 +42,8 @@ Partial Class FrmProject
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.LblElapsedTime = New System.Windows.Forms.Label()
         Me.LblEndTime = New System.Windows.Forms.Label()
@@ -104,11 +106,12 @@ Partial Class FrmProject
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.BtnPrint = New System.Windows.Forms.Button()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
+        Me.MnuImportImage = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
+        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicFabricColour, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,7 +120,6 @@ Partial Class FrmProject
         CType(Me.NudDesignHeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudDesignWidth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -219,14 +221,14 @@ Partial Class FrmProject
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DgvProjects.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvProjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvProjects.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvProjects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectId, Me.projectName})
         Me.DgvProjects.GridColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
@@ -300,6 +302,27 @@ Partial Class FrmProject
         Me.PnlForm.Name = "PnlForm"
         Me.PnlForm.Size = New System.Drawing.Size(302, 455)
         Me.PnlForm.TabIndex = 126
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(48, 350)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(123, 14)
+        Me.Label9.TabIndex = 163
+        Me.Label9.Text = "Fabric Count per inch"
+        '
+        'NudFabricCount
+        '
+        Me.NudFabricCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NudFabricCount.Location = New System.Drawing.Point(195, 346)
+        Me.NudFabricCount.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.NudFabricCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudFabricCount.Name = "NudFabricCount"
+        Me.NudFabricCount.Size = New System.Drawing.Size(74, 22)
+        Me.NudFabricCount.TabIndex = 162
+        Me.NudFabricCount.Value = New Decimal(New Integer() {14, 0, 0, 0})
         '
         'Label15
         '
@@ -636,7 +659,7 @@ Partial Class FrmProject
         'MnuButton
         '
         Me.MnuButton.AutoSize = False
-        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator1, Me.MnuExit})
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator2, Me.MnuImportImage, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator1, Me.MnuExit})
         Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
         Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -668,19 +691,19 @@ Partial Class FrmProject
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(142, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open Design"
         '
         'MnuResizeDesign
         '
         Me.MnuResizeDesign.Name = "MnuResizeDesign"
-        Me.MnuResizeDesign.Size = New System.Drawing.Size(142, 22)
+        Me.MnuResizeDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuResizeDesign.Text = "Resize"
         '
         'MnuPrint
         '
         Me.MnuPrint.Name = "MnuPrint"
-        Me.MnuPrint.Size = New System.Drawing.Size(142, 22)
+        Me.MnuPrint.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrint.Text = "Print"
         '
         'MnuThreads
@@ -737,13 +760,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'ToolStripSeparator3
@@ -842,26 +865,16 @@ Partial Class FrmProject
         Me.BtnPrint.Text = "Print"
         Me.BtnPrint.UseVisualStyleBackColor = False
         '
-        'Label9
+        'MnuImportImage
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(48, 350)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(123, 14)
-        Me.Label9.TabIndex = 163
-        Me.Label9.Text = "Fabric Count per inch"
+        Me.MnuImportImage.Name = "MnuImportImage"
+        Me.MnuImportImage.Size = New System.Drawing.Size(211, 22)
+        Me.MnuImportImage.Text = "Import Image"
         '
-        'NudFabricCount
+        'ToolStripSeparator2
         '
-        Me.NudFabricCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricCount.Location = New System.Drawing.Point(195, 346)
-        Me.NudFabricCount.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
-        Me.NudFabricCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NudFabricCount.Name = "NudFabricCount"
-        Me.NudFabricCount.Size = New System.Drawing.Size(74, 22)
-        Me.NudFabricCount.TabIndex = 162
-        Me.NudFabricCount.Value = New Decimal(New Integer() {14, 0, 0, 0})
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
         '
         'FrmProject
         '
@@ -891,6 +904,7 @@ Partial Class FrmProject
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlForm.ResumeLayout(False)
         Me.PnlForm.PerformLayout()
+        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudOriginY, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudOriginX, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicFabricColour, System.ComponentModel.ISupportInitialize).EndInit()
@@ -900,7 +914,6 @@ Partial Class FrmProject
         CType(Me.NudDesignWidth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -981,4 +994,6 @@ Partial Class FrmProject
     Friend WithEvents MnuOpenSelectedProject As ToolStripMenuItem
     Friend WithEvents Label9 As Label
     Friend WithEvents NudFabricCount As NumericUpDown
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents MnuImportImage As ToolStripMenuItem
 End Class

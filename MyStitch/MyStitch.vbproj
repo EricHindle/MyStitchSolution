@@ -103,6 +103,12 @@
     <Compile Include="Design\FrmDesignInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Design\FrmImportImage.Designer.vb">
+      <DependentUpon>FrmImportImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmImportImage.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Design\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -274,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmDesignInfo.resx">
       <DependentUpon>FrmDesignInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmImportImage.resx">
+      <DependentUpon>FrmImportImage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmPrintProject.resx">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
