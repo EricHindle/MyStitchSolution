@@ -28,7 +28,11 @@ Module ModFileHandling
     Public Function MakeFilename(pProject As Project) As String
         Dim _filename As String = pProject.DesignFileName
         If String.IsNullOrEmpty(_filename) Then
-            _filename = CStr(pProject.ProjectId) & "_" & Replace(pProject.ProjectName, " ", "_").ToLower
+            Dim _projectName As String = String.Empty
+            If Not String.IsNullOrEmpty(pProject.ProjectName) Then
+                _projectName = (Replace(pProject.ProjectName, " ", "_").ToLower)
+            End If
+            _filename = CStr(pProject.ProjectId) & "_" & _projectName
         End If
         Return _filename
     End Function

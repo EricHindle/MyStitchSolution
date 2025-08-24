@@ -35,6 +35,8 @@ Namespace Domain
             Settings
             Symbols
             ProjectWorkTimes
+            Palettes
+            PaletteThreads
         End Enum
 #End Region
 #Region "dataset"
@@ -54,7 +56,10 @@ Namespace Domain
         Private ReadOnly oSymbolsTable As New MyStitchDataSet.SymbolsDataTable
         Private ReadOnly oProjectWorkTimesTa As New MyStitchDataSetTableAdapters.ProjectWorkTimesTableAdapter
         Private ReadOnly oProjectWorkTimesTable As New MyStitchDataSet.ProjectWorkTimesDataTable
-
+        Private ReadOnly oPalettesTable As New MyStitchDataSet.PalettesDataTable
+        Private ReadOnly oPalettesTa As New MyStitchDataSetTableAdapters.PalettesTableAdapter
+        Private ReadOnly oPaletteThreadsTable As New MyStitchDataSet.PaletteThreadsDataTable
+        Private ReadOnly oPaletteThreadsTa As New MyStitchDataSetTableAdapters.PaletteThreadsTableAdapter
 #End Region
 #Region "variables"
         ' List of dB tables used in backup and restore
@@ -175,6 +180,28 @@ Namespace Domain
                             Next
                             rowCount = oProjectCardThreadTa.GetData().Rows.Count
                         End If
+                    Case "Palettes"
+                        If RecreateTable(oPalettesTable, datapath, isSuppressMessage) Then
+                            LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
+                            oPalettesTa.TruncatePalettes()
+                            LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
+                            For Each _row As MyStitchDataSet.PalettesRow In oPalettesTable.Rows
+                                Dim _Palette As Palette = PaletteBuilder.APalette.StartingWith(_row).Build
+                                InsertPalette(_Palette.PaletteName, _Palette.PaletteId)
+                            Next
+                            rowCount = oPalettesTa.GetData().Rows.Count
+                        End If
+                    Case "PaletteThreads"
+                        If RecreateTable(oPaletteThreadsTable, datapath, isSuppressMessage) Then
+                            LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
+                            oPaletteThreadsTa.TruncatePaletteThreads()
+                            LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
+                            For Each _row As MyStitchDataSet.PaletteThreadsRow In oPaletteThreadsTable.Rows
+                                Dim _PaletteThread As PaletteThread = PaletteThreadBuilder.APaletteThread.StartingWith(_row).Build
+                                InsertPaletteThread(_PaletteThread)
+                            Next
+                            rowCount = oPaletteThreadsTa.GetData().Rows.Count
+                        End If
                 End Select
             Catch ex As Exception
                 MsgBox(GetMessage(ex), MsgBoxStyle.Exclamation, "Error")
@@ -246,7 +273,7 @@ Namespace Domain
             Dim _newId As Integer = InsertProject(project, -1)
             Return _newId
         End Function
-        Public Function InsertProject(ByRef oProject As Project, projectId As Integer)
+        Public Function InsertProject(ByRef oProject As Project, projectId As Integer) As Integer
             LogUtil.LogInfo("Inserting " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
             Dim newId As Integer = -1
             Try
@@ -781,6 +808,46 @@ Namespace Domain
             End Try
         End Sub
 
+#End Region
+#Region "Palettes"
+        Public Function GetPalettesTable() As MyStitchDataSet.PalettesDataTable
+            Return oPalettesTa.GetData()
+        End Function
+
+        Public Function InsertPalette(ByRef pPaletteName As String) As Integer
+            Dim _newId As Integer = InsertPalette(pPaletteName, -1)
+            Return _newId
+        End Function
+        Public Function InsertPalette(ByRef pPaletteName As String, pPaletteId As Integer) As Integer
+            LogUtil.LogInfo("Inserting palette " & pPaletteName, MethodBase.GetCurrentMethod.Name)
+            Dim newId As Integer = -1
+            Try
+                If pPaletteId < 0 Then
+                    newId = oPalettesTa.InsertPalette(pPaletteName)
+                Else
+                    newId = oPalettesTa.InsertPaletteWithId(pPaletteId, pPaletteName)
+                End If
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return newId
+        End Function
+
+        Public Function GetPaletteThreadsTable() As MyStitchDataSet.PaletteThreadsDataTable
+            Return oPaletteThreadsTa.GetData()
+        End Function
+        Public Function InsertPaletteThread(ByRef oPaletteThread As PaletteThread)
+            LogUtil.LogInfo("Inserting Palette thread" & oPaletteThread.PaletteId & ":" & CStr(oPaletteThread.ThreadId), MethodBase.GetCurrentMethod.Name)
+            Dim newId As Integer = -1
+            Try
+                With oPaletteThread
+                    newId = oPaletteThreadsTa.InsertPaletteThread(.PaletteId, .ThreadId, .SymbolId)
+                End With
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return newId
+        End Function
 #End Region
     End Module
 End Namespace

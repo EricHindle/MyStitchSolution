@@ -2270,8 +2270,6 @@ Public Class FrmStitchDesign
         oUndoList.Add(_newList)
     End Sub
 
-
-
 #End Region
 #End Region
 End Class

@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 
-Imports System.Drawing.Imaging
+Imports System.Runtime.InteropServices
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -19,6 +19,8 @@ Public Class FrmImportImage
     Private isSizeChanging As Boolean = False
     Private oImportDesign As ProjectDesign
     Private oThreadList As List(Of Thread)
+    Private iPaletteId As Integer
+    Private oPaletteList As List(Of Thread)
     Private Sub FrmImportImage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening import form", MyBase.Name)
         GetFormPos(Me, My.Settings.ImportFormPos)
@@ -27,6 +29,7 @@ Public Class FrmImportImage
 
     Private Sub InitialiseForm()
         LoadThreads()
+        oPaletteList = New List(Of Thread)
         oProjectDesign = Nothing
         oImportDesign = Nothing
         oDesignBitmap = Nothing
@@ -35,7 +38,12 @@ Public Class FrmImportImage
     End Sub
 
     Private Sub LoadThreads()
-        oThreadList = GetThreads()
+        oThreadList = New List(Of Thread)
+        For Each _thread As Thread In GetThreads()
+            If _thread.StockLevel > 0 Then
+                oThreadList.Add(_thread)
+            End If
+        Next
     End Sub
 
     Private Function GetNearestThread(pColor As Color) As Thread
@@ -71,7 +79,7 @@ Public Class FrmImportImage
             oSelectedImage = Image.FromFile(TxtImagePath.Text)
             PicImagePreview.Image = oSelectedImage
             _imageSize = oSelectedImage.Size
-            LblSize.Text = String.Format("Image size {0} x {1}", _imageSize.Width, _imageSize.Height)
+            LblSize.Text = String.Format("Image size {0} pLocX {1}", _imageSize.Width, _imageSize.Height)
             isSizeChanging = True
             CalculateScaleSize()
             isSizeChanging = False
@@ -143,32 +151,68 @@ Public Class FrmImportImage
             oDesignBitmap = New Bitmap(_width, _height)
             oDesignGraphics = Graphics.FromImage(oDesignBitmap)
             oImportDesign = ProjectDesignBuilder.AProjectDesign().StartingWithNothing.WithRows(NudDesignHeight.Value).WithColumns(NudDesignWidth.Value).Build
-            For Each x As Integer In Enumerable.Range(0, oTargetImage.Size.Width)
-                For Each y As Integer In Enumerable.Range(0, oTargetImage.Size.Height)
-                    Dim _cellColor As Color = oTargetImage.GetPixel(x, y)
-                    Dim _thread As Thread = GetNearestThread(_cellColor)
-                    Dim _qtrs As New List(Of BlockStitchQuarter)
-                    _qtrs.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, 2, _thread.ThreadId))
-                    _qtrs.Add(New BlockStitchQuarter(BlockQuarter.TopRight, 2, _thread.ThreadId))
-                    _qtrs.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, _thread.ThreadId))
-                    _qtrs.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, 2, _thread.ThreadId))
-                    Dim _stitch As Stitch = BlockStitchBuilder.ABlockStitch().StartingWithNothing.WithBlockLocation(New Point(x, y)) _
-                        .WithStitchType(BlockStitchType.Full) _
-                        .WithProjectId(999) _
-                        .WithThreadId(_thread.ThreadId) _
-                        .WithStitchType(BlockStitchType.Full) _
-                        .Build
-                    Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch().StartingWith(_stitch) _
-                    .WithQuarters(_qtrs) _
-                    .Build
-                    oImportDesign.BlockStitches.Add(_blockstitch)
-                Next
-            Next
-            FillStitches(oImportDesign)
             DrawGrid(oImportDesign, True, True)
             PicDesign.Invalidate()
+            For Each y As Integer In Enumerable.Range(0, oTargetImage.Size.Height)
+                For Each x As Integer In Enumerable.Range(0, oTargetImage.Size.Width)
+                    Dim _cellColor As Color = oTargetImage.GetPixel(x, y)
+                    Dim _thread As Thread = GetNearestThread(_cellColor)
+                    Dim _qtrs As List(Of BlockStitchQuarter) = GenerateStitchQuarters(_thread)
+                    Dim _blockstitch As BlockStitch = GenerateBlockstitchForThread(x, y, _thread, _qtrs)
+                    AddBlockstitchToDesign(_blockstitch, oImportDesign)
+                    DrawImportBlockStitch(_blockstitch)
+                Next
+                PicDesign.Invalidate()
+                Application.DoEvents()
+            Next
         End If
     End Sub
+
+    Private Sub AddBlockstitchToDesign(pBlockstitch As BlockStitch, pImportDesign As ProjectDesign)
+        pImportDesign.BlockStitches.Add(pBlockstitch)
+        If Not oPaletteList.Exists(Function(x As Thread) x.ThreadId = pBlockstitch.ThreadId) Then
+            Dim _paletteThread As Thread = GetThreadById(pBlockstitch.ThreadId)
+            oPaletteList.Add(_paletteThread)
+            AddThreadToPalette(_paletteThread)
+        End If
+    End Sub
+    Private Sub AddThreadToPalette(pThread As Thread)
+        Dim _picSize As Integer = PALETTE_COLOUR_SIZE
+        Dim _picThread As New PictureBox()
+        With _picThread
+            .Name = CStr(pThread.ThreadId)
+            .Size = New Size(_picSize, _picSize)
+            .BorderStyle = BorderStyle.None
+            .SizeMode = PictureBoxSizeMode.Zoom
+            .BackColor = pThread.Colour
+            Dim tt As New ToolTip
+            tt.SetToolTip(_picThread, pThread.ColourName & " " & pThread.ThreadNo)
+        End With
+        ThreadLayoutPanel.Controls.Add(_picThread)
+    End Sub
+
+    Private Shared Function GenerateBlockstitchForThread(pLocX As Integer, pLocY As Integer, pThread As Thread, pQuarters As List(Of BlockStitchQuarter)) As BlockStitch
+        Dim _stitch As Stitch = BlockStitchBuilder.ABlockStitch().StartingWithNothing _
+            .WithBlockLocation(New Point(pLocX, pLocY)) _
+            .WithStitchType(BlockStitchType.Full) _
+            .WithProjectId(999) _
+            .WithThreadId(pThread.ThreadId) _
+            .Build
+        Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch().StartingWith(_stitch) _
+            .WithQuarters(pQuarters) _
+            .Build
+        Return _blockstitch
+    End Function
+
+    Private Shared Function GenerateStitchQuarters(_thread As Thread) As List(Of BlockStitchQuarter)
+        Dim _qtrs As New List(Of BlockStitchQuarter) From {
+            New BlockStitchQuarter(BlockQuarter.TopLeft, 2, _thread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.TopRight, 2, _thread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, _thread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomRight, 2, _thread.ThreadId)
+        }
+        Return _qtrs
+    End Function
 
     Private Sub FillStitches(pProjectDesign As ProjectDesign)
         For Each _blockstitch In pProjectDesign.BlockStitches
@@ -184,7 +228,6 @@ Public Class FrmImportImage
             DisplayImage(oDesignBitmap, 0, 0, e)
         End If
     End Sub
-
 
     Public Sub DrawImportBlockStitch(pBlockStitch As BlockStitch)
         Dim _threadColour As Color = GetThreadById(pBlockStitch.ThreadId).Colour
@@ -221,8 +264,8 @@ Public Class FrmImportImage
             For Each _blockStitch In oImportDesign.BlockStitches
                 _blockStitch.ProjectId = _project.ProjectId
             Next
+            SavePalette()
             oProjectDesign = oImportDesign
-
             SaveDesign()
         End If
         LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
@@ -253,4 +296,28 @@ Public Class FrmImportImage
 
         Return _project
     End Function
+
+    Private Sub BtnSavePalette_Click(sender As Object, e As EventArgs) Handles BtnSavePalette.Click
+        If Not String.IsNullOrEmpty(TxtName.Text) Then
+            Dim _paletteId As Integer = SavePalette()
+            SavePaletteThreads(_paletteId)
+        Else
+            MessageBox.Show("Please enter a project name", "Name required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
+    End Sub
+
+    Private Function SavePalette() As Integer
+        Return InsertPalette(TxtName.Text)
+    End Function
+
+    Private Sub SavePaletteThreads(pPaletteId As Integer)
+        For Each _thread In oPaletteList
+            Dim _paletteThread As PaletteThread = PaletteThreadBuilder.APaletteThread.StartingWithNothing _
+                .WithThreadId(_thread.ThreadId) _
+                .WithPaletteId(pPaletteId) _
+                .Build
+            ' _paletteThread.SymbolId = GetRandomAvailableSymbolId()
+            InsertPaletteThread(_paletteThread)
+        Next
+    End Sub
 End Class

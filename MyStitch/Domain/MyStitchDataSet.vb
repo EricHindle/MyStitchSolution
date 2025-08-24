@@ -9,6 +9,8 @@ Partial Class MyStitchDataSet
 End Class
 
 Namespace MyStitchDataSetTableAdapters
+    Partial Public Class PalettesTableAdapter
+    End Class
 
     Partial Public Class ProjectsTableAdapter
     End Class

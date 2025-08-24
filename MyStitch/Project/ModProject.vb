@@ -26,8 +26,6 @@ Module ModProject
     Public Const ORIGIN_Y_FLD As Integer = 13
     Public Const TOTAL_MINUTES_FLD As Integer = 14
 
-
-
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
     Public isSaved As Boolean = True

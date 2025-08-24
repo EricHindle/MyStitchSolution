@@ -134,6 +134,8 @@
     <Compile Include="Domain\Builders\CellBuilder.vb" />
     <Compile Include="Domain\Builders\GlobalSettingBuilder.vb" />
     <Compile Include="Domain\Builders\KnotBuilder.vb" />
+    <Compile Include="Domain\Builders\PaletteBuilder.vb" />
+    <Compile Include="Domain\Builders\PaletteThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectCardThreadBuilder.vb" />
     <Compile Include="Domain\Builders\ProjectDesignBuilder.vb" />
@@ -154,6 +156,8 @@
     <Compile Include="Domain\Objects\Cell.vb" />
     <Compile Include="Domain\Objects\GlobalSetting.vb" />
     <Compile Include="Domain\Objects\Knot.vb" />
+    <Compile Include="Domain\Objects\Palette.vb" />
+    <Compile Include="Domain\Objects\PaletteThread.vb" />
     <Compile Include="Domain\Objects\Project.vb" />
     <Compile Include="Domain\Objects\ProjectCardThread.vb" />
     <Compile Include="Domain\Objects\ProjectDesign.vb" />
@@ -363,7 +367,9 @@
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Palettes\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
     <None Include="Resources\rotate.png" />

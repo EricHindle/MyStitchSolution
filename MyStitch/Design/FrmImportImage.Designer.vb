@@ -61,6 +61,8 @@ Partial Class FrmImportImage
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.TxtImagePath = New System.Windows.Forms.TextBox()
+        Me.BtnSavePalette = New System.Windows.Forms.Button()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.PnlForm.SuspendLayout()
         CType(Me.NudScaleFactor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,6 +75,10 @@ Partial Class FrmImportImage
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicImagePreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PnlForm
@@ -325,7 +331,7 @@ Partial Class FrmImportImage
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 667)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 22, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(1096, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1230, 22)
         Me.StatusStrip1.TabIndex = 128
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -339,14 +345,12 @@ Partial Class FrmImportImage
         '
         'PicDesign
         '
-        Me.PicDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicDesign.BackColor = System.Drawing.Color.White
-        Me.PicDesign.Location = New System.Drawing.Point(438, 15)
+        Me.PicDesign.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PicDesign.Location = New System.Drawing.Point(0, 0)
         Me.PicDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(495, 544)
+        Me.PicDesign.Size = New System.Drawing.Size(519, 540)
         Me.PicDesign.TabIndex = 133
         Me.PicDesign.TabStop = False
         '
@@ -358,7 +362,7 @@ Partial Class FrmImportImage
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(988, 582)
+        Me.BtnClose.Location = New System.Drawing.Point(1122, 582)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(93, 62)
@@ -402,10 +406,10 @@ Partial Class FrmImportImage
         '
         Me.PicImagePreview.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PicImagePreview.Location = New System.Drawing.Point(266, 15)
+        Me.PicImagePreview.Location = New System.Drawing.Point(269, 55)
         Me.PicImagePreview.Margin = New System.Windows.Forms.Padding(4)
         Me.PicImagePreview.Name = "PicImagePreview"
-        Me.PicImagePreview.Size = New System.Drawing.Size(163, 231)
+        Me.PicImagePreview.Size = New System.Drawing.Size(291, 313)
         Me.PicImagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicImagePreview.TabIndex = 137
         Me.PicImagePreview.TabStop = False
@@ -431,43 +435,78 @@ Partial Class FrmImportImage
         Me.Panel1.Location = New System.Drawing.Point(14, 377)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(416, 182)
+        Me.Panel1.Size = New System.Drawing.Size(244, 182)
         Me.Panel1.TabIndex = 139
         '
         'ThreadLayoutPanel
         '
-        Me.ThreadLayoutPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.ThreadLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(953, 15)
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 0)
         Me.ThreadLayoutPanel.Margin = New System.Windows.Forms.Padding(4)
         Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(128, 543)
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(121, 540)
         Me.ThreadLayoutPanel.TabIndex = 140
         '
         'TxtImagePath
         '
-        Me.TxtImagePath.Location = New System.Drawing.Point(266, 263)
+        Me.TxtImagePath.Location = New System.Drawing.Point(268, 17)
         Me.TxtImagePath.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtImagePath.Name = "TxtImagePath"
-        Me.TxtImagePath.Size = New System.Drawing.Size(163, 24)
+        Me.TxtImagePath.Size = New System.Drawing.Size(291, 24)
         Me.TxtImagePath.TabIndex = 141
+        '
+        'BtnSavePalette
+        '
+        Me.BtnSavePalette.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BtnSavePalette.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnSavePalette.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnSavePalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSavePalette.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnSavePalette.Location = New System.Drawing.Point(521, 582)
+        Me.BtnSavePalette.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnSavePalette.Name = "BtnSavePalette"
+        Me.BtnSavePalette.Size = New System.Drawing.Size(93, 62)
+        Me.BtnSavePalette.TabIndex = 142
+        Me.BtnSavePalette.Text = "Save Palette"
+        Me.BtnSavePalette.UseVisualStyleBackColor = False
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer1.Location = New System.Drawing.Point(566, 15)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.PicDesign)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ThreadLayoutPanel)
+        Me.SplitContainer1.Size = New System.Drawing.Size(652, 544)
+        Me.SplitContainer1.SplitterDistance = 523
+        Me.SplitContainer1.TabIndex = 143
         '
         'FrmImportImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1096, 689)
+        Me.ClientSize = New System.Drawing.Size(1230, 689)
+        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.BtnSavePalette)
         Me.Controls.Add(Me.TxtImagePath)
-        Me.Controls.Add(Me.ThreadLayoutPanel)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BtnSave)
         Me.Controls.Add(Me.PicImagePreview)
         Me.Controls.Add(Me.BtnImport)
         Me.Controls.Add(Me.BtnSelect)
         Me.Controls.Add(Me.BtnClose)
-        Me.Controls.Add(Me.PicDesign)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PnlForm)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -489,6 +528,10 @@ Partial Class FrmImportImage
         Me.StatusStrip1.PerformLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicImagePreview, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -525,4 +568,6 @@ Partial Class FrmImportImage
     Friend WithEvents LblSize As Label
     Friend WithEvents NudScaleFactor As NumericUpDown
     Friend WithEvents Label2 As Label
+    Friend WithEvents BtnSavePalette As Button
+    Friend WithEvents SplitContainer1 As SplitContainer
 End Class

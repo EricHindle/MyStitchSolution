@@ -7,8 +7,8 @@
 
 Imports System.ComponentModel
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain.Objects
 Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmDesignInfo
 #Region "properties"
     Private _selectedProject As Project
