@@ -495,6 +495,12 @@ Public Class FrmBackup
                     Case "ProjectWorkTimes"
                         _itemList.Add(BackupTable(GetProjectWorkTimesTable))
                         _isTableSaved = True
+                    Case "Palettes"
+                        _itemList.Add(BackupTable(GetPalettesTable))
+                        _isTableSaved = True
+                    Case "PaletteThreads"
+                        _itemList.Add(BackupTable(GetPaletteThreadsTable))
+                        _isTableSaved = True
                 End Select
                 If _isTableSaved Then
                     oNode.Checked = False
