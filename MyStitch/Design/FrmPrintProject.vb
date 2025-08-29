@@ -41,7 +41,11 @@ Public Class FrmPrintProject
         My.Settings.Save()
     End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
-        DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
+        Try
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
+        Catch ex As ApplicationException
+            LogUtil.ShowException(ex, "DisplayImage", LblStatus, MyBase.Name)
+        End Try
     End Sub
 #End Region
 #Region "subroutines"

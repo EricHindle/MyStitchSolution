@@ -31,6 +31,7 @@ Partial Class FrmImportImage
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmImportImage))
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.BtnClearForm = New System.Windows.Forms.Button()
         Me.LblSize = New System.Windows.Forms.Label()
         Me.NudScaleFactor = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -59,10 +60,18 @@ Partial Class FrmImportImage
         Me.PicImagePreview = New System.Windows.Forms.PictureBox()
         Me.BtnSave = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.BtnLoadPalette = New System.Windows.Forms.Button()
+        Me.BtnSavePalette = New System.Windows.Forms.Button()
+        Me.ChkStockOnly = New System.Windows.Forms.CheckBox()
+        Me.ChkPaletteOnly = New System.Windows.Forms.CheckBox()
         Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.TxtImagePath = New System.Windows.Forms.TextBox()
-        Me.BtnSavePalette = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RbCrosses = New System.Windows.Forms.RadioButton()
+        Me.RbBlocks = New System.Windows.Forms.RadioButton()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CbPalettes = New System.Windows.Forms.ComboBox()
         Me.PnlForm.SuspendLayout()
         CType(Me.NudScaleFactor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -75,14 +84,19 @@ Partial Class FrmImportImage
         Me.StatusStrip1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicImagePreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'PnlForm
         '
+        Me.PnlForm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PnlForm.Controls.Add(Me.BtnClearForm)
         Me.PnlForm.Controls.Add(Me.LblSize)
         Me.PnlForm.Controls.Add(Me.NudScaleFactor)
         Me.PnlForm.Controls.Add(Me.Label2)
@@ -106,8 +120,23 @@ Partial Class FrmImportImage
         Me.PnlForm.Location = New System.Drawing.Point(15, 15)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(5)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(243, 353)
-        Me.PnlForm.TabIndex = 127
+        Me.PnlForm.Size = New System.Drawing.Size(243, 394)
+        Me.PnlForm.TabIndex = 0
+        '
+        'BtnClearForm
+        '
+        Me.BtnClearForm.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClearForm.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClearForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClearForm.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClearForm.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClearForm.Location = New System.Drawing.Point(11, 354)
+        Me.BtnClearForm.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnClearForm.Name = "BtnClearForm"
+        Me.BtnClearForm.Size = New System.Drawing.Size(93, 29)
+        Me.BtnClearForm.TabIndex = 9
+        Me.BtnClearForm.Text = "Clear Form"
+        Me.BtnClearForm.UseVisualStyleBackColor = False
         '
         'LblSize
         '
@@ -131,7 +160,7 @@ Partial Class FrmImportImage
         Me.NudScaleFactor.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudScaleFactor.Name = "NudScaleFactor"
         Me.NudScaleFactor.Size = New System.Drawing.Size(66, 22)
-        Me.NudScaleFactor.TabIndex = 164
+        Me.NudScaleFactor.TabIndex = 1
         Me.NudScaleFactor.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label2
@@ -165,7 +194,7 @@ Partial Class FrmImportImage
         Me.NudFabricCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricCount.Name = "NudFabricCount"
         Me.NudFabricCount.Size = New System.Drawing.Size(66, 22)
-        Me.NudFabricCount.TabIndex = 162
+        Me.NudFabricCount.TabIndex = 8
         Me.NudFabricCount.Value = New Decimal(New Integer() {14, 0, 0, 0})
         '
         'Label12
@@ -187,7 +216,7 @@ Partial Class FrmImportImage
         Me.NudOriginY.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginY.Name = "NudOriginY"
         Me.NudOriginY.Size = New System.Drawing.Size(66, 22)
-        Me.NudOriginY.TabIndex = 155
+        Me.NudOriginY.TabIndex = 5
         '
         'Label13
         '
@@ -208,7 +237,7 @@ Partial Class FrmImportImage
         Me.NudOriginX.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginX.Name = "NudOriginX"
         Me.NudOriginX.Size = New System.Drawing.Size(66, 22)
-        Me.NudOriginX.TabIndex = 153
+        Me.NudOriginX.TabIndex = 4
         '
         'Label7
         '
@@ -230,7 +259,7 @@ Partial Class FrmImportImage
         Me.NudFabricHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricHeight.Name = "NudFabricHeight"
         Me.NudFabricHeight.Size = New System.Drawing.Size(66, 22)
-        Me.NudFabricHeight.TabIndex = 139
+        Me.NudFabricHeight.TabIndex = 7
         Me.NudFabricHeight.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label6
@@ -253,7 +282,7 @@ Partial Class FrmImportImage
         Me.NudFabricWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricWidth.Name = "NudFabricWidth"
         Me.NudFabricWidth.Size = New System.Drawing.Size(66, 22)
-        Me.NudFabricWidth.TabIndex = 137
+        Me.NudFabricWidth.TabIndex = 6
         Me.NudFabricWidth.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label5
@@ -276,7 +305,7 @@ Partial Class FrmImportImage
         Me.NudDesignHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignHeight.Name = "NudDesignHeight"
         Me.NudDesignHeight.Size = New System.Drawing.Size(66, 22)
-        Me.NudDesignHeight.TabIndex = 135
+        Me.NudDesignHeight.TabIndex = 3
         Me.NudDesignHeight.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label4
@@ -299,7 +328,7 @@ Partial Class FrmImportImage
         Me.NudDesignWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignWidth.Name = "NudDesignWidth"
         Me.NudDesignWidth.Size = New System.Drawing.Size(66, 22)
-        Me.NudDesignWidth.TabIndex = 133
+        Me.NudDesignWidth.TabIndex = 2
         Me.NudDesignWidth.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label1
@@ -307,7 +336,7 @@ Partial Class FrmImportImage
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(119, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(5, 21)
+        Me.Label1.Location = New System.Drawing.Point(10, 21)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(50, 19)
@@ -319,20 +348,20 @@ Partial Class FrmImportImage
         Me.TxtName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtName.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtName.Location = New System.Drawing.Point(74, 17)
+        Me.TxtName.Location = New System.Drawing.Point(75, 17)
         Me.TxtName.Margin = New System.Windows.Forms.Padding(5)
         Me.TxtName.Name = "TxtName"
-        Me.TxtName.Size = New System.Drawing.Size(157, 27)
-        Me.TxtName.TabIndex = 1
+        Me.TxtName.Size = New System.Drawing.Size(155, 27)
+        Me.TxtName.TabIndex = 0
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 667)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 552)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 22, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(1230, 22)
-        Me.StatusStrip1.TabIndex = 128
+        Me.StatusStrip1.TabIndex = 0
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'LblStatus
@@ -350,7 +379,7 @@ Partial Class FrmImportImage
         Me.PicDesign.Location = New System.Drawing.Point(0, 0)
         Me.PicDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(519, 540)
+        Me.PicDesign.Size = New System.Drawing.Size(483, 470)
         Me.PicDesign.TabIndex = 133
         Me.PicDesign.TabStop = False
         '
@@ -362,11 +391,11 @@ Partial Class FrmImportImage
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(1122, 582)
+        Me.BtnClose.Location = New System.Drawing.Point(1125, 499)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
-        Me.BtnClose.Size = New System.Drawing.Size(93, 62)
-        Me.BtnClose.TabIndex = 134
+        Me.BtnClose.Size = New System.Drawing.Size(93, 48)
+        Me.BtnClose.TabIndex = 6
         Me.BtnClose.Text = "Close"
         Me.BtnClose.UseVisualStyleBackColor = False
         '
@@ -378,11 +407,11 @@ Partial Class FrmImportImage
         Me.BtnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSelect.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelect.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSelect.Location = New System.Drawing.Point(18, 582)
+        Me.BtnSelect.Location = New System.Drawing.Point(15, 499)
         Me.BtnSelect.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSelect.Name = "BtnSelect"
-        Me.BtnSelect.Size = New System.Drawing.Size(93, 62)
-        Me.BtnSelect.TabIndex = 135
+        Me.BtnSelect.Size = New System.Drawing.Size(93, 48)
+        Me.BtnSelect.TabIndex = 3
         Me.BtnSelect.Text = "Select Image"
         Me.BtnSelect.UseVisualStyleBackColor = False
         '
@@ -394,11 +423,11 @@ Partial Class FrmImportImage
         Me.BtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnImport.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnImport.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnImport.Location = New System.Drawing.Point(182, 582)
+        Me.BtnImport.Location = New System.Drawing.Point(142, 499)
         Me.BtnImport.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnImport.Name = "BtnImport"
-        Me.BtnImport.Size = New System.Drawing.Size(93, 62)
-        Me.BtnImport.TabIndex = 136
+        Me.BtnImport.Size = New System.Drawing.Size(93, 48)
+        Me.BtnImport.TabIndex = 4
         Me.BtnImport.Text = "Import Image"
         Me.BtnImport.UseVisualStyleBackColor = False
         '
@@ -406,10 +435,11 @@ Partial Class FrmImportImage
         '
         Me.PicImagePreview.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PicImagePreview.Location = New System.Drawing.Point(269, 55)
+        Me.PicImagePreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PicImagePreview.Location = New System.Drawing.Point(269, 47)
         Me.PicImagePreview.Margin = New System.Windows.Forms.Padding(4)
         Me.PicImagePreview.Name = "PicImagePreview"
-        Me.PicImagePreview.Size = New System.Drawing.Size(291, 313)
+        Me.PicImagePreview.Size = New System.Drawing.Size(291, 362)
         Me.PicImagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicImagePreview.TabIndex = 137
         Me.PicImagePreview.TabStop = False
@@ -422,56 +452,100 @@ Partial Class FrmImportImage
         Me.BtnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSave.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSave.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSave.Location = New System.Drawing.Point(351, 582)
+        Me.BtnSave.Location = New System.Drawing.Point(269, 499)
         Me.BtnSave.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(93, 62)
-        Me.BtnSave.TabIndex = 138
+        Me.BtnSave.Size = New System.Drawing.Size(93, 48)
+        Me.BtnSave.TabIndex = 5
         Me.BtnSave.Text = "Save Design"
         Me.BtnSave.UseVisualStyleBackColor = False
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(14, 377)
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.CbPalettes)
+        Me.Panel1.Controls.Add(Me.BtnLoadPalette)
+        Me.Panel1.Controls.Add(Me.BtnSavePalette)
+        Me.Panel1.Location = New System.Drawing.Point(4, 386)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(244, 182)
-        Me.Panel1.TabIndex = 139
+        Me.Panel1.Size = New System.Drawing.Size(150, 80)
+        Me.Panel1.TabIndex = 1
         '
-        'ThreadLayoutPanel
+        'BtnLoadPalette
         '
-        Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.ThreadLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ThreadLayoutPanel.Margin = New System.Windows.Forms.Padding(4)
-        Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(121, 540)
-        Me.ThreadLayoutPanel.TabIndex = 140
-        '
-        'TxtImagePath
-        '
-        Me.TxtImagePath.Location = New System.Drawing.Point(268, 17)
-        Me.TxtImagePath.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtImagePath.Name = "TxtImagePath"
-        Me.TxtImagePath.Size = New System.Drawing.Size(291, 24)
-        Me.TxtImagePath.TabIndex = 141
+        Me.BtnLoadPalette.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnLoadPalette.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnLoadPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnLoadPalette.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnLoadPalette.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnLoadPalette.Location = New System.Drawing.Point(5, 6)
+        Me.BtnLoadPalette.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnLoadPalette.Name = "BtnLoadPalette"
+        Me.BtnLoadPalette.Size = New System.Drawing.Size(63, 40)
+        Me.BtnLoadPalette.TabIndex = 1
+        Me.BtnLoadPalette.Text = "Load Palette"
+        Me.BtnLoadPalette.UseVisualStyleBackColor = False
         '
         'BtnSavePalette
         '
-        Me.BtnSavePalette.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnSavePalette.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnSavePalette.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.BtnSavePalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSavePalette.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSavePalette.Location = New System.Drawing.Point(521, 582)
+        Me.BtnSavePalette.Location = New System.Drawing.Point(78, 5)
         Me.BtnSavePalette.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSavePalette.Name = "BtnSavePalette"
-        Me.BtnSavePalette.Size = New System.Drawing.Size(93, 62)
-        Me.BtnSavePalette.TabIndex = 142
+        Me.BtnSavePalette.Size = New System.Drawing.Size(63, 40)
+        Me.BtnSavePalette.TabIndex = 0
         Me.BtnSavePalette.Text = "Save Palette"
         Me.BtnSavePalette.UseVisualStyleBackColor = False
+        '
+        'ChkStockOnly
+        '
+        Me.ChkStockOnly.AutoSize = True
+        Me.ChkStockOnly.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkStockOnly.Location = New System.Drawing.Point(6, 46)
+        Me.ChkStockOnly.Name = "ChkStockOnly"
+        Me.ChkStockOnly.Size = New System.Drawing.Size(157, 18)
+        Me.ChkStockOnly.TabIndex = 1
+        Me.ChkStockOnly.Text = "Threads with stock only"
+        Me.ChkStockOnly.UseVisualStyleBackColor = True
+        '
+        'ChkPaletteOnly
+        '
+        Me.ChkPaletteOnly.AutoSize = True
+        Me.ChkPaletteOnly.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkPaletteOnly.Location = New System.Drawing.Point(6, 21)
+        Me.ChkPaletteOnly.Name = "ChkPaletteOnly"
+        Me.ChkPaletteOnly.Size = New System.Drawing.Size(136, 18)
+        Me.ChkPaletteOnly.TabIndex = 0
+        Me.ChkPaletteOnly.Text = "Palette threads only"
+        Me.ChkPaletteOnly.UseVisualStyleBackColor = True
+        '
+        'ThreadLayoutPanel
+        '
+        Me.ThreadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(4, 4)
+        Me.ThreadLayoutPanel.Margin = New System.Windows.Forms.Padding(4)
+        Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(150, 363)
+        Me.ThreadLayoutPanel.TabIndex = 0
+        '
+        'TxtImagePath
+        '
+        Me.TxtImagePath.Location = New System.Drawing.Point(269, 15)
+        Me.TxtImagePath.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtImagePath.Name = "TxtImagePath"
+        Me.TxtImagePath.Size = New System.Drawing.Size(291, 24)
+        Me.TxtImagePath.TabIndex = 8
         '
         'SplitContainer1
         '
@@ -484,24 +558,83 @@ Partial Class FrmImportImage
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.PicDesign)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.ThreadLayoutPanel)
-        Me.SplitContainer1.Size = New System.Drawing.Size(652, 544)
-        Me.SplitContainer1.SplitterDistance = 523
-        Me.SplitContainer1.TabIndex = 143
+        Me.SplitContainer1.Panel2.Controls.Add(Me.PicDesign)
+        Me.SplitContainer1.Size = New System.Drawing.Size(652, 474)
+        Me.SplitContainer1.SplitterDistance = 161
+        Me.SplitContainer1.TabIndex = 9
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.RbCrosses)
+        Me.GroupBox1.Controls.Add(Me.RbBlocks)
+        Me.GroupBox1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(15, 417)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(89, 72)
+        Me.GroupBox1.TabIndex = 1
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Display Style"
+        '
+        'RbCrosses
+        '
+        Me.RbCrosses.AutoSize = True
+        Me.RbCrosses.Location = New System.Drawing.Point(9, 45)
+        Me.RbCrosses.Name = "RbCrosses"
+        Me.RbCrosses.Size = New System.Drawing.Size(65, 18)
+        Me.RbCrosses.TabIndex = 1
+        Me.RbCrosses.Text = "Crosses"
+        Me.RbCrosses.UseVisualStyleBackColor = True
+        '
+        'RbBlocks
+        '
+        Me.RbBlocks.AutoSize = True
+        Me.RbBlocks.Checked = True
+        Me.RbBlocks.Location = New System.Drawing.Point(9, 21)
+        Me.RbBlocks.Name = "RbBlocks"
+        Me.RbBlocks.Size = New System.Drawing.Size(58, 18)
+        Me.RbBlocks.TabIndex = 0
+        Me.RbBlocks.TabStop = True
+        Me.RbBlocks.Text = "Blocks"
+        Me.RbBlocks.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.ChkPaletteOnly)
+        Me.GroupBox2.Controls.Add(Me.ChkStockOnly)
+        Me.GroupBox2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(116, 417)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(169, 72)
+        Me.GroupBox2.TabIndex = 2
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Thread selection"
+        '
+        'CbPalettes
+        '
+        Me.CbPalettes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CbPalettes.FormattingEnabled = True
+        Me.CbPalettes.Location = New System.Drawing.Point(5, 49)
+        Me.CbPalettes.Name = "CbPalettes"
+        Me.CbPalettes.Size = New System.Drawing.Size(136, 24)
+        Me.CbPalettes.TabIndex = 2
         '
         'FrmImportImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1230, 689)
+        Me.ClientSize = New System.Drawing.Size(1230, 574)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.BtnSavePalette)
         Me.Controls.Add(Me.TxtImagePath)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BtnSave)
         Me.Controls.Add(Me.PicImagePreview)
         Me.Controls.Add(Me.BtnImport)
@@ -528,10 +661,15 @@ Partial Class FrmImportImage
         Me.StatusStrip1.PerformLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicImagePreview, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -570,4 +708,13 @@ Partial Class FrmImportImage
     Friend WithEvents Label2 As Label
     Friend WithEvents BtnSavePalette As Button
     Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents BtnClearForm As Button
+    Friend WithEvents BtnLoadPalette As Button
+    Friend WithEvents ChkPaletteOnly As CheckBox
+    Friend WithEvents ChkStockOnly As CheckBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents RbCrosses As RadioButton
+    Friend WithEvents RbBlocks As RadioButton
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents CbPalettes As ComboBox
 End Class

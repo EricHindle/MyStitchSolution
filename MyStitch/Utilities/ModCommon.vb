@@ -218,12 +218,20 @@ Module ModCommon
                         End If
                         e.Handled = True
                     End If
-                Case Keys.I
+                Case Keys.D
                     If pFormType = FormType.Design Then
                         Using _designInfo As New FrmDesignInfo()
                             _designInfo.SelectedProject = oProject
                             _designInfo.Design = oProjectDesign
                             _designInfo.ShowDialog()
+                        End Using
+                        e.Handled = True
+                    End If
+                Case Keys.I
+                    If pFormType = FormType.Project Then
+                        ' Import Image
+                        Using _import As New FrmImportImage
+                            _import.ShowDialog()
                         End Using
                         e.Handled = True
                     End If

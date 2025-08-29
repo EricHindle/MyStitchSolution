@@ -162,13 +162,11 @@ Module ModDesign
         Dim pich As Single = oDesignBitmap.Height - picy
         Dim atX As Single = pX * iPixelsPerCell
         Dim atY As Single = pY * iPixelsPerCell
-
         rect = New Rectangle(picx, picy, picw, pich)
-
         Try
             e.Graphics.DrawImage(pImage, atX, atY, rect, GraphicsUnit.Pixel)
         Catch ex As Exception
-            Throw New ApplicationException("Cannot draw the coupon:" & vbCrLf & ex.Message)
+            Throw New ApplicationException("Cannot display the image:" & vbCrLf & ex.Message)
         End Try
     End Sub
     Public Sub ShowDesignInfo()

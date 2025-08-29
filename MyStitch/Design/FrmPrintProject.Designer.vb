@@ -72,6 +72,8 @@ Partial Class FrmPrintProject
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.NudCentreLines = New System.Windows.Forms.NumericUpDown()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.NudBackstitchLines = New System.Windows.Forms.NumericUpDown()
         Me.NudGrid10Lines = New System.Windows.Forms.NumericUpDown()
         Me.NudGrid1Lines = New System.Windows.Forms.NumericUpDown()
@@ -90,8 +92,6 @@ Partial Class FrmPrintProject
         Me.Label19 = New System.Windows.Forms.Label()
         Me.TxtTitle = New System.Windows.Forms.TextBox()
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
-        Me.NudCentreLines = New System.Windows.Forms.NumericUpDown()
-        Me.Label22 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         Me.PnlPageImage.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -106,12 +106,12 @@ Partial Class FrmPrintProject
         CType(Me.NudBottomMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudTopMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox4.SuspendLayout()
+        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudBackstitchLines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudGrid10Lines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudGrid1Lines, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudGrid5Lines, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
-        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -558,6 +558,25 @@ Partial Class FrmPrintProject
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Line Thickness"
         '
+        'NudCentreLines
+        '
+        Me.NudCentreLines.Location = New System.Drawing.Point(115, 127)
+        Me.NudCentreLines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NudCentreLines.Name = "NudCentreLines"
+        Me.NudCentreLines.Size = New System.Drawing.Size(48, 20)
+        Me.NudCentreLines.TabIndex = 4
+        Me.NudCentreLines.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(22, 129)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(64, 13)
+        Me.Label22.TabIndex = 159
+        Me.Label22.Text = "Centre lines"
+        '
         'NudBackstitchLines
         '
         Me.NudBackstitchLines.Location = New System.Drawing.Point(115, 100)
@@ -736,25 +755,6 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings.Text = "Save Settings"
         Me.BtnSaveSettings.UseVisualStyleBackColor = False
         '
-        'NudCentreLines
-        '
-        Me.NudCentreLines.Location = New System.Drawing.Point(115, 127)
-        Me.NudCentreLines.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NudCentreLines.Name = "NudCentreLines"
-        Me.NudCentreLines.Size = New System.Drawing.Size(48, 20)
-        Me.NudCentreLines.TabIndex = 4
-        Me.NudCentreLines.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(22, 129)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(64, 13)
-        Me.Label22.TabIndex = 159
-        Me.Label22.Text = "Centre lines"
-        '
         'FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -794,13 +794,13 @@ Partial Class FrmPrintProject
         CType(Me.NudTopMargin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudBackstitchLines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudGrid10Lines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudGrid1Lines, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudGrid5Lines, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        CType(Me.NudCentreLines, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

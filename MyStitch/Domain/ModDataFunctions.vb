@@ -475,16 +475,16 @@ Namespace Domain
             Return oProjectThreadTa.GetData()
         End Function
         Public Function InsertProjectThread(ByRef oProjectThread As ProjectThread)
-            LogUtil.LogInfo("Inserting project thread" & oProjectThread.ProjectId & ":" & CStr(oProjectThread.ThreadId), MethodBase.GetCurrentMethod.Name)
-            Dim newId As Integer = -1
+            '          LogUtil.LogInfo("Inserting project thread" & oProjectThread.ProjectId & ":" & CStr(oProjectThread.ThreadId), MethodBase.GetCurrentMethod.Name)
+            Dim rtn As Integer = -1
             Try
                 With oProjectThread
-                    newId = oProjectThreadTa.InsertProjectThread(.ProjectId, .ThreadId, .SymbolId, If(.IsUsed, 1, 0))
+                    rtn = oProjectThreadTa.InsertProjectThread(.ProjectId, .ThreadId, .SymbolId, If(.IsUsed, 1, 0))
                 End With
             Catch ex As SqlException
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
-            Return newId
+            Return rtn
         End Function
         Public Function GetProjectThreads(pProjectId) As ProjectThreadCollection
             Dim _threadCollection As New ProjectThreadCollection
@@ -847,6 +847,19 @@ Namespace Domain
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return newId
+        End Function
+
+        Public Function GetPaletteThreadsByPaletteId(pPaletteId As Integer) As List(Of PaletteThread)
+            Dim _list As New List(Of PaletteThread)
+            Try
+                oPaletteThreadsTa.FillByPaletteId(oPaletteThreadsTable, pPaletteId)
+                For Each oRow As MyStitchDataSet.PaletteThreadsRow In oPaletteThreadsTable.Rows
+                    _list.Add(PaletteThreadBuilder.APaletteThread.StartingWith(oRow).Build)
+                Next
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return _list
         End Function
 #End Region
     End Module

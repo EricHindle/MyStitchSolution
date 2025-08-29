@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 Imports System.Drawing.Imaging
+Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -504,7 +505,12 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
-        DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
+        Try
+            DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
+        Catch ex As ApplicationException
+
+            LogUtil.LogException(ex, "Error displaying design image", MethodBase.GetCurrentMethod.Name)
+        End Try
         If isBackstitchInProgress Then
             e.Graphics.DrawLine(_backstitchPen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
         End If

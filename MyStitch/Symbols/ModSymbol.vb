@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 Imports MyStitch.Domain.Objects
-
 Module ModSymbol
     Public Sub OpenSymbolsForm()
         Using _symbols As New FrmSymbols
