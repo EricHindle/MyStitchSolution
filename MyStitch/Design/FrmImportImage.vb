@@ -392,7 +392,11 @@ Public Class FrmImportImage
 
     Private Sub ClearForm()
         isSizeChanging = True
-        FillPaletteList()
+        Try
+            FillPaletteList(CbPalettes)
+        Catch ex As ApplicationException
+            LogUtil.ShowException(ex, ex.Message, LblStatus, "FillPaletteList")
+        End Try
         oProjectDesign = Nothing
         oDesignBitmap = Nothing
         oDesignGraphics = Nothing
@@ -419,20 +423,7 @@ Public Class FrmImportImage
         oPaletteList.Clear()
         ThreadLayoutPanel.Controls.Clear()
     End Sub
-    Private Sub FillPaletteList()
-        Dim oTa As New MyStitchDataSetTableAdapters.PalettesTableAdapter
-        Dim oTable As New MyStitchDataSet.PalettesDataTable
-        Try
-            oTa.Fill(oTable)
-        Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                                OrElse TypeOf ex Is FileNotFoundException _
-                                OrElse TypeOf ex Is OutOfMemoryException)
-            LogUtil.ShowException(ex, "PaletteTableFill", LblStatus, MethodBase.GetCurrentMethod.Name)
-        End Try
-        CbPalettes.DataSource = oTable
-        CbPalettes.DisplayMember = "palette_name"
-        CbPalettes.ValueMember = "palette_id"
-    End Sub
+
     Private Sub ChkStockOnly_CheckedChanged(sender As Object, e As EventArgs) Handles ChkStockOnly.CheckedChanged
         If Not isLoading Then
             LoadThreads()

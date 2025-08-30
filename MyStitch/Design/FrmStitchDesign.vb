@@ -298,11 +298,10 @@ Public Class FrmStitchDesign
                         For Each _control As Control In ThreadLayoutPanel.Controls
                             Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
                             If _colourBox IsNot Nothing Then
+                                _colourBox.BorderStyle = BorderStyle.None
+                                _colourBox.BackgroundImage = Nothing
                                 If CInt(_colourBox.Name) = _projectThread.ThreadId Then
-                                    _colourBox.BorderStyle = BorderStyle.Fixed3D
                                     SelectPaletteColour(_colourBox)
-                                Else
-                                    _colourBox.BorderStyle = BorderStyle.None
                                 End If
                             End If
                         Next
@@ -577,9 +576,6 @@ Public Class FrmStitchDesign
     Private Sub MnuExit_Click(sender As Object, e As EventArgs) Handles MnuExit.Click
         Close()
     End Sub
-    Private Sub MnuThreads_Click(sender As Object, e As EventArgs) Handles MnuThreads.Click
-        OpenProjectThreadsForm()
-    End Sub
     Private Sub MnuThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuThreadSymbols.Click
         If oProject.ProjectId > 0 Then
             LogUtil.Info("Opening Project ProjectThread Symbols form", MyBase.Name)
@@ -595,19 +591,6 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub MnuGridOn_Click(sender As Object, e As EventArgs) Handles MnuGridOn.Click
         ToggleGrid()
-    End Sub
-    Private Sub MnuSelectPaletteColours_Click(sender As Object, e As EventArgs) Handles MnuSelectPaletteColours.Click
-        OpenProjectThreadsForm()
-    End Sub
-    Private Sub MnuRemoveUnusedColours_Click(sender As Object, e As EventArgs) Handles MnuRemoveUnusedColours.Click
-        RemoveUnusedThreads()
-        InitialisePalette()
-    End Sub
-    Private Sub MnuCreateThreadCards_Click(sender As Object, e As EventArgs) Handles MnuCreateThreadCards.Click
-        OpenBuildCardsForm(oProject)
-    End Sub
-    Private Sub MnuPrintThreadCards_Click(sender As Object, e As EventArgs) Handles MnuPrintThreadCards.Click
-        OpenPrintCardsForm()
     End Sub
     Private Sub MnuCopySelection_Click(sender As Object, e As EventArgs) Handles MnuCopySelection.Click
         BeginCopy()
@@ -690,26 +673,38 @@ Public Class FrmStitchDesign
     Private Sub MnuEllipse_Click(sender As Object, e As EventArgs) Handles MnuEllipse.Click
         BeginDrawShape(ShapeType.Ellipse)
     End Sub
-
     Private Sub MnuRectangle_Click(sender As Object, e As EventArgs) Handles MnuRectangle.Click
         BeginDrawShape(ShapeType.Rectangle)
     End Sub
-
     Private Sub MnuFilledEllipse_Click(sender As Object, e As EventArgs) Handles MnuFilledEllipse.Click
         BeginDrawShape(ShapeType.FilledEllipse)
     End Sub
-
     Private Sub MnuFilledRecangle_Click(sender As Object, e As EventArgs) Handles MnuFilledRecangle.Click
         BeginDrawShape(ShapeType.FilledRectangle)
     End Sub
-
     Private Sub MnuSymbols_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
         OpenSymbolsForm()
         InitialisePalette()
     End Sub
-
     Private Sub MnuShow_Click(sender As Object, e As EventArgs) Handles MnuShow.Click
-        ShowDesignInfo
+        ShowDesignInfo()
+    End Sub
+    Private Sub MnuSelectColours_Click(sender As Object, e As EventArgs) Handles MnuSelectColours.Click
+        OpenProjectThreadsForm()
+    End Sub
+    Private Sub MnuRemoveUnused_Click(sender As Object, e As EventArgs) Handles MnuRemoveUnused.Click
+        RemoveUnusedThreads()
+        InitialisePalette()
+    End Sub
+    Private Sub MnuSavePalette_Click(sender As Object, e As EventArgs) Handles MnuSavePalette.Click
+
+    End Sub
+    Private Sub MnuThreadCards_Click(sender As Object, e As EventArgs) Handles MnuThreadCards.Click
+
+        OpenBuildCardsForm(oProject)
+    End Sub
+    Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
+        OpenPrintCardsForm()
     End Sub
 #End Region
 #Region "stitch buttons"

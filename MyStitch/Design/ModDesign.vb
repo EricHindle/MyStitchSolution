@@ -5,7 +5,9 @@
 ' Author Eric Hindle
 '
 
+Imports System.CodeDom
 Imports System.Drawing.Imaging
+Imports System.IO
 Imports System.Reflection
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
@@ -742,6 +744,21 @@ Module ModDesign
     Public Sub RemoveUnusedThreads()
         LogUtil.LogInfo("Removing unused threads", MethodBase.GetCurrentMethod.Name)
         DetermineUsedThreads(True)
+    End Sub
+    Public Sub FillPaletteList(pPaletteList As ComboBox)
+        Dim oTa As New MyStitchDataSetTableAdapters.PalettesTableAdapter
+        Dim oTable As New MyStitchDataSet.PalettesDataTable
+        Try
+            oTa.Fill(oTable)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is FileNotFoundException _
+                                OrElse TypeOf ex Is OutOfMemoryException)
+            Throw New ApplicationException("Error filling palettes list", ex)
+        End Try
+        pPaletteList.DataSource = oTable
+        pPaletteList.DisplayMember = "palette_name"
+        pPaletteList.ValueMember = "palette_id"
+        pPaletteList.SelectedIndex = -1
     End Sub
     Public Function CheckPalette() As Boolean
         LogUtil.LogInfo("Checking palette", MethodBase.GetCurrentMethod.Name)

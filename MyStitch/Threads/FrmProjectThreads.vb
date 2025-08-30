@@ -84,6 +84,11 @@ Public Class FrmProjectThreads
         PnlThreads.Visible = False
         LoadProjectList(DgvProjects, MyBase.Name)
         DgvProjects.ClearSelection()
+        Try
+            FillPaletteList(CbPalettes)
+        Catch ex As Exception
+            LogUtil.ShowException(ex, ex.Message, LblStatus, "FillPaletteList")
+        End Try
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         isLoading = False
         If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
@@ -241,7 +246,11 @@ Public Class FrmProjectThreads
     End Sub
 
     Private Sub BtnCopy_Click(sender As Object, e As EventArgs) Handles BtnCopy.Click
-        My.Computer.Clipboard.SetText(TxtPaletteList.Text)
+        If Not String.IsNullOrEmpty(TxtPaletteList.Text) Then
+            My.Computer.Clipboard.SetText(TxtPaletteList.Text)
+        Else
+            My.Computer.Clipboard.Clear()
+        End If
     End Sub
 
     Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
@@ -252,11 +261,11 @@ Public Class FrmProjectThreads
         SetAllThreadSelections(True)
     End Sub
 
-    Private Sub BtnImport_Click(sender As Object, e As EventArgs) Handles BtnImport.Click
-        Dim _importThreads As List(Of Thread) = CreateListOfThreadsFromPaletteList()
+    Private Sub BtnLoadThreadList_Click(sender As Object, e As EventArgs) Handles BtnLoadThreadList.Click
+        Dim _importThreads As List(Of Thread) = CreateListOfThreadsFromThreadList()
     End Sub
 
-    Private Function CreateListOfThreadsFromPaletteList() As List(Of Thread)
+    Private Function CreateListOfThreadsFromThreadList() As List(Of Thread)
         Dim _threads As New List(Of Thread)
         Dim _numberList As String() = TxtPaletteList.Text.Split(",")
         For Each _number As String In _numberList
@@ -273,7 +282,7 @@ Public Class FrmProjectThreads
             End If
         Next
         If Not _isFound Then
-            MsgBox("ProjectThread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
+            MsgBox("Thread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
         End If
     End Sub
 
@@ -282,6 +291,22 @@ Public Class FrmProjectThreads
             _symbols.SelectedProject = _selectedProject
             _symbols.ShowDialog()
         End Using
+    End Sub
+
+    Private Sub BtnLoadPalette_Click(sender As Object, e As EventArgs) Handles BtnLoadPalette.Click
+        If CbPalettes.SelectedIndex >= 0 Then
+            Dim _threads As List(Of PaletteThread) = GetPaletteThreadsByPaletteId(CbPalettes.SelectedValue)
+            If _threads IsNot Nothing AndAlso _threads.Count > 0 Then
+                SetAllThreadSelections(False)
+                For Each oThread As PaletteThread In _threads
+                    SelectThreadInTable(DgvThreads, oThread.Thread.ThreadNo)
+                Next
+            Else
+                LogUtil.ShowStatus("No threads in palette", LblStatus, True)
+            End If
+        Else
+            LogUtil.ShowStatus("No palette selected", LblStatus, True)
+        End If
     End Sub
 #End Region
 

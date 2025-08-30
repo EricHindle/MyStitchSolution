@@ -102,16 +102,17 @@ Partial Class FrmStitchDesign
         Me.MnuPrint = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuPalette = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuProjectPalette = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuSelectPaletteColours = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuRemoveUnusedColours = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuCreateThreadCards = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuPrintThreadCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSelectColours = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuRemoveUnused = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSavePalette = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator19 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator16 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuThreadCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPrintCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuPickColour = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuChangeColour = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuDeleteColour = New System.Windows.Forms.ToolStripMenuItem()
@@ -1058,7 +1059,7 @@ Partial Class FrmStitchDesign
         'MenuStrip1
         '
         Me.MenuStrip1.BackgroundImage = CType(resources.GetObject("MenuStrip1.BackgroundImage"), System.Drawing.Image)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuThreads, Me.MnuPalette, Me.MnuEdit, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuPalette, Me.MnuThreads, Me.MnuEdit, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(865, 24)
@@ -1112,83 +1113,88 @@ Partial Class FrmStitchDesign
         Me.MnuExit.Size = New System.Drawing.Size(123, 22)
         Me.MnuExit.Text = "Exit"
         '
-        'MnuThreads
-        '
-        Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(61, 20)
-        Me.MnuThreads.Text = "Threads"
-        '
         'MnuPalette
         '
-        Me.MnuPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuProjectPalette, Me.MnuSymbols, Me.MnuThreadSymbols, Me.ToolStripSeparator16, Me.MnuPickColour, Me.MnuChangeColour, Me.MnuDeleteColour})
+        Me.MnuPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuSelectColours, Me.MnuRemoveUnused, Me.MnuSavePalette, Me.ToolStripSeparator19, Me.MnuSymbols, Me.MnuThreadSymbols, Me.ToolStripSeparator16, Me.MnuThreadCards, Me.MnuPrintCards})
         Me.MnuPalette.Name = "MnuPalette"
         Me.MnuPalette.Size = New System.Drawing.Size(55, 20)
         Me.MnuPalette.Text = "Palette"
         '
-        'MnuProjectPalette
+        'MnuSelectColours
         '
-        Me.MnuProjectPalette.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuSelectPaletteColours, Me.MnuRemoveUnusedColours, Me.MnuCreateThreadCards, Me.MnuPrintThreadCards})
-        Me.MnuProjectPalette.Name = "MnuProjectPalette"
-        Me.MnuProjectPalette.Size = New System.Drawing.Size(196, 22)
-        Me.MnuProjectPalette.Text = "Project Palette"
+        Me.MnuSelectColours.Name = "MnuSelectColours"
+        Me.MnuSelectColours.Size = New System.Drawing.Size(230, 22)
+        Me.MnuSelectColours.Text = "Select Colours"
         '
-        'MnuSelectPaletteColours
+        'MnuRemoveUnused
         '
-        Me.MnuSelectPaletteColours.Name = "MnuSelectPaletteColours"
-        Me.MnuSelectPaletteColours.Size = New System.Drawing.Size(218, 22)
-        Me.MnuSelectPaletteColours.Text = "Select Colours"
+        Me.MnuRemoveUnused.Name = "MnuRemoveUnused"
+        Me.MnuRemoveUnused.Size = New System.Drawing.Size(230, 22)
+        Me.MnuRemoveUnused.Text = "Remove Unused Colours"
         '
-        'MnuRemoveUnusedColours
+        'MnuSavePalette
         '
-        Me.MnuRemoveUnusedColours.Name = "MnuRemoveUnusedColours"
-        Me.MnuRemoveUnusedColours.Size = New System.Drawing.Size(218, 22)
-        Me.MnuRemoveUnusedColours.Text = "Remove Unused Colours"
+        Me.MnuSavePalette.Name = "MnuSavePalette"
+        Me.MnuSavePalette.Size = New System.Drawing.Size(230, 22)
+        Me.MnuSavePalette.Text = "Save Palette"
         '
-        'MnuCreateThreadCards
+        'ToolStripSeparator19
         '
-        Me.MnuCreateThreadCards.Name = "MnuCreateThreadCards"
-        Me.MnuCreateThreadCards.Size = New System.Drawing.Size(218, 22)
-        Me.MnuCreateThreadCards.Text = "Create ProjectThread Cards"
-        '
-        'MnuPrintThreadCards
-        '
-        Me.MnuPrintThreadCards.Name = "MnuPrintThreadCards"
-        Me.MnuPrintThreadCards.Size = New System.Drawing.Size(218, 22)
-        Me.MnuPrintThreadCards.Text = "Print ProjectThread Cards"
+        Me.ToolStripSeparator19.Name = "ToolStripSeparator19"
+        Me.ToolStripSeparator19.Size = New System.Drawing.Size(227, 6)
         '
         'MnuSymbols
         '
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(196, 22)
-        Me.MnuSymbols.Text = "Symbols"
+        Me.MnuSymbols.Size = New System.Drawing.Size(230, 22)
+        Me.MnuSymbols.Text = "Design Symbols"
         '
         'MnuThreadSymbols
         '
         Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
-        Me.MnuThreadSymbols.Size = New System.Drawing.Size(196, 22)
-        Me.MnuThreadSymbols.Text = "ProjectThread Symbols"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(230, 22)
+        Me.MnuThreadSymbols.Text = "Select ProjectThread Symbols"
         '
         'ToolStripSeparator16
         '
         Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
-        Me.ToolStripSeparator16.Size = New System.Drawing.Size(193, 6)
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(227, 6)
+        '
+        'MnuThreadCards
+        '
+        Me.MnuThreadCards.Name = "MnuThreadCards"
+        Me.MnuThreadCards.Size = New System.Drawing.Size(230, 22)
+        Me.MnuThreadCards.Text = "Create ProjectThread Cards"
+        '
+        'MnuPrintCards
+        '
+        Me.MnuPrintCards.Name = "MnuPrintCards"
+        Me.MnuPrintCards.Size = New System.Drawing.Size(230, 22)
+        Me.MnuPrintCards.Text = "Print ProjectThread Cards"
+        '
+        'MnuThreads
+        '
+        Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPickColour, Me.MnuChangeColour, Me.MnuDeleteColour})
+        Me.MnuThreads.Name = "MnuThreads"
+        Me.MnuThreads.Size = New System.Drawing.Size(101, 20)
+        Me.MnuThreads.Text = "Project Threads"
         '
         'MnuPickColour
         '
         Me.MnuPickColour.Name = "MnuPickColour"
-        Me.MnuPickColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuPickColour.Size = New System.Drawing.Size(194, 22)
         Me.MnuPickColour.Text = "Pick colour from stitch"
         '
         'MnuChangeColour
         '
         Me.MnuChangeColour.Name = "MnuChangeColour"
-        Me.MnuChangeColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuChangeColour.Size = New System.Drawing.Size(194, 22)
         Me.MnuChangeColour.Text = "Change colour"
         '
         'MnuDeleteColour
         '
         Me.MnuDeleteColour.Name = "MnuDeleteColour"
-        Me.MnuDeleteColour.Size = New System.Drawing.Size(196, 22)
+        Me.MnuDeleteColour.Size = New System.Drawing.Size(194, 22)
         Me.MnuDeleteColour.Text = "Delete colour"
         '
         'MnuEdit
@@ -1419,30 +1425,30 @@ Partial Class FrmStitchDesign
         'MnuCropDesign
         '
         Me.MnuCropDesign.Name = "MnuCropDesign"
-        Me.MnuCropDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCropDesign.Size = New System.Drawing.Size(116, 22)
         Me.MnuCropDesign.Text = "Crop"
         '
         'MnuExtendDesign
         '
         Me.MnuExtendDesign.Name = "MnuExtendDesign"
-        Me.MnuExtendDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuExtendDesign.Size = New System.Drawing.Size(116, 22)
         Me.MnuExtendDesign.Text = "Extend"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(113, 6)
         '
         'MnuOptions
         '
         Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
+        Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
         Me.MnuOptions.Text = "Options"
         '
         'MnuShow
         '
         Me.MnuShow.Name = "MnuShow"
-        Me.MnuShow.Size = New System.Drawing.Size(180, 22)
+        Me.MnuShow.Size = New System.Drawing.Size(116, 22)
         Me.MnuShow.Text = "Info"
         '
         'FrmStitchDesign
@@ -1550,11 +1556,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuExit As ToolStripMenuItem
     Friend WithEvents MnuThreads As ToolStripMenuItem
     Friend WithEvents MnuPalette As ToolStripMenuItem
-    Friend WithEvents MnuProjectPalette As ToolStripMenuItem
-    Friend WithEvents MnuSelectPaletteColours As ToolStripMenuItem
-    Friend WithEvents MnuRemoveUnusedColours As ToolStripMenuItem
-    Friend WithEvents MnuCreateThreadCards As ToolStripMenuItem
-    Friend WithEvents MnuPrintThreadCards As ToolStripMenuItem
     Friend WithEvents MnuSymbols As ToolStripMenuItem
     Friend WithEvents MnuThreadSymbols As ToolStripMenuItem
     Friend WithEvents MnuEdit As ToolStripMenuItem
@@ -1598,9 +1599,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents BtnSingleColour As ToolStripButton
     Friend WithEvents MnuSingleColour As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator16 As ToolStripSeparator
-    Friend WithEvents MnuPickColour As ToolStripMenuItem
-    Friend WithEvents MnuChangeColour As ToolStripMenuItem
-    Friend WithEvents MnuDeleteColour As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
     Friend WithEvents MnuPrint As ToolStripMenuItem
     Friend WithEvents BtnSave As ToolStripButton
@@ -1612,4 +1610,13 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuFilledEllipse As ToolStripMenuItem
     Friend WithEvents MnuFilledRecangle As ToolStripMenuItem
     Friend WithEvents MnuShow As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator19 As ToolStripSeparator
+    Friend WithEvents MnuSelectColours As ToolStripMenuItem
+    Friend WithEvents MnuRemoveUnused As ToolStripMenuItem
+    Friend WithEvents MnuThreadCards As ToolStripMenuItem
+    Friend WithEvents MnuPrintCards As ToolStripMenuItem
+    Friend WithEvents MnuPickColour As ToolStripMenuItem
+    Friend WithEvents MnuChangeColour As ToolStripMenuItem
+    Friend WithEvents MnuDeleteColour As ToolStripMenuItem
+    Friend WithEvents MnuSavePalette As ToolStripMenuItem
 End Class

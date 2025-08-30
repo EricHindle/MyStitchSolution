@@ -192,6 +192,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property copyicon() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("copyicon", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property cross_stitch() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("cross_stitch", resourceCulture)
@@ -415,6 +425,16 @@ Namespace My.Resources
         Friend ReadOnly Property move() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("move", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property paste() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("paste", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

@@ -372,6 +372,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\paste.png" />
+    <None Include="Resources\copyicon.png" />
     <None Include="Resources\rotate.png" />
     <None Include="Resources\mirror.png" />
     <None Include="Resources\flip.png" />
