@@ -227,6 +227,11 @@ Module ModCommon
                         End Using
                         e.Handled = True
                     End If
+                Case Keys.P
+                    If pFormType = FormType.Design Then
+                        OpenPrintForm(_form, oProject)
+                        e.Handled = True
+                    End If
                 Case Keys.I
                     If pFormType = FormType.Project Then
                         ' Import Image

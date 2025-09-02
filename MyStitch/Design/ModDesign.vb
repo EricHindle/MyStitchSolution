@@ -9,6 +9,7 @@ Imports System.CodeDom
 Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Reflection
+Imports System.Windows
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
@@ -799,6 +800,15 @@ Module ModDesign
             .Build
         InsertProjectThread(_pt)
     End Sub
-
+    Public Sub OpenPrintForm(pForm As Form, pProject As Project)
+        If pProject.IsLoaded Then
+            pForm.Hide()
+            Using _printDialog As New FrmPrintProject
+                _printDialog.PrintProject = pProject
+                _printDialog.ShowDialog()
+            End Using
+            pForm.Show()
+        End If
+    End Sub
 #End Region
 End Module

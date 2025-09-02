@@ -546,6 +546,13 @@ Public Class FrmStitchDesign
         Dim _picBox As PictureBox = CType(sender, PictureBox)
         SelectPaletteColour(_picBox)
     End Sub
+    Private Sub BtnCancelPalette_Click(sender As Object, e As EventArgs) Handles BtnCancelPalette.Click
+        PnlPaletteName.Visible = False
+    End Sub
+    Private Sub BtnSavePalette_Click(sender As Object, e As EventArgs) Handles BtnSavePalette.Click
+        SaveProjectThreadsAsPalette
+        PnlPaletteName.Visible = False
+    End Sub
 #End Region
 #Region "menus"
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
@@ -697,7 +704,7 @@ Public Class FrmStitchDesign
         InitialisePalette()
     End Sub
     Private Sub MnuSavePalette_Click(sender As Object, e As EventArgs) Handles MnuSavePalette.Click
-
+        GetPaletteName()
     End Sub
     Private Sub MnuThreadCards_Click(sender As Object, e As EventArgs) Handles MnuThreadCards.Click
 
@@ -993,6 +1000,7 @@ Public Class FrmStitchDesign
         End If
         PicDesign.Enabled = True
         InitialiseTimer()
+        CalculateOffsetForCentre(oDesignBitmap)
         isLoading = False
     End Sub
     Friend Sub LoadDesignSettings()
@@ -1201,13 +1209,31 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub ShowPrintForm()
-        Hide()
-        Using _printDialog As New FrmPrintProject
-            _printDialog.ProjectId = oProject.ProjectId
-            _printDialog.ShowDialog()
-        End Using
-        Show()
-        InitialiseForm()
+        OpenPrintForm(Me, oProject)
+    End Sub
+    Private Sub GetPaletteName()
+        PnlPaletteName.Location = New Point(PicDesign.Location.X + 100, PicDesign.Location.Y + 100)
+        TxtPaletteName.Text = oProject.ProjectName
+        PnlPaletteName.Visible = True
+    End Sub
+    Private Sub SaveProjectThreadsAsPalette()
+        LogUtil.ShowStatus("Saving palette", LblStatus, MyBase.Name)
+        If Not String.IsNullOrEmpty(TxtPaletteName.Text.Trim) Then
+            Dim _paletteId As Integer = InsertPalette(TxtPaletteName.Text.Trim)
+            SavePaletteThreads(_paletteId)
+        Else
+            LogUtil.ShowStatus("No palette name", LblStatus, MyBase.Name)
+        End If
+    End Sub
+    Private Sub SavePaletteThreads(pPaletteId As Integer)
+        For Each _thread As ProjectThread In oProjectThreads.Threads
+            Dim _paletteThread As PaletteThread = PaletteThreadBuilder.APaletteThread.StartingWithNothing _
+                .WithThreadId(_thread.ThreadId) _
+                .WithPaletteId(pPaletteId) _
+                .WithSymbolId(_thread.SymbolId) _
+                .Build
+            InsertPaletteThread(_paletteThread)
+        Next
     End Sub
 #Region "mouse action"
     Private Sub StartSelection(pCell As Cell)
@@ -1398,8 +1424,10 @@ Public Class FrmStitchDesign
         Dim start_x As Integer = Math.Floor(e.X) + (topcorner.X - iXOffset) * iPixelsPerCell
         Dim start_y As Integer = Math.Floor(e.Y) + (topcorner.Y - iYOffset) * iPixelsPerCell
         Dim _colour As Color = Color.FromArgb(oProject.FabricColour)
-        If start_x > 0 AndAlso start_x < oDesignBitmap.Width AndAlso start_y > 0 AndAlso start_y < oDesignBitmap.Height Then
-            _colour = oDesignBitmap.GetPixel(start_x, start_y)
+        If oDesignBitmap IsNot Nothing Then
+            If start_x > 0 AndAlso start_x < oDesignBitmap.Width AndAlso start_y > 0 AndAlso start_y < oDesignBitmap.Height Then
+                _colour = oDesignBitmap.GetPixel(start_x, start_y)
+            End If
         End If
         Return _colour
     End Function
@@ -2270,7 +2298,6 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
-
 #End Region
 #End Region
 End Class

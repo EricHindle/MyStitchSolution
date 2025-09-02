@@ -8,12 +8,13 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmPrintProject
 #Region "properties"
-    Private oProjectId As Integer
-    Public WriteOnly Property ProjectId() As Integer
-        Set(ByVal value As Integer)
-            oProjectId = value
+    Private oPrintProject As Project
+    Public WriteOnly Property PrintProject() As Project
+        Set(ByVal value As Project)
+            oPrintProject = value
         End Set
     End Property
 
@@ -36,7 +37,6 @@ Public Class FrmPrintProject
         Me.Close()
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        oDesignBitmap = Nothing
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -52,7 +52,6 @@ Public Class FrmPrintProject
     Private Sub InitialiseForm()
         isComponentInitialised = True
         isLoading = True
-        oProject = GetProjectById(oProjectId)
         BtnPrint.Enabled = False
         LoadFormFromSettings()
         If oProject IsNot Nothing AndAlso oProject.IsLoaded Then
@@ -118,11 +117,11 @@ Public Class FrmPrintProject
         My.Settings.Save()
     End Sub
     Private Sub LoadFormFromProject()
-        TxtTitle.Text = oProject.ProjectName
-        oProjectThreads = GetProjectThreads(oProject.ProjectId)
+        TxtTitle.Text = oPrintProject.ProjectName
+        oProjectThreads = GetProjectThreads(oPrintProject.ProjectId)
         Dim _isPaletteChanged As Boolean
         LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn, _isPaletteChanged)
-        AdjustMagnification()
+        '       AdjustMagnification()
     End Sub
     Private Sub AdjustMagnification()
         isLoading = True
@@ -169,7 +168,7 @@ Public Class FrmPrintProject
         oGrid1width = NudGrid1Lines.Value
         oGrid5width = NudGrid5Lines.Value
         oGrid10width = NudGrid10Lines.Value
-        oCentrePenWidth = nudcentreLines.Value
+        oCentrePenWidth = NudCentreLines.Value
         Dim _paperKind As PaperKind = PaperKind.A4
         myPrintDoc = New PrintDocument
         ' Set default paper size

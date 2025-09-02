@@ -143,8 +143,8 @@ Public Class FrmImportImage
     Private Sub BtnSavePalette_Click(sender As Object, e As EventArgs) Handles BtnSavePalette.Click
         LogUtil.ShowStatus("Saving palette", LblStatus, MyBase.Name)
         If Not String.IsNullOrEmpty(TxtName.Text) Then
-            Dim _paletteId As Integer = SavePalette()
-            SavePaletteThreads(_paletteId)
+            Dim _paletteId As Integer = InsertPalette(TxtName.Text)
+            SaveImportPaletteThreads(_paletteId)
             LogUtil.ShowStatus("Palette saved", LblStatus, MyBase.Name)
         Else
             LogUtil.ShowStatus("No project name entered", LblStatus, True)
@@ -236,9 +236,7 @@ Public Class FrmImportImage
         End If
         Return _project
     End Function
-    Private Function SavePalette() As Integer
-        Return InsertPalette(TxtName.Text)
-    End Function
+
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
@@ -365,7 +363,7 @@ Public Class FrmImportImage
         Return _allSymbols.Where(Function(x) Not _usedSymbolIds.Contains(x.SymbolId)).ToList()
     End Function
 
-    Private Sub SavePaletteThreads(pPaletteId As Integer)
+    Private Sub SaveImportPaletteThreads(pPaletteId As Integer)
         Randomize()
         oSymbolList = GetAllAvailableSymbols()
         For Each _thread In oPaletteList

@@ -413,12 +413,7 @@ Public Class FrmProject
 
     Private Sub ShowPrintForm()
         If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
-            oProject = _selectedProject
-            Using _printDialog As New FrmPrintProject
-                _printDialog.ProjectId = _selectedProject.ProjectId
-                _printDialog.ShowDialog()
-            End Using
-            SelectProjectInList(DgvProjects, oProject.ProjectId)
+            OpenPrintForm(Me, _selectedProject)
         Else
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
