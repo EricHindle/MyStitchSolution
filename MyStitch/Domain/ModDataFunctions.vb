@@ -409,7 +409,7 @@ Namespace Domain
 
 #End Region
 #Region "projectthreadcards"
-        Public Sub DeleteProjectThread(pProjectThread As ProjectThread)
+        Public Sub DeleteProjectThread(ByRef pProjectThread As ProjectThread)
             LogUtil.LogInfo("Deleting " & pProjectThread.ProjectId & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
             Try
                 oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.ProjectId, pProjectThread.Thread.ThreadId)
@@ -544,7 +544,7 @@ Namespace Domain
             End Try
             Return isOk
         End Function
-        Public Function UpdateProjectThreadIsUsed(pThread As ProjectThread) As Boolean
+        Public Function UpdateProjectThreadIsUsed(ByRef pThread As ProjectThread) As Boolean
             Dim isOk As Boolean
             Try
                 With pThread

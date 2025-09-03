@@ -1903,6 +1903,9 @@ Public Class FrmStitchDesign
         isSaved = False
     End Sub
     Private Sub RemoveBlockStitchFromImage(pBlockStitch As BlockStitch)
+        RemoveBlockStitchFromImage(pBlockStitch, oDesignGraphics)
+    End Sub
+    Private Sub RemoveBlockStitchFromImage(pBlockStitch As BlockStitch, pDesignGraphics As Graphics)
         Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
         Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
         Dim _halfWidth As Integer = Math.Ceiling(iPixelsPerCell / 2)
@@ -1914,13 +1917,13 @@ Public Class FrmStitchDesign
         For Each _qtr As BlockStitchQuarter In pBlockStitch.Quarters
             Select Case _qtr.BlockQuarter
                 Case BlockQuarter.TopLeft
-                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tl, _size))
+                    pDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tl, _size))
                 Case BlockQuarter.TopRight
-                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tr, _size))
+                    pDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_tr, _size))
                 Case BlockQuarter.BottomLeft
-                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_bl, _size))
+                    pDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_bl, _size))
                 Case BlockQuarter.BottomRight
-                    oDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_br, _size))
+                    pDesignGraphics.FillRectangle(New SolidBrush(oFabricColour), New Rectangle(_br, _size))
             End Select
         Next
     End Sub

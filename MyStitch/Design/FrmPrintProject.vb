@@ -8,6 +8,7 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Public Class FrmPrintProject
 #Region "properties"
@@ -20,6 +21,13 @@ Public Class FrmPrintProject
 
 #End Region
 #Region "variables"
+    Private prtXOffset As Integer
+    Private prtYOffset As Integer
+    Private prtDesignBitmap As Bitmap
+    Private prtProjectThreads As ProjectThreadCollection
+    Private prtProjectDesign As ProjectDesign
+    Private prtDesignGraphics As Graphics
+    Private prtPixelsPerCell As Integer
     Private isLoading As Boolean = False
     Private isComponentInitialised As Boolean
     Private myPrintDoc As New Printing.PrintDocument
@@ -30,7 +38,6 @@ Public Class FrmPrintProject
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening print", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintFormPos)
-        PnlPageImage.Width = PnlPageImage.Height / 297 * 210
         InitialiseForm()
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -42,7 +49,7 @@ Public Class FrmPrintProject
     End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
         Try
-            DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
+            DisplayPrintImage(prtDesignBitmap, prtXOffset, prtYOffset, e)
         Catch ex As ApplicationException
             LogUtil.ShowException(ex, "DisplayImage", LblStatus, MyBase.Name)
         End Try
@@ -53,8 +60,11 @@ Public Class FrmPrintProject
         isComponentInitialised = True
         isLoading = True
         BtnPrint.Enabled = False
+        'Make panel same ratio as A4
+        PnlPageImage.Width = PnlPageImage.Height / 297 * 210
         LoadFormFromSettings()
-        If oProject IsNot Nothing AndAlso oProject.IsLoaded Then
+        prtPixelsPerCell = PnlPageImage.Width / (NudSqrPerInch.Value * 8.3)
+        If oPrintProject IsNot Nothing AndAlso oPrintProject.IsLoaded Then
             LoadFormFromProject()
         End If
         isLoading = False
@@ -118,49 +128,62 @@ Public Class FrmPrintProject
     End Sub
     Private Sub LoadFormFromProject()
         TxtTitle.Text = oPrintProject.ProjectName
-        oProjectThreads = GetProjectThreads(oPrintProject.ProjectId)
-        Dim _isPaletteChanged As Boolean
-        LoadProjectDesignFromFile(oProject, PicDesign, isPrintGridOn, isPrintCentreOn, _isPaletteChanged)
-        '       AdjustMagnification()
+        prtProjectThreads = GetProjectThreads(oPrintProject.ProjectId)
+        LoadPrintDesignFromFile(oPrintProject, PicDesign, isPrintGridOn, isPrintCentreOn)
     End Sub
-    Private Sub AdjustMagnification()
-        isLoading = True
-        Dim _xOffset As Integer = 0
-        Dim _yOffset As Integer = 0
-        If ChkBlankBorder.Checked Then
-            _xOffset = NudBlankBorder.Value
-            _yOffset = NudBlankBorder.Value
+    Public Function LoadPrintDesignFromFile(pProject As Project, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean)
+        Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & ZIP_EXT)
+        prtProjectDesign = New ProjectDesign
+        For Each oLine As String In oDesignString
+            If Not String.IsNullOrEmpty(oLine) Then
+                If oLine.StartsWith(DESIGN_HDR) Then
+                    Dim _designValues As String() = oLine.Split(DESIGN_DELIM)
+                    prtProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
+                    Exit For
+                End If
+            End If
+        Next
+        prtProjectDesign.ProjectId = pProject.ProjectId
+        If Not oProjectDesign.IsLoaded Then
+            oProjectDesign.Rows = pProject.DesignHeight
+            oProjectDesign.Columns = pProject.DesignWidth
         End If
 
-        Dim totalCellsAvailable As Integer = NudSqrPerInch.Value * 8.27
-        totalCellsAvailable -= _xOffset * 2
-        iPixelsPerCell = PicDesign.Width / totalCellsAvailable
-
-        dMagnification = iPixelsPerCell / PIXELS_PER_CELL
-        CalculateOffsetAfterChange_NoScrollBars(_xOffset, _yOffset)
-        RedrawDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
-        isLoading = False
-    End Sub
+        oGrid1width = NudGrid1Lines.Value
+        oGrid5width = NudGrid5Lines.Value
+        oGrid10width = NudGrid10Lines.Value
+        oGrid1Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid1Colour, oGridColourList))
+        oGrid5Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid5Colour, oGridColourList))
+        oGrid10Brush = New SolidBrush(GetColourFromProject(My.Settings.Grid10Colour, oGridColourList))
+        oCentrePenWidth = NudCentreLines.Value
+        oCentrePenColor = My.Settings.CentrelineColour
+        oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
+        DrawPrintDesign(pPictureBox, True, pIsGridOn, pIsCentreOn)
+        Return prtProjectDesign
+    End Function
     Private Sub ChkPrintGrid_CheckedChanged(sender As Object, e As EventArgs) Handles ChkPrintGrid.CheckedChanged
         isPrintGridOn = Not isPrintGridOn
         If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+            DrawPrintDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
     Private Sub ChkCentreLines_CheckedChanged(sender As Object, e As EventArgs) Handles ChkCentreLines.CheckedChanged
         isPrintCentreOn = Not isPrintCentreOn
         If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+            DrawPrintDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
     Private Sub CbDesignStitchDisplay_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbPrintStitchDisplay.SelectedIndexChanged
         oStitchDisplayStyle = CbPrintStitchDisplay.SelectedIndex
         If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(PicDesign, isPrintGridOn, isPrintCentreOn)
+            DrawPrintDesign(PicDesign, False, isPrintGridOn, isPrintCentreOn)
         End If
     End Sub
     Private Sub PnlPageImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlPageImage.SizeChanged
-        PnlPageImage.Width = PnlPageImage.Height / 297 * 210
+        If isComponentInitialised Then
+            PnlPageImage.Width = PnlPageImage.Height / 297 * 210
+            prtPixelsPerCell = PnlPageImage.Width / (NudSqrPerInch.Value * 8.3)
+        End If
     End Sub
 
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
@@ -211,6 +234,36 @@ Public Class FrmPrintProject
         'e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
         LogUtil.ShowStatus("Printing done", LblStatus, MyBase.Name)
     End Sub
-
+    Public Sub DrawPrintDesign(pPicturebox As PictureBox, pIsReCentre As Boolean, pIsGridOn As Boolean, pIsCentreOn As Boolean)
+        ' Create image the size of the design
+        prtDesignBitmap = New Bitmap(CInt(prtProjectDesign.Columns * prtPixelsPerCell), CInt(prtProjectDesign.Rows * prtPixelsPerCell))
+        If pIsReCentre Then
+            '       CalculateOffsetForCentre(oDesignBitmap, pPicturebox)
+        End If
+        'Draw grid onto graphics
+        'Create graphics from image
+        prtDesignGraphics = Graphics.FromImage(prtDesignBitmap)
+        prtDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        FillBeforeGrid(prtProjectDesign)
+        DrawGrid(prtProjectDesign, pIsGridOn, pIsCentreOn)
+        FillAfterGrid()
+        pPicturebox.Invalidate()
+    End Sub
+    Public Sub DisplayPrintImage(pImage As Bitmap, pX As Integer, pY As Integer, e As PaintEventArgs)
+        If pImage Is Nothing Then Exit Sub
+        Dim rect As Rectangle
+        Dim picx As Single = prtPixelsPerCell * topcorner.X
+        Dim picy As Single = prtPixelsPerCell * topcorner.Y
+        Dim picw As Single = prtDesignBitmap.Width - picx
+        Dim pich As Single = prtDesignBitmap.Height - picy
+        Dim atX As Single = pX * prtPixelsPerCell
+        Dim atY As Single = pY * prtPixelsPerCell
+        rect = New Rectangle(picx, picy, picw, pich)
+        Try
+            e.Graphics.DrawImage(pImage, atX, atY, rect, GraphicsUnit.Pixel)
+        Catch ex As Exception
+            Throw New ApplicationException("Cannot display the image:" & vbCrLf & ex.Message)
+        End Try
+    End Sub
 #End Region
 End Class
