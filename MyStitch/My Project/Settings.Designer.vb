@@ -619,66 +619,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property isPrintGrid() As Boolean
-            Get
-                Return CType(Me("isPrintGrid"),Boolean)
-            End Get
-            Set
-                Me("isPrintGrid") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isPrintCentreLines() As Boolean
-            Get
-                Return CType(Me("isPrintCentreLines"),Boolean)
-            End Get
-            Set
-                Me("isPrintCentreLines") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isBlankBorder() As Boolean
-            Get
-                Return CType(Me("isBlankBorder"),Boolean)
-            End Get
-            Set
-                Me("isBlankBorder") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property BlankBorderSize() As Integer
-            Get
-                Return CType(Me("BlankBorderSize"),Integer)
-            End Get
-            Set
-                Me("BlankBorderSize") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintStitchDisplay() As Integer
-            Get
-                Return CType(Me("PrintStitchDisplay"),Integer)
-            End Get
-            Set
-                Me("PrintStitchDisplay") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
         Public Property PrintSquaresPerInch() As Integer
             Get
@@ -740,9 +680,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintMarginTop() As Single
+        Public Property PrintMarginTop() As Decimal
             Get
-                Return CType(Me("PrintMarginTop"),Single)
+                Return CType(Me("PrintMarginTop"),Decimal)
             End Get
             Set
                 Me("PrintMarginTop") = value
@@ -752,9 +692,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintMarginLeft() As Single
+        Public Property PrintMarginLeft() As Decimal
             Get
-                Return CType(Me("PrintMarginLeft"),Single)
+                Return CType(Me("PrintMarginLeft"),Decimal)
             End Get
             Set
                 Me("PrintMarginLeft") = value
@@ -764,9 +704,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintMarginBottom() As Single
+        Public Property PrintMarginBottom() As Decimal
             Get
-                Return CType(Me("PrintMarginBottom"),Single)
+                Return CType(Me("PrintMarginBottom"),Decimal)
             End Get
             Set
                 Me("PrintMarginBottom") = value
@@ -776,48 +716,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintMarginRight() As Single
+        Public Property PrintMarginRight() As Decimal
             Get
-                Return CType(Me("PrintMarginRight"),Single)
+                Return CType(Me("PrintMarginRight"),Decimal)
             End Get
             Set
                 Me("PrintMarginRight") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid1Lines() As Integer
-            Get
-                Return CType(Me("PrintGrid1Lines"),Integer)
-            End Get
-            Set
-                Me("PrintGrid1Lines") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid5Lines() As Integer
-            Get
-                Return CType(Me("PrintGrid5Lines"),Integer)
-            End Get
-            Set
-                Me("PrintGrid5Lines") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid10Lines() As Integer
-            Get
-                Return CType(Me("PrintGrid10Lines"),Integer)
-            End Get
-            Set
-                Me("PrintGrid10Lines") = value
             End Set
         End Property
         
@@ -1027,97 +931,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid1Colour() As Integer
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property PrintCentreMarks() As Boolean
             Get
-                Return CType(Me("PrintGrid1Colour"),Integer)
+                Return CType(Me("PrintCentreMarks"),Boolean)
             End Get
             Set
-                Me("PrintGrid1Colour") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid5Colour() As Integer
-            Get
-                Return CType(Me("PrintGrid5Colour"),Integer)
-            End Get
-            Set
-                Me("PrintGrid5Colour") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintGrid10Colour() As Integer
-            Get
-                Return CType(Me("PrintGrid10Colour"),Integer)
-            End Get
-            Set
-                Me("PrintGrid10Colour") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property PrintCentrelineColour() As Integer
-            Get
-                Return CType(Me("PrintCentrelineColour"),Integer)
-            End Get
-            Set
-                Me("PrintCentrelineColour") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
-        Public Property PrintGrid1Thickness() As Integer
-            Get
-                Return CType(Me("PrintGrid1Thickness"),Integer)
-            End Get
-            Set
-                Me("PrintGrid1Thickness") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
-        Public Property PrintGrid5Thickness() As Integer
-            Get
-                Return CType(Me("PrintGrid5Thickness"),Integer)
-            End Get
-            Set
-                Me("PrintGrid5Thickness") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public Property PrintGrid10Thickness() As Integer
-            Get
-                Return CType(Me("PrintGrid10Thickness"),Integer)
-            End Get
-            Set
-                Me("PrintGrid10Thickness") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public Property PrintCentreLineThickness() As Integer
-            Get
-                Return CType(Me("PrintCentreLineThickness"),Integer)
-            End Get
-            Set
-                Me("PrintCentreLineThickness") = value
+                Me("PrintCentreMarks") = value
             End Set
         End Property
         

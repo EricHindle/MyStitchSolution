@@ -109,10 +109,10 @@
     <Compile Include="Design\FrmImportImage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Design\FrmPrintProject.Designer.vb">
+    <Compile Include="Print\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
-    <Compile Include="Design\FrmPrintProject.vb">
+    <Compile Include="Print\FrmPrintProject.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Design\FrmStitchDesign.Designer.vb">
@@ -189,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Print\ModPrint.vb" />
     <Compile Include="Project Files\ModFileHandling.vb" />
     <Compile Include="Project\FrmProject.Designer.vb">
       <DependentUpon>FrmProject.vb</DependentUpon>
@@ -259,10 +260,10 @@
     <Compile Include="Project Files\FrmRestore.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\FrmPrintOptions.Designer.vb">
+    <Compile Include="Print\FrmPrintOptions.Designer.vb">
       <DependentUpon>FrmPrintOptions.vb</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\FrmPrintOptions.vb">
+    <Compile Include="Print\FrmPrintOptions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utilities\FrmStitchSplash.Designer.vb">
@@ -288,7 +289,7 @@
     <EmbeddedResource Include="Design\FrmImportImage.resx">
       <DependentUpon>FrmImportImage.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Design\FrmPrintProject.resx">
+    <EmbeddedResource Include="Print\FrmPrintProject.resx">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmStitchDesign.resx">
@@ -336,7 +337,7 @@
     <EmbeddedResource Include="Project Files\FrmRestore.resx">
       <DependentUpon>FrmRestore.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmPrintOptions.resx">
+    <EmbeddedResource Include="Print\FrmPrintOptions.resx">
       <DependentUpon>FrmPrintOptions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmStitchSplash.resx">

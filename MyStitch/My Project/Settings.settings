@@ -148,21 +148,6 @@
     <Setting Name="isKeySeparate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="isPrintGrid" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="isPrintCentreLines" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="isBlankBorder" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="BlankBorderSize" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintStitchDisplay" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="PrintSquaresPerInch" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -178,25 +163,16 @@
     <Setting Name="AbbrevKey" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PrintMarginTop" Type="System.Single" Scope="User">
+    <Setting Name="PrintMarginTop" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PrintMarginLeft" Type="System.Single" Scope="User">
+    <Setting Name="PrintMarginLeft" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PrintMarginBottom" Type="System.Single" Scope="User">
+    <Setting Name="PrintMarginBottom" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PrintMarginRight" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid1Lines" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid5Lines" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid10Lines" Type="System.Int32" Scope="User">
+    <Setting Name="PrintMarginRight" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="PrintBackstitchLines" Type="System.Int32" Scope="User">
@@ -250,29 +226,8 @@
     <Setting Name="Grid10Thickness" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="PrintGrid1Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid5Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid10Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintCentrelineColour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="PrintGrid1Thickness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="PrintGrid5Thickness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="PrintGrid10Thickness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="PrintCentreLineThickness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+    <Setting Name="PrintCentreMarks" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SelectionBorderColour" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Black</Value>

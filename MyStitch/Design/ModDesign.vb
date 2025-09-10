@@ -269,24 +269,24 @@ Module ModDesign
         pPicturebox.Invalidate()
     End Sub
     Public Sub FillBeforeGrid(pProjectDesign As ProjectDesign)
-        FillBeforeGrid(pProjectDesign, isSingleColour)
+        FillBeforeGrid(pProjectDesign, oDesignGraphics, isSingleColour)
     End Sub
-    Public Sub FillBeforeGrid(pProjectDesign As ProjectDesign, pIsSingleColour As Boolean)
+    Public Sub FillBeforeGrid(pProjectDesign As ProjectDesign, pDesignGraphics As Graphics, pIsSingleColour As Boolean)
         If My.Settings.IsShowBlockstitches Then
             For Each _blockstitch In pProjectDesign.BlockStitches
                 If _blockstitch.IsLoaded Then
                     If Not pIsSingleColour OrElse _blockstitch.ProjThread.Thread.Colour.ToArgb = oCurrentThread.Thread.Colour.ToArgb Then
                         Select Case _blockstitch.StitchType
                             Case BlockStitchType.Full
-                                DrawFullBlockStitch(_blockstitch)
+                                DrawFullBlockStitch(_blockstitch, pDesignGraphics, oStitchDisplayStyle)
                             Case BlockStitchType.Half
-                                DrawHalfBlockStitch(_blockstitch, True)
+                                DrawHalfBlockStitch(_blockstitch, True, pDesignGraphics)
                             Case BlockStitchType.Quarter
-                                DrawQuarterBlockStitch(_blockstitch)
+                                DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
                             Case BlockStitchType.ThreeQuarter
-                                DrawThreeQuarterBlockStitch(_blockstitch)
+                                DrawThreeQuarterBlockStitch(_blockstitch, pDesignGraphics)
                             Case Else
-                                DrawQuarterBlockStitch(_blockstitch)
+                                DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
                         End Select
                     End If
                 End If
@@ -837,11 +837,12 @@ Module ModDesign
             .Build
         InsertProjectThread(_pt)
     End Sub
-    Public Sub OpenPrintForm(pForm As Form, pProject As Project)
-        If pProject.IsLoaded Then
+    Public Sub OpenPrintForm(pForm As Form, pProject As Project, pBitmap As Bitmap)
+        If pProject.IsLoaded AndAlso pBitmap IsNot Nothing Then
             pForm.Hide()
             Using _printDialog As New FrmPrintProject
                 _printDialog.PrintProject = pProject
+                _printDialog.PrintImage = pBitmap
                 _printDialog.ShowDialog()
             End Using
             pForm.Show()

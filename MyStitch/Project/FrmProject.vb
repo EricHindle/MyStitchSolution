@@ -398,9 +398,7 @@ Public Class FrmProject
             _restore.ShowDialog()
         End Using
     End Sub
-    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
-        ShowPrintForm()
-    End Sub
+
     Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
         ShowPrintSettingsForm()
     End Sub
@@ -409,18 +407,6 @@ Public Class FrmProject
         Using _printSettings As New FrmPrintOptions
             _printSettings.ShowDialog()
         End Using
-    End Sub
-
-    Private Sub ShowPrintForm()
-        If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
-            OpenPrintForm(Me, _selectedProject)
-        Else
-            LogUtil.ShowStatus("No Project selected", LblStatus, True)
-        End If
-    End Sub
-
-    Private Sub MnuPrint_Click_1(sender As Object, e As EventArgs) Handles MnuPrint.Click
-        ShowPrintForm()
     End Sub
     Private Sub MnuOpenSelectedProject_Click(sender As Object, e As EventArgs) Handles MnuOpenSelectedProject.Click
         '      OpenProjectFile(oProject.ProjectId)

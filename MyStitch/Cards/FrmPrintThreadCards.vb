@@ -13,7 +13,7 @@ Imports MyStitch.Domain.Objects
 Public Class FrmPrintThreadCards
 
     ' image dots per inch
-    Private Const DPI As Single = 300.0F
+
     ' font points per inch
     Private Const PPI As Integer = 72
     Private Const PROJECT_NAME_FONT_SIZE As Integer = 9
@@ -38,7 +38,6 @@ Public Class FrmPrintThreadCards
     Private _nextCol As Integer
     Private leftmargin As Integer
     Private topmargin As Integer
-    Private myPrintDoc As New Printing.PrintDocument
 #End Region
 #Region "handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -59,8 +58,8 @@ Public Class FrmPrintThreadCards
     Private Sub InitialiseForm()
         sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
         sourceBitmap.SetResolution(DPI, DPI)
-        leftmargin = myPrintDoc.DefaultPageSettings.HardMarginX * 3
-        topmargin = myPrintDoc.DefaultPageSettings.HardMarginY * 3
+        leftmargin = oPrintDoc.DefaultPageSettings.HardMarginX * 3
+        topmargin = oPrintDoc.DefaultPageSettings.HardMarginY * 3
         SetPictureWidth()
         LoadProjectList(DgvProjects, MyBase.Name)
         LogUtil.ShowStatus("Select a project", LblStatus)
@@ -130,25 +129,11 @@ Public Class FrmPrintThreadCards
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         If oSelectedProject IsNot Nothing Then
             LogUtil.ShowStatus("Printing card", LblStatus, MyBase.Name)
-            Dim _paperKind As PaperKind = PaperKind.A4
-            myPrintDoc = New PrintDocument
-            ' Set default paper size
-            For Each ps As Printing.PaperSize In myPrintDoc.PrinterSettings.PaperSizes
-                If ps.RawKind = _paperKind Then
-                    myPrintDoc.DefaultPageSettings.PaperSize = ps
-                    Exit For
-                End If
-            Next
+            InitialisePrintDocument()
             ' Set handler to print image 
-            AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
-            ' Set default page settings
-            myPrintDoc.DefaultPageSettings.Landscape = True
-            myPrintDoc.DefaultPageSettings.Margins.Left = 0
-            myPrintDoc.DefaultPageSettings.Margins.Right = 0
-            myPrintDoc.DefaultPageSettings.Margins.Top = 0
-            myPrintDoc.DefaultPageSettings.Margins.Bottom = 0
+            AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
             ' Print the image (calls PrintPage handler (see above))
-            myPrintDoc.Print()
+            oPrintDoc.Print()
         Else
             LogUtil.ShowStatus("No project selected", LblStatus, True)
         End If

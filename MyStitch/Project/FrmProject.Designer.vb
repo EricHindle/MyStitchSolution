@@ -81,7 +81,6 @@ Partial Class FrmProject
         Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuResizeDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuPrint = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuFullThreadList = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,7 +106,6 @@ Partial Class FrmProject
         Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BtnPrint = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -682,7 +680,7 @@ Partial Class FrmProject
         '
         'MnuDesign
         '
-        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuResizeDesign, Me.MnuPrint})
+        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuResizeDesign})
         Me.MnuDesign.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MnuDesign.Name = "MnuDesign"
         Me.MnuDesign.Size = New System.Drawing.Size(211, 22)
@@ -699,12 +697,6 @@ Partial Class FrmProject
         Me.MnuResizeDesign.Name = "MnuResizeDesign"
         Me.MnuResizeDesign.Size = New System.Drawing.Size(142, 22)
         Me.MnuResizeDesign.Text = "Resize"
-        '
-        'MnuPrint
-        '
-        Me.MnuPrint.Name = "MnuPrint"
-        Me.MnuPrint.Size = New System.Drawing.Size(142, 22)
-        Me.MnuPrint.Text = "Print"
         '
         'MnuThreads
         '
@@ -815,13 +807,13 @@ Partial Class FrmProject
         'MnuBackup
         '
         Me.MnuBackup.Name = "MnuBackup"
-        Me.MnuBackup.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBackup.Size = New System.Drawing.Size(113, 22)
         Me.MnuBackup.Text = "Backup"
         '
         'MnuRestore
         '
         Me.MnuRestore.Name = "MnuRestore"
-        Me.MnuRestore.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRestore.Size = New System.Drawing.Size(113, 22)
         Me.MnuRestore.Text = "Restore"
         '
         'MnuOptions
@@ -860,28 +852,11 @@ Partial Class FrmProject
         Me.MnuExit.Size = New System.Drawing.Size(211, 22)
         Me.MnuExit.Text = "Exit"
         '
-        'BtnPrint
-        '
-        Me.BtnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnPrint.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(311, 525)
-        Me.BtnPrint.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnPrint.Name = "BtnPrint"
-        Me.BtnPrint.Size = New System.Drawing.Size(75, 53)
-        Me.BtnPrint.TabIndex = 131
-        Me.BtnPrint.Text = "Print"
-        Me.BtnPrint.UseVisualStyleBackColor = False
-        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(709, 607)
-        Me.Controls.Add(Me.BtnPrint)
         Me.Controls.Add(Me.BtnDesign)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.PnlForm)
@@ -987,8 +962,6 @@ Partial Class FrmProject
     Friend WithEvents MnuBuildCards As ToolStripMenuItem
     Friend WithEvents MnuPrintCards As ToolStripMenuItem
     Friend WithEvents MnuGlobalSettings As ToolStripMenuItem
-    Friend WithEvents MnuPrint As ToolStripMenuItem
-    Friend WithEvents BtnPrint As Button
     Friend WithEvents MnuPrintSettings As ToolStripMenuItem
     Friend WithEvents MnuOpenProjectFile As ToolStripMenuItem
     Friend WithEvents MnuOpenSelectedProject As ToolStripMenuItem

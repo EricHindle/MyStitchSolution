@@ -27,6 +27,11 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PnlPaletteName = New System.Windows.Forms.Panel()
+        Me.BtnCancelPalette = New System.Windows.Forms.Button()
+        Me.BtnSavePalette = New System.Windows.Forms.Button()
+        Me.TxtPaletteName = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.PicDesign = New System.Windows.Forms.PictureBox()
         Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
         Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
@@ -156,16 +161,12 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PnlPaletteName = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TxtPaletteName = New System.Windows.Forms.TextBox()
-        Me.BtnSavePalette = New System.Windows.Forms.Button()
-        Me.BtnCancelPalette = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.PnlPaletteName.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
@@ -174,7 +175,6 @@ Partial Class FrmStitchDesign
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        Me.PnlPaletteName.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -224,6 +224,59 @@ Partial Class FrmStitchDesign
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(706, 400)
         Me.Panel1.TabIndex = 137
+        '
+        'PnlPaletteName
+        '
+        Me.PnlPaletteName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PnlPaletteName.Controls.Add(Me.BtnCancelPalette)
+        Me.PnlPaletteName.Controls.Add(Me.BtnSavePalette)
+        Me.PnlPaletteName.Controls.Add(Me.TxtPaletteName)
+        Me.PnlPaletteName.Controls.Add(Me.Label1)
+        Me.PnlPaletteName.Location = New System.Drawing.Point(103, 103)
+        Me.PnlPaletteName.Name = "PnlPaletteName"
+        Me.PnlPaletteName.Size = New System.Drawing.Size(200, 76)
+        Me.PnlPaletteName.TabIndex = 136
+        Me.PnlPaletteName.Visible = False
+        '
+        'BtnCancelPalette
+        '
+        Me.BtnCancelPalette.BackColor = System.Drawing.Color.MistyRose
+        Me.BtnCancelPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnCancelPalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCancelPalette.Location = New System.Drawing.Point(6, 45)
+        Me.BtnCancelPalette.Name = "BtnCancelPalette"
+        Me.BtnCancelPalette.Size = New System.Drawing.Size(60, 23)
+        Me.BtnCancelPalette.TabIndex = 3
+        Me.BtnCancelPalette.Text = "Cancel"
+        Me.BtnCancelPalette.UseVisualStyleBackColor = False
+        '
+        'BtnSavePalette
+        '
+        Me.BtnSavePalette.BackColor = System.Drawing.Color.Honeydew
+        Me.BtnSavePalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSavePalette.Location = New System.Drawing.Point(135, 45)
+        Me.BtnSavePalette.Name = "BtnSavePalette"
+        Me.BtnSavePalette.Size = New System.Drawing.Size(60, 23)
+        Me.BtnSavePalette.TabIndex = 2
+        Me.BtnSavePalette.Text = "Save"
+        Me.BtnSavePalette.UseVisualStyleBackColor = False
+        '
+        'TxtPaletteName
+        '
+        Me.TxtPaletteName.Location = New System.Drawing.Point(6, 17)
+        Me.TxtPaletteName.Name = "TxtPaletteName"
+        Me.TxtPaletteName.Size = New System.Drawing.Size(189, 22)
+        Me.TxtPaletteName.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(81, 14)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Palette Name"
         '
         'PicDesign
         '
@@ -598,7 +651,7 @@ Partial Class FrmStitchDesign
         'BtnClose
         '
         Me.BtnClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.BtnClose.BackColor = System.Drawing.Color.DarkBlue
+        Me.BtnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.BtnClose.BackgroundImage = CType(resources.GetObject("BtnClose.BackgroundImage"), System.Drawing.Image)
         Me.BtnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.BtnClose.Font = New System.Drawing.Font("Segoe UI", 10.0!)
@@ -1458,59 +1511,6 @@ Partial Class FrmStitchDesign
         Me.MnuShow.Size = New System.Drawing.Size(116, 22)
         Me.MnuShow.Text = "Info"
         '
-        'PnlPaletteName
-        '
-        Me.PnlPaletteName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PnlPaletteName.Controls.Add(Me.BtnCancelPalette)
-        Me.PnlPaletteName.Controls.Add(Me.BtnSavePalette)
-        Me.PnlPaletteName.Controls.Add(Me.TxtPaletteName)
-        Me.PnlPaletteName.Controls.Add(Me.Label1)
-        Me.PnlPaletteName.Location = New System.Drawing.Point(103, 103)
-        Me.PnlPaletteName.Name = "PnlPaletteName"
-        Me.PnlPaletteName.Size = New System.Drawing.Size(200, 76)
-        Me.PnlPaletteName.TabIndex = 136
-        Me.PnlPaletteName.Visible = False
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(81, 14)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Palette Name"
-        '
-        'TxtPaletteName
-        '
-        Me.TxtPaletteName.Location = New System.Drawing.Point(6, 17)
-        Me.TxtPaletteName.Name = "TxtPaletteName"
-        Me.TxtPaletteName.Size = New System.Drawing.Size(189, 22)
-        Me.TxtPaletteName.TabIndex = 1
-        '
-        'BtnSavePalette
-        '
-        Me.BtnSavePalette.BackColor = System.Drawing.Color.Honeydew
-        Me.BtnSavePalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnSavePalette.Location = New System.Drawing.Point(135, 45)
-        Me.BtnSavePalette.Name = "BtnSavePalette"
-        Me.BtnSavePalette.Size = New System.Drawing.Size(60, 23)
-        Me.BtnSavePalette.TabIndex = 2
-        Me.BtnSavePalette.Text = "Save"
-        Me.BtnSavePalette.UseVisualStyleBackColor = False
-        '
-        'BtnCancelPalette
-        '
-        Me.BtnCancelPalette.BackColor = System.Drawing.Color.MistyRose
-        Me.BtnCancelPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnCancelPalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCancelPalette.Location = New System.Drawing.Point(6, 45)
-        Me.BtnCancelPalette.Name = "BtnCancelPalette"
-        Me.BtnCancelPalette.Size = New System.Drawing.Size(60, 23)
-        Me.BtnCancelPalette.TabIndex = 3
-        Me.BtnCancelPalette.Text = "Cancel"
-        Me.BtnCancelPalette.UseVisualStyleBackColor = False
-        '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -1530,6 +1530,8 @@ Partial Class FrmStitchDesign
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
+        Me.PnlPaletteName.ResumeLayout(False)
+        Me.PnlPaletteName.PerformLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
@@ -1542,8 +1544,6 @@ Partial Class FrmStitchDesign
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.PnlPaletteName.ResumeLayout(False)
-        Me.PnlPaletteName.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

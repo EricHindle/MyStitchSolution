@@ -229,7 +229,7 @@ Module ModCommon
                     End If
                 Case Keys.P
                     If pFormType = FormType.Design Then
-                        OpenPrintForm(_form, oProject)
+                        OpenPrintForm(_form, oProject, oDesignBitmap)
                         e.Handled = True
                     End If
                 Case Keys.I

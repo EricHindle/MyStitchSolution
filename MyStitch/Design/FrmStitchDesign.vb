@@ -1209,7 +1209,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub ShowPrintForm()
-        OpenPrintForm(Me, oProject)
+        OpenPrintForm(Me, oProject, oDesignBitmap)
     End Sub
     Private Sub GetPaletteName()
         PnlPaletteName.Location = New Point(PicDesign.Location.X + 100, PicDesign.Location.Y + 100)
