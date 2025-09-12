@@ -39,6 +39,8 @@ Partial Class FrmPrintProject
         Me.BtnPrint = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
+        Me.ChkPrintGrid = New System.Windows.Forms.CheckBox()
         Me.LblPageCt = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -78,6 +80,7 @@ Partial Class FrmPrintProject
         Me.TxtTitle = New System.Windows.Forms.TextBox()
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
         Me.PnlDesignPicture = New System.Windows.Forms.Panel()
+        Me.PicTest = New System.Windows.Forms.PictureBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -92,6 +95,7 @@ Partial Class FrmPrintProject
         CType(Me.NudTopMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.PnlDesignPicture.SuspendLayout()
+        CType(Me.PicTest, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -100,7 +104,7 @@ Partial Class FrmPrintProject
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 641)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(894, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1303, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -113,7 +117,7 @@ Partial Class FrmPrintProject
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Location = New System.Drawing.Point(510, 17)
+        Me.TabControl1.Location = New System.Drawing.Point(353, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(376, 29)
@@ -134,7 +138,7 @@ Partial Class FrmPrintProject
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(402, 0)
+        Me.TabPage2.Size = New System.Drawing.Size(368, 0)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -158,7 +162,7 @@ Partial Class FrmPrintProject
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(684, 590)
+        Me.BtnPrint.Location = New System.Drawing.Point(1093, 590)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(77, 46)
@@ -174,7 +178,7 @@ Partial Class FrmPrintProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(809, 590)
+        Me.BtnClose.Location = New System.Drawing.Point(1218, 590)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(77, 46)
@@ -184,6 +188,8 @@ Partial Class FrmPrintProject
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ChkCentreMarks)
+        Me.GroupBox1.Controls.Add(Me.ChkPrintGrid)
         Me.GroupBox1.Controls.Add(Me.LblPageCt)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -194,66 +200,88 @@ Partial Class FrmPrintProject
         Me.GroupBox1.Controls.Add(Me.CbKeyOrder)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.ChkPrintKey)
+        Me.GroupBox1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(13, 12)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(299, 400)
+        Me.GroupBox1.Size = New System.Drawing.Size(299, 241)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Settings"
         '
+        'ChkCentreMarks
+        '
+        Me.ChkCentreMarks.AutoSize = True
+        Me.ChkCentreMarks.Location = New System.Drawing.Point(7, 125)
+        Me.ChkCentreMarks.Name = "ChkCentreMarks"
+        Me.ChkCentreMarks.Size = New System.Drawing.Size(126, 18)
+        Me.ChkCentreMarks.TabIndex = 18
+        Me.ChkCentreMarks.Text = "Print Centre Marks"
+        Me.ChkCentreMarks.UseVisualStyleBackColor = True
+        '
+        'ChkPrintGrid
+        '
+        Me.ChkPrintGrid.AutoSize = True
+        Me.ChkPrintGrid.Location = New System.Drawing.Point(7, 101)
+        Me.ChkPrintGrid.Name = "ChkPrintGrid"
+        Me.ChkPrintGrid.Size = New System.Drawing.Size(72, 18)
+        Me.ChkPrintGrid.TabIndex = 17
+        Me.ChkPrintGrid.Text = "PrintGrid"
+        Me.ChkPrintGrid.UseVisualStyleBackColor = True
+        '
         'LblPageCt
         '
         Me.LblPageCt.AutoSize = True
-        Me.LblPageCt.Location = New System.Drawing.Point(149, 343)
+        Me.LblPageCt.Location = New System.Drawing.Point(131, 209)
         Me.LblPageCt.Name = "LblPageCt"
-        Me.LblPageCt.Size = New System.Drawing.Size(16, 17)
+        Me.LblPageCt.Size = New System.Drawing.Size(14, 14)
         Me.LblPageCt.TabIndex = 16
         Me.LblPageCt.Text = "1"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(24, 343)
+        Me.Label6.Location = New System.Drawing.Point(6, 209)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(118, 17)
+        Me.Label6.Size = New System.Drawing.Size(105, 14)
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "Number of pages:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(113, 300)
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(95, 190)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(132, 17)
+        Me.Label5.Size = New System.Drawing.Size(105, 13)
         Me.Label5.TabIndex = 14
         Me.Label5.Text = "(fit to one page: nn)"
         '
         'NudSqrPerInch
         '
-        Me.NudSqrPerInch.Location = New System.Drawing.Point(116, 273)
+        Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 163)
         Me.NudSqrPerInch.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.NudSqrPerInch.Name = "NudSqrPerInch"
-        Me.NudSqrPerInch.Size = New System.Drawing.Size(62, 24)
+        Me.NudSqrPerInch.Size = New System.Drawing.Size(62, 22)
         Me.NudSqrPerInch.TabIndex = 6
         Me.NudSqrPerInch.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(184, 275)
+        Me.Label4.Location = New System.Drawing.Point(166, 165)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(108, 17)
+        Me.Label4.Size = New System.Drawing.Size(96, 14)
         Me.Label4.TabIndex = 12
         Me.Label4.Text = "squares per inch"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(24, 275)
+        Me.Label3.Location = New System.Drawing.Point(6, 165)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(84, 17)
+        Me.Label3.Size = New System.Drawing.Size(76, 14)
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Printout Size"
         '
@@ -262,7 +290,7 @@ Partial Class FrmPrintProject
         Me.ChkKeySeparate.AutoSize = True
         Me.ChkKeySeparate.Location = New System.Drawing.Point(7, 75)
         Me.ChkKeySeparate.Name = "ChkKeySeparate"
-        Me.ChkKeySeparate.Size = New System.Drawing.Size(160, 21)
+        Me.ChkKeySeparate.Size = New System.Drawing.Size(146, 18)
         Me.ChkKeySeparate.TabIndex = 1
         Me.ChkKeySeparate.Text = "Key on separate page"
         Me.ChkKeySeparate.UseVisualStyleBackColor = True
@@ -274,28 +302,28 @@ Partial Class FrmPrintProject
         Me.CbKeyOrder.Location = New System.Drawing.Point(86, 44)
         Me.CbKeyOrder.Margin = New System.Windows.Forms.Padding(4)
         Me.CbKeyOrder.Name = "CbKeyOrder"
-        Me.CbKeyOrder.Size = New System.Drawing.Size(140, 24)
+        Me.CbKeyOrder.Size = New System.Drawing.Size(140, 22)
         Me.CbKeyOrder.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(19, 48)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(68, 17)
+        Me.Label1.Size = New System.Drawing.Size(60, 14)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Key order"
         '
         'ChkPrintKey
         '
         Me.ChkPrintKey.AutoSize = True
-        Me.ChkPrintKey.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ChkPrintKey.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkPrintKey.Location = New System.Drawing.Point(7, 23)
         Me.ChkPrintKey.Margin = New System.Windows.Forms.Padding(4)
         Me.ChkPrintKey.Name = "ChkPrintKey"
-        Me.ChkPrintKey.Size = New System.Drawing.Size(82, 21)
+        Me.ChkPrintKey.Size = New System.Drawing.Size(75, 18)
         Me.ChkPrintKey.TabIndex = 0
         Me.ChkPrintKey.Text = "Print Key"
         Me.ChkPrintKey.UseVisualStyleBackColor = True
@@ -310,7 +338,7 @@ Partial Class FrmPrintProject
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(319, 12)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 263)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(180, 140)
         Me.GroupBox2.TabIndex = 1
@@ -394,9 +422,9 @@ Partial Class FrmPrintProject
         Me.GroupBox3.Controls.Add(Me.Label11)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(319, 158)
+        Me.GroupBox3.Location = New System.Drawing.Point(199, 263)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(180, 128)
+        Me.GroupBox3.Size = New System.Drawing.Size(134, 195)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Margins"
@@ -404,7 +432,7 @@ Partial Class FrmPrintProject
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(35, 105)
+        Me.Label14.Location = New System.Drawing.Point(6, 165)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(121, 13)
         Me.Label14.TabIndex = 153
@@ -414,7 +442,7 @@ Partial Class FrmPrintProject
         '
         Me.NudLeftMargin.DecimalPlaces = 2
         Me.NudLeftMargin.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.NudLeftMargin.Location = New System.Drawing.Point(38, 32)
+        Me.NudLeftMargin.Location = New System.Drawing.Point(9, 84)
         Me.NudLeftMargin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudLeftMargin.Name = "NudLeftMargin"
         Me.NudLeftMargin.Size = New System.Drawing.Size(48, 20)
@@ -424,7 +452,7 @@ Partial Class FrmPrintProject
         '
         Me.NudRightMargin.DecimalPlaces = 2
         Me.NudRightMargin.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.NudRightMargin.Location = New System.Drawing.Point(38, 75)
+        Me.NudRightMargin.Location = New System.Drawing.Point(63, 84)
         Me.NudRightMargin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudRightMargin.Name = "NudRightMargin"
         Me.NudRightMargin.Size = New System.Drawing.Size(48, 20)
@@ -434,7 +462,7 @@ Partial Class FrmPrintProject
         '
         Me.NudBottomMargin.DecimalPlaces = 2
         Me.NudBottomMargin.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.NudBottomMargin.Location = New System.Drawing.Point(100, 75)
+        Me.NudBottomMargin.Location = New System.Drawing.Point(34, 131)
         Me.NudBottomMargin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudBottomMargin.Name = "NudBottomMargin"
         Me.NudBottomMargin.Size = New System.Drawing.Size(48, 20)
@@ -444,7 +472,7 @@ Partial Class FrmPrintProject
         '
         Me.NudTopMargin.DecimalPlaces = 2
         Me.NudTopMargin.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.NudTopMargin.Location = New System.Drawing.Point(100, 32)
+        Me.NudTopMargin.Location = New System.Drawing.Point(34, 36)
         Me.NudTopMargin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudTopMargin.Name = "NudTopMargin"
         Me.NudTopMargin.Size = New System.Drawing.Size(48, 20)
@@ -453,7 +481,7 @@ Partial Class FrmPrintProject
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(46, 59)
+        Me.Label13.Location = New System.Drawing.Point(71, 68)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(32, 13)
         Me.Label13.TabIndex = 3
@@ -462,7 +490,7 @@ Partial Class FrmPrintProject
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(104, 59)
+        Me.Label12.Location = New System.Drawing.Point(38, 115)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(41, 13)
         Me.Label12.TabIndex = 2
@@ -471,7 +499,7 @@ Partial Class FrmPrintProject
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(49, 16)
+        Me.Label11.Location = New System.Drawing.Point(20, 68)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(26, 13)
         Me.Label11.TabIndex = 1
@@ -480,7 +508,7 @@ Partial Class FrmPrintProject
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(112, 16)
+        Me.Label10.Location = New System.Drawing.Point(46, 20)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(25, 13)
         Me.Label10.TabIndex = 0
@@ -497,7 +525,7 @@ Partial Class FrmPrintProject
         Me.GroupBox5.Controls.Add(Me.Label19)
         Me.GroupBox5.Controls.Add(Me.TxtTitle)
         Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(319, 292)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 409)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(180, 162)
         Me.GroupBox5.TabIndex = 4
@@ -580,7 +608,7 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveSettings.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveSettings.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveSettings.Location = New System.Drawing.Point(556, 590)
+        Me.BtnSaveSettings.Location = New System.Drawing.Point(965, 590)
         Me.BtnSaveSettings.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSaveSettings.Name = "BtnSaveSettings"
         Me.BtnSaveSettings.Size = New System.Drawing.Size(77, 46)
@@ -591,16 +619,29 @@ Partial Class FrmPrintProject
         'PnlDesignPicture
         '
         Me.PnlDesignPicture.Controls.Add(Me.PicDesign)
-        Me.PnlDesignPicture.Location = New System.Drawing.Point(510, 52)
+        Me.PnlDesignPicture.Location = New System.Drawing.Point(353, 47)
         Me.PnlDesignPicture.Name = "PnlDesignPicture"
         Me.PnlDesignPicture.Size = New System.Drawing.Size(376, 530)
         Me.PnlDesignPicture.TabIndex = 9
+        '
+        'PicTest
+        '
+        Me.PicTest.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PicTest.Location = New System.Drawing.Point(754, 12)
+        Me.PicTest.Name = "PicTest"
+        Me.PicTest.Size = New System.Drawing.Size(527, 565)
+        Me.PicTest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicTest.TabIndex = 10
+        Me.PicTest.TabStop = False
         '
         'FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(894, 663)
+        Me.ClientSize = New System.Drawing.Size(1303, 663)
+        Me.Controls.Add(Me.PicTest)
         Me.Controls.Add(Me.PnlDesignPicture)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.BtnSaveSettings)
@@ -615,7 +656,7 @@ Partial Class FrmPrintProject
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(910, 702)
+        Me.MinimumSize = New System.Drawing.Size(754, 702)
         Me.Name = "FrmPrintProject"
         Me.Text = "Print Project"
         Me.StatusStrip1.ResumeLayout(False)
@@ -637,6 +678,7 @@ Partial Class FrmPrintProject
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.PnlDesignPicture.ResumeLayout(False)
+        CType(Me.PicTest, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -690,4 +732,7 @@ Partial Class FrmPrintProject
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents PnlDesignPicture As Panel
+    Friend WithEvents ChkCentreMarks As CheckBox
+    Friend WithEvents ChkPrintGrid As CheckBox
+    Friend WithEvents PicTest As PictureBox
 End Class

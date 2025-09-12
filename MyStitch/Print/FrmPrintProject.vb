@@ -12,21 +12,21 @@ Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmPrintProject
 #Region "properties"
-    Private oPrintProject As Project
-    Private oPrintImage As Image
-    Public Property PrintImage() As Image
-        Get
-            Return oPrintImage
-        End Get
-        Set(ByVal value As Image)
-            oPrintImage = value
-        End Set
-    End Property
-    Public WriteOnly Property PrintProject() As Project
-        Set(ByVal value As Project)
-            oPrintProject = value
-        End Set
-    End Property
+    'Private oPrintProject As Project
+    'Private oSourceBitmap As Bitmap
+    'Public Property SourceBitmap() As Bitmap
+    '    Get
+    '        Return oSourceBitMap
+    '    End Get
+    '    Set(ByVal value As Bitmap)
+    '        oSourceBitmap = value
+    '    End Set
+    'End Property
+    'Public WriteOnly Property PrintProject() As Project
+    '    Set(ByVal value As Project)
+    '        oPrintProject = value
+    '    End Set
+    'End Property
 
 #End Region
 #Region "constants"
@@ -37,7 +37,7 @@ Public Class FrmPrintProject
     Private isLoading As Boolean = False
     Private isComponentInitialised As Boolean
     Private myPrintDoc As New Printing.PrintDocument
-
+    Private oSourceImage As Image
 #End Region
 #Region "form control handlers"
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -60,11 +60,8 @@ Public Class FrmPrintProject
             Dim h As Integer = Math.Floor(oPageImage.Height / PageToFormRatio)
             Dim w2 As Integer = Math.Floor(oAvailableGridWidth / PageToFormRatio)
             Dim h2 As Integer = Math.Floor(oAvailableGridHeight / PageToFormRatio)
-            oFormImage = New Bitmap(New ImageUtil().ExtractCroppedAreaFromImage(oPageImage, oAvailableCellWidth * oPagePixelsPerCell, oAvailableCellHeight * oPagePixelsPerCell, 0, 0), w2, h2)
-
-
+            oFormImage = New Bitmap(New ImageUtil().ExtractCroppedAreaFromImage(oPageImage, oAvailableCellsWidth * oPagePixelsPerCell, oAvailableCellsHeight * oPagePixelsPerCell, 0, 0), w2, h2)
             e.Graphics.DrawImage(oFormImage, x, y, New Rectangle(0, 0, w2, h2), GraphicsUnit.Pixel)
-
         Catch ex As ApplicationException
             LogUtil.ShowException(ex, "DisplayImage", LblStatus, MyBase.Name)
         End Try
@@ -79,11 +76,10 @@ Public Class FrmPrintProject
         InitialisePrintDocument()
         ' Set handler to print image 
         AddHandler myPrintDoc.PrintPage, AddressOf OnPrintImage
-
         LoadFormFromSettings()
-        oPagePixelsPerCell = DPI / NudSqrPerInch.Value
+        'ModDesign.RedrawDesign(PicDesign, oDesignBitmap, oProjectDesign, oDesignGraphics, False, ChkPrintGrid.Checked, False, ChkCentreMarks.Checked)
+        'oPagePixelsPerCell = DPI / NudSqrPerInch.Value
         LoadFormFromProject()
-
         '        oPageImage = New Bitmap(A4_WIDTH, A4_HEIGHT)
         ' oPageGraphics = Graphics.FromImage(oPageImage)
         isLoading = False
@@ -105,6 +101,8 @@ Public Class FrmPrintProject
         ChkTitleAboveKey.Checked = My.Settings.isTitleAboveKey
         TxtDesignBy.Text = My.Settings.DesignBy
         TxtCopyright.Text = My.Settings.CopyrightBy
+        ChkPrintGrid.Checked = My.Settings.PrintGrid
+        ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
     End Sub
     Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
         My.Settings.isPrintKey = ChkPrintKey.Checked
@@ -123,16 +121,26 @@ Public Class FrmPrintProject
         My.Settings.isTitleAboveKey = ChkTitleAboveKey.Checked
         My.Settings.DesignBy = TxtDesignBy.Text
         My.Settings.CopyrightBy = TxtCopyright.Text
+        My.Settings.PrintGrid = ChkPrintGrid.Checked
+        My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
         My.Settings.Save()
     End Sub
     Private Sub LoadFormFromProject()
-        TxtTitle.Text = oPrintProject.ProjectName
-        prtProjectThreads = GetProjectThreads(oPrintProject.ProjectId)
+        TxtTitle.Text = oProject.ProjectName
+        prtProjectThreads = GetProjectThreads(oProject.ProjectId)
+        CreatePageImage()
+    End Sub
+
+    Private Sub CreatePageImage()
+        oPagePixelsPerCell = DPI / NudSqrPerInch.Value
         CalculateMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
         CalculateGridSpace(NudSqrPerInch.Value)
-        oPageImage = ImageUtil.ResizeImage(oPrintImage, oProject.DesignWidth * oPagePixelsPerCell, oProject.DesignHeight * oPagePixelsPerCell)
+        ModDesign.RedrawDesign(PicDesign, oSourceImage, oProjectDesign, oDesignGraphics, False, ChkPrintGrid.Checked, False, ChkCentreMarks.Checked)
+        oPageImage = ImageUtil.ResizeImage(oSourceImage, oProject.DesignWidth * oPagePixelsPerCell, oProject.DesignHeight * oPagePixelsPerCell)
+        PicTest.Image = oPageImage
         PicDesign.Invalidate()
     End Sub
+
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         LogUtil.ShowStatus("Printing design", LblStatus, MyBase.Name)
         ' create images to be printed
@@ -161,6 +169,19 @@ Public Class FrmPrintProject
         'e.Graphics.DrawImage(sourceBitmap, 0, 0, New Rectangle(leftmargin, topmargin, targetWidth, targetHeight), GraphicsUnit.Document)
         LogUtil.ShowStatus("Printing done", LblStatus, MyBase.Name)
     End Sub
+
+    Private Sub NudTopMargin_ValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
+                                                                                    NudLeftMargin.ValueChanged,
+                                                                                    NudRightMargin.ValueChanged,
+                                                                                    NudBottomMargin.ValueChanged,
+                                                                                    ChkPrintGrid.CheckedChanged,
+                                                                                    ChkCentreMarks.CheckedChanged,
+                                                                                    NudSqrPerInch.ValueChanged
+        If isComponentInitialised Then
+            CreatePageImage()
+        End If
+    End Sub
+
 
 #End Region
 End Class

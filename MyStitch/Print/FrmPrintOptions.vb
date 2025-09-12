@@ -43,6 +43,8 @@ Public Class FrmPrintOptions
         My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
         My.Settings.isTitleAboveGrid = ChkTitleAboveGrid.Checked
         My.Settings.isTitleAboveKey = ChkTitleAboveKey.Checked
+        My.Settings.PrintGrid = ChkPrintGrid.Checked
+        My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
         My.Settings.Save()
     End Sub
 
@@ -72,5 +74,7 @@ Public Class FrmPrintOptions
         NudTopMargin.Value = My.Settings.PrintMarginTop
         TxtCopyright.Text = My.Settings.CopyrightBy
         TxtDesignBy.Text = My.Settings.DesignBy
+        ChkPrintGrid.Checked = My.Settings.PrintGrid
+        ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
     End Sub
 End Class

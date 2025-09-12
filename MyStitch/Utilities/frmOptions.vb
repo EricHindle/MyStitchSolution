@@ -46,6 +46,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.BackupAddDate = ChkBackupAddDate.Checked
         My.Settings.BackupRevision = ChkBackupRevision.Checked
         My.Settings.IsCentreOn = ChkCentreOn.Checked
+        My.Settings.isCentreMarksOn = ChkCentreMarks.Checked
         My.Settings.CentrelineColour = PicCentreLineColour.BackColor
         My.Settings.CentrelineWidth = NudCentreLineWidth.Value
         My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
@@ -82,6 +83,7 @@ Public NotInheritable Class FrmOptions
         ChkBackupAddDate.Checked = My.Settings.BackupAddDate
         ChkBackupRevision.Checked = My.Settings.BackupRevision
         ChkCentreOn.Checked = My.Settings.IsCentreOn
+        ChkCentreMarks.Checked = My.Settings.isCentreMarksOn
         PicCentreLineColour.BackColor = My.Settings.CentrelineColour
         NudCentreLineWidth.Value = My.Settings.CentrelineWidth
         ChkTimerAutoStart.Checked = My.Settings.isTimerAutoStart

@@ -988,7 +988,7 @@ Public Class FrmStitchDesign
             LblStatus.Text = "Loading..."
             LblStatus.Refresh()
             Dim _isPaletteChanged As Boolean
-            LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn, _isPaletteChanged)
+            LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn, _isPaletteChanged, isCentreMarksOn)
             If _isPaletteChanged Then
                 InitialisePalette()
             End If
@@ -1006,6 +1006,7 @@ Public Class FrmStitchDesign
     Friend Sub LoadDesignSettings()
         SetIsCentreOn()
         SetIsGridOn()
+        SetIsCentreMarks
         If Not isLoading Then
             RedrawDesign(False)
         End If
@@ -1476,10 +1477,10 @@ Public Class FrmStitchDesign
 #End Region
 #Region "drawing image"
     Private Sub RedrawDesign()
-        ModDesign.RedrawDesign(PicDesign, isGridOn, isCentreOn)
+        ModDesign.RedrawDesign(PicDesign, isGridOn, isCentreOn, isCentreMarksOn)
     End Sub
     Private Sub RedrawDesign(pIsReCentre As Boolean)
-        ModDesign.RedrawDesign(PicDesign, pIsReCentre, isGridOn, isCentreOn)
+        ModDesign.RedrawDesign(PicDesign, pIsReCentre, isGridOn, isCentreOn, isCentreMarksOn)
     End Sub
     Private Sub ResizeImageForSelectedCells()
         isLoading = True
@@ -1596,6 +1597,13 @@ Public Class FrmStitchDesign
         SetIsCentreOn()
         RedrawDesign(False)
     End Sub
+    Private Sub ToggleCentreMarks()
+        isCentreMarksOn = Not isCentreMarksOn
+        My.Settings.isCentreMarksOn = isCentreMarksOn
+        My.Settings.Save()
+        SetIsCentreMarks()
+        RedrawDesign(False)
+    End Sub
     Private Sub SetIsGridOn()
         MnuGridOn.Checked = isGridOn
         If isGridOn Then
@@ -1611,6 +1619,14 @@ Public Class FrmStitchDesign
         Else
             PicCentreLines.Image = My.Resources.centreoff
         End If
+    End Sub
+    Private Sub SetIsCentreMarks()
+        MnuCentreMarks.Checked = isCentreMarksOn
+        'If isCentreMarksOn Then
+        '    PicCentreLines.Image = My.Resources.centreon
+        'Else
+        '    PicCentreLines.Image = My.Resources.centreoff
+        'End If
     End Sub
 #End Region
 #Region "actions"
@@ -2300,6 +2316,10 @@ Public Class FrmStitchDesign
             _newList.Add(New StitchAction(_action.Stitch, _action.DoneAction, _action.NewThread))
         Next
         oUndoList.Add(_newList)
+    End Sub
+
+    Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
+        ToggleCentreMarks
     End Sub
 #End Region
 #End Region

@@ -108,7 +108,7 @@ Public Class FrmImportImage
                 oDesignBitmap = New Bitmap(_width, _height)
                 oDesignGraphics = Graphics.FromImage(oDesignBitmap)
                 oProjectDesign = ProjectDesignBuilder.AProjectDesign().StartingWithNothing.WithRows(NudDesignHeight.Value).WithColumns(NudDesignWidth.Value).Build
-                DrawGrid(oProjectDesign, True, True)
+                DrawGrid(oProjectDesign, True, True, True)
                 PicDesign.Invalidate()
                 For Each y As Integer In Enumerable.Range(0, oTargetImage.Size.Height)
                     For Each x As Integer In Enumerable.Range(0, oTargetImage.Size.Width)

@@ -101,9 +101,10 @@ Partial Class FrmOptions
         Me.Label16 = New System.Windows.Forms.Label()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
+        Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -514,6 +515,7 @@ Partial Class FrmOptions
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.ChkCentreMarks)
         Me.GroupBox5.Controls.Add(Me.ChkCentreLineVariable)
         Me.GroupBox5.Controls.Add(Me.NudGrid1Thickness)
         Me.GroupBox5.Controls.Add(Me.Label13)
@@ -948,6 +950,15 @@ Partial Class FrmOptions
         Me.GroupBox10.TabStop = False
         Me.GroupBox10.Text = "Fabric"
         '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(196, 18)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(51, 14)
+        Me.Label21.TabIndex = 168
+        Me.Label21.Text = "per inch"
+        '
         'NudFabricCount
         '
         Me.NudFabricCount.Location = New System.Drawing.Point(140, 16)
@@ -967,14 +978,15 @@ Partial Class FrmOptions
         Me.Label20.TabIndex = 167
         Me.Label20.Text = "Default Fabric Count"
         '
-        'Label21
+        'ChkCentreMarks
         '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(196, 18)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(51, 14)
-        Me.Label21.TabIndex = 168
-        Me.Label21.Text = "per inch"
+        Me.ChkCentreMarks.AutoSize = True
+        Me.ChkCentreMarks.Location = New System.Drawing.Point(140, 51)
+        Me.ChkCentreMarks.Name = "ChkCentreMarks"
+        Me.ChkCentreMarks.Size = New System.Drawing.Size(117, 18)
+        Me.ChkCentreMarks.TabIndex = 170
+        Me.ChkCentreMarks.Text = "Centre Marks On"
+        Me.ChkCentreMarks.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '
@@ -1123,4 +1135,5 @@ Partial Class FrmOptions
     Friend WithEvents Label21 As Label
     Friend WithEvents NudFabricCount As NumericUpDown
     Friend WithEvents Label20 As Label
+    Friend WithEvents ChkCentreMarks As CheckBox
 End Class

@@ -274,6 +274,7 @@ Module ModCommon
         isCentreWidthVariable = My.Settings.isCentrelineWidthVariable
         isGridOn = My.Settings.isGridOn
         isCentreOn = My.Settings.IsCentreOn
+        isCentreMarksOn = My.Settings.isCentreMarksOn
         If TypeOf pForm Is FrmStitchDesign Then
             Dim pDesignForm As FrmStitchDesign = CType(pForm, FrmStitchDesign)
             pDesignForm.LoadDesignSettings()

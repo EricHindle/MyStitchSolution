@@ -130,6 +130,7 @@ Module ModDesign
     Friend isSingleColour As Boolean
 
     Friend isCentreOn As Boolean
+    Friend isCentreMarksOn As Boolean
     Friend isGridOn As Boolean
     Friend isPrintCentreOn As Boolean
     Friend isPrintGridOn As Boolean
@@ -177,10 +178,10 @@ Module ModDesign
             _designInfo.ShowDialog()
         End Using
     End Sub
-    Public Function LoadProjectDesignFromFile(ByRef pProject As Project, ByRef pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean) As ProjectDesign
-        Return LoadProjectDesignFromFile(pProject, oProjectDesign, pPictureBox, pIsGridOn, pIsCentreOn, pIsPaletteChanged)
+    Public Function LoadProjectDesignFromFile(ByRef pProject As Project, ByRef pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean, pIsCentreMarks As Boolean) As ProjectDesign
+        Return LoadProjectDesignFromFile(pProject, oProjectDesign, pPictureBox, pIsGridOn, pIsCentreOn, pIsPaletteChanged, pIsCentreMarks)
     End Function
-    Public Function LoadProjectDesignFromFile(ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean) As ProjectDesign
+    Public Function LoadProjectDesignFromFile(ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean, pIsCentreMarks As Boolean) As ProjectDesign
         oFabricColour = GetColourFromProject(pProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)
         Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & ZIP_EXT)
@@ -211,7 +212,7 @@ Module ModDesign
         oCentrePenWidth = My.Settings.CentrelineWidth
         oCentrePenColor = My.Settings.CentrelineColour
         oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
-        RedrawDesign(pPictureBox, pIsGridOn, pIsCentreOn)
+        RedrawDesign(pPictureBox, pIsGridOn, pIsCentreOn, pIsCentreMarks)
         Return pProjectDesign
     End Function
     Private Sub SetInitialMagnification(pPictureBox As PictureBox)
@@ -246,13 +247,13 @@ Module ModDesign
         iPixelsPerCell = Math.Floor(PIXELS_PER_CELL * dMagnification)
         iOneToOneSize = New Size(pProjectDesign.Columns * iPixelsPerCell, pProjectDesign.Rows * iPixelsPerCell)
     End Sub
-    Public Sub RedrawDesign(pPicturebox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean)
-        RedrawDesign(pPicturebox, True, pIsGridOn, pIsCentreOn)
+    Public Sub RedrawDesign(pPicturebox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, pIsCentreMarks As Boolean)
+        RedrawDesign(pPicturebox, True, pIsGridOn, pIsCentreOn, pIsCentreMarks)
     End Sub
-    Public Sub RedrawDesign(pPicturebox As PictureBox, pIsReCentre As Boolean, pIsGridOn As Boolean, pIsCentreOn As Boolean)
-        RedrawDesign(pPicturebox, oDesignBitmap, oProjectDesign, oDesignGraphics, pIsReCentre, pIsGridOn, pIsCentreOn)
+    Public Sub RedrawDesign(pPicturebox As PictureBox, pIsReCentre As Boolean, pIsGridOn As Boolean, pIsCentreOn As Boolean, pIsCentreMarks As Boolean)
+        RedrawDesign(pPicturebox, oDesignBitmap, oProjectDesign, oDesignGraphics, pIsReCentre, pIsGridOn, pIsCentreOn, pIsCentreMarks)
     End Sub
-    Public Sub RedrawDesign(ByRef pPicturebox As PictureBox, ByRef pDesignBitmap As Bitmap, ByRef pProjectDesign As ProjectDesign, ByRef pDesignGraphics As Graphics, pIsReCentre As Boolean, pIsGridOn As Boolean, pIsCentreOn As Boolean)
+    Public Sub RedrawDesign(ByRef pPicturebox As PictureBox, ByRef pDesignBitmap As Bitmap, ByRef pProjectDesign As ProjectDesign, ByRef pDesignGraphics As Graphics, pIsReCentre As Boolean, pIsGridOn As Boolean, pIsCentreOn As Boolean, pIsCentreMarks As Boolean)
         ' Create image the size of the design
         pDesignBitmap = New Bitmap(CInt(pProjectDesign.Columns * iPixelsPerCell), CInt(pProjectDesign.Rows * iPixelsPerCell))
         If pIsReCentre Then
@@ -264,7 +265,7 @@ Module ModDesign
         pDesignGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         pDesignGraphics.FillRectangle(oFabricBrush, New Rectangle(0, 0, pDesignBitmap.Width, pDesignBitmap.Height))
         FillBeforeGrid(pProjectDesign)
-        DrawGrid(pProjectDesign, pIsGridOn, pIsCentreOn)
+        DrawGrid(pProjectDesign, pIsGridOn, pIsCentreOn, pIsCentreMarks)
         FillAfterGrid()
         pPicturebox.Invalidate()
     End Sub
@@ -312,19 +313,16 @@ Module ModDesign
             Next
         End If
     End Sub
-    Public Sub DrawGrid(ByRef pProjectDesign As ProjectDesign, pIsGridOn As Boolean, pIsCentreOn As Boolean)
-        DrawGrid(pProjectDesign, oDesignBitmap, oDesignGraphics, pIsGridOn, pIsCentreOn)
+    Public Sub DrawGrid(ByRef pProjectDesign As ProjectDesign, pIsGridOn As Boolean, pIsCentreOn As Boolean, pIsCentreMarksOn As Boolean)
+        DrawGrid(pProjectDesign, oDesignBitmap, oDesignGraphics, pIsGridOn, pIsCentreOn, pIsCentreMarksOn)
     End Sub
-    Public Sub DrawGrid(ByRef pProjectDesign As ProjectDesign, ByRef pBitmap As Bitmap, pGraphics As Graphics, pIsGridOn As Boolean, pIsCentreOn As Boolean)
+    Public Sub DrawGrid(ByRef pProjectDesign As ProjectDesign, ByRef pBitmap As Bitmap, pGraphics As Graphics, pIsGridOn As Boolean, pIsCentreOn As Boolean, pIsCentreMarksOn As Boolean)
         Dim _widthInColumns As Integer = pProjectDesign.Columns
         Dim _heightInRows As Integer = pProjectDesign.Rows
         Dim gap As Integer = iPixelsPerCell
-        Dim wct As Integer = pBitmap.Width / gap
-
         Dim _designBorderPen As New Pen(Brushes.Black, 2)
-
-        Dim _halfColumn As Integer = Math.Floor(_widthInColumns / 2)
-        Dim _halfRow As Integer = Math.Floor(_heightInRows / 2)
+        Dim _middleColumn As Integer = Math.Floor(_widthInColumns / 2)
+        Dim _middleRow As Integer = Math.Floor(_heightInRows / 2)
 
         If pIsGridOn Then
             MakeGridPens()
@@ -346,14 +344,25 @@ Module ModDesign
             For y = 10 To _heightInRows Step 10
                 pGraphics.DrawLine(oGrid10Pen, New Point(0, gap * y), New Point(Math.Min(gap * _widthInColumns, pBitmap.Width), gap * y))
             Next
-            If pIsCentreOn Then
-                Dim _triwidth As Integer = Math.Max(4, Math.Ceiling(iPixelsPerCell / 2))
-                Dim _triPointsTop As Point() = {New Point((gap * _halfColumn) - _triwidth, 0), New Point((gap * _halfColumn) + _triwidth, 0), New Point((gap * _halfColumn), _triwidth)}
-                Dim _triPointsSide As Point() = {New Point(0, (gap * _halfRow) - _triwidth), New Point(0, (gap * _halfRow) + _triwidth), New Point(_triwidth, (gap * _halfRow))}
-                pGraphics.FillPolygon(oCentreBrush, _triPointsTop)
-                pGraphics.FillPolygon(oCentreBrush, _triPointsSide)
-            End If
         End If
+        Dim _markHalfWidth As Integer = Math.Max(4, Math.Ceiling(iPixelsPerCell * 0.5))
+        Dim _markHeight As Integer = Math.Max(6, Math.Ceiling(iPixelsPerCell * 0.75))
+        Dim _middleColumnPos As Integer = gap * _middleColumn
+        Dim _middleRowPos As Integer = gap * _middleRow
+        Dim _gridHeight As Integer = gap * _heightInRows
+        Dim _gridWidth As Integer = gap * _widthInColumns
+        Dim _topMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, gap - _markHeight),
+                                         New Point(_middleColumnPos + _markHalfWidth, gap - _markHeight),
+                                         New Point(_middleColumnPos, gap)}
+        Dim _leftMarkPoints As Point() = {New Point(gap - _markHeight, _middleRowPos - _markHalfWidth),
+                                          New Point(gap - _markHeight, _middleRowPos + _markHalfWidth),
+                                          New Point(gap, _middleRowPos)}
+        Dim _bottomMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, _gridHeight - gap + _markHeight),
+                                            New Point(_middleColumnPos + _markHalfWidth, _gridHeight - gap + _markHeight),
+                                            New Point(_middleColumnPos, _gridHeight - gap)}
+        Dim _rightMarkPoints As Point() = {New Point(_gridWidth - gap + _markHeight, (_middleRowPos - _markHalfWidth)),
+                                           New Point(_gridWidth - gap + _markHeight, _middleRowPos + _markHalfWidth),
+                                           New Point(_gridWidth - gap, _middleRowPos)}
         If pIsCentreOn Then
             If isCentreWidthVariable Then
                 oCentrePenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
@@ -361,10 +370,15 @@ Module ModDesign
                 oCentrePenWidth = oCentrePenDefaultWidth
             End If
             oCentrePen = New Pen(oCentrePenColor, oCentrePenWidth)
-            pGraphics.DrawLine(oCentrePen, New Point(0, gap * _halfRow), New Point(Math.Min(gap * _widthInColumns, pBitmap.Width), gap * _halfRow))
-            pGraphics.DrawLine(oCentrePen, New Point(gap * _halfColumn, 0), New Point(gap * _halfColumn, Math.Min(gap * _heightInRows, pBitmap.Height)))
+            pGraphics.DrawLine(oCentrePen, New Point(0, gap * _middleRow), New Point(Math.Min(gap * _widthInColumns, pBitmap.Width), gap * _middleRow))
+            pGraphics.DrawLine(oCentrePen, New Point(gap * _middleColumn, 0), New Point(gap * _middleColumn, Math.Min(gap * _heightInRows, pBitmap.Height)))
         End If
-
+        If pIsCentreMarksOn Then
+            pGraphics.FillPolygon(oCentreBrush, _topMarkPoints)
+            pGraphics.FillPolygon(oCentreBrush, _leftMarkPoints)
+            pGraphics.FillPolygon(oCentreBrush, _bottomMarkPoints)
+            pGraphics.FillPolygon(oCentreBrush, _rightMarkPoints)
+        End If
         '   FillAfterGrid()
         pGraphics.DrawRectangle(_designBorderPen, New Rectangle(0, 0, Math.Min(gap * _widthInColumns, pBitmap.Width), Math.Min(gap * _heightInRows, pBitmap.Height)))
         _designBorderPen.Dispose()
@@ -841,8 +855,8 @@ Module ModDesign
         If pProject.IsLoaded AndAlso pBitmap IsNot Nothing Then
             pForm.Hide()
             Using _printDialog As New FrmPrintProject
-                _printDialog.PrintProject = pProject
-                _printDialog.PrintImage = pBitmap
+                '_printDialog.PrintProject = pProject
+                '_printDialog.SourceBitmap = pBitmap
                 _printDialog.ShowDialog()
             End Using
             pForm.Show()

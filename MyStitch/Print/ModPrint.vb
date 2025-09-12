@@ -27,8 +27,8 @@ Module ModPrint
     Friend oBottomMargin As Integer
     Friend oAvailableGridWidth As Integer
     Friend oAvailableGridHeight As Integer
-    Friend oAvailableCellWidth As Integer
-    Friend oAvailableCellHeight As Integer
+    Friend oAvailableCellsWidth As Integer
+    Friend oAvailableCellsHeight As Integer
     Friend oGridOrigin As Point
     Friend oPageImage As Bitmap
     Friend oPageGraphics As Graphics
@@ -50,8 +50,8 @@ Module ModPrint
         oAvailableGridHeight = A4_HEIGHT - oTopMargin - oBottomMargin
         Dim _widthInches As Decimal = oAvailableGridWidth / DPI
         Dim _heightInches As Decimal = oAvailableGridHeight / DPI
-        oAvailableCellWidth = _widthInches * pCellsPerInch
-        oAvailableCellHeight = _heightInches * pCellsPerInch
+        oAvailableCellsWidth = _widthInches * pCellsPerInch
+        oAvailableCellsHeight = _heightInches * pCellsPerInch
         oGridOrigin = New Point(oLeftMargin, oTopMargin)
     End Sub
     Friend Sub InitialisePrintDocument()
