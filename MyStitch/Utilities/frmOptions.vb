@@ -32,6 +32,10 @@ Public NotInheritable Class FrmOptions
         Close()
     End Sub
     Private Sub SaveOptions()
+        My.Settings.isHkArchive = ChkDesignArchive.Checked
+        My.Settings.isHkData = ChkDataArchive.Checked
+        My.Settings.isHkLogs = ChkLogs.Checked
+        My.Settings.DataFilePath = TxtDataPath.Text
         My.Settings.ImagePath = TxtImagePath.Text
         My.Settings.DesignFilePath = TxtDesignFilePath.Text
         My.Settings.BackupPath = TxtBackupPath.Text
@@ -69,6 +73,7 @@ Public NotInheritable Class FrmOptions
     End Sub
 
     Private Sub LoadOptions()
+        TxtDataPath.Text = My.Settings.DataFilePath
         TxtLogFilePath.Text = My.Settings.LogFolder
         TxtBackupPath.Text = My.Settings.BackupPath
         TxtImagePath.Text = My.Settings.ImagePath
@@ -101,6 +106,9 @@ Public NotInheritable Class FrmOptions
         PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
         TxtAppPath.Text = My.Settings.ApplicationPath
         NudFabricCount.Value = My.Settings.DefaultFabricCount
+        ChkDesignArchive.Checked = My.Settings.isHkArchive
+        ChkDataArchive.Checked = My.Settings.isHkData
+        ChkLogs.Checked = My.Settings.isHkLogs
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()

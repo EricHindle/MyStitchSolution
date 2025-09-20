@@ -34,6 +34,8 @@ Partial Class FrmOptions
         Me.Version = New System.Windows.Forms.Label()
         Me.BtnResetForms = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TxtDataPath = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.TxtAppPath = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.TxtLogFilePath = New System.Windows.Forms.TextBox()
@@ -61,6 +63,7 @@ Partial Class FrmOptions
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.ChkArchiveOnSave = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
         Me.ChkCentreLineVariable = New System.Windows.Forms.CheckBox()
         Me.NudGrid1Thickness = New System.Windows.Forms.NumericUpDown()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -104,7 +107,7 @@ Partial Class FrmOptions
         Me.Label21 = New System.Windows.Forms.Label()
         Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
+        Me.ChkDataArchive = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -137,7 +140,7 @@ Partial Class FrmOptions
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnCancel.Location = New System.Drawing.Point(627, 635)
+        Me.btnCancel.Location = New System.Drawing.Point(627, 681)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(87, 41)
         Me.btnCancel.TabIndex = 10
@@ -149,7 +152,7 @@ Partial Class FrmOptions
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSave.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.btnSave.Location = New System.Drawing.Point(627, 560)
+        Me.btnSave.Location = New System.Drawing.Point(627, 606)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(87, 60)
         Me.btnSave.TabIndex = 9
@@ -158,14 +161,14 @@ Partial Class FrmOptions
         '
         'TxtBackupPath
         '
-        Me.TxtBackupPath.Location = New System.Drawing.Point(171, 105)
+        Me.TxtBackupPath.Location = New System.Drawing.Point(171, 137)
         Me.TxtBackupPath.Name = "TxtBackupPath"
         Me.TxtBackupPath.Size = New System.Drawing.Size(333, 22)
         Me.TxtBackupPath.TabIndex = 3
         '
         'TxtImagePath
         '
-        Me.TxtImagePath.Location = New System.Drawing.Point(171, 77)
+        Me.TxtImagePath.Location = New System.Drawing.Point(171, 108)
         Me.TxtImagePath.Name = "TxtImagePath"
         Me.TxtImagePath.Size = New System.Drawing.Size(333, 22)
         Me.TxtImagePath.TabIndex = 2
@@ -173,7 +176,7 @@ Partial Class FrmOptions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 80)
+        Me.Label1.Location = New System.Drawing.Point(12, 111)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(70, 14)
         Me.Label1.TabIndex = 4
@@ -182,7 +185,7 @@ Partial Class FrmOptions
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 108)
+        Me.Label2.Location = New System.Drawing.Point(12, 140)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 14)
         Me.Label2.TabIndex = 5
@@ -191,7 +194,7 @@ Partial Class FrmOptions
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 52)
+        Me.Label3.Location = New System.Drawing.Point(12, 82)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(93, 14)
         Me.Label3.TabIndex = 7
@@ -199,7 +202,7 @@ Partial Class FrmOptions
         '
         'TxtDesignFilePath
         '
-        Me.TxtDesignFilePath.Location = New System.Drawing.Point(171, 49)
+        Me.TxtDesignFilePath.Location = New System.Drawing.Point(171, 79)
         Me.TxtDesignFilePath.Name = "TxtDesignFilePath"
         Me.TxtDesignFilePath.Size = New System.Drawing.Size(333, 22)
         Me.TxtDesignFilePath.TabIndex = 1
@@ -210,7 +213,7 @@ Partial Class FrmOptions
         Me.Version.BackColor = System.Drawing.Color.Transparent
         Me.Version.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Version.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.Version.Location = New System.Drawing.Point(16, 657)
+        Me.Version.Location = New System.Drawing.Point(16, 703)
         Me.Version.Name = "Version"
         Me.Version.Size = New System.Drawing.Size(214, 22)
         Me.Version.TabIndex = 8
@@ -221,7 +224,7 @@ Partial Class FrmOptions
         Me.BtnResetForms.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnResetForms.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnResetForms.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnResetForms.Location = New System.Drawing.Point(16, 560)
+        Me.BtnResetForms.Location = New System.Drawing.Point(16, 606)
         Me.BtnResetForms.Name = "BtnResetForms"
         Me.BtnResetForms.Size = New System.Drawing.Size(86, 60)
         Me.BtnResetForms.TabIndex = 11
@@ -230,6 +233,8 @@ Partial Class FrmOptions
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.TxtDataPath)
+        Me.GroupBox1.Controls.Add(Me.Label22)
         Me.GroupBox1.Controls.Add(Me.TxtAppPath)
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.TxtLogFilePath)
@@ -242,10 +247,26 @@ Partial Class FrmOptions
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(521, 167)
+        Me.GroupBox1.Size = New System.Drawing.Size(521, 202)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "File Paths"
+        '
+        'TxtDataPath
+        '
+        Me.TxtDataPath.Location = New System.Drawing.Point(171, 50)
+        Me.TxtDataPath.Name = "TxtDataPath"
+        Me.TxtDataPath.Size = New System.Drawing.Size(333, 22)
+        Me.TxtDataPath.TabIndex = 15
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(14, 53)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(61, 14)
+        Me.Label22.TabIndex = 14
+        Me.Label22.Text = "Data Path"
         '
         'TxtAppPath
         '
@@ -265,7 +286,7 @@ Partial Class FrmOptions
         '
         'TxtLogFilePath
         '
-        Me.TxtLogFilePath.Location = New System.Drawing.Point(171, 133)
+        Me.TxtLogFilePath.Location = New System.Drawing.Point(171, 166)
         Me.TxtLogFilePath.Name = "TxtLogFilePath"
         Me.TxtLogFilePath.Size = New System.Drawing.Size(333, 22)
         Me.TxtLogFilePath.TabIndex = 4
@@ -273,7 +294,7 @@ Partial Class FrmOptions
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(12, 136)
+        Me.Label12.Location = New System.Drawing.Point(12, 169)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(77, 14)
         Me.Label12.TabIndex = 10
@@ -284,7 +305,7 @@ Partial Class FrmOptions
         Me.BtnGlobalSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnGlobalSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGlobalSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnGlobalSettings.Location = New System.Drawing.Point(120, 560)
+        Me.BtnGlobalSettings.Location = New System.Drawing.Point(120, 606)
         Me.BtnGlobalSettings.Name = "BtnGlobalSettings"
         Me.BtnGlobalSettings.Size = New System.Drawing.Size(86, 60)
         Me.BtnGlobalSettings.TabIndex = 12
@@ -296,7 +317,7 @@ Partial Class FrmOptions
         Me.BtnBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnBackup.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnBackup.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnBackup.Location = New System.Drawing.Point(328, 560)
+        Me.BtnBackup.Location = New System.Drawing.Point(328, 606)
         Me.BtnBackup.Name = "BtnBackup"
         Me.BtnBackup.Size = New System.Drawing.Size(86, 60)
         Me.BtnBackup.TabIndex = 14
@@ -308,7 +329,7 @@ Partial Class FrmOptions
         Me.BtnHousekeeping.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnHousekeeping.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnHousekeeping.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnHousekeeping.Location = New System.Drawing.Point(432, 560)
+        Me.BtnHousekeeping.Location = New System.Drawing.Point(432, 606)
         Me.BtnHousekeeping.Name = "BtnHousekeeping"
         Me.BtnHousekeeping.Size = New System.Drawing.Size(112, 60)
         Me.BtnHousekeeping.TabIndex = 15
@@ -317,6 +338,7 @@ Partial Class FrmOptions
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.ChkDataArchive)
         Me.GroupBox4.Controls.Add(Me.ChkDesignArchive)
         Me.GroupBox4.Controls.Add(Me.ChkLogs)
         Me.GroupBox4.Controls.Add(Me.ChkAutoRunHousekeeping)
@@ -324,7 +346,7 @@ Partial Class FrmOptions
         Me.GroupBox4.Controls.Add(Me.NudRetention)
         Me.GroupBox4.Location = New System.Drawing.Point(548, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(133, 144)
+        Me.GroupBox4.Size = New System.Drawing.Size(133, 172)
         Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Housekeeping"
@@ -461,7 +483,7 @@ Partial Class FrmOptions
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.ChkLogZoom)
         Me.GroupBox2.Controls.Add(Me.ChkDebugOn)
-        Me.GroupBox2.Location = New System.Drawing.Point(279, 185)
+        Me.GroupBox2.Location = New System.Drawing.Point(279, 220)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(200, 100)
         Me.GroupBox2.TabIndex = 3
@@ -496,7 +518,7 @@ Partial Class FrmOptions
         Me.GroupBox3.Controls.Add(Me.ChkBackupArchive)
         Me.GroupBox3.Controls.Add(Me.ChkBackupAddDate)
         Me.GroupBox3.Controls.Add(Me.ChkBackupRevision)
-        Me.GroupBox3.Location = New System.Drawing.Point(279, 291)
+        Me.GroupBox3.Location = New System.Drawing.Point(279, 326)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(411, 107)
         Me.GroupBox3.TabIndex = 5
@@ -538,12 +560,22 @@ Partial Class FrmOptions
         Me.GroupBox5.Controls.Add(Me.Label4)
         Me.GroupBox5.Controls.Add(Me.PicCentreLineColour)
         Me.GroupBox5.Controls.Add(Me.ChkGridOn)
-        Me.GroupBox5.Location = New System.Drawing.Point(16, 185)
+        Me.GroupBox5.Location = New System.Drawing.Point(16, 220)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(257, 319)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design Grid"
+        '
+        'ChkCentreMarks
+        '
+        Me.ChkCentreMarks.AutoSize = True
+        Me.ChkCentreMarks.Location = New System.Drawing.Point(140, 51)
+        Me.ChkCentreMarks.Name = "ChkCentreMarks"
+        Me.ChkCentreMarks.Size = New System.Drawing.Size(117, 18)
+        Me.ChkCentreMarks.TabIndex = 170
+        Me.ChkCentreMarks.Text = "Centre Marks On"
+        Me.ChkCentreMarks.UseVisualStyleBackColor = True
         '
         'ChkCentreLineVariable
         '
@@ -772,7 +804,7 @@ Partial Class FrmOptions
         'GroupBox6
         '
         Me.GroupBox6.Controls.Add(Me.ChkTimerAutoStart)
-        Me.GroupBox6.Location = New System.Drawing.Point(526, 404)
+        Me.GroupBox6.Location = New System.Drawing.Point(526, 439)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(188, 51)
         Me.GroupBox6.TabIndex = 7
@@ -802,7 +834,7 @@ Partial Class FrmOptions
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.ChkShowStock)
-        Me.GroupBox7.Location = New System.Drawing.Point(485, 185)
+        Me.GroupBox7.Location = New System.Drawing.Point(485, 220)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(192, 100)
         Me.GroupBox7.TabIndex = 4
@@ -824,7 +856,7 @@ Partial Class FrmOptions
         Me.BtnPrintSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnPrintSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrintSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnPrintSettings.Location = New System.Drawing.Point(224, 560)
+        Me.BtnPrintSettings.Location = New System.Drawing.Point(224, 606)
         Me.BtnPrintSettings.Name = "BtnPrintSettings"
         Me.BtnPrintSettings.Size = New System.Drawing.Size(86, 60)
         Me.BtnPrintSettings.TabIndex = 13
@@ -843,7 +875,7 @@ Partial Class FrmOptions
         Me.GroupBox8.Controls.Add(Me.Label16)
         Me.GroupBox8.Controls.Add(Me.PicSelectionBorderColour)
         Me.GroupBox8.Controls.Add(Me.Label15)
-        Me.GroupBox8.Location = New System.Drawing.Point(279, 404)
+        Me.GroupBox8.Location = New System.Drawing.Point(279, 439)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(241, 148)
         Me.GroupBox8.TabIndex = 6
@@ -931,7 +963,7 @@ Partial Class FrmOptions
         '
         Me.GroupBox9.Controls.Add(Me.ChkTimerAutoSave)
         Me.GroupBox9.Controls.Add(Me.ChkArchiveOnSave)
-        Me.GroupBox9.Location = New System.Drawing.Point(526, 461)
+        Me.GroupBox9.Location = New System.Drawing.Point(526, 496)
         Me.GroupBox9.Name = "GroupBox9"
         Me.GroupBox9.Size = New System.Drawing.Size(188, 72)
         Me.GroupBox9.TabIndex = 8
@@ -943,7 +975,7 @@ Partial Class FrmOptions
         Me.GroupBox10.Controls.Add(Me.Label21)
         Me.GroupBox10.Controls.Add(Me.NudFabricCount)
         Me.GroupBox10.Controls.Add(Me.Label20)
-        Me.GroupBox10.Location = New System.Drawing.Point(16, 508)
+        Me.GroupBox10.Location = New System.Drawing.Point(16, 543)
         Me.GroupBox10.Name = "GroupBox10"
         Me.GroupBox10.Size = New System.Drawing.Size(257, 44)
         Me.GroupBox10.TabIndex = 16
@@ -978,22 +1010,22 @@ Partial Class FrmOptions
         Me.Label20.TabIndex = 167
         Me.Label20.Text = "Default Fabric Count"
         '
-        'ChkCentreMarks
+        'ChkDataArchive
         '
-        Me.ChkCentreMarks.AutoSize = True
-        Me.ChkCentreMarks.Location = New System.Drawing.Point(140, 51)
-        Me.ChkCentreMarks.Name = "ChkCentreMarks"
-        Me.ChkCentreMarks.Size = New System.Drawing.Size(117, 18)
-        Me.ChkCentreMarks.TabIndex = 170
-        Me.ChkCentreMarks.Text = "Centre Marks On"
-        Me.ChkCentreMarks.UseVisualStyleBackColor = True
+        Me.ChkDataArchive.AutoSize = True
+        Me.ChkDataArchive.Location = New System.Drawing.Point(21, 141)
+        Me.ChkDataArchive.Name = "ChkDataArchive"
+        Me.ChkDataArchive.Size = New System.Drawing.Size(95, 18)
+        Me.ChkDataArchive.TabIndex = 29
+        Me.ChkDataArchive.Text = "Data Archive"
+        Me.ChkDataArchive.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(726, 688)
+        Me.ClientSize = New System.Drawing.Size(726, 734)
         Me.Controls.Add(Me.GroupBox10)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.GroupBox8)
@@ -1136,4 +1168,7 @@ Partial Class FrmOptions
     Friend WithEvents NudFabricCount As NumericUpDown
     Friend WithEvents Label20 As Label
     Friend WithEvents ChkCentreMarks As CheckBox
+    Friend WithEvents TxtDataPath As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents ChkDataArchive As CheckBox
 End Class

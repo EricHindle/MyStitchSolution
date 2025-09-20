@@ -29,11 +29,25 @@ Public Class FrmProject
         LoadPathSettings()
         InitialiseLogging()
         LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
-        CheckAppPaths()
+        Try
+            CheckAppPaths()
+        Catch ex As ApplicationException
+            ShowCriticalError("A problem has occurred. Application cannot continue.", ex, MyBase.Name)
+            Close()
+            Exit Sub
+        End Try
         If My.Settings.isAutoRunHousekeeping Then
             RunHousekeeping()
         End If
         isLoading = True
+        Try
+            LoadDataTables(LblStatus)
+        Catch ex As ApplicationException
+            ShowCriticalError("A problem has occurred. Application cannot continue.", ex, MyBase.Name)
+            Close()
+            Exit Sub
+        End Try
+        LogUtil.ShowStatus("Data loaded OK", LblStatus)
         InitialiseForm()
         isLoading = False
         KeyPreview = True
@@ -47,6 +61,15 @@ Public Class FrmProject
         End If
     End Sub
 
+    Private Shared Sub ShowCriticalError(pText As String, pEx As ApplicationException, pSource As String)
+        Using _error As New FrmCriticalError
+            _error.ErrorText = pText
+            _error.Exception = pEx
+            _error.Source = pSource
+            _error.ShowDialog()
+        End Using
+    End Sub
+
     Private Function CheckRunTimeParameters() As String
         Dim _params As String() = System.Environment.GetCommandLineArgs
         Dim _filename As String = Nothing
@@ -56,7 +79,7 @@ Public Class FrmProject
             If My.Computer.FileSystem.FileExists(_params(1)) Then
                 Try
                     Dim _suffix As String = Path.GetExtension(_params(1)).ToLower
-                    If _suffix = ARC_EXT Or _suffix = ZIP_EXT Then
+                    If _suffix = DESIGN_ARC_EXT Or _suffix = DESIGN_ZIP_EXT Then
                         _filename = _params(1)
                     End If
                 Catch ex As ArgumentException
@@ -80,6 +103,7 @@ Public Class FrmProject
         oGrid5Pen.Dispose()
         oGrid10Pen.Dispose()
         oCentrePen.Dispose()
+        SaveDataTables(LblStatus)
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -88,6 +112,7 @@ Public Class FrmProject
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = GetProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
+                _selectedProject = ModDataTableAdapter.FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 NudDesignHeight.Enabled = False
                 NudDesignWidth.Enabled = False
                 NudOriginX.Enabled = False
@@ -300,10 +325,10 @@ Public Class FrmProject
     Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
         Dim _exceptionText As String = "Exception renaming project design file"
         Dim _existingDesignFile As String = MakeFilename(pPreviousProject) & DESIGN_EXT
-        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, ZIP_EXT)
+        Dim _existingZipFile As String = MakeFullFileName(pPreviousProject, DESIGN_ZIP_EXT)
         If My.Computer.FileSystem.FileExists(_existingZipFile) Then
             Dim _newDesignFile As String = MakeFilename(pSelectedProject) & DESIGN_EXT
-            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, ZIP_EXT)
+            Dim _newZipFile As String = MakeFullFileName(pSelectedProject, DESIGN_ZIP_EXT)
             Try
                 LogUtil.ShowStatus("Renaming " & _existingDesignFile & " to " & _newDesignFile, LblStatus, True, MyBase.Name, False)
                 Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)

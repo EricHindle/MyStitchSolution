@@ -50,6 +50,9 @@
   <PropertyGroup>
     <ApplicationIcon>MyStitch.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HindlewareLib">
       <HintPath>..\..\HindlewareLib\bin\Release\HindlewareLib.dll</HintPath>
@@ -84,6 +87,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Cards\FrmBuildThreadCards.Designer.vb">
       <DependentUpon>FrmBuildThreadCards.vb</DependentUpon>
     </Compile>
@@ -109,6 +113,7 @@
     <Compile Include="Design\FrmImportImage.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Domain\ModDataTableAdapter.vb" />
     <Compile Include="Print\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -242,6 +247,12 @@
     <Compile Include="Project Files\FrmBackup.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utilities\FrmCriticalError.Designer.vb">
+      <DependentUpon>FrmCriticalError.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmCriticalError.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\FrmGlobalSettings.designer.vb">
       <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
     </Compile>
@@ -328,6 +339,9 @@
     <EmbeddedResource Include="Project Files\FrmBackup.resx">
       <DependentUpon>FrmBackup.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmCriticalError.resx">
+      <DependentUpon>FrmCriticalError.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
       <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
     </EmbeddedResource>
@@ -346,6 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -373,6 +388,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\critical.png" />
     <None Include="Resources\paste.png" />
     <None Include="Resources\copyicon.png" />
     <None Include="Resources\rotate.png" />

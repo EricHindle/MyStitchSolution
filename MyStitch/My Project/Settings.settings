@@ -268,5 +268,11 @@
     <Setting Name="isCentreMarksOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="DataFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%applicationpath%\Data</Value>
+    </Setting>
+    <Setting Name="isHkData" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

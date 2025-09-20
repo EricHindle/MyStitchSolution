@@ -1096,6 +1096,30 @@ Namespace My
                 Me("isCentreMarksOn") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("%applicationpath%\Data")>  _
+        Public Property DataFilePath() As String
+            Get
+                Return CType(Me("DataFilePath"),String)
+            End Get
+            Set
+                Me("DataFilePath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isHkData() As Boolean
+            Get
+                Return CType(Me("isHkData"),Boolean)
+            End Get
+            Set
+                Me("isHkData") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

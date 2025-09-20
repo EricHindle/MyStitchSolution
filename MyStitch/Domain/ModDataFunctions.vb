@@ -73,7 +73,7 @@ Namespace Domain
             LogUtil.LogInfo("Initialising data", MethodBase.GetCurrentMethod.Name)
             FillTableListFromTableEnum()
         End Sub
-        Private Sub FillTableListFromTableEnum()
+        Public Sub FillTableListFromTableEnum()
             tableList.Clear()
             Dim _enumArray As Array = [Enum].GetValues(GetType(Tables))
             For Each _enum In _enumArray
@@ -132,7 +132,7 @@ Namespace Domain
                             LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
                             For Each _row As MyStitchDataSet.SymbolsRow In oThreadTable.Rows
                                 Dim _symbol As Symbol = SymbolBuilder.ASymbol.StartingWith(_row).Build
-                                InsertSymbol(_symbol, _symbol.symbolId)
+                                InsertSymbol(_symbol, _symbol.SymbolId)
                             Next
                             rowCount = oThreadTa.GetData().Rows.Count
                         End If
@@ -633,7 +633,6 @@ Namespace Domain
 #End Region
 #Region "settings"
         Public Function GetSettingsTable() As MyStitchDataSet.SettingsDataTable
-            LogUtil.Info("Getting storyarc table", MethodBase.GetCurrentMethod.Name)
             Return oSettingsTa.GetData()
         End Function
         Public Function GetSettingByName(settingName As String) As GlobalSetting

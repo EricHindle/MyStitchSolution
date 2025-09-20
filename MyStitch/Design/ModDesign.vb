@@ -184,7 +184,7 @@ Module ModDesign
     Public Function LoadProjectDesignFromFile(ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign, pPictureBox As PictureBox, pIsGridOn As Boolean, pIsCentreOn As Boolean, ByRef pIsPaletteChanged As Boolean, pIsCentreMarks As Boolean) As ProjectDesign
         oFabricColour = GetColourFromProject(pProject.FabricColour, oFabricColourList)
         oFabricBrush = New SolidBrush(oFabricColour)
-        Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & ZIP_EXT)
+        Dim oDesignString As List(Of String) = OpenDesignFile(oDesignFolderName, MakeFilename(pProject) & DESIGN_ZIP_EXT)
         pProjectDesign = New ProjectDesign
         For Each oLine As String In oDesignString
             If Not String.IsNullOrEmpty(oLine) Then

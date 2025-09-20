@@ -93,8 +93,8 @@ Namespace Domain.Builders
                 With oRow
                     _projectId = .project_id
                     _projectName = .project_name
-                    _dateStarted = .date_started
-                    _dateEnded = .date_ended
+                    _dateStarted = If(.Isdate_startedNull, MIN_DATE, .date_started)
+                    _dateEnded = If(.Isdate_endedNull, MIN_DATE, .date_ended)
                     _designHeight = .design_height
                     _designWidth = .design_width
                     _fabricWidth = .fabric_width

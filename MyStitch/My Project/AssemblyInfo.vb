@@ -34,5 +34,5 @@ Imports System.Runtime.InteropServices
 '      Revision
 '
 
-<Assembly: AssemblyVersion("1.19.4.*")>
-<Assembly: AssemblyFileVersion("1.19.4.0")>
+<Assembly: AssemblyVersion("1.20.0.*")>
+<Assembly: AssemblyFileVersion("1.20.0.0")>

@@ -12,11 +12,14 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Objects
 
 Module ModFileHandling
-    Public Const ZIP_EXT As String = ".hsz"
-    Public Const ARC_EXT As String = ".hsa"
+    Public Const DESIGN_ARC_EXT As String = ".hsa"
+    Public Const DESIGN_ZIP_EXT As String = ".hsz"
     Public Const DESIGN_EXT As String = ".hsd"
     Public Const PROJECT_EXT As String = ".hsp"
     Public Const PROJECT_THREADS_EXT As String = ".hst"
+    Public Const DATA_ARC_EXT As String = ".hsg"
+    Public Const DATA_ZIP_EXT As String = ".hsf"
+    Public Const DATA_EXT As String = ".hsx"
     Public Const DESIGN_DELIM As String = "^"
     Public Const LIST_DELIM As String = "|"
     Public Const BLOCK_DELIM As String = "~"
@@ -90,7 +93,7 @@ Module ModFileHandling
         Dim _projectFile As String = Path.Combine(oDesignFolderName, _projectEntryName)
         Dim _projectThreadsEntryName As String = pDesignFileName & PROJECT_THREADS_EXT
         Dim _projectThreadsFile As String = Path.Combine(oDesignFolderName, _projectThreadsEntryName)
-        Dim _zipFile As String = Path.Combine(oDesignFolderName, pDesignFileName & ZIP_EXT)
+        Dim _zipFile As String = Path.Combine(oDesignFolderName, pDesignFileName & DESIGN_ZIP_EXT)
 
         If Not My.Computer.FileSystem.FileExists(_zipFile) Then
             LogUtil.LogInfo("Creating new zip file " & _zipFile, MethodBase.GetCurrentMethod.Name)
@@ -127,15 +130,31 @@ Module ModFileHandling
         End Using
         Return isOK
     End Function
-    Public Function ArchiveExistingFile(pFilename As String) As Boolean
+    Public Function ArchiveExistingFile(pFilename As String, pSourceFolder As String, pSourceExt As String, pTargetFolder As String, pTargetExt As String) As Boolean
         Dim isMovedOK As Boolean = True
-        Dim _existingFilename As String = Path.Combine(oDesignFolderName, pFilename & ZIP_EXT)
+        Dim _existingFilename As String = Path.Combine(pSourceFolder, pFilename & pSourceExt)
         If My.Computer.FileSystem.FileExists(_existingFilename) Then
-            LogUtil.LogInfo("Archiving design before save", MethodBase.GetCurrentMethod.Name)
-            Dim _destinationFilename As String = Path.Combine(oDesignArchiveFolderName, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & ARC_EXT)
+            LogUtil.LogInfo("Archiving data before save", MethodBase.GetCurrentMethod.Name)
+            Dim _destinationFilename As String = Path.Combine(pTargetFolder, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & pTargetExt)
             isMovedOK = TryMoveFile(_existingFilename, _destinationFilename, True)
         End If
         Return isMovedOK
     End Function
+    Public Sub RemoveFile(oXmlFileName As String)
+        If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+            Try
+                My.Computer.FileSystem.DeleteFile(oXmlFileName)
+            Catch ex As Exception When (TypeOf ex Is ArgumentException) _
+                                        OrElse (TypeOf ex Is PathTooLongException) _
+                                        OrElse (TypeOf ex Is NotSupportedException) _
+                                        OrElse (TypeOf ex Is IOException) _
+                                        OrElse (TypeOf ex Is Security.SecurityException) _
+                                        OrElse (TypeOf ex Is FileNotFoundException) _
+                                        OrElse (TypeOf ex Is UnauthorizedAccessException)
+                LogUtil.LogException(ex, "Exception deleting file " & oXmlFileName, MethodBase.GetCurrentMethod.Name)
+            End Try
+        End If
+    End Sub
+
 
 End Module

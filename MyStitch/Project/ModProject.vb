@@ -52,7 +52,7 @@ Module ModProject
         Dim _reply As String = String.Empty
         LogUtil.Info("Saving design", MethodBase.GetCurrentMethod.Name)
         If My.Settings.isAutoArchiveOnSave Then
-            If Not ArchiveExistingFile(pFilename) Then
+            If Not ArchiveExistingFile(pFilename, oDesignFolderName, DESIGN_ZIP_EXT, oDesignArchiveFolderName, DESIGN_ARC_EXT) Then
                 _reply = "Error archiving existing file"
                 Beep()
                 Return _reply
@@ -213,8 +213,8 @@ Module ModProject
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load project list", pBaseName)
         pDgv.Rows.Clear()
-        For Each oproject As Project In GetProjects()
-            AddProjectRow(pDgv, oproject)
+        For Each oProject As Project In GetProjects()
+            AddProjectRow(pDgv, oProject)
         Next
         pDgv.ClearSelection()
     End Sub
