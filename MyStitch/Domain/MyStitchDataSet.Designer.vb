@@ -1192,8 +1192,7 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnfabric_count)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id}, true))
             Me.columnproject_id.AutoIncrement = true
-            Me.columnproject_id.AutoIncrementSeed = -1
-            Me.columnproject_id.AutoIncrementStep = -1
+            Me.columnproject_id.AutoIncrementSeed = 1
             Me.columnproject_id.AllowDBNull = false
             Me.columnproject_id.ReadOnly = true
             Me.columnproject_id.Unique = true

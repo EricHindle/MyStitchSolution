@@ -106,6 +106,8 @@ Partial Class FrmProject
         Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -657,7 +659,7 @@ Partial Class FrmProject
         'MnuButton
         '
         Me.MnuButton.AutoSize = False
-        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator2, Me.MnuImportImage, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator1, Me.MnuExit})
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator2, Me.MnuImportImage, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator4, Me.MnuTest, Me.ToolStripSeparator1, Me.MnuExit})
         Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
         Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
@@ -852,6 +854,17 @@ Partial Class FrmProject
         Me.MnuExit.Size = New System.Drawing.Size(211, 22)
         Me.MnuExit.Text = "Exit"
         '
+        'MnuTest
+        '
+        Me.MnuTest.Name = "MnuTest"
+        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
+        Me.MnuTest.Text = "Test"
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
+        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -969,4 +982,6 @@ Partial Class FrmProject
     Friend WithEvents NudFabricCount As NumericUpDown
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents MnuImportImage As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents MnuTest As ToolStripMenuItem
 End Class

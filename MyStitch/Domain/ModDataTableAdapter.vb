@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports System.IO
 Imports System.IO.Compression
@@ -16,17 +17,16 @@ Imports MyStitch.MyStitchDataSet
 Namespace Domain
     Module ModDataTableAdapter
 #Region "tables"
-        Private ReadOnly oProjectDataTable As New MyStitchDataSet.ProjectsDataTable
-        Private ReadOnly oThreadDataTable As New MyStitchDataSet.ThreadsDataTable
-        Private ReadOnly oProjectThreadDataTable As New MyStitchDataSet.ProjectThreadsDataTable
-        Private ReadOnly oProjectThreadCardDataTable As New MyStitchDataSet.ProjectThreadCardsDataTable
-        Private ReadOnly oProjectCardThreadDataTable As New MyStitchDataSet.ProjectCardThreadDataTable
-        Private ReadOnly oSettingsDataTable As New MyStitchDataSet.SettingsDataTable
-        Private ReadOnly oSymbolsDataTable As New MyStitchDataSet.SymbolsDataTable
-        Private ReadOnly oProjectWorkTimesDataTable As New MyStitchDataSet.ProjectWorkTimesDataTable
-        Private ReadOnly oPalettesDataTable As New MyStitchDataSet.PalettesDataTable
-        Private ReadOnly oPaletteThreadsDataTable As New MyStitchDataSet.PaletteThreadsDataTable
-        Private ReadOnly oPaletteThreadsTable As New MyStitchDataSet.PaletteThreadsDataTable
+        Private ReadOnly oProjectDataTable As New ProjectsDataTable
+        Private ReadOnly oThreadDataTable As New ThreadsDataTable
+        Private ReadOnly oProjectThreadDataTable As New ProjectThreadsDataTable
+        Private ReadOnly oProjectThreadCardDataTable As New ProjectThreadCardsDataTable
+        Private ReadOnly oProjectCardThreadDataTable As New ProjectCardThreadDataTable
+        Private ReadOnly oSettingsDataTable As New SettingsDataTable
+        Private ReadOnly oSymbolsDataTable As New SymbolsDataTable
+        Private ReadOnly oProjectWorkTimesDataTable As New ProjectWorkTimesDataTable
+        Private ReadOnly oPalettesDataTable As New PalettesDataTable
+        Private ReadOnly oPaletteThreadsDataTable As New PaletteThreadsDataTable
 #End Region
 #Region "Data Tables"
 #Region "Load"
@@ -139,9 +139,9 @@ Namespace Domain
                         Throw New ApplicationException("Palettes file missing.")
                     End If
                 Case "PaletteThreads"
-                    oXmlFileName = Path.Combine(oDataFolderName, oPaletteThreadsTable.TableName & DATA_EXT)
+                    oXmlFileName = Path.Combine(oDataFolderName, oPaletteThreadsDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
-                        oPaletteThreadsTable.ReadXml(oXmlFileName)
+                        oPaletteThreadsDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Palette Threads data file missing.")
                     End If
@@ -152,14 +152,12 @@ Namespace Domain
 
 #End Region
 #Region "Save"
-
         Public Sub SaveDataTables(pStatus As ToolStripStatusLabel)
             LogUtil.ShowStatus("Saving MyStitch data", pStatus, MethodBase.GetCurrentMethod.Name)
             FillTableListFromTableEnum()
             ArchiveExistingFile(DATA_FILE_NAME, oDataFolderName, DATA_ZIP_EXT, oDataArchiveFolderName, DATA_ARC_EXT)
             AddTablesToArchive(oDataFolderName, DATA_FILE_NAME, DATA_ZIP_EXT)
         End Sub
-
         Private Sub AddTablesToArchive(pPath As String, pZipFileName As String, pExtension As String)
             Dim _zipFile As String = Path.Combine(pPath, pZipFileName & pExtension)
             If Not My.Computer.FileSystem.FileExists(_zipFile) Then
@@ -208,7 +206,7 @@ Namespace Domain
                         If oDataTable IsNot Nothing Then
                             oXmlFileName = WriteXmlFromTable(oDataTable)
                             Dim fileText As String = My.Computer.FileSystem.ReadAllText(oXmlFileName)
-                            Dim _projectEntryName As String = Path.GetFileNameWithoutExtension(oXmlFileName) & DATA_EXT
+                            Dim _projectEntryName As String = Path.GetFileName(oXmlFileName)
                             Dim projectEntry As ZipArchiveEntry = archive.CreateEntry(_projectEntryName)
                             Using _output As New StreamWriter(projectEntry.Open())
                                 _output.WriteLine(fileText)
@@ -220,12 +218,12 @@ Namespace Domain
                 End Using
             End Using
         End Sub
-        Private Function WriteXmlFromTable(backupDataTable As DataTable) As String
-            Dim sTableName As String = backupDataTable.TableName
+        Private Function WriteXmlFromTable(pDataTable As DataTable) As String
+            Dim sTableName As String = pDataTable.TableName
             Dim sTableFile As String
             Try
-                sTableFile = Path.Combine(oDataFolderName, sTableName & ".xml")
-                backupDataTable.WriteXml(sTableFile, XmlWriteMode.WriteSchema)
+                sTableFile = Path.Combine(oDataFolderName, sTableName & DATA_EXT)
+                pDataTable.WriteXml(sTableFile, XmlWriteMode.WriteSchema)
             Catch ex As Exception When (TypeOf ex Is ArgumentException _
                                  OrElse TypeOf ex Is InvalidOperationException)
                 Throw ex
@@ -239,7 +237,7 @@ Namespace Domain
 #Region "projects"
         Public Function GetProjectList() As List(Of Project)
             Dim oProjectList As New List(Of Project)
-            For Each oRow As MyStitchDataSet.ProjectsRow In oProjectDataTable.Rows
+            For Each oRow As ProjectsRow In oProjectDataTable.Rows
                 oProjectList.Add(ProjectBuilder.AProject.StartingWith(oRow).Build)
             Next
             Return oProjectList
@@ -247,7 +245,7 @@ Namespace Domain
         Public Function FindProjectById(pProjectId As Integer) As Project
             Dim oProject As New Project
             Try
-                Dim oProjectRow As MyStitchDataSet.ProjectsRow = GetProjectRow(pProjectId)
+                Dim oProjectRow As ProjectsRow = GetProjectRow(pProjectId)
                 If oProjectRow IsNot Nothing Then
                     oProject = ProjectBuilder.AProject.StartingWith(oProjectRow).Build
                 End If
@@ -256,14 +254,14 @@ Namespace Domain
             End Try
             Return oProject
         End Function
-        Public Function GetProjectRow(pProjectId As Integer) As MyStitchDataSet.ProjectsRow
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = Nothing
+        Public Function GetProjectRow(pProjectId As Integer) As ProjectsRow
+            Dim oProjectRow As ProjectsRow = Nothing
             Try
-                Dim oProjectRows = From project In oProjectDataTable.AsEnumerable()
-                                   Select project
-                                   Where project.project_id = pProjectId
+                Dim oProjectRows = From _project In oProjectDataTable.AsEnumerable()
+                                   Select _project
+                                   Where _project.project_id = pProjectId
                 If oProjectRows.Count = 1 Then
-                    oProjectRow = oProjectRows(0)
+                    oProjectRow = oProjectRows.First
                 End If
             Catch ex As Exception
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -271,13 +269,13 @@ Namespace Domain
             Return oProjectRow
         End Function
         Public Function AddNewProject(pProject As Project) As Boolean
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = oProjectDataTable.NewRow
+            Dim oProjectRow As ProjectsRow = oProjectDataTable.NewRow
             oProjectRow = SetProjectRowValues(pProject, oProjectRow)
             oProjectDataTable.Rows.Add(oProjectRow)
+            WriteXmlFromTable(oProjectDataTable)
             Return True
         End Function
-
-        Private Function SetProjectRowValues(pProject As Project, pProjectRow As MyStitchDataSet.ProjectsRow) As MyStitchDataSet.ProjectsRow
+        Private Function SetProjectRowValues(pProject As Project, pProjectRow As ProjectsRow) As ProjectsRow
             With pProject
                 If (.ProjectName Is Nothing) Then
                     Throw New Global.System.ArgumentNullException("projectname")
@@ -289,6 +287,7 @@ Namespace Domain
                 pProjectRow.design_width = .DesignWidth
                 pProjectRow.design_height = .DesignHeight
                 pProjectRow.fabric_width = .FabricWidth
+                pProjectRow.fabric_height = .FabricHeight
                 pProjectRow.fabric_colour = .FabricColour
                 If (.DesignFileName Is Nothing) Then
                     Throw New Global.System.ArgumentNullException("designfile")
@@ -304,42 +303,46 @@ Namespace Domain
         End Function
         Public Function AmendProject(pProject As Project) As Boolean
             Dim isUpdated As Boolean = False
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = GetProjectRow(pProject.ProjectId)
+            Dim oProjectRow As ProjectsRow = GetProjectRow(pProject.ProjectId)
             If oProjectRow IsNot Nothing Then
                 SetProjectRowValues(pProject, oProjectRow)
+                WriteXmlFromTable(oProjectDataTable)
                 isUpdated = True
             End If
             Return isUpdated
         End Function
         Public Sub AmendDesignFilename(pProjectId As Integer, pFilename As String)
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = GetProjectRow(pProjectId)
+            Dim oProjectRow As ProjectsRow = GetProjectRow(pProjectId)
             If oProjectRow IsNot Nothing Then
                 If (pFilename Is Nothing) Then
                     Throw New Global.System.ArgumentNullException("designfile")
                 Else
                     oProjectRow.design_file = CType(pFilename, String)
+                    WriteXmlFromTable(oProjectDataTable)
                 End If
             End If
         End Sub
         Public Sub AmendProjectTotalTime(pProject As Project)
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = GetProjectRow(pProject.ProjectId)
+            Dim oProjectRow As ProjectsRow = GetProjectRow(pProject.ProjectId)
             If oProjectRow IsNot Nothing Then
                 With pProject
                     oProjectRow.total_minutes = CType(.TotalMinutes, Integer)
                     oProjectRow.date_started = .DateStarted
                     oProjectRow.date_ended = .DateEnded
+                    WriteXmlFromTable(oProjectDataTable)
                 End With
             End If
         End Sub
         Public Sub RemoveProject(pProject As Project)
-            Dim oProjectRow As MyStitchDataSet.ProjectsRow = GetProjectRow(pProject.ProjectId)
+            Dim oProjectRow As ProjectsRow = GetProjectRow(pProject.ProjectId)
             oProjectDataTable.Rows.Remove(oProjectRow)
+            WriteXmlFromTable(oProjectDataTable)
         End Sub
 #End Region
 #Region "Threads"
         Public Function GetThreadsList() As List(Of Thread)
             Dim oThreadList As New List(Of Thread)
-            For Each oRow As MyStitchDataSet.ThreadsRow In oThreadDataTable.Rows
+            For Each oRow As ThreadsRow In oThreadDataTable.Rows
                 oThreadList.Add(ThreadBuilder.AThread.StartingWith(oRow).Build)
             Next
             Return oThreadList
@@ -354,21 +357,21 @@ Namespace Domain
                                   Select Thread
                                   Where Thread.thread_no = pThreadNumber
                 If oThreadRows.Count > 0 Then
-                    oThread = ThreadBuilder.AThread.StartingWith(oThreadRows(0)).Build
+                    oThread = ThreadBuilder.AThread.StartingWith(oThreadRows.First).Build
                 End If
             Catch ex As Exception
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return oThread
         End Function
-        Public Function GetThreadRow(pThreadId As Integer) As MyStitchDataSet.ThreadsRow
-            Dim oThreadRow As MyStitchDataSet.ThreadsRow = Nothing
+        Public Function GetThreadRow(pThreadId As Integer) As ThreadsRow
+            Dim oThreadRow As ThreadsRow = Nothing
             Try
                 Dim oThreadRows = From Thread In oThreadDataTable.AsEnumerable()
                                   Select Thread
                                   Where Thread.thread_id = pThreadId
                 If oThreadRows.Count = 1 Then
-                    oThreadRow = oThreadRows(0)
+                    oThreadRow = oThreadRows.First
                 End If
             Catch ex As Exception
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -377,14 +380,14 @@ Namespace Domain
         End Function
         Public Function AmendThread(pThread As Thread) As Boolean
             Dim isUpdated As Boolean = False
-            Dim oThreadRow As MyStitchDataSet.ThreadsRow = GetThreadRow(pThread.ThreadId)
+            Dim oThreadRow As ThreadsRow = GetThreadRow(pThread.ThreadId)
             If oThreadRow IsNot Nothing Then
                 SetThreadRowValues(pThread, oThreadRow)
                 isUpdated = True
             End If
             Return isUpdated
         End Function
-        Private Function SetThreadRowValues(pThread As Thread, pThreadRow As MyStitchDataSet.ThreadsRow) As MyStitchDataSet.ThreadsRow
+        Private Function SetThreadRowValues(pThread As Thread, pThreadRow As ThreadsRow) As ThreadsRow
             With pThread
                 If (.ThreadNo Is Nothing) Then
                     Throw New Global.System.ArgumentNullException("Threadno")
@@ -398,11 +401,11 @@ Namespace Domain
             Return pThreadRow
         End Function
         Public Sub RemoveThread(pThread As Thread)
-            Dim oThreadRow As MyStitchDataSet.ThreadsRow = GetThreadRow(pThread.ThreadId)
+            Dim oThreadRow As ThreadsRow = GetThreadRow(pThread.ThreadId)
             oThreadDataTable.Rows.Remove(oThreadRow)
         End Sub
         Public Function AddNewThread(pThread As Thread) As Boolean
-            Dim oThreadRow As MyStitchDataSet.ThreadsRow = oThreadDataTable.NewRow
+            Dim oThreadRow As ThreadsRow = oThreadDataTable.NewRow
             oThreadRow = SetThreadRowValues(pThread, oThreadRow)
             oThreadDataTable.Rows.Add(oThreadRow)
             Return True
@@ -410,20 +413,20 @@ Namespace Domain
 #End Region
 #Region "Project Threads"
         Public Sub RemoveProjectThread(ByRef pProjectThread As ProjectThread)
-            Dim oThreadRow As MyStitchDataSet.ProjectThreadsRow = GetProjectThreadByKey(pProjectThread.ProjectId, pProjectThread.Thread.ThreadId)
+            Dim oThreadRow As ProjectThreadsRow = GetProjectThreadByKey(pProjectThread.ProjectId, pProjectThread.Thread.ThreadId)
             If oThreadRow IsNot Nothing Then
                 oProjectThreadDataTable.Rows.Remove(oThreadRow)
             End If
         End Sub
 
         Private Function GetProjectThreadByKey(pProjectId As Integer, pThreadId As Integer) As ProjectThreadsRow
-            Dim oThreadRow As MyStitchDataSet.ProjectThreadsRow = Nothing
+            Dim oThreadRow As ProjectThreadsRow = Nothing
             Try
                 Dim oThreadRows = From Thread In oProjectThreadDataTable.AsEnumerable()
                                   Select Thread
                                   Where Thread.thread_id = pThreadId And Thread.project_id = pProjectId
                 If oThreadRows.Count = 1 Then
-                    oThreadRow = oThreadRows(0)
+                    oThreadRow = oThreadRows.First
                 End If
             Catch ex As Exception
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
@@ -431,7 +434,7 @@ Namespace Domain
             Return oThreadRow
         End Function
         Public Function AddNewProjectThread(pProjectThread As ProjectThread) As Boolean
-            Dim oProjectThreadRow As MyStitchDataSet.ProjectThreadsRow = oProjectThreadDataTable.NewRow
+            Dim oProjectThreadRow As ProjectThreadsRow = oProjectThreadDataTable.NewRow
             oProjectThreadRow = SetProjectThreadRowValues(pProjectThread, oProjectThreadRow)
             oProjectThreadDataTable.Rows.Add(oProjectThreadRow)
             Return True
@@ -451,7 +454,7 @@ Namespace Domain
             Dim oThreadRows = From Thread In oProjectThreadDataTable.AsEnumerable()
                               Select Thread
                               Where Thread.project_id = pProjectId
-            For Each oRow As MyStitchDataSet.ProjectThreadsRow In oThreadRows
+            For Each oRow As ProjectThreadsRow In oThreadRows
                 oProjectThreadCollection.Add(ProjectThreadBuilder.AProjectThread.StartingWith(oRow).Build)
             Next
             Return oProjectThreadCollection
@@ -461,7 +464,7 @@ Namespace Domain
             Dim oThreadRows = From Thread In oProjectThreadDataTable.AsEnumerable()
                               Select Thread
                               Where Thread.project_id = pProjectId
-            For Each oRow As MyStitchDataSet.ProjectThreadsRow In oThreadRows
+            For Each oRow As ProjectThreadsRow In oThreadRows
                 oThreadList.Add(FindThreadById(pProjectId))
             Next
             Return oThreadList
@@ -471,7 +474,7 @@ Namespace Domain
             Dim oThreadRows = From Thread In oProjectThreadDataTable.AsEnumerable()
                               Select Thread
                               Where Thread.project_id = pProjectId And Thread.is_used = If(pIsUsed, 1, 0)
-            For Each oRow As MyStitchDataSet.ProjectThreadsRow In oThreadRows
+            For Each oRow As ProjectThreadsRow In oThreadRows
                 _list.Add(oRow.thread_id)
             Next
             Return _list
@@ -480,7 +483,7 @@ Namespace Domain
             Return ProjectThreadBuilder.AProjectThread.StartingWith(GetProjectThreadByKey(pProjectId, pThreadId)).Build
         End Function
         Public Function AmendProjectThreadSymbolId(pProjectId As Integer, pThreadId As Integer, pSymbolId As Integer) As Boolean
-            Dim oRow As MyStitchDataSet.ProjectThreadsRow = GetProjectThreadByKey(pProjectId, pThreadId)
+            Dim oRow As ProjectThreadsRow = GetProjectThreadByKey(pProjectId, pThreadId)
             Dim isOk As Boolean = False
             If oRow IsNot Nothing Then
                 oRow.symbol_id = pSymbolId
@@ -489,7 +492,7 @@ Namespace Domain
             Return isOk
         End Function
         Public Function AmendProjectThreadIsUsedSymbolId(pThread As ProjectThread) As Boolean
-            Dim oRow As MyStitchDataSet.ProjectThreadsRow = GetProjectThreadByKey(pThread.ProjectId, pThread.ThreadId)
+            Dim oRow As ProjectThreadsRow = GetProjectThreadByKey(pThread.ProjectId, pThread.ThreadId)
             Dim isOk As Boolean = False
             If oRow IsNot Nothing Then
                 oRow.is_used = If(pThread.IsUsed, 1, 0)
@@ -512,18 +515,18 @@ Namespace Domain
             Dim oThreadRows = From Thread In oProjectThreadCardDataTable.AsEnumerable()
                               Select Thread
                               Where Thread.project_id = pProjectId
-            For Each oRow As MyStitchDataSet.ProjectThreadCardsRow In oThreadRows
+            For Each oRow As ProjectThreadCardsRow In oThreadRows
                 oProjectThreadCardList.Add(ProjectThreadCardBuilder.AProjectThreadCard.StartingWith(oRow).Build)
             Next
             Return oProjectThreadCardList
         End Function
         Public Function AddNewProjectThreadCard(pProjectThreadCard As ProjectThreadCard) As Boolean
-            Dim oProjectThreadCardRow As MyStitchDataSet.ProjectThreadCardsRow = oProjectThreadCardDataTable.NewRow
+            Dim oProjectThreadCardRow As ProjectThreadCardsRow = oProjectThreadCardDataTable.NewRow
             oProjectThreadCardRow = SetProjectThreadCardRowValues(pProjectThreadCard, oProjectThreadCardRow)
             oProjectThreadCardDataTable.Rows.Add(oProjectThreadCardRow)
             Return True
         End Function
-        Private Function SetProjectThreadCardRowValues(pProjectThreadCard As ProjectThreadCard, pProjectThreadCardRow As MyStitchDataSet.ProjectThreadCardsRow) As MyStitchDataSet.ProjectThreadCardsRow
+        Private Function SetProjectThreadCardRowValues(pProjectThreadCard As ProjectThreadCard, pProjectThreadCardRow As ProjectThreadCardsRow) As ProjectThreadCardsRow
             With pProjectThreadCard
                 pProjectThreadCardRow.thread_card_no = .CardNo
                 pProjectThreadCardRow.project_id = .Project.ProjectId
@@ -544,21 +547,294 @@ Namespace Domain
             Dim oCardRows = From Card In oProjectThreadCardDataTable.AsEnumerable()
                             Select Card
                             Where Card.project_id = pProjectId
-            For Each oRow As MyStitchDataSet.ProjectThreadCardsRow In oCardRows
+            For Each oRow As ProjectThreadCardsRow In oCardRows
                 oProjectThreadCardDataTable.Rows.Remove(oRow)
             Next
         End Sub
 #End Region
-
 #Region "ProjectCardThreads"
+        Public Function AddNewCardThread(ByRef pProjectCardThread As ProjectCardThread) As Boolean
+            Dim oThreadRow As ProjectCardThreadRow = oProjectCardThreadDataTable.NewRow
+            oThreadRow = SetProjectCardThreadRowValues(pProjectCardThread, oThreadRow)
+            oProjectCardThreadDataTable.Rows.Add(oThreadRow)
+            Return True
+        End Function
+
+        Private Function SetProjectCardThreadRowValues(pThread As ProjectCardThread, pThreadRow As ProjectCardThreadRow) As ProjectCardThreadRow
+            With pThread
+                pThreadRow.project_id = .Project.ProjectId
+                pThreadRow.thread_id = .Thread.ThreadId
+                pThreadRow.thread_card_no = .CardNo
+                pThreadRow.thread_card_seq = .CardSeq
+            End With
+            Return pThreadRow
+        End Function
+        Public Sub RemoveProjectCardThread(pThread As ProjectCardThread)
+            With pThread
+                Dim oThreadRow As ProjectCardThreadRow = GetProjectCardThreadRow(.Project.ProjectId, .Thread.ThreadId, .CardNo, .CardSeq)
+                oProjectCardThreadDataTable.Rows.Remove(oThreadRow)
+            End With
+        End Sub
+        Private Function GetProjectCardThreadRow(pProjectId As Integer, pThreadId As Integer, pCardNo As Integer, pCardSeq As Integer) As ProjectCardThreadRow
+            Dim oThreadRow As ProjectCardThreadRow = Nothing
+            Try
+                Dim oThreadRows = From Thread In oProjectCardThreadDataTable.AsEnumerable()
+                                  Select Thread
+                                  Where Thread.thread_id = pThreadId _
+                                  And Thread.project_id = pProjectId _
+                                  And Thread.thread_card_no = pCardNo _
+                                  And Thread.thread_card_seq = pCardSeq
+                If oThreadRows.Count = 1 Then
+                    oThreadRow = oThreadRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oThreadRow
+        End Function
+
         Public Sub RemoveProjectCardThreads(pProjectId As Integer)
             Dim oThreadRows = From Thread In oProjectCardThreadDataTable.AsEnumerable()
                               Select Thread
                               Where Thread.project_id = pProjectId
-            For Each oRow As MyStitchDataSet.ProjectCardThreadRow In oThreadRows
+            For Each oRow As ProjectCardThreadRow In oThreadRows
                 oProjectCardThreadDataTable.Rows.Remove(oRow)
             Next
         End Sub
+
+        Public Sub RemoveThreadsForProjectCard(pProjectId As Integer, pCardNo As Integer)
+            LogUtil.LogInfo("Deleting threads for project card " & pProjectId & ":" & pCardNo, MethodBase.GetCurrentMethod.Name)
+            Try
+                Dim oThreadRows = From Thread In oProjectCardThreadDataTable.AsEnumerable()
+                                  Select Thread
+                                  Where Thread.project_id = pProjectId _
+                                  And Thread.thread_card_no = pCardNo
+                For Each oThreadRow As ProjectCardThreadRow In oThreadRows
+                    oProjectThreadCardDataTable.Rows.Remove(oThreadRow)
+                Next
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+        End Sub
+
+#End Region
+#Region "settings"
+        Public Function FindSettingByName(settingName As String) As GlobalSetting
+            Return FindSettingByName(settingName, "", "")
+        End Function
+        Public Function FindSettingByName(settingName As String, defaultValue As String, defaultType As String) As GlobalSetting
+            LogUtil.Info("Get setting " & settingName, MethodBase.GetCurrentMethod.Name)
+            Dim rtnValue As GlobalSetting = GlobalSettingBuilder.AGlobalSetting.StartingWithNothing _
+                                                                            .WithName(settingName) _
+                                                                            .WithValue(defaultValue) _
+                                                                            .WithType(defaultType).Build
+            Try
+                Dim oSettings = From GlobalSetting In oSettingsDataTable.AsEnumerable()
+                                Select GlobalSetting
+                                Where GlobalSetting.pKey = settingName
+                If oSettings.Count > 0 Then
+                    Dim oRow As SettingsRow = oSettings.First
+                    rtnValue = GlobalSettingBuilder.AGlobalSetting.StartingWith(oRow).Build
+                End If
+            Catch ex As Exception
+                LogUtil.Exception("Exception getting setting " & settingName, ex, MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return rtnValue
+        End Function
+        Public Function AmendSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
+            LogUtil.Info("Change setting " & settingName, MethodBase.GetCurrentMethod.Name)
+            Dim rtnVal As Boolean
+            Try
+                Dim oSettings = From GlobalSetting In oSettingsDataTable.AsEnumerable()
+                                Select GlobalSetting
+                                Where GlobalSetting.pKey = settingName
+                If oSettings.Count > 0 Then
+                    Dim orow As SettingsRow = oSettings.First
+                    orow.pType = settingType
+                    orow.pValue = settingValue
+                    rtnVal = True
+                End If
+            Catch ex As DbException
+                rtnVal = False
+            End Try
+            Return rtnVal
+        End Function
+        Public Function AddNewSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
+            LogUtil.Info("Change setting " & settingName, MethodBase.GetCurrentMethod.Name)
+            Dim rtnVal As Boolean
+            Try
+                Dim oRow As SettingsRow = oSettingsDataTable.NewRow
+                oRow.pType = settingType
+                oRow.pValue = settingValue
+                oSettingsDataTable.Rows.Add(oRow)
+                rtnVal = True
+            Catch ex As DbException
+                rtnVal = False
+            End Try
+            Return rtnVal
+        End Function
+#End Region
+#Region "symbols"
+        Public Function GetSymbolsList() As List(Of Symbol)
+            Dim oSymbolList As New List(Of Symbol)
+            For Each oRow As SymbolsRow In oSymbolsDataTable.Rows
+                oSymbolList.Add(SymbolBuilder.ASymbol.StartingWith(oRow).Build)
+            Next
+            Return oSymbolList
+        End Function
+        Public Function FindSymbolById(pSymbolId As Integer) As Symbol
+            Return SymbolBuilder.ASymbol.StartingWith(GetSymbolRow(pSymbolId)).Build
+        End Function
+        Public Function FindSymbolImage(pSymbolId As Integer) As Image
+            Dim _image As Image = SymbolBuilder.ASymbol.StartingWith(GetSymbolRow(pSymbolId)).Build.SymbolImage
+            Return _image
+        End Function
+        Public Function GetSymbolRow(pSymbolId As Integer) As SymbolsRow
+            Dim oSymbolRow As SymbolsRow = Nothing
+            Try
+                Dim oSymbolRows = From Symbol In oSymbolsDataTable.AsEnumerable()
+                                  Select Symbol
+                                  Where Symbol.symbol_id = pSymbolId
+                If oSymbolRows.Count = 1 Then
+                    oSymbolRow = oSymbolRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oSymbolRow
+        End Function
+        Public Function AmendSymbol(pSymbol As Symbol) As Boolean
+            Dim isUpdated As Boolean = False
+            Dim oSymbolRow As SymbolsRow = GetSymbolRow(pSymbol.SymbolId)
+            If oSymbolRow IsNot Nothing Then
+                SetSymbolRowValues(pSymbol, oSymbolRow)
+                isUpdated = True
+            End If
+            Return isUpdated
+        End Function
+        Private Function SetSymbolRowValues(pSymbol As Symbol, pSymbolRow As SymbolsRow) As SymbolsRow
+            With pSymbol
+                pSymbolRow.symbol_id = .SymbolId
+                pSymbolRow.symbol = .SymbolBytes
+            End With
+            Return pSymbolRow
+        End Function
+        Public Sub RemoveSymbol(pSymbol As Symbol)
+            Dim oSymbolRow As SymbolsRow = GetSymbolRow(pSymbol.SymbolId)
+            oSymbolsDataTable.Rows.Remove(oSymbolRow)
+        End Sub
+        Public Function AddNewSymbol(pSymbol As Symbol) As Boolean
+            Dim oSymbolRow As SymbolsRow = oSymbolsDataTable.NewRow
+            oSymbolRow = SetSymbolRowValues(pSymbol, oSymbolRow)
+            oSymbolsDataTable.Rows.Add(oSymbolRow)
+            Return True
+        End Function
+
+#End Region
+#Region "projectworktimes"
+        Public Function FindWorkPeriodsForProject(pProjectId As Integer) As List(Of ProjectWorkTime)
+            Dim oPeriods As New List(Of ProjectWorkTime)
+            Try
+                Dim oPeriodRows = From ProjectWorkTime In oProjectWorkTimesDataTable.AsEnumerable()
+                                  Select ProjectWorkTime
+                                  Where ProjectWorkTime.project_id = pProjectId
+                For Each oRow As ProjectWorkTimesRow In oPeriodRows
+                    oPeriods.Add(ProjectWorkTimeBuilder.AProjectWorkTime.StartingWith(oRow).Build)
+                Next
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oPeriods
+        End Function
+        Public Function AddNewProjectWorktime(pProjectWorktime As ProjectWorkTime) As Boolean
+            Dim oProjectWorktimeRow As ProjectWorkTimesRow = oProjectWorkTimesDataTable.NewRow
+            oProjectWorktimeRow = SetProjectWorktimeRowValues(pProjectWorktime, oProjectWorktimeRow)
+            oProjectWorkTimesDataTable.Rows.Add(oProjectWorktimeRow)
+            Return True
+        End Function
+
+        Private Function SetProjectWorktimeRowValues(pProjectWorktime As ProjectWorkTime, pProjectWorktimeRow As ProjectWorkTimesRow) As ProjectWorkTimesRow
+            With pProjectWorktime
+                pProjectWorktimeRow.project_id = .ProjectId
+                pProjectWorktimeRow.start_date = .TimeStarted
+                pProjectWorktimeRow.end_date = .TimeEnded
+                pProjectWorktimeRow.minutes = .Minutes
+            End With
+            Return pProjectWorktimeRow
+        End Function
+
+        Public Sub UpdateProjectWorkTime(pProjectWorkTime As ProjectWorkTime)
+            Dim oProjectWorktimeRow As ProjectWorkTimesRow = GetProjectWorktimeRow(pProjectWorkTime)
+            If oProjectWorktimeRow IsNot Nothing Then
+                SetProjectWorktimeRowValues(pProjectWorkTime, oProjectWorktimeRow)
+            End If
+        End Sub
+
+        Private Function GetProjectWorktimeRow(pProjectWorktime As ProjectWorkTime) As ProjectWorkTimesRow
+            Dim oProjectWorktimeRow As ProjectWorkTimesRow = Nothing
+            Try
+                Dim oProjectWorktimeRows = From ProjectWorktime In oProjectWorkTimesDataTable.AsEnumerable()
+                                           Select ProjectWorktime
+                                           Where ProjectWorktime.project_id = pProjectWorktime.ProjectId And ProjectWorktime.start_date = pProjectWorktime.TimeStarted
+                If oProjectWorktimeRows.Count = 1 Then
+                    oProjectWorktimeRow = oProjectWorktimeRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oProjectWorktimeRow
+        End Function
+        'Public Function AddNewProjectWorktime(pProjectWorktime As ProjectWorkTime) As Boolean
+        '    Dim oProjectWorktimeRow As ProjectWorkTimesRow = oProjectWorkTimesDataTable.NewRow
+        '    oProjectWorktimeRow = SetProjectWorktimeRowValues(pProjectWorktime, oProjectWorktimeRow)
+        '    oProjectWorkTimesDataTable.Rows.Add(oProjectWorktimeRow)
+        '    Return True
+        'End Function
+#End Region
+#Region "palettes"
+        Public Sub AddNewPalette(pPalette As Palette)
+            Dim oPaletteRow As PalettesRow = oPalettesDataTable.NewRow
+            oPaletteRow = SetPaletteRowValues(pPalette, oPaletteRow)
+            oPalettesDataTable.Rows.Add(oPaletteRow)
+        End Sub
+
+        Private Function SetPaletteRowValues(pPalette As Palette, pPaletteRow As PalettesRow) As PalettesRow
+            With pPalette
+                pPaletteRow.palette_id = .PaletteId
+                pPaletteRow.palette_name = .PaletteName
+            End With
+            Return pPaletteRow
+        End Function
+
+        Public Sub AddNewPaletteThread(pPaletteThread As PaletteThread)
+            Dim oPaletteThreadRow As PaletteThreadsRow = oPaletteThreadsDataTable.NewRow
+            oPaletteThreadRow = SetPaletteThreadRowValues(pPaletteThread, oPaletteThreadRow)
+            oPaletteThreadsDataTable.Rows.Add(oPaletteThreadRow)
+        End Sub
+
+        Private Function SetPaletteThreadRowValues(pPaletteThread As PaletteThread, pPaletteThreadRow As PaletteThreadsRow) As PaletteThreadsRow
+            With pPaletteThread
+                pPaletteThreadRow.palette_id = .PaletteId
+                pPaletteThreadRow.thread_id = .ThreadId
+                pPaletteThreadRow.symbol_id = .SymbolId
+            End With
+            Return pPaletteThreadRow
+        End Function
+
+        Public Function FindPaletteThreadByPaletteId(pPaletteId As Integer) As List(Of PaletteThread)
+            Dim oThreads As New List(Of PaletteThread)
+            Try
+                Dim oPaletteThreadRows = From PaletteThread In oPaletteThreadsDataTable.AsEnumerable()
+                                         Select PaletteThread
+                                         Where PaletteThread.palette_id = pPaletteId
+                For Each oRow As PaletteThreadsRow In oPaletteThreadRows
+                    oThreads.Add(PaletteThreadBuilder.APaletteThread.StartingWith(oRow).Build)
+                Next
+            Catch ex As SqlException
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oThreads
+        End Function
 #End Region
     End Module
 End Namespace

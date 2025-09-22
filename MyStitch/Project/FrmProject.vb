@@ -450,6 +450,15 @@ Public Class FrmProject
         End Using
     End Sub
 
+    Private Sub MnuTest_Click(sender As Object, e As EventArgs) Handles MnuTest.Click
+        '
+        '   Test code here
+        '
+        Dim oProject As Project = ProjectBuilder.AProject.StartingWithNothing.WithName("Testing").Build
+        AddNewProject(oProject)
+        MsgBox("Test complete", MsgBoxStyle.Information, "Test")
+    End Sub
+
 #End Region
 
 End Class
