@@ -2431,8 +2431,7 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnstock_level)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnthread_id}, true))
             Me.columnthread_id.AutoIncrement = true
-            Me.columnthread_id.AutoIncrementSeed = -1
-            Me.columnthread_id.AutoIncrementStep = -1
+            Me.columnthread_id.AutoIncrementSeed = 1
             Me.columnthread_id.AllowDBNull = false
             Me.columnthread_id.ReadOnly = true
             Me.columnthread_id.Unique = true
@@ -2715,8 +2714,7 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnsymbol)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnsymbol_id}, true))
             Me.columnsymbol_id.AutoIncrement = true
-            Me.columnsymbol_id.AutoIncrementSeed = -1
-            Me.columnsymbol_id.AutoIncrementStep = -1
+            Me.columnsymbol_id.AutoIncrementSeed = 1
             Me.columnsymbol_id.AllowDBNull = false
             Me.columnsymbol_id.ReadOnly = true
             Me.columnsymbol_id.Unique = true
@@ -3295,8 +3293,7 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnpalette_name)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id}, true))
             Me.columnpalette_id.AutoIncrement = true
-            Me.columnpalette_id.AutoIncrementSeed = -1
-            Me.columnpalette_id.AutoIncrementStep = -1
+            Me.columnpalette_id.AutoIncrementSeed = 1
             Me.columnpalette_id.AllowDBNull = false
             Me.columnpalette_id.ReadOnly = true
             Me.columnpalette_id.Unique = true
