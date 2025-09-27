@@ -32,7 +32,7 @@ Namespace Domain.Builders
                 _type = pRow.pType
                 _value = pRow.pValue
             End If
-            Return Me
+        Return Me
         End Function
         Public Function StartingWith(pSetting As GlobalSetting) As GlobalSettingBuilder
             _name = pSetting.Name

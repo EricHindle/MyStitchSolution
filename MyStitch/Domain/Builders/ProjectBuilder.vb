@@ -90,7 +90,7 @@ Namespace Domain.Builders
         Public Function StartingWith(ByRef oRow As ProjectsRow) As ProjectBuilder
             StartingWithNothing()
             If oRow IsNot Nothing Then
-                With oRow
+        With oRow
                     _projectId = .project_id
                     _projectName = .project_name
                     _dateStarted = If(.Isdate_startedNull, MIN_DATE, .date_started)
@@ -106,8 +106,8 @@ Namespace Domain.Builders
                     _originY = .origin_y
                     _totalMinutes = .total_minutes
                 End With
-            End If
-            Return Me
+        End If
+        Return Me
         End Function
         Public Function WithId(pId As Integer) As ProjectBuilder
             _projectId = pId

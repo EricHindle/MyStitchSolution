@@ -37,7 +37,7 @@ Namespace Domain.Builders
                     _PaletteName = .palette_name
                 End With
             End If
-            Return Me
+        Return Me
         End Function
         Public Function WithId(pId As Integer) As PaletteBuilder
             _PaletteId = pId

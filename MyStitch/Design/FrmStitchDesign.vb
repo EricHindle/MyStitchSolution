@@ -550,7 +550,7 @@ Public Class FrmStitchDesign
         PnlPaletteName.Visible = False
     End Sub
     Private Sub BtnSavePalette_Click(sender As Object, e As EventArgs) Handles BtnSavePalette.Click
-        SaveProjectThreadsAsPalette
+        SaveProjectThreadsAsPalette()
         PnlPaletteName.Visible = False
     End Sub
 #End Region
@@ -1006,7 +1006,8 @@ Public Class FrmStitchDesign
     Friend Sub LoadDesignSettings()
         SetIsCentreOn()
         SetIsGridOn()
-        SetIsCentreMarks
+        SetIsCentreMarks()
+
         If Not isLoading Then
             RedrawDesign(False)
         End If
@@ -2319,7 +2320,7 @@ Public Class FrmStitchDesign
     End Sub
 
     Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
-        ToggleCentreMarks
+        ToggleCentreMarks()
     End Sub
 #End Region
 #End Region
