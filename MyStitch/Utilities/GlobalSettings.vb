@@ -4,9 +4,10 @@
 '
 ' Author Eric Hindle
 '
-
+Imports MyStitch.Domain
 Imports System.Data.Common
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain.Objects
 ''' <summary>
 ''' Options and settings to be used by all users
 ''' </summary>
@@ -23,33 +24,27 @@ Public NotInheritable Class GlobalSettings
     Public Shared Function GetSetting(ByVal settingName As String) As Object
         Dim rtnValue As Object = Nothing
         Try
-            Dim i As Integer = oTa.FillByName(oTable, settingName)
-
-            If i = 1 Then
-                Dim oRow As MyStitchDataSet.SettingsRow = oTable.Rows(0)
-                Dim value As String = oRow.pValue
-                Try
-                    Select Case oRow.pType.ToLower(myCultureInfo)
-                        Case "string"
-                            rtnValue = value
-                        Case "integer"
-                            rtnValue = CInt(value)
-                        Case "date"
-                            rtnValue = CDate(value)
-                        Case "boolean"
-                            rtnValue = CBool(value)
-                        Case "decimal"
-                            rtnValue = CDec(value)
-                        Case "char"
-                            rtnValue = CChar(value)
-                    End Select
-                Catch ex As ArgumentNullException
+            Dim _setting As GlobalSetting = FindSettingByName(settingName)
+            Dim value As String = _setting.Value
+            Try
+                Select Case _setting.Type.ToLower(myCultureInfo)
+                    Case "string"
+                        rtnValue = value
+                    Case "integer"
+                        rtnValue = CInt(value)
+                    Case "date"
+                        rtnValue = CDate(value)
+                    Case "boolean"
+                        rtnValue = CBool(value)
+                    Case "decimal"
+                        rtnValue = CDec(value)
+                    Case "char"
+                        rtnValue = CChar(value)
+                End Select
+            Catch ex As ArgumentNullException
 
                 End Try
-            Else
-                oTa.InsertSetting(settingName, "", "string")
-                rtnValue = ""
-            End If
+
         Catch ex As Exception
             Throw
         End Try
@@ -77,23 +72,11 @@ Public NotInheritable Class GlobalSettings
     End Function
 
     Public Shared Function SetSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
-        Dim rtnVal As Boolean = True
-        Try
-            oTa.UpdateSetting(settingValue, settingType, settingName)
-        Catch ex As DbException
-            rtnVal = False
-        End Try
-        Return rtnVal
+        Return AmendSetting(settingName, settingType, settingValue)
     End Function
 
     Public Shared Function NewSetting(ByVal settingName As String, ByVal settingType As String, ByVal settingValue As String) As Boolean
-        Dim rtnVal As Boolean = True
-        Try
-            oTa.InsertSetting(settingName, settingValue, settingType)
-        Catch ex As DbException
-            rtnVal = False
-        End Try
-        Return rtnVal
+        Return AddNewSetting(settingName, settingValue, settingType)
     End Function
 
     Public Shared Sub LoadGlobalSettings()

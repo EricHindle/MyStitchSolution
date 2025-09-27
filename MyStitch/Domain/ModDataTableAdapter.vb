@@ -856,6 +856,16 @@ Namespace Domain
             End Try
             Return isOK
         End Function
+        Public Function FillSettingsTable(ByRef pSettingsTable As MyStitchDataSet.SettingsDataTable) As MyStitchDataSet.SettingsDataTable
+            For Each _row As MyStitchDataSet.SettingsRow In oSettingsDataTable.Rows
+                Dim newRow As MyStitchDataSet.SettingsRow = pSettingsTable.NewSettingsRow
+                newRow.pKey = _row.pKey
+                newRow.pValue = _row.pValue
+                newRow.pType = _row.pType
+                pSettingsTable.Rows.Add(newRow)
+            Next
+            Return pSettingsTable
+        End Function
 #End Region
 #Region "symbols"
         Public Function GetSymbolsList() As List(Of Symbol)

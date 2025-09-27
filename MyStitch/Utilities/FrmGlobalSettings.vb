@@ -6,7 +6,9 @@
 '
 
 Imports System.Data.Common
+Imports MyStitch.Domain
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain.Objects
 ''' <summary>
 ''' Form to maintain Global Settings values
 ''' </summary>
@@ -52,17 +54,9 @@ Public Class FrmGlobalSettings
     End Sub
 
     Private Sub FillForm(ByVal _name As String)
-        Dim _table As New MyStitchDataSet.SettingsDataTable
-        Dim i As Integer = oTa.FillByName(_table, _name)
-        If i = 1 Then
-            Dim oRow As MyStitchDataSet.SettingsRow = _table.Rows(0)
-            txtValue.Text = oRow.pValue
-            cbType.SelectedIndex = cbType.FindString(oRow.pType)
-
-        Else
-            lblStatus.Text = "NO SINGLE RECORD"
-        End If
-        _table.Dispose()
+        Dim _setting As GlobalSetting = FindSettingByName(_name)
+        txtValue.Text = _setting.Value
+        cbType.SelectedIndex = cbType.FindString(_setting.Type)
     End Sub
 
     Private Sub CbSelect_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSelect.SelectedIndexChanged
