@@ -66,6 +66,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.Grid5Colour = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
         My.Settings.Grid5Thickness = NudGrid5Thickness.Value
         My.Settings.SelectionBorderColour = PicSelectionBorderColour.BackColor
+        My.Settings.ApplicationPath = TxtAppPath.Text
         My.Settings.DefaultFabricCount = NudFabricCount.Value
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
@@ -103,6 +104,7 @@ Public NotInheritable Class FrmOptions
         NudGrid1Thickness.Value = My.Settings.Grid1Thickness
         NudGrid5Thickness.Value = My.Settings.Grid5Thickness
         PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
+        TxtAppPath.Text = My.Settings.ApplicationPath
         NudFabricCount.Value = My.Settings.DefaultFabricCount
         ChkDesignArchive.Checked = My.Settings.isHkArchive
         ChkDataArchive.Checked = My.Settings.isHkData

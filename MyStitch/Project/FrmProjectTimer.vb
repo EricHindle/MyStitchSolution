@@ -60,13 +60,13 @@ Public Class FrmProjectTimer
             .WithEnded(oEndTime) _
             .WithMinutes(_minutesAdded) _
             .Build
-        InsertProjectWorkTime(_workPeriod)
+        AddNewProjectWorktime(_workPeriod)
         oProject.TotalMinutes += _minutesAdded
         oProject.DateEnded = oEndTime
         If oProject.DateStarted = Date.MinValue Then
             oProject.DateStarted = oStartTime
         End If
-        UpdateProjectTotalTime(oProject)
+        AmendProjectTotalTime(oProject)
     End Sub
 
     Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles BtnStart.Click

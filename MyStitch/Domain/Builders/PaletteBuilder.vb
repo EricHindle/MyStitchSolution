@@ -35,6 +35,7 @@ Namespace Domain.Builders
                 With oRow
                     _PaletteId = .palette_id
                     _PaletteName = .palette_name
+
                 End With
             End If
         Return Me
