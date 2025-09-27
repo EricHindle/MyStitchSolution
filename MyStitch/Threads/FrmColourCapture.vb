@@ -29,15 +29,18 @@ Public Class FrmColourCapture
 
     Private Sub PictureBox1_MouseUp(sender As Object, e As MouseEventArgs) Handles Piccolour.MouseUp
         Dim picBox As PictureBox = CType(sender, PictureBox)
-
-        If e.Button = MouseButtons.Right Then
-            Dim _bitmap As Bitmap = picBox.Image
-            Dim _color As Color = _bitmap.GetPixel(e.X, e.Y)
-            TxtR.Text = CStr(_color.R)
-            TxtG.Text = CStr(_color.G)
-            TxtB.Text = CStr(_color.B)
-            _selectedColour = _color
-            LblColour.BackColor = _selectedColour
+        If picBox.Image IsNot Nothing Then
+            If e.Button = MouseButtons.Right Then
+                Dim _bitmap As Bitmap = picBox.Image
+                If e.X < _bitmap.Width AndAlso e.Y < _bitmap.Height Then
+                    Dim _color As Color = _bitmap.GetPixel(e.X, e.Y)
+                    TxtR.Text = CStr(_color.R)
+                    TxtG.Text = CStr(_color.G)
+                    TxtB.Text = CStr(_color.B)
+                    _selectedColour = _color
+                    LblColour.BackColor = _selectedColour
+                End If
+            End If
         End If
     End Sub
 
@@ -80,4 +83,7 @@ Public Class FrmColourCapture
         My.Settings.Save()
     End Sub
 
+    Private Sub Piccolour_Click(sender As Object, e As EventArgs) Handles Piccolour.Click
+
+    End Sub
 End Class
