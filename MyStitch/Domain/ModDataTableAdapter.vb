@@ -627,7 +627,7 @@ Namespace Domain
             Return isOk
         End Function
         Public Function AmendProjectThreadIsUsed(pThread As ProjectThread) As Boolean
-            LogUtil.LogInfo("Changing project thread is used", MethodBase.GetCurrentMethod.Name)
+            '           LogUtil.LogInfo("Changing project thread is used", MethodBase.GetCurrentMethod.Name)
             Dim oRow As ProjectThreadsRow = GetProjectThreadByKey(pThread.ProjectId, pThread.ThreadId)
             Dim isOk As Boolean = True
             If oRow IsNot Nothing Then

@@ -37,8 +37,9 @@ Public NotInheritable Class FrmStartUp
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Try
             SaveFolderSettings()
+            LoadPathSettings()
             CheckAppPaths()
-            Dim oFromFolder As String = My.Application.Info.DirectoryPath
+            Dim oFromFolder As String = Path.Combine(My.Application.Info.DirectoryPath, "Data")
             Dim oToFolder As String = My.Settings.DataFilePath
             InstallDataArchive(oFromFolder, oToFolder)
             My.Settings.isInstallationComplete = True
