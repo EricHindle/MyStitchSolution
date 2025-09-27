@@ -6,7 +6,9 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Public Class FrmProject
 #Region "properties"
 
@@ -16,7 +18,8 @@ Public Class FrmProject
 #Region "variables"
     Private _selectedProject As New Project
     Private isLoading As Boolean
-
+    Private oFabricColour As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
+    Private oGridColour As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
 #End Region
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -31,10 +34,8 @@ Public Class FrmProject
 
     Private Sub FrmProject_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
-
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
-
     End Sub
 
     Private Sub DgvBooks_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
@@ -46,7 +47,6 @@ Public Class FrmProject
             End If
             LoadProjectForm(_selectedProject)
         End If
-        Debug.Print(DgvProjects.ColumnHeadersDefaultCellStyle.BackColor.ToString)
     End Sub
     Private Sub BtnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
         InsertNewProject()
@@ -64,23 +64,35 @@ Public Class FrmProject
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
-
         GetFormPos(Me, My.Settings.ProjectFormPos)
-
         LoadProjectList(DgvProjects, MyBase.Name)
-
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
-
     End Sub
 
     Private Sub LoadProjectForm(oProject As Project)
         _selectedProject = oProject
-        LblProjectId.Text = _selectedProject.ProjectId
-        LblSelectedProject.Text = _selectedProject.ProjectName
-        LblProjectId.Visible = True
-        TxtName.Text = oProject.ProjectName
+        With _selectedProject
+            LblProjectId.Text = .ProjectId
+            LblSelectedProject.Text = .ProjectName
+            LblProjectId.Visible = True
+            TxtName.Text = .ProjectName
+            DtpStart.Value = .DateStarted
+            DtpEnd.Value = .DateEnded
+            NudDesignHeight.Value = .DesignHeight
+            NudDesignWidth.Value = .DesignWidth
+            NudFabricHeight.Value = .FabricHeight
+            NudFabricWidth.Value = .FabricWidth
+            Select Case .FabricColour
+                Case 1 To 4
+                    PicFabricColour.BackColor = oFabricColour(.FabricColour - 1)
+                    CbFabricColour.SelectedIndex = .FabricColour - 1
+                Case Else
+                    PicFabricColour.BackColor = Color.FromArgb(.FabricColour)
+                    CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
+            End Select
+        End With
     End Sub
 
     Private Sub SelectProjectInList(_projectId As Integer)
@@ -92,10 +104,18 @@ Public Class FrmProject
         Next
     End Sub
     Private Function BuildProjectFromForm(pId As Integer) As Project
+        Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
-                                                   .Build()
+                                                    .WithStarted(DtpStart.Value) _
+                                                    .WithEnded(DtpEnd.Value) _
+                                                    .WithDesignHeight(NudDesignHeight.Value) _
+                                                    .WithDesignWidth(NudDesignWidth.Value) _
+                                                    .WithFabricHeight(NudFabricHeight.Value) _
+                                                    .WithFabricWidth(NudFabricWidth.Value) _
+                                                    .WithFabricColour(_fcolr) _
+                                                 .Build()
         Return _project
     End Function
 
@@ -110,7 +130,7 @@ Public Class FrmProject
         LogUtil.LogInfo("New project", MyBase.Name)
         Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
         _project.ProjectId = InsertProject(_project)
-        LoadProjectList(DgvProjects, MyBase.Name)
+        LoadProjectTable()
         SelectProjectInList(_project.ProjectId)
         LogUtil.ShowStatus("project Added", LblStatus, MyBase.Name)
     End Sub
@@ -118,15 +138,18 @@ Public Class FrmProject
         If _selectedProject.ProjectId >= 0 Then
             LogUtil.LogInfo("Updating project", MyBase.Name)
             Dim _project As Project = BuildProjectFromForm(_selectedProject.ProjectId)
-
-            Updateproject(_project)
-            LoadProjectList(DgvProjects, MyBase.Name)
+            UpdateProject(_project)
+            LoadProjectTable()
             SelectProjectInList(_selectedProject.ProjectId)
             LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)
-
         Else
             LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
+    End Sub
+    Private Sub LoadProjectTable()
+        isLoading = True
+        LoadProjectList(DgvProjects, MyBase.Name)
+        isLoading = False
     End Sub
     Friend Sub DeleteSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
@@ -150,6 +173,59 @@ Public Class FrmProject
             End Using
         End If
     End Sub
+
+    Private Sub PicFabricColour_Click(sender As Object, e As EventArgs) Handles PicFabricColour.Click
+        PicFabricColour.BackColor = SelectColor(PicFabricColour.BackColor)
+        CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1
+    End Sub
+
+    Private Sub PicGrid1Colour_Click(sender As Object, e As EventArgs) Handles PicGrid1Colour.Click
+        PicGrid1Colour.BackColor = SelectColor(PicGrid1Colour.BackColor)
+        CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
+    End Sub
+    Private Sub PicGrid5Colour_Click(sender As Object, e As EventArgs) Handles PicGrid5Colour.Click
+        PicGrid5Colour.BackColor = SelectColor(PicGrid5Colour.BackColor)
+        CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
+    End Sub
+    Private Sub PicGrid10Colour_Click(sender As Object, e As EventArgs) Handles PicGrid10Colour.Click
+        PicGrid10Colour.BackColor = SelectColor(PicGrid10Colour.BackColor)
+        CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
+    End Sub
+    Private Sub CbFabricColour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbFabricColour.SelectedIndexChanged
+        Select Case CbFabricColour.SelectedIndex
+            Case 0 To CbFabricColour.Items.Count - 2
+                PicFabricColour.BackColor = oFabricColour(CbFabricColour.SelectedIndex)
+                'Case Else
+                '    PicFabricColour.BackColor = SelectColor(PicFabricColour.BackColor)
+        End Select
+    End Sub
+    Private Sub CbGrid1Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged
+        Select Case CbGrid1Colour.SelectedIndex
+            Case 0 To CbGrid1Colour.Items.Count - 2
+                PicGrid1Colour.BackColor = oGridColour(CbGrid1Colour.SelectedIndex)
+                'Case Else
+                '    PicGrid1Colour.BackColor = SelectColor(PicGrid1Colour.BackColor)
+        End Select
+    End Sub
+
+    Private Sub CbGrid5Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid5Colour.SelectedIndexChanged
+        Select Case CbGrid5Colour.SelectedIndex
+            Case 0 To CbGrid5Colour.Items.Count - 2
+                PicGrid5Colour.BackColor = oGridColour(CbGrid5Colour.SelectedIndex)
+                'Case Else
+                '    PicGrid5Colour.BackColor = SelectColor(PicGrid5Colour.BackColor)
+        End Select
+    End Sub
+
+    Private Sub CbGrid10Colour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid10Colour.SelectedIndexChanged
+        Select Case CbGrid10Colour.SelectedIndex
+            Case 0 To CbGrid10Colour.Items.Count - 2
+                PicGrid10Colour.BackColor = oGridColour(CbGrid10Colour.SelectedIndex)
+                'Case Else
+                '    PicGrid10Colour.BackColor = SelectColor(PicGrid10Colour.BackColor)
+        End Select
+    End Sub
+
 #End Region
 
 End Class

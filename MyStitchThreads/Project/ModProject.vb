@@ -6,8 +6,10 @@
 '
 
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Module ModProject
+    Public MIN_DATE As New DateTime(2001, 1, 1)
     Public Sub LoadProjectList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load project list", pBaseName)
         pDgv.Rows.Clear()

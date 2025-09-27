@@ -7,13 +7,14 @@
 
 Imports System.ComponentModel
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Module ModThreads
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pBaseName As String)
         LoadThreadList(pDgv, False, pBaseName)
     End Sub
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pIsShowStock As Boolean, pBaseName As String)
-        LogUtil.LogInfo("Load Thread list", pBaseName)
+        LogUtil.LogInfo("Load ProjectThread list", pBaseName)
         pDgv.Rows.Clear()
         For Each oThread As Thread In GetThreads()
             AddProjectThreadRow(pDgv, oThread, pIsShowStock)
@@ -22,8 +23,8 @@ Module ModThreads
         pDgv.ClearSelection()
     End Sub
     Public Sub LoadProjectThreadList(ByRef pDgv As DataGridView, pProjectId As Integer, pShowStock As Boolean, pBaseName As String)
-        LogUtil.LogInfo("Load Thread list", pBaseName)
-        Dim _threadList As List(Of Thread) = GetProjectThreads(pProjectId)
+        LogUtil.LogInfo("Load ProjectThread list", pBaseName)
+        Dim _threadList As List(Of Thread) = GetThreadsForProject(pProjectId)
         pDgv.Rows.Clear()
         For Each oThread As Thread In _threadList
             AddProjectThreadRow(pDgv, oThread, False, pShowStock)
@@ -31,7 +32,6 @@ Module ModThreads
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
-
 
     Public Function SelectThreadInList(ByRef pDgv As DataGridView, pColName As String, pThreadId As Integer, pRowNo As Integer) As Integer
         Dim _index As Integer = 0
@@ -120,4 +120,16 @@ Module ModThreads
         End If
         _imageCell.Value = _image
     End Sub
+    Public Function SelectColor(pCurrentColor As Color) As Color
+        Dim _selectedColor As Color = pCurrentColor
+        Using _colorDialog As New ColorDialog
+            _colorDialog.AllowFullOpen = True
+            _colorDialog.CustomColors = New Integer() {pCurrentColor.ToArgb}
+            _colorDialog.Color = pCurrentColor
+            If _colorDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                _selectedColor = _colorDialog.Color
+            End If
+        End Using
+        Return _selectedColor
+    End Function
 End Module

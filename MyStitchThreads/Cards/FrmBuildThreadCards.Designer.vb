@@ -69,9 +69,9 @@ Partial Class FrmBuildThreadCards
         Me.BtnDown = New System.Windows.Forms.Button()
         Me.BtnUp = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
-        Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -206,7 +206,7 @@ Partial Class FrmBuildThreadCards
         '
         Me.NudMaxThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.NudMaxThreads.Location = New System.Drawing.Point(563, 494)
-        Me.NudMaxThreads.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NudMaxThreads.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
         Me.NudMaxThreads.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudMaxThreads.Name = "NudMaxThreads"
         Me.NudMaxThreads.Size = New System.Drawing.Size(46, 26)
@@ -494,7 +494,7 @@ Partial Class FrmBuildThreadCards
         Me.BtnAddThread.Name = "BtnAddThread"
         Me.BtnAddThread.Size = New System.Drawing.Size(26, 26)
         Me.BtnAddThread.TabIndex = 158
-        Me.ToolTip1.SetToolTip(Me.BtnAddThread, "Add Thread")
+        Me.ToolTip1.SetToolTip(Me.BtnAddThread, "Add ProjectThread")
         Me.BtnAddThread.UseVisualStyleBackColor = True
         '
         'BtnDown
@@ -528,6 +528,11 @@ Partial Class FrmBuildThreadCards
         Me.StatusStrip1.TabIndex = 157
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'LblStatus
+        '
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
+        '
         'ChkShowStock
         '
         Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -539,11 +544,6 @@ Partial Class FrmBuildThreadCards
         Me.ChkShowStock.TabIndex = 158
         Me.ChkShowStock.Text = "Show stock levels"
         Me.ChkShowStock.UseVisualStyleBackColor = True
-        '
-        'LblStatus
-        '
-        Me.LblStatus.Name = "LblStatus"
-        Me.LblStatus.Size = New System.Drawing.Size(0, 17)
         '
         'FrmBuildThreadCards
         '
@@ -567,7 +567,7 @@ Partial Class FrmBuildThreadCards
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmBuildThreadCards"
-        Me.Text = "Build Thread Cards"
+        Me.Text = "Build ProjectThread Cards"
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).EndInit()

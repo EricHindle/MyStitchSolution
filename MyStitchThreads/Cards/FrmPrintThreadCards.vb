@@ -8,7 +8,8 @@
 Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmPrintThreadCards
     Private Const A4_WIDTH_PIXELS As Integer = 3508
     Private Const A4_HEIGHT_PIXELS As Integer = 2480
@@ -50,7 +51,7 @@ Public Class FrmPrintThreadCards
         My.Settings.Save()
     End Sub
     Private Sub FrmPrintThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Printing Thread Cards", MyBase.Name)
+        LogUtil.LogInfo("Printing ProjectThread Cards", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
         isLoading = True
         InitialiseForm()
@@ -263,6 +264,7 @@ Public Class FrmPrintThreadCards
         Dim _line_y As Integer
         Dim _row As Integer = 0
         For Each _thread As ProjectCardThread In pList
+            Dim _projectThread As ProjectThread = GetProjectThread(_thread.Project.ProjectId, _thread.Thread.ThreadId)
             Dim _col As Integer = _nextCol
             _line_y = _topMargin + (HOLEPUNCH_HOLE_GAP * _row)
             _left_x = (oColWidth * _col) + HOLEPUNCH_HOLE_INSET + (HOLEPUNCH_HOLE_RADIUS * 5)
@@ -284,14 +286,17 @@ Public Class FrmPrintThreadCards
             Dim _symbolleft As Integer = _left_x + _colourwidth + (oColWidth * (_col + 1) - _left_x - _colourwidth - _symbolwidth) / 2
             Dim _textrect As New Rectangle(New Point(_textleft, _textbottom_y), New Size(_textwidth, _textheight))
             Dim _colourRect As New Rectangle(New Point(_colourleft, _colourbottom_y), New Size(_colourwidth, _colourheight))
-            Dim _symbolRect As New Rectangle(New Point(_symbolleft, _symboltop), New Size(_symbolwidth, _symbolheight))
+            Dim _symbolBorderRect As New Rectangle(New Point(_symbolleft, _symboltop), New Size(_symbolwidth, _symbolheight))
+            Dim _symbolRect As New Rectangle(New Point(_symbolleft + (_symbolwidth / 4), _symboltop + (_symbolwidth / 4)), New Size(_symbolwidth / 2, _symbolheight / 2))
+
             Dim _brush As Brush = New SolidBrush(_thread.Thread.Colour)
             _cardGraphics.FillRectangle(_brush, _colourRect)
             _cardGraphics.FillRectangle(CARD_COLOUR, _textrect)
             _cardGraphics.DrawString(_thread.Thread.ThreadNo, New Font(FAMILY_NAME, THREAD_NUMBER_FONT_SIZE, FontStyle.Regular), THREAD_NUMBER_BRUSH, New Point(_textleft, _textbottom_y))
             _cardGraphics.DrawString(_thread.Thread.ColourName, New Font(FAMILY_NAME, THREAD_NAME_FONT_SIZE, FontStyle.Regular), THREAD_NAME_BRUSH, New Point(_nameleft, _nametop))
-            _cardGraphics.FillRectangle(CARD_COLOUR, _symbolRect)
-            _cardGraphics.DrawRectangle(LINE_PEN, _symbolRect)
+            _cardGraphics.FillRectangle(CARD_COLOUR, _symbolBorderRect)
+            _cardGraphics.DrawRectangle(LINE_PEN, _symbolBorderRect)
+            _cardGraphics.DrawImage(_projectThread.Symbol, _symbolRect)
             _row += 1
         Next
         PicThreadCard.Image = sourceBitmap

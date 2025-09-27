@@ -7,6 +7,9 @@
 
 Imports System.ComponentModel
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 
 Public Class FrmBuildThreadCards
 
@@ -32,7 +35,7 @@ Public Class FrmBuildThreadCards
 #End Region
 #Region "control handlers"
     Private Sub FrmBuildThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Thread maintenence", MyBase.Name)
+        LogUtil.LogInfo("ProjectThread maintenence", MyBase.Name)
         isShowStock = ChkShowStock.Checked
         isLoading = True
         InitialiseForm()
@@ -73,7 +76,7 @@ Public Class FrmBuildThreadCards
         LogUtil.ClearStatus(LblStatus)
         If Not isLoading Then
             DgvCardThreads.Rows.Clear()
-        oSelectedCardNo = -1
+            oSelectedCardNo = -1
             If LbCards.SelectedIndex > -1 Then
                 oSelectedCardNo = CInt(LbCards.SelectedItem)
                 LblCardNo.Text = CStr(oSelectedCardNo)

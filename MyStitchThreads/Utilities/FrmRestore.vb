@@ -7,18 +7,9 @@
 
 Imports System.IO
 Imports HindlewareLib.Logging
-
+Imports MyStitch.Domain
 Public Class FrmRestore
 #Region "properties"
-    Private _currentBook As Book
-    Public Property CurrentBook() As Book
-        Get
-            Return _currentBook
-        End Get
-        Set(ByVal value As Book)
-            _currentBook = value
-        End Set
-    End Property
 #End Region
 #Region "variables"
     Private backupPath As String

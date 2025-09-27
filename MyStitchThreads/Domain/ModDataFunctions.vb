@@ -9,8 +9,8 @@ Imports System.Data.SqlClient
 Imports System.IO
 Imports System.Reflection
 Imports HindlewareLib.Logging
-Imports MySql.Data.MySqlClient
-
+Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.Objects
 Module ModDataFunctions
 #Region "constants"
     Friend Const BOOK_TAG As String = "B~"
@@ -90,7 +90,7 @@ Module ModDataFunctions
                         LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectTa.TruncateProjects()
                         LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
-                        For Each _row As MyStitchDataSet.ProjectsRow In oProjectTable.Rows
+                        For Each _row As MyStitch.MyStitchDataSet.ProjectsRow In oProjectTable.Rows
                             Dim _project As Project = ProjectBuilder.AProject.StartingWith(_row).Build
                             InsertProject(_project, _project.ProjectId)
                         Next
@@ -101,7 +101,7 @@ Module ModDataFunctions
                         LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oThreadTa.TruncateThreads()
                         LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
-                        For Each _row As MyStitchDataSet.ThreadsRow In oThreadTable.Rows
+                        For Each _row As MyStitch.MyStitchDataSet.ThreadsRow In oThreadTable.Rows
                             Dim _thread As Thread = ThreadBuilder.AThread.StartingWith(_row).Build
                             InsertThread(_thread, _thread.ThreadId)
                         Next
@@ -112,7 +112,7 @@ Module ModDataFunctions
                         LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectThreadTa.TruncateProjectThreads()
                         LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
-                        For Each _row As MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
+                        For Each _row As MyStitch.MyStitchDataSet.ProjectThreadsRow In oProjectThreadTable.Rows
                             Dim _ProjectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWith(_row).Build
                             InsertProjectThread(_ProjectThread)
                         Next
@@ -123,7 +123,7 @@ Module ModDataFunctions
                         LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectThreadCardTa.TruncateProjectThreadCards()
                         LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
-                        For Each _row As MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
+                        For Each _row As MyStitch.MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
                             Dim _ProjectThreadCard As ProjectThreadCard = ProjectThreadCardBuilder.AProjectThreadCard.StartingWith(_row).Build
                             InsertProjectThreadCard(_ProjectThreadCard)
                         Next
@@ -134,7 +134,7 @@ Module ModDataFunctions
                         LogUtil.LogInfo(TRUNCATING_TABLE, MethodBase.GetCurrentMethod.Name)
                         oProjectCardThreadTa.TruncateProjectCardThread()
                         LogUtil.LogInfo(ADDING_RECORDS, MethodBase.GetCurrentMethod.Name)
-                        For Each _row As MyStitchDataSet.ProjectCardThreadRow In oProjectCardThreadTable.Rows
+                        For Each _row As MyStitch.MyStitchDataSet.ProjectCardThreadRow In oProjectCardThreadTable.Rows
                             Dim _ProjectCardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWith(_row).Build
                             InsertProjectCardThread(_ProjectCardThread)
                         Next
@@ -189,7 +189,7 @@ Module ModDataFunctions
             For Each orow As MyStitchDataSet.ProjectsRow In oProjectTable.Rows
                 oProjects.Add(ProjectBuilder.AProject.StartingWith(orow).Build)
             Next
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return oProjects
@@ -199,10 +199,10 @@ Module ModDataFunctions
         Try
             oProjectTa.FillById(oProjectTable, pProjectId)
             If oProjectTable.Rows.Count > 0 Then
-                Dim oRow As MyStitchDataSet.ProjectsRow = oProjectTable.Rows(0)
+                Dim oRow As MyStitch.MyStitchDataSet.ProjectsRow = oProjectTable.Rows(0)
                 oProject = ProjectBuilder.AProject.StartingWith(oRow).Build
             End If
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return oProject
@@ -230,7 +230,7 @@ Module ModDataFunctions
         LogUtil.LogInfo("Updating " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectTa.UpdateProject(oProject.ProjectName, oProject.ProjectId)
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
@@ -238,7 +238,7 @@ Module ModDataFunctions
         LogUtil.LogInfo("Deleting " & oProject.ProjectName, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectTa.DeleteProject(oProject.ProjectId)
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
@@ -251,10 +251,10 @@ Module ModDataFunctions
         Dim oThreads As New List(Of Thread)
         Try
             oThreadTa.Fill(oThreadTable)
-            For Each orow As MyStitchDataSet.ThreadsRow In oThreadTable.Rows
+            For Each orow As MyStitch.MyStitchDataSet.ThreadsRow In oThreadTable.Rows
                 oThreads.Add(ThreadBuilder.AThread.StartingWith(orow).Build)
             Next
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return oThreads
@@ -264,10 +264,10 @@ Module ModDataFunctions
         Try
             oThreadTa.FillByNumber(oThreadTable, pNumber)
             If oThreadTable.Rows.Count > 0 Then
-                Dim oRow As MyStitchDataSet.ThreadsRow = oThreadTable.Rows(0)
+                Dim oRow As MyStitch.MyStitchDataSet.ThreadsRow = oThreadTable.Rows(0)
                 oThread = ThreadBuilder.AThread.StartingWith(oRow).Build
             End If
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return oThread
@@ -279,7 +279,7 @@ Module ModDataFunctions
                 oThreadTa.UpdateThread(.ThreadNo, .ColourName, .Colour.ToArgb, .StockLevel, .ThreadId)
             End With
 
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
@@ -287,7 +287,7 @@ Module ModDataFunctions
         LogUtil.LogInfo("Deleting " & oThread.ColourName, MethodBase.GetCurrentMethod.Name)
         Try
             oThreadTa.DeleteThread(oThread.ThreadId)
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
@@ -296,10 +296,10 @@ Module ModDataFunctions
         Try
             oThreadTa.FillById(oThreadTable, pThreadId)
             If oThreadTable.Rows.Count > 0 Then
-                Dim oRow As MyStitchDataSet.ThreadsRow = oThreadTable.Rows(0)
+                Dim oRow As MyStitch.MyStitchDataSet.ThreadsRow = oThreadTable.Rows(0)
                 othread = ThreadBuilder.AThread.StartingWith(oRow).Build
             End If
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
         Return othread
@@ -330,7 +330,7 @@ Module ModDataFunctions
         LogUtil.LogInfo("Deleting " & pProjectThread.Project.ProjectName & ":" & pProjectThread.Thread.ThreadNo, MethodBase.GetCurrentMethod.Name)
         Try
             oProjectThreadTa.DeleteProjectThreadByKey(pProjectThread.Project.ProjectId, pProjectThread.Thread.ThreadId)
-        Catch ex As MySqlException
+        Catch ex As SqlException
             LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
@@ -341,7 +341,7 @@ Module ModDataFunctions
         Dim _listOfCards As New List(Of ProjectThreadCard)
         Try
             oProjectThreadCardTa.FillByProject(oProjectThreadCardTable, pProjectId)
-            For Each oRow As MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
+            For Each oRow As MyStitch.MyStitchDataSet.ProjectThreadCardsRow In oProjectThreadCardTable.Rows
                 _listOfCards.Add(ProjectThreadCardBuilder.AProjectThreadCard.StartingWith(oRow).Build)
             Next
         Catch ex As Exception
@@ -483,7 +483,7 @@ Module ModDataFunctions
         Dim _list As New List(Of ProjectCardThread)
         Try
             oProjectCardThreadTa.FillByProjectCard(oProjectCardThreadTable, pProjectId, pCardNo)
-            For Each oRow As MyStitchDataSet.ProjectCardThreadRow In oProjectCardThreadTable.Rows
+            For Each oRow As MyStitch.MyStitchDataSet.ProjectCardThreadRow In oProjectCardThreadTable.Rows
                 Dim _cardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWith(oRow).Build
                 _list.Add(_cardThread)
             Next
