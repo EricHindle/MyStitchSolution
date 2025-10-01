@@ -11,7 +11,6 @@ Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Public Class FrmThread
 #Region "properties"
-
 #End Region
 #Region "constants"
     Private Const STOCK_NONE As Integer = 0
@@ -19,7 +18,6 @@ Public Class FrmThread
     Private Const STOCK_SOME As Integer = 50
     Private Const STOCK_ENOUGH As Integer = 75
     Private Const STOCK_PLENTY As Integer = 100
-
 #End Region
 #Region "variables"
     Private _selectedThread As New Thread
@@ -37,7 +35,6 @@ Public Class FrmThread
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub
-
     Private Sub FrmThread_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
         If _colrCap IsNot Nothing AndAlso Not _colrCap.IsDisposed Then
@@ -45,9 +42,7 @@ Public Class FrmThread
         End If
         My.Settings.ThreadFormPos = SetFormPos(Me)
         My.Settings.Save()
-
     End Sub
-
     Private Sub DgvThreads_SelectionChanged(sender As Object, e As EventArgs) Handles DgvThreads.SelectionChanged
         If Not isLoading Then
             If DgvThreads.SelectedRows.Count = 1 Then
@@ -92,7 +87,6 @@ Public Class FrmThread
         Dim _colour As Color = Color.White
         LblColour.BackColor = _colour
     End Sub
-
     Private Sub LoadThreadForm(oThread As Thread)
         _selectedThread = oThread
         LblId.Text = _selectedThread.ThreadId
@@ -113,14 +107,12 @@ Public Class FrmThread
         End Select
         SetFormColour(_colour)
     End Sub
-
-    Private Sub SetFormColour(_colour As Color)
+    Friend Sub SetFormColour(_colour As Color)
         LblColour.BackColor = _colour
         TxtR.Text = CStr(_colour.R)
         TxtG.Text = CStr(_colour.G)
         TxtB.Text = CStr(_colour.B)
     End Sub
-
     Private Function BuildThreadFromForm(pId As Integer) As Thread
         Dim _Thread As Thread = ThreadBuilder.AThread.StartingWithNothing _
                                                     .WithId(pId) _
@@ -146,9 +138,7 @@ Public Class FrmThread
                 _level = STOCK_PLENTY
         End Select
         Return _level
-
     End Function
-
     Private Sub InsertNewThread()
         LogUtil.LogInfo("New ProjectThread", MyBase.Name)
         Dim _existingthread As Thread = FindThreadByNumber(TxtNumber.Text.Trim)
@@ -185,37 +175,37 @@ Public Class FrmThread
             LogUtil.ShowStatus("No ProjectThread selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-
     Private Sub RGB_ValueChanged(sender As Object, e As EventArgs) Handles TxtR.TextChanged, TxtG.TextChanged, TxtB.TextChanged
         If IsNumeric(TxtR.Text) AndAlso IsNumeric(TxtG.Text) AndAlso IsNumeric(TxtB.Text) Then
             Dim _newColor As Color = Color.FromArgb(CInt(TxtR.Text), CInt(TxtG.Text), CInt(TxtB.Text))
             LblColour.BackColor = _newColor
         End If
     End Sub
-
     Private Sub BtnColourCapture_Click(sender As Object, e As EventArgs) Handles BtnColourCapture.Click
         If _colrCap Is Nothing OrElse _colrCap.IsDisposed Then
             _colrCap = New FrmColourCapture
         End If
+        _colrCap.ParentForm = Me
         _colrCap.Show()
     End Sub
-
-    Private Sub BtnGetColour_Click(sender As Object, e As EventArgs) Handles BtnGetColour.Click
+    Private Sub BtnGetColour_Click(sender As Object, e As EventArgs)
         Dim _color As Color = _colrCap.SelectedColour
         SetFormColour(_color)
     End Sub
-
     Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
         SelectThreadInList(DgvThreads, threadNo.Name, TxtNumber.Text)
     End Sub
-
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
         If Not isLoading Then
             LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
         End If
     End Sub
-
+    Private Sub BtnPasteFromImage_Click(sender As Object, e As EventArgs) Handles BtnPasteFromImage.Click
+        If Clipboard.ContainsImage Then
+            Dim _bitmap As Bitmap = Clipboard.GetImage
+            SetFormColour(_bitmap.GetPixel(0, 0))
+        End If
+    End Sub
 #End Region
-
 End Class

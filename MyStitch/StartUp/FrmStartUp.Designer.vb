@@ -48,12 +48,12 @@ Partial Class FrmStartUp
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.BtnExit = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PnlSplash = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.PnlSplash.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -259,16 +259,16 @@ Partial Class FrmStartUp
         Me.BtnExit.Text = "Exit"
         Me.BtnExit.UseVisualStyleBackColor = False
         '
-        'Panel1
+        'PnlSplash
         '
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Controls.Add(Me.ApplicationTitle)
-        Me.Panel1.Controls.Add(Me.PictureBox1)
-        Me.Panel1.Location = New System.Drawing.Point(2, 2)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(522, 287)
-        Me.Panel1.TabIndex = 16
+        Me.PnlSplash.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PnlSplash.Controls.Add(Me.Panel2)
+        Me.PnlSplash.Controls.Add(Me.ApplicationTitle)
+        Me.PnlSplash.Controls.Add(Me.PictureBox1)
+        Me.PnlSplash.Location = New System.Drawing.Point(0, 0)
+        Me.PnlSplash.Name = "PnlSplash"
+        Me.PnlSplash.Size = New System.Drawing.Size(522, 287)
+        Me.PnlSplash.TabIndex = 16
         '
         'Panel2
         '
@@ -290,7 +290,7 @@ Partial Class FrmStartUp
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(640, 619)
         Me.ControlBox = False
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.PnlSplash)
         Me.Controls.Add(Me.BtnExit)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.btnSave)
@@ -306,7 +306,7 @@ Partial Class FrmStartUp
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
+        Me.PnlSplash.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -330,7 +330,7 @@ Partial Class FrmStartUp
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents BtnExit As Button
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PnlSplash As Panel
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Timer1 As Timer
 End Class

@@ -403,7 +403,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("7")>  _
         Public Property FileRetentionPeriod() As Integer
             Get
                 Return CType(Me("FileRetentionPeriod"),Integer)
@@ -835,25 +835,25 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isHkLogs() As Boolean
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isHousekeepLogs() As Boolean
             Get
-                Return CType(Me("isHkLogs"),Boolean)
+                Return CType(Me("isHousekeepLogs"),Boolean)
             End Get
             Set
-                Me("isHkLogs") = value
+                Me("isHousekeepLogs") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isHkArchive() As Boolean
+        Public Property isHousekeepDesigns() As Boolean
             Get
-                Return CType(Me("isHkArchive"),Boolean)
+                Return CType(Me("isHousekeepDesigns"),Boolean)
             End Get
             Set
-                Me("isHkArchive") = value
+                Me("isHousekeepDesigns") = value
             End Set
         End Property
         
@@ -1112,12 +1112,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property isHkData() As Boolean
+        Public Property isHousekeepData() As Boolean
             Get
-                Return CType(Me("isHkData"),Boolean)
+                Return CType(Me("isHousekeepData"),Boolean)
             End Get
             Set
-                Me("isHkData") = value
+                Me("isHousekeepData") = value
             End Set
         End Property
         
@@ -1130,6 +1130,18 @@ Namespace My
             End Get
             Set
                 Me("isInstallationComplete") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+        Public Property FileRetentionCopies() As Integer
+            Get
+                Return CType(Me("FileRetentionCopies"),Integer)
+            End Get
+            Set
+                Me("FileRetentionCopies") = value
             End Set
         End Property
     End Class

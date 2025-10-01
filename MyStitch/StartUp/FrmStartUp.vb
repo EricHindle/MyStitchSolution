@@ -25,7 +25,7 @@ Public NotInheritable Class FrmStartUp
         End If
         Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
         Copyright.Text = My.Application.Info.Copyright
-        Size = New Size(530, 295)
+        Size = PnlSplash.Size
         InitialiseSettings()
         If My.Settings.isInstallationComplete Then
             InitialiseApplication()
@@ -53,7 +53,6 @@ Public NotInheritable Class FrmStartUp
             MsgBox(ex.Message, MsgBoxStyle.Exclamation, ex.ParamName & " error")
         End Try
     End Sub
-
     Private Sub BtnExit_Click(sender As Object, e As EventArgs) Handles BtnExit.Click
         Close()
     End Sub
@@ -66,7 +65,6 @@ Public NotInheritable Class FrmStartUp
         Timer1.Enabled = False
         EnterApplication()
     End Sub
-
 #End Region
 #Region "subroutines"
     Private Sub InitialiseApplication()
@@ -89,9 +87,9 @@ Public NotInheritable Class FrmStartUp
         LogUtil.LogFolder = oInstallationLogFolder
         LogUtil.StartLogging()
         LogUtil.LogInfo("Completing installation", MethodBase.GetCurrentMethod.Name)
-        Dim x As Integer = Panel1.Location.X + ((Me.Width - Panel1.Width) / 2)
-        Dim y As Integer = Panel1.Location.Y
-        Panel1.Location = New Point(x, y)
+        Dim x As Integer = PnlSplash.Location.X + ((Me.Width - PnlSplash.Width) / 2)
+        Dim y As Integer = PnlSplash.Location.Y
+        PnlSplash.Location = New Point(x, y)
         Size = New Size(642, 625)
         Dim UserDataPath As String = Path.Combine(GetFolderPath(SpecialFolder.CommonApplicationData), My.Application.Info.AssemblyName)
         '    LoadDefaultPaths

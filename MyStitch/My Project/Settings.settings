@@ -95,7 +95,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FileRetentionPeriod" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="IsShowBlockstitches" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -202,10 +202,10 @@
     <Setting Name="isAutoRunHousekeeping" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="isHkLogs" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="isHousekeepLogs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="isHkArchive" Type="System.Boolean" Scope="User">
+    <Setting Name="isHousekeepDesigns" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Grid1Colour" Type="System.Int32" Scope="User">
@@ -271,11 +271,14 @@
     <Setting Name="DataFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%applicationpath%\Data</Value>
     </Setting>
-    <Setting Name="isHkData" Type="System.Boolean" Scope="User">
+    <Setting Name="isHousekeepData" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="isInstallationComplete" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FileRetentionCopies" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

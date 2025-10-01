@@ -59,7 +59,6 @@ Partial Class FrmThread
         Me.BtnFind = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BtnColourCapture = New System.Windows.Forms.Button()
-        Me.BtnGetColour = New System.Windows.Forms.Button()
         Me.TxtB = New System.Windows.Forms.TextBox()
         Me.TxtG = New System.Windows.Forms.TextBox()
         Me.TxtR = New System.Windows.Forms.TextBox()
@@ -72,6 +71,7 @@ Partial Class FrmThread
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
+        Me.BtnPasteFromImage = New System.Windows.Forms.Button()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
         Me.GrpStock.SuspendLayout()
@@ -416,11 +416,11 @@ Partial Class FrmThread
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.BtnPasteFromImage)
         Me.GroupBox1.Controls.Add(Me.BtnColourCapture)
-        Me.GroupBox1.Controls.Add(Me.BtnGetColour)
         Me.GroupBox1.Location = New System.Drawing.Point(17, 322)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(276, 67)
+        Me.GroupBox1.Size = New System.Drawing.Size(335, 67)
         Me.GroupBox1.TabIndex = 128
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Colour Capture"
@@ -438,22 +438,8 @@ Partial Class FrmThread
         Me.BtnColourCapture.Size = New System.Drawing.Size(97, 32)
         Me.BtnColourCapture.TabIndex = 126
         Me.BtnColourCapture.Text = "Show Form"
+        Me.ToolTip1.SetToolTip(Me.BtnColourCapture, "Show colour capture form")
         Me.BtnColourCapture.UseVisualStyleBackColor = False
-        '
-        'BtnGetColour
-        '
-        Me.BtnGetColour.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnGetColour.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnGetColour.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnGetColour.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGetColour.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnGetColour.Location = New System.Drawing.Point(123, 26)
-        Me.BtnGetColour.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnGetColour.Name = "BtnGetColour"
-        Me.BtnGetColour.Size = New System.Drawing.Size(139, 32)
-        Me.BtnGetColour.TabIndex = 127
-        Me.BtnGetColour.Text = "Get selected colour"
-        Me.BtnGetColour.UseVisualStyleBackColor = False
         '
         'TxtB
         '
@@ -554,6 +540,22 @@ Partial Class FrmThread
         Me.ChkShowStock.Text = "Show stock level"
         Me.ChkShowStock.UseVisualStyleBackColor = True
         '
+        'BtnPasteFromImage
+        '
+        Me.BtnPasteFromImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnPasteFromImage.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnPasteFromImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnPasteFromImage.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPasteFromImage.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnPasteFromImage.Location = New System.Drawing.Point(168, 26)
+        Me.BtnPasteFromImage.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnPasteFromImage.Name = "BtnPasteFromImage"
+        Me.BtnPasteFromImage.Size = New System.Drawing.Size(156, 32)
+        Me.BtnPasteFromImage.TabIndex = 128
+        Me.BtnPasteFromImage.Text = "Paste From Clipboard"
+        Me.ToolTip1.SetToolTip(Me.BtnPasteFromImage, "Paste colour of first bit on clipboard")
+        Me.BtnPasteFromImage.UseVisualStyleBackColor = False
+        '
         'FrmThread
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -613,7 +615,6 @@ Partial Class FrmThread
     Friend WithEvents TxtR As TextBox
     Friend WithEvents BtnColourCapture As Button
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BtnGetColour As Button
     Friend WithEvents BtnFind As Button
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
@@ -628,4 +629,5 @@ Partial Class FrmThread
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RbSome As RadioButton
     Friend WithEvents ChkShowStock As CheckBox
+    Friend WithEvents BtnPasteFromImage As Button
 End Class

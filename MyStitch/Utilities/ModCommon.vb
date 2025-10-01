@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Diagnostics.Contracts
 Imports System.Globalization
 Imports System.IO
 Imports System.Reflection
@@ -82,51 +83,63 @@ Module ModCommon
     Public Sub RunHousekeeping()
         LogUtil.Info("Housekeeping started", MethodBase.GetCurrentMethod.Name)
         Dim retentionPeriod As Integer = My.Settings.FileRetentionPeriod
-        If My.Settings.isHkLogs Then
+        If My.Settings.isHousekeepLogs Then
             LogUtil.Info("Tidying log files", MethodBase.GetCurrentMethod.Name)
-            TidyFiles(oLogFolderName, "*.*", retentionPeriod)
+            TidyFiles(oLogFolderName, "*.log", retentionPeriod)
         End If
-        If My.Settings.isHkArchive Then
+        If My.Settings.isHousekeepDesigns Then
             LogUtil.Info("Tidying Design files", MethodBase.GetCurrentMethod.Name)
-            TidyFiles(oDesignArchiveFolderName, "*.*", retentionPeriod)
+            TidyFiles(oDesignArchiveFolderName, "*" & DESIGN_ARC_EXT, retentionPeriod)
         End If
-        If My.Settings.isHkData Then
+        If My.Settings.isHousekeepData Then
             LogUtil.Info("Tidying Data files", MethodBase.GetCurrentMethod.Name)
-            TidyFiles(oDataArchiveFolderName, "*.*", retentionPeriod)
+            TidyFiles(oDataArchiveFolderName, "*" & DATA_ARC_EXT, retentionPeriod)
         End If
         LogUtil.Info("Housekeeping complete", MethodBase.GetCurrentMethod.Name)
     End Sub
-    Public Sub TidyFiles(ByVal sFolder As String, ByVal sPattern As String, ByVal iRetain As Integer, Optional ByVal bSubfolders As Boolean = False)
-        Dim oDirInfo As DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(sFolder)
-        LogUtil.Info("Tidying files in " & sFolder & " older than " & iRetain & " days", MethodBase.GetCurrentMethod.Name)
-        Try
-            Dim oFileList As FileInfo() = oDirInfo.GetFiles(sPattern, If(bSubfolders, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
-            For Each oFileInfo As FileInfo In oFileList
-                If (oFileInfo.Attributes And FileAttributes.ReadOnly) = 0 _
-                       And (oFileInfo.Attributes And FileAttributes.Hidden) = 0 _
-                       And (oFileInfo.Attributes And FileAttributes.System) = 0 _
-                       And (oFileInfo.Attributes And FileAttributes.Directory) = 0 Then
-                    Dim oDate As Date = oFileInfo.LastWriteTime
-                    Dim iDaysOld As Integer = DateDiff("d", oDate, Now)
-                    If iDaysOld >= iRetain Then
-                        Try
-                            My.Computer.FileSystem.DeleteFile(oFileInfo.FullName)
-                            LogUtil.Info(oFileInfo.Name & " - " & iDaysOld & " days old - deleted", MethodBase.GetCurrentMethod.Name)
-                        Catch ex As Exception When (TypeOf ex Is ArgumentException) _
-                                        OrElse (TypeOf ex Is PathTooLongException) _
-                                        OrElse (TypeOf ex Is NotSupportedException) _
-                                        OrElse (TypeOf ex Is IOException) _
-                                        OrElse (TypeOf ex Is Security.SecurityException) _
-                                        OrElse (TypeOf ex Is FileNotFoundException) _
-                                        OrElse (TypeOf ex Is UnauthorizedAccessException)
-                            LogUtil.Exception("Unable to remove " & oFileInfo.FullName, ex, MethodBase.GetCurrentMethod.Name)
-                        End Try
-                    End If
+    Public Sub TidyFiles(ByVal sFolder As String, ByVal sPattern As String, ByVal iRetain As Integer)
+        TidyFiles(sFolder, sPattern, iRetain, False)
+    End Sub
+    Public Sub TidyFiles(ByVal sFolder As String, ByVal sPattern As String, ByVal iRetain As Integer, ByVal bSubfolders As Boolean)
+        If My.Computer.FileSystem.DirectoryExists(sFolder) Then
+            Dim oDirInfo As DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(sFolder)
+            LogUtil.Info("Tidying files in " & sFolder & " older than " & iRetain & " days", MethodBase.GetCurrentMethod.Name)
+            Try
+                Dim oFileList As List(Of FileInfo) = oDirInfo.GetFiles(sPattern, If(bSubfolders, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly)).ToList
+                oFileList.Sort(Function(x As FileInfo, y As FileInfo) x.CreationTime.CompareTo(y.CreationTime))
+                Dim iFilesToRetain As Integer = Math.Min(oFileList.Count, My.Settings.FileRetentionCopies)
+                If iFilesToRetain > 0 Then
+                    oFileList.RemoveRange(oFileList.Count - iFilesToRetain, iFilesToRetain)
                 End If
-            Next
-        Catch ex As Exception
-            LogUtil.Exception("Problem tidying files", ex, MethodBase.GetCurrentMethod.Name)
-        End Try
+                For Each oFileInfo As FileInfo In oFileList
+                    If (oFileInfo.Attributes And FileAttributes.ReadOnly) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.Hidden) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.System) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.Directory) = 0 Then
+                        Dim oDate As Date = oFileInfo.LastWriteTime
+                        Dim iDaysOld As Integer = DateDiff("d", oDate, Now)
+                        If iDaysOld >= iRetain Then
+                            Try
+                                My.Computer.FileSystem.DeleteFile(oFileInfo.FullName)
+                                LogUtil.Info(oFileInfo.Name & " - " & iDaysOld & " days old - deleted", MethodBase.GetCurrentMethod.Name)
+                            Catch ex As Exception When (TypeOf ex Is ArgumentException) _
+                                            OrElse (TypeOf ex Is PathTooLongException) _
+                                            OrElse (TypeOf ex Is NotSupportedException) _
+                                            OrElse (TypeOf ex Is IOException) _
+                                            OrElse (TypeOf ex Is Security.SecurityException) _
+                                            OrElse (TypeOf ex Is FileNotFoundException) _
+                                            OrElse (TypeOf ex Is UnauthorizedAccessException)
+                                LogUtil.Exception("Unable to remove " & oFileInfo.FullName, ex, MethodBase.GetCurrentMethod.Name)
+                            End Try
+                        End If
+                    End If
+                Next
+            Catch ex As Exception
+                LogUtil.Exception("Problem tidying files", ex, MethodBase.GetCurrentMethod.Name)
+            End Try
+        Else
+            LogUtil.Problem("Folder " & sFolder & " does NOT exist. Housekeeping Failed.", MethodBase.GetCurrentMethod.Name)
+        End If
     End Sub
     Public Sub CreateFolder(pFoldername As String, pAllowLogging As Boolean)
         If Not My.Computer.FileSystem.DirectoryExists(pFoldername) Then

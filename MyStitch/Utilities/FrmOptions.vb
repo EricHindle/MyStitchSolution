@@ -32,15 +32,16 @@ Public NotInheritable Class FrmOptions
         Close()
     End Sub
     Private Sub SaveOptions()
-        My.Settings.isHkArchive = ChkDesignArchive.Checked
-        My.Settings.isHkData = ChkDataArchive.Checked
-        My.Settings.isHkLogs = ChkLogs.Checked
+        My.Settings.isHousekeepDesigns = ChkDesignArchive.Checked
+        My.Settings.isHousekeepData = ChkDataArchive.Checked
+        My.Settings.isHousekeepLogs = ChkLogs.Checked
         My.Settings.DataFilePath = TxtDataPath.Text
         My.Settings.ImagePath = TxtImagePath.Text
         My.Settings.DesignFilePath = TxtDesignFilePath.Text
         My.Settings.BackupPath = TxtBackupPath.Text
         My.Settings.LogFolder = TxtLogFilePath.Text
-        My.Settings.FileRetentionPeriod = NudRetention.Value
+        My.Settings.FileRetentionPeriod = NudRetentionDays.Value
+        My.Settings.FileRetentionCopies = NudRetentionCopies.Value
         My.Settings.isGridOn = ChkGridOn.Checked
         My.Settings.LogZoomOn = ChkLogZoom.Checked
         My.Settings.DebugOn = ChkDebugOn.Checked
@@ -78,7 +79,8 @@ Public NotInheritable Class FrmOptions
         TxtBackupPath.Text = My.Settings.BackupPath
         TxtImagePath.Text = My.Settings.ImagePath
         TxtDesignFilePath.Text = My.Settings.DesignFilePath
-        NudRetention.Value = My.Settings.FileRetentionPeriod
+        NudRetentionDays.Value = My.Settings.FileRetentionPeriod
+        NudRetentionCopies.Value = My.Settings.FileRetentionCopies
         ChkGridOn.Checked = My.Settings.isGridOn
         ChkLogZoom.Checked = My.Settings.LogZoomOn
         ChkDebugOn.Checked = My.Settings.DebugOn
@@ -106,9 +108,9 @@ Public NotInheritable Class FrmOptions
         PicSelectionBorderColour.BackColor = My.Settings.SelectionBorderColour
         TxtAppPath.Text = My.Settings.ApplicationPath
         NudFabricCount.Value = My.Settings.DefaultFabricCount
-        ChkDesignArchive.Checked = My.Settings.isHkArchive
-        ChkDataArchive.Checked = My.Settings.isHkData
-        ChkLogs.Checked = My.Settings.isHkLogs
+        ChkDesignArchive.Checked = My.Settings.isHousekeepDesigns
+        ChkDataArchive.Checked = My.Settings.isHousekeepData
+        ChkLogs.Checked = My.Settings.isHousekeepLogs
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
