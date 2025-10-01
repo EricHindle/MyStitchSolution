@@ -13,7 +13,7 @@ Public Class FrmColourCapture
     Private isLoading As Boolean
     Private isSelectingColour As Boolean = False
     Private _parentForm As FrmThread
-    Public Property ParentForm() As FrmThread
+    Public Property ThreadForm() As FrmThread
         Get
             Return _parentForm
         End Get

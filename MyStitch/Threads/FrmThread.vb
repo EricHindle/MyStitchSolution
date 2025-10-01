@@ -185,7 +185,7 @@ Public Class FrmThread
         If _colrCap Is Nothing OrElse _colrCap.IsDisposed Then
             _colrCap = New FrmColourCapture
         End If
-        _colrCap.ParentForm = Me
+        _colrCap.ThreadForm = Me
         _colrCap.Show()
     End Sub
     Private Sub BtnGetColour_Click(sender As Object, e As EventArgs)

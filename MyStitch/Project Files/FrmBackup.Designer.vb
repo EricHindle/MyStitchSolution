@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmBackup
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmBackup
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBackup))
@@ -52,7 +52,6 @@ Partial Class FrmBackup
         Me.ChkArchive = New System.Windows.Forms.CheckBox()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.ChkRevision = New System.Windows.Forms.CheckBox()
-        Me.ChkIncludeDb = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -323,7 +322,7 @@ Partial Class FrmBackup
         '
         'BtnSelectPath
         '
-        Me.BtnSelectPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSelectPath.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnSelectPath.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelectPath.ForeColor = System.Drawing.Color.Black
         Me.BtnSelectPath.Location = New System.Drawing.Point(125, 566)
@@ -363,23 +362,22 @@ Partial Class FrmBackup
         Me.ChkArchive.AutoSize = True
         Me.ChkArchive.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkArchive.ForeColor = System.Drawing.Color.Black
-        Me.ChkArchive.Location = New System.Drawing.Point(6, 15)
+        Me.ChkArchive.Location = New System.Drawing.Point(6, 20)
         Me.ChkArchive.Name = "ChkArchive"
-        Me.ChkArchive.Size = New System.Drawing.Size(110, 18)
+        Me.ChkArchive.Size = New System.Drawing.Size(115, 18)
         Me.ChkArchive.TabIndex = 17
-        Me.ChkArchive.Text = "Include Archive"
+        Me.ChkArchive.Text = "Include Archives"
         Me.ChkArchive.UseVisualStyleBackColor = True
         '
         'GroupBox6
         '
         Me.GroupBox6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox6.Controls.Add(Me.ChkRevision)
-        Me.GroupBox6.Controls.Add(Me.ChkIncludeDb)
         Me.GroupBox6.Controls.Add(Me.ChkArchive)
         Me.GroupBox6.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox6.Location = New System.Drawing.Point(399, 511)
+        Me.GroupBox6.Location = New System.Drawing.Point(399, 516)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(134, 80)
+        Me.GroupBox6.Size = New System.Drawing.Size(127, 75)
         Me.GroupBox6.TabIndex = 18
         Me.GroupBox6.TabStop = False
         '
@@ -388,24 +386,12 @@ Partial Class FrmBackup
         Me.ChkRevision.AutoSize = True
         Me.ChkRevision.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ChkRevision.ForeColor = System.Drawing.Color.Black
-        Me.ChkRevision.Location = New System.Drawing.Point(6, 59)
+        Me.ChkRevision.Location = New System.Drawing.Point(6, 44)
         Me.ChkRevision.Name = "ChkRevision"
         Me.ChkRevision.Size = New System.Drawing.Size(108, 18)
         Me.ChkRevision.TabIndex = 19
         Me.ChkRevision.Text = "Add Revision #"
         Me.ChkRevision.UseVisualStyleBackColor = True
-        '
-        'ChkIncludeDb
-        '
-        Me.ChkIncludeDb.AutoSize = True
-        Me.ChkIncludeDb.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkIncludeDb.ForeColor = System.Drawing.Color.Black
-        Me.ChkIncludeDb.Location = New System.Drawing.Point(6, 37)
-        Me.ChkIncludeDb.Name = "ChkIncludeDb"
-        Me.ChkIncludeDb.Size = New System.Drawing.Size(120, 18)
-        Me.ChkIncludeDb.TabIndex = 18
-        Me.ChkIncludeDb.Text = "Include Database"
-        Me.ChkIncludeDb.UseVisualStyleBackColor = True
         '
         'FrmBackup
         '
@@ -483,6 +469,5 @@ Partial Class FrmBackup
     Friend WithEvents ChkArchive As CheckBox
     Friend WithEvents LblCounts As ToolStripStatusLabel
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents ChkIncludeDb As CheckBox
     Friend WithEvents ChkRevision As CheckBox
 End Class

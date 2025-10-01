@@ -70,14 +70,7 @@ Namespace Domain
                 tableList.Add(_enum.ToString)
             Next
         End Sub
-        Public Sub FillTableTree(ByRef tvtables As TreeView)
-            LogUtil.LogInfo("Filling table tree", MethodBase.GetCurrentMethod.Name)
-            tvtables.Nodes.Clear()
-            tvtables.Nodes.Add("Tables")
-            For Each oTable As String In tableList
-                tvtables.Nodes(0).Nodes.Add(TABLE_TAG & oTable, oTable)
-            Next
-        End Sub
+
         Public Sub LoadDataTables(pStatus As ToolStripStatusLabel)
             LogUtil.LogInfo("Loading Data Tables", MethodBase.GetCurrentMethod.Name)
             Try

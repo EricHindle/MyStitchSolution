@@ -44,11 +44,12 @@ Partial Class FrmOptions
         Me.BtnBackup = New System.Windows.Forms.Button()
         Me.BtnHousekeeping = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.ChkDataArchive = New System.Windows.Forms.CheckBox()
         Me.ChkDesignArchive = New System.Windows.Forms.CheckBox()
         Me.ChkLogs = New System.Windows.Forms.CheckBox()
         Me.ChkAutoRunHousekeeping = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.NudRetention = New System.Windows.Forms.NumericUpDown()
+        Me.NudRetentionDays = New System.Windows.Forms.NumericUpDown()
         Me.ChkDebugOn = New System.Windows.Forms.CheckBox()
         Me.ChkGridOn = New System.Windows.Forms.CheckBox()
         Me.ChkBackupArchive = New System.Windows.Forms.CheckBox()
@@ -107,10 +108,12 @@ Partial Class FrmOptions
         Me.Label21 = New System.Windows.Forms.Label()
         Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.ChkDataArchive = New System.Windows.Forms.CheckBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.NudRetentionCopies = New System.Windows.Forms.NumericUpDown()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
-        CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudRetentionDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NudZoomValue, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
@@ -133,6 +136,7 @@ Partial Class FrmOptions
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -338,23 +342,36 @@ Partial Class FrmOptions
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.Label24)
+        Me.GroupBox4.Controls.Add(Me.NudRetentionCopies)
+        Me.GroupBox4.Controls.Add(Me.Label23)
         Me.GroupBox4.Controls.Add(Me.ChkDataArchive)
         Me.GroupBox4.Controls.Add(Me.ChkDesignArchive)
         Me.GroupBox4.Controls.Add(Me.ChkLogs)
         Me.GroupBox4.Controls.Add(Me.ChkAutoRunHousekeeping)
         Me.GroupBox4.Controls.Add(Me.Label14)
-        Me.GroupBox4.Controls.Add(Me.NudRetention)
+        Me.GroupBox4.Controls.Add(Me.NudRetentionDays)
         Me.GroupBox4.Location = New System.Drawing.Point(548, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(133, 172)
+        Me.GroupBox4.Size = New System.Drawing.Size(133, 202)
         Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Housekeeping"
         '
+        'ChkDataArchive
+        '
+        Me.ChkDataArchive.AutoSize = True
+        Me.ChkDataArchive.Location = New System.Drawing.Point(14, 170)
+        Me.ChkDataArchive.Name = "ChkDataArchive"
+        Me.ChkDataArchive.Size = New System.Drawing.Size(95, 18)
+        Me.ChkDataArchive.TabIndex = 29
+        Me.ChkDataArchive.Text = "Data Archive"
+        Me.ChkDataArchive.UseVisualStyleBackColor = True
+        '
         'ChkDesignArchive
         '
         Me.ChkDesignArchive.AutoSize = True
-        Me.ChkDesignArchive.Location = New System.Drawing.Point(21, 120)
+        Me.ChkDesignArchive.Location = New System.Drawing.Point(14, 149)
         Me.ChkDesignArchive.Name = "ChkDesignArchive"
         Me.ChkDesignArchive.Size = New System.Drawing.Size(106, 18)
         Me.ChkDesignArchive.TabIndex = 3
@@ -364,7 +381,7 @@ Partial Class FrmOptions
         'ChkLogs
         '
         Me.ChkLogs.AutoSize = True
-        Me.ChkLogs.Location = New System.Drawing.Point(21, 99)
+        Me.ChkLogs.Location = New System.Drawing.Point(14, 128)
         Me.ChkLogs.Name = "ChkLogs"
         Me.ChkLogs.Size = New System.Drawing.Size(51, 18)
         Me.ChkLogs.TabIndex = 2
@@ -374,7 +391,7 @@ Partial Class FrmOptions
         'ChkAutoRunHousekeeping
         '
         Me.ChkAutoRunHousekeeping.AutoSize = True
-        Me.ChkAutoRunHousekeeping.Location = New System.Drawing.Point(21, 77)
+        Me.ChkAutoRunHousekeeping.Location = New System.Drawing.Point(14, 106)
         Me.ChkAutoRunHousekeeping.Name = "ChkAutoRunHousekeeping"
         Me.ChkAutoRunHousekeeping.Size = New System.Drawing.Size(78, 18)
         Me.ChkAutoRunHousekeeping.TabIndex = 1
@@ -384,18 +401,18 @@ Partial Class FrmOptions
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(18, 29)
+        Me.Label14.Location = New System.Drawing.Point(11, 24)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(99, 14)
+        Me.Label14.Size = New System.Drawing.Size(112, 14)
         Me.Label14.TabIndex = 28
-        Me.Label14.Text = "Retention period"
+        Me.Label14.Text = "Minimum Retention"
         '
-        'NudRetention
+        'NudRetentionDays
         '
-        Me.NudRetention.Location = New System.Drawing.Point(40, 46)
-        Me.NudRetention.Name = "NudRetention"
-        Me.NudRetention.Size = New System.Drawing.Size(54, 22)
-        Me.NudRetention.TabIndex = 0
+        Me.NudRetentionDays.Location = New System.Drawing.Point(21, 45)
+        Me.NudRetentionDays.Name = "NudRetentionDays"
+        Me.NudRetentionDays.Size = New System.Drawing.Size(54, 22)
+        Me.NudRetentionDays.TabIndex = 0
         '
         'ChkDebugOn
         '
@@ -1010,15 +1027,30 @@ Partial Class FrmOptions
         Me.Label20.TabIndex = 167
         Me.Label20.Text = "Default Fabric Count"
         '
-        'ChkDataArchive
+        'Label23
         '
-        Me.ChkDataArchive.AutoSize = True
-        Me.ChkDataArchive.Location = New System.Drawing.Point(21, 141)
-        Me.ChkDataArchive.Name = "ChkDataArchive"
-        Me.ChkDataArchive.Size = New System.Drawing.Size(95, 18)
-        Me.ChkDataArchive.TabIndex = 29
-        Me.ChkDataArchive.Text = "Data Archive"
-        Me.ChkDataArchive.UseVisualStyleBackColor = True
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(81, 47)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(32, 14)
+        Me.Label23.TabIndex = 30
+        Me.Label23.Text = "Days"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(81, 76)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(42, 14)
+        Me.Label24.TabIndex = 32
+        Me.Label24.Text = "Copies"
+        '
+        'NudRetentionCopies
+        '
+        Me.NudRetentionCopies.Location = New System.Drawing.Point(21, 74)
+        Me.NudRetentionCopies.Name = "NudRetentionCopies"
+        Me.NudRetentionCopies.Size = New System.Drawing.Size(54, 22)
+        Me.NudRetentionCopies.TabIndex = 31
         '
         'FrmOptions
         '
@@ -1052,7 +1084,7 @@ Partial Class FrmOptions
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
-        CType(Me.NudRetention, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudRetentionDays, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.NudZoomValue, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1083,6 +1115,7 @@ Partial Class FrmOptions
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1104,7 +1137,7 @@ Partial Class FrmOptions
     Friend WithEvents BtnHousekeeping As Button
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Label14 As Label
-    Friend WithEvents NudRetention As NumericUpDown
+    Friend WithEvents NudRetentionDays As NumericUpDown
     Friend WithEvents ChkDebugOn As CheckBox
     Friend WithEvents ChkGridOn As CheckBox
     Friend WithEvents ChkBackupArchive As CheckBox
@@ -1171,4 +1204,7 @@ Partial Class FrmOptions
     Friend WithEvents TxtDataPath As TextBox
     Friend WithEvents Label22 As Label
     Friend WithEvents ChkDataArchive As CheckBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents NudRetentionCopies As NumericUpDown
+    Friend WithEvents Label23 As Label
 End Class

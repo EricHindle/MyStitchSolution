@@ -21,7 +21,7 @@ Public Class FrmRestore
         GetFormPos(Me, My.Settings.RestoreFormPos)
         TxtBackupPath.Text = My.Settings.BackupPath
         AddProgress("Filling Table Tree")
-        FillTableTree(TvDatatables)
+        '    FillTableTree(TvDatatables, False)
         TvDatatables.ExpandAll()
     End Sub
 
