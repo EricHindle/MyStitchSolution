@@ -47,9 +47,6 @@ Public Class FrmProject
             End If
         End If
     End Sub
-
-
-
     Private Function CheckRunTimeParameters() As String
         Dim _params As String() = System.Environment.GetCommandLineArgs
         Dim _filename As String = Nothing
@@ -83,7 +80,7 @@ Public Class FrmProject
         oGrid5Pen.Dispose()
         oGrid10Pen.Dispose()
         oCentrePen.Dispose()
-        SaveDataTables(LblStatus)
+        SaveData()
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
@@ -207,6 +204,28 @@ Public Class FrmProject
     Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
         OpenPrintCardsForm()
     End Sub
+    Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
+        ShowPrintSettingsForm()
+    End Sub
+    Private Sub MnuOpenSelectedProject_Click(sender As Object, e As EventArgs) Handles MnuOpenSelectedProject.Click
+        '      OpenProjectFile(oProject.ProjectId)
+    End Sub
+    Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
+        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
+        OpenProjectFromFile(_filename, DgvProjects, LblStatus)
+        OpenProjectDesign()
+    End Sub
+    Private Sub MnuImportImage_Click(sender As Object, e As EventArgs) Handles MnuImportImage.Click
+        ShowImportImageForm()
+    End Sub
+    Private Sub MnuTest_Click(sender As Object, e As EventArgs) Handles MnuTest.Click
+        '
+        '   Test code here
+        '
+        Dim oProject As Project = ProjectBuilder.AProject.StartingWithNothing.WithName("Testing").Build
+        AddNewProject(oProject)
+        MsgBox("Test complete", MsgBoxStyle.Information, "Test")
+    End Sub
 
 #End Region
 #Region "functions"
@@ -246,7 +265,6 @@ Public Class FrmProject
             UpdateProjectTime()
         End With
     End Sub
-
     Private Function BuildProjectFromForm(pId As Integer) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
@@ -336,7 +354,6 @@ Public Class FrmProject
             LogUtil.ShowStatus("No project design file found", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-
     Friend Sub DeleteSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
             LogUtil.LogInfo("Delete project", MyBase.Name)
@@ -349,7 +366,6 @@ Public Class FrmProject
             LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-
     Private Shared Sub OpenThreadListForm()
         Using _threads As New FrmThread
             _threads.ShowDialog()
@@ -397,48 +413,36 @@ Public Class FrmProject
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
     End Sub
-
     Private Shared Sub OpenRestoreForm()
         Using _restore As New FrmRestore
             _restore.ShowDialog()
         End Using
     End Sub
-
-    Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
-        ShowPrintSettingsForm()
-    End Sub
-
     Private Sub ShowPrintSettingsForm()
         Using _printSettings As New FrmPrintOptions
             _printSettings.ShowDialog()
         End Using
-    End Sub
-    Private Sub MnuOpenSelectedProject_Click(sender As Object, e As EventArgs) Handles MnuOpenSelectedProject.Click
-        '      OpenProjectFile(oProject.ProjectId)
-    End Sub
-    Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
-        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
-        OpenProjectFromFile(_filename, DgvProjects, LblStatus)
-        OpenProjectDesign()
-    End Sub
-    Private Sub MnuImportImage_Click(sender As Object, e As EventArgs) Handles MnuImportImage.Click
-        ShowImportImageForm()
     End Sub
     Private Sub ShowImportImageForm()
         Using _import As New FrmImportImage
             _import.ShowDialog()
         End Using
     End Sub
+    Private Sub SaveData()
+        LogUtil.ShowStatus("Saving MyStitch tables", LblStatus, MethodBase.GetCurrentMethod.Name)
+        Try
+            SaveDataTables()
+        Catch ex As Exception
 
-    Private Sub MnuTest_Click(sender As Object, e As EventArgs) Handles MnuTest.Click
-        '
-        '   Test code here
-        '
-        Dim oProject As Project = ProjectBuilder.AProject.StartingWithNothing.WithName("Testing").Build
-        AddNewProject(oProject)
-        MsgBox("Test complete", MsgBoxStyle.Information, "Test")
+        End Try
+        Try
+            RemoveOldDailyArchives()
+            CopyArchiveToDailyFolder()
+            CopyArchiveToArchiveFolder()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
-
 #End Region
-
 End Class

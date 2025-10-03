@@ -22,10 +22,10 @@ Public Class FrmRestore
         TxtBackupPath.Text = My.Settings.BackupPath
         AddProgress("Filling Table Tree")
         '    FillTableTree(TvDatatables, False)
-        TvDatatables.ExpandAll()
+        TvDataSets.ExpandAll()
     End Sub
 
-    Private Sub TvDatatables_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck
+    Private Sub TvDatatables_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDataSets.AfterCheck
         Dim node As TreeNode = e.Node
         Dim ischecked As Boolean = node.Checked
         For Each subNode As TreeNode In node.Nodes
@@ -55,8 +55,8 @@ Public Class FrmRestore
         My.Settings.RestoreFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
-    Private Sub BtnSelectAll_Click(sender As Object, e As EventArgs) Handles BtnSelectAll.Click
-        TvDatatables.Nodes(0).Checked = True
+    Private Sub BtnSelectAll_Click(sender As Object, e As EventArgs)
+        TvDataSets.Nodes(0).Checked = True
     End Sub
 #End Region
 #Region "subroutines"

@@ -52,11 +52,11 @@ Module ModProject
         Dim _reply As String = String.Empty
         LogUtil.Info("Saving design", MethodBase.GetCurrentMethod.Name)
         If My.Settings.isAutoArchiveOnSave Then
-            If Not ArchiveExistingFile(pFilename, oDesignFolderName, DESIGN_ZIP_EXT, oDesignArchiveFolderName, DESIGN_ARC_EXT) Then
-                _reply = "Error archiving existing file"
-                Beep()
-                Return _reply
-            End If
+            Try
+                ArchiveExistingFile(pFilename, oDesignFolderName, DESIGN_ZIP_EXT, oDesignArchiveFolderName, DESIGN_ARC_EXT, AddDateTime.AddDate)
+            Catch ex As Exception
+
+            End Try
         End If
         SaveDesignDelimited(oProject, oProjectDesign, oProjectThreads, pFilename)
         isSaved = True

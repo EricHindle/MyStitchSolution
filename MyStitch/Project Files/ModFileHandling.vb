@@ -12,6 +12,11 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Objects
 
 Module ModFileHandling
+    Public Enum AddDateTime
+        AddNone
+        AddDate
+        AddDateAndTime
+    End Enum
     Public Const DESIGN_ARC_EXT As String = ".hsa"
     Public Const DESIGN_ZIP_EXT As String = ".hsz"
     Public Const DESIGN_EXT As String = ".hsd"
@@ -130,31 +135,70 @@ Module ModFileHandling
         End Using
         Return isOK
     End Function
-    Public Function ArchiveExistingFile(pFilename As String, pSourceFolder As String, pSourceExt As String, pTargetFolder As String, pTargetExt As String) As Boolean
-        Dim isMovedOK As Boolean = True
+    Public Sub ArchiveExistingFile(pFilename As String, pSourceFolder As String, pSourceExt As String, pTargetFolder As String, pTargetExt As String)
+        ArchiveExistingFile(pFilename, pSourceFolder, pSourceExt, pTargetFolder, pTargetExt, AddDateTime.AddNone)
+    End Sub
+    Public Sub ArchiveExistingFile(pFilename As String, pSourceFolder As String, pSourceExt As String, pTargetFolder As String, pTargetExt As String, pAddDate As AddDateTime)
         Dim _existingFilename As String = Path.Combine(pSourceFolder, pFilename & pSourceExt)
         If My.Computer.FileSystem.FileExists(_existingFilename) Then
-            LogUtil.LogInfo("Archiving data before save", MethodBase.GetCurrentMethod.Name)
-            Dim _destinationFilename As String = Path.Combine(pTargetFolder, pFilename & "_" & Format(Now, "yyyyMMdd_HHmmss") & pTargetExt)
-            isMovedOK = TryMoveFile(_existingFilename, _destinationFilename, True)
+            LogUtil.LogInfo("Archiving data", MethodBase.GetCurrentMethod.Name)
+            Dim _newFilename As String = pFilename
+            If pAddDate = AddDateTime.AddDate Then
+                _newFilename &= "_" & Format(Now, "yyyyMMdd")
+            End If
+            If pAddDate = AddDateTime.AddDateAndTime Then
+                _newFilename &= "_" & Format(Now, "yyyyMMdd_HHmmss")
+            End If
+            Dim _destinationFilename As String = Path.Combine(pTargetFolder, _newFilename & pTargetExt)
+            TryCopyFile(_existingFilename, _destinationFilename, True)
         End If
-        Return isMovedOK
-    End Function
-    Public Sub RemoveFile(oXmlFileName As String)
-        If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+    End Sub
+    Public Sub RemoveFile(pFileName As String)
+        If My.Computer.FileSystem.FileExists(pFileName) Then
             Try
-                My.Computer.FileSystem.DeleteFile(oXmlFileName)
+                My.Computer.FileSystem.DeleteFile(pFileName)
             Catch ex As Exception When (TypeOf ex Is ArgumentException) _
-                                        OrElse (TypeOf ex Is PathTooLongException) _
                                         OrElse (TypeOf ex Is NotSupportedException) _
                                         OrElse (TypeOf ex Is IOException) _
                                         OrElse (TypeOf ex Is Security.SecurityException) _
-                                        OrElse (TypeOf ex Is FileNotFoundException) _
                                         OrElse (TypeOf ex Is UnauthorizedAccessException)
-                LogUtil.LogException(ex, "Exception deleting file " & oXmlFileName, MethodBase.GetCurrentMethod.Name)
+                Throw New ApplicationException("Delete file failed", ex)
             End Try
         End If
     End Sub
-
-
+    Public Sub RemoveOldDailyArchives()
+        LogUtil.LogInfo("Removing previous daily archives", MethodBase.GetCurrentMethod.Name)
+        Dim oDirInfo As DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(oDailyArchivePath)
+        Try
+            Dim oFileList As List(Of FileInfo) = oDirInfo.GetFiles("*" & DATA_ZIP_EXT, SearchOption.TopDirectoryOnly).ToList
+            For Each oFileInfo As FileInfo In oFileList
+                If (oFileInfo.Attributes And FileAttributes.ReadOnly) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.Hidden) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.System) = 0 _
+                           And (oFileInfo.Attributes And FileAttributes.Directory) = 0 Then
+                    Dim oNameParts As String() = oFileInfo.FullName.Split("_")
+                    If oNameParts.Count = 3 Then
+                        Dim oDate As Date = Date.ParseExact(oNameParts(1), "yyyyMMdd", System.Globalization.DateTimeFormatInfo.InvariantInfo)
+                        If DateDiff("d", oDate, Now) > 0 Then
+                            Try
+                                RemoveFile(oFileInfo.FullName)
+                            Catch ex As ApplicationException
+                                LogUtil.Exception("Unable to remove " & oFileInfo.FullName, ex, MethodBase.GetCurrentMethod.Name)
+                            End Try
+                        End If
+                    End If
+                End If
+            Next
+        Catch ex As Exception
+            LogUtil.Exception("Problem removing old daily archives", ex, MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
+    Public Sub CopyArchiveToDailyFolder()
+        LogUtil.LogInfo("Copying archive to daily folder", MethodBase.GetCurrentMethod.Name)
+        ArchiveExistingFile(DATA_FILE_NAME, oDataFolderName, DATA_ZIP_EXT, oDailyArchivePath, DATA_ZIP_EXT, AddDateTime.AddDateAndTime)
+    End Sub
+    Public Sub CopyArchiveToArchiveFolder()
+        LogUtil.LogInfo("Copying archive to archive folder", MethodBase.GetCurrentMethod.Name)
+        ArchiveExistingFile(DATA_FILE_NAME, oDataFolderName, DATA_ZIP_EXT, oDataArchiveFolderName, DATA_ZIP_EXT, AddDateTime.AddDate)
+    End Sub
 End Module

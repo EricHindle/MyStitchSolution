@@ -23,6 +23,7 @@ Module ModCommon
     Public oImageFolderName As String
     Public oBackupFolderName As String
     Public oBackupArchiveFolderName As String
+    Public oDailyArchivePath As String
     Public oLogFolderName As String
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
     Public isUpgradedSettings As Boolean = False
@@ -72,12 +73,9 @@ Module ModCommon
             CreateFolder(oBackupFolderName, True)
             CreateFolder(oBackupArchiveFolderName, True)
             CreateFolder(oDataArchiveFolderName, True)
-        Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                                OrElse TypeOf ex Is IO.PathTooLongException _
-                                OrElse TypeOf ex Is NotSupportedException _
-                                OrElse TypeOf ex Is IOException _
-                                OrElse TypeOf ex Is UnauthorizedAccessException)
-            Throw New ApplicationException("An error occurred while trying to create folders.", ex)
+            CreateFolder(oDailyArchivePath, True)
+        Catch ex As ApplicationException
+            Throw ex
         End Try
     End Sub
     Public Sub RunHousekeeping()
@@ -119,16 +117,10 @@ Module ModCommon
                         Dim oDate As Date = oFileInfo.LastWriteTime
                         Dim iDaysOld As Integer = DateDiff("d", oDate, Now)
                         If iDaysOld >= iRetain Then
+                            LogUtil.Info(oFileInfo.Name & " - " & iDaysOld & " days old - deleted", MethodBase.GetCurrentMethod.Name)
                             Try
-                                My.Computer.FileSystem.DeleteFile(oFileInfo.FullName)
-                                LogUtil.Info(oFileInfo.Name & " - " & iDaysOld & " days old - deleted", MethodBase.GetCurrentMethod.Name)
-                            Catch ex As Exception When (TypeOf ex Is ArgumentException) _
-                                            OrElse (TypeOf ex Is PathTooLongException) _
-                                            OrElse (TypeOf ex Is NotSupportedException) _
-                                            OrElse (TypeOf ex Is IOException) _
-                                            OrElse (TypeOf ex Is Security.SecurityException) _
-                                            OrElse (TypeOf ex Is FileNotFoundException) _
-                                            OrElse (TypeOf ex Is UnauthorizedAccessException)
+                                RemoveFile(oFileInfo.FullName)
+                            Catch ex As ApplicationException
                                 LogUtil.Exception("Unable to remove " & oFileInfo.FullName, ex, MethodBase.GetCurrentMethod.Name)
                             End Try
                         End If
@@ -156,7 +148,7 @@ Module ModCommon
                 If pAllowLogging Then
                     LogUtil.DisplayException(ex, "Create Folder", MethodBase.GetCurrentMethod.Name)
                 End If
-                Throw ex
+                Throw New ApplicationException("CreateDirectory Failed for " & pFoldername, ex)
             End Try
         End If
     End Sub
@@ -204,34 +196,29 @@ Module ModCommon
         LogUtil.Debug("Generated form position: " & sPos, "SetFormPos")
         Return sPos
     End Function
-    Public Function TryMoveFile(pFullname As String, pDestination As String, pOverwrite As Boolean) As Boolean
+    Public Sub TryMoveFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
         ' Move a file to a new location, overwriting if necessary
-        Dim isOK As Boolean = True
         Try
             My.Computer.FileSystem.MoveFile(pFullname, pDestination, pOverwrite)
         Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                        OrElse TypeOf ex Is FileNotFoundException _
                         OrElse TypeOf ex Is IOException _
                         OrElse TypeOf ex Is NotSupportedException _
-                        OrElse TypeOf ex Is PathTooLongException _
                         OrElse TypeOf ex Is UnauthorizedAccessException _
                         OrElse TypeOf ex Is Security.SecurityException)
-            LogUtil.DisplayException(ex, "Archive file", MethodBase.GetCurrentMethod.Name)
-            isOK = False
+            LogUtil.DisplayException(ex, "Moving file", MethodBase.GetCurrentMethod.Name)
+            Throw New ApplicationException("Move file failed for " & pFullname, ex)
         End Try
-        Return isOK
-    End Function
+    End Sub
     Public Sub TryCopyFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
         Try
             My.Computer.FileSystem.CopyFile(pFullname, pDestination, pOverwrite)
         Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                        OrElse TypeOf ex Is FileNotFoundException _
                         OrElse TypeOf ex Is IOException _
                         OrElse TypeOf ex Is NotSupportedException _
-                        OrElse TypeOf ex Is PathTooLongException _
                         OrElse TypeOf ex Is UnauthorizedAccessException _
                         OrElse TypeOf ex Is Security.SecurityException)
-            LogUtil.DisplayException(ex, "Archive file", MethodBase.GetCurrentMethod.Name)
+            LogUtil.DisplayException(ex, "Copying file", MethodBase.GetCurrentMethod.Name)
+            Throw New ApplicationException("Copy file failed for " & pFullname, ex)
         End Try
     End Sub
     Public Sub KeyHandler(ByRef _form As Form, pFormType As FormType, ByRef e As System.Windows.Forms.KeyEventArgs)
@@ -341,6 +328,7 @@ Module ModCommon
         ' Load the application paths from settings
         oDataFolderName = My.Settings.DataFilePath
         oDataArchiveFolderName = Path.Combine(oDataFolderName, "Archive")
+        oDailyArchivePath = Path.Combine(oDataArchiveFolderName, "DailyDataHistory")
         oDesignFolderName = My.Settings.DesignFilePath
         oDesignArchiveFolderName = Path.Combine(oDesignFolderName, "Archive")
         oImageFolderName = My.Settings.ImagePath

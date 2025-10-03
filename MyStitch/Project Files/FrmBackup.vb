@@ -350,13 +350,13 @@ Public Class FrmBackup
             For Each oNode As TreeNode In oDesignNode.Nodes
                 If oNode.Checked Then
                     If oNode.Name.StartsWith(DOC_TAG) Then
-                        oNode = BackupDocFile(oNode, False)
+                        oNode = BackupDesignFile(oNode, False)
                     ElseIf oNode.Name.StartsWith(ARC_TAG) Then
                         AddProgress(oNode.Text, 3, 2)
                         For Each aNode As TreeNode In oNode.Nodes
                             If aNode.Checked Then
                                 If aNode.Name.StartsWith(DOC_TAG) Then
-                                    aNode = BackupDocFile(aNode, True)
+                                    aNode = BackupDesignFile(aNode, True)
                                 End If
                             End If
                         Next
@@ -391,7 +391,7 @@ Public Class FrmBackup
         Next
         PbCopyProgress.Visible = False
     End Sub
-    Private Function BackupDocFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
+    Private Function BackupDesignFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
         Dim _filename As String = oNode.Text
         Dim _fullname As String = oNode.Name.Replace(DOC_TAG, "")
         Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)

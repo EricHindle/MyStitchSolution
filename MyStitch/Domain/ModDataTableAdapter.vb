@@ -12,6 +12,7 @@ Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Builders
+Imports MyStitch.Domain.ModDataTableAdapter
 Imports MyStitch.Domain.Objects
 Imports MyStitch.MyStitchData
 Namespace Domain
@@ -74,7 +75,6 @@ Namespace Domain
         Public Sub LoadDataTables(pStatus As ToolStripStatusLabel)
             LogUtil.LogInfo("Loading Data Tables", MethodBase.GetCurrentMethod.Name)
             Try
-                '           UnpackDataFile(pStatus)
                 FillTableListFromTableEnum()
                 For Each oTable As String In tableList
                     LoadDataTableFromXml(oTable)
@@ -192,69 +192,76 @@ Namespace Domain
         End Sub
 #End Region
 #Region "Save"
-        Public Sub SaveDataTables(pStatus As ToolStripStatusLabel)
-            LogUtil.ShowStatus("Saving MyStitch data", pStatus, MethodBase.GetCurrentMethod.Name)
+        Public Sub SaveDataTables()
             FillTableListFromTableEnum()
-            ArchiveExistingFile(DATA_FILE_NAME, oDataFolderName, DATA_ZIP_EXT, oDataArchiveFolderName, DATA_ARC_EXT)
-            AddTablesToArchive(oDataFolderName, DATA_FILE_NAME, DATA_ZIP_EXT)
-        End Sub
-        Private Sub AddTablesToArchive(pPath As String, pZipFileName As String, pExtension As String)
-            Dim _zipFile As String = Path.Combine(pPath, pZipFileName & pExtension)
-            If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-                LogUtil.LogInfo("Creating new zip file " & _zipFile, MethodBase.GetCurrentMethod.Name)
-                Using _fs As New FileStream(_zipFile, FileMode.Create)
+            Dim _fullZipFileName As String = Path.Combine(oDataFolderName, DATA_FILE_NAME & DATA_ZIP_EXT)
+            ' Create new zip file
+            Try
+                RemoveFile(_fullZipFileName)
+                Using _zipfile As New FileStream(_fullZipFileName, FileMode.Create)
                 End Using
-            End If
-            LogUtil.LogInfo("Opening data zip file " & _zipFile, MethodBase.GetCurrentMethod.Name)
-            Using ZipToOpen As New FileStream(_zipFile, FileMode.Open)
-                Using archive As New ZipArchive(ZipToOpen, ZipArchiveMode.Update)
+            Catch ex As Exception When TypeOf ex Is ApplicationException _
+                                OrElse TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is IOException _
+                                OrElse TypeOf ex Is NotSupportedException _
+                                OrElse TypeOf ex Is Security.SecurityException _
+                                OrElse TypeOf ex Is UnauthorizedAccessException
+                LogUtil.LogException(ex, "Exception initialising archive file " & _fullZipFileName, MethodBase.GetCurrentMethod.Name)
+            End Try
+            AddTablesToArchive(_fullZipFileName)
+        End Sub
+        Private Sub AddTablesToArchive(pFullZipFileName As String)
+            LogUtil.Debug("Opening data zip file " & pFullZipFileName, MethodBase.GetCurrentMethod.Name)
+            Using oZipFile As New FileStream(pFullZipFileName, FileMode.Open)
+                Using oZipArchive As New ZipArchive(oZipFile, ZipArchiveMode.Update)
                     For Each oTable As String In tableList
                         Dim oXmlFileName As String
                         Dim oDataTable As DataTable = Nothing
                         Select Case oTable
                             Case "Projects"
-                                '     oDataTable = GetProjectTable()
                                 oDataTable = oProjectDataTable
                             Case "Threads"
-                                '     oDataTable = GetThreadTable()
                                 oDataTable = oThreadDataTable
                             Case "ProjectThreadCards"
-                                '    oDataTable = GetProjectThreadCardsTable()
                                 oDataTable = oProjectThreadCardDataTable
                             Case "ProjectThreads"
-                                '     oDataTable = GetProjectThreadsTable()
                                 oDataTable = oProjectThreadDataTable
                             Case "ProjectCardThread"
-                                '    oDataTable = GetProjectCardThreadTable()
                                 oDataTable = oProjectCardThreadDataTable
                             Case "Symbols"
-                                '   oDataTable = GetSymbolsTable()
                                 oDataTable = oSymbolsDataTable
                             Case "Settings"
-                                '   oDataTable = GetSettingsTable()
                                 oDataTable = oSettingsDataTable
                             Case "ProjectWorkTimes"
-                                '   oDataTable = GetProjectWorkTimesTable()
                                 oDataTable = oProjectWorkTimesDataTable
                             Case "Palettes"
-                                '  oDataTable = GetPalettesTable()
                                 oDataTable = oPalettesDataTable
                             Case "PaletteThreads"
-                                '   oDataTable = GetPaletteThreadsTable()
                                 oDataTable = oPaletteThreadsDataTable
                         End Select
                         If oDataTable IsNot Nothing Then
-                            oXmlFileName = WriteXmlFromTable(oDataTable)
-                            Dim fileText As String = My.Computer.FileSystem.ReadAllText(oXmlFileName)
-                            Dim _projectEntryName As String = Path.GetFileName(oXmlFileName)
-                            Dim projectEntry As ZipArchiveEntry = archive.CreateEntry(_projectEntryName)
-                            Using _output As New StreamWriter(projectEntry.Open())
-                                _output.WriteLine(fileText)
-                                _output.Close()
-                            End Using
-                            '           RemoveFile(oXmlFileName)
+                            Try
+                                LogUtil.LogInfo("Saving table " & oDataTable.TableName, MethodBase.GetCurrentMethod.Name)
+                                oXmlFileName = WriteXmlFromTable(oDataTable)
+                                Dim fileText As String = My.Computer.FileSystem.ReadAllText(oXmlFileName)
+                                Dim _projectEntryName As String = Path.GetFileName(oXmlFileName)
+                                Dim projectEntry As ZipArchiveEntry = oZipArchive.CreateEntry(_projectEntryName)
+                                Using _output As New StreamWriter(projectEntry.Open())
+                                    _output.WriteLine(fileText)
+                                    _output.Close()
+                                End Using
+                                LogUtil.Debug("  Table file added to archive", MethodBase.GetCurrentMethod.Name)
+                            Catch ex As Exception When TypeOf ex Is ApplicationException _
+                                                OrElse TypeOf ex Is NotSupportedException _
+                                                OrElse TypeOf ex Is OutOfMemoryException _
+                                                OrElse TypeOf ex Is IOException _
+                                                OrElse TypeOf ex Is ArgumentException _
+                                                OrElse TypeOf ex Is ObjectDisposedException _
+                                                OrElse TypeOf ex Is InvalidDataException
+                                LogUtil.Problem("Problem saving table " & oDataTable.TableName & " to archive", MethodBase.GetCurrentMethod.Name)
+                            End Try
                         Else
-                            LogUtil.Problem("Expected table not found", MethodBase.GetCurrentMethod.Name)
+                            LogUtil.Problem("Expected table " & oTable.ToString & " not found", MethodBase.GetCurrentMethod.Name)
                         End If
                     Next
                 End Using
@@ -262,15 +269,15 @@ Namespace Domain
         End Sub
         Private Function WriteXmlFromTable(pDataTable As DataTable) As String
             Dim sTableName As String = pDataTable.TableName
-            LogUtil.LogInfo("Writing " & sTableName & " XML file", MethodBase.GetCurrentMethod.Name)
+            LogUtil.LogInfo("  Writing XML file", MethodBase.GetCurrentMethod.Name)
             Dim sTableFile As String
             Try
                 sTableFile = Path.Combine(oDataFolderName, sTableName & DATA_EXT)
                 pDataTable.WriteXml(sTableFile, XmlWriteMode.WriteSchema)
             Catch ex As Exception When (TypeOf ex Is ArgumentException _
                                  OrElse TypeOf ex Is InvalidOperationException)
-                Throw ex
                 LogUtil.HandleStatus("Error saving " & sTableName, ex, False, Nothing, Nothing, True, MethodBase.GetCurrentMethod.Name, TraceEventType.Critical, "", 3, False, False, True)
+                Throw New ApplicationException("Problem writing XML file for " & sTableName, ex)
             End Try
             Return sTableFile
         End Function
