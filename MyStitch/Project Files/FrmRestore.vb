@@ -20,9 +20,43 @@ Public Class FrmRestore
         LogUtil.Info("Restore", MyBase.Name)
         GetFormPos(Me, My.Settings.RestoreFormPos)
         TxtBackupPath.Text = My.Settings.BackupPath
-        AddProgress("Filling Table Tree")
-        '    FillTableTree(TvDatatables, False)
+        FillAllTrees()
+
+    End Sub
+
+    Private Sub FillAllTrees()
+        FillDataTree()
         TvDataSets.ExpandAll()
+        FillImageTree()
+        TvImages.ExpandAll()
+
+    End Sub
+    Private Sub FillDataTree()
+        Dim _SourceImagePath As String = Path.Combine(TxtBackupPath.Text.Trim, "data")
+        If My.Computer.FileSystem.DirectoryExists(_SourceImagePath) Then
+
+            'get date folders
+
+            TvImages.Nodes.Clear()
+            TvImages.Nodes.Add("Images")
+            Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_SourceImagePath)
+            For Each _filename As String In fileList
+                Dim _fname As String = Path.GetFileName(_filename)
+                TvImages.Nodes(0).Nodes.Add(IMAGE_TAG & _filename, _fname)
+            Next
+        End If
+    End Sub
+    Private Sub FillImageTree()
+        Dim _SourceImagePath As String = Path.Combine(TxtBackupPath.Text.Trim, "images")
+        If My.Computer.FileSystem.DirectoryExists(_SourceImagePath) Then
+            TvImages.Nodes.Clear()
+            TvImages.Nodes.Add("Images")
+            Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_SourceImagePath)
+            For Each _filename As String In fileList
+                Dim _fname As String = Path.GetFileName(_filename)
+                TvImages.Nodes(0).Nodes.Add(IMAGE_TAG & _filename, _fname)
+            Next
+        End If
     End Sub
 
     Private Sub TvDatatables_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDataSets.AfterCheck
@@ -103,5 +137,12 @@ Public Class FrmRestore
         Close()
 
     End Sub
+
+    Private Sub TxtBackupPath_TextChanged(sender As Object, e As EventArgs) Handles TxtBackupPath.TextChanged
+        If My.Computer.FileSystem.DirectoryExists(TxtBackupPath.Text) Then
+            FillAllTrees()
+        End If
+    End Sub
+
 #End Region
 End Class

@@ -33,7 +33,6 @@ Module ModProject
     Public oFileProject As Project
     Public oFileProjectDesign As ProjectDesign
     Public oFileProjectThreadCollection As ProjectThreadCollection
-
     Public Function SaveDesign() As String
         Dim _reply As String
         If oProject.IsLoaded Then

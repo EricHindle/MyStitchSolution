@@ -41,7 +41,7 @@ Partial Class FrmRestore
         Me.rtbProgress = New System.Windows.Forms.RichTextBox()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BtnSelect = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer3.Panel1.SuspendLayout()
@@ -292,21 +292,21 @@ Partial Class FrmRestore
         Me.SplitContainer2.SplitterDistance = 407
         Me.SplitContainer2.TabIndex = 4
         '
-        'Button1
+        'BtnSelect
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.BackColor = System.Drawing.SystemColors.Control
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.Black
-        Me.Button1.Location = New System.Drawing.Point(454, 584)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(108, 35)
-        Me.Button1.TabIndex = 143
-        Me.Button1.Text = "Select"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.BtnSelect.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnSelect.BackColor = System.Drawing.SystemColors.Control
+        Me.BtnSelect.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnSelect.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnSelect.ForeColor = System.Drawing.Color.Black
+        Me.BtnSelect.Location = New System.Drawing.Point(454, 584)
+        Me.BtnSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnSelect.Name = "BtnSelect"
+        Me.BtnSelect.Size = New System.Drawing.Size(108, 35)
+        Me.BtnSelect.TabIndex = 143
+        Me.BtnSelect.Text = "Select"
+        Me.BtnSelect.UseVisualStyleBackColor = False
         '
         'FrmRestore
         '
@@ -314,7 +314,7 @@ Partial Class FrmRestore
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(963, 648)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.BtnSelect)
         Me.Controls.Add(Me.SplitContainer2)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.StatusStrip1)
@@ -368,5 +368,5 @@ Partial Class FrmRestore
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents TvImages As TreeView
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtnSelect As Button
 End Class

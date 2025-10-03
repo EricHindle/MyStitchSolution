@@ -172,6 +172,7 @@ Public Class FrmBackup
         FillTableTree()
         tableCheckCount = 0
         TvDatatables.ExpandAll()
+        TvDatatables.Nodes(0).Checked = True
     End Sub
     Private Sub LoadImages()
         AddProgress("Filling Image Tree", 2)

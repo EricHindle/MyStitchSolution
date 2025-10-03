@@ -317,10 +317,10 @@ Namespace Domain
             End Try
             Return oProjectRow
         End Function
-        Public Function AddNewProject(pProject As Project) As Boolean
+        Public Function AddNewProject(pProject As Project) As Integer
             LogUtil.LogInfo("Adding new project", MethodBase.GetCurrentMethod.Name)
-            Dim isOK As Boolean = True
             Dim oProjectRow As ProjectsRow = oProjectDataTable.NewRow
+            pProject.ProjectId = oProjectRow.project_id
             If pProject IsNot Nothing Then
                 Try
                     oProjectRow = SetProjectRowValues(pProject, oProjectRow)
@@ -331,12 +331,11 @@ Namespace Domain
                                     OrElse TypeOf (ex) Is NoNullAllowedException _
                                     OrElse TypeOf (ex) Is InvalidOperationException
                     LogUtil.DisplayException(ex, "New Project", MethodBase.GetCurrentMethod.Name)
-                    isOK = False
                 End Try
             Else
                 LogUtil.Problem("Trying to add null project", MethodBase.GetCurrentMethod.Name)
             End If
-            Return isOK
+            Return oProjectRow.project_id
         End Function
         Private Function SetProjectRowValues(pProject As Project, pProjectRow As ProjectsRow) As ProjectsRow
             With pProject
@@ -355,7 +354,7 @@ Namespace Domain
                 If Not String.IsNullOrEmpty(.DesignFileName) Then
                     pProjectRow.design_file = CType(.DesignFileName, String)
                 Else
-                    Throw New Global.System.ArgumentNullException("DesignFileName")
+                    pProjectRow.design_file = MakeFilename(pProject)
                 End If
                 pProjectRow.origin_x = CType(.OriginX, Integer)
                 pProjectRow.origin_y = CType(.OriginY, Integer)
@@ -568,6 +567,9 @@ Namespace Domain
                 pProjectThreadRow.project_id = .ProjectId
                 pProjectThreadRow.thread_id = .ThreadId
                 pProjectThreadRow.symbol_id = .SymbolId
+                pProjectThreadRow.knot_count = 0
+                pProjectThreadRow.backstitch_count = 0
+                pProjectThreadRow.blockstitch_count = 0
                 pProjectThreadRow.is_used = If(.IsUsed, 1, 0)
             End With
             Return pProjectThreadRow

@@ -104,10 +104,12 @@ Partial Class FrmProject
         Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuPrintSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuTest = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuTest = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.LblFilename = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -125,7 +127,7 @@ Partial Class FrmProject
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 585)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 619)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(709, 22)
@@ -243,7 +245,7 @@ Partial Class FrmProject
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(265, 455)
+        Me.DgvProjects.Size = New System.Drawing.Size(265, 489)
         Me.DgvProjects.TabIndex = 124
         '
         'projectId
@@ -267,6 +269,8 @@ Partial Class FrmProject
         Me.PnlForm.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlForm.Controls.Add(Me.LblFilename)
+        Me.PnlForm.Controls.Add(Me.Label10)
         Me.PnlForm.Controls.Add(Me.Label9)
         Me.PnlForm.Controls.Add(Me.NudFabricCount)
         Me.PnlForm.Controls.Add(Me.Label15)
@@ -300,14 +304,14 @@ Partial Class FrmProject
         Me.PnlForm.Location = New System.Drawing.Point(394, 62)
         Me.PnlForm.Margin = New System.Windows.Forms.Padding(4)
         Me.PnlForm.Name = "PnlForm"
-        Me.PnlForm.Size = New System.Drawing.Size(302, 455)
+        Me.PnlForm.Size = New System.Drawing.Size(302, 489)
         Me.PnlForm.TabIndex = 126
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(48, 350)
+        Me.Label9.Location = New System.Drawing.Point(46, 407)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(123, 14)
         Me.Label9.TabIndex = 163
@@ -316,7 +320,7 @@ Partial Class FrmProject
         'NudFabricCount
         '
         Me.NudFabricCount.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricCount.Location = New System.Drawing.Point(195, 346)
+        Me.NudFabricCount.Location = New System.Drawing.Point(193, 403)
         Me.NudFabricCount.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
         Me.NudFabricCount.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricCount.Name = "NudFabricCount"
@@ -381,7 +385,7 @@ Partial Class FrmProject
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(48, 235)
+        Me.Label12.Location = New System.Drawing.Point(46, 292)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(95, 14)
         Me.Label12.TabIndex = 156
@@ -390,7 +394,7 @@ Partial Class FrmProject
         'NudOriginY
         '
         Me.NudOriginY.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudOriginY.Location = New System.Drawing.Point(195, 231)
+        Me.NudOriginY.Location = New System.Drawing.Point(193, 288)
         Me.NudOriginY.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginY.Name = "NudOriginY"
         Me.NudOriginY.Size = New System.Drawing.Size(74, 22)
@@ -400,7 +404,7 @@ Partial Class FrmProject
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(48, 207)
+        Me.Label13.Location = New System.Drawing.Point(46, 264)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(94, 14)
         Me.Label13.TabIndex = 154
@@ -409,7 +413,7 @@ Partial Class FrmProject
         'NudOriginX
         '
         Me.NudOriginX.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudOriginX.Location = New System.Drawing.Point(195, 203)
+        Me.NudOriginX.Location = New System.Drawing.Point(193, 260)
         Me.NudOriginX.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudOriginX.Name = "NudOriginX"
         Me.NudOriginX.Size = New System.Drawing.Size(74, 22)
@@ -420,7 +424,7 @@ Partial Class FrmProject
         Me.CbFabricColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CbFabricColour.FormattingEnabled = True
         Me.CbFabricColour.Items.AddRange(New Object() {"White", "Cream", "Blue", "Pink", "Other"})
-        Me.CbFabricColour.Location = New System.Drawing.Point(195, 315)
+        Me.CbFabricColour.Location = New System.Drawing.Point(193, 372)
         Me.CbFabricColour.Name = "CbFabricColour"
         Me.CbFabricColour.Size = New System.Drawing.Size(79, 22)
         Me.CbFabricColour.TabIndex = 143
@@ -429,7 +433,7 @@ Partial Class FrmProject
         '
         Me.PicFabricColour.BackColor = System.Drawing.Color.White
         Me.PicFabricColour.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PicFabricColour.Location = New System.Drawing.Point(166, 315)
+        Me.PicFabricColour.Location = New System.Drawing.Point(164, 372)
         Me.PicFabricColour.Name = "PicFabricColour"
         Me.PicFabricColour.Size = New System.Drawing.Size(23, 23)
         Me.PicFabricColour.TabIndex = 142
@@ -439,7 +443,7 @@ Partial Class FrmProject
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(48, 318)
+        Me.Label8.Location = New System.Drawing.Point(46, 375)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(76, 14)
         Me.Label8.TabIndex = 141
@@ -453,7 +457,7 @@ Partial Class FrmProject
         Me.BtnProjectThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnProjectThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnProjectThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnProjectThreads.Location = New System.Drawing.Point(102, 392)
+        Me.BtnProjectThreads.Location = New System.Drawing.Point(102, 442)
         Me.BtnProjectThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnProjectThreads.Name = "BtnProjectThreads"
         Me.BtnProjectThreads.Size = New System.Drawing.Size(122, 32)
@@ -465,7 +469,7 @@ Partial Class FrmProject
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(48, 291)
+        Me.Label7.Location = New System.Drawing.Point(46, 348)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(78, 14)
         Me.Label7.TabIndex = 140
@@ -474,7 +478,7 @@ Partial Class FrmProject
         'NudFabricHeight
         '
         Me.NudFabricHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricHeight.Location = New System.Drawing.Point(195, 287)
+        Me.NudFabricHeight.Location = New System.Drawing.Point(193, 344)
         Me.NudFabricHeight.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricHeight.Name = "NudFabricHeight"
@@ -486,7 +490,7 @@ Partial Class FrmProject
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(48, 263)
+        Me.Label6.Location = New System.Drawing.Point(46, 320)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(75, 14)
         Me.Label6.TabIndex = 138
@@ -495,7 +499,7 @@ Partial Class FrmProject
         'NudFabricWidth
         '
         Me.NudFabricWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudFabricWidth.Location = New System.Drawing.Point(195, 259)
+        Me.NudFabricWidth.Location = New System.Drawing.Point(193, 316)
         Me.NudFabricWidth.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudFabricWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudFabricWidth.Name = "NudFabricWidth"
@@ -507,7 +511,7 @@ Partial Class FrmProject
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(48, 179)
+        Me.Label5.Location = New System.Drawing.Point(46, 236)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(83, 14)
         Me.Label5.TabIndex = 136
@@ -516,7 +520,7 @@ Partial Class FrmProject
         'NudDesignHeight
         '
         Me.NudDesignHeight.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudDesignHeight.Location = New System.Drawing.Point(195, 175)
+        Me.NudDesignHeight.Location = New System.Drawing.Point(193, 232)
         Me.NudDesignHeight.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudDesignHeight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignHeight.Name = "NudDesignHeight"
@@ -528,7 +532,7 @@ Partial Class FrmProject
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(48, 151)
+        Me.Label4.Location = New System.Drawing.Point(46, 208)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 14)
         Me.Label4.TabIndex = 134
@@ -537,7 +541,7 @@ Partial Class FrmProject
         'NudDesignWidth
         '
         Me.NudDesignWidth.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NudDesignWidth.Location = New System.Drawing.Point(195, 147)
+        Me.NudDesignWidth.Location = New System.Drawing.Point(193, 204)
         Me.NudDesignWidth.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.NudDesignWidth.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudDesignWidth.Name = "NudDesignWidth"
@@ -622,7 +626,7 @@ Partial Class FrmProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(616, 531)
+        Me.BtnClose.Location = New System.Drawing.Point(616, 565)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 40)
@@ -638,7 +642,7 @@ Partial Class FrmProject
         Me.BtnDesign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDesign.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDesign.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDesign.Location = New System.Drawing.Point(121, 525)
+        Me.BtnDesign.Location = New System.Drawing.Point(121, 559)
         Me.BtnDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnDesign.Name = "BtnDesign"
         Me.BtnDesign.Size = New System.Drawing.Size(75, 53)
@@ -843,6 +847,17 @@ Partial Class FrmProject
         Me.MnuGlobalSettings.Size = New System.Drawing.Size(153, 22)
         Me.MnuGlobalSettings.Text = "Global Settings"
         '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
+        '
+        'MnuTest
+        '
+        Me.MnuTest.Name = "MnuTest"
+        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
+        Me.MnuTest.Text = "Test"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
@@ -854,22 +869,33 @@ Partial Class FrmProject
         Me.MnuExit.Size = New System.Drawing.Size(211, 22)
         Me.MnuExit.Text = "Exit"
         '
-        'MnuTest
+        'Label10
         '
-        Me.MnuTest.Name = "MnuTest"
-        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
-        Me.MnuTest.Text = "Test"
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(46, 155)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(94, 14)
+        Me.Label10.TabIndex = 164
+        Me.Label10.Text = "Design Filename"
         '
-        'ToolStripSeparator4
+        'LblFilename
         '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
+        Me.LblFilename.AutoEllipsis = True
+        Me.LblFilename.AutoSize = True
+        Me.LblFilename.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblFilename.ForeColor = System.Drawing.Color.Black
+        Me.LblFilename.Location = New System.Drawing.Point(64, 181)
+        Me.LblFilename.Name = "LblFilename"
+        Me.LblFilename.Size = New System.Drawing.Size(58, 14)
+        Me.LblFilename.TabIndex = 165
+        Me.LblFilename.Text = "unknown"
         '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(709, 607)
+        Me.ClientSize = New System.Drawing.Size(709, 641)
         Me.Controls.Add(Me.BtnDesign)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.PnlForm)
@@ -984,4 +1010,6 @@ Partial Class FrmProject
     Friend WithEvents MnuImportImage As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents MnuTest As ToolStripMenuItem
+    Friend WithEvents Label10 As Label
+    Friend WithEvents LblFilename As Label
 End Class

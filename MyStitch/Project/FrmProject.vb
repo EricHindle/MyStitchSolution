@@ -247,6 +247,7 @@ Public Class FrmProject
             LblProjectId.Text = .ProjectId
             LblSelectedProject.Text = .ProjectName
             LblProjectId.Visible = True
+            LblFilename.Text = .DesignFileName
             TxtName.Text = .ProjectName
             NudDesignHeight.Value = .DesignHeight
             NudDesignWidth.Value = .DesignWidth

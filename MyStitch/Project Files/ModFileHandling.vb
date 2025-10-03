@@ -100,11 +100,18 @@ Module ModFileHandling
         Dim _projectThreadsFile As String = Path.Combine(oDesignFolderName, _projectThreadsEntryName)
         Dim _zipFile As String = Path.Combine(oDesignFolderName, pDesignFileName & DESIGN_ZIP_EXT)
 
-        If Not My.Computer.FileSystem.FileExists(_zipFile) Then
-            LogUtil.LogInfo("Creating new zip file " & _zipFile, MethodBase.GetCurrentMethod.Name)
+        Try
+            RemoveFile(_zipFile)
             Using _fs As New FileStream(_zipFile, FileMode.Create)
             End Using
-        End If
+        Catch ex As Exception When TypeOf ex Is ApplicationException _
+                                OrElse TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is IOException _
+                                OrElse TypeOf ex Is NotSupportedException _
+                                OrElse TypeOf ex Is Security.SecurityException _
+                                OrElse TypeOf ex Is UnauthorizedAccessException
+            LogUtil.LogException(ex, "Exception initialising archive file " & _zipFile, MethodBase.GetCurrentMethod.Name)
+        End Try
         LogUtil.LogInfo("Opening zip file " & _zipFile, MethodBase.GetCurrentMethod.Name)
         Using zipToOpen As New FileStream(_zipFile, FileMode.Open)
             Using archive As New ZipArchive(zipToOpen, ZipArchiveMode.Update)
