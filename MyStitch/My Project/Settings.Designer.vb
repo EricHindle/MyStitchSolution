@@ -260,42 +260,6 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property BackupArchive() As Boolean
-            Get
-                Return CType(Me("BackupArchive"),Boolean)
-            End Get
-            Set
-                Me("BackupArchive") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property BackupDb() As Boolean
-            Get
-                Return CType(Me("BackupDb"),Boolean)
-            End Get
-            Set
-                Me("BackupDb") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property BackupRevision() As Boolean
-            Get
-                Return CType(Me("BackupRevision"),Boolean)
-            End Get
-            Set
-                Me("BackupRevision") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property AppendDbBackup() As Boolean
             Get
                 Return CType(Me("AppendDbBackup"),Boolean)

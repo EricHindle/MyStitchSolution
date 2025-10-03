@@ -52,8 +52,6 @@ Public Class FrmBackup
     Friend Sub ApplySettings()
         TxtBackupPath.Text = My.Settings.BackupPath
         chkAddDate.Checked = My.Settings.BackupAddDate
-        ChkArchive.Checked = My.Settings.BackupArchive
-        ChkRevision.Checked = My.Settings.BackupRevision
     End Sub
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
@@ -128,7 +126,7 @@ Public Class FrmBackup
     Private Sub MnuClear_Click(sender As Object, e As EventArgs) Handles MnuClear.Click
         rtbProgress.Text = ""
     End Sub
-    Private Sub ChkArchive_CheckedChanged(sender As Object, e As EventArgs) Handles ChkArchive.CheckedChanged
+    Private Sub ChkArchive_CheckedChanged(sender As Object, e As EventArgs)
         If isFormInitialised Then
             LoadTables()
             LoadDesigns()
@@ -227,34 +225,17 @@ Public Class FrmBackup
             Dim _fname As String = Path.GetFileName(_filename)
             Dim _fileNode As TreeNode = _designNode.Nodes.Add(DOC_TAG & _filename, _fname)
         Next
-        If ChkArchive.Checked Then
-            Dim _archiveNode As TreeNode = _designNode.Nodes.Add(ARC_TAG & "Archive", "Archive files")
-            _filepath = Path.Combine(My.Settings.DesignFilePath, "archive")
-            fileList = My.Computer.FileSystem.GetFiles(_filepath)
-            For Each _filename As String In fileList
-                Dim _fname As String = Path.GetFileName(_filename)
-                Dim _fileNode As TreeNode = _archiveNode.Nodes.Add(DOC_TAG & _filename, _fname)
-            Next
-        End If
     End Sub
     Public Sub FillTableTree()
         LogUtil.LogInfo("Filling table tree", MethodBase.GetCurrentMethod.Name)
         TvDatatables.Nodes.Clear()
         Dim _dataNode As TreeNode = TvDatatables.Nodes.Add("Tables")
         Dim _filepath As String = My.Settings.DataFilePath
-        Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_filepath)
+        Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_filepath, FileIO.SearchOption.SearchTopLevelOnly)
         For Each _filename As String In fileList
             Dim _fname As String = Path.GetFileName(_filename)
             Dim _fileNode As TreeNode = _dataNode.Nodes.Add(TABLE_TAG & _filename, _fname)
         Next
-        If ChkArchive.Checked Then
-            Dim _archiveNode As TreeNode = _dataNode.Nodes.Add(ARC_TAG & "Archive", "Archive files")
-            fileList = My.Computer.FileSystem.GetFiles(oDataArchiveFolderName)
-            For Each _filename As String In fileList
-                Dim _fname As String = Path.GetFileName(_filename)
-                Dim _fileNode As TreeNode = _archiveNode.Nodes.Add(TABLE_TAG & _filename, _fname)
-            Next
-        End If
     End Sub
     Private Function CheckPaths() As Boolean
         AddProgress("Checking paths", 1, 1)
@@ -270,7 +251,7 @@ Public Class FrmBackup
             Else
                 If Not String.IsNullOrEmpty(TxtBackupPath.Text) Then
                     backupPath = If(chkAddDate.Checked, Path.Combine(TxtBackupPath.Text.Trim, Format(Today, "yyyyMMdd")), TxtBackupPath.Text.Trim)
-                    imagePath = Path.Combine(backupPath, "images")
+                    imagePath = Path.Combine(TxtBackupPath.Text.Trim, "images")
                     designPath = Path.Combine(backupPath, "designs")
                     designArchivePath = Path.Combine(designPath, "archive")
                     dataPath = Path.Combine(backupPath, "data")
@@ -279,10 +260,6 @@ Public Class FrmBackup
                     If Not CheckPathExists(dataPath) Then isOKToBackup = False
                     If Not CheckPathExists(imagePath) Then isOKToBackup = False
                     If Not CheckPathExists(designPath) Then isOKToBackup = False
-                    If ChkArchive.Checked Then
-                        If Not CheckPathExists(designArchivePath) Then isOKToBackup = False
-                        If Not CheckPathExists(dataArchivePath) Then isOKToBackup = False
-                    End If
                 Else
                     AddProgress("No destination. No backup.")
                     isOKToBackup = False

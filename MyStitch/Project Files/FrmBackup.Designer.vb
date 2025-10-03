@@ -49,9 +49,6 @@ Partial Class FrmBackup
         Me.BtnSelectPath = New System.Windows.Forms.Button()
         Me.chkAddDate = New System.Windows.Forms.CheckBox()
         Me.BtnSelectAll = New System.Windows.Forms.Button()
-        Me.ChkArchive = New System.Windows.Forms.CheckBox()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.ChkRevision = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -70,7 +67,6 @@ Partial Class FrmBackup
         Me.SplitContainer3.Panel1.SuspendLayout()
         Me.SplitContainer3.Panel2.SuspendLayout()
         Me.SplitContainer3.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -338,11 +334,11 @@ Partial Class FrmBackup
         Me.chkAddDate.AutoSize = True
         Me.chkAddDate.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkAddDate.ForeColor = System.Drawing.Color.Black
-        Me.chkAddDate.Location = New System.Drawing.Point(316, 542)
+        Me.chkAddDate.Location = New System.Drawing.Point(329, 542)
         Me.chkAddDate.Name = "chkAddDate"
-        Me.chkAddDate.Size = New System.Drawing.Size(77, 18)
+        Me.chkAddDate.Size = New System.Drawing.Size(112, 18)
         Me.chkAddDate.TabIndex = 13
-        Me.chkAddDate.Text = "Add date"
+        Me.chkAddDate.Text = "Add date folder"
         Me.chkAddDate.UseVisualStyleBackColor = True
         '
         'BtnSelectAll
@@ -357,48 +353,11 @@ Partial Class FrmBackup
         Me.BtnSelectAll.Text = "Select All Items"
         Me.BtnSelectAll.UseVisualStyleBackColor = True
         '
-        'ChkArchive
-        '
-        Me.ChkArchive.AutoSize = True
-        Me.ChkArchive.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkArchive.ForeColor = System.Drawing.Color.Black
-        Me.ChkArchive.Location = New System.Drawing.Point(6, 20)
-        Me.ChkArchive.Name = "ChkArchive"
-        Me.ChkArchive.Size = New System.Drawing.Size(115, 18)
-        Me.ChkArchive.TabIndex = 17
-        Me.ChkArchive.Text = "Include Archives"
-        Me.ChkArchive.UseVisualStyleBackColor = True
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox6.Controls.Add(Me.ChkRevision)
-        Me.GroupBox6.Controls.Add(Me.ChkArchive)
-        Me.GroupBox6.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox6.Location = New System.Drawing.Point(399, 516)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(127, 75)
-        Me.GroupBox6.TabIndex = 18
-        Me.GroupBox6.TabStop = False
-        '
-        'ChkRevision
-        '
-        Me.ChkRevision.AutoSize = True
-        Me.ChkRevision.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkRevision.ForeColor = System.Drawing.Color.Black
-        Me.ChkRevision.Location = New System.Drawing.Point(6, 44)
-        Me.ChkRevision.Name = "ChkRevision"
-        Me.ChkRevision.Size = New System.Drawing.Size(108, 18)
-        Me.ChkRevision.TabIndex = 19
-        Me.ChkRevision.Text = "Add Revision #"
-        Me.ChkRevision.UseVisualStyleBackColor = True
-        '
         'FrmBackup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(985, 623)
-        Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.BtnSelectAll)
         Me.Controls.Add(Me.chkAddDate)
         Me.Controls.Add(Me.BtnSelectPath)
@@ -435,8 +394,6 @@ Partial Class FrmBackup
         Me.SplitContainer3.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer3.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -466,8 +423,5 @@ Partial Class FrmBackup
     Friend WithEvents PbCopyProgress As ToolStripProgressBar
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents MnuClear As ToolStripMenuItem
-    Friend WithEvents ChkArchive As CheckBox
     Friend WithEvents LblCounts As ToolStripStatusLabel
-    Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents ChkRevision As CheckBox
 End Class

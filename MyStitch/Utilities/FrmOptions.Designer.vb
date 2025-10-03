@@ -44,6 +44,9 @@ Partial Class FrmOptions
         Me.BtnBackup = New System.Windows.Forms.Button()
         Me.BtnHousekeeping = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.NudRetentionCopies = New System.Windows.Forms.NumericUpDown()
+        Me.Label23 = New System.Windows.Forms.Label()
         Me.ChkDataArchive = New System.Windows.Forms.CheckBox()
         Me.ChkDesignArchive = New System.Windows.Forms.CheckBox()
         Me.ChkLogs = New System.Windows.Forms.CheckBox()
@@ -52,10 +55,6 @@ Partial Class FrmOptions
         Me.NudRetentionDays = New System.Windows.Forms.NumericUpDown()
         Me.ChkDebugOn = New System.Windows.Forms.CheckBox()
         Me.ChkGridOn = New System.Windows.Forms.CheckBox()
-        Me.ChkBackupArchive = New System.Windows.Forms.CheckBox()
-        Me.ChkBackupDb = New System.Windows.Forms.CheckBox()
-        Me.ChkBackupRevision = New System.Windows.Forms.CheckBox()
-        Me.ChkAppendDbBackup = New System.Windows.Forms.CheckBox()
         Me.ChkBackupAddDate = New System.Windows.Forms.CheckBox()
         Me.ChkLogZoom = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -108,11 +107,9 @@ Partial Class FrmOptions
         Me.Label21 = New System.Windows.Forms.Label()
         Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.NudRetentionCopies = New System.Windows.Forms.NumericUpDown()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudRetentionDays, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.NudZoomValue, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -136,7 +133,6 @@ Partial Class FrmOptions
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -358,6 +354,31 @@ Partial Class FrmOptions
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Housekeeping"
         '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(81, 76)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(42, 14)
+        Me.Label24.TabIndex = 32
+        Me.Label24.Text = "Copies"
+        '
+        'NudRetentionCopies
+        '
+        Me.NudRetentionCopies.Location = New System.Drawing.Point(21, 74)
+        Me.NudRetentionCopies.Name = "NudRetentionCopies"
+        Me.NudRetentionCopies.Size = New System.Drawing.Size(54, 22)
+        Me.NudRetentionCopies.TabIndex = 31
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(81, 47)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(32, 14)
+        Me.Label23.TabIndex = 30
+        Me.Label23.Text = "Days"
+        '
         'ChkDataArchive
         '
         Me.ChkDataArchive.AutoSize = True
@@ -434,50 +455,10 @@ Partial Class FrmOptions
         Me.ChkGridOn.Text = "Grid On"
         Me.ChkGridOn.UseVisualStyleBackColor = True
         '
-        'ChkBackupArchive
-        '
-        Me.ChkBackupArchive.AutoSize = True
-        Me.ChkBackupArchive.Location = New System.Drawing.Point(219, 21)
-        Me.ChkBackupArchive.Name = "ChkBackupArchive"
-        Me.ChkBackupArchive.Size = New System.Drawing.Size(109, 18)
-        Me.ChkBackupArchive.TabIndex = 3
-        Me.ChkBackupArchive.Text = "Backup Archive"
-        Me.ChkBackupArchive.UseVisualStyleBackColor = True
-        '
-        'ChkBackupDb
-        '
-        Me.ChkBackupDb.AutoSize = True
-        Me.ChkBackupDb.Location = New System.Drawing.Point(23, 21)
-        Me.ChkBackupDb.Name = "ChkBackupDb"
-        Me.ChkBackupDb.Size = New System.Drawing.Size(119, 18)
-        Me.ChkBackupDb.TabIndex = 0
-        Me.ChkBackupDb.Text = "Backup Database"
-        Me.ChkBackupDb.UseVisualStyleBackColor = True
-        '
-        'ChkBackupRevision
-        '
-        Me.ChkBackupRevision.AutoSize = True
-        Me.ChkBackupRevision.Location = New System.Drawing.Point(219, 45)
-        Me.ChkBackupRevision.Name = "ChkBackupRevision"
-        Me.ChkBackupRevision.Size = New System.Drawing.Size(112, 18)
-        Me.ChkBackupRevision.TabIndex = 4
-        Me.ChkBackupRevision.Text = "Backup Revision"
-        Me.ChkBackupRevision.UseVisualStyleBackColor = True
-        '
-        'ChkAppendDbBackup
-        '
-        Me.ChkAppendDbBackup.AutoSize = True
-        Me.ChkAppendDbBackup.Location = New System.Drawing.Point(23, 45)
-        Me.ChkAppendDbBackup.Name = "ChkAppendDbBackup"
-        Me.ChkAppendDbBackup.Size = New System.Drawing.Size(166, 18)
-        Me.ChkAppendDbBackup.TabIndex = 1
-        Me.ChkAppendDbBackup.Text = "Append Database Backup"
-        Me.ChkAppendDbBackup.UseVisualStyleBackColor = True
-        '
         'ChkBackupAddDate
         '
         Me.ChkBackupAddDate.AutoSize = True
-        Me.ChkBackupAddDate.Location = New System.Drawing.Point(23, 69)
+        Me.ChkBackupAddDate.Location = New System.Drawing.Point(9, 21)
         Me.ChkBackupAddDate.Name = "ChkBackupAddDate"
         Me.ChkBackupAddDate.Size = New System.Drawing.Size(158, 18)
         Me.ChkBackupAddDate.TabIndex = 2
@@ -530,14 +511,10 @@ Partial Class FrmOptions
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.ChkBackupDb)
-        Me.GroupBox3.Controls.Add(Me.ChkAppendDbBackup)
-        Me.GroupBox3.Controls.Add(Me.ChkBackupArchive)
         Me.GroupBox3.Controls.Add(Me.ChkBackupAddDate)
-        Me.GroupBox3.Controls.Add(Me.ChkBackupRevision)
         Me.GroupBox3.Location = New System.Drawing.Point(279, 326)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(411, 107)
+        Me.GroupBox3.Size = New System.Drawing.Size(200, 107)
         Me.GroupBox3.TabIndex = 5
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Backup"
@@ -1027,31 +1004,6 @@ Partial Class FrmOptions
         Me.Label20.TabIndex = 167
         Me.Label20.Text = "Default Fabric Count"
         '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(81, 47)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(32, 14)
-        Me.Label23.TabIndex = 30
-        Me.Label23.Text = "Days"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(81, 76)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(42, 14)
-        Me.Label24.TabIndex = 32
-        Me.Label24.Text = "Copies"
-        '
-        'NudRetentionCopies
-        '
-        Me.NudRetentionCopies.Location = New System.Drawing.Point(21, 74)
-        Me.NudRetentionCopies.Name = "NudRetentionCopies"
-        Me.NudRetentionCopies.Size = New System.Drawing.Size(54, 22)
-        Me.NudRetentionCopies.TabIndex = 31
-        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -1084,6 +1036,7 @@ Partial Class FrmOptions
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NudRetentionDays, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
@@ -1115,7 +1068,6 @@ Partial Class FrmOptions
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1140,10 +1092,6 @@ Partial Class FrmOptions
     Friend WithEvents NudRetentionDays As NumericUpDown
     Friend WithEvents ChkDebugOn As CheckBox
     Friend WithEvents ChkGridOn As CheckBox
-    Friend WithEvents ChkBackupArchive As CheckBox
-    Friend WithEvents ChkBackupDb As CheckBox
-    Friend WithEvents ChkBackupRevision As CheckBox
-    Friend WithEvents ChkAppendDbBackup As CheckBox
     Friend WithEvents ChkBackupAddDate As CheckBox
     Friend WithEvents ChkLogZoom As CheckBox
     Friend WithEvents GroupBox2 As GroupBox

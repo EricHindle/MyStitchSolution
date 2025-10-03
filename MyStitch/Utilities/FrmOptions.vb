@@ -45,11 +45,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.isGridOn = ChkGridOn.Checked
         My.Settings.LogZoomOn = ChkLogZoom.Checked
         My.Settings.DebugOn = ChkDebugOn.Checked
-        My.Settings.BackupDb = ChkBackupDb.Checked
-        My.Settings.AppendDbBackup = ChkAppendDbBackup.Checked
-        My.Settings.BackupArchive = ChkBackupArchive.Checked
         My.Settings.BackupAddDate = ChkBackupAddDate.Checked
-        My.Settings.BackupRevision = ChkBackupRevision.Checked
         My.Settings.IsCentreOn = ChkCentreOn.Checked
         My.Settings.isCentreMarksOn = ChkCentreMarks.Checked
         My.Settings.CentrelineColour = PicCentreLineColour.BackColor
@@ -84,11 +80,7 @@ Public NotInheritable Class FrmOptions
         ChkGridOn.Checked = My.Settings.isGridOn
         ChkLogZoom.Checked = My.Settings.LogZoomOn
         ChkDebugOn.Checked = My.Settings.DebugOn
-        ChkBackupDb.Checked = My.Settings.BackupDb
-        ChkAppendDbBackup.Checked = My.Settings.AppendDbBackup
-        ChkBackupArchive.Checked = My.Settings.BackupArchive
         ChkBackupAddDate.Checked = My.Settings.BackupAddDate
-        ChkBackupRevision.Checked = My.Settings.BackupRevision
         ChkCentreOn.Checked = My.Settings.IsCentreOn
         ChkCentreMarks.Checked = My.Settings.isCentreMarksOn
         PicCentreLineColour.BackColor = My.Settings.CentrelineColour
