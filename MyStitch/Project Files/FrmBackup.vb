@@ -48,7 +48,6 @@ Public Class FrmBackup
         LoadDesigns()
         KeyPreview = True
     End Sub
-
     Friend Sub ApplySettings()
         TxtBackupPath.Text = My.Settings.BackupPath
         chkAddDate.Checked = My.Settings.BackupAddDate
@@ -63,7 +62,7 @@ Public Class FrmBackup
         If node.Name.StartsWith(TABLE_TAG) Then
             tableCheckCount += If(node.Checked, 1, -1)
         End If
-        If node.Name.StartsWith(DOC_TAG) Then
+        If node.Name.StartsWith(DESIGN_TAG) Then
             docCheckCount += If(node.Checked, 1, -1)
         End If
         If node.Name.StartsWith(IMAGE_TAG) Then
@@ -116,7 +115,7 @@ Public Class FrmBackup
     End Sub
     Private Sub FrmBackup_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.Info("Closing", MyBase.Name)
-        My.Settings.BackUpFormPos = SetFormPos(Me)
+        My.Settings.BackupFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
     Private Sub BtnSelectAll_Click(sender As Object, e As EventArgs) Handles BtnSelectAll.Click
@@ -145,10 +144,10 @@ Public Class FrmBackup
                 oArcNode = _node
             End If
         Next
-        Dim _designCt As Integer = CountCheckedNodes(TvDesigns.Nodes(0), DOC_TAG)
+        Dim _designCt As Integer = CountCheckedNodes(TvDesigns.Nodes(0), DESIGN_TAG)
         Dim _archiveCt As Integer = 0
         If oArcNode IsNot Nothing Then
-            _archiveCt = CountCheckedNodes(oArcNode, DOC_TAG)
+            _archiveCt = CountCheckedNodes(oArcNode, DESIGN_TAG)
         End If
         Return _designCt + _archiveCt
     End Function
@@ -224,7 +223,7 @@ Public Class FrmBackup
         Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(_filepath)
         For Each _filename As String In fileList
             Dim _fname As String = Path.GetFileName(_filename)
-            Dim _fileNode As TreeNode = _designNode.Nodes.Add(DOC_TAG & _filename, _fname)
+            Dim _fileNode As TreeNode = _designNode.Nodes.Add(DESIGN_TAG & _filename, _fname)
         Next
     End Sub
     Public Sub FillTableTree()
@@ -327,13 +326,13 @@ Public Class FrmBackup
             AddProgress(oDesignNode.Text, 3, 2)
             For Each oNode As TreeNode In oDesignNode.Nodes
                 If oNode.Checked Then
-                    If oNode.Name.StartsWith(DOC_TAG) Then
+                    If oNode.Name.StartsWith(DESIGN_TAG) Then
                         oNode = BackupDesignFile(oNode, False)
                     ElseIf oNode.Name.StartsWith(ARC_TAG) Then
                         AddProgress(oNode.Text, 3, 2)
                         For Each aNode As TreeNode In oNode.Nodes
                             If aNode.Checked Then
-                                If aNode.Name.StartsWith(DOC_TAG) Then
+                                If aNode.Name.StartsWith(DESIGN_TAG) Then
                                     aNode = BackupDesignFile(aNode, True)
                                 End If
                             End If
@@ -371,7 +370,7 @@ Public Class FrmBackup
     End Sub
     Private Function BackupDesignFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
         Dim _filename As String = oNode.Text
-        Dim _fullname As String = oNode.Name.Replace(DOC_TAG, "")
+        Dim _fullname As String = oNode.Name.Replace(DESIGN_TAG, "")
         Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)
         Dim _destExtention As String = Path.GetExtension(_filename)
         Dim _destVersion As String = String.Empty

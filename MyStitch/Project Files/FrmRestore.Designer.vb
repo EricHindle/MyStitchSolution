@@ -69,7 +69,7 @@ Partial Class FrmRestore
         Me.BtnSelectPath.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelectPath.ForeColor = System.Drawing.Color.Black
         Me.BtnSelectPath.Image = Global.MyStitch.My.Resources.Resources.left24
-        Me.BtnSelectPath.Location = New System.Drawing.Point(411, 589)
+        Me.BtnSelectPath.Location = New System.Drawing.Point(375, 579)
         Me.BtnSelectPath.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSelectPath.Name = "BtnSelectPath"
         Me.BtnSelectPath.Size = New System.Drawing.Size(24, 24)
@@ -84,7 +84,7 @@ Partial Class FrmRestore
         Me.BtnRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnRestore.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnRestore.ForeColor = System.Drawing.Color.Black
-        Me.BtnRestore.Location = New System.Drawing.Point(695, 583)
+        Me.BtnRestore.Location = New System.Drawing.Point(659, 573)
         Me.BtnRestore.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnRestore.Name = "BtnRestore"
         Me.BtnRestore.Size = New System.Drawing.Size(108, 35)
@@ -96,10 +96,10 @@ Partial Class FrmRestore
         '
         Me.TxtBackupPath.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtBackupPath.Location = New System.Drawing.Point(120, 589)
+        Me.TxtBackupPath.Location = New System.Drawing.Point(120, 579)
         Me.TxtBackupPath.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtBackupPath.Name = "TxtBackupPath"
-        Me.TxtBackupPath.Size = New System.Drawing.Size(283, 25)
+        Me.TxtBackupPath.Size = New System.Drawing.Size(247, 25)
         Me.TxtBackupPath.TabIndex = 17
         '
         'Label1
@@ -107,7 +107,7 @@ Partial Class FrmRestore
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.ForeColor = System.Drawing.Color.Black
-        Me.Label1.Location = New System.Drawing.Point(13, 592)
+        Me.Label1.Location = New System.Drawing.Point(13, 582)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(99, 18)
@@ -118,9 +118,9 @@ Partial Class FrmRestore
         '
         Me.StatusStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 626)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 616)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(963, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(927, 22)
         Me.StatusStrip1.TabIndex = 23
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -147,8 +147,8 @@ Partial Class FrmRestore
         'SplitContainer3.Panel2
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.GroupBox2)
-        Me.SplitContainer3.Size = New System.Drawing.Size(939, 407)
-        Me.SplitContainer3.SplitterDistance = 644
+        Me.SplitContainer3.Size = New System.Drawing.Size(903, 399)
+        Me.SplitContainer3.SplitterDistance = 619
         Me.SplitContainer3.TabIndex = 0
         '
         'SplitContainer1
@@ -165,8 +165,8 @@ Partial Class FrmRestore
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(644, 407)
-        Me.SplitContainer1.SplitterDistance = 368
+        Me.SplitContainer1.Size = New System.Drawing.Size(619, 399)
+        Me.SplitContainer1.SplitterDistance = 353
         Me.SplitContainer1.TabIndex = 3
         '
         'GroupBox3
@@ -176,7 +176,7 @@ Partial Class FrmRestore
         Me.GroupBox3.ForeColor = System.Drawing.Color.Black
         Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(364, 403)
+        Me.GroupBox3.Size = New System.Drawing.Size(349, 395)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Tables"
@@ -189,7 +189,7 @@ Partial Class FrmRestore
         Me.TvDataSets.ForeColor = System.Drawing.Color.Black
         Me.TvDataSets.Location = New System.Drawing.Point(3, 21)
         Me.TvDataSets.Name = "TvDataSets"
-        Me.TvDataSets.Size = New System.Drawing.Size(358, 379)
+        Me.TvDataSets.Size = New System.Drawing.Size(343, 371)
         Me.TvDataSets.TabIndex = 2
         '
         'GroupBox1
@@ -198,7 +198,7 @@ Partial Class FrmRestore
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(268, 403)
+        Me.GroupBox1.Size = New System.Drawing.Size(258, 395)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Designs"
@@ -210,7 +210,7 @@ Partial Class FrmRestore
         Me.TvDesigns.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TvDesigns.Location = New System.Drawing.Point(3, 21)
         Me.TvDesigns.Name = "TvDesigns"
-        Me.TvDesigns.Size = New System.Drawing.Size(262, 379)
+        Me.TvDesigns.Size = New System.Drawing.Size(252, 371)
         Me.TvDesigns.TabIndex = 2
         '
         'GroupBox2
@@ -219,7 +219,7 @@ Partial Class FrmRestore
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(287, 403)
+        Me.GroupBox2.Size = New System.Drawing.Size(276, 395)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Images"
@@ -231,7 +231,7 @@ Partial Class FrmRestore
         Me.TvImages.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TvImages.Location = New System.Drawing.Point(3, 21)
         Me.TvImages.Name = "TvImages"
-        Me.TvImages.Size = New System.Drawing.Size(281, 379)
+        Me.TvImages.Size = New System.Drawing.Size(270, 371)
         Me.TvImages.TabIndex = 2
         '
         'GroupBox4
@@ -241,7 +241,7 @@ Partial Class FrmRestore
         Me.GroupBox4.ForeColor = System.Drawing.Color.Black
         Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(935, 149)
+        Me.GroupBox4.Size = New System.Drawing.Size(899, 147)
         Me.GroupBox4.TabIndex = 9
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Progress"
@@ -254,7 +254,7 @@ Partial Class FrmRestore
         Me.rtbProgress.ForeColor = System.Drawing.Color.White
         Me.rtbProgress.Location = New System.Drawing.Point(3, 21)
         Me.rtbProgress.Name = "rtbProgress"
-        Me.rtbProgress.Size = New System.Drawing.Size(929, 125)
+        Me.rtbProgress.Size = New System.Drawing.Size(893, 123)
         Me.rtbProgress.TabIndex = 8
         Me.rtbProgress.Text = ""
         '
@@ -266,7 +266,7 @@ Partial Class FrmRestore
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(871, 584)
+        Me.BtnClose.Location = New System.Drawing.Point(835, 574)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 35)
@@ -276,6 +276,9 @@ Partial Class FrmRestore
         '
         'SplitContainer2
         '
+        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.SplitContainer2.Location = New System.Drawing.Point(12, 12)
         Me.SplitContainer2.Name = "SplitContainer2"
@@ -288,8 +291,8 @@ Partial Class FrmRestore
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox4)
-        Me.SplitContainer2.Size = New System.Drawing.Size(939, 564)
-        Me.SplitContainer2.SplitterDistance = 407
+        Me.SplitContainer2.Size = New System.Drawing.Size(903, 554)
+        Me.SplitContainer2.SplitterDistance = 399
         Me.SplitContainer2.TabIndex = 4
         '
         'BtnSelect
@@ -300,7 +303,7 @@ Partial Class FrmRestore
         Me.BtnSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSelect.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelect.ForeColor = System.Drawing.Color.Black
-        Me.BtnSelect.Location = New System.Drawing.Point(454, 584)
+        Me.BtnSelect.Location = New System.Drawing.Point(418, 574)
         Me.BtnSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSelect.Name = "BtnSelect"
         Me.BtnSelect.Size = New System.Drawing.Size(108, 35)
@@ -313,7 +316,7 @@ Partial Class FrmRestore
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(963, 648)
+        Me.ClientSize = New System.Drawing.Size(927, 638)
         Me.Controls.Add(Me.BtnSelect)
         Me.Controls.Add(Me.SplitContainer2)
         Me.Controls.Add(Me.BtnClose)

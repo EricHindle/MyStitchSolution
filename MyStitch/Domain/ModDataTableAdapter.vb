@@ -20,7 +20,7 @@ Namespace Domain
 #Region "constants"
         Public Const BOOK_TAG As String = "B~"
         Public Const TABLE_TAG As String = "T~"
-        Public Const DOC_TAG As String = "D~"
+        Public Const DESIGN_TAG As String = "D~"
         Public Const IMAGE_TAG As String = "I~"
         Public Const REV_TAG As String = "R~"
         Public Const ARC_TAG As String = "A~"
