@@ -70,8 +70,8 @@ Public Class FrmRestore
                                                 "Warning")
             If result = MsgBoxResult.Yes Then
                 ImageRestore()
-                DesignRestore
-                If DataTableRestore > 0 Then
+                DesignRestore()
+                If DataTableRestore() > 0 Then
                     IsRestartRequired = True
                     Close()
                 End If
@@ -225,7 +225,9 @@ Public Class FrmRestore
         If _imgCt > 0 Then
             AddProgress("Image restore (" & CStr(_imgCt) & " images)")
             For Each oNode As TreeNode In TvImages.Nodes(0).Nodes
-                RestoreFile(oNode, IMAGE_TAG, oImageFolderName)
+                If oNode.Checked Then
+                    RestoreFile(oNode, IMAGE_TAG, oImageFolderName)
+                End If
             Next
             AddProgress("Image restore complete")
         End If
@@ -243,7 +245,9 @@ Public Class FrmRestore
             AddProgress("Table restore (" & CStr(_tableCt) & " tables)")
             For Each oDateNode As TreeNode In TvDataSets.Nodes(0).Nodes
                 For Each oNode As TreeNode In oDateNode.Nodes
-                    RestoreFile(oNode, TABLE_TAG, oDataFolderName)
+                    If oNode.Checked Then
+                        RestoreFile(oNode, TABLE_TAG, oDataFolderName)
+                    End If
                 Next
             Next
             AddProgress("Table restore complete")
@@ -263,7 +267,9 @@ Public Class FrmRestore
             AddProgress("Design restore (" & CStr(_designCt) & " designs)")
             For Each oDateNode As TreeNode In TvDesigns.Nodes(0).Nodes
                 For Each oNode As TreeNode In oDateNode.Nodes
-                    RestoreFile(oNode, DESIGN_TAG, oDesignFolderName)
+                    If oNode.Checked Then
+                        RestoreFile(oNode, DESIGN_TAG, oDesignFolderName)
+                    End If
                 Next
             Next
             AddProgress("Design restore complete")
@@ -271,17 +277,15 @@ Public Class FrmRestore
         Return _designCt
     End Function
     Private Sub RestoreFile(pNode As TreeNode, pTag As String, pDestination As String)
-        If pNode.Checked Then
-            Try
-                Dim _sourceFile As String = pNode.Name.Replace(pTag, "")
-                TryCopyFile(_sourceFile, Path.Combine(pDestination, Path.GetFileName(_sourceFile)), True)
-                AddProgress("File restored : " & pNode.Text)
-            Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                                 OrElse TypeOf ex Is ApplicationException)
-                AddProgress("File NOT restored : " & pNode.Text)
-            End Try
-            pNode.Checked = False
-        End If
+        Try
+            Dim _sourceFile As String = pNode.Name.Replace(pTag, "")
+            TryCopyFile(_sourceFile, Path.Combine(pDestination, Path.GetFileName(_sourceFile)), True)
+            AddProgress("File restored : " & pNode.Text)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                             OrElse TypeOf ex Is ApplicationException)
+            AddProgress("File NOT restored : " & pNode.Text)
+        End Try
+        pNode.Checked = False
     End Sub
     Private Sub CheckSubNodes(pNode As TreeNode)
         Dim ischecked As Boolean = pNode.Checked
