@@ -112,7 +112,7 @@ Namespace Domain
             End If
         End Sub
         Public Sub LoadDataTableFromXml(otable As String)
-            LogUtil.LogInfo("Loading table " & otable, MethodBase.GetCurrentMethod.Name)
+            LogUtil.Debug("Loading table " & otable, MethodBase.GetCurrentMethod.Name)
             Dim oXmlFileName As String
             Select Case otable
                 Case "Projects"
@@ -269,7 +269,7 @@ Namespace Domain
         End Sub
         Private Function WriteXmlFromTable(pDataTable As DataTable) As String
             Dim sTableName As String = pDataTable.TableName
-            LogUtil.LogInfo("  Writing XML file", MethodBase.GetCurrentMethod.Name)
+            LogUtil.Debug("Writing XML file", MethodBase.GetCurrentMethod.Name)
             Dim sTableFile As String
             Try
                 sTableFile = Path.Combine(oDataFolderName, sTableName & DATA_EXT)

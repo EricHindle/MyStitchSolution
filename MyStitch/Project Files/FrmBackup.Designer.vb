@@ -227,12 +227,12 @@ Partial Class FrmBackup
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuClear})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(102, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 48)
         '
         'MnuClear
         '
         Me.MnuClear.Name = "MnuClear"
-        Me.MnuClear.Size = New System.Drawing.Size(101, 22)
+        Me.MnuClear.Size = New System.Drawing.Size(180, 22)
         Me.MnuClear.Text = "Clear"
         '
         'GroupBox4

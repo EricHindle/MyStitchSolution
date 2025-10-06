@@ -22,15 +22,13 @@ Public Class FrmBackup
     Private backupPath As String
     Private dbBackupPath As String
     Private dataPath As String
-    Private dataArchivePath As String
     Private optionsPath As String
     Private designPath As String
-    Private designArchivePath As String
     Private imagePath As String
     Private oProjectList As List(Of Project)
     Private isFormInitialised As Boolean
     Private tableCheckCount As Integer
-    Private docCheckCount As Integer
+    Private designCheckCount As Integer
     Private imageCheckCount As Integer
     Private isParentCheck As Boolean
 #End Region
@@ -39,7 +37,7 @@ Public Class FrmBackup
         AddProgress("Backup")
         isFormInitialised = True
         InitialiseData()
-        GetFormPos(Me, My.Settings.BackUpFormPos)
+        GetFormPos(Me, My.Settings.BackupFormPos)
         PbCopyProgress.Visible = False
         ApplySettings()
         AddProgress("Selecting Data", 1, 1)
@@ -59,15 +57,15 @@ Public Class FrmBackup
     Private Sub TreeView_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck, TvDesigns.AfterCheck, TvImages.AfterCheck
 
         Dim node As TreeNode = e.Node
-        If node.Name.StartsWith(TABLE_TAG) Then
-            tableCheckCount += If(node.Checked, 1, -1)
-        End If
-        If node.Name.StartsWith(DESIGN_TAG) Then
-            docCheckCount += If(node.Checked, 1, -1)
-        End If
-        If node.Name.StartsWith(IMAGE_TAG) Then
-            imageCheckCount += If(node.Checked, 1, -1)
-        End If
+        'If node.Name.StartsWith(TABLE_TAG) Then
+        '    tableCheckCount += If(node.Checked, 1, -1)
+        'End If
+        'If node.Name.StartsWith(DESIGN_TAG) Then
+        '    designCheckCount += If(node.Checked, 1, -1)
+        'End If
+        'If node.Name.StartsWith(IMAGE_TAG) Then
+        '    imageCheckCount += If(node.Checked, 1, -1)
+        'End If
         If node.Checked AndAlso node.Parent IsNot Nothing AndAlso Not node.Parent.Checked Then
             isParentCheck = True
             node.Parent.Checked = True
@@ -81,23 +79,29 @@ Public Class FrmBackup
                 End If
             Next
         End If
-        LblCounts.Text = String.Format("T:{0} D:{1} I:{2}", CStr(tableCheckCount), CStr(docCheckCount), CStr(imageCheckCount))
-        StatusStrip1.Refresh()
+        'LblCounts.Text = String.Format("T:{0} D:{1} I:{2}", CStr(tableCheckCount), CStr(designCheckCount), CStr(imageCheckCount))
+        'StatusStrip1.Refresh()
     End Sub
     Private Sub BtnBackup_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
-        If tableCheckCount + imageCheckCount > 0 Then
+        tableCheckCount = CountCheckedNodes(TvDatatables.Nodes(0), TABLE_TAG)
+        imageCheckCount = CountCheckedNodes(TvImages.Nodes(0), IMAGE_TAG)
+        designCheckCount = CountCheckedNodes(TvDesigns.Nodes(0), DESIGN_TAG)
+        If tableCheckCount + imageCheckCount + designCheckCount > 0 Then
             Dim isOKToBackup As Boolean = CheckPaths()
             If isOKToBackup Then
                 AddProgress("Backup started", 1, 1)
                 AddProgress("Backing up to " & backupPath, 2)
-                If CountCheckedTableNodes() > 0 Then
-                    DataTablesBackup()
+                If tableCheckCount > 0 Then
+                    AddProgress("Data backup", 2, 2)
+                    DataBackup()
                 End If
                 If imageCheckCount > 0 Then
-                    ImagesBackup()
+                    AddProgress("Images backup", 2, 2)
+                    ImageBackup()
                 End If
-                If CountCheckedDesignNodes() > 0 Then
-                    DesignsBackup()
+                If designCheckCount > 0 Then
+                    AddProgress("Designs backup", 2, 2)
+                    DesignBackup()
                 End If
                 AddProgress("Backup complete", 1, 1)
             End If
@@ -125,36 +129,8 @@ Public Class FrmBackup
     Private Sub MnuClear_Click(sender As Object, e As EventArgs) Handles MnuClear.Click
         rtbProgress.Text = ""
     End Sub
-    Private Sub ChkArchive_CheckedChanged(sender As Object, e As EventArgs)
-        If isFormInitialised Then
-            LoadTables()
-            LoadDesigns()
-        End If
-    End Sub
 #End Region
 #Region "subroutines"
-    Private Function CountCheckedTableNodes() As Integer
-        Dim _tablesnode As TreeNode = TvDatatables.Nodes(0)
-        Return CountCheckedNodes(_tablesnode, TABLE_TAG)
-    End Function
-    Private Function CountCheckedDesignNodes() As Integer
-        Dim oArcNode As TreeNode = Nothing
-        For Each _node As TreeNode In TvDesigns.Nodes(0).Nodes
-            If _node.Name.StartsWith(ARC_TAG) Then
-                oArcNode = _node
-            End If
-        Next
-        Dim _designCt As Integer = CountCheckedNodes(TvDesigns.Nodes(0), DESIGN_TAG)
-        Dim _archiveCt As Integer = 0
-        If oArcNode IsNot Nothing Then
-            _archiveCt = CountCheckedNodes(oArcNode, DESIGN_TAG)
-        End If
-        Return _designCt + _archiveCt
-    End Function
-    Private Function CountCheckedImageNodes() As Integer
-        Dim _imagenode As TreeNode = TvImages.Nodes(0).Nodes(0)
-        Return CountCheckedNodes(_imagenode, IMAGE_TAG)
-    End Function
     Private Function CountCheckedNodes(pNode As TreeNode, pTag As String) As Integer
         Dim checkedNodeCount As Integer = 0
         For Each _subnode As TreeNode In pNode.Nodes
@@ -167,7 +143,7 @@ Public Class FrmBackup
         Return checkedNodeCount
     End Function
     Private Sub LoadTables()
-        AddProgress("Filling dB Table Tree", 2)
+        AddProgress("Filling Data Table Tree", 2)
         FillTableTree()
         tableCheckCount = 0
         TvDatatables.ExpandAll()
@@ -182,7 +158,7 @@ Public Class FrmBackup
     Private Sub LoadDesigns()
         AddProgress("Filling Design Tree", 2)
         FillDesignTree()
-        docCheckCount = 0
+        designCheckCount = 0
         TvDesigns.ExpandAll()
     End Sub
     Friend Sub SelectPath()
@@ -227,7 +203,6 @@ Public Class FrmBackup
         Next
     End Sub
     Public Sub FillTableTree()
-        LogUtil.LogInfo("Filling table tree", MethodBase.GetCurrentMethod.Name)
         TvDatatables.Nodes.Clear()
         Dim _dataNode As TreeNode = TvDatatables.Nodes.Add("Tables")
         Dim _filepath As String = My.Settings.DataFilePath
@@ -253,9 +228,7 @@ Public Class FrmBackup
                     backupPath = If(chkAddDate.Checked, Path.Combine(TxtBackupPath.Text.Trim, Format(Today, "yyyyMMdd")), TxtBackupPath.Text.Trim)
                     imagePath = Path.Combine(TxtBackupPath.Text.Trim, "images")
                     designPath = Path.Combine(backupPath, "designs")
-                    designArchivePath = Path.Combine(designPath, "archive")
                     dataPath = Path.Combine(backupPath, "data")
-                    dataArchivePath = Path.Combine(dataPath, "archive")
                     If Not CheckPathExists(backupPath) Then isOKToBackup = False
                     If Not CheckPathExists(dataPath) Then isOKToBackup = False
                     If Not CheckPathExists(imagePath) Then isOKToBackup = False
@@ -287,61 +260,31 @@ Public Class FrmBackup
         Return isOK
     End Function
     Private Sub ImageBackup()
-        AddProgress("Image backup", 4, 2)
-        For Each oNode As TreeNode In TvImages.Nodes(0).Nodes
+        Dim oImageNode As TreeNode = TvImages.Nodes(0)
+        DisplayProgressBar(oImageNode)
+        AddProgress(oImageNode.Text, 3, 2)
+        For Each oNode As TreeNode In oImageNode.Nodes
             If oNode.Checked Then
-                Dim _filename As String = oNode.Text
-                Dim _fullname As String = oNode.Name.Replace(IMAGE_TAG, "")
-                Dim destination As String = Path.Combine(imagePath, _filename)
-                Dim _overwritten As String = ""
-                If My.Computer.FileSystem.FileExists(destination) Then
-                    _overwritten = " (*)"
+                If oNode.Name.StartsWith(IMAGE_TAG) Then
+                    BackupFile(oNode, imagePath, IMAGE_TAG)
                 End If
-                My.Computer.FileSystem.CopyFile(_fullname, destination, True)
-                AddProgress(_filename & " copied" & _overwritten, 5)
-                PbCopyProgress.PerformStep()
-                StatusStrip1.Refresh()
-                oNode.Checked = False
             End If
         Next
         PbCopyProgress.Visible = False
         TvImages.Nodes(0).Checked = False
     End Sub
-    Private Sub ImagesBackup()
-        AddProgress("Images backup", 2, 2)
-        ImageBackup()
-
-    End Sub
-    Private Sub DesignsBackup()
-        AddProgress("Designs backup", 2, 2)
-        DesignBackup()
-    End Sub
-    Private Sub DataTablesBackup()
-        AddProgress("Data backup", 2, 2)
-        DataBackup()
-    End Sub
     Private Sub DesignBackup()
-        For Each oDesignNode As TreeNode In TvDesigns.Nodes
-            DisplayProgressBar(oDesignNode)
+        Dim oDesignNode As TreeNode = TvDesigns.Nodes(0)
+        DisplayProgressBar(oDesignNode)
             AddProgress(oDesignNode.Text, 3, 2)
             For Each oNode As TreeNode In oDesignNode.Nodes
                 If oNode.Checked Then
                     If oNode.Name.StartsWith(DESIGN_TAG) Then
-                        oNode = BackupDesignFile(oNode, False)
-                    ElseIf oNode.Name.StartsWith(ARC_TAG) Then
-                        AddProgress(oNode.Text, 3, 2)
-                        For Each aNode As TreeNode In oNode.Nodes
-                            If aNode.Checked Then
-                                If aNode.Name.StartsWith(DESIGN_TAG) Then
-                                    aNode = BackupDesignFile(aNode, True)
-                                End If
-                            End If
-                        Next
-                    End If
+                    BackupFile(oNode, designPath, DESIGN_TAG)
+                End If
                 End If
             Next
             oDesignNode.Checked = False
-        Next
         PbCopyProgress.Visible = False
     End Sub
     Private Sub DataBackup()
@@ -351,16 +294,7 @@ Public Class FrmBackup
             For Each oNode As TreeNode In oDataNode.Nodes
                 If oNode.Checked Then
                     If oNode.Name.StartsWith(TABLE_TAG) Then
-                        oNode = BackupDataFile(oNode, False)
-                    ElseIf oNode.Name.StartsWith(ARC_TAG) Then
-                        AddProgress(oNode.Text, 3, 2)
-                        For Each aNode As TreeNode In oNode.Nodes
-                            If aNode.Checked Then
-                                If aNode.Name.StartsWith(TABLE_TAG) Then
-                                    aNode = BackupDataFile(aNode, True)
-                                End If
-                            End If
-                        Next
+                        BackupFile(oNode, dataPath, TABLE_TAG)
                     End If
                 End If
             Next
@@ -368,15 +302,13 @@ Public Class FrmBackup
         Next
         PbCopyProgress.Visible = False
     End Sub
-    Private Function BackupDesignFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
+    Private Sub BackupFile(oNode As TreeNode, pPath As String, pTag As String)
         Dim _filename As String = oNode.Text
-        Dim _fullname As String = oNode.Name.Replace(DESIGN_TAG, "")
+        Dim _fullname As String = oNode.Name.Replace(pTag, "")
         Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)
         Dim _destExtention As String = Path.GetExtension(_filename)
-        Dim _destVersion As String = String.Empty
         If My.Computer.FileSystem.FileExists(_fullname) Then
-            Dim filenameWithVersion As String = _destFilename & _destVersion & _destExtention
-            Dim destination As String = Path.Combine(If(pIsArchive, designArchivePath, designPath), filenameWithVersion)
+            Dim destination As String = Path.Combine(pPath, _filename)
             Dim _overwritten As String = ""
             If My.Computer.FileSystem.FileExists(destination) Then
                 _overwritten = " (*)"
@@ -389,33 +321,8 @@ Public Class FrmBackup
         Else
             AddProgress("!!!! Error :" & oNode.Text & " does not exist !!!!")
         End If
+    End Sub
 
-        Return oNode
-    End Function
-    Private Function BackupDataFile(oNode As TreeNode, pIsArchive As Boolean) As TreeNode
-        Dim _filename As String = oNode.Text
-        Dim _fullname As String = oNode.Name.Replace(TABLE_TAG, "")
-        Dim _destFilename As String = Path.GetFileNameWithoutExtension(_filename)
-        Dim _destExtention As String = Path.GetExtension(_filename)
-        Dim _destVersion As String = String.Empty
-        If My.Computer.FileSystem.FileExists(_fullname) Then
-            Dim filenameWithVersion As String = _destFilename & _destVersion & _destExtention
-            Dim destination As String = Path.Combine(If(pIsArchive, dataArchivePath, dataPath), filenameWithVersion)
-            Dim _overwritten As String = ""
-            If My.Computer.FileSystem.FileExists(destination) Then
-                _overwritten = " (*)"
-            End If
-            TryCopyFile(_fullname, destination, True)
-            AddProgress(_filename & " copied" & _overwritten, 6)
-            PbCopyProgress.PerformStep()
-            StatusStrip1.Refresh()
-            oNode.Checked = False
-        Else
-            AddProgress("!!!! Error :" & oNode.Text & " does not exist !!!!")
-        End If
-
-        Return oNode
-    End Function
     Private Sub DisplayProgressBar(pNode As TreeNode)
         PbCopyProgress.Value = 0
         Dim _selct As Integer = 0
@@ -428,16 +335,20 @@ Public Class FrmBackup
         PbCopyProgress.Visible = True
     End Sub
     Private Sub AddProgress(pText As String, Optional pTextLevel As Integer = 0, Optional pHeadingLevel As Integer = 0)
-        Dim _padchar As Char = " "
-        Select Case pHeadingLevel
-            Case 1
-                _padchar = "="c
-            Case 2
-                _padchar = "-"c
-            Case 4
-                _padchar = "!"c
-        End Select
-        LogUtil.Info(pText, MyBase.Name)
+        'Dim _padchar As Char = " "
+        'Select Case pHeadingLevel
+        '    Case 1
+        '        _padchar = "="c
+        '    Case 2
+        '        _padchar = "-"c
+        '    Case 4
+        '        _padchar = "!"c
+        'End Select
+        If pTextLevel < 4 Then
+            LogUtil.Info(pText, MyBase.Name)
+        Else
+            LogUtil.Debug(pText, MyBase.Name)
+        End If
         pText = pText.PadLeft(pText.Length + pTextLevel, " "c)
         rtbProgress.Text &= vbCrLf & pText
         rtbProgress.SelectionStart = rtbProgress.Text.Length
