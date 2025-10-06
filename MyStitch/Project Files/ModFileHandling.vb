@@ -33,6 +33,102 @@ Module ModFileHandling
     Public Const DESIGN_HDR As String = "Design:"
     Public Const PROJECT_HDR As String = "Project:"
     Public Const PROJECT_THREADS_HDR As String = "Project Threads:"
+    Public Sub CheckAppPaths()
+        LogUtil.LogInfo("Checking folders", MethodBase.GetCurrentMethod.Name)
+        Try
+            CreateFolder(oDataFolderName, True)
+            CreateFolder(oDesignFolderName, True)
+            CreateFolder(oDesignArchiveFolderName, True)
+            CreateFolder(oImageFolderName, True)
+            CreateFolder(oBackupFolderName, True)
+            CreateFolder(oBackupArchiveFolderName, True)
+            CreateFolder(oDataArchiveFolderName, True)
+            CreateFolder(oDailyArchivePath, True)
+        Catch ex As ApplicationException
+            Throw ex
+        End Try
+    End Sub
+    Public Sub RunHousekeeping()
+        LogUtil.Info("Housekeeping started", MethodBase.GetCurrentMethod.Name)
+        Dim retentionPeriod As Integer = My.Settings.FileRetentionPeriod
+        If My.Settings.isHousekeepLogs Then
+            LogUtil.Info("Tidying log files", MethodBase.GetCurrentMethod.Name)
+            TidyFiles(oLogFolderName, "*.log")
+        End If
+        If My.Settings.isHousekeepDesigns Then
+            LogUtil.Info("Tidying Design files", MethodBase.GetCurrentMethod.Name)
+            TidyFiles(oDesignArchiveFolderName, "*" & DESIGN_ARC_EXT)
+        End If
+        If My.Settings.isHousekeepData Then
+            LogUtil.Info("Tidying Data files", MethodBase.GetCurrentMethod.Name)
+            TidyFiles(oDataArchiveFolderName, "*" & DATA_ARC_EXT)
+        End If
+        LogUtil.Info("Housekeeping complete", MethodBase.GetCurrentMethod.Name)
+    End Sub
+    Public Sub TidyFiles(ByVal sFolder As String, ByVal sPattern As String)
+        TidyFiles(sFolder, sPattern, False)
+    End Sub
+    Public Sub TidyFiles(ByVal sFolder As String, ByVal sPattern As String, ByVal bSubfolders As Boolean)
+        If My.Computer.FileSystem.DirectoryExists(sFolder) Then
+            Dim oDirInfo As DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(sFolder)
+            Dim iRetentionPeriod As Integer = My.Settings.FileRetentionPeriod
+            LogUtil.Info("Tidying files in " & sFolder & " older than " & iRetentionPeriod & " days", MethodBase.GetCurrentMethod.Name)
+            Try
+                Dim oFileInfoList As List(Of FileInfo) = oDirInfo.GetFiles(sPattern, If(bSubfolders, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly)).ToList
+                Dim oFileList As New List(Of FileInfo)
+                For Each oFileInfo As FileInfo In oFileInfoList
+                    Dim _attributes As Integer = oFileInfo.Attributes And
+                        (FileAttributes.ReadOnly _
+                        Or FileAttributes.Hidden _
+                        Or FileAttributes.System _
+                        Or FileAttributes.Directory)
+                    If _attributes = 0 Then
+                        oFileList.Add(oFileInfo)
+                    End If
+                Next
+                Dim iCopiesToKeep As Integer = Math.Min(oFileList.Count, My.Settings.FileRetentionCopies)
+                oFileList.Sort(Function(x As FileInfo, y As FileInfo) x.CreationTime.CompareTo(y.CreationTime))
+                If iCopiesToKeep > 0 Then
+                    oFileList.RemoveRange(oFileList.Count - iCopiesToKeep, iCopiesToKeep)
+                End If
+                For Each oFileInfo As FileInfo In oFileList
+                    Dim oDate As Date = oFileInfo.LastWriteTime
+                    Dim iDaysOld As Integer = DateDiff("d", oDate, Now)
+                    If iDaysOld >= iRetentionPeriod Then
+                        LogUtil.Info(oFileInfo.Name & " - " & iDaysOld & " days old - deleted", MethodBase.GetCurrentMethod.Name)
+                        Try
+                            RemoveFile(oFileInfo.FullName)
+                        Catch ex As ApplicationException
+                            LogUtil.Exception("Unable to remove " & oFileInfo.FullName, ex, MethodBase.GetCurrentMethod.Name)
+                        End Try
+                    End If
+                Next
+            Catch ex As Exception
+                LogUtil.Exception("Problem tidying files", ex, MethodBase.GetCurrentMethod.Name)
+            End Try
+        Else
+            LogUtil.Problem("Folder " & sFolder & " does NOT exist. Housekeeping Failed.", MethodBase.GetCurrentMethod.Name)
+        End If
+    End Sub
+    Public Sub CreateFolder(pFoldername As String, pAllowLogging As Boolean)
+        If Not My.Computer.FileSystem.DirectoryExists(pFoldername) Then
+            If pAllowLogging Then
+                LogUtil.LogInfo("Creating " & pFoldername, MethodBase.GetCurrentMethod.Name)
+            End If
+            Try
+                My.Computer.FileSystem.CreateDirectory(pFoldername)
+            Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                                OrElse TypeOf ex Is IO.PathTooLongException _
+                                OrElse TypeOf ex Is NotSupportedException _
+                                OrElse TypeOf ex Is IOException _
+                                OrElse TypeOf ex Is UnauthorizedAccessException)
+                If pAllowLogging Then
+                    LogUtil.DisplayException(ex, "Create Folder", MethodBase.GetCurrentMethod.Name)
+                End If
+                Throw New ApplicationException("CreateDirectory Failed for " & pFoldername, ex)
+            End Try
+        End If
+    End Sub
     Public Function MakeFilename(pProject As Project) As String
         Dim _filename As String = pProject.DesignFileName
         If String.IsNullOrEmpty(_filename) Then
@@ -49,6 +145,31 @@ Module ModFileHandling
         Dim _fullFilename As String = Path.Combine(oDesignFolderName, _baseFilename)
         Return _fullFilename
     End Function
+    Public Sub TryMoveFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
+        ' Move a file to a new location, overwriting if necessary
+        Try
+            My.Computer.FileSystem.MoveFile(pFullname, pDestination, pOverwrite)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                        OrElse TypeOf ex Is IOException _
+                        OrElse TypeOf ex Is NotSupportedException _
+                        OrElse TypeOf ex Is UnauthorizedAccessException _
+                        OrElse TypeOf ex Is Security.SecurityException)
+            LogUtil.DisplayException(ex, "Moving file", MethodBase.GetCurrentMethod.Name)
+            Throw New ApplicationException("Move file failed for " & pFullname, ex)
+        End Try
+    End Sub
+    Public Sub TryCopyFile(pFullname As String, pDestination As String, pOverwrite As Boolean)
+        Try
+            My.Computer.FileSystem.CopyFile(pFullname, pDestination, pOverwrite)
+        Catch ex As Exception When (TypeOf ex Is ArgumentException _
+                        OrElse TypeOf ex Is IOException _
+                        OrElse TypeOf ex Is NotSupportedException _
+                        OrElse TypeOf ex Is UnauthorizedAccessException _
+                        OrElse TypeOf ex Is Security.SecurityException)
+            LogUtil.DisplayException(ex, "Copying file", MethodBase.GetCurrentMethod.Name)
+            Throw New ApplicationException("Copy file failed for " & pFullname, ex)
+        End Try
+    End Sub
     Public Function OpenDesignFile(pDesignPathName As String, pDesignFileName As String) As List(Of String)
         Return ExtractDesignStrings(Path.Combine(pDesignPathName, pDesignFileName))
     End Function
