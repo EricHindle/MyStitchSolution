@@ -118,6 +118,7 @@ Namespace Domain
                 Case "Projects"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectDataTable.Clear()
                         oProjectDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Projects data file missing.")
@@ -125,6 +126,7 @@ Namespace Domain
                 Case "Threads"
                     oXmlFileName = Path.Combine(oDataFolderName, oThreadDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oThreadDataTable.Clear()
                         oThreadDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Threads data file missing.")
@@ -132,6 +134,7 @@ Namespace Domain
                 Case "ProjectThreadCards"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectThreadCardDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectThreadCardDataTable.Clear()
                         oProjectThreadCardDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Project Thread Card data file missing.")
@@ -139,6 +142,7 @@ Namespace Domain
                 Case "ProjectThreads"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectThreadDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectThreadDataTable.Clear()
                         oProjectThreadDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Project Thread data file missing.")
@@ -146,6 +150,7 @@ Namespace Domain
                 Case "ProjectCardThread"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectCardThreadDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectCardThreadDataTable.Clear()
                         oProjectCardThreadDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Project Card Thread data file missing.")
@@ -153,7 +158,7 @@ Namespace Domain
                 Case "Symbols"
                     oXmlFileName = Path.Combine(oDataFolderName, oSymbolsDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
-
+                        oSymbolsDataTable.Clear()
                         oSymbolsDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Symbols data file missing.")
@@ -161,6 +166,7 @@ Namespace Domain
                 Case "Settings"
                     oXmlFileName = Path.Combine(oDataFolderName, oSettingsDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oSettingsDataTable.Clear()
                         oSettingsDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Settings data file missing.")
@@ -168,6 +174,7 @@ Namespace Domain
                 Case "ProjectWorkTimes"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectWorkTimesDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectWorkTimesDataTable.Clear()
                         oProjectWorkTimesDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Project Work Times data file missing.")
@@ -175,6 +182,7 @@ Namespace Domain
                 Case "Palettes"
                     oXmlFileName = Path.Combine(oDataFolderName, oPalettesDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oPalettesDataTable.Clear()
                         oPalettesDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Palettes file missing.")
@@ -182,6 +190,7 @@ Namespace Domain
                 Case "PaletteThreads"
                     oXmlFileName = Path.Combine(oDataFolderName, oPaletteThreadsDataTable.TableName & DATA_EXT)
                     If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oPaletteThreadsDataTable.Clear()
                         oPaletteThreadsDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Palette Threads data file missing.")

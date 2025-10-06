@@ -21,11 +21,25 @@ Public Class FrmProject
 #End Region
 #Region "variables"
     Private _selectedProject As New Project
+    Private isRestartRequired As Boolean = False
 #End Region
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
         LoadProjectSettings()
+        InitialiseProjects()
+        KeyPreview = True
+        Dim _projectFile As String = CheckRunTimeParameters()
+        If _projectFile IsNot Nothing Then
+            OpenProjectFromFile(_projectFile, DgvProjects, LblStatus)
+            If oFileProject.IsLoaded Then
+                SelectProjectInList(DgvProjects, oFileProject.ProjectId)
+                OpenProjectDesign()
+            End If
+        End If
+    End Sub
+
+    Private Sub InitialiseProjects()
         isLoading = True
         Try
             LoadDataTables(LblStatus)
@@ -37,16 +51,8 @@ Public Class FrmProject
         LogUtil.ShowStatus("Data loaded OK", LblStatus)
         InitialiseForm()
         isLoading = False
-        KeyPreview = True
-        Dim _projectFile As String = CheckRunTimeParameters()
-        If _projectFile IsNot Nothing Then
-            OpenProjectFromFile(_projectFile, DgvProjects, LblStatus)
-            If oFileProject.IsLoaded Then
-                SelectProjectInList(DgvProjects, oFileProject.ProjectId)
-                OpenProjectDesign()
-            End If
-        End If
     End Sub
+
     Private Function CheckRunTimeParameters() As String
         Dim _params As String() = System.Environment.GetCommandLineArgs
         Dim _filename As String = Nothing
@@ -80,9 +86,11 @@ Public Class FrmProject
         oGrid5Pen.Dispose()
         oGrid10Pen.Dispose()
         oCentrePen.Dispose()
-        SaveData()
         My.Settings.ProjectFormPos = SetFormPos(Me)
         My.Settings.Save()
+        If Not isRestartRequired Then
+            SaveData()
+        End If
     End Sub
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
         LogUtil.ClearStatus(LblStatus)
@@ -181,7 +189,6 @@ Public Class FrmProject
         NudOriginX.Enabled = False
         NudOriginY.Enabled = False
         OpenProjectDesign()
-
     End Sub
     Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuFullThreadList.Click
         OpenThreadListForm()
@@ -414,9 +421,18 @@ Public Class FrmProject
             LogUtil.ShowStatus("No Project selected", LblStatus, True)
         End If
     End Sub
-    Private Shared Sub OpenRestoreForm()
+    Private Sub OpenRestoreForm()
         Using _restore As New FrmRestore
+            _restore.IsRestartRequired = False
             _restore.ShowDialog()
+            If _restore.IsRestartRequired Then
+                isRestartRequired = True
+                MsgBox("Data files have been restored. MyStitch will now be restarted.", MsgBoxStyle.Information, "Restart")
+                LogUtil.LogInfo("Restarting MyStitch >>>>>>>>>>>>>", MethodBase.GetCurrentMethod.Name)
+                Application.Restart()
+            ElseIf _restore.IsReloadDataRequired Then
+                InitialiseProjects()
+            End If
         End Using
     End Sub
     Private Sub ShowPrintSettingsForm()

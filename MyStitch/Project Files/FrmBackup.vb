@@ -57,15 +57,6 @@ Public Class FrmBackup
     Private Sub TreeView_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck, TvDesigns.AfterCheck, TvImages.AfterCheck
 
         Dim node As TreeNode = e.Node
-        'If node.Name.StartsWith(TABLE_TAG) Then
-        '    tableCheckCount += If(node.Checked, 1, -1)
-        'End If
-        'If node.Name.StartsWith(DESIGN_TAG) Then
-        '    designCheckCount += If(node.Checked, 1, -1)
-        'End If
-        'If node.Name.StartsWith(IMAGE_TAG) Then
-        '    imageCheckCount += If(node.Checked, 1, -1)
-        'End If
         If node.Checked AndAlso node.Parent IsNot Nothing AndAlso Not node.Parent.Checked Then
             isParentCheck = True
             node.Parent.Checked = True
@@ -79,8 +70,6 @@ Public Class FrmBackup
                 End If
             Next
         End If
-        'LblCounts.Text = String.Format("T:{0} D:{1} I:{2}", CStr(tableCheckCount), CStr(designCheckCount), CStr(imageCheckCount))
-        'StatusStrip1.Refresh()
     End Sub
     Private Sub BtnBackup_Click(sender As Object, e As EventArgs) Handles BtnBackup.Click
         tableCheckCount = CountCheckedNodes(TvDatatables.Nodes(0), TABLE_TAG)
@@ -219,20 +208,29 @@ Public Class FrmBackup
             AddProgress("No drive specified")
             isOKToBackup = False
         Else
-            Dim _driveLetter As String = Split(TxtBackupPath.Text, ":", 2)(0)
+            Dim _driveLetter As String = Split(TxtBackupPath.Text, ":", 2).First
             If Not My.Computer.FileSystem.DirectoryExists(_driveLetter & ":\") Then
                 AddProgress("Drive does not exist.")
                 isOKToBackup = False
             Else
                 If Not String.IsNullOrEmpty(TxtBackupPath.Text) Then
-                    backupPath = If(chkAddDate.Checked, Path.Combine(TxtBackupPath.Text.Trim, Format(Today, "yyyyMMdd")), TxtBackupPath.Text.Trim)
-                    imagePath = Path.Combine(TxtBackupPath.Text.Trim, "images")
+                    backupPath = TxtBackupPath.Text.Trim
+                    imagePath = Path.Combine(backupPath, "images")
                     designPath = Path.Combine(backupPath, "designs")
                     dataPath = Path.Combine(backupPath, "data")
-                    If Not CheckPathExists(backupPath) Then isOKToBackup = False
-                    If Not CheckPathExists(dataPath) Then isOKToBackup = False
-                    If Not CheckPathExists(imagePath) Then isOKToBackup = False
-                    If Not CheckPathExists(designPath) Then isOKToBackup = False
+                    If chkAddDate.Checked Then
+                        dataPath = Path.Combine(dataPath, Format(Today, "yyyyMMdd"))
+                        designPath = Path.Combine(designPath, Format(Today, "yyyyMMdd"))
+                    End If
+                    If Not CheckPathExists(backupPath) Then
+                        isOKToBackup = False
+                    ElseIf Not CheckPathExists(dataPath) Then
+                        isOKToBackup = False
+                    ElseIf Not CheckPathExists(imagePath) Then
+                        isOKToBackup = False
+                    ElseIf Not CheckPathExists(designPath) Then
+                        isOKToBackup = False
+                    End If
                 Else
                     AddProgress("No destination. No backup.")
                     isOKToBackup = False
