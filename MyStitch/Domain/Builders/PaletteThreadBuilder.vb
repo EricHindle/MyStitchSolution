@@ -34,15 +34,15 @@ Namespace Domain.Builders
         Public Function StartingWith(ByRef oRow As PaletteThreadsRow) As PaletteThreadBuilder
             StartingWithNothing()
             If oRow IsNot Nothing Then
-        With oRow
+                With oRow
                     '_Palette = Nothing
                     '_thread = Nothing
                     _PaletteId = .palette_id
                     _threadId = .thread_id
                     _symbolId = .symbol_id
                 End With
-        End If
-        Return Me
+            End If
+            Return Me
         End Function
         Public Function WithThreadId(pId As Integer) As PaletteThreadBuilder
             _threadId = pId

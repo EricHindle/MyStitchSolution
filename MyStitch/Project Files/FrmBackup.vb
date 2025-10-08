@@ -6,8 +6,6 @@
 '
 
 Imports System.IO
-Imports System.Reflection
-Imports System.Text
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
@@ -274,15 +272,15 @@ Public Class FrmBackup
     Private Sub DesignBackup()
         Dim oDesignNode As TreeNode = TvDesigns.Nodes(0)
         DisplayProgressBar(oDesignNode)
-            AddProgress(oDesignNode.Text, 3, 2)
-            For Each oNode As TreeNode In oDesignNode.Nodes
-                If oNode.Checked Then
-                    If oNode.Name.StartsWith(DESIGN_TAG) Then
+        AddProgress(oDesignNode.Text, 3, 2)
+        For Each oNode As TreeNode In oDesignNode.Nodes
+            If oNode.Checked Then
+                If oNode.Name.StartsWith(DESIGN_TAG) Then
                     BackupFile(oNode, designPath, DESIGN_TAG)
                 End If
-                End If
-            Next
-            oDesignNode.Checked = False
+            End If
+        Next
+        oDesignNode.Checked = False
         PbCopyProgress.Visible = False
     End Sub
     Private Sub DataBackup()

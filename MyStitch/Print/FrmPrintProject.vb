@@ -5,11 +5,9 @@
 ' Author Eric Hindle
 '
 
-Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
-Imports MyStitch.Domain.Objects
 Public Class FrmPrintProject
 #Region "properties"
     'Private oPrintProject As Project

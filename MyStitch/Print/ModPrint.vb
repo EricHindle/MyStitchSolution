@@ -6,7 +6,6 @@
 '
 
 Imports System.Drawing.Printing
-Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 
 Module ModPrint

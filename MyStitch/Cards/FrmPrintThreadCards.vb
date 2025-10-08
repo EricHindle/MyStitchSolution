@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Drawing.Printing
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain

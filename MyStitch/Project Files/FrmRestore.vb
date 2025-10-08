@@ -37,19 +37,19 @@ Public Class FrmRestore
     Private oSourceDataPath As String
     Private oSourceImagePath As String
     Private oSourceDesignPath As String
-    Private isInitialiseComplete As Boolean
+    Private isInitializeComponentComplete As Boolean
     Private isLoading As Boolean
 
 #End Region
 #Region "form control handlers"
     Private Sub FrmRestore_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.Info("Restore", MyBase.Name)
+        LogUtil.Info("Restore form loading", MyBase.Name)
         GetFormPos(Me, My.Settings.RestoreFormPos)
         TxtBackupPath.Text = My.Settings.BackupPath
         _isRestartRequired = False
         _isReloadDataRequired = False
         isCheckInProgress = False
-        isInitialiseComplete = True
+        isInitializeComponentComplete = True
         isLoading = True
         SetSourcePaths()
         FillAllTrees()
@@ -83,14 +83,6 @@ Public Class FrmRestore
             ShowRestoreFailed(ex)
         End Try
     End Sub
-
-    Private Sub ShowRestoreFailed(ex As ApplicationException)
-        AddProgress("A problem has occurred during the restore.")
-        AddProgress(ex.Message)
-        AddProgress(ex.InnerException.Message)
-        AddProgress("Restore failed ---------------------------")
-    End Sub
-
     Private Sub BtnSelectPath_Click(sender As Object, e As EventArgs) Handles BtnSelectPath.Click
         Using fbd As New FolderBrowserDialog
             If Not String.IsNullOrEmpty(TxtBackupPath.Text) Then
@@ -107,7 +99,7 @@ Public Class FrmRestore
         My.Settings.Save()
     End Sub
     Private Sub TxtBackupPath_TextChanged(sender As Object, e As EventArgs) Handles TxtBackupPath.TextChanged
-        If isInitialiseComplete AndAlso Not isLoading Then
+        If isInitializeComponentComplete AndAlso Not isLoading Then
             If My.Computer.FileSystem.DirectoryExists(TxtBackupPath.Text) Then
                 SetSourcePaths()
                 FillAllTrees()
@@ -209,11 +201,17 @@ Public Class FrmRestore
         End If
     End Sub
     Private Sub AddProgress(pText As String)
-        LogUtil.Info(pText, MyBase.Name)
+        LogUtil.LogInfo(pText, MyBase.Name)
         rtbProgress.Text &= vbCrLf & pText
         rtbProgress.SelectionStart = rtbProgress.Text.Length
         rtbProgress.ScrollToCaret()
         rtbProgress.Refresh()
+    End Sub
+    Private Sub ShowRestoreFailed(ex As ApplicationException)
+        AddProgress("A problem has occurred during the restore.")
+        AddProgress(ex.Message)
+        AddProgress(ex.InnerException.Message)
+        AddProgress("Restore failed ---------------------------")
     End Sub
     Private Sub ImageRestore()
         Dim _imgCt As Integer = 0
@@ -284,6 +282,10 @@ Public Class FrmRestore
         Catch ex As Exception When (TypeOf ex Is ArgumentException _
                              OrElse TypeOf ex Is ApplicationException)
             AddProgress("File NOT restored : " & pNode.Text)
+            AddProgress("Exception : " & ex.Message)
+            If ex.InnerException IsNot Nothing Then
+                AddProgress(ex.InnerException.Message)
+            End If
         End Try
         pNode.Checked = False
     End Sub

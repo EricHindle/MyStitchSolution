@@ -278,7 +278,11 @@ Module ModFileHandling
                 _newFilename &= "_" & Format(Now, "yyyyMMdd_HHmmss")
             End If
             Dim _destinationFilename As String = Path.Combine(pTargetFolder, _newFilename & pTargetExt)
-            TryCopyFile(_existingFilename, _destinationFilename, True)
+            Try
+                TryCopyFile(_existingFilename, _destinationFilename, True)
+            Catch ex As ApplicationException
+                Throw ex
+            End Try
         End If
     End Sub
     Public Sub RemoveFile(pFileName As String)

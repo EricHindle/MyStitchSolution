@@ -18,6 +18,18 @@ Public Class FrmProject
 
 #End Region
 #Region "constants"
+    Private Const SELECT_OR_ADD As String = "SELECT A PROJECT FROM THE LIST OR ADD A NEW ONE"
+    Private Const INVALID_PROJECT As String = "PROJECT DETAILS MISSING OR INVALID"
+    Private Const INVALID_PROJECT_NAME As String = "PROJECT NAME MISSING"
+    Private Const INVALID_WIDTH As String = "INVALID WIDTH"
+    Private Const INVALID_HEIGHT As String = "INVALID HEIGHT"
+    Private Const UNEXPECTED_ERROR As String = "UNEXPECTED ERROR - SEE LOG"
+    Private Const PROJECT_ADDED As String = "Project Added"
+    Private Const PROJECT_REMOVED As String = "Project Removed"
+    Private Const PROJECT_UPDATED As String = "Project Updated"
+    Private Const PROJECT_NOT_UPDATED As String = "Project NOT Updated"
+    Private Const NO_PROJECT_SELECTED As String = "No Project Selected"
+    Private Const DESIGN_NOT_FOUND As String = "Design File not found"
 #End Region
 #Region "variables"
     Private _selectedProject As New Project
@@ -27,7 +39,9 @@ Public Class FrmProject
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
         LoadProjectSettings()
+        AddInstruction(SELECT_OR_ADD)
         InitialiseProjects()
+        SetEnabledButtons(False)
         KeyPreview = True
         Dim _projectFile As String = CheckRunTimeParameters()
         If _projectFile IsNot Nothing Then
@@ -38,21 +52,21 @@ Public Class FrmProject
             End If
         End If
     End Sub
-
+    Private Sub SetEnabledButtons(pIsEnabled)
+        PnlButtons.Enabled = pIsEnabled
+    End Sub
     Private Sub InitialiseProjects()
         isLoading = True
         Try
-            LoadDataTables(LblStatus)
+            LoadDataTables()
         Catch ex As ApplicationException
             ShowCriticalError("A problem has occurred. Application cannot continue.", ex, MyBase.Name)
             Close()
             Exit Sub
         End Try
-        LogUtil.ShowStatus("Data loaded OK", LblStatus)
         InitialiseForm()
         isLoading = False
     End Sub
-
     Private Function CheckRunTimeParameters() As String
         Dim _params As String() = System.Environment.GetCommandLineArgs
         Dim _filename As String = Nothing
@@ -66,7 +80,7 @@ Public Class FrmProject
                         _filename = _params(1)
                     End If
                 Catch ex As ArgumentException
-                    LogUtil.ShowException(ex, "Runtime parameter exception", LblStatus, MyBase.Name)
+                    LogUtil.LogException(ex, "Runtime parameter exception", MyBase.Name)
                 End Try
             Else
                 LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
@@ -93,24 +107,23 @@ Public Class FrmProject
         End If
     End Sub
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
-        LogUtil.ClearStatus(LblStatus)
         If Not isLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 _selectedProject = ModDataTableAdapter.FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 NudDesignHeight.Enabled = False
                 NudDesignWidth.Enabled = False
-                NudOriginX.Enabled = False
-                NudOriginY.Enabled = False
+                SetEnabledButtons(True)
+                AddInstruction(String.Empty)
             Else
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 NudDesignHeight.Enabled = True
                 NudDesignWidth.Enabled = True
-                NudOriginX.Enabled = True
-                NudOriginY.Enabled = True
                 oProjectDesign = New ProjectDesign
                 oProjectThreads = New ProjectThreadCollection
                 oDesignBitmap = New Bitmap(1, 1)
+                SetEnabledButtons(False)
+                AddInstruction(SELECT_OR_ADD)
             End If
             LoadProjectForm(_selectedProject)
         End If
@@ -136,7 +149,7 @@ Public Class FrmProject
                 _projthreads.ShowDialog()
             End Using
         Else
-            LogUtil.ShowStatus("No project selected", LblStatus, True)
+            AddInstruction(NO_PROJECT_SELECTED)
         End If
     End Sub
     Private Sub PicFabricColour_Click(sender As Object, e As EventArgs) Handles PicFabricColour.Click
@@ -186,8 +199,6 @@ Public Class FrmProject
         _selectedProject = FindProjectById(_projectId)
         NudDesignHeight.Enabled = False
         NudDesignWidth.Enabled = False
-        NudOriginX.Enabled = False
-        NudOriginY.Enabled = False
         OpenProjectDesign()
     End Sub
     Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuFullThreadList.Click
@@ -258,8 +269,6 @@ Public Class FrmProject
             TxtName.Text = .ProjectName
             NudDesignHeight.Value = .DesignHeight
             NudDesignWidth.Value = .DesignWidth
-            NudOriginX.Value = .OriginX
-            NudOriginY.Value = .OriginY
             NudFabricHeight.Value = .FabricHeight
             NudFabricWidth.Value = .FabricWidth
             NudFabricCount.Value = .FabricCount
@@ -273,10 +282,25 @@ Public Class FrmProject
             UpdateProjectTime()
         End With
     End Sub
-    Private Function BuildProjectFromForm(pId As Integer) As Project
+    Private Sub AddInstruction(pText As String)
+        AddInstruction(pText, False)
+    End Sub
+    Private Sub AddInstruction(pText As String, pIsLogged As Boolean)
+        If Not String.IsNullOrWhiteSpace(pText) Then
+            LblInstruction.Text = pText
+            PnlInstruction.Visible = True
+            If pIsLogged Then
+                LogUtil.LogInfo(pText, MyBase.Name)
+            End If
+        Else
+            LblInstruction.Text = String.Empty
+            PnlInstruction.Visible = False
+        End If
+    End Sub
+    Private Function BuildProjectFromForm(pProject As Project) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
-                                                    .WithId(pId) _
+                                                    .WithId(pProject.ProjectId) _
                                                     .WithName(TxtName.Text) _
                                                     .WithDesignHeight(NudDesignHeight.Value) _
                                                     .WithDesignWidth(NudDesignWidth.Value) _
@@ -284,11 +308,11 @@ Public Class FrmProject
                                                     .WithFabricWidth(NudFabricWidth.Value) _
                                                     .WithFabricColour(_fcolr) _
                                                     .WithFabricCount(NudFabricCount.Value) _
-                                                    .WithOriginX(NudOriginX.Value) _
-                                                    .WithOriginY(NudOriginY.Value) _
                                                     .WithTotalMinutes(0) _
                                                     .WithStarted(DateTime.Now) _
                                                     .WithEnded(DateTime.Now) _
+                                                    .WithOriginX(pProject.OriginX) _
+                                                    .WithOriginY(pProject.OriginY) _
                                                     .Build()
         Return _project
     End Function
@@ -300,32 +324,39 @@ Public Class FrmProject
         End If
     End Sub
     Private Sub InsertNewProject()
-        LogUtil.LogInfo("New project", MyBase.Name)
-        Dim _project As Project = BuildProjectFromForm(-1)
-        _project.ProjectId = AddNewProject(_project)
-        LoadProjectTable(DgvProjects)
-        SelectProjectInList(DgvProjects, _project.ProjectId)
-        oProject = _selectedProject
-        SaveDesign()
-        LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
+        LogUtil.LogInfo("New project", MethodBase.GetCurrentMethod.Name)
+        Dim _project As Project = BuildProjectFromForm(New Project)
+        If IsValidProject() Then
+            _project.ProjectId = AddNewProject(_project)
+            LoadProjectTable(DgvProjects)
+            SelectProjectInList(DgvProjects, _project.ProjectId)
+            oProject = _selectedProject
+            SaveDesign()
+            AddInstruction(PROJECT_ADDED, True)
+        End If
     End Sub
     Private Sub UpdateSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
-            LogUtil.LogInfo("Updating project", MyBase.Name)
+            LogUtil.LogInfo("Updating project " & CStr(_selectedProject.ProjectId), MethodBase.GetCurrentMethod.Name)
             Dim _previousProject As Project = _selectedProject
-            Dim _newProject As Project = BuildProjectFromForm(_selectedProject.ProjectId)
-            AmendProject(_newProject)
-            SaveDesign()
-            LoadProjectTable(DgvProjects)
-            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
-            If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
-                If MsgBox("Rename Project File?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Rename") = MsgBoxResult.Yes Then
-                    RenameProjectFile(_selectedProject, _previousProject)
+            Dim _newProject As Project = BuildProjectFromForm(_selectedProject)
+            If IsValidProject() Then
+                If AmendProject(_newProject) Then
+                    '                    SaveDesign()
+                    LoadProjectTable(DgvProjects)
+                    SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
+                    If _previousProject.DesignFileName <> _selectedProject.DesignFileName Then
+                        If MsgBox("Rename Project File?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Rename") = MsgBoxResult.Yes Then
+                            RenameProjectFile(_selectedProject, _previousProject)
+                        End If
+                    End If
+                    AddInstruction(PROJECT_UPDATED, True)
+                Else
+                    AddInstruction(PROJECT_NOT_UPDATED, True)
                 End If
             End If
-            LogUtil.ShowStatus("Project updated", LblStatus, MyBase.Name)
         Else
-            LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
+            AddInstruction(NO_PROJECT_SELECTED, True)
         End If
     End Sub
     Private Sub RenameProjectFile(pSelectedProject As Project, pPreviousProject As Project)
@@ -336,7 +367,7 @@ Public Class FrmProject
             Dim _newDesignFile As String = MakeFilename(pSelectedProject) & DESIGN_EXT
             Dim _newZipFile As String = MakeFullFileName(pSelectedProject, DESIGN_ZIP_EXT)
             Try
-                LogUtil.ShowStatus("Renaming " & _existingDesignFile & " to " & _newDesignFile, LblStatus, True, MyBase.Name, False)
+                LogUtil.LogInfo("Renaming " & _existingDesignFile & " to " & _newDesignFile, MyBase.Name)
                 Using sourceArchive As ZipArchive = ZipFile.OpenRead(_existingZipFile)
                     Dim entry As ZipArchiveEntry = sourceArchive.GetEntry(_existingDesignFile)
                     Using destArchive As ZipArchive = ZipFile.Open(_newZipFile, ZipArchiveMode.Update)
@@ -359,19 +390,25 @@ Public Class FrmProject
                 LogUtil.DisplayException(ex, _exceptionText, MethodBase.GetCurrentMethod.Name)
             End Try
         Else
-            LogUtil.ShowStatus("No project design file found", LblStatus, True, MyBase.Name, True)
+            AddInstruction(DESIGN_NOT_FOUND, True)
+            Beep()
         End If
     End Sub
     Friend Sub DeleteSelectedProject()
         If _selectedProject.ProjectId >= 0 Then
-            LogUtil.LogInfo("Delete project", MyBase.Name)
-            RemoveProjectCards(_selectedProject.ProjectId)
-            RemoveProjectThreadsForProject(_selectedProject.ProjectId)
-            RemoveProject(_selectedProject)
-            ClearProjectForm()
-            LoadProjectList(DgvProjects, MyBase.Name)
+            LogUtil.LogInfo("Deleting project " & CStr(_selectedProject.ProjectId), MethodBase.GetCurrentMethod.Name)
+            If MsgBox("The project will be removed permanently. OK to continue?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+                RemoveProjectCards(_selectedProject.ProjectId)
+                RemoveProjectThreadsForProject(_selectedProject.ProjectId)
+                RemoveProject(_selectedProject)
+                ClearProjectForm()
+                LoadProjectList(DgvProjects, MyBase.Name)
+                AddInstruction(PROJECT_REMOVED, True)
+            Else
+                LogUtil.LogInfo("Deletion cancelled", MethodBase.GetCurrentMethod.Name)
+            End If
         Else
-            LogUtil.ShowStatus("No project selected", LblStatus, True, MyBase.Name, True)
+            AddInstruction(NO_PROJECT_SELECTED, True)
         End If
     End Sub
     Private Shared Sub OpenThreadListForm()
@@ -387,8 +424,9 @@ Public Class FrmProject
             End Using
             _selectedProject = FindProjectById(_selectedProject.ProjectId)
             UpdateProjectTime()
+            AddInstruction(String.Empty)
         Else
-            LogUtil.ShowStatus("No Project selected", LblStatus, True)
+            AddInstruction(NO_PROJECT_SELECTED, True)
         End If
     End Sub
     Private Sub UpdateProjectTime()
@@ -407,7 +445,7 @@ Public Class FrmProject
     Private Sub OpenProjectThreadListForm()
         Using _threads As New FrmProjectThreads
             _threads.SelectedProject = _selectedProject
-            _threads.UsedThreads = findUsedThreadsForProject(_selectedProject.ProjectId, True)
+            _threads.UsedThreads = FindUsedThreadsForProject(_selectedProject.ProjectId, True)
             _threads.ShowDialog()
         End Using
     End Sub
@@ -418,7 +456,7 @@ Public Class FrmProject
                 _threads.ShowDialog()
             End Using
         Else
-            LogUtil.ShowStatus("No Project selected", LblStatus, True)
+            AddInstruction(NO_PROJECT_SELECTED)
         End If
     End Sub
     Private Sub OpenRestoreForm()
@@ -445,21 +483,40 @@ Public Class FrmProject
             _import.ShowDialog()
         End Using
     End Sub
+    Private Function IsValidProject() As Boolean
+        Dim isValid As Boolean = True
+        If TxtName.TextLength = 0 Then
+            AddInstruction(INVALID_PROJECT_NAME)
+            isValid = False
+        End If
+        If NudFabricWidth.Value < NudDesignWidth.Value Then
+            AddInstruction(INVALID_WIDTH)
+            isValid = False
+        End If
+        If NudFabricHeight.Value < NudDesignHeight.Value Then
+            AddInstruction(INVALID_HEIGHT)
+            isValid = False
+        End If
+        Return isValid
+    End Function
     Private Sub SaveData()
-        LogUtil.ShowStatus("Saving MyStitch tables", LblStatus, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Saving MyStitch tables", MethodBase.GetCurrentMethod.Name)
         Try
             SaveDataTables()
         Catch ex As Exception
-
+            AddInstruction(UNEXPECTED_ERROR, True)
+            Beep()
         End Try
         Try
             RemoveOldDailyArchives()
             CopyArchiveToDailyFolder()
             CopyArchiveToArchiveFolder()
         Catch ex As Exception
-
+            AddInstruction(UNEXPECTED_ERROR, True)
+            LogUtil.Problem(ex.Message)
+            LogUtil.Problem(ex.InnerException.Message)
+            Beep()
         End Try
-
     End Sub
 #End Region
 End Class

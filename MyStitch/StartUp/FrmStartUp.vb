@@ -5,13 +5,11 @@
 ' Author Eric Hindle
 '
 
-Imports System.Deployment.Application
 Imports System.Environment
 Imports System.IO
 Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain
 Public NotInheritable Class FrmStartUp
 #Region "variables"
     Private oInstallationLogFolder As String
@@ -25,9 +23,11 @@ Public NotInheritable Class FrmStartUp
         End If
         Version.Text = System.String.Format(Version.Text, My.Application.Info.Version.Major, My.Application.Info.Version.Minor, My.Application.Info.Version.Build, My.Application.Info.Version.Revision)
         Copyright.Text = My.Application.Info.Copyright
-        Size = PnlSplash.Size
         InitialiseSettings()
         If My.Settings.isInstallationComplete Then
+            PnlSplash.Location = New Point(1, 1)
+            PnlSplash.BorderStyle = BorderStyle.None
+            Size = New Drawing.Size(PnlSplash.Size.Width + 2, PnlSplash.Size.Height + 2)
             InitialiseApplication()
             Timer1.Enabled = True
         Else
@@ -87,10 +87,6 @@ Public NotInheritable Class FrmStartUp
         LogUtil.LogFolder = oInstallationLogFolder
         LogUtil.StartLogging()
         LogUtil.LogInfo("Completing installation", MethodBase.GetCurrentMethod.Name)
-        Dim x As Integer = PnlSplash.Location.X + ((Me.Width - PnlSplash.Width) / 2)
-        Dim y As Integer = PnlSplash.Location.Y
-        PnlSplash.Location = New Point(x, y)
-        Size = New Size(642, 625)
         Dim UserDataPath As String = Path.Combine(GetFolderPath(SpecialFolder.CommonApplicationData), My.Application.Info.AssemblyName)
         '    LoadDefaultPaths
         TxtBackupPath.Text = Path.Combine(UserDataPath, "Backup")

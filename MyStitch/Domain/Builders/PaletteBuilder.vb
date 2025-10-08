@@ -4,8 +4,8 @@
 '
 ' Author Eric Hindle
 '
-Imports MyStitch.MyStitchData
 Imports MyStitch.Domain.Objects
+Imports MyStitch.MyStitchData
 Namespace Domain.Builders
     Public Class PaletteBuilder
 
@@ -38,7 +38,7 @@ Namespace Domain.Builders
 
                 End With
             End If
-        Return Me
+            Return Me
         End Function
         Public Function WithId(pId As Integer) As PaletteBuilder
             _PaletteId = pId

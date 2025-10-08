@@ -6,8 +6,8 @@
 '
 
 Imports System.Data.Common
-Imports MyStitch.Domain
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 ''' <summary>
 ''' Form to maintain Global Settings values

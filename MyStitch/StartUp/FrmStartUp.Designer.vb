@@ -265,7 +265,7 @@ Partial Class FrmStartUp
         Me.PnlSplash.Controls.Add(Me.Panel2)
         Me.PnlSplash.Controls.Add(Me.ApplicationTitle)
         Me.PnlSplash.Controls.Add(Me.PictureBox1)
-        Me.PnlSplash.Location = New System.Drawing.Point(0, 0)
+        Me.PnlSplash.Location = New System.Drawing.Point(58, 12)
         Me.PnlSplash.Name = "PnlSplash"
         Me.PnlSplash.Size = New System.Drawing.Size(522, 287)
         Me.PnlSplash.TabIndex = 16

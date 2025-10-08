@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 Imports MyStitch.Domain.Objects
-Imports MyStitch.MyStitchData
 Namespace Domain.Builders
     Public Class ProjectThreadCollectionBuilder
         Private _threads As List(Of ProjectThread)

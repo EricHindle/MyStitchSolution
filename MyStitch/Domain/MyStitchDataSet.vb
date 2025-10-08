@@ -8,4 +8,3 @@
 Partial Class MyStitchDataSet
 End Class
 
-

@@ -12,7 +12,6 @@ Imports System.IO.Compression
 Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Builders
-Imports MyStitch.Domain.ModDataTableAdapter
 Imports MyStitch.Domain.Objects
 Imports MyStitch.MyStitchData
 Namespace Domain
@@ -71,15 +70,14 @@ Namespace Domain
                 tableList.Add(_enum.ToString)
             Next
         End Sub
-
-        Public Sub LoadDataTables(pStatus As ToolStripStatusLabel)
+        Public Sub LoadDataTables()
             LogUtil.LogInfo("Loading Data Tables", MethodBase.GetCurrentMethod.Name)
             Try
                 FillTableListFromTableEnum()
                 For Each oTable As String In tableList
                     LoadDataTableFromXml(oTable)
                 Next
-                LogUtil.ShowStatus("Data Loaded OK", pStatus, MethodBase.GetCurrentMethod.Name)
+                LogUtil.LogInfo("Data Loaded OK", MethodBase.GetCurrentMethod.Name)
             Catch ex As ApplicationException
                 Throw ex
             End Try

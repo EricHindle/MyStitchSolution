@@ -4,9 +4,8 @@
 '
 ' Author Eric Hindle
 '
-Imports MyStitch.Domain
-Imports System.Data.Common
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 ''' <summary>
 ''' Options and settings to be used by all users
@@ -43,7 +42,7 @@ Public NotInheritable Class GlobalSettings
                 End Select
             Catch ex As ArgumentNullException
 
-                End Try
+            End Try
 
         Catch ex As Exception
             Throw
