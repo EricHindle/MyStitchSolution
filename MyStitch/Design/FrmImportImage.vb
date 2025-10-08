@@ -44,7 +44,7 @@ Public Class FrmImportImage
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles BtnSelect.Click
         LogUtil.LogInfo("Selecting image", MyBase.Name)
         _imageSize = New Size(1, 1)
-        ClearForm()
+
         TxtImagePath.Text = ImageUtil.GetImageFileName(ImageUtil.OpenOrSave.Open, ImageUtil.ImageType.ALL)
         If Not String.IsNullOrEmpty(TxtImagePath.Text) AndAlso My.Computer.FileSystem.FileExists(TxtImagePath.Text) Then
             Try
@@ -223,7 +223,7 @@ Public Class FrmImportImage
                                                     .WithDesignWidth(NudDesignWidth.Value) _
                                                     .WithFabricHeight(NudFabricHeight.Value) _
                                                     .WithFabricWidth(NudFabricWidth.Value) _
-                                                    .WithFabricColour(0) _
+                                                    .WithFabricColour(1) _
                                                     .WithFabricCount(NudFabricCount.Value) _
                                                     .WithOriginX(NudOriginX.Value) _
                                                     .WithOriginY(NudOriginY.Value) _
@@ -340,16 +340,19 @@ Public Class FrmImportImage
         Randomize()
         oSymbolList = GetAllAvailableSymbols()
         For Each _thread As PaletteThread In oPaletteList
-            If _thread.SymbolId < 0 Then
-                _thread.SymbolId = GetRandomAvailableSymbolId()
-            End If
-            Dim _projectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
+            Dim _existingThread As ProjectThread = FindProjectThread(pProjectId, _thread.ThreadId)
+            If Not _existingThread.IsLoaded Then
+                If _thread.SymbolId < 0 Then
+                    _thread.SymbolId = GetRandomAvailableSymbolId()
+                End If
+                Dim _projectThread As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
                 .WithProjectId(pProjectId) _
                 .WithThreadId(_thread.ThreadId) _
                 .WithSymbolId(_thread.SymbolId) _
                 .WithIsUsed(True) _
                 .Build
-            AddNewProjectThread(_projectThread)
+                AddNewProjectThread(_projectThread)
+            End If
         Next
     End Sub
     Private Function GetAllAvailableSymbols() As List(Of Symbol)
@@ -373,21 +376,22 @@ Public Class FrmImportImage
             Dim _paletteThread As PaletteThread = PaletteThreadBuilder.APaletteThread.StartingWithNothing _
                 .WithThreadId(_thread.ThreadId) _
                 .WithPaletteId(pPaletteId) _
-                .WithSymbolId(GetRandomAvailableSymbolId()) _
+                .WithSymbolId(_thread.SymbolId) _
                 .Build
             AddNewPaletteThread(_paletteThread)
         Next
     End Sub
     Private Function GetRandomAvailableSymbolId() As Integer
+        Dim _selectedSymbolId As Integer = -1
         If oSymbolList.Count = 0 Then
             LogUtil.ShowStatus("No more symbols available", LblStatus, True, MyBase.Name, True)
+        Else
+            Dim index As Integer = CInt(Math.Floor((oSymbolList.Count) * Rnd()))
+            _selectedSymbolId = oSymbolList(index).SymbolId
+            oSymbolList.RemoveAt(index)
         End If
-        Dim index As Integer = CInt(Math.Floor((oSymbolList.Count) * Rnd()))
-        Dim _selectedSymbolId As Integer = oSymbolList(index).SymbolId
-        oSymbolList.RemoveAt(index)
         Return _selectedSymbolId
     End Function
-
     Private Sub ClearForm()
         isSizeChanging = True
         Try

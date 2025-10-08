@@ -401,6 +401,9 @@ Public Class FrmProject
                 RemoveProjectCards(_selectedProject.ProjectId)
                 RemoveProjectThreadsForProject(_selectedProject.ProjectId)
                 RemoveProject(_selectedProject)
+                If MsgBox("Retain Design File?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Design File") = MsgBoxResult.No Then
+                    RemoveDesignFile(_selectedProject)
+                End If
                 ClearProjectForm()
                 LoadProjectList(DgvProjects, MyBase.Name)
                 AddInstruction(PROJECT_REMOVED, True)

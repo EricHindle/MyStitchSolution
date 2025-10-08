@@ -263,6 +263,16 @@ Module ModFileHandling
         End Using
         Return isOK
     End Function
+    Public Function RemoveDesignFile(pProject As Project)
+        Dim isOK As Boolean
+        Dim _zipFile As String = Path.Combine(oDesignFolderName, pProject.DesignFileName & DESIGN_ZIP_EXT)
+        Try
+            RemoveFile(_zipFile)
+        Catch ex As Exception When TypeOf ex Is ApplicationException
+            LogUtil.LogException(ex, "Exception removing design file " & _zipFile, MethodBase.GetCurrentMethod.Name)
+        End Try
+        Return isOK
+    End Function
     Public Sub ArchiveExistingFile(pFilename As String, pSourceFolder As String, pSourceExt As String, pTargetFolder As String, pTargetExt As String)
         ArchiveExistingFile(pFilename, pSourceFolder, pSourceExt, pTargetFolder, pTargetExt, AddDateTime.AddNone)
     End Sub
