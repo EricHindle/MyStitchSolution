@@ -327,6 +327,8 @@ Public Class FrmProject
         LogUtil.LogInfo("New project", MethodBase.GetCurrentMethod.Name)
         Dim _project As Project = BuildProjectFromForm(New Project)
         If IsValidProject() Then
+            _project.OriginX = (_project.FabricWidth - _project.DesignWidth) / 2
+            _project.OriginY = (_project.FabricHeight - _project.DesignHeight) / 2
             _project.ProjectId = AddNewProject(_project)
             LoadProjectTable(DgvProjects)
             SelectProjectInList(DgvProjects, _project.ProjectId)
@@ -341,6 +343,10 @@ Public Class FrmProject
             Dim _previousProject As Project = _selectedProject
             Dim _newProject As Project = BuildProjectFromForm(_selectedProject)
             If IsValidProject() Then
+                Dim iFabricWidthChange As Integer = _newProject.FabricWidth - _previousProject.FabricWidth
+                Dim iFabricHeightChange As Integer = _newProject.FabricHeight - _previousProject.FabricHeight
+                _newProject.OriginX += iFabricWidthChange
+                _newProject.OriginY += iFabricHeightChange
                 If AmendProject(_newProject) Then
                     '                    SaveDesign()
                     LoadProjectTable(DgvProjects)

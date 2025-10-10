@@ -637,10 +637,24 @@ Public Class FrmStitchDesign
         BeginZoom()
     End Sub
     Private Sub MnuCropDesign_Click(sender As Object, e As EventArgs) Handles MnuCropDesign.Click
-
+        Using _designSize As New FrmDesignSize
+            _designSize.Project = oProject
+            _designSize.ProjectDesign = oProjectDesign
+            _designSize.IsExtend = False
+            _designSize.ShowDialog()
+            If _designSize.IsChanged = True Then
+                RedrawDesign(False)
+                isSaved = False
+            End If
+        End Using
     End Sub
     Private Sub MnuExtendDesign_Click(sender As Object, e As EventArgs) Handles MnuExtendDesign.Click
-
+        Using _designSize As New FrmDesignSize
+            _designSize.Project = oProject
+            _designSize.ProjectDesign = oProjectDesign
+            _designSize.IsExtend = True
+            _designSize.ShowDialog()
+        End Using
     End Sub
     Private Sub MnuShowDesignStats_Click(sender As Object, e As EventArgs)
 

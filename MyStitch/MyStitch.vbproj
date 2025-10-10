@@ -217,6 +217,12 @@
     </Compile>
     <Compile Include="Print\ModPrint.vb" />
     <Compile Include="Project Files\ModFileHandling.vb" />
+    <Compile Include="Design\FrmDesignSize.Designer.vb">
+      <DependentUpon>FrmDesignSize.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmDesignSize.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Project\FrmProject.Designer.vb">
       <DependentUpon>FrmProject.vb</DependentUpon>
     </Compile>
@@ -317,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmDesignInfo.resx">
       <DependentUpon>FrmDesignInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmDesignSize.resx">
+      <DependentUpon>FrmDesignSize.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmImportImage.resx">
       <DependentUpon>FrmImportImage.vb</DependentUpon>
