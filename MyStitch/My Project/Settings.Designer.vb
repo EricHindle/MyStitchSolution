@@ -1108,6 +1108,42 @@ Namespace My
                 Me("FileRetentionCopies") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property ShowBlkStInfo() As Boolean
+            Get
+                Return CType(Me("ShowBlkStInfo"),Boolean)
+            End Get
+            Set
+                Me("ShowBlkStInfo") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property ShowBkStInfo() As Boolean
+            Get
+                Return CType(Me("ShowBkStInfo"),Boolean)
+            End Get
+            Set
+                Me("ShowBkStInfo") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property ShowKnotInfo() As Boolean
+            Get
+                Return CType(Me("ShowKnotInfo"),Boolean)
+            End Get
+            Set
+                Me("ShowKnotInfo") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

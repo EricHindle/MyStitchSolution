@@ -643,6 +643,8 @@ Public Class FrmStitchDesign
             _designSize.IsExtend = False
             _designSize.ShowDialog()
             If _designSize.IsChanged = True Then
+                oProjectDesign.Rows = oProject.DesignHeight
+                oProjectDesign.Columns = oProject.DesignWidth
                 RedrawDesign(False)
                 isSaved = False
             End If

@@ -44,6 +44,7 @@ Public Class FrmDesignInfo
     Private iThreeQuarterCount As Integer
     Private iTotalBackStitchLength As Double
     Private FABRIC_COUNT As Integer
+    Private isComponentInitialized As Boolean = False
 #End Region
 #Region "control handlers"
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -66,8 +67,12 @@ Public Class FrmDesignInfo
 #Region "subroutines"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.DesignInfoFormPos)
+        isComponentInitialized = True
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         isShowStock = ChkShowStock.Checked
+        ChkShowBack.Checked = My.Settings.ShowBkStInfo
+        ChkShowBlock.Checked = My.Settings.ShowBlkStInfo
+        ChkShowKnots.Checked = My.Settings.ShowKnotInfo
         FABRIC_COUNT = My.Settings.DefaultFabricCount
         If _selectedProject.IsLoaded Then
             LoadProjectDetails()
@@ -245,6 +250,32 @@ Public Class FrmDesignInfo
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
         LoadThreadList()
+    End Sub
+
+    Private Sub ChkShowBlock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowBlock.CheckedChanged
+        SetPanelVisibility()
+    End Sub
+
+    Private Sub ChkShowBack_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowBack.CheckedChanged
+        SetPanelVisibility()
+    End Sub
+
+    Private Sub ChkShowKnots_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowKnots.CheckedChanged
+        SetPanelVisibility()
+    End Sub
+    Private Sub SetPanelVisibility()
+        Dim isHideBlock As Boolean = Not ChkShowBlock.Checked
+        Dim isHideBack As Boolean = Not ChkShowBack.Checked
+        Dim isHideKnot As Boolean = Not ChkShowKnots.Checked
+        My.Settings.ShowBkStInfo = ChkShowBack.Checked
+        My.Settings.ShowBlkStInfo = ChkShowBlock.Checked
+        My.Settings.ShowKnotInfo = ChkShowKnots.Checked
+        My.Settings.Save()
+        SplitContainer1.Panel2Collapsed = isHideBlock AndAlso isHideBack AndAlso isHideKnot
+        SplitContainer2.Panel2Collapsed = isHideBack AndAlso isHideKnot
+        SplitContainer3.Panel2Collapsed = isHideKnot
+        SplitContainer2.Panel1Collapsed = isHideBlock
+        SplitContainer3.Panel1Collapsed = isHideBack
     End Sub
 #End Region
 End Class
