@@ -95,12 +95,12 @@ Public Class FrmStitchDesign
     Private oNearestBackstitches As New List(Of BackStitch)
     Private oSelectedBackstitchIndex As Integer
 
-    Dim _backstitchPen As New Pen(Brushes.Black)
+    Private _backstitchPen As New Pen(Brushes.Black)
 
-    Dim _fromCellLocation_x As Integer
-    Dim _fromCellLocation_y As Integer
-    Dim _toCellLocation_x As Integer
-    Dim _toCellLocation_y As Integer
+    Private _fromCellLocation_x As Integer
+    Private _fromCellLocation_y As Integer
+    Private _toCellLocation_x As Integer
+    Private _toCellLocation_y As Integer
 
     Private aTimer As System.Timers.Timer
     Private isThreadOn As Boolean
@@ -271,6 +271,7 @@ Public Class FrmStitchDesign
                                  DesignAction.Zoom,
                                  DesignAction.Rotate,
                                  DesignAction.DrawShape
+
                             StartSelection(_cell)
                     End Select
                 End If
@@ -637,25 +638,28 @@ Public Class FrmStitchDesign
         BeginZoom()
     End Sub
     Private Sub MnuCropDesign_Click(sender As Object, e As EventArgs) Handles MnuCropDesign.Click
-        Using _designSize As New FrmDesignSize
-            _designSize.Project = oProject
-            _designSize.ProjectDesign = oProjectDesign
-            _designSize.IsExtend = False
-            _designSize.ShowDialog()
-            If _designSize.IsChanged = True Then
-                oProjectDesign.Rows = oProject.DesignHeight
-                oProjectDesign.Columns = oProject.DesignWidth
-                RedrawDesign(False)
-                isSaved = False
-            End If
-        End Using
+        ShowDesignSizeForm(False)
     End Sub
     Private Sub MnuExtendDesign_Click(sender As Object, e As EventArgs) Handles MnuExtendDesign.Click
+        ShowDesignSizeForm(True)
+    End Sub
+    Private Sub ShowDesignSizeForm(pIsExtend)
         Using _designSize As New FrmDesignSize
             _designSize.Project = oProject
             _designSize.ProjectDesign = oProjectDesign
-            _designSize.IsExtend = True
+            _designSize.IsExtend = pIsExtend
             _designSize.ShowDialog()
+            If _designSize.IsChanged = True Then
+                AmendProject(oProject)
+                LblStatus.Text = SaveDesign()
+                iOriginX = oProject.OriginX
+                iOriginY = oProject.OriginY
+                oUndoList = New List(Of List(Of StitchAction))
+                oRedoList = New List(Of List(Of StitchAction))
+                BtnUndo.Enabled = False
+                BtnRedo.Enabled = False
+                RedrawDesign(False)
+            End If
         End Using
     End Sub
     Private Sub MnuShowDesignStats_Click(sender As Object, e As EventArgs)
@@ -988,6 +992,8 @@ Public Class FrmStitchDesign
         Refresh()
         LoadSettings(Me)
         oProject = FindProjectById(oProjectId)
+        iOriginX = oProject.OriginX
+        iOriginY = oProject.OriginY
         oCurrentUndoList = New List(Of StitchAction)
         oUndoList = New List(Of List(Of StitchAction))
         oRedoList = New List(Of List(Of StitchAction))
@@ -1261,7 +1267,8 @@ Public Class FrmStitchDesign
         x = Math.Min(x, oProjectDesign.Columns - 1)
         y = Math.Min(y, oProjectDesign.Rows - 1)
         oInProgressAnchor = pCell.Position
-        oInProgressTerminus = New Point(x, y)
+        oInProgressTerminus = New Point(x + 1, y + 1)
+        '   oInProgressTerminus = pCell.Position
         isSelectionInProgress = True
         SelectionMessage("Selection in progress")
     End Sub
@@ -1279,8 +1286,8 @@ Public Class FrmStitchDesign
     Private Sub SetPasteDestination(e As MouseEventArgs, pCell As Cell)
         oPasteDestination = pCell.Position
         SelectionMessage("Select destination for " & oCurrentAction.ToString, 1)
-        If oPasteDestination.X >= 0 AndAlso oPasteDestination.Y >= 0 AndAlso
-            oPasteDestination.X < oProject.DesignWidth AndAlso oPasteDestination.Y < oProject.DesignHeight Then
+        If oPasteDestination.X - iOriginX >= 0 AndAlso oPasteDestination.Y - iOriginY >= 0 AndAlso
+            oPasteDestination.X - iOriginX < oProject.DesignWidth AndAlso oPasteDestination.Y - iOriginY < oProject.DesignHeight Then
             Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
             Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
             If oCurrentAction = DesignAction.Rotate Then
@@ -1298,10 +1305,10 @@ Public Class FrmStitchDesign
                     oSelectionPenWidth = oSelectionPenDefaultWidth
                 End If
                 oSelectionPen = New Pen(oSelectionPenColour, oSelectionPenWidth)
-                _fromCellLocation_x = (oPasteDestination.X + iXOffset - topcorner.X) * iPixelsPerCell
-                _fromCellLocation_y = (oPasteDestination.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-                _toCellLocation_x = (oPasteDestination.X + _width + iXOffset - topcorner.X) * iPixelsPerCell
-                _toCellLocation_y = (oPasteDestination.Y + _height + iYOffset - topcorner.Y) * iPixelsPerCell
+                _fromCellLocation_x = (oPasteDestination.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+                _fromCellLocation_y = (oPasteDestination.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
+                _toCellLocation_x = (oPasteDestination.X + iOriginX + _width + iXOffset - topcorner.X) * iPixelsPerCell
+                _toCellLocation_y = (oPasteDestination.Y + iOriginY + _height + iYOffset - topcorner.Y) * iPixelsPerCell
                 PicDesign.Invalidate()
             End If
         End If
@@ -1407,10 +1414,10 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Function AdjustCellOntoDesign(pCell As Cell) As Cell
-        Dim pos_x As Integer = Math.Max(pCell.Position.X, 0)
-        Dim pos_y As Integer = Math.Max(pCell.Position.Y, 0)
-        pos_x = Math.Min(pos_x, oProjectDesign.Columns)
-        pos_y = Math.Min(pos_y, oProjectDesign.Rows)
+        Dim pos_x As Integer = Math.Max(pCell.Position.X, -iOriginX)
+        Dim pos_y As Integer = Math.Max(pCell.Position.Y, -iOriginY)
+        pos_x = Math.Min(pos_x, oProjectDesign.Columns - 1)
+        pos_y = Math.Min(pos_y, oProjectDesign.Rows - 1)
         Dim loc_x As Integer = (pos_x + iXOffset - topcorner.X) * iPixelsPerCell
         Dim loc_y As Integer = (pos_y + iYOffset - topcorner.Y) * iPixelsPerCell
         pCell.Position = New Point(pos_x, pos_y)
@@ -1457,10 +1464,10 @@ Public Class FrmStitchDesign
             oSelectionPenWidth = oSelectionPenDefaultWidth
         End If
         oSelectionPen = New Pen(oSelectionPenColour, oSelectionPenWidth)
-        _fromCellLocation_x = (oInProgressAnchor.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _fromCellLocation_y = (oInProgressAnchor.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-        _toCellLocation_x = (oInProgressTerminus.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _toCellLocation_y = (oInProgressTerminus.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _fromCellLocation_x = (oInProgressAnchor.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oInProgressAnchor.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oInProgressTerminus.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oInProgressTerminus.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
         PicDesign.Invalidate()
     End Sub
     Private Sub GetSelectedCells()
@@ -1836,10 +1843,10 @@ Public Class FrmStitchDesign
             oStitchPenWidth = oBackstitchPenDefaultWidth
         End If
         oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
-        _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-        _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iOriginX + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _bsPenColour As Color = If(pIsUseSelectColour, Color.Black, oBackstitchInProgress.ProjThread.Thread.Colour)
         _backstitchPen = New Pen(oBackstitchInProgress.ProjThread.Thread.Colour, oStitchPenWidth * oBackstitchInProgress.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
@@ -1939,8 +1946,8 @@ Public Class FrmStitchDesign
         RemoveBlockStitchFromImage(pBlockStitch, oDesignGraphics)
     End Sub
     Private Sub RemoveBlockStitchFromImage(pBlockStitch As BlockStitch, pDesignGraphics As Graphics)
-        Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
+        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _halfWidth As Integer = Math.Ceiling(iPixelsPerCell / 2)
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + _halfWidth, pY)
@@ -2129,10 +2136,10 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub OnTimedEvent()
         isThreadOn = Not isThreadOn
-        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
-        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iXOffset - topcorner.X) * iPixelsPerCell
-        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iYOffset - topcorner.Y) * iPixelsPerCell
+        _fromCellLocation_x = (oRemoveBackstitch.FromBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _fromCellLocation_y = (oRemoveBackstitch.FromBlockLocation.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
+        _toCellLocation_x = (oRemoveBackstitch.ToBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
+        _toCellLocation_y = (oRemoveBackstitch.ToBlockLocation.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _adjust As Integer = Math.Floor(iPixelsPerCell / 2)
         Select Case oRemoveBackstitch.FromBlockQuarter
             Case BlockQuarter.TopRight
@@ -2338,6 +2345,7 @@ Public Class FrmStitchDesign
     Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
         ToggleCentreMarks()
     End Sub
+
 #End Region
 #End Region
 End Class

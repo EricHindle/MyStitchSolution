@@ -4,10 +4,9 @@
 '
 ' Author Eric Hindle
 '
-Imports MyStitch.Domain.Objects
-Imports MyStitch.Domain
-Imports MyStitch.Domain.Builders
 Imports HindlewareLib.Logging
+Imports MyStitch.Domain
+Imports MyStitch.Domain.Objects
 Public Class FrmDesignSize
 #Region "properties"
     Private _isExtend As Boolean
@@ -81,7 +80,8 @@ Public Class FrmDesignSize
                 _project.FabricHeight += NudTop.Value + NudBottom.Value
                 _project.OriginX += NudLeft.Value
                 _project.OriginY += NudTop.Value
-                AmendProject(_project)
+                _projectDesign.Rows = oProject.DesignHeight
+                _projectDesign.Columns = oProject.DesignWidth
                 _isChanged = True
                 isOKToClose = True
             Else
@@ -95,8 +95,9 @@ Public Class FrmDesignSize
                     _project.FabricWidth -= (NudLeft.Value + NudRight.Value)
                     _project.DesignHeight -= (NudTop.Value + NudBottom.Value)
                     _project.FabricHeight -= (NudTop.Value + NudBottom.Value)
+                    _projectDesign.Rows = oProject.DesignHeight
+                    _projectDesign.Columns = oProject.DesignWidth
                     RemoveCellsFromDesign(_project, _projectDesign)
-                    AmendProject(_project)
                     _isChanged = True
                     isOKToClose = True
                 Else

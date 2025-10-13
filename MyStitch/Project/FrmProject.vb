@@ -111,14 +111,14 @@ Public Class FrmProject
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 _selectedProject = ModDataTableAdapter.FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
-                NudDesignHeight.Enabled = False
-                NudDesignWidth.Enabled = False
+                'NudDesignHeight.Enabled = False
+                'NudDesignWidth.Enabled = False
                 SetEnabledButtons(True)
                 AddInstruction(String.Empty)
             Else
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
-                NudDesignHeight.Enabled = True
-                NudDesignWidth.Enabled = True
+                'NudDesignHeight.Enabled = True
+                'NudDesignWidth.Enabled = True
                 oProjectDesign = New ProjectDesign
                 oProjectThreads = New ProjectThreadCollection
                 oDesignBitmap = New Bitmap(1, 1)
@@ -197,8 +197,8 @@ Public Class FrmProject
         Dim _row As DataGridViewRow = DgvProjects.Rows(e.RowIndex)
         Dim _projectId As Integer = _row.Cells(projectId.Name).Value
         _selectedProject = FindProjectById(_projectId)
-        NudDesignHeight.Enabled = False
-        NudDesignWidth.Enabled = False
+        'NudDesignHeight.Enabled = False
+        'NudDesignWidth.Enabled = False
         OpenProjectDesign()
     End Sub
     Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuFullThreadList.Click
@@ -433,6 +433,8 @@ Public Class FrmProject
             End Using
             _selectedProject = FindProjectById(_selectedProject.ProjectId)
             UpdateProjectTime()
+            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
+            LoadProjectForm(_selectedProject)
             AddInstruction(String.Empty)
         Else
             AddInstruction(NO_PROJECT_SELECTED, True)

@@ -94,6 +94,10 @@ Module ModDesign
     Friend oProjectThreads As ProjectThreadCollection
     Friend iXOffset As Integer
     Friend iYOffset As Integer
+
+    Friend iOriginX As Integer
+    Friend iOriginY As Integer
+
     Friend iPixelsPerCell As Integer
     Friend topcorner As New Point(0, 0)
     Friend dMagnification As Decimal = 1
@@ -198,10 +202,10 @@ Module ModDesign
         pIsPaletteChanged = CheckPalette()
         DetermineUsedThreads()
         pProjectDesign.ProjectId = pProject.ProjectId
-        If Not pProjectDesign.IsLoaded Then
-            pProjectDesign.Rows = pProject.DesignHeight
+        '     If Not pProjectDesign.IsLoaded Then
+        pProjectDesign.Rows = pProject.DesignHeight
             pProjectDesign.Columns = pProject.DesignWidth
-        End If
+        '     End If
         SetInitialMagnification(pPictureBox)
         oGrid1width = My.Settings.Grid1Thickness
         oGrid5width = My.Settings.Grid5Thickness
@@ -395,8 +399,8 @@ Module ModDesign
     End Sub
     Public Sub DrawFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
+        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + iPixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + iPixelsPerCell)
@@ -431,8 +435,8 @@ Module ModDesign
     End Sub
     Public Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean, ByRef pDesignGraphics As Graphics)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockStitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockStitch.BlockPosition.Y * iPixelsPerCell
+        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + iPixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + iPixelsPerCell)
@@ -457,8 +461,8 @@ Module ModDesign
 
     Public Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
         Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
-        Dim pX As Integer = pBlockstitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockstitch.BlockPosition.Y * iPixelsPerCell
+        Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockstitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + iPixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + iPixelsPerCell)
@@ -501,8 +505,8 @@ Module ModDesign
         DrawQuarterBlockStitch(pBlockstitch, oDesignGraphics)
     End Sub
     Public Sub DrawQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
-        Dim pX As Integer = pBlockstitch.BlockPosition.X * iPixelsPerCell
-        Dim pY As Integer = pBlockstitch.BlockPosition.Y * iPixelsPerCell
+        Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockstitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + iPixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + iPixelsPerCell)
@@ -541,10 +545,10 @@ Module ModDesign
         Else
             oStitchPenWidth = oBackstitchPenDefaultWidth
         End If
-        Dim _fromCellLocation_x As Integer = (pBackstitch.FromBlockPosition.X * iPixelsPerCell)
-        Dim _fromCellLocation_y As Integer = (pBackstitch.FromBlockPosition.Y * iPixelsPerCell)
-        Dim _toCellLocation_x As Integer = (pBackstitch.ToBlockPosition.X * iPixelsPerCell)
-        Dim _toCellLocation_y As Integer = (pBackstitch.ToBlockPosition.Y * iPixelsPerCell)
+        Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + iOriginX) * iPixelsPerCell)
+        Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + iOriginY) * iPixelsPerCell)
+        Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X + iOriginX) * iPixelsPerCell)
+        Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y + iOriginY) * iPixelsPerCell)
         Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -576,8 +580,8 @@ Module ModDesign
         DrawKnot(pKnot, oDesignGraphics, isRemove)
     End Sub
     Public Sub DrawKnot(pKnot As Knot, pDesignGraphics As Graphics, isRemove As Boolean)
-        Dim _knotlocation_x As Integer = (pKnot.BlockPosition.X * iPixelsPerCell) - (iPixelsPerCell / 4)
-        Dim _knotlocation_y As Integer = (pKnot.BlockPosition.Y * iPixelsPerCell) - (iPixelsPerCell / 4)
+        Dim _knotlocation_x As Integer = ((pKnot.BlockPosition.X + iOriginX) * iPixelsPerCell) - (iPixelsPerCell / 4)
+        Dim _knotlocation_y As Integer = ((pKnot.BlockPosition.Y + iOriginY) * iPixelsPerCell) - (iPixelsPerCell / 4)
         Select Case pKnot.BlockQuarter
             Case BlockQuarter.BottomLeft
                 _knotlocation_y += iPixelsPerCell / 2
@@ -653,8 +657,10 @@ Module ModDesign
     End Sub
     Public Function FindCellFromClickLocation(e As MouseEventArgs) As Cell
         Dim pCellBuilder As CellBuilder = CellBuilder.ACell.StartingWithNothing
-        Dim pos_x As Integer = Math.Floor(e.X / iPixelsPerCell) - iXOffset + topcorner.X
-        Dim pos_y As Integer = Math.Floor(e.Y / iPixelsPerCell) - iYOffset + topcorner.Y
+        'pos = cell index
+        'loc = cell physical position
+        Dim pos_x As Integer = Math.Floor(e.X / iPixelsPerCell) - iXOffset + topcorner.X - iOriginX
+        Dim pos_y As Integer = Math.Floor(e.Y / iPixelsPerCell) - iYOffset + topcorner.Y - iOriginY
         Dim loc_x As Integer = (pos_x) * iPixelsPerCell
         Dim loc_y As Integer = (pos_y) * iPixelsPerCell
 
