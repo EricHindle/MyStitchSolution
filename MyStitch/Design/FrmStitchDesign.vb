@@ -1295,8 +1295,8 @@ Public Class FrmStitchDesign
     Private Sub SetPasteDestination(e As MouseEventArgs, pCell As Cell)
         oPasteDestination = pCell.Position
         SelectionMessage("Select destination for " & oCurrentAction.ToString, 1)
-        If oPasteDestination.X - iOriginX >= 0 AndAlso oPasteDestination.Y - iOriginY >= 0 AndAlso
-            oPasteDestination.X - iOriginX < oProject.DesignWidth AndAlso oPasteDestination.Y - iOriginY < oProject.DesignHeight Then
+        If oPasteDestination.X + iOriginX >= 0 AndAlso oPasteDestination.Y + iOriginY >= 0 AndAlso
+            oPasteDestination.X + iOriginX < oProject.DesignWidth AndAlso oPasteDestination.Y + iOriginY < oProject.DesignHeight Then
             Dim _width As Integer = oInProgressTerminus.X - oInProgressAnchor.X - 1
             Dim _height As Integer = oInProgressTerminus.Y - oInProgressAnchor.Y - 1
             If oCurrentAction = DesignAction.Rotate Then
@@ -2361,7 +2361,6 @@ Public Class FrmStitchDesign
     Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
         ToggleCentreMarks()
     End Sub
-
 #End Region
 #End Region
 End Class
