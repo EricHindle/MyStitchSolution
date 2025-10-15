@@ -107,6 +107,14 @@ Module ModCommon
     End Function
     Public Sub KeyHandler(ByRef _form As Form, pFormType As FormType, ByRef e As System.Windows.Forms.KeyEventArgs)
         ' Handle key events for the form
+        Dim _designForm As FrmStitchDesign = Nothing
+        '      Dim _projectForm As FrmProject = Nothing
+        Select Case pFormType
+            Case FormType.Design
+                _designForm = TryCast(_form, FrmStitchDesign)
+            Case FormType.Project
+                '            _projectForm = TryCast(_form, FrmProject)
+        End Select
         If e.Control Then
             ' Handle control key combinations
             Dim _hotkey As Keys = e.KeyCode
@@ -162,6 +170,16 @@ Module ModCommon
                         Using _import As New FrmImportImage
                             _import.ShowDialog()
                         End Using
+                        e.Handled = True
+                    End If
+                Case Keys.Add
+                    If pFormType = FormType.Design Then
+                        _designForm.IncreaseMagnification()
+                        e.Handled = True
+                    End If
+                Case Keys.Subtract
+                    If pFormType = FormType.Design Then
+                        _designForm.DecreaseMagnification()
                         e.Handled = True
                     End If
             End Select
