@@ -19,6 +19,8 @@ Module ModDesign
     Public oGridColourList As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
     Public oCentreColourList As List(Of Color) = {Color.Red, Color.Green, Color.Blue, Color.Black}.ToList
     Public Const PIXELS_PER_CELL As Integer = 8
+    Public Const PRINT_PIXELS_PER_CELL As Integer = 64
+
     Public Const MAGNIFICATION_STEP As Decimal = 1.3
     Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0)
     Public PALETTE_COLOUR_SIZE As Integer = 55

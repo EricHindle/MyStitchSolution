@@ -742,6 +742,10 @@ Public Class FrmStitchDesign
     Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
         OpenPrintCardsForm()
     End Sub
+    Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
+        ToggleCentreMarks()
+    End Sub
+
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -1352,7 +1356,6 @@ Public Class FrmStitchDesign
                 ClearSelection()
         End Select
     End Sub
-
     Private Sub PlaceShape(oCurrentShapeType As ShapeType, oInProgressAnchor As Point, oInProgressTerminus As Point)
         Dim _tempBitmap As New Bitmap(oCurrentSelection(1).X - oCurrentSelection(0).X, oCurrentSelection(1).Y - oCurrentSelection(0).Y)
         Using _graphics As Graphics = Graphics.FromImage(_tempBitmap)
@@ -1377,7 +1380,6 @@ Public Class FrmStitchDesign
         End Using
         PicDesign.Invalidate()
     End Sub
-
     Private Sub EndCopySelection(pCell As Cell)
         pCell = AdjustCellOntoDesign(pCell)
         oInProgressTerminus = pCell.Position
@@ -2356,10 +2358,6 @@ Public Class FrmStitchDesign
             _newList.Add(New StitchAction(_action.Stitch, _action.DoneAction, _action.NewThread))
         Next
         oUndoList.Add(_newList)
-    End Sub
-
-    Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
-        ToggleCentreMarks()
     End Sub
 #End Region
 #End Region

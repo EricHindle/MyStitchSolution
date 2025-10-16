@@ -261,7 +261,7 @@ Partial Class FrmPrintProject
         'NudSqrPerInch
         '
         Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 163)
-        Me.NudSqrPerInch.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.NudSqrPerInch.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudSqrPerInch.Name = "NudSqrPerInch"
         Me.NudSqrPerInch.Size = New System.Drawing.Size(62, 22)
         Me.NudSqrPerInch.TabIndex = 6

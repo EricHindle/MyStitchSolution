@@ -54,6 +54,7 @@ Public Class FrmProject
     End Sub
     Private Sub SetEnabledButtons(pIsEnabled)
         PnlButtons.Enabled = pIsEnabled
+        BtnProjectThreads.Enabled = pIsEnabled
     End Sub
     Private Sub InitialiseProjects()
         isLoading = True

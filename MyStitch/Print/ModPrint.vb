@@ -39,14 +39,18 @@ Module ModPrint
     Friend Sub CalculateMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * DPI
         oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * DPI
-        oLeftMargin = Math.Max(pLeftMargin * DPI, oPrinterHardMarginX)
-        oRightMargin = Math.Max(pRightMargin * DPI, oPrinterHardMarginX)
-        oTopMargin = Math.Max(pTopMargin * DPI, oPrinterHardMarginY)
-        oBottomMargin = Math.Max(pBottomMargin * DPI, oPrinterHardMarginY)
+        Dim _leftmargin As Integer = pLeftMargin * DPI
+        Dim _rightmargin As Integer = pRightMargin * DPI
+        Dim _topmargin As Integer = pTopMargin * DPI
+        Dim _bottommargin As Integer = pBottomMargin * DPI
+        oLeftMargin = If(_leftmargin > oPrinterHardMarginX, _leftmargin - oPrinterHardMarginX, 0)
+        oRightMargin = If(_rightmargin > oPrinterHardMarginX, _rightmargin - oPrinterHardMarginX, 0)
+        oTopMargin = If(_topmargin > oPrinterHardMarginY, _topmargin - oPrinterHardMarginY, 0)
+        oBottomMargin = If(_bottommargin > oPrinterHardMarginY, _bottommargin - oPrinterHardMarginY, 0)
     End Sub
     Friend Sub CalculateGridSpace(pCellsPerInch)
-        oAvailableGridWidth = A4_WIDTH - oLeftMargin - oRightMargin
-        oAvailableGridHeight = A4_HEIGHT - oTopMargin - oBottomMargin
+        oAvailableGridWidth = A4_WIDTH - oLeftMargin - oRightMargin - (2 * oPrinterHardMarginX)
+        oAvailableGridHeight = A4_HEIGHT - oTopMargin - oBottomMargin - (2 * oPrinterHardMarginY)
         Dim _widthInches As Decimal = oAvailableGridWidth / DPI
         Dim _heightInches As Decimal = oAvailableGridHeight / DPI
         oAvailableCellsWidth = _widthInches * pCellsPerInch
