@@ -1144,6 +1144,42 @@ Namespace My
                 Me("ShowKnotInfo") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Century Gothic, 12pt, style=Bold")>  _
+        Public Property PrintTitleFont() As Global.System.Drawing.Font
+            Get
+                Return CType(Me("PrintTitleFont"),Global.System.Drawing.Font)
+            End Get
+            Set
+                Me("PrintTitleFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Century Gothic, 10pt")>  _
+        Public Property PrintTextFont() As Global.System.Drawing.Font
+            Get
+                Return CType(Me("PrintTextFont"),Global.System.Drawing.Font)
+            End Get
+            Set
+                Me("PrintTextFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Century Gothic, 9pt")>  _
+        Public Property PrintFooterFont() As Global.System.Drawing.Font
+            Get
+                Return CType(Me("PrintFooterFont"),Global.System.Drawing.Font)
+            End Get
+            Set
+                Me("PrintFooterFont") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

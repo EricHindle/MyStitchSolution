@@ -280,5 +280,14 @@
     <Setting Name="ShowKnotInfo" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="PrintTitleFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Century Gothic, 12pt, style=Bold</Value>
+    </Setting>
+    <Setting Name="PrintTextFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Century Gothic, 10pt</Value>
+    </Setting>
+    <Setting Name="PrintFooterFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Century Gothic, 9pt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -8,6 +8,7 @@
 Imports HindlewareLib.Logging
 
 Public Class FrmPrintOptions
+#Region "form control handlers"
     Private Sub FrmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         LogUtil.Info("Loading Print Options", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintOptionsFormPos)
@@ -26,6 +27,23 @@ Public Class FrmPrintOptions
         My.Settings.PrintOptionsFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
+    Private Sub BtnTitleFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click
+        FontDialog1.Font = BtnTitleFont.Font
+        FontDialog1.ShowDialog()
+        BtnTitleFont.Font = FontDialog1.Font
+    End Sub
+    Private Sub BtnTextFont_Click(sender As Object, e As EventArgs) Handles BtnTextFont.Click
+        FontDialog1.Font = BtnTextFont.Font
+        FontDialog1.ShowDialog()
+        BtnTextFont.Font = FontDialog1.Font
+    End Sub
+    Private Sub BtnFooterFont_Click(sender As Object, e As EventArgs) Handles BtnFooterFont.Click
+        FontDialog1.Font = BtnFooterFont.Font
+        FontDialog1.ShowDialog()
+        BtnFooterFont.Font = FontDialog1.Font
+    End Sub
+#End Region
+#Region "subroutines"
     Private Sub SaveOptions()
         My.Settings.AbbrevKey = CbAbbrKey.SelectedIndex
         My.Settings.CopyrightBy = TxtCopyright.Text
@@ -45,9 +63,11 @@ Public Class FrmPrintOptions
         My.Settings.isTitleAboveKey = ChkTitleAboveKey.Checked
         My.Settings.PrintGrid = ChkPrintGrid.Checked
         My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
+        My.Settings.PrintFooterFont = BtnFooterFont.Font
+        My.Settings.PrintTextFont = BtnTextFont.Font
+        My.Settings.PrintTitleFont = BtnTitleFont.Font
         My.Settings.Save()
     End Sub
-
     Private Sub SetLineColour(pPic As PictureBox, pComboBox As ComboBox, pColourSetting As Integer)
         pPic.BackColor = GetColourFromProject(pColourSetting, oGridColourList)
         Select Case pColourSetting
@@ -76,5 +96,9 @@ Public Class FrmPrintOptions
         TxtDesignBy.Text = My.Settings.DesignBy
         ChkPrintGrid.Checked = My.Settings.PrintGrid
         ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
+        BtnTitleFont.Font = My.Settings.PrintTitleFont
+        BtnTextFont.Font = My.Settings.PrintTextFont
+        BtnFooterFont.Font = My.Settings.PrintFooterFont
     End Sub
+#End Region
 End Class

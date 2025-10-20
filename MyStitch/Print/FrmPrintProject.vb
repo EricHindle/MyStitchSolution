@@ -126,7 +126,6 @@ Public Class FrmPrintProject
 #End Region
 #Region "variables"
     Private isComponentInitialised As Boolean
-    Private oPageToFormRatio As Decimal
 
     Private gap As Integer
     Private _printBorderPen As New Pen(Brushes.Black, 2)
@@ -136,7 +135,7 @@ Public Class FrmPrintProject
     Private isPagesLoaded As Boolean = False
     'Private myPageSetUp As PageSetupDialog
     'Private myStringFormat As StringFormat
-    'Private myFont As Font
+
 
     'Private oSourceImage As Image
 
@@ -144,10 +143,11 @@ Public Class FrmPrintProject
     Private oPrintGraphics As Graphics
     Private oPageList As List(Of Page)
     Private oSelectedPage As New Page
+    Private oTextBrush As Brush = Brushes.Black
     'Private isPrintGrid As Boolean
     'Private isPrintCentreLines As Boolean
     Friend oPrintGrid1width As Integer = 1
-    Friend oPrintGrid1Brush As Brush = Brushes.Black
+    Friend oPrintGrid1Brush As Brush = Brushes.DarkGray
     Friend oPrintGrid1Pen = New Pen(oPrintGrid1Brush, oPrintGrid1width)
     Friend oPrintGrid5width As Integer = 1
     Friend oPrintGrid5Brush As Brush = Brushes.Black
@@ -172,27 +172,26 @@ Public Class FrmPrintProject
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
-    Private Sub CmbInstalledPrinters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbInstalledPrinters.SelectedIndexChanged
-        If Not isPrintLoading AndAlso oPrintDoc IsNot Nothing Then
-            oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
-        End If
-    End Sub
-    Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
-        oPagePixelsPerCell = Math.Floor((DPI / NudSqrPerInch.Value) / oPageToFormRatio)
-        CreatePageGraphics(oSelectedPage, e.Graphics, PicDesign.Size)
 
-        'Try
-        '    Dim x As Integer = Math.Floor((oLeftMargin + oPrinterHardMarginX) / PageToFormRatio)
-        '    Dim y As Integer = Math.Floor((oTopMargin + oPrinterHardMarginY) / PageToFormRatio)
-        '    Dim w As Integer = Math.Floor(oPageImage.Width / PageToFormRatio)
-        '    Dim h As Integer = Math.Floor(oPageImage.Height / PageToFormRatio)
-        '    Dim w2 As Integer = Math.Floor(oAvailableGridWidth / PageToFormRatio)
-        '    Dim h2 As Integer = Math.Floor(oAvailableGridHeight / PageToFormRatio)
-        '    oFormImage = New Bitmap(New ImageUtil().ExtractCroppedAreaFromImage(oPageImage, oAvailableCellsWidth * oPagePixelsPerCell, oAvailableCellsHeight * oPagePixelsPerCell, 0, 0), w2, h2)
-        '    e.Graphics.DrawImage(oFormImage, x, y, New Rectangle(0, 0, w2, h2), GraphicsUnit.Pixel)
-        'Catch ex As ApplicationException
-        '    LogUtil.ShowException(ex, "DisplayImage", LblStatus, MyBase.Name)
-        'End Try
+    Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
+        oFormPixelsPerCell = oPrintPixelsPerCell / oPageToFormRatio
+        Dim oFormTitleFont As New Font(oTitlefont, oTitlefont.Size / oPageToFormRatio)
+        CreatePageGraphics(oSelectedPage, e.Graphics, PicDesign.Size, oFormPixelsPerCell, oformtitlefont)
+    End Sub
+    Private Sub BtnTitleFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click
+        FontDialog1.Font = BtnTitleFont.Font
+        FontDialog1.ShowDialog()
+        BtnTitleFont.Font = FontDialog1.Font
+    End Sub
+    Private Sub BtnTextFont_Click(sender As Object, e As EventArgs) Handles BtnTextFont.Click
+        FontDialog1.Font = BtnTextFont.Font
+        FontDialog1.ShowDialog()
+        BtnTextFont.Font = FontDialog1.Font
+    End Sub
+    Private Sub BtnFooterFont_Click(sender As Object, e As EventArgs) Handles BtnFooterFont.Click
+        FontDialog1.Font = BtnFooterFont.Font
+        FontDialog1.ShowDialog()
+        BtnFooterFont.Font = FontDialog1.Font
     End Sub
 #End Region
 #Region "subroutines"
@@ -200,20 +199,18 @@ Public Class FrmPrintProject
         isComponentInitialised = True
         isPrintLoading = True
         oPageToFormRatio = Math.Ceiling(A4_WIDTH / PicDesign.Width)
-        InitialisePrintDocument()
         LoadInstalledPrinters()
-        ' Set handler to print image 
-        AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
+        InitialisePrintDocument()
         LoadFormFromSettings()
+        TxtTitle.Text = oProject.ProjectName
         isPrintLoading = False
-        LoadFormFromProject()
+        LoadFormPages()
     End Sub
     Private Sub OnPrintImage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
         Dim targetWidth As Integer = Math.Min(oAvailableGridWidth, oPrintBitmap.Width) - oLeftMargin
         Dim targetHeight As Integer = Math.Min(oAvailableGridHeight, oPrintBitmap.Height) - oTopMargin
 
         Dim _croppedImage As Image = New ImageUtil().ExtractCroppedAreaFromImage(oPrintBitmap, targetWidth, targetHeight, oLeftMargin, oTopMargin)
-        PicTest.Image = _croppedImage
         ' Print the image, cutting off the left and top parts that the printer cannot print
         ' e.Graphics.DrawImage(_croppedImage, 0, 0, New Rectangle(oLeftMargin, oTopMargin, targetWidth, targetHeight), GraphicsUnit.Document)
         '   e.Graphics.DrawImage(_croppedImage, 0, 0)
@@ -244,6 +241,10 @@ Public Class FrmPrintProject
         TxtCopyright.Text = My.Settings.CopyrightBy
         ChkPrintGrid.Checked = My.Settings.PrintGrid
         ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
+        BtnTitleFont.Font = My.Settings.PrintTitleFont
+        BtnTextFont.Font = My.Settings.PrintTextFont
+        BtnFooterFont.Font = My.Settings.PrintFooterFont
+
     End Sub
     Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
         My.Settings.isPrintKey = ChkPrintKey.Checked
@@ -264,21 +265,38 @@ Public Class FrmPrintProject
         My.Settings.CopyrightBy = TxtCopyright.Text
         My.Settings.PrintGrid = ChkPrintGrid.Checked
         My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
+        My.Settings.PrintTitleFont = BtnTitleFont.Font
+        My.Settings.PrintTextFont = BtnTextFont.Font
+        My.Settings.PrintFooterFont = BtnFooterFont.Font
         My.Settings.Save()
     End Sub
-    Private Sub LoadFormFromProject()
-        TxtTitle.Text = oProject.ProjectName
-        oPrintProjectThreads = FindProjectThreads(oProject.ProjectId)
-        CalculateMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
-        oPagePixelsPerCell = Math.Floor(DPI / NudSqrPerInch.Value)
-        CalculateGridSpace(NudSqrPerInch.Value)
+    Private Sub LoadFormPages()
+        isPagesLoaded = False
+        SetFonts()
+        SetPrintPageMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
+        SetFormPageMargins()
+        oPrintPixelsPerCell = Math.Floor(PRINT_DPI / NudSqrPerInch.Value)
+        CalculatePrintGridSpace(NudSqrPerInch.Value, oPrintPixelsPerCell)
         InitialisePageLists()
-        '    CreatePrintBitmaps()
-        'CreatePageImage()
+        isPagesLoaded = True
     End Sub
-    Private Sub CreatePageGraphics(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
+
+    Private Sub SetFonts()
+        oTitlefont = BtnTitleFont.Font
+        oTextfont = BtnTextFont.Font
+        oFooterfont = BtnFooterFont.Font
+    End Sub
+
+    Private Sub CreatePageGraphics(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size, pPixelsPerCell As Integer, pTitleFont As Font)
+        oPagePixelsPerCell = pPixelsPerCell
         gap = oPagePixelsPerCell
+        oLeftMargin = oFormLeftMargin
+        oRightMargin = oFormRightMargin
+        oTopMargin = oFormTopMargin
+        oBottomMargin = oFormBottomMargin
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oFormLeftMargin, oFormTopMargin))
+        oTopMargin += 20
         For Each _blockstitch In oProjectDesign.BlockStitches
             If _blockstitch.BlockPosition.X >= pPage.TopLeft.X _
             And _blockstitch.BlockPosition.X <= pPage.BottomRight.X _
@@ -558,6 +576,7 @@ Public Class FrmPrintProject
         pDesignGraphics.FillEllipse(_brush, _rect)
     End Sub
     Public Sub InitialisePageLists()
+        TabControl1.TabPages.Clear()
         oPageList = New List(Of Page)
         Dim _designMiddleColumn As Integer = Math.Floor(oProjectDesign.Columns / 2)
         Dim _designMiddleRow As Integer = Math.Floor(oProjectDesign.Rows / 2)
@@ -577,7 +596,7 @@ Public Class FrmPrintProject
                 _pageRows = Math.Min(oAvailableCellsHeight, _rowsLeft)
                 _rowsLeft -= oAvailableCellsHeight
             Else
-                Math.Min(oAvailableCellsHeight - _overlap, _rowsLeft)
+                _pageRows = Math.Min(oAvailableCellsHeight - _overlap, _rowsLeft)
                 _pageRows += _overlap
                 _rowsLeft -= oAvailableCellsHeight
                 _rowsLeft += _overlap
@@ -591,7 +610,7 @@ Public Class FrmPrintProject
                     _colsLeft -= oAvailableCellsWidth
                     _newPage.Borders(Borders.Left) = True
                 Else
-                    Math.Min(oAvailableCellsWidth - _overlap, _colsLeft)
+                    _pageColumns = Math.Min(oAvailableCellsWidth - _overlap, _colsLeft)
                     _pageColumns += _overlap
                     _colsLeft -= oAvailableCellsWidth
                     _colsLeft += _overlap
@@ -607,9 +626,7 @@ Public Class FrmPrintProject
                     _newPage.Borders(Borders.Bottom) = True
                 End If
                 _pagesTotal += 1
-                If _pagesTotal > 1 Then
-                    TabControl1.TabPages.Add("Page " & CStr(_pagesTotal))
-                End If
+                TabControl1.TabPages.Add("Page " & CStr(_pagesTotal))
                 _newPage.TopLeft = _pageTopLeft
                 _newPage.BottomRight = New Point(_pageTopLeft.X + _pageColumns, _pageTopLeft.Y + _pageRows)
                 Dim _page As Page = _newPage.Clone
@@ -626,7 +643,12 @@ Public Class FrmPrintProject
     Private Sub PrintGrid(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
         Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
-
+        Dim itop As Integer = 0
+        Dim ileft As Integer = 0
+        If pPage.TopLeft.Y > 0 Then Math.DivRem(CInt(pPage.TopLeft.Y - 1 - NudOverlap.Value), 10, itop)
+        If pPage.TopLeft.X > 0 Then Math.DivRem(CInt(pPage.TopLeft.X - 1 - NudOverlap.Value), 10, ileft)
+        itop = 10 - itop
+        ileft = 10 - ileft
         If ChkPrintGrid.Checked Then
             For x = 0 To _widthInColumns
                 pPageGraphics.DrawLine(oPrintGrid1Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
@@ -634,16 +656,16 @@ Public Class FrmPrintProject
             For y = 0 To _heightInRows
                 pPageGraphics.DrawLine(oPrintGrid1Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
-            For x = 5 To _widthInColumns Step 10
+            For x = 5 - ileft To _widthInColumns Step 10
                 pPageGraphics.DrawLine(oPrintGrid5Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
             Next
-            For y = 5 To _heightInRows Step 10
+            For y = 5 - itop To _heightInRows Step 10
                 pPageGraphics.DrawLine(oPrintGrid5Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
-            For x = 10 To _widthInColumns Step 10
+            For x = 10 - ileft To _widthInColumns Step 10
                 pPageGraphics.DrawLine(oPrintGrid10Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
             Next
-            For y = 10 To _heightInRows Step 10
+            For y = 10 - itop To _heightInRows Step 10
                 pPageGraphics.DrawLine(oPrintGrid10Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
         End If
@@ -719,11 +741,31 @@ Public Class FrmPrintProject
     Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
         DisplayPageImage()
     End Sub
-
     Private Sub DisplayPageImage()
         If isPagesLoaded Then
             oSelectedPage = oPageList(TabControl1.SelectedIndex)
             PicDesign.Invalidate()
+        End If
+    End Sub
+
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrintPage.Click
+        SetFonts()
+
+        oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
+        ' Set handler to print image 
+        AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
+    End Sub
+
+    Private Sub NudTopMargin_ValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
+                                                                                    NudBottomMargin.ValueChanged,
+                                                                                    NudLeftMargin.ValueChanged,
+                                                                                    NudRightMargin.ValueChanged,
+                                                                                    NudSqrPerInch.ValueChanged,
+                                                                                    ChkPrintGrid.CheckedChanged,
+                                                                                    NudOverlap.ValueChanged,
+                                                                                    TxtTitle.TextChanged
+        If isComponentInitialised And Not isPrintLoading Then
+            LoadFormPages()
         End If
     End Sub
 

@@ -56,7 +56,7 @@ Public Class FrmPrintThreadCards
     End Sub
     Private Sub InitialiseForm()
         sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
-        sourceBitmap.SetResolution(DPI, DPI)
+        sourceBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         leftmargin = oPrintDoc.DefaultPageSettings.HardMarginX * 3
         topmargin = oPrintDoc.DefaultPageSettings.HardMarginY * 3
         SetPictureWidth()
@@ -187,7 +187,7 @@ Public Class FrmPrintThreadCards
     Private Sub InitialiseImage(projectName As String)
         '   Dim _pen1 As New Pen(Brushes.Black, 1)
         sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
-        sourceBitmap.SetResolution(DPI, DPI)
+        sourceBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         _cardGraphics = Graphics.FromImage(sourceBitmap)
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
         ' Dim _projectNameFontSize As Integer = PROJECT_NAME_FONT_SIZE
@@ -251,7 +251,7 @@ Public Class FrmPrintThreadCards
             Dim _col As Integer = _nextCol
             _line_y = _topMargin + (HOLEPUNCH_HOLE_GAP * _row)
             _left_x = (oColWidth * _col) + HOLEPUNCH_HOLE_INSET + (HOLEPUNCH_HOLE_RADIUS * 5)
-            Dim _textheight As Integer = (THREAD_NUMBER_FONT_SIZE * DPI / PPI) * 1.2
+            Dim _textheight As Integer = (THREAD_NUMBER_FONT_SIZE * PRINT_DPI / PPI) * 1.2
             Dim _textwidth As Integer = _textheight * 2.5
             Dim _textbottom_y As Integer = _line_y - (_textheight / 2)
             Dim _textleft As Integer = _left_x + HOLEPUNCH_HOLE_RADIUS

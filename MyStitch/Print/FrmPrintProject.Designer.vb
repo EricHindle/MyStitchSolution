@@ -35,7 +35,7 @@ Partial Class FrmPrintProject
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.PicDesign = New System.Windows.Forms.PictureBox()
-        Me.BtnPrint = New System.Windows.Forms.Button()
+        Me.BtnPrintPage = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
@@ -79,9 +79,14 @@ Partial Class FrmPrintProject
         Me.TxtTitle = New System.Windows.Forms.TextBox()
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
         Me.PnlDesignPicture = New System.Windows.Forms.Panel()
-        Me.PicTest = New System.Windows.Forms.PictureBox()
         Me.CmbInstalledPrinters = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.BtnFooterFont = New System.Windows.Forms.Button()
+        Me.BtnTextFont = New System.Windows.Forms.Button()
+        Me.BtnTitleFont = New System.Windows.Forms.Button()
+        Me.FontDialog1 = New System.Windows.Forms.FontDialog()
+        Me.BtnPrintAll = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,16 +101,16 @@ Partial Class FrmPrintProject
         CType(Me.NudTopMargin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.PnlDesignPicture.SuspendLayout()
-        CType(Me.PicTest, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 641)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 675)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(1088, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(738, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -117,10 +122,12 @@ Partial Class FrmPrintProject
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(353, 12)
+        Me.TabControl1.Location = New System.Drawing.Point(353, 23)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.TabControl1.Multiline = True
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(376, 29)
+        Me.TabControl1.Size = New System.Drawing.Size(376, 51)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -128,7 +135,7 @@ Partial Class FrmPrintProject
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(368, 0)
+        Me.TabPage1.Size = New System.Drawing.Size(368, 22)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Page1"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -144,21 +151,21 @@ Partial Class FrmPrintProject
         Me.PicDesign.TabIndex = 0
         Me.PicDesign.TabStop = False
         '
-        'BtnPrint
+        'BtnPrintPage
         '
-        Me.BtnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnPrint.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(878, 590)
-        Me.BtnPrint.Margin = New System.Windows.Forms.Padding(5)
-        Me.BtnPrint.Name = "BtnPrint"
-        Me.BtnPrint.Size = New System.Drawing.Size(77, 46)
-        Me.BtnPrint.TabIndex = 7
-        Me.BtnPrint.Text = "Print"
-        Me.BtnPrint.UseVisualStyleBackColor = False
+        Me.BtnPrintPage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnPrintPage.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnPrintPage.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnPrintPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnPrintPage.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPrintPage.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnPrintPage.Location = New System.Drawing.Point(378, 620)
+        Me.BtnPrintPage.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnPrintPage.Name = "BtnPrintPage"
+        Me.BtnPrintPage.Size = New System.Drawing.Size(77, 46)
+        Me.BtnPrintPage.TabIndex = 7
+        Me.BtnPrintPage.Text = "Print Page"
+        Me.BtnPrintPage.UseVisualStyleBackColor = False
         '
         'BtnClose
         '
@@ -168,7 +175,7 @@ Partial Class FrmPrintProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(1003, 590)
+        Me.BtnClose.Location = New System.Drawing.Point(647, 620)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(77, 46)
@@ -598,10 +605,10 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveSettings.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveSettings.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveSettings.Location = New System.Drawing.Point(750, 590)
+        Me.BtnSaveSettings.Location = New System.Drawing.Point(121, 635)
         Me.BtnSaveSettings.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSaveSettings.Name = "BtnSaveSettings"
-        Me.BtnSaveSettings.Size = New System.Drawing.Size(77, 46)
+        Me.BtnSaveSettings.Size = New System.Drawing.Size(135, 35)
         Me.BtnSaveSettings.TabIndex = 6
         Me.BtnSaveSettings.Text = "Save Settings"
         Me.BtnSaveSettings.UseVisualStyleBackColor = False
@@ -609,29 +616,18 @@ Partial Class FrmPrintProject
         'PnlDesignPicture
         '
         Me.PnlDesignPicture.Controls.Add(Me.PicDesign)
-        Me.PnlDesignPicture.Location = New System.Drawing.Point(353, 47)
+        Me.PnlDesignPicture.Location = New System.Drawing.Point(353, 74)
+        Me.PnlDesignPicture.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.PnlDesignPicture.Name = "PnlDesignPicture"
         Me.PnlDesignPicture.Size = New System.Drawing.Size(376, 530)
         Me.PnlDesignPicture.TabIndex = 9
-        '
-        'PicTest
-        '
-        Me.PicTest.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PicTest.Location = New System.Drawing.Point(754, 12)
-        Me.PicTest.Name = "PicTest"
-        Me.PicTest.Size = New System.Drawing.Size(312, 565)
-        Me.PicTest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicTest.TabIndex = 10
-        Me.PicTest.TabStop = False
         '
         'CmbInstalledPrinters
         '
         Me.CmbInstalledPrinters.FormattingEnabled = True
         Me.CmbInstalledPrinters.Location = New System.Drawing.Point(12, 603)
         Me.CmbInstalledPrinters.Name = "CmbInstalledPrinters"
-        Me.CmbInstalledPrinters.Size = New System.Drawing.Size(340, 24)
+        Me.CmbInstalledPrinters.Size = New System.Drawing.Size(329, 24)
         Me.CmbInstalledPrinters.TabIndex = 11
         '
         'Label2
@@ -644,14 +640,80 @@ Partial Class FrmPrintProject
         Me.Label2.TabIndex = 12
         Me.Label2.Text = "Select printer"
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.BtnFooterFont)
+        Me.GroupBox4.Controls.Add(Me.BtnTextFont)
+        Me.GroupBox4.Controls.Add(Me.BtnTitleFont)
+        Me.GroupBox4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox4.Location = New System.Drawing.Point(198, 464)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(149, 133)
+        Me.GroupBox4.TabIndex = 14
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Fonts"
+        '
+        'BtnFooterFont
+        '
+        Me.BtnFooterFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BtnFooterFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnFooterFont.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnFooterFont.Location = New System.Drawing.Point(12, 95)
+        Me.BtnFooterFont.Name = "BtnFooterFont"
+        Me.BtnFooterFont.Size = New System.Drawing.Size(131, 28)
+        Me.BtnFooterFont.TabIndex = 18
+        Me.BtnFooterFont.Text = "Footer Font"
+        Me.BtnFooterFont.UseVisualStyleBackColor = False
+        '
+        'BtnTextFont
+        '
+        Me.BtnTextFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BtnTextFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnTextFont.Font = New System.Drawing.Font("Century Gothic", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnTextFont.Location = New System.Drawing.Point(12, 58)
+        Me.BtnTextFont.Name = "BtnTextFont"
+        Me.BtnTextFont.Size = New System.Drawing.Size(131, 28)
+        Me.BtnTextFont.TabIndex = 17
+        Me.BtnTextFont.Text = "Text Font"
+        Me.BtnTextFont.UseVisualStyleBackColor = False
+        '
+        'BtnTitleFont
+        '
+        Me.BtnTitleFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.BtnTitleFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnTitleFont.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnTitleFont.Location = New System.Drawing.Point(12, 21)
+        Me.BtnTitleFont.Name = "BtnTitleFont"
+        Me.BtnTitleFont.Size = New System.Drawing.Size(131, 28)
+        Me.BtnTitleFont.TabIndex = 16
+        Me.BtnTitleFont.Text = "Title Font"
+        Me.BtnTitleFont.UseVisualStyleBackColor = False
+        '
+        'BtnPrintAll
+        '
+        Me.BtnPrintAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnPrintAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnPrintAll.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnPrintAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnPrintAll.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPrintAll.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnPrintAll.Location = New System.Drawing.Point(503, 620)
+        Me.BtnPrintAll.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnPrintAll.Name = "BtnPrintAll"
+        Me.BtnPrintAll.Size = New System.Drawing.Size(77, 46)
+        Me.BtnPrintAll.TabIndex = 15
+        Me.BtnPrintAll.Text = "Print All"
+        Me.BtnPrintAll.UseVisualStyleBackColor = False
+        '
         'FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1088, 663)
+        Me.ClientSize = New System.Drawing.Size(738, 697)
+        Me.Controls.Add(Me.BtnPrintAll)
+        Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.CmbInstalledPrinters)
-        Me.Controls.Add(Me.PicTest)
         Me.Controls.Add(Me.PnlDesignPicture)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.BtnSaveSettings)
@@ -659,7 +721,7 @@ Partial Class FrmPrintProject
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.BtnPrint)
+        Me.Controls.Add(Me.BtnPrintPage)
         Me.Controls.Add(Me.BtnClose)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -688,7 +750,7 @@ Partial Class FrmPrintProject
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.PnlDesignPicture.ResumeLayout(False)
-        CType(Me.PicTest, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox4.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -697,7 +759,7 @@ Partial Class FrmPrintProject
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents LblStatus As ToolStripStatusLabel
     Friend WithEvents PicDesign As PictureBox
-    Friend WithEvents BtnPrint As Button
+    Friend WithEvents BtnPrintPage As Button
     Friend WithEvents BtnClose As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label1 As Label
@@ -743,7 +805,12 @@ Partial Class FrmPrintProject
     Friend WithEvents PnlDesignPicture As Panel
     Friend WithEvents ChkCentreMarks As CheckBox
     Friend WithEvents ChkPrintGrid As CheckBox
-    Friend WithEvents PicTest As PictureBox
     Friend WithEvents CmbInstalledPrinters As ComboBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents BtnTextFont As Button
+    Friend WithEvents BtnTitleFont As Button
+    Friend WithEvents BtnFooterFont As Button
+    Friend WithEvents FontDialog1 As FontDialog
+    Friend WithEvents BtnPrintAll As Button
 End Class
