@@ -29,7 +29,7 @@ Module ModProject
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
     Public isSaved As Boolean = True
-    Public isLoading As Boolean
+    Public isProjectLoading As Boolean
     Public oFileProject As Project
     Public oFileProjectDesign As ProjectDesign
     Public oFileProjectThreadCollection As ProjectThreadCollection
@@ -117,9 +117,9 @@ Module ModProject
         Next
     End Sub
     Public Sub LoadProjectTable(pDgv As DataGridView)
-        isLoading = True
+        isProjectLoading = True
         LoadProjectList(pDgv, MethodBase.GetCurrentMethod.Name)
-        isLoading = False
+        isProjectLoading = False
     End Sub
     Public Sub OpenProjectFromFile(_filename As String, pDgv As DataGridView, pStatus As ToolStripStatusLabel)
         ModProject.OpenProjectFile(_filename, pStatus)

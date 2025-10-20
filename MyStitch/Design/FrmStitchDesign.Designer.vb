@@ -157,11 +157,11 @@ Partial Class FrmStitchDesign
         Me.MnuBackStitches = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuKnots = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuCropDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuExtendDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuCropDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
+        Me.MnuExtendDesign = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -1129,7 +1129,7 @@ Partial Class FrmStitchDesign
         '
         'MnuDesign
         '
-        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuSaveDesign, Me.MnuSaveDesignAs, Me.ToolStripSeparator10, Me.MnuPrint, Me.ToolStripSeparator8, Me.MnuExit})
+        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuSaveDesign, Me.MnuSaveDesignAs, Me.ToolStripSeparator10, Me.MnuCropDesign, Me.MnuExtendDesign, Me.ToolStripSeparator17, Me.MnuPrint, Me.ToolStripSeparator8, Me.MnuExit})
         Me.MnuDesign.Name = "MnuDesign"
         Me.MnuDesign.Size = New System.Drawing.Size(55, 20)
         Me.MnuDesign.Text = "Design"
@@ -1485,10 +1485,22 @@ Partial Class FrmStitchDesign
         '
         'MnuTools
         '
-        Me.MnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuCropDesign, Me.MnuExtendDesign, Me.ToolStripSeparator13, Me.MnuOptions, Me.MnuShow})
+        Me.MnuTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOptions, Me.MnuShow})
         Me.MnuTools.Name = "MnuTools"
         Me.MnuTools.Size = New System.Drawing.Size(47, 20)
         Me.MnuTools.Text = "Tools"
+        '
+        'MnuOptions
+        '
+        Me.MnuOptions.Name = "MnuOptions"
+        Me.MnuOptions.Size = New System.Drawing.Size(180, 22)
+        Me.MnuOptions.Text = "Options"
+        '
+        'MnuShow
+        '
+        Me.MnuShow.Name = "MnuShow"
+        Me.MnuShow.Size = New System.Drawing.Size(180, 22)
+        Me.MnuShow.Text = "Info"
         '
         'MnuCropDesign
         '
@@ -1496,28 +1508,16 @@ Partial Class FrmStitchDesign
         Me.MnuCropDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuCropDesign.Text = "Crop Design"
         '
+        'ToolStripSeparator17
+        '
+        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(177, 6)
+        '
         'MnuExtendDesign
         '
         Me.MnuExtendDesign.Name = "MnuExtendDesign"
         Me.MnuExtendDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuExtendDesign.Text = "Extend Design"
-        '
-        'ToolStripSeparator13
-        '
-        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(113, 6)
-        '
-        'MnuOptions
-        '
-        Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(116, 22)
-        Me.MnuOptions.Text = "Options"
-        '
-        'MnuShow
-        '
-        Me.MnuShow.Name = "MnuShow"
-        Me.MnuShow.Size = New System.Drawing.Size(116, 22)
-        Me.MnuShow.Text = "Info"
         '
         'FrmStitchDesign
         '
@@ -1656,9 +1656,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuBackStitches As ToolStripMenuItem
     Friend WithEvents MnuKnots As ToolStripMenuItem
     Friend WithEvents MnuTools As ToolStripMenuItem
-    Friend WithEvents MnuCropDesign As ToolStripMenuItem
-    Friend WithEvents MnuExtendDesign As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator13 As ToolStripSeparator
     Friend WithEvents MnuOptions As ToolStripMenuItem
     Friend WithEvents LblStatus As Label
     Friend WithEvents PicCentreLines As PictureBox
@@ -1695,4 +1692,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents TxtPaletteName As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents MnuCentreMarks As ToolStripMenuItem
+    Friend WithEvents MnuCropDesign As ToolStripMenuItem
+    Friend WithEvents MnuExtendDesign As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
 End Class

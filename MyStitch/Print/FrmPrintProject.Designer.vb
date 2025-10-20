@@ -5,12 +5,12 @@
 ' Author Eric Hindle
 '
 
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmPrintProject
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -27,14 +27,13 @@ Partial Class FrmPrintProject
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPrintProject))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.PicDesign = New System.Windows.Forms.PictureBox()
         Me.BtnPrint = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
@@ -81,6 +80,8 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
         Me.PnlDesignPicture = New System.Windows.Forms.Panel()
         Me.PicTest = New System.Windows.Forms.PictureBox()
+        Me.CmbInstalledPrinters = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,7 +105,7 @@ Partial Class FrmPrintProject
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 641)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(1303, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1088, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -116,7 +117,6 @@ Partial Class FrmPrintProject
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(353, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -130,18 +130,8 @@ Partial Class FrmPrintProject
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(368, 0)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "TabPage1"
+        Me.TabPage1.Text = "Page1"
         Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(368, 0)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
         '
         'PicDesign
         '
@@ -162,7 +152,7 @@ Partial Class FrmPrintProject
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(1093, 590)
+        Me.BtnPrint.Location = New System.Drawing.Point(878, 590)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(77, 46)
@@ -178,7 +168,7 @@ Partial Class FrmPrintProject
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(1218, 590)
+        Me.BtnClose.Location = New System.Drawing.Point(1003, 590)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(77, 46)
@@ -608,7 +598,7 @@ Partial Class FrmPrintProject
         Me.BtnSaveSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveSettings.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveSettings.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveSettings.Location = New System.Drawing.Point(965, 590)
+        Me.BtnSaveSettings.Location = New System.Drawing.Point(750, 590)
         Me.BtnSaveSettings.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnSaveSettings.Name = "BtnSaveSettings"
         Me.BtnSaveSettings.Size = New System.Drawing.Size(77, 46)
@@ -631,16 +621,36 @@ Partial Class FrmPrintProject
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicTest.Location = New System.Drawing.Point(754, 12)
         Me.PicTest.Name = "PicTest"
-        Me.PicTest.Size = New System.Drawing.Size(527, 565)
+        Me.PicTest.Size = New System.Drawing.Size(312, 565)
         Me.PicTest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicTest.TabIndex = 10
         Me.PicTest.TabStop = False
+        '
+        'CmbInstalledPrinters
+        '
+        Me.CmbInstalledPrinters.FormattingEnabled = True
+        Me.CmbInstalledPrinters.Location = New System.Drawing.Point(12, 603)
+        Me.CmbInstalledPrinters.Name = "CmbInstalledPrinters"
+        Me.CmbInstalledPrinters.Size = New System.Drawing.Size(340, 24)
+        Me.CmbInstalledPrinters.TabIndex = 11
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(14, 586)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(81, 14)
+        Me.Label2.TabIndex = 12
+        Me.Label2.Text = "Select printer"
         '
         'FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1303, 663)
+        Me.ClientSize = New System.Drawing.Size(1088, 663)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.CmbInstalledPrinters)
         Me.Controls.Add(Me.PicTest)
         Me.Controls.Add(Me.PnlDesignPicture)
         Me.Controls.Add(Me.TabControl1)
@@ -730,9 +740,10 @@ Partial Class FrmPrintProject
     Friend WithEvents BtnSaveSettings As Button
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents PnlDesignPicture As Panel
     Friend WithEvents ChkCentreMarks As CheckBox
     Friend WithEvents ChkPrintGrid As CheckBox
     Friend WithEvents PicTest As PictureBox
+    Friend WithEvents CmbInstalledPrinters As ComboBox
+    Friend WithEvents Label2 As Label
 End Class

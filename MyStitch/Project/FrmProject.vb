@@ -57,7 +57,7 @@ Public Class FrmProject
         BtnProjectThreads.Enabled = pIsEnabled
     End Sub
     Private Sub InitialiseProjects()
-        isLoading = True
+        isProjectLoading = True
         Try
             LoadDataTables()
         Catch ex As ApplicationException
@@ -66,7 +66,7 @@ Public Class FrmProject
             Exit Sub
         End Try
         InitialiseForm()
-        isLoading = False
+        isProjectLoading = False
     End Sub
     Private Function CheckRunTimeParameters() As String
         Dim _params As String() = System.Environment.GetCommandLineArgs
@@ -108,7 +108,7 @@ Public Class FrmProject
         End If
     End Sub
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
-        If Not isLoading Then
+        If Not isProjectLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 _selectedProject = ModDataTableAdapter.FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
