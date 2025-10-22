@@ -42,7 +42,7 @@ Partial Class FrmPrintProject
         Me.ChkPrintGrid = New System.Windows.Forms.CheckBox()
         Me.LblPageCt = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.LblOnePage = New System.Windows.Forms.Label()
         Me.NudSqrPerInch = New System.Windows.Forms.NumericUpDown()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -142,7 +142,7 @@ Partial Class FrmPrintProject
         '
         'PicDesign
         '
-        Me.PicDesign.BackColor = System.Drawing.Color.White
+        Me.PicDesign.BackColor = System.Drawing.Color.Gray
         Me.PicDesign.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PicDesign.Location = New System.Drawing.Point(3, 4)
         Me.PicDesign.Margin = New System.Windows.Forms.Padding(4)
@@ -189,7 +189,7 @@ Partial Class FrmPrintProject
         Me.GroupBox1.Controls.Add(Me.ChkPrintGrid)
         Me.GroupBox1.Controls.Add(Me.LblPageCt)
         Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.LblOnePage)
         Me.GroupBox1.Controls.Add(Me.NudSqrPerInch)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
@@ -245,15 +245,15 @@ Partial Class FrmPrintProject
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "Number of pages:"
         '
-        'Label5
+        'LblOnePage
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(95, 190)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(105, 13)
-        Me.Label5.TabIndex = 14
-        Me.Label5.Text = "(fit to one page: nn)"
+        Me.LblOnePage.AutoSize = True
+        Me.LblOnePage.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOnePage.Location = New System.Drawing.Point(95, 190)
+        Me.LblOnePage.Name = "LblOnePage"
+        Me.LblOnePage.Size = New System.Drawing.Size(109, 13)
+        Me.LblOnePage.TabIndex = 14
+        Me.LblOnePage.Text = "(fit to one page: {0})"
         '
         'NudSqrPerInch
         '
@@ -771,7 +771,7 @@ Partial Class FrmPrintProject
     Friend WithEvents Label3 As Label
     Friend WithEvents LblPageCt As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
+    Friend WithEvents LblOnePage As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label

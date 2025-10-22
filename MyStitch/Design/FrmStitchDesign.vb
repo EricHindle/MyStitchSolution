@@ -1012,6 +1012,7 @@ Public Class FrmStitchDesign
         oRedoList = New List(Of List(Of StitchAction))
         BtnUndo.Enabled = False
         BtnRedo.Enabled = False
+        BtnPrint.Enabled = False
         oStitchDisplayStyle = My.Settings.DesignStitchDisplay
         SetIsGridOn()
         SetIsCentreOn()
@@ -1034,6 +1035,7 @@ Public Class FrmStitchDesign
             Close()
         End If
         PicDesign.Enabled = True
+        BtnPrint.Enabled = True
         InitialiseTimer()
         CalculateOffsetForCentre(oDesignBitmap)
         isLoading = False

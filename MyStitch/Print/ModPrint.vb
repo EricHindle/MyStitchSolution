@@ -11,7 +11,7 @@ Imports MyStitch.Domain.Objects
 Module ModPrint
 #Region "constants"
     Public Const PRINT_DPI As Integer = 300.0F
-    Public Const FONT_POINTS_PER_INCH As Integer = 72
+    '   Public Const FONT_POINTS_PER_INCH As Integer = 72
     Public Const A4_WIDTH As Integer = 2480
     Public Const A4_HEIGHT As Integer = 3508
 #End Region
@@ -42,6 +42,7 @@ Module ModPrint
     Friend oAvailablePixelHeight As Integer
     Friend oAvailableCellsWidth As Integer
     Friend oAvailableCellsHeight As Integer
+    Friend oOnePageSqPerInch As Integer
     Friend oTitleHeight As Integer
     Friend oFooterHeight As Integer
     Friend oPrintGridOrigin As Point
@@ -49,6 +50,9 @@ Module ModPrint
     Friend oTitlefont As Font
     Friend oTextfont As Font
     Friend oFooterfont As Font
+    Friend oFormTitleFont As Font
+    Friend oFormTextFont As Font
+    Friend oFormFooterFont As Font
     'Friend oPageImage As Bitmap
     'Friend oPageGraphics As Graphics
     'Friend oPicBoxGraphics As Graphics
@@ -60,10 +64,8 @@ Module ModPrint
 #Region "subroutines"
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         ' Set print margins in dots
-        Dim _titleFontInches As Decimal = oTitlefont.SizeInPoints / FONT_POINTS_PER_INCH
-        Dim _footerFontInches As Decimal = oTitlefont.SizeInPoints / FONT_POINTS_PER_INCH
-        oPageTitleHeight = CInt(_titleFontInches * PRINT_DPI)
-        oPageFooterHeight = CInt(_footerFontInches * PRINT_DPI)
+        oPageTitleHeight = oTitlefont.Height
+        oPageFooterHeight = oFooterfont.Height
         oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
         oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
         oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI, oPrinterHardMarginX)
@@ -73,21 +75,24 @@ Module ModPrint
     End Sub
     Friend Sub SetFormPageMargins()
         ' Set display margins in pixels
-        oFormTitleHeight = oPageTitleHeight / oPageToFormRatio
-        oFormFooterHeight = oPageFooterHeight / oPageToFormRatio
-        oFormLeftMargin = oLeftMargin / oPageToFormRatio
-        oFormRightMargin = oRightMargin / oPageToFormRatio
-        oFormTopMargin = oTopMargin / oPageToFormRatio
-        oFormBottomMargin = oBottomMargin / oPageToFormRatio
+        oFormTitleHeight = oFormTitleFont.Height
+        oFormFooterHeight = oFormFooterFont.Height
+        oFormLeftMargin = oPageLeftMargin / oPageToFormRatio
+        oFormRightMargin = oPageRightMargin / oPageToFormRatio
+        oFormTopMargin = oPageTopMargin / oPageToFormRatio
+        oFormBottomMargin = oPageBottomMargin / oPageToFormRatio
     End Sub
 
-    Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pPixelsPerCell As Integer)
+    Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pPixelsPerCell As Integer, pDesignSize As Size)
         oAvailablePixelWidth = A4_WIDTH - oPageLeftMargin - oPageRightMargin
         oAvailablePixelHeight = A4_HEIGHT - oPageTopMargin - oPageBottomMargin - oPageTitleHeight - oPageFooterHeight
         iPixelsPerCell = PRINT_DPI / pCellsPerInch
         oAvailableCellsWidth = oAvailablePixelWidth / pPixelsPerCell
         oAvailableCellsHeight = oAvailablePixelHeight / pPixelsPerCell
-        oPrintGridOrigin = New Point(oPageLeftMargin, oPageTopMargin)
+        oPrintGridOrigin = New Point(oPageLeftMargin, oPageTopMargin + oPageTitleHeight)
+        Dim dotspercell_w As Integer = Math.Floor(oAvailablePixelWidth / pDesignSize.Width)
+        Dim dotspercell_h As Integer = Math.Floor(oAvailablePixelHeight / pDesignSize.Height)
+        oOnePageSqPerInch = Math.Ceiling(PRINT_DPI / Math.Min(dotspercell_w, dotspercell_h))
     End Sub
     Friend Sub InitialisePrintDocument()
         Dim _paperKind As PaperKind = PaperKind.A4

@@ -18,6 +18,7 @@ Module ModDesign
     Public oFabricColourList As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
     Public oGridColourList As List(Of Color) = {Color.LightGray, Color.DarkGray, Color.DimGray, Color.Black}.ToList
     Public oCentreColourList As List(Of Color) = {Color.Red, Color.Green, Color.Blue, Color.Black}.ToList
+    Public oOverlapColourList As List(Of Color) = {Color.Gainsboro, Color.Silver, Color.Gray}.ToList
     Public Const PIXELS_PER_CELL As Integer = 8
     Public Const PRINT_PIXELS_PER_CELL As Integer = 64
 
@@ -863,7 +864,7 @@ Module ModDesign
         If pProject.IsLoaded AndAlso pBitmap IsNot Nothing Then
             pForm.Hide()
             Using _printDialog As New FrmPrintProject
-                '_printDialog.PrintProject = pProject
+                _printDialog.PrintProject = pProject
                 '_printDialog.SourceBitmap = pBitmap
                 _printDialog.ShowDialog()
             End Using
