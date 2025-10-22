@@ -73,8 +73,8 @@ Partial Class FrmPrintProject
         Me.Label20 = New System.Windows.Forms.Label()
         Me.TxtCopyright = New System.Windows.Forms.TextBox()
         Me.TxtDesignBy = New System.Windows.Forms.TextBox()
-        Me.ChkTitleAboveKey = New System.Windows.Forms.CheckBox()
-        Me.ChkTitleAboveGrid = New System.Windows.Forms.CheckBox()
+        Me.ChkPrintFooter = New System.Windows.Forms.CheckBox()
+        Me.ChkPrintHeader = New System.Windows.Forms.CheckBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.TxtTitle = New System.Windows.Forms.TextBox()
         Me.BtnSaveSettings = New System.Windows.Forms.Button()
@@ -148,6 +148,7 @@ Partial Class FrmPrintProject
         Me.PicDesign.Margin = New System.Windows.Forms.Padding(4)
         Me.PicDesign.Name = "PicDesign"
         Me.PicDesign.Size = New System.Drawing.Size(370, 523)
+        Me.PicDesign.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PicDesign.TabIndex = 0
         Me.PicDesign.TabStop = False
         '
@@ -202,7 +203,7 @@ Partial Class FrmPrintProject
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(299, 241)
+        Me.GroupBox1.Size = New System.Drawing.Size(299, 222)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Settings"
@@ -230,16 +231,16 @@ Partial Class FrmPrintProject
         'LblPageCt
         '
         Me.LblPageCt.AutoSize = True
-        Me.LblPageCt.Location = New System.Drawing.Point(131, 209)
+        Me.LblPageCt.Location = New System.Drawing.Point(131, 196)
         Me.LblPageCt.Name = "LblPageCt"
         Me.LblPageCt.Size = New System.Drawing.Size(14, 14)
         Me.LblPageCt.TabIndex = 16
-        Me.LblPageCt.Text = "1"
+        Me.LblPageCt.Text = "0"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 209)
+        Me.Label6.Location = New System.Drawing.Point(6, 196)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(105, 14)
         Me.Label6.TabIndex = 15
@@ -249,7 +250,7 @@ Partial Class FrmPrintProject
         '
         Me.LblOnePage.AutoSize = True
         Me.LblOnePage.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOnePage.Location = New System.Drawing.Point(95, 190)
+        Me.LblOnePage.Location = New System.Drawing.Point(95, 177)
         Me.LblOnePage.Name = "LblOnePage"
         Me.LblOnePage.Size = New System.Drawing.Size(109, 13)
         Me.LblOnePage.TabIndex = 14
@@ -257,7 +258,7 @@ Partial Class FrmPrintProject
         '
         'NudSqrPerInch
         '
-        Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 163)
+        Me.NudSqrPerInch.Location = New System.Drawing.Point(98, 150)
         Me.NudSqrPerInch.Minimum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.NudSqrPerInch.Name = "NudSqrPerInch"
         Me.NudSqrPerInch.Size = New System.Drawing.Size(62, 22)
@@ -267,7 +268,7 @@ Partial Class FrmPrintProject
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(166, 165)
+        Me.Label4.Location = New System.Drawing.Point(166, 152)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 14)
         Me.Label4.TabIndex = 12
@@ -276,7 +277,7 @@ Partial Class FrmPrintProject
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 165)
+        Me.Label3.Location = New System.Drawing.Point(6, 152)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 14)
         Me.Label3.TabIndex = 11
@@ -335,7 +336,7 @@ Partial Class FrmPrintProject
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 263)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 241)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(180, 140)
         Me.GroupBox2.TabIndex = 1
@@ -367,6 +368,7 @@ Partial Class FrmPrintProject
         Me.NudOverlap.Name = "NudOverlap"
         Me.NudOverlap.Size = New System.Drawing.Size(62, 20)
         Me.NudOverlap.TabIndex = 0
+        Me.NudOverlap.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'CbShading
         '
@@ -419,7 +421,7 @@ Partial Class FrmPrintProject
         Me.GroupBox3.Controls.Add(Me.Label11)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(199, 263)
+        Me.GroupBox3.Location = New System.Drawing.Point(199, 241)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(134, 195)
         Me.GroupBox3.TabIndex = 2
@@ -517,14 +519,14 @@ Partial Class FrmPrintProject
         Me.GroupBox5.Controls.Add(Me.Label20)
         Me.GroupBox5.Controls.Add(Me.TxtCopyright)
         Me.GroupBox5.Controls.Add(Me.TxtDesignBy)
-        Me.GroupBox5.Controls.Add(Me.ChkTitleAboveKey)
-        Me.GroupBox5.Controls.Add(Me.ChkTitleAboveGrid)
+        Me.GroupBox5.Controls.Add(Me.ChkPrintFooter)
+        Me.GroupBox5.Controls.Add(Me.ChkPrintHeader)
         Me.GroupBox5.Controls.Add(Me.Label19)
         Me.GroupBox5.Controls.Add(Me.TxtTitle)
         Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 409)
+        Me.GroupBox5.Location = New System.Drawing.Point(13, 388)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(180, 162)
+        Me.GroupBox5.Size = New System.Drawing.Size(180, 182)
         Me.GroupBox5.TabIndex = 4
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design Information"
@@ -532,7 +534,7 @@ Partial Class FrmPrintProject
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(9, 137)
+        Me.Label21.Location = New System.Drawing.Point(9, 128)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(54, 13)
         Me.Label21.TabIndex = 7
@@ -541,7 +543,7 @@ Partial Class FrmPrintProject
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(9, 105)
+        Me.Label20.Location = New System.Drawing.Point(9, 96)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(54, 13)
         Me.Label20.TabIndex = 6
@@ -549,37 +551,37 @@ Partial Class FrmPrintProject
         '
         'TxtCopyright
         '
-        Me.TxtCopyright.Location = New System.Drawing.Point(74, 134)
+        Me.TxtCopyright.Location = New System.Drawing.Point(74, 125)
         Me.TxtCopyright.Name = "TxtCopyright"
         Me.TxtCopyright.Size = New System.Drawing.Size(100, 20)
         Me.TxtCopyright.TabIndex = 4
         '
         'TxtDesignBy
         '
-        Me.TxtDesignBy.Location = New System.Drawing.Point(74, 102)
+        Me.TxtDesignBy.Location = New System.Drawing.Point(74, 93)
         Me.TxtDesignBy.Name = "TxtDesignBy"
         Me.TxtDesignBy.Size = New System.Drawing.Size(100, 20)
         Me.TxtDesignBy.TabIndex = 3
         '
-        'ChkTitleAboveKey
+        'ChkPrintFooter
         '
-        Me.ChkTitleAboveKey.AutoSize = True
-        Me.ChkTitleAboveKey.Location = New System.Drawing.Point(18, 70)
-        Me.ChkTitleAboveKey.Name = "ChkTitleAboveKey"
-        Me.ChkTitleAboveKey.Size = New System.Drawing.Size(101, 17)
-        Me.ChkTitleAboveKey.TabIndex = 2
-        Me.ChkTitleAboveKey.Text = "Title Above Key"
-        Me.ChkTitleAboveKey.UseVisualStyleBackColor = True
+        Me.ChkPrintFooter.AutoSize = True
+        Me.ChkPrintFooter.Location = New System.Drawing.Point(18, 157)
+        Me.ChkPrintFooter.Name = "ChkPrintFooter"
+        Me.ChkPrintFooter.Size = New System.Drawing.Size(110, 17)
+        Me.ChkPrintFooter.TabIndex = 1
+        Me.ChkPrintFooter.Text = "Print Page Footer"
+        Me.ChkPrintFooter.UseVisualStyleBackColor = True
         '
-        'ChkTitleAboveGrid
+        'ChkPrintHeader
         '
-        Me.ChkTitleAboveGrid.AutoSize = True
-        Me.ChkTitleAboveGrid.Location = New System.Drawing.Point(18, 47)
-        Me.ChkTitleAboveGrid.Name = "ChkTitleAboveGrid"
-        Me.ChkTitleAboveGrid.Size = New System.Drawing.Size(102, 17)
-        Me.ChkTitleAboveGrid.TabIndex = 1
-        Me.ChkTitleAboveGrid.Text = "Title Above Grid"
-        Me.ChkTitleAboveGrid.UseVisualStyleBackColor = True
+        Me.ChkPrintHeader.AutoSize = True
+        Me.ChkPrintHeader.Location = New System.Drawing.Point(18, 45)
+        Me.ChkPrintHeader.Name = "ChkPrintHeader"
+        Me.ChkPrintHeader.Size = New System.Drawing.Size(113, 17)
+        Me.ChkPrintHeader.TabIndex = 1
+        Me.ChkPrintHeader.Text = "Print Page Header"
+        Me.ChkPrintHeader.UseVisualStyleBackColor = True
         '
         'Label19
         '
@@ -627,7 +629,7 @@ Partial Class FrmPrintProject
         Me.CmbInstalledPrinters.FormattingEnabled = True
         Me.CmbInstalledPrinters.Location = New System.Drawing.Point(12, 603)
         Me.CmbInstalledPrinters.Name = "CmbInstalledPrinters"
-        Me.CmbInstalledPrinters.Size = New System.Drawing.Size(329, 24)
+        Me.CmbInstalledPrinters.Size = New System.Drawing.Size(181, 24)
         Me.CmbInstalledPrinters.TabIndex = 11
         '
         'Label2
@@ -657,7 +659,7 @@ Partial Class FrmPrintProject
         '
         Me.BtnFooterFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.BtnFooterFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnFooterFont.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnFooterFont.Font = New System.Drawing.Font("Century Gothic", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnFooterFont.Location = New System.Drawing.Point(12, 95)
         Me.BtnFooterFont.Name = "BtnFooterFont"
         Me.BtnFooterFont.Size = New System.Drawing.Size(131, 28)
@@ -793,8 +795,7 @@ Partial Class FrmPrintProject
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents Label19 As Label
     Friend WithEvents TxtTitle As TextBox
-    Friend WithEvents ChkTitleAboveKey As CheckBox
-    Friend WithEvents ChkTitleAboveGrid As CheckBox
+    Friend WithEvents ChkPrintHeader As CheckBox
     Friend WithEvents Label21 As Label
     Friend WithEvents Label20 As Label
     Friend WithEvents TxtCopyright As TextBox
@@ -813,4 +814,5 @@ Partial Class FrmPrintProject
     Friend WithEvents BtnFooterFont As Button
     Friend WithEvents FontDialog1 As FontDialog
     Friend WithEvents BtnPrintAll As Button
+    Friend WithEvents ChkPrintFooter As CheckBox
 End Class

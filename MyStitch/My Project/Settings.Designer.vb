@@ -583,7 +583,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
         Public Property PrintSquaresPerInch() As Integer
             Get
                 Return CType(Me("PrintSquaresPerInch"),Integer)
@@ -595,7 +595,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
         Public Property TilingOverlap() As Integer
             Get
                 Return CType(Me("TilingOverlap"),Integer)
@@ -703,25 +703,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isTitleAboveGrid() As Boolean
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isPrintHeader() As Boolean
             Get
-                Return CType(Me("isTitleAboveGrid"),Boolean)
+                Return CType(Me("isPrintHeader"),Boolean)
             End Get
             Set
-                Me("isTitleAboveGrid") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isTitleAboveKey() As Boolean
-            Get
-                Return CType(Me("isTitleAboveKey"),Boolean)
-            End Get
-            Set
-                Me("isTitleAboveKey") = value
+                Me("isPrintHeader") = value
             End Set
         End Property
         
@@ -1171,13 +1159,25 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Century Gothic, 9pt")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Century Gothic, 6pt")>  _
         Public Property PrintFooterFont() As Global.System.Drawing.Font
             Get
                 Return CType(Me("PrintFooterFont"),Global.System.Drawing.Font)
             End Get
             Set
                 Me("PrintFooterFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property isPrintFooter() As Boolean
+            Get
+                Return CType(Me("isPrintFooter"),Boolean)
+            End Get
+            Set
+                Me("isPrintFooter") = value
             End Set
         End Property
     End Class

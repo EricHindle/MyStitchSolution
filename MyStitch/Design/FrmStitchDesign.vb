@@ -74,6 +74,7 @@ Public Class FrmStitchDesign
     Private oRedoList As New List(Of List(Of StitchAction))
     Private isLoading As Boolean
     Private isLoadComplete As Boolean
+
     Private isComponentInitialised As Boolean
     Private oCurrentAction As DesignAction = DesignAction.none
     Private oCurrentStitchType As DesignAction = DesignAction.none
@@ -514,6 +515,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub PicDesign_Paint(sender As Object, e As PaintEventArgs) Handles PicDesign.Paint
+        BtnPrint.Enabled = False
         Try
             DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
         Catch ex As ApplicationException
@@ -531,6 +533,7 @@ Public Class FrmStitchDesign
             Dim _height As Integer = _toCellLocation_y - _fromCellLocation_y + iPixelsPerCell
             e.Graphics.DrawRectangle(oSelectionPen, _fromCellLocation_x, _fromCellLocation_y, _width, _height)
         End If
+        BtnPrint.Enabled = True
     End Sub
     Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles ThreadLayoutPanel.SizeChanged
         If isComponentInitialised Then
@@ -1035,7 +1038,6 @@ Public Class FrmStitchDesign
             Close()
         End If
         PicDesign.Enabled = True
-        BtnPrint.Enabled = True
         InitialiseTimer()
         CalculateOffsetForCentre(oDesignBitmap)
         isLoading = False

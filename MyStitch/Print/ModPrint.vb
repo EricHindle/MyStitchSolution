@@ -6,7 +6,6 @@
 '
 
 Imports System.Drawing.Printing
-Imports MyStitch.Domain.Objects
 
 Module ModPrint
 #Region "constants"
@@ -50,37 +49,28 @@ Module ModPrint
     Friend oTitlefont As Font
     Friend oTextfont As Font
     Friend oFooterfont As Font
+    Friend oPrintTitlefont As Font
+    Friend oPrintTextfont As Font
+    Friend oPrintFooterfont As Font
     Friend oFormTitleFont As Font
     Friend oFormTextFont As Font
     Friend oFormFooterFont As Font
-    'Friend oPageImage As Bitmap
-    'Friend oPageGraphics As Graphics
-    'Friend oPicBoxGraphics As Graphics
     Friend oPagePixelsPerCell As Decimal
     Friend oPrintPixelsPerCell As Decimal
     Friend oFormPixelsPerCell As Decimal
-
+    Friend isPrintHeader As Boolean
+    Friend isPrintFooter As Boolean
+    Friend oGraphicsUnit As GraphicsUnit
 #End Region
 #Region "subroutines"
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         ' Set print margins in dots
-        oPageTitleHeight = oTitlefont.Height
-        oPageFooterHeight = oFooterfont.Height
-        oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
-        oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
+        oPageTitleHeight = If(isPrintHeader, oPrintTitlefont.Height, 0)
+        oPageFooterHeight = If(isPrintFooter, oPrintFooterfont.Height, 0)
         oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI, oPrinterHardMarginX)
         oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI, oPrinterHardMarginX)
-        oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI, oPrinterHardMarginY) + oPageTitleHeight
-        oPageBottomMargin = Math.Max(pBottomMargin * PRINT_DPI, oPrinterHardMarginY) + oPageFooterHeight
-    End Sub
-    Friend Sub SetFormPageMargins()
-        ' Set display margins in pixels
-        oFormTitleHeight = oFormTitleFont.Height
-        oFormFooterHeight = oFormFooterFont.Height
-        oFormLeftMargin = oPageLeftMargin / oPageToFormRatio
-        oFormRightMargin = oPageRightMargin / oPageToFormRatio
-        oFormTopMargin = oPageTopMargin / oPageToFormRatio
-        oFormBottomMargin = oPageBottomMargin / oPageToFormRatio
+        oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI, oPrinterHardMarginY)
+        oPageBottomMargin = Math.Max(pBottomMargin * PRINT_DPI, oPrinterHardMarginY)
     End Sub
 
     Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pPixelsPerCell As Integer, pDesignSize As Size)

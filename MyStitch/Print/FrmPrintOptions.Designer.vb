@@ -37,8 +37,7 @@ Partial Class FrmPrintOptions
         Me.Label20 = New System.Windows.Forms.Label()
         Me.TxtCopyright = New System.Windows.Forms.TextBox()
         Me.TxtDesignBy = New System.Windows.Forms.TextBox()
-        Me.ChkTitleAboveKey = New System.Windows.Forms.CheckBox()
-        Me.ChkTitleAboveGrid = New System.Windows.Forms.CheckBox()
+        Me.ChkPrintHeader = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.NudLeftMargin = New System.Windows.Forms.NumericUpDown()
@@ -72,6 +71,7 @@ Partial Class FrmPrintOptions
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChkPrintKey = New System.Windows.Forms.CheckBox()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
+        Me.ChkPrintFooter = New System.Windows.Forms.CheckBox()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.NudLeftMargin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -113,12 +113,12 @@ Partial Class FrmPrintOptions
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.ChkPrintFooter)
         Me.GroupBox5.Controls.Add(Me.Label21)
         Me.GroupBox5.Controls.Add(Me.Label20)
         Me.GroupBox5.Controls.Add(Me.TxtCopyright)
         Me.GroupBox5.Controls.Add(Me.TxtDesignBy)
-        Me.GroupBox5.Controls.Add(Me.ChkTitleAboveKey)
-        Me.GroupBox5.Controls.Add(Me.ChkTitleAboveGrid)
+        Me.GroupBox5.Controls.Add(Me.ChkPrintHeader)
         Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(9, 262)
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
@@ -154,7 +154,7 @@ Partial Class FrmPrintOptions
         Me.TxtCopyright.Location = New System.Drawing.Point(87, 70)
         Me.TxtCopyright.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtCopyright.Name = "TxtCopyright"
-        Me.TxtCopyright.Size = New System.Drawing.Size(116, 20)
+        Me.TxtCopyright.Size = New System.Drawing.Size(150, 20)
         Me.TxtCopyright.TabIndex = 5
         '
         'TxtDesignBy
@@ -162,30 +162,19 @@ Partial Class FrmPrintOptions
         Me.TxtDesignBy.Location = New System.Drawing.Point(87, 46)
         Me.TxtDesignBy.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtDesignBy.Name = "TxtDesignBy"
-        Me.TxtDesignBy.Size = New System.Drawing.Size(116, 20)
+        Me.TxtDesignBy.Size = New System.Drawing.Size(150, 20)
         Me.TxtDesignBy.TabIndex = 4
         '
-        'ChkTitleAboveKey
+        'ChkPrintHeader
         '
-        Me.ChkTitleAboveKey.AutoSize = True
-        Me.ChkTitleAboveKey.Location = New System.Drawing.Point(174, 21)
-        Me.ChkTitleAboveKey.Margin = New System.Windows.Forms.Padding(4)
-        Me.ChkTitleAboveKey.Name = "ChkTitleAboveKey"
-        Me.ChkTitleAboveKey.Size = New System.Drawing.Size(101, 17)
-        Me.ChkTitleAboveKey.TabIndex = 3
-        Me.ChkTitleAboveKey.Text = "Title Above Key"
-        Me.ChkTitleAboveKey.UseVisualStyleBackColor = True
-        '
-        'ChkTitleAboveGrid
-        '
-        Me.ChkTitleAboveGrid.AutoSize = True
-        Me.ChkTitleAboveGrid.Location = New System.Drawing.Point(16, 21)
-        Me.ChkTitleAboveGrid.Margin = New System.Windows.Forms.Padding(4)
-        Me.ChkTitleAboveGrid.Name = "ChkTitleAboveGrid"
-        Me.ChkTitleAboveGrid.Size = New System.Drawing.Size(102, 17)
-        Me.ChkTitleAboveGrid.TabIndex = 2
-        Me.ChkTitleAboveGrid.Text = "Title Above Grid"
-        Me.ChkTitleAboveGrid.UseVisualStyleBackColor = True
+        Me.ChkPrintHeader.AutoSize = True
+        Me.ChkPrintHeader.Location = New System.Drawing.Point(16, 21)
+        Me.ChkPrintHeader.Margin = New System.Windows.Forms.Padding(4)
+        Me.ChkPrintHeader.Name = "ChkPrintHeader"
+        Me.ChkPrintHeader.Size = New System.Drawing.Size(113, 17)
+        Me.ChkPrintHeader.TabIndex = 2
+        Me.ChkPrintHeader.Text = "Print Page Header"
+        Me.ChkPrintHeader.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -349,6 +338,7 @@ Partial Class FrmPrintOptions
         Me.NudOverlap.Name = "NudOverlap"
         Me.NudOverlap.Size = New System.Drawing.Size(72, 20)
         Me.NudOverlap.TabIndex = 148
+        Me.NudOverlap.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'CbShading
         '
@@ -432,7 +422,7 @@ Partial Class FrmPrintOptions
         '
         Me.BtnFooterFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.BtnFooterFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnFooterFont.Font = New System.Drawing.Font("Century Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnFooterFont.Font = New System.Drawing.Font("Century Gothic", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnFooterFont.Location = New System.Drawing.Point(14, 95)
         Me.BtnFooterFont.Name = "BtnFooterFont"
         Me.BtnFooterFont.Size = New System.Drawing.Size(104, 28)
@@ -456,7 +446,7 @@ Partial Class FrmPrintOptions
         '
         Me.BtnTitleFont.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.BtnTitleFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnTitleFont.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnTitleFont.Font = New System.Drawing.Font("Century Gothic", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnTitleFont.Location = New System.Drawing.Point(14, 21)
         Me.BtnTitleFont.Name = "BtnTitleFont"
         Me.BtnTitleFont.Size = New System.Drawing.Size(104, 28)
@@ -559,6 +549,17 @@ Partial Class FrmPrintOptions
         Me.ChkPrintKey.Text = "Print Key"
         Me.ChkPrintKey.UseVisualStyleBackColor = True
         '
+        'ChkPrintFooter
+        '
+        Me.ChkPrintFooter.AutoSize = True
+        Me.ChkPrintFooter.Location = New System.Drawing.Point(168, 21)
+        Me.ChkPrintFooter.Margin = New System.Windows.Forms.Padding(4)
+        Me.ChkPrintFooter.Name = "ChkPrintFooter"
+        Me.ChkPrintFooter.Size = New System.Drawing.Size(110, 17)
+        Me.ChkPrintFooter.TabIndex = 8
+        Me.ChkPrintFooter.Text = "Print Page Footer"
+        Me.ChkPrintFooter.UseVisualStyleBackColor = True
+        '
         'FrmPrintOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -601,8 +602,7 @@ Partial Class FrmPrintOptions
     Friend WithEvents Label20 As Label
     Friend WithEvents TxtCopyright As TextBox
     Friend WithEvents TxtDesignBy As TextBox
-    Friend WithEvents ChkTitleAboveKey As CheckBox
-    Friend WithEvents ChkTitleAboveGrid As CheckBox
+    Friend WithEvents ChkPrintHeader As CheckBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label14 As Label
     Friend WithEvents NudLeftMargin As NumericUpDown
@@ -636,4 +636,5 @@ Partial Class FrmPrintOptions
     Friend WithEvents BtnTextFont As Button
     Friend WithEvents BtnTitleFont As Button
     Friend WithEvents FontDialog1 As FontDialog
+    Friend WithEvents ChkPrintFooter As CheckBox
 End Class

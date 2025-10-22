@@ -59,8 +59,8 @@ Public Class FrmPrintOptions
         My.Settings.isKeySeparate = ChkKeySeparate.Checked
         My.Settings.isPrintKey = ChkPrintKey.Checked
         My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
-        My.Settings.isTitleAboveGrid = ChkTitleAboveGrid.Checked
-        My.Settings.isTitleAboveKey = ChkTitleAboveKey.Checked
+        My.Settings.isPrintHeader = ChkPrintHeader.Checked
+        My.Settings.isPrintFooter = ChkPrintFooter.Checked
         My.Settings.PrintGrid = ChkPrintGrid.Checked
         My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
         My.Settings.PrintFooterFont = BtnFooterFont.Font
@@ -84,8 +84,8 @@ Public Class FrmPrintOptions
         ChkKeySeparate.Checked = My.Settings.isKeySeparate
         ChkPrintKey.Checked = My.Settings.isPrintKey
         ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
-        ChkTitleAboveGrid.Checked = My.Settings.isTitleAboveGrid
-        ChkTitleAboveKey.Checked = My.Settings.isTitleAboveKey
+        ChkPrintHeader.Checked = My.Settings.isPrintHeader
+        ChkPrintFooter.Checked = My.Settings.isPrintFooter
         NudBottomMargin.Value = My.Settings.PrintMarginBottom
         NudLeftMargin.Value = My.Settings.PrintMarginLeft
         NudOverlap.Value = My.Settings.TilingOverlap
@@ -100,5 +100,6 @@ Public Class FrmPrintOptions
         BtnTextFont.Font = My.Settings.PrintTextFont
         BtnFooterFont.Font = My.Settings.PrintFooterFont
     End Sub
+
 #End Region
 End Class
