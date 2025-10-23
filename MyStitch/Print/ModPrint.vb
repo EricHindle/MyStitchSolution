@@ -65,8 +65,8 @@ Module ModPrint
 #Region "subroutines"
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         ' Set print margins in dots
-        oPageTitleHeight = If(isPrintHeader, oPrintTitlefont.Height, 0)
-        oPageFooterHeight = If(isPrintFooter, oPrintFooterfont.Height, 0)
+        oPageTitleHeight = If(isPrintHeader, (oPrintTitlefont.Size * 300) / 72, 0)
+        oPageFooterHeight = If(isPrintFooter, (oPrintFooterfont.Size * 300) / 72, 0)
         oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI, oPrinterHardMarginX)
         oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI, oPrinterHardMarginX)
         oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI, oPrinterHardMarginY)
@@ -75,7 +75,7 @@ Module ModPrint
 
     Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pPixelsPerCell As Integer, pDesignSize As Size)
         oAvailablePixelWidth = A4_WIDTH - oPageLeftMargin - oPageRightMargin
-        oAvailablePixelHeight = A4_HEIGHT - oPageTopMargin - oPageBottomMargin - oPageTitleHeight - oPageFooterHeight
+        oAvailablePixelHeight = A4_HEIGHT - oTopMargin - oBottomMargin
         iPixelsPerCell = PRINT_DPI / pCellsPerInch
         oAvailableCellsWidth = oAvailablePixelWidth / pPixelsPerCell
         oAvailableCellsHeight = oAvailablePixelHeight / pPixelsPerCell

@@ -141,13 +141,13 @@ Public Class FrmPrintProject
     Private oTextBrush As Brush = Brushes.Black
 
     Friend oPrintGrid1width As Integer = 1
-    Friend oPrintGrid1Brush As Brush = Brushes.Green
+    Friend oPrintGrid1Brush As Brush = Brushes.DarkGray
     Friend oPrintGrid1Pen = New Pen(oPrintGrid1Brush, oPrintGrid1width)
     Friend oPrintGrid5width As Integer = 1
-    Friend oPrintGrid5Brush As Brush = Brushes.Blue
+    Friend oPrintGrid5Brush As Brush = Brushes.DimGray
     Friend oPrintGrid5Pen = New Pen(oPrintGrid5Brush, oPrintGrid5width)
     Friend oPrintGrid10width As Integer = 2
-    Friend oPrintGrid10Brush As Brush = Brushes.Red
+    Friend oPrintGrid10Brush As Brush = Brushes.Black
     Friend oPrintGrid10Pen = New Pen(oPrintGrid10Brush, oPrintGrid10width)
     Friend oPrintBorderwidth As Integer = 2
     Friend oPrintBorderBrush As Brush = Brushes.Black
@@ -201,6 +201,16 @@ Public Class FrmPrintProject
         InitialisePrintDocument()
         LoadFormFromSettings()
         SetPrintFonts()
+        Select Case oStitchDisplayStyle
+            Case StitchDisplayStyle.BlackWhiteSymbols
+                CbDisplayStyle.SelectedIndex = 0
+            Case StitchDisplayStyle.ColouredSymbols
+                CbDisplayStyle.SelectedIndex = 1
+            Case StitchDisplayStyle.BlocksWithSymbols
+                CbDisplayStyle.SelectedIndex = 2
+            Case Else
+                CbDisplayStyle.SelectedIndex = 0
+        End Select
         TxtTitle.Text = oPrintProject.ProjectName
         isPrintLoading = False
         LoadFormPages()
@@ -303,11 +313,8 @@ Public Class FrmPrintProject
         .Append(" ")
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         pPageGraphics.Clear(Color.White)
-        If isPrintHeader Then
-            pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oLeftMargin, oTopMargin - oTitleHeight))
-        End If
-        If isPrintFooter Then
-            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, pSize.Height - oBottomMargin))
+        If NudOverlap.Value > 0 Then
+            PrintOverlapShade(pPage, pPageGraphics)
         End If
         For Each _blockstitch In oProjectDesign.BlockStitches
             If _blockstitch.BlockPosition.X >= pPage.TopLeft.X _
@@ -317,7 +324,7 @@ Public Class FrmPrintProject
                 If _blockstitch.IsLoaded Then
                     Select Case _blockstitch.StitchType
                         Case BlockStitchType.Full
-                            PrintFullBlockStitch(_blockstitch, pPageGraphics, oStitchDisplayStyle, pPage)
+                            PrintFullBlockStitch(_blockstitch, pPageGraphics, CbDisplayStyle.SelectedIndex, pPage)
                         Case BlockStitchType.Half
                             PrintHalfBlockStitch(_blockstitch, True, pPageGraphics, pPage)
                         Case BlockStitchType.Quarter
@@ -356,8 +363,15 @@ Public Class FrmPrintProject
                 End If
             Next
         End If
+        ClearMargins(pPage, pPageGraphics)
+        If isPrintHeader Then
+            pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oLeftMargin, oPageTopMargin))
+        End If
+        If isPrintFooter Then
+            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, pSize.Height - oBottomMargin + 20))
+        End If
     End Sub
-    Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle, pPage As Page)
+    Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As Integer, pPage As Page)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
         Dim pX As Integer = ((pBlockStitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim pY As Integer = ((pBlockStitch.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
@@ -366,27 +380,21 @@ Public Class FrmPrintProject
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
         Dim _size As New Size(oPagePixelsPerCell, oPagePixelsPerCell)
+        Dim _symImage As Image = MakePrintImage(pBlockStitch)
         oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / 8)
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
         }
-        If pStitchDisplayStyle = StitchDisplayStyle.Blocks Or pStitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
+        If pStitchDisplayStyle = 2 Then
             pDesignGraphics.FillRectangle(New SolidBrush(_threadColour), New Rectangle(_tl, _size))
         End If
-        If pStitchDisplayStyle = StitchDisplayStyle.Crosses Then
-            pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        If pStitchDisplayStyle = StitchDisplayStyle.Strokes Then
-            pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        If pStitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or pStitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            pDesignGraphics.DrawImage(MakePrintImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, oPagePixelsPerCell, oPagePixelsPerCell, oGraphicsUnit)
-        End If
-        If pStitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
+
+        If pStitchDisplayStyle = 1 Then
             Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            pDesignGraphics.DrawImage(MakePrintImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, oPagePixelsPerCell, oPagePixelsPerCell, oGraphicsUnit, _imageAttributes)
+            pDesignGraphics.DrawImage(MakePrintImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, _symImage.Width, _symImage.Height, GraphicsUnit.Pixel, _imageAttributes)
+        Else
+            pDesignGraphics.DrawImage(_symImage, pX, pY, oPagePixelsPerCell, oPagePixelsPerCell)
         End If
         _crossPen.Dispose()
     End Sub
@@ -615,6 +623,25 @@ Public Class FrmPrintProject
         TabControl1.SelectedIndex = 0
         DisplayPageImage()
     End Sub
+    Private Sub PrintOverlapShade(pPage As Page, pPageGraphics As Graphics)
+        Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
+        Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
+        Dim tl As New Point(oLeftMargin, oTopMargin)
+        If pPage.Borders(Borders.Top) = False Then
+            pPageGraphics.FillRectangle(oOverlapBrush, New RectangleF(tl, New Size(_widthInColumns * gap, NudOverlap.Value * gap)))
+        End If
+        If pPage.Borders(Borders.Left) = False Then
+            pPageGraphics.FillRectangle(oOverlapBrush, New RectangleF(tl, New Size(NudOverlap.Value * gap, _heightInRows * gap)))
+        End If
+    End Sub
+    Private Sub ClearMargins(pPage As Page, pPageGraphics As Graphics)
+        Dim oBottomGapY As Integer = oTopMargin + ((pPage.BottomRight.Y - pPage.TopLeft.Y) * oPagePixelsPerCell)
+        Dim oRightGapX As Integer = oLeftMargin + ((pPage.BottomRight.X - pPage.TopLeft.X) * oPagePixelsPerCell)
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(A4_WIDTH, oTopMargin - 1)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, oBottomGapY), New Size(A4_WIDTH, A4_HEIGHT - oBottomGapY - 1)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(oLeftMargin - 1, A4_HEIGHT)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(oRightGapX, 0), New Size(A4_WIDTH - oRightGapX - 1, A4_HEIGHT)))
+    End Sub
     Private Sub PrintGrid(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
         Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
@@ -632,17 +659,8 @@ Public Class FrmPrintProject
         Dim tr As New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin)
         Dim bl As New Point(oLeftMargin, oTopMargin + (gap * _heightInRows))
         Dim br As New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin + (gap * _heightInRows))
-        If NudOverlap.Value > 0 Then
-            If pPage.Borders(Borders.Top) = False Then
-                pPageGraphics.FillRectangle(oOverlapBrush, New RectangleF(tl, New Size(_widthInColumns * gap, NudOverlap.Value * gap)))
-            End If
-            If pPage.Borders(Borders.Left) = False Then
-                pPageGraphics.FillRectangle(oOverlapBrush, New RectangleF(tl, New Size(NudOverlap.Value * gap, _heightInRows * gap)))
-            End If
-        End If
         If ChkPrintGrid.Checked Then
             ' Borders
-
             If pPage.Borders(Borders.Top) = True Then
                 pPageGraphics.DrawLine(oPrintBorderPen, tl, tr)
             End If
@@ -743,8 +761,8 @@ Public Class FrmPrintProject
         ' Set handler to print image 
         oLeftMargin = oPageLeftMargin
         oRightMargin = oPageRightMargin
-        oTopMargin = oPageTopMargin + oPageTitleHeight
-        oBottomMargin = oPageBottomMargin + oPageFooterHeight
+        oTopMargin = oPageTopMargin + oPageTitleHeight + 20
+        oBottomMargin = oPageBottomMargin + oPageFooterHeight + 20
         oTitleHeight = oPageTitleHeight
         oFooterHeight = oPageFooterHeight
         SetFonts()
@@ -761,7 +779,9 @@ Public Class FrmPrintProject
                                                                                     TxtDesignBy.LostFocus,
                                                                                     TxtTitle.LostFocus,
                                                                                     ChkPrintHeader.CheckedChanged,
-                                                                                    ChkPrintFooter.CheckedChanged
+                                                                                    ChkPrintFooter.CheckedChanged,
+                                                                                    CbShading.SelectedIndexChanged,
+                                                                                    CbDisplayStyle.SelectedIndexChanged
         If isComponentInitialised And Not isPrintLoading Then
             LoadFormPages()
         End If
