@@ -38,6 +38,8 @@ Partial Class FrmPrintProject
         Me.BtnPrintPage = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CbDisplayStyle = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
         Me.ChkPrintGrid = New System.Windows.Forms.CheckBox()
         Me.LblPageCt = New System.Windows.Forms.Label()
@@ -86,8 +88,6 @@ Partial Class FrmPrintProject
         Me.BtnTitleFont = New System.Windows.Forms.Button()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.BtnPrintAll = New System.Windows.Forms.Button()
-        Me.CbDisplayStyle = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -210,6 +210,24 @@ Partial Class FrmPrintProject
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Settings"
+        '
+        'CbDisplayStyle
+        '
+        Me.CbDisplayStyle.FormattingEnabled = True
+        Me.CbDisplayStyle.Items.AddRange(New Object() {"Black/White Symbols", "Coloured Symbols", "Blocks With Symbols"})
+        Me.CbDisplayStyle.Location = New System.Drawing.Point(97, 219)
+        Me.CbDisplayStyle.Name = "CbDisplayStyle"
+        Me.CbDisplayStyle.Size = New System.Drawing.Size(121, 22)
+        Me.CbDisplayStyle.TabIndex = 20
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 222)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(70, 14)
+        Me.Label5.TabIndex = 19
+        Me.Label5.Text = "DisplayStyle"
         '
         'ChkCentreMarks
         '
@@ -699,24 +717,6 @@ Partial Class FrmPrintProject
         Me.BtnPrintAll.TabIndex = 15
         Me.BtnPrintAll.Text = "Print All"
         Me.BtnPrintAll.UseVisualStyleBackColor = False
-        '
-        'CbDisplayStyle
-        '
-        Me.CbDisplayStyle.FormattingEnabled = True
-        Me.CbDisplayStyle.Items.AddRange(New Object() {"Black/White Symbols", "Coloured Symbols", "Blocks With Symbols"})
-        Me.CbDisplayStyle.Location = New System.Drawing.Point(97, 219)
-        Me.CbDisplayStyle.Name = "CbDisplayStyle"
-        Me.CbDisplayStyle.Size = New System.Drawing.Size(121, 22)
-        Me.CbDisplayStyle.TabIndex = 20
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 222)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(70, 14)
-        Me.Label5.TabIndex = 19
-        Me.Label5.Text = "DisplayStyle"
         '
         'FrmPrintProject
         '

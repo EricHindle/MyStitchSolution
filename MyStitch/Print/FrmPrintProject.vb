@@ -87,8 +87,8 @@ Public Class FrmPrintProject
             _topLeft = New Point(0, 0)
             _bottomRight = New Point(0, 0)
             _pagePosition = New Point(0, 0)
-            _midCol = 0
-            _midRow = 0
+            _midCol = -1
+            _midRow = -1
             _borders = {False, False, False, False}
         End Sub
 
@@ -153,9 +153,9 @@ Public Class FrmPrintProject
     Friend oPrintBorderBrush As Brush = Brushes.Black
     Friend oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
     Friend oOverlapBrush As SolidBrush
-    'Friend oPrintCentrewidth As Integer = 2
-    'Friend oPrintCentreBrush As Brush = Brushes.Black
-    'Friend oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
+    Friend oPrintCentrewidth As Integer = 3
+    Friend oPrintCentreBrush As Brush = Brushes.Red
+    Friend oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
 #End Region
 #Region "form control handlers"
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -611,12 +611,18 @@ Public Class FrmPrintProject
                 TabControl1.TabPages.Add("Page " & CStr(_pagesTotal))
                 _newPage.TopLeft = _pageTopLeft
                 _newPage.BottomRight = New Point(_pageTopLeft.X + _pageColumns, _pageTopLeft.Y + _pageRows)
+                If _designMiddleRow >= _newPage.TopLeft.Y AndAlso _designMiddleRow <= _newPage.BottomRight.Y Then
+                    _newPage.MidRow = _designMiddleRow
+                End If
+                If _designMiddleColumn >= _newPage.TopLeft.X AndAlso _designMiddleColumn <= _newPage.BottomRight.X Then
+                    _newPage.MidCol = _designMiddleColumn
+                End If
                 Dim _page As Page = _newPage.Clone
                 oPageList.Add(_page)
-                _pageTopLeft = New Point(_pageTopLeft.X + _pageColumns + 1, _pageTopLeft.Y)
+                _pageTopLeft = New Point(_pageTopLeft.X + _pageColumns - _overlap, _pageTopLeft.Y)
                 _pagesAcross += 1
             Loop
-            _pageTopLeft = New Point(0, _pageTopLeft.Y + _pageRows + 1)
+            _pageTopLeft = New Point(0, _pageTopLeft.Y + _pageRows - _overlap)
             _pagesDown += 1
         Loop
         isPagesLoaded = True
@@ -645,6 +651,24 @@ Public Class FrmPrintProject
     Private Sub PrintGrid(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
         Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
+        Dim i5ColStart As Integer = 5
+        Dim i10ColStart As Integer = 10
+        If pPage.TopLeft.X > 0 Then
+            Math.DivRem(pPage.TopLeft.X, 5, i5ColStart)
+            i5ColStart = 5 - i5ColStart
+            Math.DivRem(pPage.TopLeft.X, 10, i10ColStart)
+            i10ColStart = 10 - i10ColStart
+        End If
+        Dim i5rowStart As Integer = 5
+        Dim i10rowStart As Integer = 10
+        If pPage.TopLeft.Y > 0 Then
+            Math.DivRem(pPage.TopLeft.Y, 5, i5rowStart)
+            i5rowStart = 5 - i5rowStart
+            Math.DivRem(pPage.TopLeft.Y, 10, i10rowStart)
+            i10rowStart = 10 - i10rowStart
+        End If
+
+
         Dim itop As Integer = 0
         Dim ileft As Integer = 0
         If pPage.TopLeft.Y > 0 Then
@@ -680,21 +704,28 @@ Public Class FrmPrintProject
             For y = 0 To _heightInRows
                 pPageGraphics.DrawLine(oPrintGrid1Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
-            For x = 5 - ileft To _widthInColumns Step 10
+            For x = i5ColStart To _widthInColumns Step 10
                 pPageGraphics.DrawLine(oPrintGrid5Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
             Next
-            For y = 5 - itop To _heightInRows Step 10
+            For y = i5rowStart To _heightInRows Step 10
                 pPageGraphics.DrawLine(oPrintGrid5Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
-            For x = 10 - ileft To _widthInColumns Step 10
+            For x = i10ColStart To _widthInColumns Step 10
                 pPageGraphics.DrawLine(oPrintGrid10Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
             Next
-            For y = 10 - itop To _heightInRows Step 10
+            For y = i10rowStart To _heightInRows Step 10
                 pPageGraphics.DrawLine(oPrintGrid10Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
             Next
         End If
-        'Dim _markHalfWidth As Integer = Math.Max(8, Math.Ceiling(PRINT_PIXELS_PER_CELL * 0.5))
-        'Dim _markHeight As Integer = Math.Max(12, Math.Ceiling(PRINT_PIXELS_PER_CELL * 0.75))
+        Dim _markHalfWidth As Integer = Math.Max(8, Math.Ceiling(oPagePixelsPerCell * 0.5))
+        Dim _markHeight As Integer = Math.Max(12, Math.Ceiling(oPagePixelsPerCell * 0.75))
+        If pPage.MidRow > -1 Then
+            DrawHorizontalCentreLine(pPage, pPageGraphics)
+        End If
+        If pPage.MidCol > -1 Then
+            DrawVerticalCentreLine(pPage, pPageGraphics)
+        End If
+
         'Dim _middleColumnPos As Integer = (gap * _middleColumn) + oLeftMargin
         'Dim _middleRowPos As Integer = (gap * _middleRow) + oTopMargin
         'Dim _gridHeight As Integer = gap * _heightInRows
@@ -724,6 +755,18 @@ Public Class FrmPrintProject
         '_printBorderPen.Dispose()
 
     End Sub
+    Private Sub DrawVerticalCentreLine(pPage As Page, ByRef pPageGraphics As Graphics)
+        Dim _middleColumn As Integer = pPage.MidCol - pPage.TopLeft.X
+        Dim _middleColumnPos As Integer = (gap * _middleColumn) + oLeftMargin
+        pPageGraphics.DrawLine(oPrintCentrePen, New Point(_middleColumnPos, oTopMargin), New Point(_middleColumnPos, ((pPage.BottomRight.Y - pPage.TopLeft.Y) * gap) + oTopMargin))
+    End Sub
+    Private Sub DrawHorizontalCentreLine(pPage As Page, ByRef pPageGraphics As Graphics)
+        Dim _middleRow As Integer = pPage.MidRow - pPage.TopLeft.Y
+        Dim _middleRowPos As Integer = (gap * _middleRow) + oTopMargin
+        pPageGraphics.DrawLine(oPrintCentrePen, New Point(oLeftMargin, _middleRowPos), New Point(gap * (pPage.BottomRight.X - pPage.TopLeft.X) + oLeftMargin, _middleRowPos))
+
+    End Sub
+
     Private Sub LoadInstalledPrinters()
         For Each _installedPrinter As String In PrinterSettings.InstalledPrinters
             CmbInstalledPrinters.Items.Add(_installedPrinter)
@@ -740,11 +783,10 @@ Public Class FrmPrintProject
             oSelectedPage = oPageList(TabControl1.SelectedIndex)
             CreatePrintBitmap()
             PicDesign.Image = oPrintBitmap
-            '  PicDesign.Invalidate()
         End If
     End Sub
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrintPage.Click
-        LogUtil.ShowStatus("Printing card", LblStatus, MyBase.Name)
+        LogUtil.ShowStatus("Printing page", LblStatus, MyBase.Name)
         InitialisePrintDocument()
         oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
         ' Set handler to print image 
@@ -784,6 +826,20 @@ Public Class FrmPrintProject
                                                                                     CbDisplayStyle.SelectedIndexChanged
         If isComponentInitialised And Not isPrintLoading Then
             LoadFormPages()
+        End If
+    End Sub
+
+    Private Sub BtnPrintAll_Click(sender As Object, e As EventArgs) Handles BtnPrintAll.Click
+        If isPagesLoaded Then
+            LogUtil.ShowStatus("Printing all pages", LblStatus, MyBase.Name)
+            InitialisePrintDocument()
+            oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
+            AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
+            For Each _page As Page In oPageList
+                oSelectedPage = _page
+                CreatePrintBitmap()
+                oPrintDoc.Print()
+            Next
         End If
     End Sub
 #End Region

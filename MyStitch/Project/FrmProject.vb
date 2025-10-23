@@ -274,6 +274,7 @@ Public Class FrmProject
             NudFabricWidth.Value = .FabricWidth
             NudFabricCount.Value = .FabricCount
             PicFabricColour.BackColor = GetColourFromProject(.FabricColour, oFabricColourList)
+            LblOrigin.Text = String.Format("Origin {0},{1}", .OriginX, .OriginY)
             Select Case .FabricColour
                 Case 1 To 4
                     CbFabricColour.SelectedIndex = .FabricColour - 1
@@ -348,6 +349,8 @@ Public Class FrmProject
                 Dim iFabricHeightChange As Integer = _newProject.FabricHeight - _previousProject.FabricHeight
                 _newProject.OriginX += iFabricWidthChange
                 _newProject.OriginY += iFabricHeightChange
+                '_newProject.OriginX = 0
+                '_newProject.OriginY = 0
                 If AmendProject(_newProject) Then
                     '                    SaveDesign()
                     LoadProjectTable(DgvProjects)
