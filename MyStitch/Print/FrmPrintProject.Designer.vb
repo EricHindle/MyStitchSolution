@@ -38,6 +38,7 @@ Partial Class FrmPrintProject
         Me.BtnPrintPage = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ChkCentreLines = New System.Windows.Forms.CheckBox()
         Me.CbDisplayStyle = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.ChkCentreMarks = New System.Windows.Forms.CheckBox()
@@ -88,7 +89,6 @@ Partial Class FrmPrintProject
         Me.BtnTitleFont = New System.Windows.Forms.Button()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.BtnPrintAll = New System.Windows.Forms.Button()
-        Me.ChkCentreLines = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -212,6 +212,16 @@ Partial Class FrmPrintProject
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Settings"
+        '
+        'ChkCentreLines
+        '
+        Me.ChkCentreLines.AutoSize = True
+        Me.ChkCentreLines.Location = New System.Drawing.Point(140, 125)
+        Me.ChkCentreLines.Name = "ChkCentreLines"
+        Me.ChkCentreLines.Size = New System.Drawing.Size(123, 18)
+        Me.ChkCentreLines.TabIndex = 21
+        Me.ChkCentreLines.Text = "Print Centre Lines"
+        Me.ChkCentreLines.UseVisualStyleBackColor = True
         '
         'CbDisplayStyle
         '
@@ -719,16 +729,6 @@ Partial Class FrmPrintProject
         Me.BtnPrintAll.TabIndex = 15
         Me.BtnPrintAll.Text = "Print All"
         Me.BtnPrintAll.UseVisualStyleBackColor = False
-        '
-        'ChkCentreLines
-        '
-        Me.ChkCentreLines.AutoSize = True
-        Me.ChkCentreLines.Location = New System.Drawing.Point(140, 125)
-        Me.ChkCentreLines.Name = "ChkCentreLines"
-        Me.ChkCentreLines.Size = New System.Drawing.Size(123, 18)
-        Me.ChkCentreLines.TabIndex = 21
-        Me.ChkCentreLines.Text = "Print Centre Lines"
-        Me.ChkCentreLines.UseVisualStyleBackColor = True
         '
         'FrmPrintProject
         '

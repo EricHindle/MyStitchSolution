@@ -10,12 +10,15 @@ Imports System.Drawing.Printing
 Module ModPrint
 #Region "constants"
     Public Const PRINT_DPI As Integer = 300.0F
+    Public Const FONT_PPI As Integer = 72.0F
     Public Const A4_WIDTH As Integer = 2480
     Public Const A4_HEIGHT As Integer = 3508
 #End Region
 #Region "variables"
     Friend oPrinterHardMarginX As Integer
     Friend oPrinterHardMarginY As Integer
+    Friend oPrintablePageWidth As Integer
+    Friend oPrintablePageHeight As Integer
     Friend oPrintDoc As New Printing.PrintDocument
     Friend oPageSettings As PageSettings
     Friend oLeftMargin As Integer                   ' Page adjusted left margin
@@ -54,12 +57,12 @@ Module ModPrint
 #Region "subroutines"
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         ' Set print margins in dots
-        oPageTitleHeight = If(isPrintHeader, (oPrintTitlefont.Size * 300) / 72, 0) + 20
-        oPageFooterHeight = If(isPrintFooter, (oPrintFooterfont.Size * 300) / 72, 0) + 20
-        oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI, oPrinterHardMarginX)
-        oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI, oPrinterHardMarginX)
-        oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI, oPrinterHardMarginY)
-        oPageBottomMargin = Math.Max(pBottomMargin * PRINT_DPI, oPrinterHardMarginY)
+        oPageTitleHeight = If(isPrintHeader, (oPrintTitlefont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
+        oPageFooterHeight = If(isPrintFooter, (oPrintFooterfont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
+        oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI - oPrinterHardMarginX, 0)
+        oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI - oPrinterHardMarginX, 0)
+        oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI - oPrinterHardMarginY, 0)
+        oPageBottomMargin = Math.Max(pBottomMargin * PRINT_DPI - oPrinterHardMarginY, 0)
         oLeftMargin = oPageLeftMargin
         oRightMargin = oPageRightMargin
         If isPrintRowNumbers Then
@@ -76,8 +79,8 @@ Module ModPrint
     End Sub
 
     Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pDesignSize As Size)
-        oAvailablePixelWidth = A4_WIDTH - oLeftMargin - oRightMargin
-        oAvailablePixelHeight = A4_HEIGHT - oTopMargin - oBottomMargin
+        oAvailablePixelWidth = oPrintablePageWidth - oLeftMargin - oRightMargin
+        oAvailablePixelHeight = oPrintablePageHeight - oTopMargin - oBottomMargin
         oAvailableCellsWidth = oAvailablePixelWidth / oPagePixelsPerCell
         oAvailableCellsHeight = oAvailablePixelHeight / oPagePixelsPerCell
         oPrintGridOrigin = New Point(oPageLeftMargin, oPageTopMargin + oPageTitleHeight)
