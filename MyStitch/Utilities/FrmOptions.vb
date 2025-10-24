@@ -65,6 +65,7 @@ Public NotInheritable Class FrmOptions
         My.Settings.SelectionBorderColour = PicSelectionBorderColour.BackColor
         My.Settings.ApplicationPath = TxtAppPath.Text
         My.Settings.DefaultFabricCount = NudFabricCount.Value
+        My.Settings.isBackstitchWidthVariable = ChkBackstitchWidth.Checked
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -103,6 +104,7 @@ Public NotInheritable Class FrmOptions
         ChkDesignArchive.Checked = My.Settings.isHousekeepDesigns
         ChkDataArchive.Checked = My.Settings.isHousekeepData
         ChkLogs.Checked = My.Settings.isHousekeepLogs
+        ChkBackstitchWidth.Checked = My.Settings.isBackstitchWidthVariable
     End Sub
     Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
         Hide()
