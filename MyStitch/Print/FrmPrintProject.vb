@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Data.Common
 Imports System.Drawing.Imaging
 Imports System.Drawing.Printing
 Imports System.Text
@@ -291,10 +290,13 @@ Public Class FrmPrintProject
         isPrintFooter = ChkPrintFooter.Checked
         oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
         oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
+        oPagePixelsPerCell = Math.Floor(PRINT_DPI / NudSqrPerInch.Value)
+
         SetPrintPageMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
+
+        CalculatePrintGridSpace(NudSqrPerInch.Value, New Size(oPrintProject.DesignWidth, oPrintProject.DesignHeight))
+
         oOverlapBrush = New SolidBrush(oOverlapColourList(CbShading.SelectedIndex))
-        oPrintPixelsPerCell = Math.Floor(PRINT_DPI / NudSqrPerInch.Value)
-        CalculatePrintGridSpace(NudSqrPerInch.Value, oPrintPixelsPerCell, New Size(oPrintProject.DesignWidth, oPrintProject.DesignHeight))
         LblOnePage.Text = String.Format(LblOnePage.Text, oOnePageSqPerInch)
         InitialisePageLists()
         isPagesLoaded = True
@@ -376,18 +378,43 @@ Public Class FrmPrintProject
                 End If
             Next
         End If
-        '      ClearMargins(pPage, pPageGraphics)
+        ClearMargins(pPage, pPageGraphics)
+        PrintHeaderFooter(pPageGraphics, pSize, _footerText)
+        PrintRowColumnNumbers(pPage, pPageGraphics)
+    End Sub
+
+    Private Sub PrintHeaderFooter(pPageGraphics As Graphics, pSize As Size, _footerText As StringBuilder)
         If isPrintHeader Then
             pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oLeftMargin, oPageTopMargin))
         End If
         If isPrintFooter Then
-            Dim oFooterPos As Integer = oBottomMargin - 20
+            Dim oFooterPos As Integer = pSize.Height - oBottomMargin
             If isPrintColumnNumbers Then
-                oFooterPos = oFooterPos - oPageFooterHeight - 20
+                oFooterPos = oFooterPos + oPageFooterHeight
             End If
-            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, pSize.Height - oFooterPos))
+            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, oFooterPos))
         End If
     End Sub
+
+    Private Sub PrintRowColumnNumbers(pPage As Page, pPageGraphics As Graphics)
+        Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
+        Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
+        If isPrintRowNumbers Then
+            For _row = 0 To _heightInRows
+                If Math.IEEERemainder(_row + 1 + pPage.TopLeft.Y, 5) = 0 And _row < _heightInRows Then
+                    pPageGraphics.DrawString(CStr(_row + 1 + pPage.TopLeft.Y), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin + (gap * (_row))))
+                End If
+            Next
+        End If
+        If isPrintColumnNumbers Then
+            For _column = 0 To _widthInColumns
+                If Math.IEEERemainder(_column + 1 + pPage.TopLeft.X, 5) = 0 And _column < _widthInColumns Then
+                    pPageGraphics.DrawString(CStr(_column + 1 + pPage.TopLeft.X), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * (_column)), oTopMargin + (gap * _heightInRows)))
+                End If
+            Next
+        End If
+    End Sub
+
     Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As Integer, pPage As Page)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
         Dim pX As Integer = ((pBlockStitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
@@ -690,19 +717,9 @@ Public Class FrmPrintProject
             ' grid
             For _column = 0 To _widthInColumns
                 DrawGridVerticalLine(pPageGraphics, oPrintGrid1Pen, _column, _heightInPixels)
-                If isPrintColumnNumbers Then
-                    If Math.IEEERemainder(_column + 1 + pPage.TopLeft.X, 5) = 0 And _column < _widthInColumns Then
-                        pPageGraphics.DrawString(CStr(_column + 1 + pPage.TopLeft.X), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * (_column)), oTopMargin + (gap * _heightInRows)))
-                    End If
-                End If
             Next
             For _row = 0 To _heightInRows
                 DrawGridHorizontalLine(pPageGraphics, oPrintGrid1Pen, _row, _widthInPixels)
-                If isPrintRowNumbers Then
-                    If Math.IEEERemainder(_row + 1 + pPage.TopLeft.Y, 5) = 0 And _row < _heightInRows Then
-                        pPageGraphics.DrawString(CStr(_row + 1 + pPage.TopLeft.Y), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin + (gap * (_row))))
-                    End If
-                End If
             Next
             For _column = i5ColStart To _widthInColumns Step 10
                 DrawGridVerticalLine(pPageGraphics, oPrintGrid5Pen, _column, _heightInPixels)
@@ -775,7 +792,7 @@ Public Class FrmPrintProject
         pPageGraphics.DrawLine(pPen, New Point(oLeftMargin, oTopMargin + (gap * pRow)), New Point(oLeftMargin + pGridWidthInPixels, oTopMargin + (gap * pRow)))
     End Sub
     Private Sub DrawGridVerticalLine(ByRef pPageGraphics As Graphics, pPen As Pen, pColumn As Integer, pGridHeightInpixels As Integer)
-        pPageGraphics.DrawLine(pPen, New Point(oLeftMargin + (gap * pColumn), oTopMargin), New Point(oLeftMargin + (gap * pColumn),oTopMargin + pGridHeightInpixels ))
+        pPageGraphics.DrawLine(pPen, New Point(oLeftMargin + (gap * pColumn), oTopMargin), New Point(oLeftMargin + (gap * pColumn), oTopMargin + pGridHeightInpixels))
     End Sub
     Private Sub LoadInstalledPrinters()
         For Each _installedPrinter As String In PrinterSettings.InstalledPrinters
@@ -810,20 +827,9 @@ Public Class FrmPrintProject
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         oPrintGraphics = Graphics.FromImage(oPrintBitmap)
         ' Set handler to print image 
-        oLeftMargin = oPageLeftMargin
-        oRightMargin = oPageRightMargin
-        If isPrintRowNumbers Then
-            oRightMargin += oPageFooterHeight + 20
-        End If
-        oTopMargin = oPageTopMargin + oPageTitleHeight + 20
-        oBottomMargin = oPageBottomMargin + oPageFooterHeight + 20
-        If isPrintColumnNumbers Then
-            oBottomMargin += oPageFooterHeight + 20
-        End If
-        oTitleHeight = oPageTitleHeight
-        oFooterHeight = oPageFooterHeight
+
         SetFonts()
-        CreatePageGraphics(oSelectedPage, oPrintGraphics, oPrintBitmap.Size, oPrintPixelsPerCell)
+        CreatePageGraphics(oSelectedPage, oPrintGraphics, oPrintBitmap.Size, oPagePixelsPerCell)
     End Sub
     Private Sub ParameterValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
                                                                                     NudBottomMargin.ValueChanged,
