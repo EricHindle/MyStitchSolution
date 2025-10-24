@@ -33,6 +33,7 @@ Partial Class FrmPrintOptions
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.ChkPrintFooter = New System.Windows.Forms.CheckBox()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.TxtCopyright = New System.Windows.Forms.TextBox()
@@ -66,12 +67,14 @@ Partial Class FrmPrintOptions
         Me.NudSqrPerInch = New System.Windows.Forms.NumericUpDown()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ChkKeySeparate = New System.Windows.Forms.CheckBox()
         Me.CbKeyOrder = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChkPrintKey = New System.Windows.Forms.CheckBox()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
-        Me.ChkPrintFooter = New System.Windows.Forms.CheckBox()
+        Me.ChkCentreLines = New System.Windows.Forms.CheckBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.ChkRowNumbers = New System.Windows.Forms.CheckBox()
+        Me.ChkColumnNumbers = New System.Windows.Forms.CheckBox()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.NudLeftMargin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,6 +86,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnSave
@@ -119,7 +123,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox5.Controls.Add(Me.TxtCopyright)
         Me.GroupBox5.Controls.Add(Me.TxtDesignBy)
         Me.GroupBox5.Controls.Add(Me.ChkPrintHeader)
-        Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox5.Location = New System.Drawing.Point(9, 262)
         Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Name = "GroupBox5"
@@ -129,13 +133,24 @@ Partial Class FrmPrintOptions
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Design Information"
         '
+        'ChkPrintFooter
+        '
+        Me.ChkPrintFooter.AutoSize = True
+        Me.ChkPrintFooter.Location = New System.Drawing.Point(168, 21)
+        Me.ChkPrintFooter.Margin = New System.Windows.Forms.Padding(4)
+        Me.ChkPrintFooter.Name = "ChkPrintFooter"
+        Me.ChkPrintFooter.Size = New System.Drawing.Size(122, 18)
+        Me.ChkPrintFooter.TabIndex = 8
+        Me.ChkPrintFooter.Text = "Print Page Footer"
+        Me.ChkPrintFooter.UseVisualStyleBackColor = True
+        '
         'Label21
         '
         Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(13, 73)
         Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(54, 13)
+        Me.Label21.Size = New System.Drawing.Size(59, 14)
         Me.Label21.TabIndex = 7
         Me.Label21.Text = "Copyright"
         '
@@ -145,7 +160,7 @@ Partial Class FrmPrintOptions
         Me.Label20.Location = New System.Drawing.Point(13, 49)
         Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(54, 13)
+        Me.Label20.Size = New System.Drawing.Size(60, 14)
         Me.Label20.TabIndex = 6
         Me.Label20.Text = "Design By"
         '
@@ -154,7 +169,7 @@ Partial Class FrmPrintOptions
         Me.TxtCopyright.Location = New System.Drawing.Point(87, 70)
         Me.TxtCopyright.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtCopyright.Name = "TxtCopyright"
-        Me.TxtCopyright.Size = New System.Drawing.Size(150, 20)
+        Me.TxtCopyright.Size = New System.Drawing.Size(150, 22)
         Me.TxtCopyright.TabIndex = 5
         '
         'TxtDesignBy
@@ -162,7 +177,7 @@ Partial Class FrmPrintOptions
         Me.TxtDesignBy.Location = New System.Drawing.Point(87, 46)
         Me.TxtDesignBy.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtDesignBy.Name = "TxtDesignBy"
-        Me.TxtDesignBy.Size = New System.Drawing.Size(150, 20)
+        Me.TxtDesignBy.Size = New System.Drawing.Size(150, 22)
         Me.TxtDesignBy.TabIndex = 4
         '
         'ChkPrintHeader
@@ -171,7 +186,7 @@ Partial Class FrmPrintOptions
         Me.ChkPrintHeader.Location = New System.Drawing.Point(16, 21)
         Me.ChkPrintHeader.Margin = New System.Windows.Forms.Padding(4)
         Me.ChkPrintHeader.Name = "ChkPrintHeader"
-        Me.ChkPrintHeader.Size = New System.Drawing.Size(113, 17)
+        Me.ChkPrintHeader.Size = New System.Drawing.Size(125, 18)
         Me.ChkPrintHeader.TabIndex = 2
         Me.ChkPrintHeader.Text = "Print Page Header"
         Me.ChkPrintHeader.UseVisualStyleBackColor = True
@@ -385,14 +400,12 @@ Partial Class FrmPrintOptions
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.GroupBox6)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
-        Me.GroupBox1.Controls.Add(Me.ChkCentreMarks)
-        Me.GroupBox1.Controls.Add(Me.ChkPrintGrid)
         Me.GroupBox1.Controls.Add(Me.NudSqrPerInch)
         Me.GroupBox1.Controls.Add(Me.GroupBox5)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.ChkKeySeparate)
         Me.GroupBox1.Controls.Add(Me.CbKeyOrder)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.ChkPrintKey)
@@ -411,7 +424,7 @@ Partial Class FrmPrintOptions
         Me.GroupBox4.Controls.Add(Me.BtnTextFont)
         Me.GroupBox4.Controls.Add(Me.BtnTitleFont)
         Me.GroupBox4.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(11, 95)
+        Me.GroupBox4.Location = New System.Drawing.Point(8, 52)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(135, 133)
         Me.GroupBox4.TabIndex = 166
@@ -457,7 +470,7 @@ Partial Class FrmPrintOptions
         'ChkCentreMarks
         '
         Me.ChkCentreMarks.AutoSize = True
-        Me.ChkCentreMarks.Location = New System.Drawing.Point(11, 71)
+        Me.ChkCentreMarks.Location = New System.Drawing.Point(6, 48)
         Me.ChkCentreMarks.Name = "ChkCentreMarks"
         Me.ChkCentreMarks.Size = New System.Drawing.Size(126, 18)
         Me.ChkCentreMarks.TabIndex = 165
@@ -467,7 +480,7 @@ Partial Class FrmPrintOptions
         'ChkPrintGrid
         '
         Me.ChkPrintGrid.AutoSize = True
-        Me.ChkPrintGrid.Location = New System.Drawing.Point(11, 47)
+        Me.ChkPrintGrid.Location = New System.Drawing.Point(6, 25)
         Me.ChkPrintGrid.Name = "ChkPrintGrid"
         Me.ChkPrintGrid.Size = New System.Drawing.Size(72, 18)
         Me.ChkPrintGrid.TabIndex = 164
@@ -504,17 +517,6 @@ Partial Class FrmPrintOptions
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Printout Size"
         '
-        'ChkKeySeparate
-        '
-        Me.ChkKeySeparate.AutoSize = True
-        Me.ChkKeySeparate.Location = New System.Drawing.Point(160, 54)
-        Me.ChkKeySeparate.Margin = New System.Windows.Forms.Padding(4)
-        Me.ChkKeySeparate.Name = "ChkKeySeparate"
-        Me.ChkKeySeparate.Size = New System.Drawing.Size(146, 18)
-        Me.ChkKeySeparate.TabIndex = 3
-        Me.ChkKeySeparate.Text = "Key on separate page"
-        Me.ChkKeySeparate.UseVisualStyleBackColor = True
-        '
         'CbKeyOrder
         '
         Me.CbKeyOrder.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -549,23 +551,57 @@ Partial Class FrmPrintOptions
         Me.ChkPrintKey.Text = "Print Key"
         Me.ChkPrintKey.UseVisualStyleBackColor = True
         '
-        'ChkPrintFooter
+        'ChkCentreLines
         '
-        Me.ChkPrintFooter.AutoSize = True
-        Me.ChkPrintFooter.Location = New System.Drawing.Point(168, 21)
-        Me.ChkPrintFooter.Margin = New System.Windows.Forms.Padding(4)
-        Me.ChkPrintFooter.Name = "ChkPrintFooter"
-        Me.ChkPrintFooter.Size = New System.Drawing.Size(110, 17)
-        Me.ChkPrintFooter.TabIndex = 8
-        Me.ChkPrintFooter.Text = "Print Page Footer"
-        Me.ChkPrintFooter.UseVisualStyleBackColor = True
+        Me.ChkCentreLines.AutoSize = True
+        Me.ChkCentreLines.Location = New System.Drawing.Point(6, 71)
+        Me.ChkCentreLines.Name = "ChkCentreLines"
+        Me.ChkCentreLines.Size = New System.Drawing.Size(123, 18)
+        Me.ChkCentreLines.TabIndex = 167
+        Me.ChkCentreLines.Text = "Print Centre Lines"
+        Me.ChkCentreLines.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.ChkColumnNumbers)
+        Me.GroupBox6.Controls.Add(Me.ChkRowNumbers)
+        Me.GroupBox6.Controls.Add(Me.ChkCentreLines)
+        Me.GroupBox6.Controls.Add(Me.ChkPrintGrid)
+        Me.GroupBox6.Controls.Add(Me.ChkCentreMarks)
+        Me.GroupBox6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox6.Location = New System.Drawing.Point(150, 53)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(169, 150)
+        Me.GroupBox6.TabIndex = 165
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Grid"
+        '
+        'ChkRowNumbers
+        '
+        Me.ChkRowNumbers.AutoSize = True
+        Me.ChkRowNumbers.Location = New System.Drawing.Point(6, 94)
+        Me.ChkRowNumbers.Name = "ChkRowNumbers"
+        Me.ChkRowNumbers.Size = New System.Drawing.Size(131, 18)
+        Me.ChkRowNumbers.TabIndex = 168
+        Me.ChkRowNumbers.Text = "Print Row Numbers"
+        Me.ChkRowNumbers.UseVisualStyleBackColor = True
+        '
+        'ChkColumnNumbers
+        '
+        Me.ChkColumnNumbers.AutoSize = True
+        Me.ChkColumnNumbers.Location = New System.Drawing.Point(6, 117)
+        Me.ChkColumnNumbers.Name = "ChkColumnNumbers"
+        Me.ChkColumnNumbers.Size = New System.Drawing.Size(147, 18)
+        Me.ChkColumnNumbers.TabIndex = 169
+        Me.ChkColumnNumbers.Text = "Print Column Numbers"
+        Me.ChkColumnNumbers.UseVisualStyleBackColor = True
         '
         'FrmPrintOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(559, 462)
+        Me.ClientSize = New System.Drawing.Size(811, 462)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
@@ -591,6 +627,8 @@ Partial Class FrmPrintOptions
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         CType(Me.NudSqrPerInch, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -623,7 +661,6 @@ Partial Class FrmPrintOptions
     Friend WithEvents Label7 As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents ChkKeySeparate As CheckBox
     Friend WithEvents CbKeyOrder As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents ChkPrintKey As CheckBox
@@ -637,4 +674,8 @@ Partial Class FrmPrintOptions
     Friend WithEvents BtnTitleFont As Button
     Friend WithEvents FontDialog1 As FontDialog
     Friend WithEvents ChkPrintFooter As CheckBox
+    Friend WithEvents ChkCentreLines As CheckBox
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents ChkColumnNumbers As CheckBox
+    Friend WithEvents ChkRowNumbers As CheckBox
 End Class

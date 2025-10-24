@@ -88,6 +88,7 @@ Partial Class FrmPrintProject
         Me.BtnTitleFont = New System.Windows.Forms.Button()
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.BtnPrintAll = New System.Windows.Forms.Button()
+        Me.ChkCentreLines = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -187,6 +188,7 @@ Partial Class FrmPrintProject
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ChkCentreLines)
         Me.GroupBox1.Controls.Add(Me.CbDisplayStyle)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.ChkCentreMarks)
@@ -718,6 +720,16 @@ Partial Class FrmPrintProject
         Me.BtnPrintAll.Text = "Print All"
         Me.BtnPrintAll.UseVisualStyleBackColor = False
         '
+        'ChkCentreLines
+        '
+        Me.ChkCentreLines.AutoSize = True
+        Me.ChkCentreLines.Location = New System.Drawing.Point(140, 125)
+        Me.ChkCentreLines.Name = "ChkCentreLines"
+        Me.ChkCentreLines.Size = New System.Drawing.Size(123, 18)
+        Me.ChkCentreLines.TabIndex = 21
+        Me.ChkCentreLines.Text = "Print Centre Lines"
+        Me.ChkCentreLines.UseVisualStyleBackColor = True
+        '
         'FrmPrintProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -827,4 +839,5 @@ Partial Class FrmPrintProject
     Friend WithEvents ChkPrintFooter As CheckBox
     Friend WithEvents CbDisplayStyle As ComboBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents ChkCentreLines As CheckBox
 End Class

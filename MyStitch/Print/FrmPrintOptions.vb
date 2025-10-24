@@ -56,16 +56,19 @@ Public Class FrmPrintOptions
         My.Settings.PrintMarginTop = NudTopMargin.Value
         My.Settings.PrintSquaresPerInch = NudSqrPerInch.Value
         My.Settings.TilingOverlap = NudOverlap.Value
-        My.Settings.isKeySeparate = ChkKeySeparate.Checked
         My.Settings.isPrintKey = ChkPrintKey.Checked
         My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
         My.Settings.isPrintHeader = ChkPrintHeader.Checked
         My.Settings.isPrintFooter = ChkPrintFooter.Checked
         My.Settings.PrintGrid = ChkPrintGrid.Checked
         My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
+        My.Settings.PrintCentreLines = ChkCentreLines.Checked
         My.Settings.PrintFooterFont = BtnFooterFont.Font
         My.Settings.PrintTextFont = BtnTextFont.Font
         My.Settings.PrintTitleFont = BtnTitleFont.Font
+        My.Settings.PrintRowNumbers = ChkRowNumbers.Checked
+        My.Settings.PrintColumnNumbers = ChkColumnNumbers.Checked
+
         My.Settings.Save()
     End Sub
     Private Sub SetLineColour(pPic As PictureBox, pComboBox As ComboBox, pColourSetting As Integer)
@@ -81,7 +84,6 @@ Public Class FrmPrintOptions
         CbAbbrKey.SelectedIndex = My.Settings.AbbrevKey
         CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
         CbShading.SelectedIndex = My.Settings.OverlapShading
-        ChkKeySeparate.Checked = My.Settings.isKeySeparate
         ChkPrintKey.Checked = My.Settings.isPrintKey
         ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
         ChkPrintHeader.Checked = My.Settings.isPrintHeader
@@ -96,9 +98,12 @@ Public Class FrmPrintOptions
         TxtDesignBy.Text = My.Settings.DesignBy
         ChkPrintGrid.Checked = My.Settings.PrintGrid
         ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
+        ChkCentreLines.Checked = My.Settings.PrintCentreLines
         BtnTitleFont.Font = My.Settings.PrintTitleFont
         BtnTextFont.Font = My.Settings.PrintTextFont
         BtnFooterFont.Font = My.Settings.PrintFooterFont
+        ChkRowNumbers.Checked = My.Settings.PrintRowNumbers
+        ChkColumnNumbers.Checked = My.Settings.PrintColumnNumbers
     End Sub
 
 #End Region

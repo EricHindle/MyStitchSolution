@@ -5,6 +5,7 @@
 ' Author Eric Hindle
 '
 
+Imports System.Data.Common
 Imports System.Drawing.Imaging
 Imports System.Drawing.Printing
 Imports System.Text
@@ -128,7 +129,6 @@ Public Class FrmPrintProject
     Private isComponentInitialised As Boolean
 
     Private gap As Integer
-    Private _printBorderPen As New Pen(Brushes.Black, 2)
 
     Private oFormImage As Bitmap
     Private isPrintLoading As Boolean = False
@@ -149,7 +149,7 @@ Public Class FrmPrintProject
     Friend oPrintGrid10width As Integer = 2
     Friend oPrintGrid10Brush As Brush = Brushes.Black
     Friend oPrintGrid10Pen = New Pen(oPrintGrid10Brush, oPrintGrid10width)
-    Friend oPrintBorderwidth As Integer = 2
+    Friend oPrintBorderwidth As Integer = 5
     Friend oPrintBorderBrush As Brush = Brushes.Black
     Friend oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
     Friend oOverlapBrush As SolidBrush
@@ -166,9 +166,19 @@ Public Class FrmPrintProject
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Me.Close()
     End Sub
+
+    Private Sub PenDispose()
+        oPrintBorderPen.dispose
+        oPrintCentrePen.dispose
+        oPrintGrid10Pen.dispose
+        oPrintGrid1Pen.dispose
+        oPrintGrid5Pen.dispose
+    End Sub
+
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
+        PenDispose()
     End Sub
     Private Sub BtnTitleFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click
         FontDialog1.Font = BtnTitleFont.Font
@@ -244,10 +254,12 @@ Public Class FrmPrintProject
         TxtCopyright.Text = My.Settings.CopyrightBy
         ChkPrintGrid.Checked = My.Settings.PrintGrid
         ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
+        ChkCentreLines.Checked = My.Settings.PrintCentreLines
         BtnTitleFont.Font = My.Settings.PrintTitleFont
         BtnTextFont.Font = My.Settings.PrintTextFont
         BtnFooterFont.Font = My.Settings.PrintFooterFont
-
+        isPrintRowNumbers = My.Settings.PrintRowNumbers
+        isPrintColumnNumbers = My.Settings.PrintColumnNumbers
     End Sub
     Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
         My.Settings.isPrintKey = ChkPrintKey.Checked
@@ -267,6 +279,7 @@ Public Class FrmPrintProject
         My.Settings.CopyrightBy = TxtCopyright.Text
         My.Settings.PrintGrid = ChkPrintGrid.Checked
         My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
+        My.Settings.PrintCentreLines = ChkCentreLines.Checked
         My.Settings.PrintTitleFont = BtnTitleFont.Font
         My.Settings.PrintTextFont = BtnTextFont.Font
         My.Settings.PrintFooterFont = BtnFooterFont.Font
@@ -363,12 +376,16 @@ Public Class FrmPrintProject
                 End If
             Next
         End If
-        ClearMargins(pPage, pPageGraphics)
+        '      ClearMargins(pPage, pPageGraphics)
         If isPrintHeader Then
             pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oLeftMargin, oPageTopMargin))
         End If
         If isPrintFooter Then
-            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, pSize.Height - oBottomMargin + 20))
+            Dim oFooterPos As Integer = oBottomMargin - 20
+            If isPrintColumnNumbers Then
+                oFooterPos = oFooterPos - oPageFooterHeight - 20
+            End If
+            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, pSize.Height - oFooterPos))
         End If
     End Sub
     Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As Integer, pPage As Page)
@@ -643,14 +660,16 @@ Public Class FrmPrintProject
     Private Sub ClearMargins(pPage As Page, pPageGraphics As Graphics)
         Dim oBottomGapY As Integer = oTopMargin + ((pPage.BottomRight.Y - pPage.TopLeft.Y) * oPagePixelsPerCell)
         Dim oRightGapX As Integer = oLeftMargin + ((pPage.BottomRight.X - pPage.TopLeft.X) * oPagePixelsPerCell)
-        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(A4_WIDTH, oTopMargin - 1)))
-        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, oBottomGapY), New Size(A4_WIDTH, A4_HEIGHT - oBottomGapY - 1)))
-        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(oLeftMargin - 1, A4_HEIGHT)))
-        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(oRightGapX, 0), New Size(A4_WIDTH - oRightGapX - 1, A4_HEIGHT)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(A4_WIDTH, oTopMargin - 2)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, oBottomGapY), New Size(A4_WIDTH, A4_HEIGHT - oBottomGapY - 2)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(oLeftMargin - 2, A4_HEIGHT)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(oRightGapX, 0), New Size(A4_WIDTH - oRightGapX - 2, A4_HEIGHT)))
     End Sub
     Private Sub PrintGrid(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
         Dim _heightInRows As Integer = pPage.BottomRight.Y - pPage.TopLeft.Y
+        Dim _widthInPixels As Integer = Math.Min(gap * _widthInColumns, pSize.Width)
+        Dim _heightInPixels As Integer = Math.Min(gap * _heightInRows, pSize.Height)
         Dim i5ColStart As Integer = 5
         Dim i10ColStart As Integer = 10
         If pPage.TopLeft.X > 0 Then
@@ -667,106 +686,97 @@ Public Class FrmPrintProject
             Math.DivRem(pPage.TopLeft.Y, 10, i10rowStart)
             i10rowStart = 10 - i10rowStart
         End If
-
-
-        Dim itop As Integer = 0
-        Dim ileft As Integer = 0
-        If pPage.TopLeft.Y > 0 Then
-            Math.DivRem(CInt(pPage.TopLeft.Y - 1 - NudOverlap.Value), 10, itop)
-            itop = 10 - itop
-        End If
-        If pPage.TopLeft.X > 0 Then
-            Math.DivRem(CInt(pPage.TopLeft.X - 1 - NudOverlap.Value), 10, ileft)
-            ileft = 10 - ileft
-        End If
-        Dim tl As New Point(oLeftMargin, oTopMargin)
-        Dim tr As New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin)
-        Dim bl As New Point(oLeftMargin, oTopMargin + (gap * _heightInRows))
-        Dim br As New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin + (gap * _heightInRows))
         If ChkPrintGrid.Checked Then
-            ' Borders
-            If pPage.Borders(Borders.Top) = True Then
-                pPageGraphics.DrawLine(oPrintBorderPen, tl, tr)
-            End If
-            If pPage.Borders(Borders.Bottom) = True Then
-                pPageGraphics.DrawLine(oPrintBorderPen, bl, br)
-            End If
-            If pPage.Borders(Borders.Left) = True Then
-                pPageGraphics.DrawLine(oPrintBorderPen, tl, bl)
-            End If
-            If pPage.Borders(Borders.Right) = True Then
-                pPageGraphics.DrawLine(oPrintBorderPen, tr, br)
-            End If
             ' grid
-            For x = 0 To _widthInColumns
-                pPageGraphics.DrawLine(oPrintGrid1Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
+            For _column = 0 To _widthInColumns
+                DrawGridVerticalLine(pPageGraphics, oPrintGrid1Pen, _column, _heightInPixels)
+                If isPrintColumnNumbers Then
+                    If Math.IEEERemainder(_column + 1 + pPage.TopLeft.X, 5) = 0 And _column < _widthInColumns Then
+                        pPageGraphics.DrawString(CStr(_column + 1 + pPage.TopLeft.X), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * (_column)), oTopMargin + (gap * _heightInRows)))
+                    End If
+                End If
             Next
-            For y = 0 To _heightInRows
-                pPageGraphics.DrawLine(oPrintGrid1Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
+            For _row = 0 To _heightInRows
+                DrawGridHorizontalLine(pPageGraphics, oPrintGrid1Pen, _row, _widthInPixels)
+                If isPrintRowNumbers Then
+                    If Math.IEEERemainder(_row + 1 + pPage.TopLeft.Y, 5) = 0 And _row < _heightInRows Then
+                        pPageGraphics.DrawString(CStr(_row + 1 + pPage.TopLeft.Y), oPrintFooterfont, oTextBrush, New Point(oLeftMargin + (gap * _widthInColumns), oTopMargin + (gap * (_row))))
+                    End If
+                End If
             Next
-            For x = i5ColStart To _widthInColumns Step 10
-                pPageGraphics.DrawLine(oPrintGrid5Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
+            For _column = i5ColStart To _widthInColumns Step 10
+                DrawGridVerticalLine(pPageGraphics, oPrintGrid5Pen, _column, _heightInPixels)
             Next
-            For y = i5rowStart To _heightInRows Step 10
-                pPageGraphics.DrawLine(oPrintGrid5Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
+            For _row = i5rowStart To _heightInRows Step 10
+                DrawGridHorizontalLine(pPageGraphics, oPrintGrid5Pen, _row, _widthInPixels)
             Next
-            For x = i10ColStart To _widthInColumns Step 10
-                pPageGraphics.DrawLine(oPrintGrid10Pen, New Point((gap * x) + oLeftMargin, oTopMargin), New Point(gap * x + oLeftMargin, Math.Min(gap * _heightInRows, pSize.Height) + oTopMargin))
+            For _column = i10ColStart To _widthInColumns Step 10
+                DrawGridVerticalLine(pPageGraphics, oPrintGrid10Pen, _column, _heightInPixels)
             Next
-            For y = i10rowStart To _heightInRows Step 10
-                pPageGraphics.DrawLine(oPrintGrid10Pen, New Point(oLeftMargin, gap * y + oTopMargin), New Point(Math.Min(gap * _widthInColumns, pSize.Width) + oLeftMargin, (gap * y) + oTopMargin))
+            For _row = i10rowStart To _heightInRows Step 10
+                DrawGridHorizontalLine(pPageGraphics, oPrintGrid10Pen, _row, _widthInPixels)
             Next
         End If
-        Dim _markHalfWidth As Integer = Math.Max(8, Math.Ceiling(oPagePixelsPerCell * 0.5))
-        Dim _markHeight As Integer = Math.Max(12, Math.Ceiling(oPagePixelsPerCell * 0.75))
-        If pPage.MidRow > -1 Then
-            DrawHorizontalCentreLine(pPage, pPageGraphics)
+        ' Centre lines and marks
+        If ChkCentreMarks.Checked Or ChkCentreLines.Checked Then
+            Dim _markHalfWidth As Integer = Math.Max(8, Math.Ceiling(oPagePixelsPerCell * 0.5))
+            Dim _markHeight As Integer = Math.Max(12, Math.Ceiling(oPagePixelsPerCell * 0.75))
+            Dim _middleRow As Integer = pPage.MidRow - pPage.TopLeft.Y
+            Dim _middleColumn As Integer = pPage.MidCol - pPage.TopLeft.X
+            Dim _middleColumnPos As Integer = (gap * _middleColumn) + oLeftMargin
+            Dim _middleRowPos As Integer = (gap * _middleRow) + oTopMargin
+            If pPage.MidRow > -1 Then
+                If ChkCentreLines.Checked Then
+                    DrawGridHorizontalLine(pPageGraphics, oPrintCentrePen, _middleRow, _widthInPixels)
+                End If
+                If ChkCentreMarks.Checked Then
+                    Dim _leftMarkPoints As Point() = {New Point(gap - _markHeight + oLeftMargin, _middleRowPos - _markHalfWidth),
+                                                      New Point(gap - _markHeight + oLeftMargin, _middleRowPos + _markHalfWidth),
+                                                      New Point(gap + oLeftMargin, _middleRowPos)}
+
+                    Dim _rightMarkPoints As Point() = {New Point(_widthInPixels - gap + _markHeight + oLeftMargin, (_middleRowPos - _markHalfWidth)),
+                                                       New Point(_widthInPixels - gap + _markHeight + oLeftMargin, _middleRowPos + _markHalfWidth),
+                                                       New Point(_widthInPixels - gap + oLeftMargin, _middleRowPos)}
+                    oPrintGraphics.FillPolygon(oPrintCentreBrush, _leftMarkPoints)
+                    oPrintGraphics.FillPolygon(oPrintCentreBrush, _rightMarkPoints)
+                End If
+            End If
+            If pPage.MidCol > -1 Then
+                If ChkCentreLines.Checked Then
+                    DrawGridVerticalLine(pPageGraphics, oPrintCentrePen, _middleColumn, _heightInPixels)
+                End If
+                If ChkCentreMarks.Checked Then
+                    Dim _topMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, gap - _markHeight + oTopMargin),
+                                                 New Point(_middleColumnPos + _markHalfWidth, gap - _markHeight + oTopMargin),
+                                                 New Point(_middleColumnPos, gap + oTopMargin)}
+                    Dim _bottomMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, _heightInPixels - gap + _markHeight + oTopMargin),
+                                                    New Point(_middleColumnPos + _markHalfWidth, _heightInPixels - gap + _markHeight + oTopMargin),
+                                                    New Point(_middleColumnPos, _heightInPixels - gap + oTopMargin)}
+                    oPrintGraphics.FillPolygon(oPrintCentreBrush, _topMarkPoints)
+                    oPrintGraphics.FillPolygon(oPrintCentreBrush, _bottomMarkPoints)
+                End If
+            End If
         End If
-        If pPage.MidCol > -1 Then
-            DrawVerticalCentreLine(pPage, pPageGraphics)
+        ' Borders
+        If pPage.Borders(Borders.Top) = True Then
+            DrawGridHorizontalLine(pPageGraphics, oPrintBorderPen, 0, _widthInPixels)
         End If
-
-        'Dim _middleColumnPos As Integer = (gap * _middleColumn) + oLeftMargin
-        'Dim _middleRowPos As Integer = (gap * _middleRow) + oTopMargin
-        'Dim _gridHeight As Integer = gap * _heightInRows
-        'Dim _gridWidth As Integer = gap * _widthInColumns
-        'Dim _topMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, gap - _markHeight + oTopMargin),
-        '                                 New Point(_middleColumnPos + _markHalfWidth, gap - _markHeight + oTopMargin),
-        '                                 New Point(_middleColumnPos, gap + oTopMargin)}
-        'Dim _leftMarkPoints As Point() = {New Point(gap - _markHeight + oLeftMargin, _middleRowPos - _markHalfWidth),
-        '                                  New Point(gap - _markHeight + oLeftMargin, _middleRowPos + _markHalfWidth),
-        '                                  New Point(gap + oLeftMargin, _middleRowPos)}
-        'Dim _bottomMarkPoints As Point() = {New Point(_middleColumnPos - _markHalfWidth, _gridHeight - gap + _markHeight + oTopMargin),
-        '                                    New Point(_middleColumnPos + _markHalfWidth, _gridHeight - gap + _markHeight + oTopMargin),
-        '                                    New Point(_middleColumnPos, _gridHeight - gap + oTopMargin)}
-        'Dim _rightMarkPoints As Point() = {New Point(_gridWidth - gap + _markHeight + oLeftMargin, (_middleRowPos - _markHalfWidth)),
-        '                                   New Point(_gridWidth - gap + _markHeight + oLeftMargin, _middleRowPos + _markHalfWidth),
-        '                                   New Point(_gridWidth - gap + oLeftMargin, _middleRowPos)}
-        'If ChkCentreMarks.Checked Then
-        '    oPrintGraphics.DrawLine(oPrintCentrePen, New Point(oLeftMargin, (gap * _middleRow) + oTopMargin), New Point(Math.Min(gap * _widthInColumns, oPrintBitmap.Width) + oLeftMargin, (gap * _middleRow) + oTopMargin))
-        '    oPrintGraphics.DrawLine(oPrintCentrePen, New Point((gap * _middleColumn) + oLeftMargin, oTopMargin), New Point((gap * _middleColumn) + oLeftMargin, Math.Min(gap * _heightInRows, oPrintBitmap.Height) + oTopMargin))
-        '    oPrintGraphics.FillPolygon(oPrintCentreBrush, _topMarkPoints)
-        '    oPrintGraphics.FillPolygon(oPrintCentreBrush, _leftMarkPoints)
-        '    oPrintGraphics.FillPolygon(oPrintCentreBrush, _bottomMarkPoints)
-        '    oPrintGraphics.FillPolygon(oPrintCentreBrush, _rightMarkPoints)
-        'End If
-
-        'oPrintGraphics.DrawRectangle(_printBorderPen, New Rectangle(oLeftMargin, oTopMargin, Math.Min(gap * _widthInColumns, oPrintBitmap.Width - oLeftMargin), Math.Min(gap * _heightInRows, oPrintBitmap.Height - oTopMargin)))
-        '_printBorderPen.Dispose()
-
+        If pPage.Borders(Borders.Bottom) = True Then
+            DrawGridHorizontalLine(pPageGraphics, oPrintBorderPen, _heightInRows, _widthInPixels)
+        End If
+        If pPage.Borders(Borders.Left) = True Then
+            DrawGridVerticalLine(pPageGraphics, oPrintBorderPen, 0, _heightInPixels)
+        End If
+        If pPage.Borders(Borders.Right) = True Then
+            DrawGridVerticalLine(pPageGraphics, oPrintBorderPen, _widthInColumns, _heightInPixels)
+        End If
     End Sub
-    Private Sub DrawVerticalCentreLine(pPage As Page, ByRef pPageGraphics As Graphics)
-        Dim _middleColumn As Integer = pPage.MidCol - pPage.TopLeft.X
-        Dim _middleColumnPos As Integer = (gap * _middleColumn) + oLeftMargin
-        pPageGraphics.DrawLine(oPrintCentrePen, New Point(_middleColumnPos, oTopMargin), New Point(_middleColumnPos, ((pPage.BottomRight.Y - pPage.TopLeft.Y) * gap) + oTopMargin))
+    Private Sub DrawGridHorizontalLine(ByRef pPageGraphics As Graphics, pPen As Pen, pRow As Integer, pGridWidthInPixels As Integer)
+        pPageGraphics.DrawLine(pPen, New Point(oLeftMargin, oTopMargin + (gap * pRow)), New Point(oLeftMargin + pGridWidthInPixels, oTopMargin + (gap * pRow)))
     End Sub
-    Private Sub DrawHorizontalCentreLine(pPage As Page, ByRef pPageGraphics As Graphics)
-        Dim _middleRow As Integer = pPage.MidRow - pPage.TopLeft.Y
-        Dim _middleRowPos As Integer = (gap * _middleRow) + oTopMargin
-        pPageGraphics.DrawLine(oPrintCentrePen, New Point(oLeftMargin, _middleRowPos), New Point(gap * (pPage.BottomRight.X - pPage.TopLeft.X) + oLeftMargin, _middleRowPos))
-
+    Private Sub DrawGridVerticalLine(ByRef pPageGraphics As Graphics, pPen As Pen, pColumn As Integer, pGridHeightInpixels As Integer)
+        pPageGraphics.DrawLine(pPen, New Point(oLeftMargin + (gap * pColumn), oTopMargin), New Point(oLeftMargin + (gap * pColumn),oTopMargin + pGridHeightInpixels ))
     End Sub
-
     Private Sub LoadInstalledPrinters()
         For Each _installedPrinter As String In PrinterSettings.InstalledPrinters
             CmbInstalledPrinters.Items.Add(_installedPrinter)
@@ -795,7 +805,6 @@ Public Class FrmPrintProject
         oPrintDoc.Print()
     End Sub
     Private Sub CreatePrintBitmap()
-        oGraphicsUnit = GraphicsUnit.Document
         SetPrintFonts()
         oPrintBitmap = New Bitmap(A4_WIDTH, A4_HEIGHT)
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
@@ -803,8 +812,14 @@ Public Class FrmPrintProject
         ' Set handler to print image 
         oLeftMargin = oPageLeftMargin
         oRightMargin = oPageRightMargin
+        If isPrintRowNumbers Then
+            oRightMargin += oPageFooterHeight + 20
+        End If
         oTopMargin = oPageTopMargin + oPageTitleHeight + 20
         oBottomMargin = oPageBottomMargin + oPageFooterHeight + 20
+        If isPrintColumnNumbers Then
+            oBottomMargin += oPageFooterHeight + 20
+        End If
         oTitleHeight = oPageTitleHeight
         oFooterHeight = oPageFooterHeight
         SetFonts()
@@ -823,7 +838,9 @@ Public Class FrmPrintProject
                                                                                     ChkPrintHeader.CheckedChanged,
                                                                                     ChkPrintFooter.CheckedChanged,
                                                                                     CbShading.SelectedIndexChanged,
-                                                                                    CbDisplayStyle.SelectedIndexChanged
+                                                                                    CbDisplayStyle.SelectedIndexChanged,
+                                                                                    ChkCentreLines.CheckedChanged,
+                                                                                    ChkCentreMarks.CheckedChanged
         If isComponentInitialised And Not isPrintLoading Then
             LoadFormPages()
         End If
@@ -842,5 +859,6 @@ Public Class FrmPrintProject
             Next
         End If
     End Sub
+
 #End Region
 End Class

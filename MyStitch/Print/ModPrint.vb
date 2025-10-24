@@ -60,7 +60,8 @@ Module ModPrint
     Friend oFormPixelsPerCell As Decimal
     Friend isPrintHeader As Boolean
     Friend isPrintFooter As Boolean
-    Friend oGraphicsUnit As GraphicsUnit
+    Friend isPrintRowNumbers As Boolean
+    Friend isPrintColumnNumbers As Boolean
 #End Region
 #Region "subroutines"
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)

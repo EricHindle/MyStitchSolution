@@ -1180,6 +1180,42 @@ Namespace My
                 Me("isPrintFooter") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property PrintCentreLines() As Boolean
+            Get
+                Return CType(Me("PrintCentreLines"),Boolean)
+            End Get
+            Set
+                Me("PrintCentreLines") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property PrintRowNumbers() As Boolean
+            Get
+                Return CType(Me("PrintRowNumbers"),Boolean)
+            End Get
+            Set
+                Me("PrintRowNumbers") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property PrintColumnNumbers() As Boolean
+            Get
+                Return CType(Me("PrintColumnNumbers"),Boolean)
+            End Get
+            Set
+                Me("PrintColumnNumbers") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
