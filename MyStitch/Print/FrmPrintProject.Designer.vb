@@ -54,8 +54,6 @@ Partial Class FrmPrintProject
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChkPrintKey = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.CbAbbrKey = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.NudOverlap = New System.Windows.Forms.NumericUpDown()
         Me.CbShading = New System.Windows.Forms.ComboBox()
         Me.ChkShowPageOrder = New System.Windows.Forms.CheckBox()
@@ -361,8 +359,6 @@ Partial Class FrmPrintProject
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.CbAbbrKey)
-        Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.NudOverlap)
         Me.GroupBox2.Controls.Add(Me.CbShading)
         Me.GroupBox2.Controls.Add(Me.ChkShowPageOrder)
@@ -371,29 +367,10 @@ Partial Class FrmPrintProject
         Me.GroupBox2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(12, 267)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(180, 140)
+        Me.GroupBox2.Size = New System.Drawing.Size(180, 95)
         Me.GroupBox2.TabIndex = 1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Tiling"
-        '
-        'CbAbbrKey
-        '
-        Me.CbAbbrKey.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbAbbrKey.FormattingEnabled = True
-        Me.CbAbbrKey.Items.AddRange(New Object() {"<none>", "colour name", "DMC"})
-        Me.CbAbbrKey.Location = New System.Drawing.Point(47, 107)
-        Me.CbAbbrKey.Name = "CbAbbrKey"
-        Me.CbAbbrKey.Size = New System.Drawing.Size(79, 21)
-        Me.CbAbbrKey.TabIndex = 3
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 91)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(167, 13)
-        Me.Label9.TabIndex = 149
-        Me.Label9.Text = "Abbreviated key on design pages"
         '
         'NudOverlap
         '
@@ -547,7 +524,7 @@ Partial Class FrmPrintProject
         Me.GroupBox5.Controls.Add(Me.Label19)
         Me.GroupBox5.Controls.Add(Me.TxtTitle)
         Me.GroupBox5.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(12, 413)
+        Me.GroupBox5.Location = New System.Drawing.Point(13, 368)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(180, 162)
         Me.GroupBox5.TabIndex = 4
@@ -801,10 +778,8 @@ Partial Class FrmPrintProject
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents ChkShowPageOrder As CheckBox
-    Friend WithEvents Label9 As Label
     Friend WithEvents NudOverlap As NumericUpDown
     Friend WithEvents CbShading As ComboBox
-    Friend WithEvents CbAbbrKey As ComboBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label

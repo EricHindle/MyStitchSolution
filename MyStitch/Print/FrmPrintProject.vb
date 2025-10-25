@@ -191,7 +191,6 @@ Public Class FrmPrintProject
         My.Settings.TilingOverlap = NudOverlap.Value
         My.Settings.OverlapShading = CbShading.SelectedIndex
         My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
-        My.Settings.AbbrevKey = CbAbbrKey.SelectedIndex
         My.Settings.PrintMarginTop = NudTopMargin.Value
         My.Settings.PrintMarginBottom = NudBottomMargin.Value
         My.Settings.PrintMarginLeft = NudLeftMargin.Value
@@ -267,7 +266,6 @@ Public Class FrmPrintProject
         NudOverlap.Value = My.Settings.TilingOverlap
         CbShading.SelectedIndex = My.Settings.OverlapShading
         ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
-        CbAbbrKey.SelectedIndex = My.Settings.AbbrevKey
         NudTopMargin.Value = My.Settings.PrintMarginTop
         NudBottomMargin.Value = My.Settings.PrintMarginBottom
         NudLeftMargin.Value = My.Settings.PrintMarginLeft

@@ -419,6 +419,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\grid.bmp" />
+    <None Include="Resources\footertextimage.bmp" />
+    <None Include="Resources\titletextImage.bmp" />
     <None Include="MyStitchData.xsc">
       <DependentUpon>MyStitchData.xsd</DependentUpon>
     </None>

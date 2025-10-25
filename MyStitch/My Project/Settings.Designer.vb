@@ -632,18 +632,6 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property AbbrevKey() As Integer
-            Get
-                Return CType(Me("AbbrevKey"),Integer)
-            End Get
-            Set
-                Me("AbbrevKey") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
         Public Property PrintMarginTop() As Decimal
             Get
                 Return CType(Me("PrintMarginTop"),Decimal)

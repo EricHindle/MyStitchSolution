@@ -8,11 +8,16 @@
 Imports HindlewareLib.Logging
 
 Public Class FrmPrintOptions
+#Region "variables"
+    Private isComponentInitialized As Boolean
+#End Region
 #Region "form control handlers"
     Private Sub FrmOptions_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         LogUtil.Info("Loading Print Options", MyBase.Name)
         GetFormPos(Me, My.Settings.PrintOptionsFormPos)
         LoadOptions()
+        isComponentInitialized = True
+        AdjustImage()
     End Sub
     Private Sub BtnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Close()
@@ -44,8 +49,34 @@ Public Class FrmPrintOptions
     End Sub
 #End Region
 #Region "subroutines"
+    Private Sub AdjustImage()
+        Dim ppi As Decimal = PnlOuter.Width / 8.3
+        Dim lMargin As Decimal = NudLeftMargin.Value
+        Dim rMargin As Decimal = NudRightMargin.Value
+        Dim tMargin As Decimal = NudTopMargin.Value
+        Dim bMargin As Decimal = NudBottomMargin.Value
+        Dim lPix As Integer = lMargin * ppi
+        Dim rPix As Integer = rMargin * ppi
+        Dim tPix As Integer = tMargin * ppi
+        Dim bPix As Integer = bMargin * ppi
+        If isComponentInitialized Then
+            PnlInner.Width = PnlOuter.Width - lPix - rPix - 2
+            PnlInner.Height = PnlOuter.Height - tPix - bPix -2
+            PnlInner.Location = New Point(lPix, tPix)
+            If ChkPrintHeader.Checked Then
+                PnlGrid.Dock = DockStyle.None
+                PnlGrid.Location = New Point(0, PnlTitle.Height)
+            Else
+                PnlGrid.Dock = DockStyle.Top
+            End If
+            PnlGrid.Height = PnlInner.Height - If(ChkPrintHeader.Checked, PnlTitle.Height, 0) - If(ChkPrintFooter.Checked, PnlFooter.Height, 0)
+            PnlGrid.Width = PnlInner.Width
+            PnlTitle.Visible = ChkPrintHeader.Checked
+            PnlFooter.Visible = ChkPrintFooter.Checked
+            PnlGrid.Visible = ChkPrintGrid.Checked
+        End If
+    End Sub
     Private Sub SaveOptions()
-        My.Settings.AbbrevKey = CbAbbrKey.SelectedIndex
         My.Settings.CopyrightBy = TxtCopyright.Text
         My.Settings.DesignBy = TxtDesignBy.Text
         My.Settings.OverlapShading = CbShading.SelectedIndex
@@ -81,7 +112,6 @@ Public Class FrmPrintOptions
         End Select
     End Sub
     Private Sub LoadOptions()
-        CbAbbrKey.SelectedIndex = My.Settings.AbbrevKey
         CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
         CbShading.SelectedIndex = My.Settings.OverlapShading
         ChkPrintKey.Checked = My.Settings.isPrintKey
@@ -104,6 +134,16 @@ Public Class FrmPrintOptions
         BtnFooterFont.Font = My.Settings.PrintFooterFont
         ChkRowNumbers.Checked = My.Settings.PrintRowNumbers
         ChkColumnNumbers.Checked = My.Settings.PrintColumnNumbers
+    End Sub
+
+    Private Sub NudTopMargin_ValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
+            NudLeftMargin.ValueChanged,
+            NudRightMargin.ValueChanged,
+            NudBottomMargin.ValueChanged,
+            ChkPrintFooter.CheckedChanged,
+            ChkPrintHeader.CheckedChanged,
+            ChkPrintGrid.CheckedChanged
+        AdjustImage()
     End Sub
 
 #End Region
