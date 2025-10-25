@@ -605,9 +605,9 @@ Partial Class FrmOptions
         Me.ChkCentreOn.AutoSize = True
         Me.ChkCentreOn.Location = New System.Drawing.Point(16, 51)
         Me.ChkCentreOn.Name = "ChkCentreOn"
-        Me.ChkCentreOn.Size = New System.Drawing.Size(83, 18)
+        Me.ChkCentreOn.Size = New System.Drawing.Size(114, 18)
         Me.ChkCentreOn.TabIndex = 1
-        Me.ChkCentreOn.Text = "Centre On"
+        Me.ChkCentreOn.Text = "Centre Lines On"
         Me.ChkCentreOn.UseVisualStyleBackColor = True
         '
         'NudGrid5Thickness
@@ -808,7 +808,7 @@ Partial Class FrmOptions
         'ChkTimerAutoStart
         '
         Me.ChkTimerAutoStart.AutoSize = True
-        Me.ChkTimerAutoStart.Location = New System.Drawing.Point(6, 25)
+        Me.ChkTimerAutoStart.Location = New System.Drawing.Point(15, 26)
         Me.ChkTimerAutoStart.Name = "ChkTimerAutoStart"
         Me.ChkTimerAutoStart.Size = New System.Drawing.Size(163, 18)
         Me.ChkTimerAutoStart.TabIndex = 0
@@ -959,7 +959,7 @@ Partial Class FrmOptions
         Me.GroupBox9.Controls.Add(Me.ChkArchiveOnSave)
         Me.GroupBox9.Location = New System.Drawing.Point(526, 496)
         Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(188, 72)
+        Me.GroupBox9.Size = New System.Drawing.Size(188, 79)
         Me.GroupBox9.TabIndex = 8
         Me.GroupBox9.TabStop = False
         Me.GroupBox9.Text = "Save"
