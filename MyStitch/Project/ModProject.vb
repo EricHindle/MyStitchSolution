@@ -73,7 +73,11 @@ Module ModProject
         oProjectThreads = oFileProjectThreadCollection
         SaveDesign()
     End Sub
-
+    Friend Sub ShowPrintSettingsForm()
+        Using _printSettings As New FrmPrintOptions
+            _printSettings.ShowDialog()
+        End Using
+    End Sub
     Private Sub UpdateThreadsFromDesign(oFileProjectDesign As ProjectDesign, oFileProjectThreadCollection As ProjectThreadCollection)
         LogUtil.LogInfo("Updating threads from design", MethodBase.GetCurrentMethod.Name)
         For Each _stitch As Stitch In oFileProjectDesign.BlockStitches

@@ -26,6 +26,7 @@ Module ModPrint
     Friend oTopMargin As Integer                    ' Page adjusted top margin
     Friend oBottomMargin As Integer                 ' Page adjusted bottom margin
     Friend oPageTitleHeight As Integer
+    Friend oPageTextHeight As Integer
     Friend oPageFooterHeight As Integer
     Friend oPageLeftMargin As Integer               ' Page minimum left margin
     Friend oPageRightMargin As Integer              ' Page minimum right margin
@@ -58,6 +59,7 @@ Module ModPrint
     Friend Sub SetPrintPageMargins(pLeftMargin As Single, pRightMargin As Single, pTopMargin As Single, pBottomMargin As Single)
         ' Set print margins in dots
         oPageTitleHeight = If(isPrintHeader, (oPrintTitlefont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
+        oPageTextHeight = (oPrintTextfont.Size * PRINT_DPI) / FONT_PPI
         oPageFooterHeight = If(isPrintFooter, (oPrintFooterfont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
         oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI - oPrinterHardMarginX, 0)
         oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI - oPrinterHardMarginX, 0)
@@ -78,7 +80,7 @@ Module ModPrint
 
     End Sub
 
-    Friend Sub CalculatePrintGridSpace(pCellsPerInch As Integer, pDesignSize As Size)
+    Friend Sub CalculatePrintGridSpace(pDesignSize As Size)
         oAvailablePixelWidth = oPrintablePageWidth - oLeftMargin - oRightMargin
         oAvailablePixelHeight = oPrintablePageHeight - oTopMargin - oBottomMargin
         oAvailableCellsWidth = oAvailablePixelWidth / oPagePixelsPerCell

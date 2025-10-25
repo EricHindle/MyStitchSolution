@@ -47,6 +47,49 @@ Public Class FrmPrintOptions
         FontDialog1.ShowDialog()
         BtnFooterFont.Font = FontDialog1.Font
     End Sub
+    Private Sub CbColour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CbGrid1Colour.SelectedIndexChanged,
+                                                                                        CbGrid5Colour.SelectedIndexChanged,
+                                                                                        CbGrid10Colour.SelectedIndexChanged
+        Dim comboBox As ComboBox = CType(sender, ComboBox)
+        Select Case comboBox.Name
+            Case CbGrid1Colour.Name
+                SetGridColour(comboBox, PicGrid1Colour)
+            Case CbGrid5Colour.Name
+                SetGridColour(comboBox, PicGrid5Colour)
+            Case CbGrid10Colour.Name
+                SetGridColour(comboBox, PicGrid10Colour)
+        End Select
+    End Sub
+    Private Sub PicColour_Click(sender As Object, e As EventArgs) Handles PicGrid1Colour.Click,
+                                                                          PicGrid5Colour.Click,
+                                                                          PicGrid10Colour.Click
+        Dim pic As PictureBox = CType(sender, PictureBox)
+        Dim _old As Color = pic.BackColor
+        Dim _new As Color = SelectColor(pic.BackColor)
+        If _old <> _new Then
+            pic.BackColor = _new
+            Select Case pic.Name
+                Case PicGrid1Colour.Name
+                    CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1
+                Case PicGrid5Colour.Name
+                    CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1
+                Case PicGrid10Colour.Name
+                    CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1
+            End Select
+        End If
+    End Sub
+    Private Sub NudTopMargin_ValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
+                                                                                    NudLeftMargin.ValueChanged,
+                                                                                    NudRightMargin.ValueChanged,
+                                                                                    NudBottomMargin.ValueChanged,
+                                                                                    ChkPrintFooter.CheckedChanged,
+                                                                                    ChkPrintHeader.CheckedChanged,
+                                                                                    ChkPrintGrid.CheckedChanged
+        AdjustImage()
+    End Sub
+    Private Sub PicCentreLineColour_Click(sender As Object, e As EventArgs) Handles PicCentreLineColour.Click
+        PicCentreLineColour.BackColor = SelectColor(PicCentreLineColour.BackColor)
+    End Sub
 #End Region
 #Region "subroutines"
     Private Sub AdjustImage()
@@ -61,7 +104,7 @@ Public Class FrmPrintOptions
         Dim bPix As Integer = bMargin * ppi
         If isComponentInitialized Then
             PnlInner.Width = PnlOuter.Width - lPix - rPix - 2
-            PnlInner.Height = PnlOuter.Height - tPix - bPix -2
+            PnlInner.Height = PnlOuter.Height - tPix - bPix - 2
             PnlInner.Location = New Point(lPix, tPix)
             If ChkPrintHeader.Checked Then
                 PnlGrid.Dock = DockStyle.None
@@ -99,17 +142,13 @@ Public Class FrmPrintOptions
         My.Settings.PrintTitleFont = BtnTitleFont.Font
         My.Settings.PrintRowNumbers = ChkRowNumbers.Checked
         My.Settings.PrintColumnNumbers = ChkColumnNumbers.Checked
-
+        My.Settings.PrintCentreLineColour = PicCentreLineColour.BackColor
+        My.Settings.PrintCentreLineThickness = NudCentreLineWidth.Value
+        My.Settings.PrintGrid1Colour = If(CbGrid1Colour.SelectedIndex = CbGrid1Colour.Items.Count - 1, PicGrid1Colour.BackColor.ToArgb, CbGrid1Colour.SelectedIndex + 1)
+        My.Settings.PrintGrid5Colour = If(CbGrid5Colour.SelectedIndex = CbGrid5Colour.Items.Count - 1, PicGrid5Colour.BackColor.ToArgb, CbGrid5Colour.SelectedIndex + 1)
+        My.Settings.PrintGrid10Colour = If(CbGrid10Colour.SelectedIndex = CbGrid10Colour.Items.Count - 1, PicGrid10Colour.BackColor.ToArgb, CbGrid10Colour.SelectedIndex + 1)
+        My.Settings.PrintBorderThickness = NudBorderThickness.Value
         My.Settings.Save()
-    End Sub
-    Private Sub SetLineColour(pPic As PictureBox, pComboBox As ComboBox, pColourSetting As Integer)
-        pPic.BackColor = GetColourFromProject(pColourSetting, oGridColourList)
-        Select Case pColourSetting
-            Case 1 To 4
-                pComboBox.SelectedIndex = pColourSetting - 1
-            Case Else
-                pComboBox.SelectedIndex = pComboBox.Items.Count - 1
-        End Select
     End Sub
     Private Sub LoadOptions()
         CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
@@ -134,17 +173,12 @@ Public Class FrmPrintOptions
         BtnFooterFont.Font = My.Settings.PrintFooterFont
         ChkRowNumbers.Checked = My.Settings.PrintRowNumbers
         ChkColumnNumbers.Checked = My.Settings.PrintColumnNumbers
+        PicCentreLineColour.BackColor = My.Settings.PrintCentreLineColour
+        NudCentreLineWidth.Value = My.Settings.PrintCentreLineThickness
+        NudBorderThickness.Value = My.Settings.PrintBorderThickness
+        SetLineColour(PicGrid10Colour, CbGrid10Colour, My.Settings.PrintGrid10Colour)
+        SetLineColour(PicGrid1Colour, CbGrid1Colour, My.Settings.PrintGrid1Colour)
+        SetLineColour(PicGrid5Colour, CbGrid5Colour, My.Settings.PrintGrid5Colour)
     End Sub
-
-    Private Sub NudTopMargin_ValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
-            NudLeftMargin.ValueChanged,
-            NudRightMargin.ValueChanged,
-            NudBottomMargin.ValueChanged,
-            ChkPrintFooter.CheckedChanged,
-            ChkPrintHeader.CheckedChanged,
-            ChkPrintGrid.CheckedChanged
-        AdjustImage()
-    End Sub
-
 #End Region
 End Class

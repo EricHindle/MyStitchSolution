@@ -571,18 +571,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property isKeySeparate() As Boolean
-            Get
-                Return CType(Me("isKeySeparate"),Boolean)
-            End Get
-            Set
-                Me("isKeySeparate") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
         Public Property PrintSquaresPerInch() As Integer
             Get
@@ -1202,6 +1190,78 @@ Namespace My
             End Get
             Set
                 Me("PrintColumnNumbers") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property PrintGrid1Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid1Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid1Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+        Public Property PrintGrid5Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid5Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid5Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("4")>  _
+        Public Property PrintGrid10Colour() As Integer
+            Get
+                Return CType(Me("PrintGrid10Colour"),Integer)
+            End Get
+            Set
+                Me("PrintGrid10Colour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Red")>  _
+        Public Property PrintCentreLineColour() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("PrintCentreLineColour"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("PrintCentreLineColour") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
+        Public Property PrintBorderThickness() As Integer
+            Get
+                Return CType(Me("PrintBorderThickness"),Integer)
+            End Get
+            Set
+                Me("PrintBorderThickness") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+        Public Property PrintCentreLineThickness() As Integer
+            Get
+                Return CType(Me("PrintCentreLineThickness"),Integer)
+            End Get
+            Set
+                Me("PrintCentreLineThickness") = value
             End Set
         End Property
     End Class

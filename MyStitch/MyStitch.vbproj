@@ -312,6 +312,7 @@
     </Compile>
     <Compile Include="Utilities\GlobalSettings.vb" />
     <Compile Include="Utilities\ModCommon.vb" />
+    <Compile Include="Utilities\ModOptions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Cards\FrmBuildThreadCards.resx">

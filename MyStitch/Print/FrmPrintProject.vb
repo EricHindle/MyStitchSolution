@@ -121,32 +121,35 @@ Public Class FrmPrintProject
     End Enum
 #End Region
 #Region "variables"
-    Private isComponentInitialised As Boolean
     Private gap As Integer
-    Private oFormImage As Bitmap
-    Private isPrintLoading As Boolean = False
+    Private isComponentInitialised As Boolean
     Private isPagesLoaded As Boolean = False
-    Private oPrintBitmap As Bitmap
-    Private oPrintGraphics As Graphics
+    Private isPrintKey As Boolean
+    Private isPrintLoading As Boolean = False
+    Private oFormImage As Bitmap
+    Friend oOverlapBrush As SolidBrush
     Private oPageList As List(Of Page)
-    Private oSelectedPage As New Page
-    Private oTextBrush As Brush = Brushes.Black
-    Friend oPrintGrid1width As Integer = 1
-    Friend oPrintGrid1Brush As Brush = Brushes.DarkGray
-    Friend oPrintGrid1Pen = New Pen(oPrintGrid1Brush, oPrintGrid1width)
-    Friend oPrintGrid5width As Integer = 1
-    Friend oPrintGrid5Brush As Brush = Brushes.DimGray
-    Friend oPrintGrid5Pen = New Pen(oPrintGrid5Brush, oPrintGrid5width)
-    Friend oPrintGrid10width As Integer = 2
-    Friend oPrintGrid10Brush As Brush = Brushes.Black
-    Friend oPrintGrid10Pen = New Pen(oPrintGrid10Brush, oPrintGrid10width)
-    Friend oPrintBorderwidth As Integer = 5
+    Private oPrintBitmap As Bitmap
     Friend oPrintBorderBrush As Brush = Brushes.Black
     Friend oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
-    Friend oOverlapBrush As SolidBrush
-    Friend oPrintCentrewidth As Integer = 3
+    Friend oPrintBorderwidth As Integer = 5
     Friend oPrintCentreBrush As Brush = Brushes.Red
     Friend oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
+    Friend oPrintCentrewidth As Integer = 3
+    Private oPrintGraphics As Graphics
+    Friend oPrintGrid10Brush As Brush = Brushes.Black
+    Friend oPrintGrid10width As Integer = 2
+    Friend oPrintGrid10Pen As New Pen(oPrintGrid10Brush, oPrintGrid10width)
+    Friend oPrintGrid1Brush As Brush = Brushes.DarkGray
+    Friend oPrintGrid1width As Integer = 1
+    Friend oPrintGrid1Pen As New Pen(oPrintGrid1Brush, oPrintGrid1width)
+    Friend oPrintKeyBrush As Brush = Brushes.Black
+    Friend oPrintKeyPen As New Pen(oPrintKeyBrush, 1)
+    Friend oPrintGrid5Brush As Brush = Brushes.DimGray
+    Friend oPrintGrid5width As Integer = 1
+    Friend oPrintGrid5Pen As New Pen(oPrintGrid5Brush, oPrintGrid5width)
+    Private oSelectedPage As New Page
+    Private oTextBrush As Brush = Brushes.Black
 #End Region
 #Region "form control handlers"
     Private Sub FrmPrintProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -158,53 +161,16 @@ Public Class FrmPrintProject
         Me.Close()
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.LogInfo("Closing...", MyBase.Name)
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
         PenDispose()
     End Sub
-    Private Sub BtnTitleFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click
-        FontDialog1.Font = BtnTitleFont.Font
-        FontDialog1.ShowDialog()
-        BtnTitleFont.Font = FontDialog1.Font
-        SetPrintFonts()
-        LoadFormPages()
-    End Sub
-    Private Sub BtnTextFont_Click(sender As Object, e As EventArgs) Handles BtnTextFont.Click
-        FontDialog1.Font = BtnTextFont.Font
-        FontDialog1.ShowDialog()
-        BtnTextFont.Font = FontDialog1.Font
-        SetPrintFonts()
-        LoadFormPages()
-    End Sub
-    Private Sub BtnFooterFont_Click(sender As Object, e As EventArgs) Handles BtnFooterFont.Click
-        FontDialog1.Font = BtnFooterFont.Font
-        FontDialog1.ShowDialog()
-        BtnFooterFont.Font = FontDialog1.Font
-        SetPrintFonts()
-        LoadFormPages()
-    End Sub
-    Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
-        My.Settings.isPrintKey = ChkPrintKey.Checked
-        My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
-        My.Settings.isKeySeparate = ChkKeySeparate.Checked
-        My.Settings.PrintSquaresPerInch = NudSqrPerInch.Value
-        My.Settings.TilingOverlap = NudOverlap.Value
-        My.Settings.OverlapShading = CbShading.SelectedIndex
-        My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
-        My.Settings.PrintMarginTop = NudTopMargin.Value
-        My.Settings.PrintMarginBottom = NudBottomMargin.Value
-        My.Settings.PrintMarginLeft = NudLeftMargin.Value
-        My.Settings.PrintMarginRight = NudRightMargin.Value
-        My.Settings.isPrintHeader = ChkPrintHeader.Checked
-        My.Settings.DesignBy = TxtDesignBy.Text
-        My.Settings.CopyrightBy = TxtCopyright.Text
-        My.Settings.PrintGrid = ChkPrintGrid.Checked
-        My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
-        My.Settings.PrintCentreLines = ChkCentreLines.Checked
-        My.Settings.PrintTitleFont = BtnTitleFont.Font
-        My.Settings.PrintTextFont = BtnTextFont.Font
-        My.Settings.PrintFooterFont = BtnFooterFont.Font
-        My.Settings.Save()
+    Private Sub BtnFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click,
+                                                                        BtnTextFont.Click,
+                                                                        BtnFooterFont.Click
+        Dim _button As Button = CType(sender, Button)
+        SelectFont(_button)
     End Sub
     Private Sub BtnPrintAll_Click(sender As Object, e As EventArgs) Handles BtnPrintAll.Click
         If isPagesLoaded Then
@@ -217,7 +183,49 @@ Public Class FrmPrintProject
                 CreatePrintBitmap()
                 oPrintDoc.Print()
             Next
+            If isPrintKey Then
+                CreateKeyBitmap
+                oPrintDoc.Print()
+            End If
         End If
+    End Sub
+    Private Sub ParameterValueChanged(sender As Object, e As EventArgs) Handles NudSqrPerInch.ValueChanged,
+                                                                                ChkPrintGrid.CheckedChanged,
+                                                                                ChkCentreMarks.CheckedChanged,
+                                                                                ChkCentreLines.CheckedChanged,
+                                                                                CbDisplayStyle.SelectedIndexChanged,
+                                                                                NudBottomMargin.ValueChanged,
+                                                                                NudLeftMargin.ValueChanged,
+                                                                                NudRightMargin.ValueChanged,
+                                                                                NudSqrPerInch.ValueChanged,
+                                                                                ChkPrintGrid.CheckedChanged,
+                                                                                NudOverlap.ValueChanged,
+                                                                                ChkPrintHeader.CheckedChanged,
+                                                                                ChkPrintFooter.CheckedChanged,
+                                                                                CbShading.SelectedIndexChanged,
+                                                                                CbDisplayStyle.SelectedIndexChanged,
+                                                                                ChkCentreLines.CheckedChanged,
+                                                                                ChkCentreMarks.CheckedChanged,
+                                                                                ChkShowPageOrder.CheckedChanged
+        If isComponentInitialised And Not isPrintLoading Then
+            LoadFormPages()
+        End If
+    End Sub
+    Private Sub BtnMoreSettings_Click_1(sender As Object, e As EventArgs) Handles BtnMoreSettings.Click
+        ShowPrintSettingsForm()
+    End Sub
+    Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
+        SaveSettings()
+    End Sub
+    Private Sub BtnPrintKey_Click(sender As Object, e As EventArgs) Handles BtnPrintKey.Click
+        LogUtil.ShowStatus("Printing key", LblStatus, MyBase.Name)
+        InitialisePrintDocument()
+        oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
+        ' Set handler to print image 
+        AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
+        CreateKeyBitmap()
+        ' Print the image (calls PrintPage handler (see above))
+        oPrintDoc.Print()
     End Sub
 #End Region
 #Region "subroutines"
@@ -247,6 +255,78 @@ Public Class FrmPrintProject
         isPrintLoading = False
         LoadFormPages()
     End Sub
+    Private Sub LoadFormFromSettings()
+        BtnFooterFont.Font = My.Settings.PrintFooterFont
+        BtnTextFont.Font = My.Settings.PrintTextFont
+        BtnTitleFont.Font = My.Settings.PrintTitleFont
+        CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
+        CbShading.SelectedIndex = My.Settings.OverlapShading
+        ChkCentreLines.Checked = My.Settings.PrintCentreLines
+        ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
+        ChkPrintFooter.Checked = My.Settings.isPrintFooter
+        ChkPrintGrid.Checked = My.Settings.PrintGrid
+        ChkPrintHeader.Checked = My.Settings.isPrintHeader
+        ChkPrintKey.Checked = My.Settings.isPrintKey
+        ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
+        NudBottomMargin.Value = My.Settings.PrintMarginBottom
+        NudLeftMargin.Value = My.Settings.PrintMarginLeft
+        NudOverlap.Value = My.Settings.TilingOverlap
+        NudRightMargin.Value = My.Settings.PrintMarginRight
+        NudSqrPerInch.Value = My.Settings.PrintSquaresPerInch
+        NudTopMargin.Value = My.Settings.PrintMarginTop
+        TxtCopyright.Text = My.Settings.CopyrightBy
+        TxtDesignBy.Text = My.Settings.DesignBy
+        isPrintColumnNumbers = My.Settings.PrintColumnNumbers
+        isPrintRowNumbers = My.Settings.PrintRowNumbers
+        isPrintKey = My.Settings.isPrintKey
+        SetPens()
+    End Sub
+    Private Sub SetPens()
+        oPrintBorderBrush = Brushes.Black
+        oPrintBorderwidth = My.Settings.PrintBorderThickness
+        oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
+        oPrintCentreBrush = New SolidBrush(My.Settings.PrintCentreLineColour)
+        oPrintCentrewidth = My.Settings.PrintCentreLineThickness
+        oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
+        oPrintGrid1Brush = New SolidBrush(GetColourFromProject(My.Settings.PrintGrid1Colour, oGridColourList))
+        oPrintGrid1width = 1
+        oPrintGrid1Pen = New Pen(oPrintGrid1Brush, oPrintGrid1width)
+        oPrintGrid5Brush = New SolidBrush(GetColourFromProject(My.Settings.PrintGrid5Colour, oGridColourList))
+        oPrintGrid5width = 1
+        oPrintGrid5Pen = New Pen(oPrintGrid5Brush, oPrintGrid5width)
+        oPrintGrid10Brush = New SolidBrush(GetColourFromProject(My.Settings.PrintGrid10Colour, oGridColourList))
+        oPrintGrid10width = 2
+        oPrintGrid10Pen = New Pen(oPrintGrid10Brush, oPrintGrid10width)
+    End Sub
+    Private Sub SaveSettings()
+        My.Settings.isPrintKey = ChkPrintKey.Checked
+        My.Settings.PrintKeyOrder = CbKeyOrder.SelectedIndex
+        My.Settings.PrintSquaresPerInch = NudSqrPerInch.Value
+        My.Settings.TilingOverlap = NudOverlap.Value
+        My.Settings.OverlapShading = CbShading.SelectedIndex
+        My.Settings.isShowPageOrder = ChkShowPageOrder.Checked
+        My.Settings.PrintMarginTop = NudTopMargin.Value
+        My.Settings.PrintMarginBottom = NudBottomMargin.Value
+        My.Settings.PrintMarginLeft = NudLeftMargin.Value
+        My.Settings.PrintMarginRight = NudRightMargin.Value
+        My.Settings.isPrintHeader = ChkPrintHeader.Checked
+        My.Settings.DesignBy = TxtDesignBy.Text
+        My.Settings.CopyrightBy = TxtCopyright.Text
+        My.Settings.PrintGrid = ChkPrintGrid.Checked
+        My.Settings.PrintCentreMarks = ChkCentreMarks.Checked
+        My.Settings.PrintCentreLines = ChkCentreLines.Checked
+        My.Settings.PrintTitleFont = BtnTitleFont.Font
+        My.Settings.PrintTextFont = BtnTextFont.Font
+        My.Settings.PrintFooterFont = BtnFooterFont.Font
+        My.Settings.Save()
+    End Sub
+    Private Sub SelectFont(ByRef pButton As Button)
+        FontDialog1.Font = pButton.Font
+        FontDialog1.ShowDialog()
+        pButton.Font = FontDialog1.Font
+        SetPrintFonts()
+        LoadFormPages()
+    End Sub
     Private Sub PenDispose()
         oPrintBorderPen.dispose
         oPrintCentrePen.dispose
@@ -258,31 +338,6 @@ Public Class FrmPrintProject
         e.Graphics.DrawImage(oPrintBitmap, New Point(0, 0))
         LogUtil.ShowStatus("Printing done", LblStatus, MyBase.Name)
     End Sub
-    Private Sub LoadFormFromSettings()
-        ChkPrintKey.Checked = My.Settings.isPrintKey
-        CbKeyOrder.SelectedIndex = My.Settings.PrintKeyOrder
-        ChkKeySeparate.Checked = My.Settings.isKeySeparate
-        NudSqrPerInch.Value = My.Settings.PrintSquaresPerInch
-        NudOverlap.Value = My.Settings.TilingOverlap
-        CbShading.SelectedIndex = My.Settings.OverlapShading
-        ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
-        NudTopMargin.Value = My.Settings.PrintMarginTop
-        NudBottomMargin.Value = My.Settings.PrintMarginBottom
-        NudLeftMargin.Value = My.Settings.PrintMarginLeft
-        NudRightMargin.Value = My.Settings.PrintMarginRight
-        ChkPrintHeader.Checked = My.Settings.isPrintHeader
-        ChkPrintFooter.Checked = My.Settings.isPrintFooter
-        TxtDesignBy.Text = My.Settings.DesignBy
-        TxtCopyright.Text = My.Settings.CopyrightBy
-        ChkPrintGrid.Checked = My.Settings.PrintGrid
-        ChkCentreMarks.Checked = My.Settings.PrintCentreMarks
-        ChkCentreLines.Checked = My.Settings.PrintCentreLines
-        BtnTitleFont.Font = My.Settings.PrintTitleFont
-        BtnTextFont.Font = My.Settings.PrintTextFont
-        BtnFooterFont.Font = My.Settings.PrintFooterFont
-        isPrintRowNumbers = My.Settings.PrintRowNumbers
-        isPrintColumnNumbers = My.Settings.PrintColumnNumbers
-    End Sub
     Private Sub LoadFormPages()
         isPagesLoaded = False
         isPrintHeader = ChkPrintHeader.Checked
@@ -292,7 +347,7 @@ Public Class FrmPrintProject
 
         SetPrintPageMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
 
-        CalculatePrintGridSpace(NudSqrPerInch.Value, New Size(oPrintProject.DesignWidth, oPrintProject.DesignHeight))
+        CalculatePrintGridSpace(New Size(oPrintProject.DesignWidth, oPrintProject.DesignHeight))
 
         oOverlapBrush = New SolidBrush(oOverlapColourList(CbShading.SelectedIndex))
         LblOnePage.Text = String.Format(LblOnePage.Text, oOnePageSqPerInch)
@@ -304,33 +359,10 @@ Public Class FrmPrintProject
         oPrintTextfont = New Font(BtnTextFont.Font.FontFamily, BtnTextFont.Font.SizeInPoints, BtnTextFont.Font.Style, GraphicsUnit.Point)
         oPrintFooterfont = New Font(BtnFooterFont.Font.FontFamily, BtnFooterFont.Font.SizeInPoints, BtnFooterFont.Font.Style, GraphicsUnit.Point)
     End Sub
-    Private Sub SetFonts()
-        oTitlefont = oPrintTitlefont
-        oTextfont = oPrintTextfont
-        oFooterfont = oPrintFooterfont
-    End Sub
     Private Sub CreatePageGraphics(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size, pPixelsPerCell As Integer)
         oPagePixelsPerCell = pPixelsPerCell
         gap = oPagePixelsPerCell
-        Dim _footerText As New StringBuilder
-        _footerText.Append("Design By ") _
-        .Append(TxtDesignBy.Text) _
-        .Append(vbTab) _
-        .Append(Chr(169) & " ") _
-        .Append(TxtCopyright.Text) _
-        .Append(vbTab)
-        If ChkShowPageOrder.Checked Then
-            _footerText.Append("Page ") _
-            .Append(pPage.PageNo) _
-            .Append(" of ") _
-            .Append(CStr(oPageList.Count)) _
-            .Append(" ") _
-            .Append(vbTab) _
-            .Append("Row ") _
-            .Append(pPage.PagePosition.Y + 1) _
-            .Append(" Column ") _
-            .Append(pPage.PagePosition.X + 1)
-        End If
+        Dim _footerText As String = BuildFooter(pPage, ChkShowPageOrder.Checked)
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         pPageGraphics.Clear(Color.White)
         If NudOverlap.Value > 0 Then
@@ -387,16 +419,79 @@ Public Class FrmPrintProject
         PrintHeaderFooter(pPageGraphics, pSize, _footerText)
         PrintRowColumnNumbers(pPage, pPageGraphics)
     End Sub
-    Private Sub PrintHeaderFooter(pPageGraphics As Graphics, pSize As Size, _footerText As StringBuilder)
+    Private Sub CreateKeyGraphics(pPageGraphics As Graphics, pSize As Size)
+        Dim oThreadCollection As New ProjectThreadCollection(oProjectThreads.Threads)
+        If My.Settings.PrintKeyOrder = 2 Then
+            oThreadCollection.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+        Else
+            oThreadCollection.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.ColourName.CompareTo(y.Thread.ColourName))
+        End If
+        Dim oTableWidth As Integer = pSize.Width /2
+        Dim oRowHeight As Integer = oPageTextHeight + 42
+        Dim oTableHeight As Integer = oRowHeight * (oThreadCollection.Threads.Count + 1)
+        Dim oColumn1Width As Integer = oTableWidth / 8
+        Dim oColumn2Width As Integer = oTableWidth * 5 / 8
+        Dim oSymbolWidth As Integer = oRowHeight * 0.75
+        Dim oBoxWidth As Integer = osymbolwidth + 4
+        Dim _footerText As String = BuildFooter(Nothing, False)
+        pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+        pPageGraphics.Clear(Color.White)
+        Dim _currentTopLeft As New Point(oLeftMargin, oTopMargin)
+        pPageGraphics.DrawLine(oPrintKeyPen, _currentTopLeft, New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y))
+        pPageGraphics.DrawLine(oPrintKeyPen, _currentTopLeft, New Point(_currentTopLeft.X, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oTableWidth, oTopMargin), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, oTopMargin + oTableHeight), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, oTopMargin + oRowHeight), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oRowHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn1Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn1Width, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn2Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn2Width, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawString("Key", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3, _currentTopLeft.Y + 3))
+        pPageGraphics.DrawString("Colour Name", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width, _currentTopLeft.Y + 3))
+        pPageGraphics.DrawString("DMC Number", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn2Width, _currentTopLeft.Y + 3))
+        _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
+        For Each _thread As ProjectThread In oThreadCollection.Threads
+            Dim _symbol As Bitmap = ImageUtil.ResizeImage(_thread.Symbol, oSymbolWidth, oSymbolWidth)
+            _symbol.SetResolution(PRINT_DPI, PRINT_DPI)
+            pPageGraphics.DrawImage(_symbol, New Point(_currentTopLeft.X + ((oColumn1Width - oSymbolWidth) / 2), _currentTopLeft.Y + (oRowHeight - oSymbolWidth) / 2))
+            pPageGraphics.DrawRectangle(oPrintKeyPen, New Rectangle(New Point(_currentTopLeft.X + ((oColumn1Width - oBoxWidth) / 2), _currentTopLeft.Y + (oRowHeight - oBoxWidth) / 2), New Size(oBoxWidth, oBoxWidth)))
+            pPageGraphics.DrawString(_thread.Thread.ColourName, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width, _currentTopLeft.Y + 3))
+            pPageGraphics.DrawString(_thread.Thread.ThreadNo, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn2Width, _currentTopLeft.Y + 3))
+            _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
+            pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, _currentTopLeft.Y), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y))
+        Next
+        PrintHeaderFooter(pPageGraphics, pSize, _footerText)
+    End Sub
+    Private Function BuildFooter(pPage As Page, pIsShowPageOrder As Boolean) As String
+        Dim _footerText As New StringBuilder
+        _footerText.Append("Design By ") _
+        .Append(TxtDesignBy.Text) _
+        .Append(vbTab) _
+        .Append(Chr(169) & " ") _
+        .Append(TxtCopyright.Text) _
+        .Append(vbTab)
+        If pIsShowPageOrder Then
+            _footerText.Append("Page ") _
+            .Append(pPage.PageNo) _
+            .Append(" of ") _
+            .Append(CStr(oPageList.Count)) _
+            .Append(" ") _
+            .Append(vbTab) _
+            .Append("Row ") _
+            .Append(pPage.PagePosition.Y + 1) _
+            .Append(" Column ") _
+            .Append(pPage.PagePosition.X + 1)
+        End If
+        Return _footerText.ToString
+    End Function
+    Private Sub PrintHeaderFooter(pPageGraphics As Graphics, pSize As Size, pFooterText As String)
         If isPrintHeader Then
-            pPageGraphics.DrawString(TxtTitle.Text, oTitlefont, oTextBrush, New Point(oLeftMargin, oPageTopMargin))
+            pPageGraphics.DrawString(TxtTitle.Text, oPrintTitlefont, oTextBrush, New Point(oLeftMargin, oPageTopMargin))
         End If
         If isPrintFooter Then
             Dim oFooterPos As Integer = pSize.Height - oBottomMargin
             If isPrintColumnNumbers Then
-                oFooterPos = oFooterPos + oPageFooterHeight
+                oFooterPos += oPageFooterHeight
             End If
-            pPageGraphics.DrawString(_footerText.ToString, oFooterfont, oTextBrush, New Point(oLeftMargin, oFooterPos))
+            pPageGraphics.DrawString(pFooterText, oPrintFooterfont, oTextBrush, New Point(oLeftMargin, oFooterPos))
         End If
     End Sub
     Private Sub PrintRowColumnNumbers(pPage As Page, pPageGraphics As Graphics)
@@ -829,31 +924,14 @@ Public Class FrmPrintProject
         oPrintBitmap = New Bitmap(oPrintablePageWidth, oPrintablePageHeight)
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         oPrintGraphics = Graphics.FromImage(oPrintBitmap)
-        ' Set handler to print image 
-
-        SetFonts()
         CreatePageGraphics(oSelectedPage, oPrintGraphics, oPrintBitmap.Size, oPagePixelsPerCell)
     End Sub
-    Private Sub ParameterValueChanged(sender As Object, e As EventArgs) Handles NudTopMargin.ValueChanged,
-                                                                                    NudBottomMargin.ValueChanged,
-                                                                                    NudLeftMargin.ValueChanged,
-                                                                                    NudRightMargin.ValueChanged,
-                                                                                    NudSqrPerInch.ValueChanged,
-                                                                                    ChkPrintGrid.CheckedChanged,
-                                                                                    NudOverlap.ValueChanged,
-                                                                                    TxtCopyright.LostFocus,
-                                                                                    TxtDesignBy.LostFocus,
-                                                                                    TxtTitle.LostFocus,
-                                                                                    ChkPrintHeader.CheckedChanged,
-                                                                                    ChkPrintFooter.CheckedChanged,
-                                                                                    CbShading.SelectedIndexChanged,
-                                                                                    CbDisplayStyle.SelectedIndexChanged,
-                                                                                    ChkCentreLines.CheckedChanged,
-                                                                                    ChkCentreMarks.CheckedChanged,
-                                                                                    ChkShowPageOrder.CheckedChanged
-        If isComponentInitialised And Not isPrintLoading Then
-            LoadFormPages()
-        End If
+    Private Sub CreateKeyBitmap()
+        SetPrintFonts()
+        oPrintBitmap = New Bitmap(oPrintablePageWidth, oPrintablePageHeight)
+        oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
+        oPrintGraphics = Graphics.FromImage(oPrintBitmap)
+        CreateKeyGraphics(oPrintGraphics, oPrintBitmap.Size)
     End Sub
 #End Region
 End Class

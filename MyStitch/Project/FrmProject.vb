@@ -488,11 +488,7 @@ Public Class FrmProject
             End If
         End Using
     End Sub
-    Private Sub ShowPrintSettingsForm()
-        Using _printSettings As New FrmPrintOptions
-            _printSettings.ShowDialog()
-        End Using
-    End Sub
+
     Private Sub ShowImportImageForm()
         Using _import As New FrmImportImage
             _import.ShowDialog()
