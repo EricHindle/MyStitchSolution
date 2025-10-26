@@ -1264,6 +1264,18 @@ Namespace My
                 Me("PrintCentreLineThickness") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DesignSizeFormPos() As String
+            Get
+                Return CType(Me("DesignSizeFormPos"),String)
+            End Get
+            Set
+                Me("DesignSizeFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

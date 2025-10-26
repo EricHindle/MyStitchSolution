@@ -207,7 +207,7 @@ Module ModDesign
         pProjectDesign.ProjectId = pProject.ProjectId
         '     If Not pProjectDesign.IsLoaded Then
         pProjectDesign.Rows = pProject.DesignHeight
-            pProjectDesign.Columns = pProject.DesignWidth
+        pProjectDesign.Columns = pProject.DesignWidth
         '     End If
         SetInitialMagnification(pPictureBox)
         oGrid1width = My.Settings.Grid1Thickness

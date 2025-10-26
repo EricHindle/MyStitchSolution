@@ -649,10 +649,10 @@ Public Class FrmStitchDesign
     Private Sub MnuZoom_Click(sender As Object, e As EventArgs) Handles MnuZoom.Click
         BeginZoom()
     End Sub
-    Private Sub MnuCropDesign_Click(sender As Object, e As EventArgs)
+    Private Sub MnuCropDesign_Click(sender As Object, e As EventArgs) Handles MnuCropDesign.Click
         ShowDesignSizeForm(False)
     End Sub
-    Private Sub MnuExtendDesign_Click(sender As Object, e As EventArgs)
+    Private Sub MnuExtendDesign_Click(sender As Object, e As EventArgs) Handles MnuExtendDesign.Click
         ShowDesignSizeForm(True)
     End Sub
     Private Sub ShowDesignSizeForm(pIsExtend)
@@ -2363,6 +2363,7 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
+
 #End Region
 #End Region
 End Class

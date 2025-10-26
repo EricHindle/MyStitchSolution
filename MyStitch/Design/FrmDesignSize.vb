@@ -5,7 +5,6 @@
 ' Author Eric Hindle
 '
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmDesignSize
 #Region "properties"
@@ -50,8 +49,8 @@ Public Class FrmDesignSize
     Private Const REMOVE_COLUMNS As String = "Number of columns to remove"
 #End Region
 #Region "Form control handlers"
-
     Private Sub FrmDesignSize_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        GetFormPos(Me, My.Settings.DesignSizeFormPos)
         If IsExtend Then
             LblColumns.Text = ADD_COLUMNS
             LblRows.Text = ADD_ROWS
@@ -64,7 +63,6 @@ Public Class FrmDesignSize
             LblRows.Text = REMOVE_ROWS
         End If
     End Sub
-
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         Dim isOKToClose As Boolean
         If NudBottom.Value + NudTop.Value + NudLeft.Value + NudRight.Value = 0 Then
@@ -110,14 +108,14 @@ Public Class FrmDesignSize
             Close()
         End If
     End Sub
-
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
         _isChanged = False
         Close()
     End Sub
-
     Private Sub FrmDesignSize_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-
+        LogUtil.LogInfo("Closing", MyBase.Name)
+        My.Settings.DesignSizeFormPos = SetFormPos(Me)
+        My.Settings.Save()
     End Sub
 #End Region
 #Region "subroutines"
@@ -157,6 +155,5 @@ Public Class FrmDesignSize
         pProjectDesign.BlockStitches = _newBlockStitches
         pProjectDesign.Knots = _newKnots
     End Sub
-
 #End Region
 End Class

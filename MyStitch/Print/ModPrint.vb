@@ -61,10 +61,10 @@ Module ModPrint
         oPageTitleHeight = If(isPrintHeader, (oPrintTitlefont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
         oPageTextHeight = (oPrintTextfont.Size * PRINT_DPI) / FONT_PPI
         oPageFooterHeight = If(isPrintFooter, (oPrintFooterfont.Size * PRINT_DPI) / FONT_PPI, 0) + 20
-        oPageLeftMargin = Math.Max(pLeftMargin * PRINT_DPI - oPrinterHardMarginX, 0)
-        oPageRightMargin = Math.Max(pRightMargin * PRINT_DPI - oPrinterHardMarginX, 0)
-        oPageTopMargin = Math.Max(pTopMargin * PRINT_DPI - oPrinterHardMarginY, 0)
-        oPageBottomMargin = Math.Max(pBottomMargin * PRINT_DPI - oPrinterHardMarginY, 0)
+        oPageLeftMargin = Math.Max((pLeftMargin * PRINT_DPI) - oPrinterHardMarginX, 0)
+        oPageRightMargin = Math.Max((pRightMargin * PRINT_DPI) - oPrinterHardMarginX, 0)
+        oPageTopMargin = Math.Max((pTopMargin * PRINT_DPI) - oPrinterHardMarginY, 0)
+        oPageBottomMargin = Math.Max((pBottomMargin * PRINT_DPI) - oPrinterHardMarginY, 0)
         oLeftMargin = oPageLeftMargin
         oRightMargin = oPageRightMargin
         If isPrintRowNumbers Then
@@ -77,7 +77,6 @@ Module ModPrint
         End If
         oTitleHeight = oPageTitleHeight
         oFooterHeight = oPageFooterHeight
-
     End Sub
 
     Friend Sub CalculatePrintGridSpace(pDesignSize As Size)
@@ -93,7 +92,6 @@ Module ModPrint
     Friend Sub InitialisePrintDocument()
         Dim _paperKind As PaperKind = PaperKind.A4
         oPrintDoc = New PrintDocument
-        oPageSettings = oPrintDoc.DefaultPageSettings
         ' Set default paper size
         For Each ps As Printing.PaperSize In oPrintDoc.PrinterSettings.PaperSizes
             If ps.RawKind = _paperKind Then
@@ -101,12 +99,17 @@ Module ModPrint
                 Exit For
             End If
         Next
+        oPageSettings = oPrintDoc.DefaultPageSettings
         ' Set default page settings
         oPrintDoc.DefaultPageSettings.Landscape = False
         oPrintDoc.DefaultPageSettings.Margins.Left = 0
         oPrintDoc.DefaultPageSettings.Margins.Right = 0
         oPrintDoc.DefaultPageSettings.Margins.Top = 0
         oPrintDoc.DefaultPageSettings.Margins.Bottom = 0
+        oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
+        oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
+        oPrintablePageWidth = A4_WIDTH - (oPrinterHardMarginX * 2)
+        oPrintablePageHeight = A4_HEIGHT - (oPrinterHardMarginY * 2)
     End Sub
 #End Region
 End Module

@@ -127,27 +127,27 @@ Public Class FrmPrintProject
     Private isPrintKey As Boolean
     Private isPrintLoading As Boolean = False
     Private oFormImage As Bitmap
-    Friend oOverlapBrush As SolidBrush
+    Private oOverlapBrush As SolidBrush
     Private oPageList As List(Of Page)
     Private oPrintBitmap As Bitmap
-    Friend oPrintBorderBrush As Brush = Brushes.Black
-    Friend oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
-    Friend oPrintBorderwidth As Integer = 5
-    Friend oPrintCentreBrush As Brush = Brushes.Red
-    Friend oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
-    Friend oPrintCentrewidth As Integer = 3
+    Private oPrintBorderBrush As Brush = Brushes.Black
+    Private oPrintBorderPen = New Pen(oPrintBorderBrush, oPrintBorderwidth)
+    Private oPrintBorderwidth As Integer = 5
+    Private oPrintCentreBrush As Brush = Brushes.Red
+    Private oPrintCentrePen = New Pen(oPrintCentreBrush, oPrintCentrewidth)
+    Private oPrintCentrewidth As Integer = 3
     Private oPrintGraphics As Graphics
-    Friend oPrintGrid10Brush As Brush = Brushes.Black
-    Friend oPrintGrid10width As Integer = 2
-    Friend oPrintGrid10Pen As New Pen(oPrintGrid10Brush, oPrintGrid10width)
-    Friend oPrintGrid1Brush As Brush = Brushes.DarkGray
-    Friend oPrintGrid1width As Integer = 1
-    Friend oPrintGrid1Pen As New Pen(oPrintGrid1Brush, oPrintGrid1width)
-    Friend oPrintKeyBrush As Brush = Brushes.Black
-    Friend oPrintKeyPen As New Pen(oPrintKeyBrush, 1)
-    Friend oPrintGrid5Brush As Brush = Brushes.DimGray
-    Friend oPrintGrid5width As Integer = 1
-    Friend oPrintGrid5Pen As New Pen(oPrintGrid5Brush, oPrintGrid5width)
+    Private oPrintGrid10Brush As Brush = Brushes.Black
+    Private oPrintGrid10width As Integer = 2
+    Private oPrintGrid10Pen As New Pen(oPrintGrid10Brush, oPrintGrid10width)
+    Private oPrintGrid1Brush As Brush = Brushes.DarkGray
+    Private oPrintGrid1width As Integer = 1
+    Private oPrintGrid1Pen As New Pen(oPrintGrid1Brush, oPrintGrid1width)
+    Private oPrintKeyBrush As Brush = Brushes.Black
+    Private oPrintKeyPen As New Pen(oPrintKeyBrush, 1)
+    Private oPrintGrid5Brush As Brush = Brushes.DimGray
+    Private oPrintGrid5width As Integer = 1
+    Private oPrintGrid5Pen As New Pen(oPrintGrid5Brush, oPrintGrid5width)
     Private oSelectedPage As New Page
     Private oTextBrush As Brush = Brushes.Black
 #End Region
@@ -166,11 +166,14 @@ Public Class FrmPrintProject
         My.Settings.Save()
         PenDispose()
     End Sub
-    Private Sub BtnFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click,
-                                                                        BtnTextFont.Click,
-                                                                        BtnFooterFont.Click
-        Dim _button As Button = CType(sender, Button)
-        SelectFont(_button)
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrintPage.Click
+        LogUtil.ShowStatus("Printing page", LblStatus, MyBase.Name)
+        InitialisePrintDocument()
+        oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
+        ' Set handler to print image 
+        AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
+        ' Print the image (calls PrintPage handler (see above))
+        oPrintDoc.Print()
     End Sub
     Private Sub BtnPrintAll_Click(sender As Object, e As EventArgs) Handles BtnPrintAll.Click
         If isPagesLoaded Then
@@ -184,38 +187,10 @@ Public Class FrmPrintProject
                 oPrintDoc.Print()
             Next
             If isPrintKey Then
-                CreateKeyBitmap
+                CreateKeyBitmap()
                 oPrintDoc.Print()
             End If
         End If
-    End Sub
-    Private Sub ParameterValueChanged(sender As Object, e As EventArgs) Handles NudSqrPerInch.ValueChanged,
-                                                                                ChkPrintGrid.CheckedChanged,
-                                                                                ChkCentreMarks.CheckedChanged,
-                                                                                ChkCentreLines.CheckedChanged,
-                                                                                CbDisplayStyle.SelectedIndexChanged,
-                                                                                NudBottomMargin.ValueChanged,
-                                                                                NudLeftMargin.ValueChanged,
-                                                                                NudRightMargin.ValueChanged,
-                                                                                NudSqrPerInch.ValueChanged,
-                                                                                ChkPrintGrid.CheckedChanged,
-                                                                                NudOverlap.ValueChanged,
-                                                                                ChkPrintHeader.CheckedChanged,
-                                                                                ChkPrintFooter.CheckedChanged,
-                                                                                CbShading.SelectedIndexChanged,
-                                                                                CbDisplayStyle.SelectedIndexChanged,
-                                                                                ChkCentreLines.CheckedChanged,
-                                                                                ChkCentreMarks.CheckedChanged,
-                                                                                ChkShowPageOrder.CheckedChanged
-        If isComponentInitialised And Not isPrintLoading Then
-            LoadFormPages()
-        End If
-    End Sub
-    Private Sub BtnMoreSettings_Click_1(sender As Object, e As EventArgs) Handles BtnMoreSettings.Click
-        ShowPrintSettingsForm()
-    End Sub
-    Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
-        SaveSettings()
     End Sub
     Private Sub BtnPrintKey_Click(sender As Object, e As EventArgs) Handles BtnPrintKey.Click
         LogUtil.ShowStatus("Printing key", LblStatus, MyBase.Name)
@@ -227,6 +202,35 @@ Public Class FrmPrintProject
         ' Print the image (calls PrintPage handler (see above))
         oPrintDoc.Print()
     End Sub
+    Private Sub BtnFont_Click(sender As Object, e As EventArgs) Handles BtnTitleFont.Click,
+                                                                        BtnTextFont.Click,
+                                                                        BtnFooterFont.Click
+        Dim _button As Button = CType(sender, Button)
+        SelectFont(_button)
+    End Sub
+    Private Sub BtnMoreSettings_Click(sender As Object, e As EventArgs) Handles BtnMoreSettings.Click
+        ShowPrintSettingsForm()
+    End Sub
+    Private Sub BtnSaveSettings_Click(sender As Object, e As EventArgs) Handles BtnSaveSettings.Click
+        SaveSettings()
+    End Sub
+    Private Sub ParameterValueChanged(sender As Object, e As EventArgs) Handles NudSqrPerInch.ValueChanged,
+                                                                                ChkPrintGrid.CheckedChanged,
+                                                                                ChkCentreMarks.CheckedChanged,
+                                                                                ChkCentreLines.CheckedChanged,
+                                                                                CbDisplayStyle.SelectedIndexChanged,
+                                                                                NudBottomMargin.ValueChanged,
+                                                                                NudLeftMargin.ValueChanged,
+                                                                                NudRightMargin.ValueChanged,
+                                                                                NudOverlap.ValueChanged,
+                                                                                ChkPrintHeader.CheckedChanged,
+                                                                                ChkPrintFooter.CheckedChanged,
+                                                                                CbShading.SelectedIndexChanged,
+                                                                                ChkShowPageOrder.CheckedChanged
+        If isComponentInitialised And Not isPrintLoading Then
+            LoadFormPages()
+        End If
+    End Sub
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
@@ -234,10 +238,6 @@ Public Class FrmPrintProject
         isPrintLoading = True
         LoadInstalledPrinters()
         InitialisePrintDocument()
-        oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
-        oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
-        oPrintablePageWidth = A4_WIDTH - (oPrinterHardMarginX * 2)
-        oPrintablePageHeight = A4_HEIGHT - (oPrinterHardMarginY * 2)
         oPageToFormRatio = Math.Ceiling(A4_WIDTH / PicDesign.Width)
         LoadFormFromSettings()
         SetPrintFonts()
@@ -267,6 +267,7 @@ Public Class FrmPrintProject
         ChkPrintGrid.Checked = My.Settings.PrintGrid
         ChkPrintHeader.Checked = My.Settings.isPrintHeader
         ChkPrintKey.Checked = My.Settings.isPrintKey
+        isPrintKey = My.Settings.isPrintKey
         ChkShowPageOrder.Checked = My.Settings.isShowPageOrder
         NudBottomMargin.Value = My.Settings.PrintMarginBottom
         NudLeftMargin.Value = My.Settings.PrintMarginLeft
@@ -278,7 +279,6 @@ Public Class FrmPrintProject
         TxtDesignBy.Text = My.Settings.DesignBy
         isPrintColumnNumbers = My.Settings.PrintColumnNumbers
         isPrintRowNumbers = My.Settings.PrintRowNumbers
-        isPrintKey = My.Settings.isPrintKey
         SetPens()
     End Sub
     Private Sub SetPens()
@@ -331,8 +331,9 @@ Public Class FrmPrintProject
         oPrintBorderPen.dispose
         oPrintCentrePen.dispose
         oPrintGrid10Pen.dispose
-        oPrintGrid1Pen.dispose
-        oPrintGrid5Pen.dispose
+        oPrintGrid1Pen.Dispose
+        oPrintGrid5Pen.Dispose()
+        oPrintKeyPen.Dispose()
     End Sub
     Private Sub OnPrintImage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
         e.Graphics.DrawImage(oPrintBitmap, New Point(0, 0))
@@ -342,13 +343,9 @@ Public Class FrmPrintProject
         isPagesLoaded = False
         isPrintHeader = ChkPrintHeader.Checked
         isPrintFooter = ChkPrintFooter.Checked
-
         oPagePixelsPerCell = Math.Floor(PRINT_DPI / NudSqrPerInch.Value)
-
         SetPrintPageMargins(NudLeftMargin.Value, NudRightMargin.Value, NudTopMargin.Value, NudBottomMargin.Value)
-
         CalculatePrintGridSpace(New Size(oPrintProject.DesignWidth, oPrintProject.DesignHeight))
-
         oOverlapBrush = New SolidBrush(oOverlapColourList(CbShading.SelectedIndex))
         LblOnePage.Text = String.Format(LblOnePage.Text, oOnePageSqPerInch)
         InitialisePageLists()
@@ -369,10 +366,11 @@ Public Class FrmPrintProject
             PrintOverlapShade(pPage, pPageGraphics)
         End If
         For Each _blockstitch In oProjectDesign.BlockStitches
-            If _blockstitch.BlockPosition.X >= pPage.TopLeft.X _
-            And _blockstitch.BlockPosition.X < pPage.BottomRight.X _
-            And _blockstitch.BlockPosition.Y >= pPage.TopLeft.Y _
-            And _blockstitch.BlockPosition.Y < pPage.BottomRight.Y Then
+            Dim _actualPosition As New Point(_blockstitch.BlockPosition.X + oPrintProject.OriginX, _blockstitch.BlockPosition.Y + oPrintProject.OriginY)
+            If _actualPosition.X >= pPage.TopLeft.X _
+            And _actualPosition.X < pPage.BottomRight.X _
+            And _actualPosition.Y >= pPage.TopLeft.Y _
+            And _actualPosition.Y < pPage.BottomRight.Y Then
                 If _blockstitch.IsLoaded Then
                     Select Case _blockstitch.StitchType
                         Case BlockStitchType.Full
@@ -392,25 +390,28 @@ Public Class FrmPrintProject
         PrintGrid(pPage, pPageGraphics, pSize)
         If My.Settings.IsShowBackstitches Then
             For Each _backstitch In oProjectDesign.BackStitches
-                If (_backstitch.FromBlockPosition.X >= pPage.TopLeft.X _
-                    And _backstitch.FromBlockPosition.X <= pPage.BottomRight.X _
-                    And _backstitch.FromBlockPosition.Y >= pPage.TopLeft.Y _
-                    And _backstitch.FromBlockPosition.Y < pPage.BottomRight.Y) _
+                Dim _actualFromPosition As New Point(_backstitch.FromBlockPosition.X + oPrintProject.OriginX, _backstitch.FromBlockPosition.Y + oPrintProject.OriginY)
+                Dim _actualtoPosition As New Point(_backstitch.ToBlockPosition.X + oPrintProject.OriginX, _backstitch.ToBlockPosition.Y + oPrintProject.OriginY)
+                If (_actualFromPosition.X >= pPage.TopLeft.X _
+                    And _actualFromPosition.X <= pPage.BottomRight.X _
+                    And _actualFromPosition.Y >= pPage.TopLeft.Y _
+                    And _actualFromPosition.Y < pPage.BottomRight.Y) _
                 Or
-                        (_backstitch.ToBlockPosition.X >= pPage.TopLeft.X _
-                    And _backstitch.ToBlockPosition.X <= pPage.BottomRight.X _
-                    And _backstitch.ToBlockPosition.Y >= pPage.TopLeft.Y _
-                    And _backstitch.ToBlockPosition.Y < pPage.BottomRight.Y) Then
+                        (_actualtoPosition.X >= pPage.TopLeft.X _
+                    And _actualtoPosition.X <= pPage.BottomRight.X _
+                    And _actualtoPosition.Y >= pPage.TopLeft.Y _
+                    And _actualtoPosition.Y < pPage.BottomRight.Y) Then
                     PrintBackstitch(_backstitch, pPageGraphics, pPage)
                 End If
             Next
         End If
         If My.Settings.IsShowKnots Then
             For Each _knot As Knot In oProjectDesign.Knots
-                If _knot.BlockPosition.X >= pPage.TopLeft.X _
-            And _knot.BlockPosition.X <= pPage.BottomRight.X _
-            And _knot.BlockPosition.Y >= pPage.TopLeft.Y _
-            And _knot.BlockPosition.Y < pPage.BottomRight.Y Then
+                Dim _actualPosition As New Point(_knot.BlockPosition.X + oPrintProject.OriginX, _knot.BlockPosition.Y + oPrintProject.OriginY)
+                If _actualPosition.X >= pPage.TopLeft.X _
+            And _actualPosition.X <= pPage.BottomRight.X _
+            And _actualPosition.Y >= pPage.TopLeft.Y _
+            And _actualPosition.Y < pPage.BottomRight.Y Then
                     PrintKnot(_knot, pPageGraphics, pPage)
                 End If
             Next
@@ -426,39 +427,52 @@ Public Class FrmPrintProject
         Else
             oThreadCollection.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.ColourName.CompareTo(y.Thread.ColourName))
         End If
-        Dim oTableWidth As Integer = pSize.Width /2
-        Dim oRowHeight As Integer = oPageTextHeight + 42
+        Dim oTableWidth As Integer = oAvailablePixelWidth / 2
+        Dim oRowHeight As Integer = oPageTextHeight + 40
         Dim oTableHeight As Integer = oRowHeight * (oThreadCollection.Threads.Count + 1)
         Dim oColumn1Width As Integer = oTableWidth / 8
-        Dim oColumn2Width As Integer = oTableWidth * 5 / 8
+        Dim oColumn2Width As Integer = oTableWidth * 4 / 8
+        Dim oColumn3Width As Integer = oTableWidth * 1 / 8
         Dim oSymbolWidth As Integer = oRowHeight * 0.75
         Dim oBoxWidth As Integer = osymbolwidth + 4
         Dim _footerText As String = BuildFooter(Nothing, False)
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         pPageGraphics.Clear(Color.White)
         Dim _currentTopLeft As New Point(oLeftMargin, oTopMargin)
+        DrawKeyTable(pPageGraphics, oTableWidth, oRowHeight, oTableHeight, oColumn1Width, oColumn2Width, oColumn3Width, _currentTopLeft)
+        _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
+        For Each _thread As ProjectThread In oThreadCollection.Threads
+            Dim oColourBrush As Brush = New SolidBrush(_thread.Thread.Colour)
+            Dim _symbol As Bitmap = ImageUtil.ResizeImage(_thread.Symbol, oSymbolWidth, oSymbolWidth)
+            _symbol.SetResolution(PRINT_DPI, PRINT_DPI)
+            pPageGraphics.DrawImage(_symbol, New Point(_currentTopLeft.X + ((oColumn1Width - oSymbolWidth) / 2), _currentTopLeft.Y + (oRowHeight - oSymbolWidth) / 2))
+            pPageGraphics.DrawRectangle(oPrintKeyPen, New Rectangle(New Point(_currentTopLeft.X + ((oColumn1Width - oBoxWidth) / 2), _currentTopLeft.Y + (oRowHeight - oBoxWidth) / 2), New Size(oBoxWidth, oBoxWidth)))
+            pPageGraphics.DrawString(_thread.Thread.ColourName, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width, _currentTopLeft.Y + 3))
+            pPageGraphics.FillRectangle(oColourBrush, New Rectangle(New Point(_currentTopLeft.X + oColumn1Width + oColumn2Width + ((oColumn3Width - oBoxWidth) / 2), _currentTopLeft.Y + (oRowHeight - oBoxWidth) / 2), New Size(oBoxWidth, oBoxWidth)))
+            pPageGraphics.DrawString(_thread.Thread.ThreadNo, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width + oColumn2Width + oColumn3Width, _currentTopLeft.Y + 3))
+            If _currentTopLeft.Y + oRowHeight < pSize.Height - oBottomMargin Then
+                _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
+            Else
+                _currentTopLeft = New Point(_currentTopLeft.X + oTableWidth, oTopMargin)
+                DrawKeyTable(pPageGraphics, oTableWidth, oRowHeight, oTableHeight, oColumn1Width, oColumn2Width, oColumn3Width, _currentTopLeft)
+                _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
+            End If
+            pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, _currentTopLeft.Y), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y))
+        Next
+        PrintHeaderFooter(pPageGraphics, pSize, _footerText)
+    End Sub
+    Private Sub DrawKeyTable(pPageGraphics As Graphics, oTableWidth As Integer, oRowHeight As Integer, oTableHeight As Integer, oColumn1Width As Integer, oColumn2Width As Integer, oColumn3Width As Integer, _currentTopLeft As Point)
         pPageGraphics.DrawLine(oPrintKeyPen, _currentTopLeft, New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y))
         pPageGraphics.DrawLine(oPrintKeyPen, _currentTopLeft, New Point(_currentTopLeft.X, _currentTopLeft.Y + oTableHeight))
         pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oTableWidth, oTopMargin), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oTableHeight))
         pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, oTopMargin + oTableHeight), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oTableHeight))
         pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, oTopMargin + oRowHeight), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y + oRowHeight))
         pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn1Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn1Width, _currentTopLeft.Y + oTableHeight))
-        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn2Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn2Width, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn1Width + oColumn2Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn1Width + oColumn2Width, _currentTopLeft.Y + oTableHeight))
+        pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X + oColumn1Width + oColumn2Width + oColumn3Width, _currentTopLeft.Y), New Point(_currentTopLeft.X + oColumn1Width + oColumn2Width + oColumn3Width, _currentTopLeft.Y + oTableHeight))
         pPageGraphics.DrawString("Key", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3, _currentTopLeft.Y + 3))
         pPageGraphics.DrawString("Colour Name", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width, _currentTopLeft.Y + 3))
-        pPageGraphics.DrawString("DMC Number", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn2Width, _currentTopLeft.Y + 3))
-        _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
-        For Each _thread As ProjectThread In oThreadCollection.Threads
-            Dim _symbol As Bitmap = ImageUtil.ResizeImage(_thread.Symbol, oSymbolWidth, oSymbolWidth)
-            _symbol.SetResolution(PRINT_DPI, PRINT_DPI)
-            pPageGraphics.DrawImage(_symbol, New Point(_currentTopLeft.X + ((oColumn1Width - oSymbolWidth) / 2), _currentTopLeft.Y + (oRowHeight - oSymbolWidth) / 2))
-            pPageGraphics.DrawRectangle(oPrintKeyPen, New Rectangle(New Point(_currentTopLeft.X + ((oColumn1Width - oBoxWidth) / 2), _currentTopLeft.Y + (oRowHeight - oBoxWidth) / 2), New Size(oBoxWidth, oBoxWidth)))
-            pPageGraphics.DrawString(_thread.Thread.ColourName, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width, _currentTopLeft.Y + 3))
-            pPageGraphics.DrawString(_thread.Thread.ThreadNo, oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn2Width, _currentTopLeft.Y + 3))
-            _currentTopLeft = New Point(_currentTopLeft.X, _currentTopLeft.Y + oRowHeight)
-            pPageGraphics.DrawLine(oPrintKeyPen, New Point(_currentTopLeft.X, _currentTopLeft.Y), New Point(_currentTopLeft.X + oTableWidth, _currentTopLeft.Y))
-        Next
-        PrintHeaderFooter(pPageGraphics, pSize, _footerText)
+        pPageGraphics.DrawString("DMC code", oPrintTextfont, oPrintKeyBrush, New Point(_currentTopLeft.X + 3 + oColumn1Width + oColumn2Width + oColumn3Width, _currentTopLeft.Y + 3))
     End Sub
     Private Function BuildFooter(pPage As Page, pIsShowPageOrder As Boolean) As String
         Dim _footerText As New StringBuilder
@@ -514,8 +528,8 @@ Public Class FrmPrintProject
     End Sub
     Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As Integer, pPage As Page)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = ((pBlockStitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockStitch.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim pX As Integer = ((pBlockStitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim pY As Integer = ((pBlockStitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
@@ -552,8 +566,8 @@ Public Class FrmPrintProject
     End Function
     Friend Sub PrintHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean, ByRef pDesignGraphics As Graphics, pPage As Page)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = ((pBlockStitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockStitch.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim pX As Integer = ((pBlockStitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim pY As Integer = ((pBlockStitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
@@ -570,12 +584,11 @@ Public Class FrmPrintProject
             pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
         End If
         _crossPen.Dispose()
-
     End Sub
     Friend Sub PrintThreeQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
         Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
-        Dim pX As Integer = ((pBlockstitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockstitch.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim pX As Integer = ((pBlockstitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim pY As Integer = ((pBlockstitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
@@ -611,11 +624,11 @@ Public Class FrmPrintProject
                 pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
         End Select
         _crossPen.Dispose()
-
     End Sub
     Friend Sub PrintQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
-        Dim pX As Integer = ((pBlockstitch.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockstitch.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim pX As Integer = ((pBlockstitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim pY As Integer = ((pBlockstitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
@@ -651,10 +664,10 @@ Public Class FrmPrintProject
         Else
             oStitchPenWidth = oBackstitchPenDefaultWidth
         End If
-        Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
+        Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
+        Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -680,8 +693,8 @@ Public Class FrmPrintProject
         pDesignGraphics.DrawLine(_pen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
     End Sub
     Friend Sub PrintKnot(pKnot As Knot, pDesignGraphics As Graphics, pPage As Page)
-        Dim _knotlocation_x As Integer = ((pKnot.BlockPosition.X - pPage.TopLeft.X) * oPagePixelsPerCell) - (oPagePixelsPerCell / 4) + oLeftMargin
-        Dim _knotlocation_y As Integer = ((pKnot.BlockPosition.Y - pPage.TopLeft.Y) * oPagePixelsPerCell) - (oPagePixelsPerCell / 4) + oTopMargin
+        Dim _knotlocation_x As Integer = ((pKnot.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) - (oPagePixelsPerCell / 4) + oLeftMargin
+        Dim _knotlocation_y As Integer = ((pKnot.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) - (oPagePixelsPerCell / 4) + oTopMargin
         Select Case pKnot.BlockQuarter
             Case BlockQuarter.BottomLeft
                 _knotlocation_y += oPagePixelsPerCell / 2
@@ -910,15 +923,6 @@ Public Class FrmPrintProject
             PicDesign.Image = oPrintBitmap
         End If
     End Sub
-    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrintPage.Click
-        LogUtil.ShowStatus("Printing page", LblStatus, MyBase.Name)
-        InitialisePrintDocument()
-        oPrintDoc.PrinterSettings.PrinterName = CmbInstalledPrinters.SelectedItem
-        ' Set handler to print image 
-        AddHandler oPrintDoc.PrintPage, AddressOf OnPrintImage
-        ' Print the image (calls PrintPage handler (see above))
-        oPrintDoc.Print()
-    End Sub
     Private Sub CreatePrintBitmap()
         SetPrintFonts()
         oPrintBitmap = New Bitmap(oPrintablePageWidth, oPrintablePageHeight)
@@ -932,6 +936,9 @@ Public Class FrmPrintProject
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         oPrintGraphics = Graphics.FromImage(oPrintBitmap)
         CreateKeyGraphics(oPrintGraphics, oPrintBitmap.Size)
+    End Sub
+    Private Sub ChkPrintKey_CheckedChanged(sender As Object, e As EventArgs) Handles ChkPrintKey.CheckedChanged
+        isPrintKey = ChkPrintKey.Checked
     End Sub
 #End Region
 End Class
