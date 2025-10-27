@@ -127,7 +127,14 @@
     <Compile Include="Design\FrmImportImage.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Design\FrmText.Designer.vb">
+      <DependentUpon>FrmText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FrmText.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Domain\ModDataTableAdapter.vb" />
+    <Compile Include="Domain\ModMyStitchClasses.vb" />
     <Compile Include="MyStitchData.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,12 +331,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmDesignInfo.resx">
       <DependentUpon>FrmDesignInfo.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmDesignSize.resx">
       <DependentUpon>FrmDesignSize.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Design\FrmImportImage.resx">
       <DependentUpon>FrmImportImage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FrmText.resx">
+      <DependentUpon>FrmText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Print\FrmPrintProject.resx">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
@@ -354,6 +365,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmColourCapture.resx">
       <DependentUpon>FrmColourCapture.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmProjectThreads.resx">
       <DependentUpon>FrmProjectThreads.vb</DependentUpon>
@@ -369,9 +381,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Project Files\FrmBackup.resx">
       <DependentUpon>FrmBackup.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmCriticalError.resx">
       <DependentUpon>FrmCriticalError.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
       <DependentUpon>FrmGlobalSettings.vb</DependentUpon>

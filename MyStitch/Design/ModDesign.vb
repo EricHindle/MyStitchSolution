@@ -225,7 +225,6 @@ Module ModDesign
     Private Sub SetInitialMagnification(pPictureBox As PictureBox)
         SetInitialMagnification(pPictureBox, oProjectDesign)
     End Sub
-
     Private Sub SetInitialMagnification(pPictureBox As PictureBox, pProjectDesign As ProjectDesign)
         ChangeMagnification(1, pProjectDesign)
         Dim _widthRatio As Decimal = Math.Round(pPictureBox.Width / iOneToOneSize.Width, 2, MidpointRounding.AwayFromZero)
@@ -461,7 +460,6 @@ Module ModDesign
     Public Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch)
         DrawThreeQuarterBlockStitch(pBlockstitch, oDesignGraphics)
     End Sub
-
     Public Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
         Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
         Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
@@ -850,7 +848,6 @@ Module ModDesign
         Next
         Return _isAdded
     End Function
-
     Private Sub AddThreadToPalette(pProjectId As Integer, pThreadId As Integer)
         LogUtil.LogInfo("Adding missing thread to palette. ProjectId:" & CStr(pProjectId) & " ThreadId:" & CStr(pThreadId), MethodBase.GetCurrentMethod.Name)
         Dim _pt As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
@@ -860,13 +857,23 @@ Module ModDesign
             .Build
         AddNewProjectThread(_pt)
     End Sub
-    Public Sub OpenPrintForm(pForm As Form, pProject As Project, pBitmap As Bitmap)
-        If pProject.IsLoaded AndAlso pBitmap IsNot Nothing Then
+    Public Sub OpenPrintForm(pForm As Form, pProject As Project)
+        If pProject.IsLoaded Then
             pForm.Hide()
             Using _printDialog As New FrmPrintProject
                 _printDialog.PrintProject = pProject
-                '_printDialog.SourceBitmap = pBitmap
                 _printDialog.ShowDialog()
+            End Using
+            pForm.Show()
+        End If
+    End Sub
+    Public Sub OpenTextForm(pForm As Form, pProject As Project)
+        If pProject.IsLoaded Then
+            pForm.Hide()
+            Using _textDialog As New FrmText
+                _textDialog.SelectedProject = pProject
+                _textDialog.SelectedThread = oCurrentThread
+                _textDialog.ShowDialog()
             End Using
             pForm.Show()
         End If

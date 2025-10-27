@@ -6,57 +6,12 @@
 '
 Imports System.Drawing.Imaging
 Imports System.Reflection
-Imports System.Text
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
 Public Class FrmStitchDesign
-#Region "classes"
-    Private Class StitchAction
-        Private _subjectStitch As Stitch
-        Private _doneAction As UndoAction
-        Private _newThread As ProjectThread
-        Public Property DoneAction() As UndoAction
-            Get
-                Return _doneAction
-            End Get
-            Set(ByVal value As UndoAction)
-                _doneAction = value
-            End Set
-        End Property
-        Public Property Stitch() As Stitch
-            Get
-                Return _subjectStitch
-            End Get
-            Set(ByVal value As Stitch)
-                _subjectStitch = value
-            End Set
-        End Property
-        Public Property NewThread() As ProjectThread
-            Get
-                Return _newThread
-            End Get
-            Set(ByVal value As ProjectThread)
-                _newThread = value
-            End Set
-        End Property
-        Public Sub New(pStitch As Stitch, pAction As UndoAction, pThread As ProjectThread)
-            _subjectStitch = pStitch
-            _doneAction = pAction
-            _newThread = pThread
-        End Sub
-        Public Overrides Function ToString() As String
-            Dim _sb As New StringBuilder
-            _sb _
-        .Append(_subjectStitch.ToStitchString) _
-        .Append(STITCH_DELIM) _
-        .Append(CStr(_doneAction))
-            Return _sb.ToString
-        End Function
-    End Class
-#End Region
 #Region "constants"
 
 #End Region
@@ -115,13 +70,6 @@ Public Class FrmStitchDesign
     Private aTimer As System.Timers.Timer
     Private isThreadOn As Boolean
 
-#End Region
-#Region "enum"
-    Private Enum UndoAction
-        Add
-        Remove
-        ChangeThread
-    End Enum
 #End Region
 #Region "form control event handlers"
 #Region "form events"
@@ -633,9 +581,6 @@ Public Class FrmStitchDesign
     Private Sub MnuRotate_Click(sender As Object, e As EventArgs) Handles MnuRotate.Click
         BeginRotate()
     End Sub
-    Private Sub MnuDrawFilledShape_Click(sender As Object, e As EventArgs) Handles MnuDrawFilledShape.Click
-
-    End Sub
     Private Sub MnuFloodFill_Click(sender As Object, e As EventArgs) Handles MnuFloodFill.Click
         BeginFloodFill()
     End Sub
@@ -748,7 +693,9 @@ Public Class FrmStitchDesign
     Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
         ToggleCentreMarks()
     End Sub
-
+    Private Sub MnuText_Click(sender As Object, e As EventArgs) Handles MnuText.Click
+        AddText()
+    End Sub
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -1250,7 +1197,7 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub ShowPrintForm()
-        OpenPrintForm(Me, oProject, oDesignBitmap)
+        OpenPrintForm(Me, oProject)
     End Sub
     Private Sub GetPaletteName()
         PnlPaletteName.Location = New Point(PicDesign.Location.X + 100, PicDesign.Location.Y + 100)
@@ -1667,6 +1614,9 @@ Public Class FrmStitchDesign
     End Sub
 #End Region
 #Region "actions"
+    Private Sub AddText()
+        OpenTextForm(Me, oProject)
+    End Sub
     Private Sub FlipSelectedCells()
         If oCurrentSelection.Length > 0 Then
             Dim _sum As Integer = oCurrentSelection(1).Y + oCurrentSelection(0).Y - 1
