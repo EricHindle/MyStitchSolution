@@ -148,7 +148,45 @@ Namespace Domain.Objects
                 Return _clone
             End Function
         End Class
-
+        Friend Class TextBlock
+            Private _stitches As List(Of BlockStitch)
+            Private _width As Integer
+            Private _height As Integer
+            Public Property Height() As Integer
+                Get
+                    Return _height
+                End Get
+                Set(ByVal value As Integer)
+                    _height = value
+                End Set
+            End Property
+            Public Property Width() As Integer
+                Get
+                    Return _width
+                End Get
+                Set(ByVal value As Integer)
+                    _width = value
+                End Set
+            End Property
+            Public Property Stitches() As List(Of BlockStitch)
+                Get
+                    Return _stitches
+                End Get
+                Set(ByVal value As List(Of BlockStitch))
+                    _stitches = value
+                End Set
+            End Property
+            Public Sub New(pStitches As List(Of BlockStitch), pWidth As Integer, pHeight As Integer)
+                _stitches = pStitches
+                _width = pWidth
+                _height = pHeight
+            End Sub
+            Private Sub Initialise()
+                _stitches = New List(Of BlockStitch)
+                _width = 0
+                _height = 0
+            End Sub
+        End Class
 #End Region
     End Module
 End Namespace
