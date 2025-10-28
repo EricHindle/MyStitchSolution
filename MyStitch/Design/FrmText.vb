@@ -155,8 +155,15 @@ Public Class FrmText
                         .WithStitchType(BlockStitchType.Full) _
                         .WithThreadId(_selectedThread.ThreadId) _
                         .Build
+                    Dim oQuarters As New List(Of BlockStitchQuarter) From {
+                    New BlockStitchQuarter(BlockQuarter.TopLeft, 2, _selectedThread.ThreadId),
+                    New BlockStitchQuarter(BlockQuarter.TopRight, 2, _selectedThread.ThreadId),
+                    New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, _selectedThread.ThreadId),
+                    New BlockStitchQuarter(BlockQuarter.BottomRight, 2, _selectedThread.ThreadId)
+                    }
                     Dim _blockStitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch) _
                         .WithPosition(New Point(_x, _y)) _
+                        .WithQuarters(oQuarters) _
                         .Build
                     oStitches.Add(_blockStitch)
                 End If

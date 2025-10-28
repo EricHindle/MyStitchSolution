@@ -64,6 +64,7 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator15 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnSingleColour = New System.Windows.Forms.ToolStripButton()
         Me.BtnClose = New System.Windows.Forms.ToolStripButton()
+        Me.BtnText = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
         Me.BtnFullStitch = New System.Windows.Forms.ToolStripButton()
         Me.Btn3QtrsTL = New System.Windows.Forms.ToolStripButton()
@@ -318,7 +319,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.BtnPrint, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnPaste, Me.BtnMove, Me.ToolStripSeparator4, Me.BtnMirror, Me.BtnFlip, Me.BtnRotate, Me.ToolStripSeparator3, Me.BtnUndo, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnShrink, Me.BtnEnlarge, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.ToolStripSeparator14, Me.BtnTimer, Me.ToolStripSeparator15, Me.BtnSingleColour, Me.BtnClose})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnSave, Me.BtnPrint, Me.ToolStripSeparator1, Me.BtnCopy, Me.BtnCut, Me.BtnPaste, Me.BtnMove, Me.ToolStripSeparator4, Me.BtnMirror, Me.BtnFlip, Me.BtnRotate, Me.ToolStripSeparator3, Me.BtnUndo, Me.BtnRedo, Me.ToolStripSeparator7, Me.BtnFill, Me.ToolStripSeparator5, Me.BtnZoom, Me.BtnShrink, Me.BtnEnlarge, Me.BtnWidth, Me.BtnHeight, Me.BtnCentre, Me.ToolStripSeparator14, Me.BtnTimer, Me.ToolStripSeparator15, Me.BtnSingleColour, Me.BtnClose, Me.BtnText})
         Me.ToolStrip1.Location = New System.Drawing.Point(6, 5)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
@@ -663,6 +664,19 @@ Partial Class FrmStitchDesign
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(46, 24)
         Me.BtnClose.Text = "Close"
+        '
+        'BtnText
+        '
+        Me.BtnText.AutoSize = False
+        Me.BtnText.BackgroundImage = Global.MyStitch.My.Resources.Resources.BtnBkgrd
+        Me.BtnText.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnText.Image = Global.MyStitch.My.Resources.Resources.Text
+        Me.BtnText.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnText.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnText.Name = "BtnText"
+        Me.BtnText.Size = New System.Drawing.Size(23, 24)
+        Me.BtnText.ToolTipText = "Create Text"
         '
         'ToolStrip2
         '
@@ -1695,4 +1709,5 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuCropDesign As ToolStripMenuItem
     Friend WithEvents MnuExtendDesign As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
+    Friend WithEvents BtnText As ToolStripButton
 End Class

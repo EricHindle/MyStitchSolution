@@ -84,6 +84,7 @@ Module ModDesign
         Rotate
         Clear
         DrawShape
+        Text
         none
     End Enum
 #End Region
@@ -867,16 +868,19 @@ Module ModDesign
             pForm.Show()
         End If
     End Sub
-    Public Sub OpenTextForm(pForm As Form, pProject As Project)
+    Public Function OpenTextForm(pForm As Form, pProject As Project) As TextBlock
+        Dim _textBlock As TextBlock = Nothing
         If pProject.IsLoaded Then
             pForm.Hide()
             Using _textDialog As New FrmText
                 _textDialog.SelectedProject = pProject
                 _textDialog.SelectedThread = oCurrentThread
                 _textDialog.ShowDialog()
+                _textBlock = _textDialog.TextBlock
             End Using
             pForm.Show()
         End If
-    End Sub
+        Return _textBlock
+    End Function
 #End Region
 End Module

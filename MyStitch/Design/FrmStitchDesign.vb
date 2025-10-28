@@ -217,6 +217,8 @@ Public Class FrmStitchDesign
                         Case DesignAction.Rotate
                             RemoveSelectedCells(True, False, False)
                             EndRotate(_cell)
+                        Case DesignAction.Text
+                            EndPaste(_cell)
                     End Select
                     ClearSelection()
                 Else
@@ -310,21 +312,27 @@ Public Class FrmStitchDesign
                     Dim _projectThread As ProjectThread = _stitch.ProjThread
                     If _projectThread IsNot Nothing Then
                         For Each _blockstitch As BlockStitch In oProjectDesign.BlockStitches
-                            If _blockstitch.ProjThread.Thread.ThreadNo = _projectThread.Thread.ThreadNo Then
+                            If _blockstitch.ProjThread.ThreadId = _projectThread.ThreadId Then
                                 AddToCurrentUndoList(BlockStitchBuilder.ABlockStitch.StartingWith(_blockstitch).Build(), UndoAction.ChangeThread, oCurrentThread)
-                                _blockstitch.ProjThread = oCurrentThread
+                                _blockstitch.ThreadId = oCurrentThread.ThreadId
+                                _blockstitch.ProjThread = Nothing
+                                For Each _qtr As BlockStitchQuarter In _blockstitch.Quarters
+                                    If _qtr.ThreadId = _projectThread.Thread.ThreadId Then
+                                        _qtr.ThreadId = oCurrentThread.ThreadId
+                                    End If
+                                Next
                             End If
                         Next
                         For Each _knot As Knot In oProjectDesign.Knots
                             If _knot.ProjThread.Thread.ThreadNo = _projectThread.Thread.ThreadNo Then
                                 AddToCurrentUndoList(KnotBuilder.AKnot.StartingWith(_knot).Build, UndoAction.ChangeThread, oCurrentThread)
-                                _knot.ProjThread = oCurrentThread
+                                _knot.ProjThread = ProjectThreadBuilder.AProjectThread.StartingWith(oCurrentThread).Build
                             End If
                         Next
                         For Each _backstitch As BackStitch In oProjectDesign.BackStitches
                             If _backstitch.ProjThread.Thread.ThreadNo = _projectThread.Thread.ThreadNo Then
                                 AddToCurrentUndoList(BackstitchBuilder.ABackStitch.StartingWith(_backstitch).Build, UndoAction.ChangeThread, oCurrentThread)
-                                _backstitch.ProjThread = oCurrentThread
+                                _backstitch.ProjThread = ProjectThreadBuilder.AProjectThread.StartingWith(oCurrentThread).Build
                             End If
                         Next
                     End If
@@ -694,7 +702,7 @@ Public Class FrmStitchDesign
         ToggleCentreMarks()
     End Sub
     Private Sub MnuText_Click(sender As Object, e As EventArgs) Handles MnuText.Click
-        AddText()
+        BeginText()
     End Sub
 #End Region
 #Region "stitch buttons"
@@ -864,6 +872,9 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BtnRotate_Click(sender As Object, e As EventArgs) Handles BtnRotate.Click
         BeginRotate()
+    End Sub
+    Private Sub BtnText_Click(sender As Object, e As EventArgs) Handles BtnText.Click
+        BeginText()
     End Sub
 
 #Region "begin actions"
@@ -1614,8 +1625,21 @@ Public Class FrmStitchDesign
     End Sub
 #End Region
 #Region "actions"
-    Private Sub AddText()
-        OpenTextForm(Me, oProject)
+    Private Sub BeginText()
+        oCurrentAction = DesignAction.Text
+        oCurrentStitchType = DesignAction.none
+        StitchButtonSelected()
+        SelectionMessage("Create text")
+        Dim oTextBlock As TextBlock = OpenTextForm(Me, oProject)
+        If oTextBlock IsNot Nothing Then
+            oCurrentSelectedBlockStitch = oTextBlock.Stitches
+            oInProgressAnchor = New Point(0, 0)
+            oInProgressTerminus = New Point(oTextBlock.Width, oTextBlock.Height)
+            oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
+            StartMoveSelection()
+        Else
+
+        End If
     End Sub
     Private Sub FlipSelectedCells()
         If oCurrentSelection.Length > 0 Then
@@ -2313,7 +2337,6 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
-
 #End Region
 #End Region
 End Class

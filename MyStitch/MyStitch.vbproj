@@ -434,6 +434,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\Text.png" />
     <None Include="Resources\grid.bmp" />
     <None Include="Resources\footertextimage.bmp" />
     <None Include="Resources\titletextImage.bmp" />
