@@ -79,10 +79,8 @@ Partial Class FrmStitchDesign
         Me.BtnQtrBL = New System.Windows.Forms.ToolStripButton()
         Me.BtnQuarters = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BtnFullBackstitchThin = New System.Windows.Forms.ToolStripButton()
-        Me.BtnHalfBackStitchThin = New System.Windows.Forms.ToolStripButton()
-        Me.BtnFullBackStitchThick = New System.Windows.Forms.ToolStripButton()
-        Me.BtnHalfBackStitchThick = New System.Windows.Forms.ToolStripButton()
+        Me.BtnFullBackstitch = New System.Windows.Forms.ToolStripButton()
+        Me.BtnHalfBackStitch = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.BtnKnot = New System.Windows.Forms.ToolStripButton()
         Me.BtnBead = New System.Windows.Forms.ToolStripButton()
@@ -163,6 +161,9 @@ Partial Class FrmStitchDesign
         Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RbSingle = New System.Windows.Forms.RadioButton()
+        Me.RbDouble = New System.Windows.Forms.RadioButton()
+        Me.Label2 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -190,6 +191,9 @@ Partial Class FrmStitchDesign
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.RbDouble)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.RbSingle)
         Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
         '
         'SplitContainer1.Panel2
@@ -204,12 +208,14 @@ Partial Class FrmStitchDesign
         '
         'ThreadLayoutPanel
         '
+        Me.ThreadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.ThreadLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 0)
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 23)
         Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(124, 466)
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(124, 443)
         Me.ThreadLayoutPanel.TabIndex = 131
         '
         'Panel1
@@ -286,7 +292,7 @@ Partial Class FrmStitchDesign
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PicDesign.BackColor = System.Drawing.Color.White
-        Me.PicDesign.Location = New System.Drawing.Point(3, 3)
+        Me.PicDesign.Location = New System.Drawing.Point(3, -2)
         Me.PicDesign.Name = "PicDesign"
         Me.PicDesign.Size = New System.Drawing.Size(672, 367)
         Me.PicDesign.TabIndex = 133
@@ -687,7 +693,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.BackgroundImage = CType(resources.GetObject("ToolStrip2.BackgroundImage"), System.Drawing.Image)
         Me.ToolStrip2.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnFullStitch, Me.Btn3QtrsTL, Me.Btn3QtrsTR, Me.Btn3QtrsBR, Me.Btn3QtrsBL, Me.BtnHalfForward, Me.BtnHalfBack, Me.BtnQtrTL, Me.BtnQtrTR, Me.BtnQtrBR, Me.BtnQtrBL, Me.BtnQuarters, Me.ToolStripSeparator2, Me.BtnFullBackstitchThin, Me.BtnHalfBackStitchThin, Me.BtnFullBackStitchThick, Me.BtnHalfBackStitchThick, Me.ToolStripSeparator6, Me.BtnKnot, Me.BtnBead})
+        Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BtnFullStitch, Me.Btn3QtrsTL, Me.Btn3QtrsTR, Me.Btn3QtrsBR, Me.Btn3QtrsBL, Me.BtnHalfForward, Me.BtnHalfBack, Me.BtnQtrTL, Me.BtnQtrTR, Me.BtnQtrBR, Me.BtnQtrBL, Me.BtnQuarters, Me.ToolStripSeparator2, Me.BtnFullBackstitch, Me.BtnHalfBackStitch, Me.ToolStripSeparator6, Me.BtnKnot, Me.BtnBead})
         Me.ToolStrip2.Location = New System.Drawing.Point(6, 31)
         Me.ToolStrip2.Name = "ToolStrip2"
         Me.ToolStrip2.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
@@ -881,65 +887,35 @@ Partial Class FrmStitchDesign
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 24)
         '
-        'BtnFullBackstitchThin
+        'BtnFullBackstitch
         '
-        Me.BtnFullBackstitchThin.AutoSize = False
-        Me.BtnFullBackstitchThin.BackgroundImage = CType(resources.GetObject("BtnFullBackstitchThin.BackgroundImage"), System.Drawing.Image)
-        Me.BtnFullBackstitchThin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnFullBackstitchThin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnFullBackstitchThin.Image = Global.MyStitch.My.Resources.Resources.fullthinbs
-        Me.BtnFullBackstitchThin.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.BtnFullBackstitchThin.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnFullBackstitchThin.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnFullBackstitchThin.Name = "BtnFullBackstitchThin"
-        Me.BtnFullBackstitchThin.Size = New System.Drawing.Size(23, 22)
-        Me.BtnFullBackstitchThin.Text = "ToolStripButton1"
-        Me.BtnFullBackstitchThin.ToolTipText = "Thin Full Backstitch"
+        Me.BtnFullBackstitch.AutoSize = False
+        Me.BtnFullBackstitch.BackgroundImage = CType(resources.GetObject("BtnFullBackstitch.BackgroundImage"), System.Drawing.Image)
+        Me.BtnFullBackstitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnFullBackstitch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnFullBackstitch.Image = Global.MyStitch.My.Resources.Resources.fullthinbs
+        Me.BtnFullBackstitch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.BtnFullBackstitch.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnFullBackstitch.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnFullBackstitch.Name = "BtnFullBackstitch"
+        Me.BtnFullBackstitch.Size = New System.Drawing.Size(23, 22)
+        Me.BtnFullBackstitch.Text = "ToolStripButton1"
+        Me.BtnFullBackstitch.ToolTipText = "Full Backstitch"
         '
-        'BtnHalfBackStitchThin
+        'BtnHalfBackStitch
         '
-        Me.BtnHalfBackStitchThin.AutoSize = False
-        Me.BtnHalfBackStitchThin.BackgroundImage = CType(resources.GetObject("BtnHalfBackStitchThin.BackgroundImage"), System.Drawing.Image)
-        Me.BtnHalfBackStitchThin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnHalfBackStitchThin.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnHalfBackStitchThin.Image = Global.MyStitch.My.Resources.Resources.halfthinbs
-        Me.BtnHalfBackStitchThin.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.BtnHalfBackStitchThin.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnHalfBackStitchThin.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnHalfBackStitchThin.Name = "BtnHalfBackStitchThin"
-        Me.BtnHalfBackStitchThin.Size = New System.Drawing.Size(23, 22)
-        Me.BtnHalfBackStitchThin.Text = "ToolStripButton1"
-        Me.BtnHalfBackStitchThin.ToolTipText = "Thin Half Backstitch"
-        '
-        'BtnFullBackStitchThick
-        '
-        Me.BtnFullBackStitchThick.AutoSize = False
-        Me.BtnFullBackStitchThick.BackgroundImage = CType(resources.GetObject("BtnFullBackStitchThick.BackgroundImage"), System.Drawing.Image)
-        Me.BtnFullBackStitchThick.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnFullBackStitchThick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnFullBackStitchThick.Image = Global.MyStitch.My.Resources.Resources.fullthickbs
-        Me.BtnFullBackStitchThick.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.BtnFullBackStitchThick.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnFullBackStitchThick.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnFullBackStitchThick.Name = "BtnFullBackStitchThick"
-        Me.BtnFullBackStitchThick.Size = New System.Drawing.Size(23, 22)
-        Me.BtnFullBackStitchThick.Text = "ToolStripButton1"
-        Me.BtnFullBackStitchThick.ToolTipText = "Thick Full Backstitch"
-        '
-        'BtnHalfBackStitchThick
-        '
-        Me.BtnHalfBackStitchThick.AutoSize = False
-        Me.BtnHalfBackStitchThick.BackgroundImage = CType(resources.GetObject("BtnHalfBackStitchThick.BackgroundImage"), System.Drawing.Image)
-        Me.BtnHalfBackStitchThick.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnHalfBackStitchThick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.BtnHalfBackStitchThick.Image = Global.MyStitch.My.Resources.Resources.halfthickbs
-        Me.BtnHalfBackStitchThick.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.BtnHalfBackStitchThick.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BtnHalfBackStitchThick.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
-        Me.BtnHalfBackStitchThick.Name = "BtnHalfBackStitchThick"
-        Me.BtnHalfBackStitchThick.Size = New System.Drawing.Size(23, 22)
-        Me.BtnHalfBackStitchThick.Text = "ToolStripButton1"
-        Me.BtnHalfBackStitchThick.ToolTipText = "Thick Half Backstitch"
+        Me.BtnHalfBackStitch.AutoSize = False
+        Me.BtnHalfBackStitch.BackgroundImage = CType(resources.GetObject("BtnHalfBackStitch.BackgroundImage"), System.Drawing.Image)
+        Me.BtnHalfBackStitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.BtnHalfBackStitch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.BtnHalfBackStitch.Image = Global.MyStitch.My.Resources.Resources.halfthinbs
+        Me.BtnHalfBackStitch.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.BtnHalfBackStitch.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BtnHalfBackStitch.Margin = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.BtnHalfBackStitch.Name = "BtnHalfBackStitch"
+        Me.BtnHalfBackStitch.Size = New System.Drawing.Size(23, 22)
+        Me.BtnHalfBackStitch.Text = "ToolStripButton1"
+        Me.BtnHalfBackStitch.ToolTipText = "Half Backstitch"
         '
         'ToolStripSeparator6
         '
@@ -1533,6 +1509,42 @@ Partial Class FrmStitchDesign
         Me.MnuShow.Size = New System.Drawing.Size(116, 22)
         Me.MnuShow.Text = "Info"
         '
+        'RbSingle
+        '
+        Me.RbSingle.AutoSize = True
+        Me.RbSingle.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbSingle.Location = New System.Drawing.Point(6, 5)
+        Me.RbSingle.Margin = New System.Windows.Forms.Padding(1)
+        Me.RbSingle.Name = "RbSingle"
+        Me.RbSingle.Size = New System.Drawing.Size(31, 17)
+        Me.RbSingle.TabIndex = 132
+        Me.RbSingle.Text = "1"
+        Me.RbSingle.UseVisualStyleBackColor = True
+        '
+        'RbDouble
+        '
+        Me.RbDouble.AutoSize = True
+        Me.RbDouble.Checked = True
+        Me.RbDouble.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbDouble.Location = New System.Drawing.Point(39, 5)
+        Me.RbDouble.Margin = New System.Windows.Forms.Padding(1)
+        Me.RbDouble.Name = "RbDouble"
+        Me.RbDouble.Size = New System.Drawing.Size(31, 17)
+        Me.RbDouble.TabIndex = 133
+        Me.RbDouble.TabStop = True
+        Me.RbDouble.Text = "2"
+        Me.RbDouble.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(74, 7)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(43, 13)
+        Me.Label2.TabIndex = 134
+        Me.Label2.Text = "strands"
+        '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
@@ -1548,6 +1560,7 @@ Partial Class FrmStitchDesign
         Me.Name = "FrmStitchDesign"
         Me.Text = "Stitch Design"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
@@ -1613,10 +1626,8 @@ Partial Class FrmStitchDesign
     Friend WithEvents BtnQtrBL As ToolStripButton
     Friend WithEvents BtnQuarters As ToolStripButton
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents BtnFullBackstitchThin As ToolStripButton
-    Friend WithEvents BtnHalfBackStitchThin As ToolStripButton
-    Friend WithEvents BtnFullBackStitchThick As ToolStripButton
-    Friend WithEvents BtnHalfBackStitchThick As ToolStripButton
+    Friend WithEvents BtnFullBackstitch As ToolStripButton
+    Friend WithEvents BtnHalfBackStitch As ToolStripButton
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents BtnKnot As ToolStripButton
     Friend WithEvents BtnBead As ToolStripButton
@@ -1710,4 +1721,7 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuExtendDesign As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
     Friend WithEvents BtnText As ToolStripButton
+    Friend WithEvents Label2 As Label
+    Friend WithEvents RbDouble As RadioButton
+    Friend WithEvents RbSingle As RadioButton
 End Class

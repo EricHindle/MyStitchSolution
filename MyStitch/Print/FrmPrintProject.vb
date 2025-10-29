@@ -445,7 +445,8 @@ Public Class FrmPrintProject
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
         Dim _size As New Size(oPagePixelsPerCell, oPagePixelsPerCell)
         Dim _symImage As Image = MakePrintImage(pBlockStitch)
-        oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / 8)
+        SetStitchPenWidth(pBlockStitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -456,20 +457,25 @@ Public Class FrmPrintProject
 
         If pStitchDisplayStyle = 1 Then
             Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            pDesignGraphics.DrawImage(MakePrintImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, _symImage.Width, _symImage.Height, GraphicsUnit.Pixel, _imageAttributes)
+            pDesignGraphics.DrawImage(_symImage, New Rectangle(_tl, _size), 0, 0, _symImage.Width, _symImage.Height, GraphicsUnit.Pixel, _imageAttributes)
         Else
             pDesignGraphics.DrawImage(_symImage, pX, pY, oPagePixelsPerCell, oPagePixelsPerCell)
         End If
         _crossPen.Dispose()
     End Sub
     Friend Function MakePrintImage(pBlockStitch As BlockStitch) As Image
+        Return MakeImage(pBlockStitch, oPagePixelsPerCell)
+    End Function
+
+    Public Function MakeImage(pBlockStitch As BlockStitch, pPixels As Integer) As Image
+
         Dim _image As Image = New Bitmap(1, 1)
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
         If _projectThread Is Nothing Then
             LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, "MakeImage", False)
         Else
             Dim _symbol As Symbol = FindSymbolById(_projectThread.SymbolId)
-            _image = ImageUtil.ResizeImage(_symbol.SymbolImage, oPagePixelsPerCell, oPagePixelsPerCell)
+            _image = ImageUtil.ResizeImage(_symbol.SymbolImage, pPixels, pPixels)
         End If
         Return _image
     End Function
@@ -481,7 +487,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / 8)
+        SetStitchPenWidth(pBlockStitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -502,7 +508,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / 8)
+        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
 
         Dim _cellLocation As New Point(pX, pY)
 
@@ -542,7 +548,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / 8)
+        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
         Dim _cellLocation As New Point(pX, pY)
         Dim _rectSize As Integer = Math.Floor(oPagePixelsPerCell / 2)
         Dim _middleX As Integer = CInt(pX + _rectSize)
@@ -568,16 +574,18 @@ Public Class FrmPrintProject
         Next
     End Sub
     Friend Sub PrintBackstitch(pBackstitch As BackStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
-        If isBackstitchWidthVariable Then
-            oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / oVariableWidthFraction)
-        Else
-            oStitchPenWidth = oBackstitchPenDefaultWidth
-        End If
+        'If isBackstitchWidthVariable Then
+        '    oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / oVariableWidthFraction)
+        'Else
+        '    oStitchPenWidth = oBackstitchPenDefaultWidth
+        'End If
+        SetStitchPenWidth(pBackstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+
         Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * pBackstitch.Strands) With {
+        Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
         }

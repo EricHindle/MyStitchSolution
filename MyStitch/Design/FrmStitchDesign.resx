@@ -341,7 +341,7 @@
         lKsAAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="BtnFullBackstitchThin.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnFullBackstitch.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS44G2nqqAAAAEFJREFUSEtj+E8j
@@ -349,23 +349,7 @@
         lKsAAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="BtnHalfBackStitchThin.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS44G2nqqAAAAEFJREFUSEtj+E8j
-        kJmZ+Z8BxHj8+DFV8YIFC1ANZ6AiGDUcKxg1HCsYNRwrGDUcKxg1HCsYJoaDONTGYMNBBK0wAAVZBzfH
-        lKsAAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="BtnFullBackStitchThick.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS44G2nqqAAAAEFJREFUSEtj+E8j
-        kJmZ+Z8BxHj8+DFV8YIFC1ANZ6AiGDUcKxg1HCsYNRwrGDUcKxg1HCsYJoaDONTGYMNBBK0wAAVZBzfH
-        lKsAAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="BtnHalfBackStitchThick.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnHalfBackStitch.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABcAAAAWCAYAAAArdgcFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIDUuMS44G2nqqAAAAEFJREFUSEtj+E8j

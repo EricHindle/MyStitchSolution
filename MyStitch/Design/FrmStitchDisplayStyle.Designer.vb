@@ -58,7 +58,7 @@ Partial Class FrmStitchDisplayStyle
         'CbDesignStitchDisplay
         '
         Me.CbDesignStitchDisplay.FormattingEnabled = True
-        Me.CbDesignStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Strokes", "Black/White Symbols", "Blocks With Symbols"})
+        Me.CbDesignStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Black/White Symbols", "Blocks With Symbols"})
         Me.CbDesignStitchDisplay.Location = New System.Drawing.Point(151, 18)
         Me.CbDesignStitchDisplay.Name = "CbDesignStitchDisplay"
         Me.CbDesignStitchDisplay.Size = New System.Drawing.Size(121, 22)
@@ -67,7 +67,7 @@ Partial Class FrmStitchDisplayStyle
         'CbPaletteStitchDisplay
         '
         Me.CbPaletteStitchDisplay.FormattingEnabled = True
-        Me.CbPaletteStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Strokes", "Black/White Symbols", "Blocks With Symbols"})
+        Me.CbPaletteStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Black/White Symbols", "Blocks With Symbols"})
         Me.CbPaletteStitchDisplay.Location = New System.Drawing.Point(151, 51)
         Me.CbPaletteStitchDisplay.Name = "CbPaletteStitchDisplay"
         Me.CbPaletteStitchDisplay.Size = New System.Drawing.Size(121, 22)

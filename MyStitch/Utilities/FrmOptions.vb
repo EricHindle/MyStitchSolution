@@ -131,6 +131,8 @@ Public NotInheritable Class FrmOptions
         My.Settings.isShowStockLevels = ChkShowStock.Checked
         My.Settings.isTimerAutoSave = ChkTimerAutoSave.Checked
         My.Settings.isTimerAutoStart = ChkTimerAutoStart.Checked
+        My.Settings.DesignStitchDisplay = CbDesignStitchDisplay.SelectedIndex
+        My.Settings.PaletteStitchDisplay = CbPaletteStitchDisplay.SelectedIndex
         My.Settings.Save()
         LogUtil.Info("Options saved", MyBase.Name)
     End Sub
@@ -169,6 +171,8 @@ Public NotInheritable Class FrmOptions
         TxtDesignFilePath.Text = My.Settings.DesignFilePath
         TxtImagePath.Text = My.Settings.ImagePath
         TxtLogFilePath.Text = My.Settings.LogFolder
+        CbDesignStitchDisplay.SelectedIndex = My.Settings.DesignStitchDisplay
+        CbPaletteStitchDisplay.SelectedIndex = My.Settings.PaletteStitchDisplay
     End Sub
 #End Region
 End Class

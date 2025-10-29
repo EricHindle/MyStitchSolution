@@ -101,6 +101,7 @@ Public Class FrmStitchDesign
         End If
         _backstitchPen.Dispose()
         oSelectionPen.Dispose()
+        oFabricPen.Dispose()
         oDesignBitmap = Nothing
         CloseTimer()
         My.Settings.DesignFormPos = SetFormPos(Me)
@@ -122,28 +123,20 @@ Public Class FrmStitchDesign
                 If isLeftButton Then
                     If isBackstitchInProgress Then
                         Select Case oCurrentStitchType
-                            Case DesignAction.BackstitchFullThick
-                                PlaceBackstitch(_cell.KnotCellPos, False, True)
                             Case DesignAction.BackStitchFullThin
-                                PlaceBackstitch(_cell.KnotCellPos, False, False)
+                                PlaceBackstitch(_cell.KnotCellPos, False, RbDouble.Checked)
                             Case DesignAction.BackstitchHalfThin
-                                PlaceBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, False)
-                            Case DesignAction.BackStitchHalfThick
-                                PlaceBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, True)
+                                PlaceBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, RbDouble.Checked)
                         End Select
                     Else
                         If isRemoveBackstitchInProgress Then
                             RemoveBackstitch()
                         Else
                             Select Case oCurrentStitchType
-                                Case DesignAction.BackstitchFullThick
-                                    StartBackstitch(_cell.KnotCellPos, False, True)
                                 Case DesignAction.BackStitchFullThin
-                                    StartBackstitch(_cell.KnotCellPos, False, False)
+                                    StartBackstitch(_cell.KnotCellPos, False, RbDouble.Checked)
                                 Case DesignAction.BackstitchHalfThin
-                                    StartBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, False)
-                                Case DesignAction.BackStitchHalfThick
-                                    StartBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, True)
+                                    StartBackstitch(_cell.KnotCellPos, _cell.KnotQtr, True, RbDouble.Checked)
                             End Select
                         End If
                     End If
@@ -163,34 +156,34 @@ Public Class FrmStitchDesign
                 If isLeftButton Then
                     ' Add a stitch or knot
                     If isKnotAction And My.Settings.IsShowKnots Then
-                        AddKnot(_cell, oCurrentStitchType = DesignAction.Bead)
+                        AddKnot(_cell, oCurrentStitchType = DesignAction.Bead, RbDouble.Checked)
                     End If
                     If isBlockstitchAction And My.Settings.IsShowBlockstitches Then
                         Select Case oCurrentStitchType
                             Case DesignAction.FullBlockstitch
-                                AddFullBlockStitch(_cell)
+                                AddFullBlockStitch(_cell, RbDouble.Checked)
                             Case DesignAction.HalfBlockstitchBack
-                                AddHalfBlockStitch(_cell, True)
+                                AddHalfBlockStitch(_cell, True, RbDouble.Checked)
                             Case DesignAction.HalfBlockstitchForward
-                                AddHalfBlockStitch(_cell, False)
+                                AddHalfBlockStitch(_cell, False, RbDouble.Checked)
                             Case DesignAction.QuarterBlockstitchBottomRight
-                                AddQuarterBlockstitch(_cell, BlockQuarter.BottomRight)
+                                AddQuarterBlockstitch(_cell, BlockQuarter.BottomRight, RbDouble.Checked)
                             Case DesignAction.QuarterBlockstitchBottonLeft
-                                AddQuarterBlockstitch(_cell, BlockQuarter.BottomLeft)
+                                AddQuarterBlockstitch(_cell, BlockQuarter.BottomLeft, RbDouble.Checked)
                             Case DesignAction.QuarterBlockstitchTopLeft
-                                AddQuarterBlockstitch(_cell, BlockQuarter.TopLeft)
+                                AddQuarterBlockstitch(_cell, BlockQuarter.TopLeft, RbDouble.Checked)
                             Case DesignAction.QuarterBlockstitchTopRight
-                                AddQuarterBlockstitch(_cell, BlockQuarter.TopRight)
+                                AddQuarterBlockstitch(_cell, BlockQuarter.TopRight, RbDouble.Checked)
                             Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-                                AddThreeQuarterStitch(_cell, BlockQuarter.BottomLeft)
+                                AddThreeQuarterStitch(_cell, BlockQuarter.BottomLeft, RbDouble.Checked)
                             Case DesignAction.ThreeQuarterBlockstitchBottomRight
-                                AddThreeQuarterStitch(_cell, BlockQuarter.BottomRight)
+                                AddThreeQuarterStitch(_cell, BlockQuarter.BottomRight, RbDouble.Checked)
                             Case DesignAction.ThreeQuarterBlockstitchTopLeft
-                                AddThreeQuarterStitch(_cell, BlockQuarter.TopLeft)
+                                AddThreeQuarterStitch(_cell, BlockQuarter.TopLeft, RbDouble.Checked)
                             Case DesignAction.ThreeQuarterBlockstitchTopRight
-                                AddThreeQuarterStitch(_cell, BlockQuarter.TopRight)
+                                AddThreeQuarterStitch(_cell, BlockQuarter.TopRight, RbDouble.Checked)
                             Case DesignAction.BlockstitchQuarters
-                                AddQuarterBlockstitch(_cell, _cell.StitchQuarter)
+                                AddQuarterBlockstitch(_cell, _cell.StitchQuarter, RbDouble.Checked)
                         End Select
                     End If
                 Else
@@ -396,40 +389,40 @@ Public Class FrmStitchDesign
                 LogUtil.Debug("Adding stitch on the move", MyBase.Name)
                 Select Case oCurrentStitchType
                     Case DesignAction.Bead
-                        AddKnot(_cell, True)
+                        AddKnot(_cell, True, RbDouble.Checked)
                     Case DesignAction.Knot
-                        AddKnot(_cell, False)
+                        AddKnot(_cell, False, RbDouble.Checked)
                     Case DesignAction.FullBlockstitch
-                        AddFullBlockStitch(_cell)
+                        AddFullBlockStitch(_cell, RbDouble.Checked)
                     Case DesignAction.HalfBlockstitchBack
-                        AddHalfBlockStitch(_cell, True)
+                        AddHalfBlockStitch(_cell, True, RbDouble.Checked)
                     Case DesignAction.HalfBlockstitchForward
-                        AddHalfBlockStitch(_cell, False)
+                        AddHalfBlockStitch(_cell, False, RbDouble.Checked)
                     Case DesignAction.QuarterBlockstitchBottomRight
-                        AddQuarterBlockstitch(_cell, BlockQuarter.BottomRight)
+                        AddQuarterBlockstitch(_cell, BlockQuarter.BottomRight, RbDouble.Checked)
                     Case DesignAction.QuarterBlockstitchBottonLeft
-                        AddQuarterBlockstitch(_cell, BlockQuarter.BottomLeft)
+                        AddQuarterBlockstitch(_cell, BlockQuarter.BottomLeft, RbDouble.Checked)
                     Case DesignAction.QuarterBlockstitchTopLeft
-                        AddQuarterBlockstitch(_cell, BlockQuarter.TopLeft)
+                        AddQuarterBlockstitch(_cell, BlockQuarter.TopLeft, RbDouble.Checked)
                     Case DesignAction.QuarterBlockstitchTopRight
-                        AddQuarterBlockstitch(_cell, BlockQuarter.TopRight)
+                        AddQuarterBlockstitch(_cell, BlockQuarter.TopRight, RbDouble.Checked)
                     Case DesignAction.ThreeQuarterBlockstitchBottomLeft
-                        AddThreeQuarterStitch(_cell, BlockQuarter.BottomLeft)
+                        AddThreeQuarterStitch(_cell, BlockQuarter.BottomLeft, RbDouble.Checked)
                     Case DesignAction.ThreeQuarterBlockstitchBottomRight
-                        AddThreeQuarterStitch(_cell, BlockQuarter.BottomRight)
+                        AddThreeQuarterStitch(_cell, BlockQuarter.BottomRight, RbDouble.Checked)
                     Case DesignAction.ThreeQuarterBlockstitchTopLeft
-                        AddThreeQuarterStitch(_cell, BlockQuarter.TopLeft)
+                        AddThreeQuarterStitch(_cell, BlockQuarter.TopLeft, RbDouble.Checked)
                     Case DesignAction.ThreeQuarterBlockstitchTopRight
-                        AddThreeQuarterStitch(_cell, BlockQuarter.TopRight)
+                        AddThreeQuarterStitch(_cell, BlockQuarter.TopRight, RbDouble.Checked)
                     Case DesignAction.BlockstitchQuarters
-                        AddQuarterBlockstitch(_cell, _cellQtr)
+                        AddQuarterBlockstitch(_cell, _cellQtr, RbDouble.Checked)
                 End Select
             End If
             If isBackstitchInProgress Then
                 Select Case oCurrentStitchType
-                    Case DesignAction.BackstitchFullThick, DesignAction.BackStitchFullThin
+                    Case DesignAction.BackStitchFullThin
                         DrawBackstitchInProgress(_knotPos, BlockQuarter.TopLeft, False)
-                    Case DesignAction.BackStitchHalfThick, DesignAction.BackstitchHalfThin
+                    Case DesignAction.BackstitchHalfThin
                         DrawBackstitchInProgress(_knotPos, _knotqtr, True)
                 End Select
             End If
@@ -753,21 +746,13 @@ Public Class FrmStitchDesign
         oCurrentStitchType = DesignAction.BlockstitchQuarters
         StitchButtonSelected(BtnQuarters)
     End Sub
-    Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitchThin.Click
+    Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitch.Click
         oCurrentStitchType = DesignAction.BackStitchFullThin
-        StitchButtonSelected(BtnFullBackstitchThin)
+        StitchButtonSelected(BtnFullBackstitch)
     End Sub
-    Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThin.Click
+    Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitch.Click
         oCurrentStitchType = DesignAction.BackstitchHalfThin
-        StitchButtonSelected(BtnHalfBackStitchThin)
-    End Sub
-    Private Sub BtnFullBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnFullBackStitchThick.Click
-        oCurrentStitchType = DesignAction.BackstitchFullThick
-        StitchButtonSelected(BtnFullBackStitchThick)
-    End Sub
-    Private Sub BtnHalfBackStitchThick_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitchThick.Click
-        oCurrentStitchType = DesignAction.BackStitchHalfThick
-        StitchButtonSelected(BtnHalfBackStitchThick)
+        StitchButtonSelected(BtnHalfBackStitch)
     End Sub
     Private Sub BtnKnot_Click(sender As Object, e As EventArgs) Handles BtnKnot.Click
         oCurrentStitchType = DesignAction.Knot
@@ -1051,10 +1036,10 @@ Public Class FrmStitchDesign
                                     _graphics.DrawLine(_pen, 2, 2, _picSize - 2, _picSize - 2)
                                     _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
                                 End Using
-                            Case StitchDisplayStyle.Strokes
-                                Using _graphics As Graphics = Graphics.FromImage(_image)
-                                    _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
-                                End Using
+                            'Case StitchDisplayStyle.Strokes
+                            '    Using _graphics As Graphics = Graphics.FromImage(_image)
+                            '        _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
+                            '    End Using
                             Case StitchDisplayStyle.BlackWhiteSymbols
                                 If _projectThread.SymbolId > 0 Then
                                     _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
@@ -1170,9 +1155,7 @@ Public Class FrmStitchDesign
                  DesignAction.Bead
                 isKnotAction = True
             Case DesignAction.BackStitchFullThin,
-                 DesignAction.BackstitchFullThick,
-                 DesignAction.BackstitchHalfThin,
-                 DesignAction.BackStitchHalfThick
+                 DesignAction.BackstitchHalfThin
                 isBackstitchAction = True
             Case DesignAction.FullBlockstitch,
                  DesignAction.HalfBlockstitchBack,
@@ -1826,12 +1809,13 @@ Public Class FrmStitchDesign
         Dim _qtrLocationAdjust As Integer = If(pIsHalfStitch, iPixelsPerCell / 2, iPixelsPerCell)
         oBackstitchInProgress.ToBlockQuarter = pCellQtr
         oBackstitchInProgress.ToBlockLocation = pCell
-        If isBackstitchWidthVariable Then
-            oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
-        Else
-            oStitchPenWidth = oBackstitchPenDefaultWidth
-        End If
-        oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        SetStitchPenWidth(RbDouble.Checked, isBackstitchWidthVariable, iPixelsPerCell)
+        'If isBackstitchWidthVariable Then
+        '    oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
+        'Else
+        '    oStitchPenWidth = oBackstitchPenDefaultWidth
+        'End If
+        '   oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
         _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
         _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
         _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
@@ -1958,7 +1942,8 @@ Public Class FrmStitchDesign
             End Select
         Next
     End Sub
-    Private Sub AddThreeQuarterStitch(pcell As Cell, pQtr As BlockQuarter)
+    Private Sub AddThreeQuarterStitch(pcell As Cell, pQtr As BlockQuarter, pIsDouble As Boolean)
+        Dim _strands As Integer = If(pIsDouble, 2, 1)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing.WithStitchType(BlockStitchType.ThreeQuarter).WithProjectId(oProject.ProjectId).WithThreadId(oCurrentThread.ThreadId).WithStrandCount(2).WithBlockLocation(pcell.Position).WithQuarter(pQtr).Build
         Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch).Build
 
@@ -1966,41 +1951,42 @@ Public Class FrmStitchDesign
 
         Select Case pQtr
             Case BlockQuarter.TopLeft
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, oCurrentThread.ThreadId))
             Case BlockQuarter.TopRight
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, 2, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, oCurrentThread.ThreadId))
             Case BlockQuarter.BottomLeft
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, oCurrentThread.ThreadId))
             Case BlockQuarter.BottomRight
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, 2, oCurrentThread.ThreadId))
-                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.TopRight, _strands, oCurrentThread.ThreadId))
+                _blockStitchQtrList.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, oCurrentThread.ThreadId))
         End Select
         _blockstitch.Quarters = _blockStitchQtrList
         AddBlockStitchToDesign(_blockstitch)
         DrawThreeQuarterBlockStitch(_blockstitch)
 
     End Sub
-    Private Sub AddHalfBlockStitch(pCell As Cell, isBack As Boolean)
+    Private Sub AddHalfBlockStitch(pCell As Cell, isBack As Boolean, pIsDouble As Boolean)
+        Dim _strands As Integer = If(pIsDouble, 2, 1)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
             .WithStitchType(BlockStitchType.Half) _
             .WithProjectId(oProject.ProjectId) _
             .WithThreadId(oCurrentThread.ThreadId) _
-            .WithStrandCount(2) _
+            .WithStrandCount(_strands) _
             .WithBlockLocation(pCell.Position).Build
         Dim _quarters As New List(Of BlockStitchQuarter)
         If isBack Then
-            _quarters.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, 2, oCurrentThread.ThreadId))
-            _quarters.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, 2, oCurrentThread.ThreadId))
+            _quarters.Add(New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, oCurrentThread.ThreadId))
+            _quarters.Add(New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, oCurrentThread.ThreadId))
         Else
-            _quarters.Add(New BlockStitchQuarter(BlockQuarter.TopRight, 2, oCurrentThread.ThreadId))
-            _quarters.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId))
+            _quarters.Add(New BlockStitchQuarter(BlockQuarter.TopRight, _strands, oCurrentThread.ThreadId))
+            _quarters.Add(New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, oCurrentThread.ThreadId))
         End If
         Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch) _
             .WithQuarters(_quarters).Build
@@ -2008,18 +1994,19 @@ Public Class FrmStitchDesign
         AddBlockStitchToDesign(_blockstitch)
         DrawHalfBlockStitch(_blockstitch, isBack)
     End Sub
-    Private Sub AddFullBlockStitch(pCell As Cell)
+    Private Sub AddFullBlockStitch(pCell As Cell, pIsDouble As Boolean)
+        Dim _strands As Integer = If(pIsDouble, 2, 1)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
         .WithStitchType(BlockStitchType.Full) _
         .WithProjectId(oProject.ProjectId) _
         .WithThreadId(oCurrentThread.ThreadId) _
-        .WithStrandCount(2) _
+        .WithStrandCount(_strands) _
         .WithBlockLocation(pCell.Position).Build
         Dim _quarters As New List(Of BlockStitchQuarter) From {
-            New BlockStitchQuarter(BlockQuarter.TopLeft, 2, oCurrentThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.TopRight, 2, oCurrentThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, oCurrentThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.BottomRight, 2, oCurrentThread.ThreadId)
+            New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, oCurrentThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.TopRight, _strands, oCurrentThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, oCurrentThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, oCurrentThread.ThreadId)
         }
         Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch) _
             .WithQuarters(_quarters).Build
@@ -2027,7 +2014,8 @@ Public Class FrmStitchDesign
         AddBlockStitchToDesign(_blockstitch)
         DrawFullBlockStitch(_blockstitch)
     End Sub
-    Private Sub AddQuarterBlockstitch(pCell As Cell, pQtr As BlockQuarter)
+    Private Sub AddQuarterBlockstitch(pCell As Cell, pQtr As BlockQuarter, pIsDouble As Boolean)
+        Dim _strands As Integer = If(pIsDouble, 2, 1)
 
         Dim _existingBlockstitch As BlockStitch = FindBlockstitch(pCell.Position)
         Dim _blockStitchQtrList As New List(Of BlockStitchQuarter)
@@ -2042,12 +2030,13 @@ Public Class FrmStitchDesign
                 .WithStitchType(BlockStitchType.Quarter) _
                 .WithProjectId(oProject.ProjectId) _
                 .WithThreadId(oCurrentThread.ThreadId) _
-                .WithStrandCount(2) _
+                .WithStrandCount(_strands) _
                 .WithBlockLocation(pCell.Position).Build
             _existingBlockstitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch).Build
             oProjectDesign.BlockStitches.Add(_existingBlockstitch)
+            AddToCurrentUndoList(_existingBlockstitch, UndoAction.Add)
         End If
-        _blockStitchQtrList.Add(New BlockStitchQuarter(pQtr, 2, oCurrentThread.ThreadId))
+        _blockStitchQtrList.Add(New BlockStitchQuarter(pQtr, _strands, oCurrentThread.ThreadId))
         _existingBlockstitch.Quarters = _blockStitchQtrList
         _existingBlockstitch.StitchType = BlockStitchType.Mixed
         DrawQuarterBlockStitch(_existingBlockstitch)
@@ -2067,12 +2056,13 @@ Public Class FrmStitchDesign
     End Function
 #End Region
 #Region "knots"
-    Private Sub AddKnot(pCell As Cell, pIsBead As Boolean)
+    Private Sub AddKnot(pCell As Cell, pIsBead As Boolean, pIsDouble As Boolean)
+        Dim _strands As Integer = If(pIsDouble, 2, 1)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
             .WithStitchType(BlockStitchType.none) _
             .WithProjectId(oProject.ProjectId) _
             .WithThreadId(oCurrentThread.ThreadId) _
-            .WithStrandCount(2) _
+            .WithStrandCount(_strands) _
             .WithQuarter(pCell.KnotQtr).Build
         Dim _bead As Knot = KnotBuilder.AKnot.StartingWith(_stitch) _
             .WithKnotLocation(pCell.KnotCellPos) _
@@ -2152,7 +2142,8 @@ Public Class FrmStitchDesign
                 _toCellLocation_x += _adjust
                 _toCellLocation_y += _adjust
         End Select
-        _backstitchPen = New Pen(Color.White, oStitchPenWidth * oRemoveBackstitch.Strands)
+        SetStitchPenWidth(oRemoveBackstitch.Strands, False, iPixelsPerCell)
+        _backstitchPen = New Pen(Color.White, oStitchPenWidth)
         If isThreadOn Then
             _backstitchPen = New Pen(oRemoveBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * oRemoveBackstitch.Strands)
         End If
