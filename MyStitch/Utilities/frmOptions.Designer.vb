@@ -107,6 +107,11 @@ Partial Class FrmOptions
         Me.Label21 = New System.Windows.Forms.Label()
         Me.NudFabricCount = New System.Windows.Forms.NumericUpDown()
         Me.Label20 = New System.Windows.Forms.Label()
+        Me.GroupBox11 = New System.Windows.Forms.GroupBox()
+        Me.CbPaletteStitchDisplay = New System.Windows.Forms.ComboBox()
+        Me.CbDesignStitchDisplay = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.NudRetentionCopies, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -133,6 +138,7 @@ Partial Class FrmOptions
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox11.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnCancel
@@ -1004,12 +1010,62 @@ Partial Class FrmOptions
         Me.Label20.TabIndex = 167
         Me.Label20.Text = "Default Fabric Count"
         '
+        'GroupBox11
+        '
+        Me.GroupBox11.Controls.Add(Me.CbPaletteStitchDisplay)
+        Me.GroupBox11.Controls.Add(Me.CbDesignStitchDisplay)
+        Me.GroupBox11.Controls.Add(Me.Label25)
+        Me.GroupBox11.Controls.Add(Me.Label26)
+        Me.GroupBox11.Location = New System.Drawing.Point(486, 333)
+        Me.GroupBox11.Name = "GroupBox11"
+        Me.GroupBox11.Size = New System.Drawing.Size(200, 100)
+        Me.GroupBox11.TabIndex = 17
+        Me.GroupBox11.TabStop = False
+        Me.GroupBox11.Text = "Stitch Display"
+        '
+        'CbPaletteStitchDisplay
+        '
+        Me.CbPaletteStitchDisplay.FormattingEnabled = True
+        Me.CbPaletteStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Black/White Symbols", "Blocks With Symbols"})
+        Me.CbPaletteStitchDisplay.Location = New System.Drawing.Point(70, 54)
+        Me.CbPaletteStitchDisplay.Name = "CbPaletteStitchDisplay"
+        Me.CbPaletteStitchDisplay.Size = New System.Drawing.Size(121, 22)
+        Me.CbPaletteStitchDisplay.TabIndex = 7
+        '
+        'CbDesignStitchDisplay
+        '
+        Me.CbDesignStitchDisplay.FormattingEnabled = True
+        Me.CbDesignStitchDisplay.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Black/White Symbols", "Blocks With Symbols"})
+        Me.CbDesignStitchDisplay.Location = New System.Drawing.Point(70, 26)
+        Me.CbDesignStitchDisplay.Name = "CbDesignStitchDisplay"
+        Me.CbDesignStitchDisplay.Size = New System.Drawing.Size(121, 22)
+        Me.CbDesignStitchDisplay.TabIndex = 6
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(6, 63)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(46, 14)
+        Me.Label25.TabIndex = 5
+        Me.Label25.Text = "Palette"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(6, 30)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(43, 14)
+        Me.Label26.TabIndex = 4
+        Me.Label26.Text = "Design"
+        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
         Me.ClientSize = New System.Drawing.Size(726, 734)
+        Me.Controls.Add(Me.GroupBox11)
         Me.Controls.Add(Me.GroupBox10)
         Me.Controls.Add(Me.GroupBox9)
         Me.Controls.Add(Me.GroupBox8)
@@ -1068,6 +1124,8 @@ Partial Class FrmOptions
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox11.ResumeLayout(False)
+        Me.GroupBox11.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1155,4 +1213,9 @@ Partial Class FrmOptions
     Friend WithEvents Label24 As Label
     Friend WithEvents NudRetentionCopies As NumericUpDown
     Friend WithEvents Label23 As Label
+    Friend WithEvents GroupBox11 As GroupBox
+    Friend WithEvents CbPaletteStitchDisplay As ComboBox
+    Friend WithEvents CbDesignStitchDisplay As ComboBox
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label26 As Label
 End Class

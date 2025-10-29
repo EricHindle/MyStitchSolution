@@ -143,17 +143,11 @@ Module ModDesign
     Friend oStitchDisplayStyle As StitchDisplayStyle
 #End Region
 #Region "functions"
-    Friend Function SetStitchPenWidth(pIsDouble As Boolean, pIsVariable As Boolean, pPixelCellWidth As Integer) As Integer
-        Return SetStitchPenWidth(If(pIsDouble, 2, 1), pIsVariable, pPixelCellWidth)
+    Friend Function SetStitchPenWidth(pIsDouble As Boolean, pPixelCellWidth As Integer) As Integer
+        Return SetStitchPenWidth(If(pIsDouble, 2, 1), pPixelCellWidth)
     End Function
-    Friend Function SetStitchPenWidth(pStrands As Integer, pisvariable As Boolean, pPixelCellWidth As Integer) As Integer
+    Friend Function SetStitchPenWidth(pStrands As Integer, pPixelCellWidth As Integer) As Integer
         oStitchPenWidth = Math.Max(2, Math.Floor(pPixelCellWidth) / 10) * pStrands
-
-        'If isBackstitchWidthVariable Then
-        '    oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
-        'Else
-        '    oStitchPenWidth = oBackstitchPenDefaultWidth
-        'End If
         Return oStitchPenWidth
     End Function
     Public Function SortStitches(pDesign As ProjectDesign) As ProjectDesign
@@ -299,14 +293,14 @@ Module ModDesign
                         Select Case _blockstitch.StitchType
                             Case BlockStitchType.Full
                                 DrawFullBlockStitch(_blockstitch, pDesignGraphics, oStitchDisplayStyle)
-                            Case BlockStitchType.Half
-                                DrawHalfBlockStitch(_blockstitch, True, pDesignGraphics)
-                            Case BlockStitchType.Quarter
-                                DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
-                            Case BlockStitchType.ThreeQuarter
-                                DrawThreeQuarterBlockStitch(_blockstitch, pDesignGraphics)
+                                'Case BlockStitchType.Half
+                                '    DrawHalfBlockStitch(_blockstitch, True, pDesignGraphics)
+                                'Case BlockStitchType.Quarter
+                                '    DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
+                                'Case BlockStitchType.ThreeQuarter
+                                '    DrawThreeQuarterBlockStitch(_blockstitch, pDesignGraphics)
                             Case Else
-                                DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
+                                DrawQuarterBlockStitches(_blockstitch, pDesignGraphics)
                         End Select
                     End If
                 End If
@@ -421,8 +415,7 @@ Module ModDesign
         Dim _bl As New Point(pX, pY + iPixelsPerCell)
         Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
         Dim _size As New Size(iPixelsPerCell, iPixelsPerCell)
-        SetStitchPenWidth(pBlockStitch.Strands, False, iPixelsPerCell)
-        '   oStitchPenWidth = Math.Max(2, iPixelsPerCell / 8)
+        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -434,169 +427,96 @@ Module ModDesign
             pDesignGraphics.DrawLine(_crossPen, _tl, _br)
             pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
         End If
-        'If pStitchDisplayStyle = StitchDisplayStyle.Strokes Then
-        '    pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        'End If
         If pStitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or pStitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            pDesignGraphics.DrawImage(MakeImage(pBlockStitch), _tl)
+            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, iPixelsPerCell, New ImageAttributes)
         End If
         If pStitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
             Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            pDesignGraphics.DrawImage(MakeImage(pBlockStitch), New Rectangle(_tl, _size), 0, 0, iPixelsPerCell, iPixelsPerCell, GraphicsUnit.Pixel, _imageAttributes)
+            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, iPixelsPerCell, _imageAttributes)
         End If
         _crossPen.Dispose()
     End Sub
-    Public Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean)
-        DrawHalfBlockStitch(pBlockStitch, pIsBack, oDesignGraphics)
+    Private Sub DrawSymbol(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point, pSize As Integer, pImageAttributes As ImageAttributes)
+        pDesignGraphics.DrawImage(MakeImage(pBlockstitch, pSize), New Rectangle(_tl, New Size(pSize, pSize)), 0, 0, pSize, pSize, GraphicsUnit.Pixel, pImageAttributes)
     End Sub
-    Public Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean, ByRef pDesignGraphics As Graphics)
-        SetStitchPenWidth(pBlockStitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
-        Dim _crossPen As New Pen(New SolidBrush(pBlockStitch.ProjThread.Thread.Colour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-        DrawHalfBlockStitch(pBlockStitch, pIsBack, _crossPen, pDesignGraphics)
-        _crossPen.Dispose()
-    End Sub
-    Public Sub DrawHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean, pPen As Pen, ByRef pDesignGraphics As Graphics)
-        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
-        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-
-        Dim _cellLocation As New Point(pX, pY)
-        If pIsBack Then
-            pDesignGraphics.DrawLine(pPen, _tl, _br)
-        Else
-            pDesignGraphics.DrawLine(pPen, _tr, _bl)
-        End If
-    End Sub
-    Public Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch)
-        DrawThreeQuarterBlockStitch(pBlockstitch, oDesignGraphics)
-    End Sub
-    Public Sub DrawThreeQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
-        Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
+    Public Sub DrawQuarterBlockStitches(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
         Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
         Dim pY As Integer = (pBlockstitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
-
-        Dim _cellLocation As New Point(pX, pY)
-
         Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
         Dim _middleX As Integer = CInt(pX + _rectSize)
         Dim _middleY As Integer = CInt(pY + _rectSize)
-        Dim _middlePoint As New Point(_middleX, _middleY)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-        Dim _brush As Brush = New SolidBrush(_threadColour)
-        Dim _crossPen As New Pen(_brush, oStitchPenWidth) With {
-                                        .StartCap = Drawing2D.LineCap.Round,
-                                        .EndCap = Drawing2D.LineCap.Round
-                                    }
-        Dim _blackPen As New Pen(Brushes.Black, 1)
-        Select Case _stitchDisplayStyle
-            Case StitchDisplayStyle.Crosses
-                DrawThreeQuartersCross(pBlockstitch, pDesignGraphics, _tl, _tr, _bl, _br, _middlePoint, _crossPen)
-            Case StitchDisplayStyle.Blocks, StitchDisplayStyle.BlocksWithSymbols
-                DrawThreeQuartersBlock(pBlockstitch, pDesignGraphics, _tl, _tr, _bl, _br, _brush)
-            Case StitchDisplayStyle.BlackWhiteSymbols
-                Dim _isBack As Boolean = pBlockstitch.BlockQuarter = BlockQuarter.TopRight Or pBlockstitch.BlockQuarter = BlockQuarter.BottomLeft
-                DrawHalfBlockStitch(pBlockstitch, _isBack, _blackPen, oDesignGraphics)
-        End Select
-        If _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            DrawQuarterSymbol(pBlockstitch, pDesignGraphics, _tl)
-        End If
-        _crossPen.Dispose()
-        _blackPen.Dispose()
-    End Sub
-    Private Sub DrawThreeQuartersCross(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point, _tr As Point, _bl As Point, _br As Point, _middlePoint As Point, _crossPen As Pen)
-        '     For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-        Select Case pBlockstitch.BlockQuarter
-            Case BlockQuarter.TopLeft
-                pDesignGraphics.DrawLine(_crossPen, _tl, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-            Case BlockQuarter.TopRight
-                pDesignGraphics.DrawLine(_crossPen, _tr, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomLeft
-                pDesignGraphics.DrawLine(_crossPen, _bl, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomRight
-                pDesignGraphics.DrawLine(_crossPen, _br, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End Select
-    End Sub
-    Private Sub DrawThreeQuartersBlock(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point, _tr As Point, _bl As Point, _br As Point, _brush As Brush)
-        '     For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-        Select Case pBlockstitch.BlockQuarter
-            Case BlockQuarter.TopLeft
-                pDesignGraphics.FillPolygon(_brush, New Point() {_tl, _tr, _bl})
-            Case BlockQuarter.TopRight
-                pDesignGraphics.FillPolygon(_brush, New Point() {_tl, _tr, _br})
-            Case BlockQuarter.BottomLeft
-                pDesignGraphics.FillPolygon(_brush, New Point() {_tl, _bl, _br})
-            Case BlockQuarter.BottomRight
-                pDesignGraphics.FillPolygon(_brush, New Point() {_tr, _bl, _br})
-        End Select
-    End Sub
-    Private Sub DrawQuarterSymbol(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point)
-        Dim _symbolWidth As Integer = iPixelsPerCell / 2
-        Select Case pBlockstitch.BlockQuarter
-            Case BlockQuarter.TopLeft
-                pDesignGraphics.DrawImage(MakeImage(pBlockstitch, iPixelsPerCell / 2), _tl)
-            Case BlockQuarter.TopRight
-                pDesignGraphics.DrawImage(MakeImage(pBlockstitch, iPixelsPerCell / 2), New Point(_tl.X + _symbolWidth, _tl.Y))
-            Case BlockQuarter.BottomLeft
-                pDesignGraphics.DrawImage(MakeImage(pBlockstitch, iPixelsPerCell / 2), New Point(_tl.X, _tl.Y + _symbolWidth))
-            Case BlockQuarter.BottomRight
-                pDesignGraphics.DrawImage(MakeImage(pBlockstitch, iPixelsPerCell / 2), New Point(_tl.X + _symbolWidth, _tl.Y + _symbolWidth))
-        End Select
-    End Sub
-    Public Sub DrawQuarterBlockStitch(pBlockstitch As BlockStitch)
-        DrawQuarterBlockStitch(pBlockstitch, oDesignGraphics)
-    End Sub
-    Public Sub DrawQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
-        Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
-        Dim pY As Integer = (pBlockstitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
         Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        Dim _tr As New Point(_middleX, pY)
+        Dim _bl As New Point(pX, _middleY)
+        Dim _br As New Point(_middleX, _middleY)
+        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
         Dim _cellLocation As New Point(pX, pY)
-        Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
-        Dim _middleX As Integer = CInt(pX + _rectSize)
-        Dim _middleY As Integer = CInt(pY + _rectSize)
         Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
         For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
             Dim _threadColour As Color = _qtr.Thread.Colour
-            Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-            Select Case _qtr.BlockQuarter
-                Case BlockQuarter.TopLeft
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY)
-                Case BlockQuarter.TopRight
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY)
-                Case BlockQuarter.BottomLeft
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY + iPixelsPerCell)
-                Case BlockQuarter.BottomRight
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + iPixelsPerCell, pY + iPixelsPerCell)
-            End Select
-            _crossPen.Dispose()
+            Dim _qtrBrush As New SolidBrush(_threadColour)
+            Dim _qtrPen As New Pen(_qtrBrush, oStitchPenWidth) With {
+                                            .StartCap = Drawing2D.LineCap.Round,
+                                            .EndCap = Drawing2D.LineCap.Round
+                                        }
+            If _stitchDisplayStyle = StitchDisplayStyle.Blocks Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
+                Select Case _qtr.BlockQuarter
+                    Case BlockQuarter.TopLeft
+                        pDesignGraphics.FillRectangle(_qtrBrush, pX, pY, _rectSize, _rectSize)
+                    Case BlockQuarter.TopRight
+                        pDesignGraphics.FillRectangle(_qtrBrush, _middleX, pY, _rectSize, _rectSize)
+                    Case BlockQuarter.BottomLeft
+                        pDesignGraphics.FillRectangle(_qtrBrush, pX, _middleY, _rectSize, _rectSize)
+                    Case BlockQuarter.BottomRight
+                        pDesignGraphics.FillRectangle(_qtrBrush, _middleX, _middleY, _rectSize, _rectSize)
+                End Select
+            End If
+            If _stitchDisplayStyle = StitchDisplayStyle.Crosses Then
+                Select Case _qtr.BlockQuarter
+                    Case BlockQuarter.TopLeft
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX, pY)
+                    Case BlockQuarter.TopRight
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + iPixelsPerCell, pY)
+                    Case BlockQuarter.BottomLeft
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX, pY + iPixelsPerCell)
+                    Case BlockQuarter.BottomRight
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + iPixelsPerCell, pY + iPixelsPerCell)
+                End Select
+            End If
+            If _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
+                Dim _imageAttributes As New ImageAttributes()
+                Select Case _qtr.BlockQuarter
+                    Case BlockQuarter.TopLeft
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _tl, _rectSize, _imageAttributes)
+                    Case BlockQuarter.TopRight
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _tr, _rectSize, _imageAttributes)
+                    Case BlockQuarter.BottomLeft
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _bl, _rectSize, _imageAttributes)
+                    Case BlockQuarter.BottomRight
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _br, _rectSize, _imageAttributes)
+                End Select
+            End If
+            If _stitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
+                Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockstitch.ProjThread.Thread)
+                Select Case _qtr.BlockQuarter
+                    Case BlockQuarter.TopLeft
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _tl, _rectSize, _imageAttributes)
+                    Case BlockQuarter.TopRight
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _tr, _rectSize, _imageAttributes)
+                    Case BlockQuarter.BottomLeft
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _bl, _rectSize, _imageAttributes)
+                    Case BlockQuarter.BottomRight
+                        DrawSymbol(pBlockstitch, pDesignGraphics, _br, _rectSize, _imageAttributes)
+                End Select
+            End If
+            _qtrPen.Dispose()
         Next
     End Sub
     Public Sub DrawBackstitch(pBackstitch As BackStitch)
         DrawBackstitch(pBackstitch, oDesignGraphics)
     End Sub
     Public Sub DrawBackstitch(pBackstitch As BackStitch, ByRef pDesignGraphics As Graphics)
-        SetStitchPenWidth(pBackstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBackstitch.Strands, iPixelsPerCell)
 
         Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + iOriginX) * iPixelsPerCell)
         Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + iOriginY) * iPixelsPerCell)
@@ -682,10 +602,6 @@ Module ModDesign
         }))
         Return _imageAttributes
     End Function
-    Public Function MakeImage(pBlockStitch As BlockStitch) As Image
-        Return MakeImage(pBlockStitch, iPixelsPerCell)
-    End Function
-
     Public Function MakeImage(pBlockStitch As BlockStitch, pPixels As Integer) As Image
         Dim _image As Image = New Bitmap(1, 1)
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)

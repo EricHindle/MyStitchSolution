@@ -445,7 +445,7 @@ Public Class FrmPrintProject
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
         Dim _size As New Size(oPagePixelsPerCell, oPagePixelsPerCell)
         Dim _symImage As Image = MakePrintImage(pBlockStitch)
-        SetStitchPenWidth(pBlockStitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
 
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
@@ -487,7 +487,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockStitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -508,7 +508,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
 
         Dim _cellLocation As New Point(pX, pY)
 
@@ -548,7 +548,7 @@ Public Class FrmPrintProject
         Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
         Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
         Dim _cellLocation As New Point(pX, pY)
         Dim _rectSize As Integer = Math.Floor(oPagePixelsPerCell / 2)
         Dim _middleX As Integer = CInt(pX + _rectSize)
@@ -579,7 +579,7 @@ Public Class FrmPrintProject
         'Else
         '    oStitchPenWidth = oBackstitchPenDefaultWidth
         'End If
-        SetStitchPenWidth(pBackstitch.Strands, isBackstitchWidthVariable, iPixelsPerCell)
+        SetStitchPenWidth(pBackstitch.Strands, iPixelsPerCell)
 
         Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin

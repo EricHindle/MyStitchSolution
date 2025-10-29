@@ -1719,14 +1719,14 @@ Public Class FrmStitchDesign
         Select Case _newBs.StitchType
             Case BlockStitchType.Full
                 DrawFullBlockStitch(_newBs)
-            Case BlockStitchType.Half
-                DrawHalfBlockStitch(_newBs, True)
-            Case BlockStitchType.Quarter
-                DrawQuarterBlockStitch(_newBs)
-            Case BlockStitchType.ThreeQuarter
-                DrawThreeQuarterBlockStitch(_newBs)
+                'Case BlockStitchType.Half
+                '    DrawHalfBlockStitch(_newBs, True)
+                'Case BlockStitchType.Quarter
+                '    DrawQuarterBlockStitch(_newBs)
+                'Case BlockStitchType.ThreeQuarter
+                '    DrawThreeQuarterBlockStitch(_newBs)
             Case Else
-                DrawQuarterBlockStitch(_newBs)
+                DrawQuarterBlockStitches(_newBs, oDesignGraphics)
         End Select
     End Sub
 #End Region
@@ -1809,19 +1809,13 @@ Public Class FrmStitchDesign
         Dim _qtrLocationAdjust As Integer = If(pIsHalfStitch, iPixelsPerCell / 2, iPixelsPerCell)
         oBackstitchInProgress.ToBlockQuarter = pCellQtr
         oBackstitchInProgress.ToBlockLocation = pCell
-        SetStitchPenWidth(RbDouble.Checked, isBackstitchWidthVariable, iPixelsPerCell)
-        'If isBackstitchWidthVariable Then
-        '    oStitchPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
-        'Else
-        '    oStitchPenWidth = oBackstitchPenDefaultWidth
-        'End If
-        '   oStitchPenWidth = Math.Max(2, iPixelsPerCell / 16)
+        SetStitchPenWidth(RbDouble.Checked, iPixelsPerCell)
         _fromCellLocation_x = (oBackstitchInProgress.FromBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
         _fromCellLocation_y = (oBackstitchInProgress.FromBlockLocation.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
         _toCellLocation_x = (oBackstitchInProgress.ToBlockLocation.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
         _toCellLocation_y = (oBackstitchInProgress.ToBlockLocation.Y + iOriginX + iYOffset - topcorner.Y) * iPixelsPerCell
         Dim _bsPenColour As Color = If(pIsUseSelectColour, Color.Black, oBackstitchInProgress.ProjThread.Thread.Colour)
-        _backstitchPen = New Pen(oBackstitchInProgress.ProjThread.Thread.Colour, oStitchPenWidth * oBackstitchInProgress.Strands) With {
+        _backstitchPen = New Pen(oBackstitchInProgress.ProjThread.Thread.Colour, oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
         }
@@ -1886,17 +1880,18 @@ Public Class FrmStitchDesign
 #End Region
 #Region "blockstitch"
     Private Sub AddBlockStitch(pProject As Project, pDesign As ProjectDesign, pCellPosition As Point, pThread As Thread, pBlockStitchType As BlockStitchType)
+        Dim _strands As Integer = If(RbDouble.Checked, 2, 1)
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
         .WithStitchType(pBlockStitchType) _
         .WithProjectId(pProject.ProjectId) _
         .WithThreadId(pThread.ThreadId) _
-        .WithStrandCount(2) _
+        .WithStrandCount(_strands) _
         .WithBlockLocation(pCellPosition).Build
         Dim _quarters As New List(Of BlockStitchQuarter) From {
-            New BlockStitchQuarter(BlockQuarter.TopLeft, 2, pThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.TopRight, 2, pThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.BottomLeft, 2, pThread.ThreadId),
-            New BlockStitchQuarter(BlockQuarter.BottomRight, 2, pThread.ThreadId)
+            New BlockStitchQuarter(BlockQuarter.TopLeft, _strands, pThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.TopRight, _strands, pThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomLeft, _strands, pThread.ThreadId),
+            New BlockStitchQuarter(BlockQuarter.BottomRight, _strands, pThread.ThreadId)
         }
         Dim _blockstitch As BlockStitch = BlockStitchBuilder.ABlockStitch.StartingWith(_stitch) _
             .WithQuarters(_quarters).Build
@@ -1969,7 +1964,7 @@ Public Class FrmStitchDesign
         End Select
         _blockstitch.Quarters = _blockStitchQtrList
         AddBlockStitchToDesign(_blockstitch)
-        DrawThreeQuarterBlockStitch(_blockstitch)
+        DrawQuarterBlockStitches(_blockstitch, oDesignGraphics)
 
     End Sub
     Private Sub AddHalfBlockStitch(pCell As Cell, isBack As Boolean, pIsDouble As Boolean)
@@ -1992,7 +1987,7 @@ Public Class FrmStitchDesign
             .WithQuarters(_quarters).Build
         RemoveExistingBlockStitch(pCell.Position)
         AddBlockStitchToDesign(_blockstitch)
-        DrawHalfBlockStitch(_blockstitch, isBack)
+        DrawQuarterBlockStitches(_blockstitch, oDesignGraphics)
     End Sub
     Private Sub AddFullBlockStitch(pCell As Cell, pIsDouble As Boolean)
         Dim _strands As Integer = If(pIsDouble, 2, 1)
@@ -2039,7 +2034,7 @@ Public Class FrmStitchDesign
         _blockStitchQtrList.Add(New BlockStitchQuarter(pQtr, _strands, oCurrentThread.ThreadId))
         _existingBlockstitch.Quarters = _blockStitchQtrList
         _existingBlockstitch.StitchType = BlockStitchType.Mixed
-        DrawQuarterBlockStitch(_existingBlockstitch)
+        DrawQuarterBlockStitches(_existingBlockstitch, oDesignGraphics)
         isSaved = False
     End Sub
     Private Function FindBlockstitch(pCellPosition As Point) As BlockStitch
@@ -2142,7 +2137,7 @@ Public Class FrmStitchDesign
                 _toCellLocation_x += _adjust
                 _toCellLocation_y += _adjust
         End Select
-        SetStitchPenWidth(oRemoveBackstitch.Strands, False, iPixelsPerCell)
+        SetStitchPenWidth(oRemoveBackstitch.Strands, iPixelsPerCell)
         _backstitchPen = New Pen(Color.White, oStitchPenWidth)
         If isThreadOn Then
             _backstitchPen = New Pen(oRemoveBackstitch.ProjThread.Thread.Colour, oStitchPenWidth * oRemoveBackstitch.Strands)
