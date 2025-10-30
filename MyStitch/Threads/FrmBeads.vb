@@ -9,18 +9,19 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
-Public Class FrmThread
+Public Class FrmBeads
 #Region "properties"
 #End Region
+
 #Region "variables"
-    Private _selectedThread As New Thread
+    Private _selectedBead As New Bead
     Private isLoading As Boolean
     Private _colrCap As New FrmColourCapture
     Private isShowStock As Boolean
 #End Region
 #Region "handlers"
-    Private Sub FrmThread_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("ProjectThread maintenence", MyBase.Name)
+    Private Sub FrmBead_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LogUtil.LogInfo("ProjectBead maintenence", MyBase.Name)
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -28,50 +29,50 @@ Public Class FrmThread
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub
-    Private Sub FrmThread_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmBead_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
         If _colrCap IsNot Nothing AndAlso Not _colrCap.IsDisposed Then
             _colrCap.Close()
         End If
-        My.Settings.ThreadFormPos = SetFormPos(Me)
+        My.Settings.BeadFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
-    Private Sub DgvThreads_SelectionChanged(sender As Object, e As EventArgs) Handles DgvThreads.SelectionChanged
+    Private Sub DgvBeads_SelectionChanged(sender As Object, e As EventArgs) Handles DgvBeads.SelectionChanged
         If Not isLoading Then
-            If DgvThreads.SelectedRows.Count = 1 Then
-                _selectedThread = FindThreadById(DgvThreads.SelectedRows(0).Cells(threadId.Name).Value)
+            If DgvBeads.SelectedRows.Count = 1 Then
+                _selectedBead = FindBeadById(DgvBeads.SelectedRows(0).Cells(BeadId.Name).Value)
             Else
-                _selectedThread = ThreadBuilder.AThread.StartingWithNothing.Build
+                _selectedBead = BeadBuilder.ABead.StartingWithNothing.Build
             End If
-            LoadThreadForm(_selectedThread)
+            LoadBeadForm(_selectedBead)
         End If
     End Sub
     Private Sub BtnNew_Click(sender As Object, e As EventArgs) Handles BtnNew.Click
-        InsertNewThread()
+        InsertNewBead()
     End Sub
     Private Sub BtnUpdate_Click(sender As Object, e As EventArgs) Handles BtnUpdate.Click
-        UpdateSelectedThread()
+        UpdateSelectedBead()
     End Sub
     Private Sub BtnDelete_Click(sender As Object, e As EventArgs) Handles BtnDelete.Click
-        DeleteSelectedThread()
+        DeleteSelectedBead()
     End Sub
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
-        ClearThreadForm()
-        DgvThreads.ClearSelection()
+        ClearBeadForm()
+        DgvBeads.ClearSelection()
     End Sub
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
-        GetFormPos(Me, My.Settings.ThreadFormPos)
+        GetFormPos(Me, My.Settings.BeadFormPos)
         isLoading = True
         ChkShowStock.Checked = My.Settings.isShowStockLevels
-        LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
-        ClearThreadForm()
+        LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
+        ClearBeadForm()
         isLoading = False
     End Sub
-    Private Sub ClearThreadForm()
-        DgvThreads.ClearSelection()
-        LblId.Text = _selectedThread.ThreadId
+    Private Sub ClearBeadForm()
+        DgvBeads.ClearSelection()
+        LblId.Text = _selectedBead.beadId
         TxtName.Text = ""
         TxtNumber.Text = ""
         TxtR.Text = String.Empty
@@ -80,13 +81,13 @@ Public Class FrmThread
         Dim _colour As Color = Color.White
         LblColour.BackColor = _colour
     End Sub
-    Private Sub LoadThreadForm(oThread As Thread)
-        _selectedThread = oThread
-        LblId.Text = _selectedThread.ThreadId
-        TxtName.Text = oThread.ColourName
-        TxtNumber.Text = CStr(oThread.ThreadNo)
-        Dim _colour As Color = oThread.Colour
-        Select Case oThread.StockLevel
+    Private Sub LoadBeadForm(oBead As Bead)
+        _selectedBead = oBead
+        LblId.Text = _selectedBead.beadId
+        TxtName.Text = oBead.ColourName
+        TxtNumber.Text = CStr(oBead.beadNo)
+        Dim _colour As Color = oBead.Colour
+        Select Case oBead.StockLevel
             Case < STOCK_NOTMUCH
                 RbNone.Checked = True
             Case < STOCK_SOME
@@ -106,15 +107,15 @@ Public Class FrmThread
         TxtG.Text = CStr(_colour.G)
         TxtB.Text = CStr(_colour.B)
     End Sub
-    Private Function BuildThreadFromForm(pId As Integer) As Thread
-        Dim _Thread As Thread = ThreadBuilder.AThread.StartingWithNothing _
+    Private Function BuildBeadFromForm(pId As Integer) As Bead
+        Dim _Bead As Bead = BeadBuilder.ABead.StartingWithNothing _
                                                     .WithId(pId) _
                                                     .WithName(TxtName.Text) _
                                                     .WithColour(LblColour.BackColor) _
                                                     .WithNumber(TxtNumber.Text) _
                                                     .WithStockLevel(CalcStock) _
                                                     .Build()
-        Return _Thread
+        Return _Bead
     End Function
     Private Function CalcStock() As Integer
         Dim _level As Integer
@@ -132,40 +133,40 @@ Public Class FrmThread
         End Select
         Return _level
     End Function
-    Private Sub InsertNewThread()
-        LogUtil.LogInfo("New ProjectThread", MyBase.Name)
-        Dim _existingthread As Thread = FindThreadByNumber(TxtNumber.Text.Trim)
-        If _existingthread.ThreadId > 0 Then
-            LogUtil.DisplayStatus("ProjectThread with this number already exists.", LblStatus, "Insert New ProjectThread", True)
+    Private Sub InsertNewBead()
+        LogUtil.LogInfo("New ProjectBead", MyBase.Name)
+        Dim _existingBead As Bead = FindBeadByNumber(TxtNumber.Text.Trim)
+        If _existingBead.beadId > 0 Then
+            LogUtil.DisplayStatus("ProjectBead with this number already exists.", LblStatus, "Insert New ProjectBead", True)
         Else
-            Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
-            _Thread.ThreadId = AddNewThread(_Thread)
-            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
-            LogUtil.ShowStatus("ProjectThread Added", LblStatus, MyBase.Name)
+            Dim _Bead As Bead = BuildBeadFromForm(_selectedBead.beadId)
+            _Bead.beadId = AddNewBead(_Bead)
+            LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
+            LogUtil.ShowStatus("ProjectBead Added", LblStatus, MyBase.Name)
         End If
     End Sub
-    Private Sub UpdateSelectedThread()
-        If _selectedThread.ThreadId >= 0 Then
-            LogUtil.LogInfo("Updating ProjectThread", MyBase.Name)
-            Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
-            Dim _Thread As Thread = BuildThreadFromForm(_selectedThread.ThreadId)
-            AmendThread(_Thread)
-            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
-            SelectItemInList(DgvThreads, threadId.Name, _Thread.ThreadId, _rowNo)
-            LogUtil.ShowStatus("ProjectThread updated", LblStatus, MyBase.Name)
+    Private Sub UpdateSelectedBead()
+        If _selectedBead.beadId >= 0 Then
+            LogUtil.LogInfo("Updating ProjectBead", MyBase.Name)
+            Dim _rowNo As Integer = DgvBeads.SelectedRows(0).Index - DgvBeads.FirstDisplayedCell.RowIndex
+            Dim _Bead As Bead = BuildBeadFromForm(_selectedBead.beadId)
+            AmendBead(_Bead)
+            LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
+            SelectItemInList(DgvBeads, beadId.Name, _Bead.beadId, _rowNo)
+            LogUtil.ShowStatus("ProjectBead updated", LblStatus, MyBase.Name)
         Else
-            LogUtil.ShowStatus("No ProjectThread selected", LblStatus, True, MyBase.Name, True)
+            LogUtil.ShowStatus("No ProjectBead selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
-    Friend Sub DeleteSelectedThread()
-        If _selectedThread.ThreadId >= 0 Then
-            LogUtil.LogInfo("Delete ProjectThread", MyBase.Name)
+    Friend Sub DeleteSelectedBead()
+        If _selectedBead.beadId >= 0 Then
+            LogUtil.LogInfo("Delete ProjectBead", MyBase.Name)
 
-            RemoveThread(_selectedThread)
-            ClearThreadForm()
-            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
+            RemoveBead(_selectedBead)
+            ClearBeadForm()
+            LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
         Else
-            LogUtil.ShowStatus("No ProjectThread selected", LblStatus, True, MyBase.Name, True)
+            LogUtil.ShowStatus("No ProjectBead selected", LblStatus, True, MyBase.Name, True)
         End If
     End Sub
     Private Sub RGB_ValueChanged(sender As Object, e As EventArgs) Handles TxtR.TextChanged, TxtG.TextChanged, TxtB.TextChanged
@@ -178,7 +179,7 @@ Public Class FrmThread
         If _colrCap Is Nothing OrElse _colrCap.IsDisposed Then
             _colrCap = New FrmColourCapture
         End If
-        _colrCap.ThreadForm = Me
+        _colrCap.BeadForm = Me
         _colrCap.Show()
     End Sub
     Private Sub BtnGetColour_Click(sender As Object, e As EventArgs)
@@ -186,12 +187,12 @@ Public Class FrmThread
         SetFormColour(_color)
     End Sub
     Private Sub BtnFind_Click(sender As Object, e As EventArgs) Handles BtnFind.Click
-        SelectThreadInList(DgvThreads, threadNo.Name, TxtNumber.Text)
+        SelectThreadInList(DgvBeads, beadNo.Name, TxtNumber.Text)
     End Sub
     Private Sub ChkShowStock_CheckedChanged(sender As Object, e As EventArgs) Handles ChkShowStock.CheckedChanged
         isShowStock = ChkShowStock.Checked
         If Not isLoading Then
-            LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
+            LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
         End If
     End Sub
     Private Sub BtnPasteFromImage_Click(sender As Object, e As EventArgs) Handles BtnPasteFromImage.Click

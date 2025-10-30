@@ -10,6 +10,13 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Module ModThreads
+#Region "constants"
+    Friend Const STOCK_NONE As Integer = 0
+    Friend Const STOCK_NOTMUCH As Integer = 25
+    Friend Const STOCK_SOME As Integer = 50
+    Friend Const STOCK_ENOUGH As Integer = 75
+    Friend Const STOCK_PLENTY As Integer = 100
+#End Region
     Public Sub LoadThreadList(ByRef pDgv As DataGridView, pBaseName As String)
         LoadThreadList(pDgv, False, pBaseName)
     End Sub
@@ -22,6 +29,35 @@ Module ModThreads
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
+    Public Sub LoadBeadList(ByRef pDgv As DataGridView, pIsShowStock As Boolean, pBaseName As String)
+        LogUtil.LogInfo("Load ProjectBead list", pBaseName)
+        pDgv.Rows.Clear()
+        'For Each oBead As Bead In FindBeads()
+        '    AddProjectBeadRow(pDgv, oBead, pIsShowStock)
+        'Next
+        pDgv.Sort(pDgv.Columns("BeadSortNumber"), ListSortDirection.Ascending)
+        pDgv.ClearSelection()
+    End Sub
+    Public Sub LoadBrandList(ByRef pDgv As DataGridView, pBaseName As String)
+        LogUtil.LogInfo("Load Brand list", pBaseName)
+        pDgv.Rows.Clear()
+        For Each oBrand As Brand In FindBrands()
+            AddBrandRow(pDgv, oBrand)
+        Next
+        pDgv.ClearSelection()
+    End Sub
+    Public Function AddBrandRow(ByRef pDgv As DataGridView, pBrand As Brand) As Integer
+        Dim oRow As DataGridViewRow = NewBrandRow(pDgv, pBrand)
+        Return oRow.Index
+    End Function
+    Private Function NewBrandRow(pDgv As DataGridView, pBrand As Brand) As DataGridViewRow
+        Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
+        With pBrand
+            oRow.Cells("BrandId").Value = .BrandId
+            oRow.Cells("BrandName").Value = .BrandName
+        End With
+        Return oRow
+    End Function
     Public Sub LoadProjectThreadList(ByRef pDgv As DataGridView, pProjectId As Integer, pShowStock As Boolean, pBaseName As String)
         LogUtil.LogInfo("Load ProjectThread list", pBaseName)
         Dim _threadList As List(Of Thread) = FindThreadsForProject(pProjectId)
@@ -33,10 +69,10 @@ Module ModThreads
         pDgv.ClearSelection()
     End Sub
 
-    Public Function SelectThreadInList(ByRef pDgv As DataGridView, pColName As String, pThreadId As Integer, pRowNo As Integer) As Integer
+    Public Function SelectItemInList(ByRef pDgv As DataGridView, pColName As String, pItemId As Integer, pRowNo As Integer) As Integer
         Dim _index As Integer = 0
         For Each orow As DataGridViewRow In pDgv.Rows
-            If orow.Cells(pColName).Value = pThreadId Then
+            If orow.Cells(pColName).Value = pItemId Then
                 orow.Selected = True
                 pDgv.FirstDisplayedScrollingRowIndex = Math.Max(0, orow.Index - pRowNo)
                 _index = orow.Index

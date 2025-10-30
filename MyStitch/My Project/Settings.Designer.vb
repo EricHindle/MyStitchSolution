@@ -1288,6 +1288,30 @@ Namespace My
                 Me("TextFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BeadFormPos() As String
+            Get
+                Return CType(Me("BeadFormPos"),String)
+            End Get
+            Set
+                Me("BeadFormPos") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property BrandFormPos() As String
+            Get
+                Return CType(Me("BrandFormPos"),String)
+            End Get
+            Set
+                Me("BrandFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

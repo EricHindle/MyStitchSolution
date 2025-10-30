@@ -133,8 +133,12 @@
     <Compile Include="Design\FrmText.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Domain\Builders\BeadBuilder.vb" />
+    <Compile Include="Domain\Builders\BrandBuilder.vb" />
     <Compile Include="Domain\ModDataTableAdapter.vb" />
     <Compile Include="Domain\ModMyStitchClasses.vb" />
+    <Compile Include="Domain\Objects\Bead.vb" />
+    <Compile Include="Domain\Objects\Brand.vb" />
     <Compile Include="MyStitchData.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -244,6 +248,18 @@
     </Compile>
     <Compile Include="Project\ModProject.vb" />
     <Compile Include="Symbols\ModSymbol.vb" />
+    <Compile Include="Threads\FrmBeads.Designer.vb">
+      <DependentUpon>FrmBeads.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmBeads.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Threads\FrmBrands.Designer.vb">
+      <DependentUpon>FrmBrands.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Threads\FrmBrands.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Threads\FrmColourCapture.Designer.vb">
       <DependentUpon>FrmColourCapture.vb</DependentUpon>
     </Compile>
@@ -362,6 +378,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Project\FrmProjectTimer.resx">
       <DependentUpon>FrmProjectTimer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmBeads.resx">
+      <DependentUpon>FrmBeads.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Threads\FrmBrands.resx">
+      <DependentUpon>FrmBrands.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Threads\FrmColourCapture.resx">
       <DependentUpon>FrmColourCapture.vb</DependentUpon>

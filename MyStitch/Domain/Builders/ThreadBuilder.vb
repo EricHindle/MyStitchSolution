@@ -14,6 +14,7 @@ Namespace Domain.Builders
         Private _colour As Color
         Private _sortNumber As Integer
         Private _stock_level As Integer
+        Private _brandId As Integer
         Public Shared Function AThread() As ThreadBuilder
             Return New ThreadBuilder
         End Function
@@ -24,6 +25,7 @@ Namespace Domain.Builders
             _colour = Color.White
             _sortNumber = -1
             _stock_level = 0
+            _brandId = -1
             Return Me
         End Function
         Public Function StartingWith(ByRef pThread As Thread) As ThreadBuilder
@@ -36,6 +38,7 @@ Namespace Domain.Builders
                     _colour = .Colour
                     _sortNumber = .SortNumber
                     _stock_level = .StockLevel
+                    _brandId = .BrandId
                 End With
             End If
             Return Me
@@ -49,6 +52,7 @@ Namespace Domain.Builders
                 _colour = Color.FromArgb(oRow.thread_colour)
                 _sortNumber = Thread.MakeSortNumber(_threadNo, _threadId)
                 _stock_level = oRow.stock_level
+                _brandId = oRow.brand_id
             End If
             Return Me
         End Function
@@ -73,8 +77,12 @@ Namespace Domain.Builders
             _stock_level = pStock
             Return Me
         End Function
+        Public Function WithBrandId(pBrandId As Integer) As ThreadBuilder
+            _brandId = pBrandId
+            Return Me
+        End Function
         Public Function Build() As Thread
-            Return New Thread(_threadId, _threadNo, _colourName, _colour, _stock_level)
+            Return New Thread(_threadId, _threadNo, _colourName, _colour, _stock_level, _brandId)
         End Function
 
     End Class

@@ -17,14 +17,9 @@ Imports MyStitch.MyStitchData
 Namespace Domain
     Module ModDataTableAdapter
 #Region "constants"
-        Public Const BOOK_TAG As String = "B~"
         Public Const TABLE_TAG As String = "T~"
         Public Const DESIGN_TAG As String = "D~"
         Public Const IMAGE_TAG As String = "I~"
-        Public Const REV_TAG As String = "R~"
-        Public Const ARC_TAG As String = "A~"
-        Public Const TRUNCATING_TABLE As String = "Truncating table"
-        Public Const ADDING_RECORDS As String = "Adding records from backup file"
         Public MIN_DATE As New DateTime(2001, 1, 1)
 #End Region
 #Region "enum"
@@ -39,6 +34,8 @@ Namespace Domain
             ProjectWorkTimes
             Palettes
             PaletteThreads
+            Beads
+            Brands
         End Enum
 #End Region
 #Region "variables"
@@ -56,6 +53,9 @@ Namespace Domain
         Private ReadOnly oProjectWorkTimesDataTable As New ProjectWorkTimesDataTable
         Private ReadOnly oPalettesDataTable As New PalettesDataTable
         Private ReadOnly oPaletteThreadsDataTable As New PaletteThreadsDataTable
+        Private ReadOnly oBeadDataTable As New BeadsDataTable
+        Private ReadOnly oBrandDataTable As New BrandsDataTable
+
 #End Region
 #Region "Data Tables"
 #Region "Load"
@@ -193,6 +193,22 @@ Namespace Domain
                     Else
                         Throw New ApplicationException("Palette Threads data file missing.")
                     End If
+                Case "Beads"
+                    oXmlFileName = Path.Combine(oDataFolderName, oBeadDataTable.TableName & DATA_EXT)
+                    If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oBeadDataTable.Clear()
+                        oBeadDataTable.ReadXml(oXmlFileName)
+                    Else
+                        Throw New ApplicationException("Bead data file missing.")
+                    End If
+                Case "Brands"
+                    oXmlFileName = Path.Combine(oDataFolderName, oBrandDataTable.TableName & DATA_EXT)
+                    If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oBrandDataTable.Clear()
+                        oBrandDataTable.ReadXml(oXmlFileName)
+                    Else
+                        Throw New ApplicationException("Brand data file missing.")
+                    End If
                 Case Else
                     LogUtil.LogInfo("Unknown table " & otable & " cannot be loaded", MethodBase.GetCurrentMethod.Name)
             End Select
@@ -245,6 +261,10 @@ Namespace Domain
                                 oDataTable = oPalettesDataTable
                             Case "PaletteThreads"
                                 oDataTable = oPaletteThreadsDataTable
+                            Case "Beads"
+                                oDataTable = oBeadDataTable
+                            Case "Brands"
+                                oDataTable = oBrandDataTable
                         End Select
                         If oDataTable IsNot Nothing Then
                             Try
@@ -1027,9 +1047,7 @@ Namespace Domain
             Return isOK
         End Function
         Private Function SetPaletteRowValues(pPalette As String, pPaletteRow As PalettesRow) As PalettesRow
-            With pPalette
-                pPaletteRow.palette_name = pPalette
-            End With
+            pPaletteRow.palette_name = pPalette
             Return pPaletteRow
         End Function
         Public Function AddNewPaletteThread(pPaletteThread As PaletteThread) As Boolean
@@ -1065,6 +1083,186 @@ Namespace Domain
                 LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
             End Try
             Return oThreads
+        End Function
+#End Region
+#Region "Beads"
+        Public Function GetBeadsList() As List(Of Bead)
+            Dim oBeadList As New List(Of Bead)
+            For Each oRow As BeadsRow In oBeadDataTable.Rows
+                oBeadList.Add(BeadBuilder.ABead.StartingWith(oRow).Build)
+            Next
+            Return oBeadList
+        End Function
+        Public Function FindBeadById(pProjectId As Integer) As Bead
+            Return BeadBuilder.ABead.StartingWith(GetBeadRow(pProjectId)).Build
+        End Function
+        Public Function FindBeadByNumber(pBeadNumber As String) As Bead
+            Dim oBead As New Bead
+            Try
+                Dim oBeadRows = From Bead In oBeadDataTable.AsEnumerable()
+                                Select Bead
+                                Where Bead.bead_no = pBeadNumber
+                If oBeadRows.Count > 0 Then
+                    oBead = BeadBuilder.ABead.StartingWith(oBeadRows.First).Build
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oBead
+        End Function
+        Public Function GetBeadRow(pBeadId As Integer) As BeadsRow
+            Dim oBeadRow As BeadsRow = Nothing
+            Try
+                Dim oBeadRows = From Bead In oBeadDataTable.AsEnumerable()
+                                Select Bead
+                                Where Bead.bead_id = pBeadId
+                If oBeadRows.Count = 1 Then
+                    oBeadRow = oBeadRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oBeadRow
+        End Function
+        Public Function AmendBead(pBead As Bead) As Boolean
+            LogUtil.LogInfo("Amending Bead", MethodBase.GetCurrentMethod.Name)
+            Dim isUpdated As Boolean = False
+            If pBead IsNot Nothing Then
+                Dim oBeadRow As BeadsRow = GetBeadRow(pBead.beadId)
+                If oBeadRow IsNot Nothing Then
+                    SetBeadRowValues(pBead, oBeadRow)
+                    isUpdated = True
+                End If
+            Else
+                LogUtil.Problem("Trying to amend null Bead", MethodBase.GetCurrentMethod.Name)
+            End If
+            Return isUpdated
+        End Function
+        Private Function SetBeadRowValues(pBead As Bead, pBeadRow As BeadsRow) As BeadsRow
+            With pBead
+                If (.beadNo Is Nothing) Then
+                    Throw New Global.System.ArgumentNullException("Beadno")
+                Else
+                    pBeadRow.bead_no = CType(.beadNo, String)
+                End If
+                pBeadRow.bead_colour = .Colour.ToArgb
+                pBeadRow.bead_colour_name = If(.ColourName, "")
+                pBeadRow.stock_level = .StockLevel
+            End With
+            Return pBeadRow
+        End Function
+        Public Sub RemoveBead(pBead As Bead)
+            LogUtil.LogInfo("Removing Bead", MethodBase.GetCurrentMethod.Name)
+            If pBead IsNot Nothing Then
+                Dim oBeadRow As BeadsRow = GetBeadRow(pBead.beadId)
+                oBeadDataTable.Rows.Remove(oBeadRow)
+            Else
+                LogUtil.Problem("Trying to remove null Bead", MethodBase.GetCurrentMethod.Name)
+            End If
+        End Sub
+        Public Function AddNewBead(pBead As Bead) As Boolean
+            LogUtil.LogInfo("Adding new Bead", MethodBase.GetCurrentMethod.Name)
+            Dim isOK As Boolean = True
+            If pBead IsNot Nothing Then
+                Dim oBeadRow As BeadsRow = oBeadDataTable.NewRow
+                oBeadRow = SetBeadRowValues(pBead, oBeadRow)
+                oBeadDataTable.Rows.Add(oBeadRow)
+            Else
+                LogUtil.Problem("Trying to add null Bead", MethodBase.GetCurrentMethod.Name)
+                isOK = False
+            End If
+            Return isOK
+        End Function
+#End Region
+#Region "Brands"
+        Public Function AddNewBrand(pBrand As String) As Boolean
+            LogUtil.LogInfo("Adding new brand", MethodBase.GetCurrentMethod.Name)
+            Dim isOK As Boolean = True
+            If pBrand IsNot Nothing Then
+                Dim oBrandRow As BrandsRow = oBrandDataTable.NewRow
+                oBrandRow = SetBrandRowValues(pBrand, oBrandRow)
+                oBrandDataTable.Rows.Add(oBrandRow)
+            Else
+                LogUtil.Problem("Trying to add null palette", MethodBase.GetCurrentMethod.Name)
+            End If
+            Return isOK
+        End Function
+        Private Function SetBrandRowValues(pBrand As String, pBrandRow As BrandsRow) As BrandsRow
+            pBrandRow.brand_name = pBrand
+            Return pBrandRow
+        End Function
+        Public Function AmendBrand(pBrand As Brand) As Boolean
+            LogUtil.LogInfo("Amending Brand", MethodBase.GetCurrentMethod.Name)
+            Dim isUpdated As Boolean = False
+            If pBrand IsNot Nothing Then
+                Dim oBrandRow As BrandsRow = GetBrandRow(pBrand.BrandId)
+                If oBrandRow IsNot Nothing Then
+                    SetBrandRowValues(pBrand, oBrandRow)
+                    isUpdated = True
+                End If
+            Else
+                LogUtil.Problem("Trying to amend null Brand", MethodBase.GetCurrentMethod.Name)
+            End If
+            Return isUpdated
+        End Function
+        Private Function SetBrandRowValues(pBrand As Brand, pBrandRow As BrandsRow) As BrandsRow
+            With pBrand
+                If (.BrandName Is Nothing) Then
+                    Throw New Global.System.ArgumentNullException("Brandno")
+                Else
+                    pBrandRow.brand_name = .BrandName
+                End If
+            End With
+            Return pBrandRow
+        End Function
+        Public Function GetBrandRow(pBrandId As Integer) As BrandsRow
+            Dim oBrandRow As BrandsRow = Nothing
+            Try
+                Dim oBrandRows = From Brand In oBrandDataTable.AsEnumerable()
+                                 Select Brand
+                                 Where Brand.brand_id = pBrandId
+                If oBrandRows.Count = 1 Then
+                    oBrandRow = oBrandRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oBrandRow
+        End Function
+        Public Sub RemoveBrand(pBrand As Brand)
+            LogUtil.LogInfo("Removing Brand", MethodBase.GetCurrentMethod.Name)
+            If pBrand IsNot Nothing Then
+                Dim oBrandRow As BrandsRow = GetBrandRow(pBrand.BrandId)
+                oBrandDataTable.Rows.Remove(oBrandRow)
+            Else
+                LogUtil.Problem("Trying to remove null Brand", MethodBase.GetCurrentMethod.Name)
+            End If
+        End Sub
+        Public Function FindBrandById(pProjectId As Integer) As Brand
+            Return BrandBuilder.ABrand.StartingWith(GetBrandRow(pProjectId)).Build
+        End Function
+        Public Function FindBrandByName(pBrandName As String) As Brand
+            Dim oBrand As New Brand
+            Try
+                Dim oBrandRows = From Brand In oBrandDataTable.AsEnumerable()
+                                 Select Brand
+                                 Where Brand.brand_name = pBrandName
+                If oBrandRows.Count > 0 Then
+                    oBrand = BrandBuilder.ABrand.StartingWith(oBrandRows.First).Build
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oBrand
+        End Function
+        Public Function FindBrands() As List(Of Brand)
+            Dim oBrands As New List(Of Brand)
+            Dim oBrandRows = From Brand In oBrandDataTable.AsEnumerable()
+                             Select Brand
+            For Each oRow As BrandsRow In oBrandRows
+                oBrands.Add(BrandBuilder.ABrand.StartingWith(oRow).Build)
+            Next
+            Return oBrands
         End Function
 #End Region
     End Module

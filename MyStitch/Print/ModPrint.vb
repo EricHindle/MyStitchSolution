@@ -49,7 +49,7 @@ Module ModPrint
     Friend oPrintTitlefont As Font
     Friend oPrintTextfont As Font
     Friend oPrintFooterfont As Font
-    Friend oPagePixelsPerCell As Decimal
+    Friend oPagePixelsPerCell As Integer
     Friend isPrintHeader As Boolean
     Friend isPrintFooter As Boolean
     Friend isPrintRowNumbers As Boolean
@@ -78,7 +78,6 @@ Module ModPrint
         oTitleHeight = oPageTitleHeight
         oFooterHeight = oPageFooterHeight
     End Sub
-
     Friend Sub CalculatePrintGridSpace(pDesignSize As Size)
         oAvailablePixelWidth = oPrintablePageWidth - oLeftMargin - oRightMargin
         oAvailablePixelHeight = oPrintablePageHeight - oTopMargin - oBottomMargin

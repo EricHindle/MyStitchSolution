@@ -42,6 +42,7 @@ Partial Class FrmProject
         Me.projectId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.projectName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.LblOrigin = New System.Windows.Forms.Label()
         Me.LblFilename = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.BtnProjectThreads = New System.Windows.Forms.Button()
@@ -83,6 +84,8 @@ Partial Class FrmProject
         Me.MnuFullThreadList = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBeadList = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBrandList = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuMaintainSymbols = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectSymbols = New System.Windows.Forms.ToolStripMenuItem()
@@ -109,7 +112,6 @@ Partial Class FrmProject
         Me.PnlButtons = New System.Windows.Forms.Panel()
         Me.LblInstruction = New System.Windows.Forms.Label()
         Me.PnlInstruction = New System.Windows.Forms.Panel()
-        Me.LblOrigin = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -305,6 +307,16 @@ Partial Class FrmProject
         Me.PnlForm.Name = "PnlForm"
         Me.PnlForm.Size = New System.Drawing.Size(288, 495)
         Me.PnlForm.TabIndex = 126
+        '
+        'LblOrigin
+        '
+        Me.LblOrigin.AutoSize = True
+        Me.LblOrigin.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOrigin.Location = New System.Drawing.Point(48, 408)
+        Me.LblOrigin.Name = "LblOrigin"
+        Me.LblOrigin.Size = New System.Drawing.Size(88, 14)
+        Me.LblOrigin.TabIndex = 166
+        Me.LblOrigin.Text = "Origin  {0},{1}"
         '
         'LblFilename
         '
@@ -689,16 +701,16 @@ Partial Class FrmProject
         '
         'MnuThreads
         '
-        Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuFullThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols})
+        Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuFullThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.MnuBeadList, Me.MnuBrandList})
         Me.MnuThreads.Name = "MnuThreads"
         Me.MnuThreads.Size = New System.Drawing.Size(211, 22)
-        Me.MnuThreads.Text = "Threads"
+        Me.MnuThreads.Text = "Threads/Beads"
         '
         'MnuFullThreadList
         '
         Me.MnuFullThreadList.Name = "MnuFullThreadList"
         Me.MnuFullThreadList.Size = New System.Drawing.Size(199, 22)
-        Me.MnuFullThreadList.Text = "Full Thread List"
+        Me.MnuFullThreadList.Text = "Thread List"
         '
         'MnuProjectThreads
         '
@@ -711,6 +723,18 @@ Partial Class FrmProject
         Me.MnuProjectThreadSymbols.Name = "MnuProjectThreadSymbols"
         Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
         Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
+        '
+        'MnuBeadList
+        '
+        Me.MnuBeadList.Name = "MnuBeadList"
+        Me.MnuBeadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBeadList.Text = "Bead List"
+        '
+        'MnuBrandList
+        '
+        Me.MnuBrandList.Name = "MnuBrandList"
+        Me.MnuBrandList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBrandList.Text = "Brand List"
         '
         'MnuSymbols
         '
@@ -888,16 +912,6 @@ Partial Class FrmProject
         Me.PnlInstruction.Size = New System.Drawing.Size(549, 40)
         Me.PnlInstruction.TabIndex = 133
         '
-        'LblOrigin
-        '
-        Me.LblOrigin.AutoSize = True
-        Me.LblOrigin.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblOrigin.Location = New System.Drawing.Point(48, 408)
-        Me.LblOrigin.Name = "LblOrigin"
-        Me.LblOrigin.Size = New System.Drawing.Size(88, 14)
-        Me.LblOrigin.TabIndex = 166
-        Me.LblOrigin.Text = "Origin  {0},{1}"
-        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -1018,4 +1032,6 @@ Partial Class FrmProject
     Friend WithEvents LblInstruction As Label
     Friend WithEvents PnlInstruction As Panel
     Friend WithEvents LblOrigin As Label
+    Friend WithEvents MnuBeadList As ToolStripMenuItem
+    Friend WithEvents MnuBrandList As ToolStripMenuItem
 End Class

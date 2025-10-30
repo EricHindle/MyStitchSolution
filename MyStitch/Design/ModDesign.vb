@@ -13,7 +13,6 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
-Imports MyStitch.ModDesign
 Module ModDesign
 #Region "constants"
     Public oFabricColourList As List(Of Color) = {Color.White, Color.Linen, Color.AliceBlue, Color.MistyRose}.ToList
@@ -22,9 +21,8 @@ Module ModDesign
     Public oOverlapColourList As List(Of Color) = {Color.Gainsboro, Color.Silver, Color.Gray}.ToList
     Public Const PIXELS_PER_CELL As Integer = 8
     Public Const PRINT_PIXELS_PER_CELL As Integer = 64
-
     Public Const MAGNIFICATION_STEP As Decimal = 1.3
-    Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0)
+    Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0, -1)
     Public PALETTE_COLOUR_SIZE As Integer = 55
     Public Const A4_WIDTH_PIXELS As Integer = 3508
     Public Const A4_HEIGHT_PIXELS As Integer = 2480
@@ -293,12 +291,6 @@ Module ModDesign
                         Select Case _blockstitch.StitchType
                             Case BlockStitchType.Full
                                 DrawFullBlockStitch(_blockstitch, pDesignGraphics, oStitchDisplayStyle)
-                                'Case BlockStitchType.Half
-                                '    DrawHalfBlockStitch(_blockstitch, True, pDesignGraphics)
-                                'Case BlockStitchType.Quarter
-                                '    DrawQuarterBlockStitch(_blockstitch, pDesignGraphics)
-                                'Case BlockStitchType.ThreeQuarter
-                                '    DrawThreeQuarterBlockStitch(_blockstitch, pDesignGraphics)
                             Case Else
                                 DrawQuarterBlockStitches(_blockstitch, pDesignGraphics)
                         End Select
@@ -408,14 +400,17 @@ Module ModDesign
     End Sub
     Public Sub DrawFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
-        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
+        FullBlockStitch(pBlockStitch, pDesignGraphics, iPixelsPerCell, pStitchDisplayStyle, _threadColour)
+    End Sub
+    Friend Sub FullBlockStitch(pBlockStitch As BlockStitch, pDesignGraphics As Graphics, pPixelsPerCell As Integer, pStitchDisplayStyle As StitchDisplayStyle, _threadColour As Color)
+        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * pPixelsPerCell
+        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * pPixelsPerCell
         Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + iPixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + iPixelsPerCell)
-        Dim _br As New Point(pX + iPixelsPerCell, pY + iPixelsPerCell)
-        Dim _size As New Size(iPixelsPerCell, iPixelsPerCell)
-        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
+        Dim _tr As New Point(pX + pPixelsPerCell, pY)
+        Dim _bl As New Point(pX, pY + pPixelsPerCell)
+        Dim _br As New Point(pX + pPixelsPerCell, pY + pPixelsPerCell)
+        Dim _size As New Size(pPixelsPerCell, pPixelsPerCell)
+        SetStitchPenWidth(pBlockStitch.Strands, pPixelsPerCell)
         Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
@@ -427,31 +422,37 @@ Module ModDesign
             pDesignGraphics.DrawLine(_crossPen, _tl, _br)
             pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
         End If
-        If pStitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or pStitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
-            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, iPixelsPerCell, New ImageAttributes)
-        End If
+
         If pStitchDisplayStyle = StitchDisplayStyle.ColouredSymbols Then
             Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, iPixelsPerCell, _imageAttributes)
+            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, pPixelsPerCell, _imageAttributes)
+        End If
+        If pStitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or pStitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
+            DrawSymbol(pBlockStitch, pDesignGraphics, _tl, pPixelsPerCell, New ImageAttributes)
         End If
         _crossPen.Dispose()
     End Sub
-    Private Sub DrawSymbol(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point, pSize As Integer, pImageAttributes As ImageAttributes)
+
+    Friend Sub DrawSymbol(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, _tl As Point, pSize As Integer, pImageAttributes As ImageAttributes)
         pDesignGraphics.DrawImage(MakeImage(pBlockstitch, pSize), New Rectangle(_tl, New Size(pSize, pSize)), 0, 0, pSize, pSize, GraphicsUnit.Pixel, pImageAttributes)
     End Sub
     Public Sub DrawQuarterBlockStitches(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics)
         Dim pX As Integer = (pBlockstitch.BlockPosition.X + iOriginX) * iPixelsPerCell
         Dim pY As Integer = (pBlockstitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
-        Dim _rectSize As Integer = Math.Floor(iPixelsPerCell / 2)
+        QuarterBlockStitches(pBlockstitch, pDesignGraphics, iPixelsPerCell, My.Settings.DesignStitchDisplay, pX, pY)
+    End Sub
+
+    Friend Sub QuarterBlockStitches(pBlockstitch As BlockStitch, pDesignGraphics As Graphics, pPixelsPerCell As Integer, pStitchDisplayStyle As StitchDisplayStyle, pX As Integer, pY As Integer)
+        Dim _rectSize As Integer = Math.Floor(pPixelsPerCell / 2)
         Dim _middleX As Integer = CInt(pX + _rectSize)
         Dim _middleY As Integer = CInt(pY + _rectSize)
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(_middleX, pY)
         Dim _bl As New Point(pX, _middleY)
         Dim _br As New Point(_middleX, _middleY)
-        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
+        SetStitchPenWidth(pBlockstitch.Strands, pPixelsPerCell)
         Dim _cellLocation As New Point(pX, pY)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
+        Dim _stitchDisplayStyle As StitchDisplayStyle = pStitchDisplayStyle
         For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
             Dim _threadColour As Color = _qtr.Thread.Colour
             Dim _qtrBrush As New SolidBrush(_threadColour)
@@ -476,11 +477,11 @@ Module ModDesign
                     Case BlockQuarter.TopLeft
                         pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX, pY)
                     Case BlockQuarter.TopRight
-                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + iPixelsPerCell, pY)
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + pPixelsPerCell, pY)
                     Case BlockQuarter.BottomLeft
-                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX, pY + iPixelsPerCell)
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX, pY + pPixelsPerCell)
                     Case BlockQuarter.BottomRight
-                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + iPixelsPerCell, pY + iPixelsPerCell)
+                        pDesignGraphics.DrawLine(_qtrPen, _middleX, _middleY, pX + pPixelsPerCell, pY + pPixelsPerCell)
                 End Select
             End If
             If _stitchDisplayStyle = StitchDisplayStyle.BlackWhiteSymbols Or _stitchDisplayStyle = StitchDisplayStyle.BlocksWithSymbols Then
@@ -512,6 +513,7 @@ Module ModDesign
             _qtrPen.Dispose()
         Next
     End Sub
+
     Public Sub DrawBackstitch(pBackstitch As BackStitch)
         DrawBackstitch(pBackstitch, oDesignGraphics)
     End Sub
@@ -522,30 +524,35 @@ Module ModDesign
         Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + iOriginY) * iPixelsPerCell)
         Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X + iOriginX) * iPixelsPerCell)
         Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y + iOriginY) * iPixelsPerCell)
+        Backstitch(pBackstitch, pDesignGraphics, iPixelsPerCell, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+    End Sub
+
+    Friend Sub Backstitch(pBackstitch As BackStitch, pDesignGraphics As Graphics, ppixelspercell As Integer, ByRef pFromCellLocation_x As Integer, ByRef pFromCellLocation_y As Integer, ByRef pToCellLocation_x As Integer, ByRef pToCellLocation_y As Integer)
         Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth) With {
             .StartCap = Drawing2D.LineCap.Round,
             .EndCap = Drawing2D.LineCap.Round
         }
         Select Case pBackstitch.FromBlockQuarter
             Case BlockQuarter.TopRight
-                _fromCellLocation_x += iPixelsPerCell / 2
+                pFromCellLocation_x += ppixelspercell / 2
             Case BlockQuarter.BottomLeft
-                _fromCellLocation_y += iPixelsPerCell / 2
+                pFromCellLocation_y += ppixelspercell / 2
             Case BlockQuarter.BottomRight
-                _fromCellLocation_x += iPixelsPerCell / 2
-                _fromCellLocation_y += iPixelsPerCell / 2
+                pFromCellLocation_x += ppixelspercell / 2
+                pFromCellLocation_y += ppixelspercell / 2
         End Select
         Select Case pBackstitch.ToBlockQuarter
             Case BlockQuarter.TopRight
-                _toCellLocation_x += iPixelsPerCell / 2
+                pToCellLocation_x += ppixelspercell / 2
             Case BlockQuarter.BottomLeft
-                _toCellLocation_y += iPixelsPerCell / 2
+                pToCellLocation_y += ppixelspercell / 2
             Case BlockQuarter.BottomRight
-                _toCellLocation_x += iPixelsPerCell / 2
-                _toCellLocation_y += iPixelsPerCell / 2
+                pToCellLocation_x += ppixelspercell / 2
+                pToCellLocation_y += ppixelspercell / 2
         End Select
-        pDesignGraphics.DrawLine(_pen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+        pDesignGraphics.DrawLine(_pen, pFromCellLocation_x, pFromCellLocation_y, pToCellLocation_x, pToCellLocation_y)
     End Sub
+
     Public Sub DrawKnot(pKnot As Knot)
         DrawKnot(pKnot, False)
     End Sub
@@ -579,13 +586,9 @@ Module ModDesign
             pDesignGraphics.FillEllipse(_brush, _rect)
             If pKnot.IsBead Then
                 pDesignGraphics.DrawEllipse(_pen, _rect)
-                'pDesignGraphics.DrawLine(_pen, _rect.X - 1, _rect.Y + CInt(_rect.Height / 2), _rect.X + _rect.Width + 1, _rect.Y + CInt(_rect.Height / 2))
-                'Else
-                '    pDesignGraphics.DrawEllipse(_pen, _rect)
-                'pDesignGraphics.DrawLine(_pen, _rect.X + CInt(_rect.Width / 4), _rect.Y + CInt(_rect.Height / 4), _rect.X + CInt(3 * _rect.Width / 4), _rect.Y + CInt(3 * _rect.Height / 4))
-                'pDesignGraphics.DrawLine(_pen, _rect.X + CInt(_rect.Width / 3), _rect.Y + _rect.Height, _rect.X + _rect.Width, _rect.Y + CInt(_rect.Height / 3))
             End If
         End If
+        _pen.Dispose()
     End Sub
     Public Function MakeColourChangeAttributes(pThread As Thread) As ImageAttributes
         Dim _thread As Thread = pThread

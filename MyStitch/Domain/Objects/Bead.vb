@@ -8,11 +8,11 @@
 Imports System.Text
 Imports System.Text.RegularExpressions
 Namespace Domain.Objects
-    Public Class Thread
+    Public Class Bead
 
 #Region "properties"
-        Private _threadId As Integer
-        Private _threadNo As String
+        Private _beadId As Integer
+        Private _beadNo As String
         Private _colourName As String
         Private _colour As Color
         Private _sortNumber As Integer
@@ -58,27 +58,27 @@ Namespace Domain.Objects
                 _colourName = value
             End Set
         End Property
-        Public Property ThreadNo() As String
+        Public Property beadNo() As String
             Get
-                Return _threadNo
+                Return _beadNo
             End Get
             Set(ByVal value As String)
-                _threadNo = value
+                _beadNo = value
             End Set
         End Property
-        Public Property ThreadId() As Integer
+        Public Property beadId() As Integer
             Get
-                Return _threadId
+                Return _beadId
             End Get
             Set(ByVal value As Integer)
-                _threadId = value
+                _beadId = value
             End Set
         End Property
 #End Region
 #Region "constructors"
-        Private Sub InitialiseThread()
-            _threadId = -1
-            _threadNo = String.Empty
+        Private Sub InitialiseBead()
+            _beadId = -1
+            _beadNo = String.Empty
             _colourName = String.Empty
             _colour = Color.White
             _sortNumber = -1
@@ -86,7 +86,7 @@ Namespace Domain.Objects
             _brandId = -1
         End Sub
         Public Sub New()
-            InitialiseThread()
+            Initialisebead()
         End Sub
         Public Sub New(pId As Integer,
                        pNo As String,
@@ -94,34 +94,34 @@ Namespace Domain.Objects
                        pColour As Color,
                        pStock As Integer,
                        pBrandId As Integer)
-            _threadId = pId
-            _threadNo = pNo
+            _beadId = pId
+            _beadNo = pNo
             _colourName = pColourName
             _colour = pColour
             _sortNumber = MakeSortNumber(pNo, pId)
             _stock_level = pStock
             _brandId = pBrandId
-            '          LogUtil.Info(Me.ToString, "Thread")
+            '          LogUtil.Info(Me.ToString, "bead")
         End Sub
 #End Region
 #Region "methods"
         Public Function IsLoaded() As Boolean
-            Return _threadId > -1
+            Return _beadId > -1
         End Function
         Public Overrides Function ToString() As String
             Dim _sb As New StringBuilder
-            _sb.Append("Thread=[") _
-                .Append("ThreadId=[").Append(CStr(_threadId)).Append("], ") _
-                .Append("ThreadNo =[").Append(_threadNo).Append("], ") _
+            _sb.Append("bead=[") _
+                .Append("beadId=[").Append(CStr(_beadId)).Append("], ") _
+                .Append("beadNo =[").Append(_beadNo).Append("], ") _
                 .Append("Colour name =[").Append(_colourName).Append("], ") _
                 .Append("Sort number =[").Append(_sortNumber).Append("], ") _
                 .Append("Stock level =[").Append(CStr(_stock_level)) _
-                .Append("Brand Id =[").Append(CStr(_brandId)) _
+                .Append("Brand id =[").Append(CStr(_brandId)) _
                 .Append("]]")
             Return _sb.ToString()
         End Function
         '
-        ' Create a number that can be used to sort threads by the thread number in a list
+        ' Create a number that can be used to sort beads by the bead number in a list
         '
         Public Shared Function MakeSortNumber(pNo As String, pId As Integer) As Integer
             Dim _int As Integer
@@ -144,8 +144,8 @@ Namespace Domain.Objects
         Public Function ToSaveString() As String
             Dim _sb As New StringBuilder
             _sb _
-                .Append(CStr(_threadId)).Append(STITCH_DELIM) _
-                .Append(_threadNo).Append(STITCH_DELIM) _
+                .Append(CStr(_beadId)).Append(STITCH_DELIM) _
+                .Append(_beadNo).Append(STITCH_DELIM) _
                 .Append(_colourName).Append(STITCH_DELIM) _
                 .Append(CStr(_colour.ToArgb)).Append(STITCH_DELIM) _
                 .Append(CStr(_sortNumber)).Append(STITCH_DELIM) _
@@ -156,3 +156,4 @@ Namespace Domain.Objects
 #End Region
     End Class
 End Namespace
+

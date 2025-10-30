@@ -573,7 +573,7 @@ Partial Class FrmPrintProject
         'CbDisplayStyle
         '
         Me.CbDisplayStyle.FormattingEnabled = True
-        Me.CbDisplayStyle.Items.AddRange(New Object() {"Black/White Symbols", "Coloured Symbols", "Blocks With Symbols"})
+        Me.CbDisplayStyle.Items.AddRange(New Object() {"Crosses", "Blocks", "Coloured Symbols", "Black & White Symbols", "Blocks With Symbols"})
         Me.CbDisplayStyle.Location = New System.Drawing.Point(96, 192)
         Me.CbDisplayStyle.Name = "CbDisplayStyle"
         Me.CbDisplayStyle.Size = New System.Drawing.Size(121, 22)

@@ -99,7 +99,7 @@ Public Class FrmProjectThreads
 
     Private Sub CheckThreadInList(pThread As Thread)
         Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
-        SelectThreadInList(DgvThreads, threadId.Name, pThread.ThreadId, _rowNo)
+        SelectItemInList(DgvThreads, threadId.Name, pThread.ThreadId, _rowNo)
         For Each orow As DataGridViewRow In DgvThreads.Rows
             If orow.Cells(threadId.Name).Value = pThread.ThreadId Then
                 Dim _chkCell As DataGridViewCheckBoxCell = orow.Cells(threadselected.Name)

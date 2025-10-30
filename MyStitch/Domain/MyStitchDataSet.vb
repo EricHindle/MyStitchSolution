@@ -6,5 +6,7 @@
 '
 
 Partial Class MyStitchDataSet
+    Partial Public Class BeadsDataTable
+    End Class
 End Class
 

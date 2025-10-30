@@ -12,13 +12,25 @@ Public Class FrmColourCapture
     Private _selectedColour As Color = Color.White
     Private isLoading As Boolean
     Private isSelectingColour As Boolean = False
-    Private _parentForm As FrmThread
+    Private _threadForm As FrmThread
+    Private _beadForm As FrmBeads
+    Private IsThread As Boolean
+    Public Property BeadForm() As FrmBeads
+        Get
+            Return _beadForm
+        End Get
+        Set(ByVal value As FrmBeads)
+            _beadForm = value
+            IsThread = False
+        End Set
+    End Property
     Public Property ThreadForm() As FrmThread
         Get
-            Return _parentForm
+            Return _threadForm
         End Get
         Set(ByVal value As FrmThread)
-            _parentForm = value
+            _threadForm = value
+            IsThread = True
         End Set
     End Property
     Public Property SelectedColour() As Color
@@ -40,7 +52,11 @@ Public Class FrmColourCapture
         If e.Button = MouseButtons.Right Then
             ShowColourUnderPointer(sender, e)
             isSelectingColour = False
-            _parentForm.SetFormColour(_selectedColour)
+            If IsThread Then
+                _threadForm.SetFormColour(_selectedColour)
+            Else
+                _beadForm.SetFormColour(_selectedColour)
+            End If
         End If
     End Sub
     Private Sub ShowColourUnderPointer(sender As Object, e As MouseEventArgs)

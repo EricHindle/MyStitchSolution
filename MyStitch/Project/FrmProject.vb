@@ -205,6 +205,9 @@ Public Class FrmProject
     Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuFullThreadList.Click
         OpenThreadListForm()
     End Sub
+    Private Sub MnuBeadList_Click(sender As Object, e As EventArgs) Handles MnuBeadList.Click
+        OpenBeadListForm()
+    End Sub
     Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
         OpenProjectThreadSymbolForm()
     End Sub
@@ -429,6 +432,11 @@ Public Class FrmProject
             _threads.ShowDialog()
         End Using
     End Sub
+    Private Shared Sub OpenBeadListForm()
+        Using _beads As New FrmBeads
+            _beads.ShowDialog()
+        End Using
+    End Sub
     Private Sub OpenProjectDesign()
         If _selectedProject IsNot Nothing AndAlso _selectedProject.IsLoaded Then
             Using _design As New FrmStitchDesign
@@ -529,5 +537,15 @@ Public Class FrmProject
             Beep()
         End Try
     End Sub
+
+    Private Sub MnuBrandList_Click(sender As Object, e As EventArgs) Handles MnuBrandList.Click
+        OpenBrandListForm()
+    End Sub
+    Private Shared Sub OpenbrandListForm()
+        Using _brands As New FrmBrands
+            _brands.ShowDialog()
+        End Using
+    End Sub
+
 #End Region
 End Class

@@ -5,12 +5,10 @@
 ' Author Eric Hindle
 '
 
-Imports System.Drawing.Imaging
 Imports System.Drawing.Printing
 Imports System.Text
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging
-Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmPrintProject
 #Region "properties"
@@ -150,16 +148,7 @@ Public Class FrmPrintProject
         oPageToFormRatio = Math.Ceiling(A4_WIDTH / PicDesign.Width)
         LoadFormFromSettings()
         SetPrintFonts()
-        Select Case oStitchDisplayStyle
-            Case StitchDisplayStyle.BlackWhiteSymbols
-                CbDisplayStyle.SelectedIndex = 0
-            Case StitchDisplayStyle.ColouredSymbols
-                CbDisplayStyle.SelectedIndex = 1
-            Case StitchDisplayStyle.BlocksWithSymbols
-                CbDisplayStyle.SelectedIndex = 2
-            Case Else
-                CbDisplayStyle.SelectedIndex = 0
-        End Select
+        CbDisplayStyle.SelectedIndex = oStitchDisplayStyle
         TxtTitle.Text = oPrintProject.ProjectName
         isPrintLoading = False
         LoadFormPages()
@@ -284,14 +273,14 @@ Public Class FrmPrintProject
                     Select Case _blockstitch.StitchType
                         Case BlockStitchType.Full
                             PrintFullBlockStitch(_blockstitch, pPageGraphics, CbDisplayStyle.SelectedIndex, pPage)
-                        Case BlockStitchType.Half
-                            PrintHalfBlockStitch(_blockstitch, True, pPageGraphics, pPage)
-                        Case BlockStitchType.Quarter
-                            PrintQuarterBlockStitch(_blockstitch, pPageGraphics, pPage)
-                        Case BlockStitchType.ThreeQuarter
-                            PrintThreeQuarterBlockStitch(_blockstitch, pPageGraphics, pPage)
+                            'Case BlockStitchType.Half
+                            '    PrintHalfBlockStitch(_blockstitch, True, pPageGraphics, pPage)
+                            'Case BlockStitchType.Quarter
+                            '    PrintQuarterBlockStitch(_blockstitch, pPageGraphics, pPage)
+                            'Case BlockStitchType.ThreeQuarter
+                            '    PrintThreeQuarterBlockStitch(_blockstitch, pPageGraphics, pPage)
                         Case Else
-                            PrintQuarterBlockStitch(_blockstitch, pPageGraphics, pPage)
+                            PrintQuarterBlockStitches(_blockstitch, pPageGraphics, CbDisplayStyle.SelectedIndex, pPage)
                     End Select
                 End If
             End If
@@ -343,7 +332,7 @@ Public Class FrmPrintProject
         Dim oColumn2Width As Integer = oTableWidth * 4 / 8
         Dim oColumn3Width As Integer = oTableWidth * 1 / 8
         Dim oSymbolWidth As Integer = oRowHeight * 0.75
-        Dim oBoxWidth As Integer = osymbolwidth + 4
+        Dim oBoxWidth As Integer = oSymbolWidth + 4
         Dim _footerText As String = BuildFooter(Nothing, False)
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
         pPageGraphics.Clear(Color.White)
@@ -435,179 +424,25 @@ Public Class FrmPrintProject
             Next
         End If
     End Sub
-    Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As Integer, pPage As Page)
+    Friend Sub PrintFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle, pPage As Page)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
         Dim pX As Integer = ((pBlockStitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim pY As Integer = ((pBlockStitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
-        Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        Dim _size As New Size(oPagePixelsPerCell, oPagePixelsPerCell)
-        Dim _symImage As Image = MakePrintImage(pBlockStitch)
-        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
-
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-        If pStitchDisplayStyle = 2 Then
-            pDesignGraphics.FillRectangle(New SolidBrush(_threadColour), New Rectangle(_tl, _size))
-        End If
-
-        If pStitchDisplayStyle = 1 Then
-            Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(pBlockStitch.ProjThread.Thread)
-            pDesignGraphics.DrawImage(_symImage, New Rectangle(_tl, _size), 0, 0, _symImage.Width, _symImage.Height, GraphicsUnit.Pixel, _imageAttributes)
-        Else
-            pDesignGraphics.DrawImage(_symImage, pX, pY, oPagePixelsPerCell, oPagePixelsPerCell)
-        End If
-        _crossPen.Dispose()
+        FullBlockStitch(pBlockStitch, pDesignGraphics, oPagePixelsPerCell, pStitchDisplayStyle, _threadColour)
     End Sub
-    Friend Function MakePrintImage(pBlockStitch As BlockStitch) As Image
-        Return MakeImage(pBlockStitch, oPagePixelsPerCell)
-    End Function
-
-    Public Function MakeImage(pBlockStitch As BlockStitch, pPixels As Integer) As Image
-
-        Dim _image As Image = New Bitmap(1, 1)
-        Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
-        If _projectThread Is Nothing Then
-            LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, "MakeImage", False)
-        Else
-            Dim _symbol As Symbol = FindSymbolById(_projectThread.SymbolId)
-            _image = ImageUtil.ResizeImage(_symbol.SymbolImage, pPixels, pPixels)
-        End If
-        Return _image
-    End Function
-    Friend Sub PrintHalfBlockStitch(pBlockStitch As BlockStitch, pIsBack As Boolean, ByRef pDesignGraphics As Graphics, pPage As Page)
-        Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        Dim pX As Integer = ((pBlockStitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockStitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
-        Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockStitch.Strands, iPixelsPerCell)
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-        Dim _cellLocation As New Point(pX, pY)
-        If pIsBack Then
-            pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-        Else
-            pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End If
-        _crossPen.Dispose()
-    End Sub
-    Friend Sub PrintThreeQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
-        Dim _threadColour As Color = pBlockstitch.ProjThread.Thread.Colour
+    Friend Sub PrintQuarterBlockStitches(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle, pPage As Page)
         Dim pX As Integer = ((pBlockstitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim pY As Integer = ((pBlockstitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
-        Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
-
-        Dim _cellLocation As New Point(pX, pY)
-
-        Dim _rectSize As Integer = Math.Floor(oPagePixelsPerCell / 2)
-        Dim _middleX As Integer = CInt(pX + _rectSize)
-        Dim _middleY As Integer = CInt(pY + _rectSize)
-        Dim _middlePoint As New Point(_middleX, _middleY)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-
-        '     For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-
-        Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-        .StartCap = Drawing2D.LineCap.Round,
-        .EndCap = Drawing2D.LineCap.Round
-    }
-        Select Case pBlockstitch.BlockQuarter
-            Case BlockQuarter.TopLeft
-                pDesignGraphics.DrawLine(_crossPen, _tl, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-            Case BlockQuarter.TopRight
-                pDesignGraphics.DrawLine(_crossPen, _tr, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomLeft
-                pDesignGraphics.DrawLine(_crossPen, _bl, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tl, _br)
-            Case BlockQuarter.BottomRight
-                pDesignGraphics.DrawLine(_crossPen, _br, _middlePoint)
-                pDesignGraphics.DrawLine(_crossPen, _tr, _bl)
-        End Select
-        _crossPen.Dispose()
-    End Sub
-    Friend Sub PrintQuarterBlockStitch(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
-        Dim pX As Integer = ((pBlockstitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
-        Dim pY As Integer = ((pBlockstitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-
-        Dim _tl As New Point(pX, pY)
-        Dim _tr As New Point(pX + oPagePixelsPerCell, pY)
-        Dim _bl As New Point(pX, pY + oPagePixelsPerCell)
-        Dim _br As New Point(pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-        SetStitchPenWidth(pBlockstitch.Strands, iPixelsPerCell)
-        Dim _cellLocation As New Point(pX, pY)
-        Dim _rectSize As Integer = Math.Floor(oPagePixelsPerCell / 2)
-        Dim _middleX As Integer = CInt(pX + _rectSize)
-        Dim _middleY As Integer = CInt(pY + _rectSize)
-        Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.DesignStitchDisplay
-        For Each _qtr As BlockStitchQuarter In pBlockstitch.Quarters
-            Dim _threadColour As Color = _qtr.Thread.Colour
-            Dim _crossPen As New Pen(New SolidBrush(_threadColour), oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-            Select Case _qtr.BlockQuarter
-                Case BlockQuarter.TopLeft
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY)
-                Case BlockQuarter.TopRight
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + oPagePixelsPerCell, pY)
-                Case BlockQuarter.BottomLeft
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX, pY + oPagePixelsPerCell)
-                Case BlockQuarter.BottomRight
-                    pDesignGraphics.DrawLine(_crossPen, _middleX, _middleY, pX + oPagePixelsPerCell, pY + oPagePixelsPerCell)
-            End Select
-            _crossPen.Dispose()
-        Next
+        QuarterBlockStitches(pBlockstitch, pDesignGraphics, oPagePixelsPerCell, CbDisplayStyle.SelectedIndex, pX, pY)
     End Sub
     Friend Sub PrintBackstitch(pBackstitch As BackStitch, ByRef pDesignGraphics As Graphics, pPage As Page)
-        'If isBackstitchWidthVariable Then
-        '    oStitchPenWidth = Math.Max(2, oPagePixelsPerCell / oVariableWidthFraction)
-        'Else
-        '    oStitchPenWidth = oBackstitchPenDefaultWidth
-        'End If
-        SetStitchPenWidth(pBackstitch.Strands, iPixelsPerCell)
+        SetStitchPenWidth(pBackstitch.Strands, oPagePixelsPerCell)
 
         Dim _fromCellLocation_x As Integer = ((pBackstitch.FromBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim _fromCellLocation_y As Integer = ((pBackstitch.FromBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
         Dim _toCellLocation_x As Integer = ((pBackstitch.ToBlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim _toCellLocation_y As Integer = ((pBackstitch.ToBlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        Dim _pen As New Pen(pBackstitch.ProjThread.Thread.Colour, oStitchPenWidth) With {
-            .StartCap = Drawing2D.LineCap.Round,
-            .EndCap = Drawing2D.LineCap.Round
-        }
-        Select Case pBackstitch.FromBlockQuarter
-            Case BlockQuarter.TopRight
-                _fromCellLocation_x += oPagePixelsPerCell / 2
-            Case BlockQuarter.BottomLeft
-                _fromCellLocation_y += oPagePixelsPerCell / 2
-            Case BlockQuarter.BottomRight
-                _fromCellLocation_x += oPagePixelsPerCell / 2
-                _fromCellLocation_y += oPagePixelsPerCell / 2
-        End Select
-        Select Case pBackstitch.ToBlockQuarter
-            Case BlockQuarter.TopRight
-                _toCellLocation_x += oPagePixelsPerCell / 2
-            Case BlockQuarter.BottomLeft
-                _toCellLocation_y += oPagePixelsPerCell / 2
-            Case BlockQuarter.BottomRight
-                _toCellLocation_x += oPagePixelsPerCell / 2
-                _toCellLocation_y += oPagePixelsPerCell / 2
-        End Select
-        pDesignGraphics.DrawLine(_pen, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
+        BackStitch(pBackstitch, pDesignGraphics, oPagePixelsPerCell, _fromCellLocation_x, _fromCellLocation_y, _toCellLocation_x, _toCellLocation_y)
     End Sub
     Friend Sub PrintKnot(pKnot As Knot, pDesignGraphics As Graphics, pPage As Page)
         Dim _knotlocation_x As Integer = ((pKnot.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) - (oPagePixelsPerCell / 4) + oLeftMargin
@@ -623,7 +458,12 @@ Public Class FrmPrintProject
         End Select
         Dim _rect As New Rectangle(_knotlocation_x, _knotlocation_y, oPagePixelsPerCell / 2, oPagePixelsPerCell / 2)
         Dim _brush As New SolidBrush(pKnot.ProjThread.Thread.Colour)
+        Dim _pen As New Pen(Brushes.Black, 1)
         pDesignGraphics.FillEllipse(_brush, _rect)
+        If pKnot.IsBead Then
+            pDesignGraphics.DrawEllipse(_pen, _rect)
+        End If
+        _pen.Dispose()
     End Sub
     Public Sub InitialisePageLists()
         isPrintLoading = True
