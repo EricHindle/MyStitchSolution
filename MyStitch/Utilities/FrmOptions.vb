@@ -34,11 +34,11 @@ Public NotInheritable Class FrmOptions
         SaveOptions()
         Close()
     End Sub
-    Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
-        Hide()
-        OpenGlobalSettingsForm()
-        Show()
-    End Sub
+    'Private Sub BtnGlobalSettings_Click(sender As Object, e As EventArgs) Handles BtnGlobalSettings.Click
+    '    Hide()
+    '    OpenGlobalSettingsForm()
+    '    Show()
+    'End Sub
     Private Sub FrmOptions_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.Info("Closing", MyBase.Name)
         My.Settings.OptionsFormPos = SetFormPos(Me)
