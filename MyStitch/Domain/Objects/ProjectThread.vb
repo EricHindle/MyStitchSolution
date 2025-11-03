@@ -9,12 +9,12 @@ Imports System.Text
 Namespace Domain.Objects
     Public Class ProjectThread
 #Region "properties"
-        Private _thread As Thread
-        Private _symbolId As Integer
-        Private _projectId As Integer
-        Private _threadId As Integer
-        Private _symbol As Image
-        Private _isUsed As Boolean
+        Friend _thread As Thread
+        Friend _symbolId As Integer
+        Friend _projectId As Integer
+        Friend _threadId As Integer
+        Friend _symbol As Image
+        Friend _isUsed As Boolean
         Public Property IsUsed() As Boolean
             Get
                 Return _isUsed
@@ -48,7 +48,7 @@ Namespace Domain.Objects
                 _symbolId = value
             End Set
         End Property
-        Public ReadOnly Property Thread() As Thread
+        Public Overridable ReadOnly Property Thread() As Thread
             Get
                 If _thread Is Nothing Then
                     _thread = FindThreadById(_threadId)

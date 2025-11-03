@@ -74,11 +74,11 @@ Namespace Domain.Objects
         End Function
         Public Overrides Function ToString() As String
             Dim _sb As New StringBuilder
-            _sb.Append("Project Card Thread=[") _
+            _sb.Append("Project Card Bead=[") _
                 .Append("ProjectId=[").Append(CStr(_project.ProjectId)).Append("], ") _
                 .Append("CardNo=[").Append(CStr(_cardNo)).Append("], ") _
                 .Append("CardSeq=[").Append(CStr(_cardSeq)).Append("], ") _
-                .Append("ThreadId=[").Append(CStr(_thread.ThreadId)).Append("]]")
+                .Append("BeadId=[").Append(CStr(_thread.ThreadId)).Append("]]")
             Return _sb.ToString()
         End Function
 #End Region

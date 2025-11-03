@@ -65,7 +65,7 @@ Namespace Domain.Objects
             _sb.Append("BlockQuarter=[") _
             .Append("Quarter =[").Append(_blockQuarter.ToString).Append("], ") _
             .Append("Strands =[").Append(CStr(_strandCount)).Append("], ") _
-            .Append("Thread = [").Append(Thread.ToString).Append("]") _
+            .Append("Bead = [").Append(Thread.ToString).Append("]") _
             .Append("]")
             Return _sb.ToString()
         End Function

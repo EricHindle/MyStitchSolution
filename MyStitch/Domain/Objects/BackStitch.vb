@@ -78,7 +78,7 @@ Namespace Domain.Objects
             Dim _sb As New StringBuilder
             _sb.Append("Backstitch=[") _
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
-            .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
+            .Append("BeadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
             .Append("FromBlockPosition =[").Append(CStr(_blockPos.X)).Append(",").Append(CStr(_blockPos.Y)).Append("], ") _
             .Append("FromBlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _

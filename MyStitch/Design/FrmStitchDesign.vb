@@ -255,7 +255,7 @@ Public Class FrmStitchDesign
                                 _colourBox.BorderStyle = BorderStyle.None
                                 _colourBox.BackgroundImage = Nothing
                                 If CInt(_colourBox.Name) = _projectThread.ThreadId Then
-                                    SelectPaletteColour(_colourBox)
+                                    SelectThreadPaletteColour(_colourBox)
                                 End If
                             End If
                         Next
@@ -361,8 +361,13 @@ Public Class FrmStitchDesign
         PnlPixelColour.BackColor = GetPixelColour(e)
         Dim _colourName As String = String.Empty
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.Thread.Colour = PnlPixelColour.BackColor), ProjectThread)
+        Dim _projectbead As ProjectBead = CType(oProjectBeads.Beads.Find(Function(p) p.Bead.Colour = PnlPixelColour.BackColor), ProjectBead)
         If _projectThread IsNot Nothing Then
-            _colourName = _projectThread.Thread.ColourName & " : DMC " & CStr(_projectThread.Thread.ThreadNo)
+            _colourName = _projectThread.Thread.ColourName & " : " & _projectThread.Thread.Brand.BrandName & " " & _projectThread.Thread.ThreadNo
+        End If
+        If _projectbead IsNot Nothing Then
+            Dim _brand As Brand = _projectbead.Bead.Brand
+            _colourName = _projectbead.Bead.ColourName & " : " & _projectbead.Bead.Brand.BrandName & " " & _projectbead.Bead.BeadNo
         End If
         LblPixelColourName.Text = _colourName
         Dim isLeftButton As Boolean = e.Button = MouseButtons.Left
@@ -484,7 +489,8 @@ Public Class FrmStitchDesign
         End If
         BtnPrint.Enabled = True
     End Sub
-    Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles ThreadLayoutPanel.SizeChanged
+    Private Sub FlowLayoutPanel1_SizeChanged(sender As Object, e As EventArgs) Handles ThreadLayoutPanel.SizeChanged,
+                                                                                        BeadLayoutPanel.SizeChanged
         If isComponentInitialised Then
             InitialisePalette()
         End If
@@ -497,16 +503,26 @@ Public Class FrmStitchDesign
             RedrawDesign(False)
         End If
     End Sub
-    Private Sub Palette_Click(sender As Object, e As EventArgs)
-        For Each _control As Control In ThreadLayoutPanel.Controls
+    Private Sub Thread_Palette_Click(sender As Object, e As EventArgs)
+        ResetPaletteBorders(ThreadLayoutPanel)
+        Dim _picBox As PictureBox = CType(sender, PictureBox)
+        SelectThreadPaletteColour(_picBox)
+    End Sub
+
+    Private Sub ResetPaletteBorders(pPanel As FlowLayoutPanel)
+        For Each _control As Control In pPanel.Controls
             Dim _colourBox As PictureBox = TryCast(_control, PictureBox)
             If _colourBox IsNot Nothing Then
                 _colourBox.BorderStyle = BorderStyle.None
                 _colourBox.BackgroundImage = Nothing
             End If
         Next
+    End Sub
+
+    Private Sub Bead_Palette_Click(sender As Object, e As EventArgs)
+        ResetPaletteBorders(BeadLayoutPanel)
         Dim _picBox As PictureBox = CType(sender, PictureBox)
-        SelectPaletteColour(_picBox)
+        SelectBeadPaletteColour(_picBox)
     End Sub
     Private Sub BtnCancelPalette_Click(sender As Object, e As EventArgs) Handles BtnCancelPalette.Click
         PnlPaletteName.Visible = False
@@ -759,8 +775,13 @@ Public Class FrmStitchDesign
         StitchButtonSelected(BtnKnot)
     End Sub
     Private Sub BtnBead_Click(sender As Object, e As EventArgs) Handles BtnBead.Click
-        oCurrentStitchType = DesignAction.Bead
-        StitchButtonSelected(BtnBead)
+        If oProjectBeads.Count > 0 Then
+            oCurrentStitchType = DesignAction.Bead
+            StitchButtonSelected(BtnBead)
+        Else
+            MsgBox("Add beads to the palette to use beads in the design", MsgBoxStyle.Exclamation, "Function no available")
+            LogUtil.ShowStatus("No beads on the palette", LblStatus)
+        End If
     End Sub
     Private Sub SelectFullBlockstitch()
         oCurrentStitchType = DesignAction.FullBlockstitch
@@ -783,6 +804,16 @@ Public Class FrmStitchDesign
         Else
             PicStitch.Image = Nothing
         End If
+        If oCurrentStitchType = DesignAction.Bead Then
+            If oCurrentBead IsNot Nothing Then
+                LblCurrentColour.Text = oCurrentBead.Bead.ColourName & " : " & oCurrentBead.Bead.Brand.BrandName & " " & CStr(oCurrentBead.Bead.ThreadNo)
+            End If
+        Else
+            If oCurrentThread IsNot Nothing Then
+                LblCurrentColour.Text = oCurrentThread.Thread.ColourName & " : " & oCurrentThread.Thread.Brand.BrandName & " " & CStr(oCurrentThread.Thread.ThreadNo)
+            End If
+        End If
+
     End Sub
 #End Region
 #Region "action buttons"
@@ -999,86 +1030,136 @@ Public Class FrmStitchDesign
         Dim isOK As Boolean = True
         Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.PaletteStitchDisplay
         If isComponentInitialised Then
-            ThreadLayoutPanel.Controls.Clear()
-            oProjectThreads = FindProjectThreads(oProject.ProjectId)
-            If IsProjectHasThreads() Then
-                oProjectThreads.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
-                Dim _panelWidth As Integer = ThreadLayoutPanel.Width
-                Dim _panelHeight As Integer = ThreadLayoutPanel.Height
-                Dim _threadCt As Integer = oProjectThreads.Count
-                Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt)
-                Dim _firstPicThread As PictureBox = Nothing
-
-                For Each _projectThread As ProjectThread In oProjectThreads.Threads
-                    Dim _thread As Thread = _projectThread.Thread
-                    Dim _picThread As New PictureBox()
-                    Dim _image As Image = New Bitmap(_picSize, _picSize)
-                    Dim _pen As New Pen(_thread.Colour, _picSize / 8) With {
-                                                    .StartCap = Drawing2D.LineCap.Round,
-                                                    .EndCap = Drawing2D.LineCap.Round
-                                                }
-                    With _picThread
-                        .Name = CStr(_thread.ThreadId)
-                        .Size = New Size(_picSize, _picSize)
-                        .BorderStyle = BorderStyle.None
-                        .SizeMode = PictureBoxSizeMode.Zoom
-                        .BackColor = Color.White
-                        Select Case _stitchDisplayStyle
-                            Case StitchDisplayStyle.Blocks
-                                .BackColor = _thread.Colour
-                            Case StitchDisplayStyle.BlocksWithSymbols
-                                .BackColor = _thread.Colour
-                                If _projectThread.SymbolId > 0 Then
-                                    _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
-                                End If
-                            Case StitchDisplayStyle.Crosses
-                                Using _graphics As Graphics = Graphics.FromImage(_image)
-                                    _graphics.DrawLine(_pen, 2, 2, _picSize - 2, _picSize - 2)
-                                    _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
-                                End Using
-                            'Case StitchDisplayStyle.Strokes
-                            '    Using _graphics As Graphics = Graphics.FromImage(_image)
-                            '        _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
-                            '    End Using
-                            Case StitchDisplayStyle.BlackWhiteSymbols
-                                If _projectThread.SymbolId > 0 Then
-                                    _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
-                                End If
-                            Case StitchDisplayStyle.ColouredSymbols
-                                If _projectThread.SymbolId > 0 Then
-                                    _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
-                                    If _image IsNot Nothing Then
-                                        Dim _symbolColour As Color = _thread.Colour
-                                        Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(_thread)
-                                        Using _graphics As Graphics = Graphics.FromImage(_image)
-                                            _graphics.DrawImage(_image, New Rectangle(New Point(0, 0), _image.Size), 0, 0, _image.Width, _image.Height, GraphicsUnit.Pixel, _imageAttributes)
-                                        End Using
-                                    End If
-                                End If
-                        End Select
-                        If _projectThread.IsUsed Then
-                            Using _graphics As Graphics = Graphics.FromImage(_image)
-                                Dim _points As Point() = {New Point(0, 0), New Point(0, 8), New Point(8, 0)}
-                                _graphics.FillPolygon(New SolidBrush(ThreadLayoutPanel.BackColor), _points)
-                            End Using
-                        End If
-                        Dim tt As New ToolTip
-                        tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
-                        AddHandler .Click, AddressOf Palette_Click
-                        .Image = _image
-                        _pen.Dispose()
-                    End With
-                    ThreadLayoutPanel.Controls.Add(_picThread)
-                    _firstPicThread = If(_firstPicThread, _picThread)
-                Next
-                If _firstPicThread IsNot Nothing Then
-                    SelectPaletteColour(_firstPicThread)
-                End If
-            End If
+            LoadThreadPalette(_stitchDisplayStyle)
+            LoadBeadPalette
         End If
         Return isOK
     End Function
-    Private Sub SelectPaletteColour(pPicBox As PictureBox)
+
+    Private Sub LoadThreadPalette(_stitchDisplayStyle As StitchDisplayStyle)
+        ThreadLayoutPanel.Controls.Clear()
+        oProjectThreads = FindProjectThreads(oProject.ProjectId)
+        If IsProjectHasThreads() Then
+            oProjectThreads.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
+            Dim _panelWidth As Integer = ThreadLayoutPanel.Width
+            Dim _panelHeight As Integer = ThreadLayoutPanel.Height
+            Dim _threadCt As Integer = oProjectThreads.Count
+            Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt)
+            Dim _firstPicThread As PictureBox = Nothing
+
+            For Each _projectThread As ProjectThread In oProjectThreads.Threads
+                Dim _thread As Thread = _projectThread.Thread
+                Dim _picThread As New PictureBox()
+                Dim _image As Image = New Bitmap(_picSize, _picSize)
+                Dim _pen As New Pen(_thread.Colour, _picSize / 8) With {
+                                                .StartCap = Drawing2D.LineCap.Round,
+                                                .EndCap = Drawing2D.LineCap.Round
+                                            }
+                With _picThread
+                    .Name = CStr(_thread.ThreadId)
+                    .Size = New Size(_picSize, _picSize)
+                    .BorderStyle = BorderStyle.None
+                    .SizeMode = PictureBoxSizeMode.Zoom
+                    .BackColor = Color.White
+                    Select Case _stitchDisplayStyle
+                        Case StitchDisplayStyle.Blocks
+                            .BackColor = _thread.Colour
+                        Case StitchDisplayStyle.BlocksWithSymbols
+                            .BackColor = _thread.Colour
+                            If _projectThread.SymbolId > 0 Then
+                                _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
+                            End If
+                        Case StitchDisplayStyle.Crosses
+                            Using _graphics As Graphics = Graphics.FromImage(_image)
+                                _graphics.DrawLine(_pen, 2, 2, _picSize - 2, _picSize - 2)
+                                _graphics.DrawLine(_pen, _picSize - 2, 2, 2, _picSize - 2)
+                            End Using
+                        Case StitchDisplayStyle.BlackWhiteSymbols
+                            If _projectThread.SymbolId > 0 Then
+                                _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
+                            End If
+                        Case StitchDisplayStyle.ColouredSymbols
+                            If _projectThread.SymbolId > 0 Then
+                                _image = FindSymbolById(_projectThread.SymbolId).SymbolImage
+                                If _image IsNot Nothing Then
+                                    Dim _symbolColour As Color = _thread.Colour
+                                    Dim _imageAttributes As ImageAttributes = MakeColourChangeAttributes(_thread)
+                                    Using _graphics As Graphics = Graphics.FromImage(_image)
+                                        _graphics.DrawImage(_image, New Rectangle(New Point(0, 0), _image.Size), 0, 0, _image.Width, _image.Height, GraphicsUnit.Pixel, _imageAttributes)
+                                    End Using
+                                End If
+                            End If
+                    End Select
+                    If _projectThread.IsUsed Then
+                        Using _graphics As Graphics = Graphics.FromImage(_image)
+                            Dim _points As Point() = {New Point(0, 0), New Point(0, 8), New Point(8, 0)}
+                            _graphics.FillPolygon(New SolidBrush(ThreadLayoutPanel.BackColor), _points)
+                        End Using
+                    End If
+                    Dim tt As New ToolTip
+                    tt.SetToolTip(_picThread, _thread.ColourName & " " & _thread.ThreadNo)
+                    AddHandler .Click, AddressOf Thread_Palette_Click
+                    .Image = _image
+                    _pen.Dispose()
+                End With
+                ThreadLayoutPanel.Controls.Add(_picThread)
+                _firstPicThread = If(_firstPicThread, _picThread)
+            Next
+            If _firstPicThread IsNot Nothing Then
+                SelectThreadPaletteColour(_firstPicThread)
+            End If
+        End If
+    End Sub
+    Private Sub LoadBeadPalette()
+        BeadLayoutPanel.Controls.Clear()
+        oProjectBeads = FindProjectBeads(oProject.ProjectId)
+        If oProjectBeads.Count > 0 Then
+            oProjectBeads.Beads.Sort(Function(x As ProjectBead, y As ProjectBead) x.Bead.SortNumber.CompareTo(y.Bead.SortNumber))
+            Dim _panelWidth As Integer = BeadLayoutPanel.Width
+            Dim _panelHeight As Integer = BeadLayoutPanel.Height
+            Dim _BeadCt As Integer = oProjectBeads.Count
+            Dim _picSize As Integer = ShrinkPic(BeadLayoutPanel, _BeadCt)
+            Dim _firstPicBead As PictureBox = Nothing
+
+            For Each _projectBead As ProjectBead In oProjectBeads.Beads
+                Dim _Bead As Bead = _projectBead.Bead
+                Dim _picBead As New PictureBox()
+                Dim _image As Image = New Bitmap(_picSize, _picSize)
+                Dim _pen As New Pen(_Bead.Colour, 3)
+                With _picBead
+                    .Name = CStr(_Bead.BeadId)
+                    .Size = New Size(_picSize, _picSize)
+                    .BorderStyle = BorderStyle.None
+                    .SizeMode = PictureBoxSizeMode.Zoom
+                    .BackColor = Color.White
+                    Using _graphics As Graphics = Graphics.FromImage(_image)
+                        _graphics.FillEllipse(New SolidBrush(_Bead.Colour), New Rectangle(3, 3, _picSize - 6, _picSize - 6))
+                        _graphics.DrawEllipse(New Pen(Brushes.Black), New Rectangle(3, 3, _picSize - 6, _picSize - 6))
+                    End Using
+
+                    If _projectBead.IsUsed Then
+                        Using _graphics As Graphics = Graphics.FromImage(_image)
+                            Dim _points As Point() = {New Point(0, 0), New Point(0, 8), New Point(8, 0)}
+                            _graphics.FillPolygon(New SolidBrush(Color.Black), _points)
+                        End Using
+                    End If
+                    Dim tt As New ToolTip
+                    tt.SetToolTip(_picBead, _Bead.ColourName & " " & _Bead.BeadNo)
+                    AddHandler .Click, AddressOf Bead_Palette_Click
+                    .Image = _image
+                    _pen.Dispose()
+                End With
+                BeadLayoutPanel.Controls.Add(_picBead)
+                _firstPicBead = If(_firstPicBead, _picBead)
+            Next
+            If _firstPicBead IsNot Nothing Then
+                SelectBeadPaletteColour(_firstPicBead)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub SelectThreadPaletteColour(pPicBox As PictureBox)
         If isSingleColour Then
             ToggleSingleColour()
         End If
@@ -1088,7 +1169,19 @@ Public Class FrmStitchDesign
         Dim _thread As Thread = _projectThread.Thread
         oCurrentThread = _projectThread
         PnlSelectedColor.BackColor = _thread.Colour
-        LblCurrentColour.Text = _thread.ColourName & " : DMC " & CStr(_thread.ThreadNo)
+        LblCurrentColour.Text = _thread.ColourName & " : " & _thread.Brand.BrandName & " " & CStr(_thread.ThreadNo)
+    End Sub
+    Private Sub SelectBeadPaletteColour(pPicBox As PictureBox)
+        If isSingleColour Then
+            ToggleSingleColour()
+        End If
+        pPicBox.BorderStyle = BorderStyle.Fixed3D
+        pPicBox.BackgroundImage = My.Resources.ColrBtnDown
+        Dim _projectBead As ProjectBead = CType(oProjectBeads.Beads.Find(Function(p) p.Bead.BeadId = CInt(pPicBox.Name)), ProjectBead)
+        Dim _Bead As Bead = _projectBead.Bead
+        oCurrentBead = _projectBead
+        PnlSelectedColor.BackColor = _Bead.Colour
+        LblCurrentColour.Text = _Bead.ColourName & " : " & _Bead.Brand.BrandName & " " & CStr(_Bead.BeadNo)
     End Sub
     Private Sub OpenProjectThreadsForm()
         If oProject.ProjectId > 0 Then
@@ -1213,6 +1306,14 @@ Public Class FrmStitchDesign
                 .WithThreadId(_thread.ThreadId) _
                 .WithPaletteId(pPaletteId) _
                 .WithSymbolId(_thread.SymbolId) _
+                .Build
+            AddNewPaletteThread(_paletteThread)
+        Next
+        For Each _bead As ProjectBead In oProjectBeads.Beads
+            Dim _paletteThread As PaletteThread = PaletteThreadBuilder.APaletteThread.StartingWithNothing _
+                .WithThreadId(_bead.ThreadId) _
+                .WithPaletteId(pPaletteId) _
+                .WithSymbolId(-1) _
                 .Build
             AddNewPaletteThread(_paletteThread)
         Next
@@ -2056,7 +2157,7 @@ Public Class FrmStitchDesign
         Dim _stitch As Stitch = StitchBuilder.AStitch.StartingWithNothing _
             .WithStitchType(BlockStitchType.none) _
             .WithProjectId(oProject.ProjectId) _
-            .WithThreadId(oCurrentThread.ThreadId) _
+            .WithThreadId(If(pIsBead, oCurrentBead.BeadId, oCurrentThread.ThreadId)) _
             .WithStrandCount(_strands) _
             .WithQuarter(pCell.KnotQtr).Build
         Dim _bead As Knot = KnotBuilder.AKnot.StartingWith(_stitch) _

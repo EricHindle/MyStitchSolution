@@ -25,6 +25,9 @@ Partial Class FrmStitchDesign
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStitchDesign))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.RbDouble = New System.Windows.Forms.RadioButton()
+        Me.RbSingle = New System.Windows.Forms.RadioButton()
         Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PnlPaletteName = New System.Windows.Forms.Panel()
@@ -161,9 +164,8 @@ Partial Class FrmStitchDesign
         Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RbSingle = New System.Windows.Forms.RadioButton()
-        Me.RbDouble = New System.Windows.Forms.RadioButton()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.BeadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -178,6 +180,10 @@ Partial Class FrmStitchDesign
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -191,10 +197,10 @@ Partial Class FrmStitchDesign
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.SplitContainer2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.RbDouble)
         Me.SplitContainer1.Panel1.Controls.Add(Me.RbSingle)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.ThreadLayoutPanel)
         '
         'SplitContainer1.Panel2
         '
@@ -206,6 +212,42 @@ Partial Class FrmStitchDesign
         Me.SplitContainer1.SplitterDistance = 128
         Me.SplitContainer1.TabIndex = 137
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(74, 7)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(43, 13)
+        Me.Label2.TabIndex = 134
+        Me.Label2.Text = "strands"
+        '
+        'RbDouble
+        '
+        Me.RbDouble.AutoSize = True
+        Me.RbDouble.Checked = True
+        Me.RbDouble.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbDouble.Location = New System.Drawing.Point(39, 5)
+        Me.RbDouble.Margin = New System.Windows.Forms.Padding(1)
+        Me.RbDouble.Name = "RbDouble"
+        Me.RbDouble.Size = New System.Drawing.Size(31, 17)
+        Me.RbDouble.TabIndex = 133
+        Me.RbDouble.TabStop = True
+        Me.RbDouble.Text = "2"
+        Me.RbDouble.UseVisualStyleBackColor = True
+        '
+        'RbSingle
+        '
+        Me.RbSingle.AutoSize = True
+        Me.RbSingle.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RbSingle.Location = New System.Drawing.Point(6, 5)
+        Me.RbSingle.Margin = New System.Windows.Forms.Padding(1)
+        Me.RbSingle.Name = "RbSingle"
+        Me.RbSingle.Size = New System.Drawing.Size(31, 17)
+        Me.RbSingle.TabIndex = 132
+        Me.RbSingle.Text = "1"
+        Me.RbSingle.UseVisualStyleBackColor = True
+        '
         'ThreadLayoutPanel
         '
         Me.ThreadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -213,9 +255,9 @@ Partial Class FrmStitchDesign
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(0, 23)
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(3, 3)
         Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(124, 443)
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(112, 346)
         Me.ThreadLayoutPanel.TabIndex = 131
         '
         'Panel1
@@ -1509,41 +1551,37 @@ Partial Class FrmStitchDesign
         Me.MnuShow.Size = New System.Drawing.Size(116, 22)
         Me.MnuShow.Text = "Info"
         '
-        'RbSingle
+        'SplitContainer2
         '
-        Me.RbSingle.AutoSize = True
-        Me.RbSingle.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbSingle.Location = New System.Drawing.Point(6, 5)
-        Me.RbSingle.Margin = New System.Windows.Forms.Padding(1)
-        Me.RbSingle.Name = "RbSingle"
-        Me.RbSingle.Size = New System.Drawing.Size(31, 17)
-        Me.RbSingle.TabIndex = 132
-        Me.RbSingle.Text = "1"
-        Me.RbSingle.UseVisualStyleBackColor = True
+        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer2.Location = New System.Drawing.Point(3, 26)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
-        'RbDouble
+        'SplitContainer2.Panel1
         '
-        Me.RbDouble.AutoSize = True
-        Me.RbDouble.Checked = True
-        Me.RbDouble.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbDouble.Location = New System.Drawing.Point(39, 5)
-        Me.RbDouble.Margin = New System.Windows.Forms.Padding(1)
-        Me.RbDouble.Name = "RbDouble"
-        Me.RbDouble.Size = New System.Drawing.Size(31, 17)
-        Me.RbDouble.TabIndex = 133
-        Me.RbDouble.TabStop = True
-        Me.RbDouble.Text = "2"
-        Me.RbDouble.UseVisualStyleBackColor = True
+        Me.SplitContainer2.Panel1.Controls.Add(Me.ThreadLayoutPanel)
         '
-        'Label2
+        'SplitContainer2.Panel2
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(74, 7)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 13)
-        Me.Label2.TabIndex = 134
-        Me.Label2.Text = "strands"
+        Me.SplitContainer2.Panel2.Controls.Add(Me.BeadLayoutPanel)
+        Me.SplitContainer2.Size = New System.Drawing.Size(118, 437)
+        Me.SplitContainer2.SplitterDistance = 352
+        Me.SplitContainer2.TabIndex = 135
+        '
+        'BeadLayoutPanel
+        '
+        Me.BeadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BeadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.BeadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.BeadLayoutPanel.Location = New System.Drawing.Point(2, 3)
+        Me.BeadLayoutPanel.Name = "BeadLayoutPanel"
+        Me.BeadLayoutPanel.Size = New System.Drawing.Size(112, 75)
+        Me.BeadLayoutPanel.TabIndex = 132
         '
         'FrmStitchDesign
         '
@@ -1579,6 +1617,10 @@ Partial Class FrmStitchDesign
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1724,4 +1766,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents Label2 As Label
     Friend WithEvents RbDouble As RadioButton
     Friend WithEvents RbSingle As RadioButton
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents BeadLayoutPanel As FlowLayoutPanel
 End Class

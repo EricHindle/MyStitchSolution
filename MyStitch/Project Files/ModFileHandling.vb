@@ -33,6 +33,7 @@ Module ModFileHandling
     Public Const DESIGN_HDR As String = "Design:"
     Public Const PROJECT_HDR As String = "Project:"
     Public Const PROJECT_THREADS_HDR As String = "Project Threads:"
+    Public Const PROJECT_BEADS_HDR As String = "Project Beads:"
     Public Sub CheckAppPaths()
         LogUtil.LogInfo("Checking folders", MethodBase.GetCurrentMethod.Name)
         Try

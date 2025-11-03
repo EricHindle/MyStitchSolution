@@ -5,8 +5,6 @@
 ' Author Eric Hindle
 '
 
-Imports System.Text
-Imports System.Text.RegularExpressions
 Namespace Domain.Objects
     Public Class Bead
         Inherits Thread

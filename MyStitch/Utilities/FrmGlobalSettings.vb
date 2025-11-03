@@ -17,8 +17,8 @@ Imports MyStitch.Domain.Objects
 ''' New setting records are not needed unless the code changes, so they cannot be created here.</remarks>
 Public Class FrmGlobalSettings
 #Region "Private variable instances"
-    Private ReadOnly oTa As New MyStitchDataSetTableAdapters.SettingsTableAdapter
-    Private ReadOnly oTable As New MyStitchDataSet.SettingsDataTable
+    Private ReadOnly oTa As New MyStitchDataTableAdapters.SettingsTableAdapter
+    Private ReadOnly oTable As New MyStitchData.SettingsDataTable
 #End Region
 #Region "Form"
     Private Sub Form_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing

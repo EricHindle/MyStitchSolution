@@ -90,7 +90,11 @@ Module ModDesign
     Friend oDesignBitmap As Bitmap
     Friend oDesignGraphics As Graphics
     Friend oCurrentThread As ProjectThread
+    Friend oCurrentBead As ProjectBead
+
     Friend oProjectThreads As ProjectThreadCollection
+    Friend oProjectBeads As ProjectBeadCollection
+
     Friend iXOffset As Integer
     Friend iYOffset As Integer
 
@@ -312,6 +316,10 @@ Module ModDesign
         End If
         If My.Settings.IsShowKnots Then
             For Each _knot As Knot In pProjectDesign.Knots
+                If _knot.IsBead Then
+                Else
+
+                End If
                 If Not pIsSingleColour OrElse _knot.ProjThread.Thread.Colour = oCurrentThread.Thread.Colour Then
                     DrawKnot(_knot)
                 End If
@@ -609,7 +617,7 @@ Module ModDesign
         Dim _image As Image = New Bitmap(1, 1)
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.ThreadId = pBlockStitch.ProjThread.ThreadId), ProjectThread)
         If _projectThread Is Nothing Then
-            LogUtil.DisplayStatusMessage("Thread missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, "MakeImage", False)
+            LogUtil.DisplayStatusMessage("Bead missing from project :" & vbCrLf & pBlockStitch.ProjThread.Thread.ToString, Nothing, "MakeImage", False)
         Else
             Dim _symbol As Symbol = FindSymbolById(_projectThread.SymbolId)
             _image = ImageUtil.ResizeImage(_symbol.SymbolImage, pPixels, pPixels)
@@ -745,12 +753,12 @@ Module ModDesign
         Return _color
     End Function
     Public Function DetermineUsedThreads() As List(Of Integer)
-        Return DetermineUsedThreads(oProjectDesign, oProjectThreads, False)
+        Return DetermineUsedThreads(oProjectDesign, oProjectThreads, oProjectBeads, False)
     End Function
     Public Function DetermineUsedThreads(pIsRemoveUnused As Boolean) As List(Of Integer)
-        Return DetermineUsedThreads(oProjectDesign, oProjectThreads, pIsRemoveUnused)
+        Return DetermineUsedThreads(oProjectDesign, oProjectThreads, oProjectBeads, pIsRemoveUnused)
     End Function
-    Public Function DetermineUsedThreads(ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreads As ProjectThreadCollection, pIsRemoveUnused As Boolean) As List(Of Integer)
+    Public Function DetermineUsedThreads(ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreads As ProjectThreadCollection, ByRef pProjectBeads As ProjectBeadCollection, pIsRemoveUnused As Boolean) As List(Of Integer)
         LogUtil.LogInfo("Determining unused threads", MethodBase.GetCurrentMethod.Name)
         Dim _usedThreads As New List(Of Integer)
         Dim _removeThreads As New List(Of Integer)
@@ -779,11 +787,26 @@ Module ModDesign
                 _removeThreads.Add(_thread.ThreadId)
             End If
         Next
+        For Each _bead As ProjectBead In pProjectBeads.Beads
+            Dim _knot As Knot = pProjectDesign.Knots.Find(Function(p) p.ThreadId = _bead.ThreadId)
+            If _knot IsNot Nothing Then
+                _usedThreads.Add(_bead.ThreadId)
+                _bead.IsUsed = True
+                Continue For
+            End If
+            If pIsRemoveUnused And Not _bead.IsUsed Then
+                RemoveProjectBead(_bead)
+                _removeThreads.Add(_bead.ThreadId)
+            End If
+        Next
         For Each _rmv As Integer In _removeThreads
             pProjectThreads.Remove(_rmv)
         Next
         For Each _thread As ProjectThread In pProjectThreads.Threads
             AmendProjectThreadIsUsed(_thread)
+        Next
+        For Each _bead As ProjectBead In pProjectBeads.Beads
+            AmendProjectBeadIsUsed(_bead)
         Next
         _usedThreads.Sort()
         Return _usedThreads
@@ -793,24 +816,15 @@ Module ModDesign
         DetermineUsedThreads(True)
     End Sub
     Public Sub FillPaletteList(pPaletteList As ComboBox)
-        Dim oTa As New MyStitchDataSetTableAdapters.PalettesTableAdapter
-        Dim oTable As New MyStitchDataSet.PalettesDataTable
-        Try
-            oTa.Fill(oTable)
-        Catch ex As Exception When (TypeOf ex Is ArgumentException _
-                                OrElse TypeOf ex Is FileNotFoundException _
-                                OrElse TypeOf ex Is OutOfMemoryException)
-            Throw New ApplicationException("Error filling palettes list", ex)
-        End Try
-        pPaletteList.DataSource = oTable
-        pPaletteList.DisplayMember = "palette_name"
-        pPaletteList.ValueMember = "palette_id"
+        pPaletteList.DataSource = GetPaletteList()
+        pPaletteList.DisplayMember = "palettename"
+        pPaletteList.ValueMember = "paletteid"
         pPaletteList.SelectedIndex = -1
     End Sub
     Public Function CheckPalette() As Boolean
-        Return CheckPalette(oProjectDesign, oProjectThreads)
+        Return CheckPalette(oProjectDesign, oProjectThreads, oProjectBeads)
     End Function
-    Public Function CheckPalette(ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreads As ProjectThreadCollection) As Boolean
+    Public Function CheckPalette(ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreads As ProjectThreadCollection, ByRef pProjectBeads As ProjectBeadCollection) As Boolean
         LogUtil.LogInfo("Checking palette", MethodBase.GetCurrentMethod.Name)
         Dim _isAdded As Boolean
         For Each _blockstitch As BlockStitch In pProjectDesign.BlockStitches
@@ -832,21 +846,40 @@ Module ModDesign
             End If
         Next
         For Each _knot As Knot In pProjectDesign.Knots
-            If Not pProjectThreads.Exists(_knot.ThreadId) Then
-                AddThreadToPalette(pProjectDesign.ProjectId, _knot.ThreadId)
-                _isAdded = True
+            Dim _isExists As Boolean
+            If _knot.IsBead Then
+                _isExists = pProjectBeads.Exists(_knot.ThreadId)
+                If Not _isExists Then
+                    AddBeadToPalette(pProjectDesign.ProjectId, _knot.ThreadId)
+                    _isAdded = True
+                End If
+            Else
+                _isExists = pProjectThreads.Exists(_knot.ThreadId)
+                If Not _isExists Then
+                    AddThreadToPalette(pProjectDesign.ProjectId, _knot.ThreadId)
+                    _isAdded = True
+                End If
             End If
         Next
         Return _isAdded
     End Function
     Private Sub AddThreadToPalette(pProjectId As Integer, pThreadId As Integer)
-        LogUtil.LogInfo("Adding missing thread to palette. ProjectId:" & CStr(pProjectId) & " ThreadId:" & CStr(pThreadId), MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("Adding missing thread to palette. ProjectId:" & CStr(pProjectId) & " BeadId:" & CStr(pThreadId), MethodBase.GetCurrentMethod.Name)
         Dim _pt As ProjectThread = ProjectThreadBuilder.AProjectThread.StartingWithNothing _
             .WithProjectId(pProjectId) _
             .WithThreadId(pThreadId) _
             .WithIsUsed(True) _
             .Build
         AddNewProjectThread(_pt)
+    End Sub
+    Private Sub AddBeadToPalette(pProjectId As Integer, pBeadId As Integer)
+        LogUtil.LogInfo("Adding missing Bead to palette. ProjectId:" & CStr(pProjectId) & " BeadId:" & CStr(pBeadId), MethodBase.GetCurrentMethod.Name)
+        Dim _pt As ProjectBead = ProjectBeadBuilder.AProjectBead.StartingWithNothing _
+            .WithProjectId(pProjectId) _
+            .WithBeadId(pBeadId) _
+            .WithIsUsed(True) _
+            .Build
+        AddNewProjectBead(_pt)
     End Sub
     Public Sub OpenPrintForm(pForm As Form, pProject As Project)
         If pProject.IsLoaded Then

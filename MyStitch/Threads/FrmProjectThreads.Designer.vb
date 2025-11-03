@@ -78,7 +78,7 @@ Partial Class FrmProjectThreads
         Me.BeadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BeadSort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BeadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.beadSelected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -250,7 +250,7 @@ Partial Class FrmProjectThreads
         Me.threadName.Name = "threadName"
         Me.threadName.ReadOnly = True
         '
-        'ThreadNo
+        'threadNo
         '
         Me.threadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.threadNo.HeaderText = "No."
@@ -467,9 +467,9 @@ Partial Class FrmProjectThreads
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(15, 381)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(86, 13)
+        Me.Label2.Size = New System.Drawing.Size(76, 13)
         Me.Label2.TabIndex = 19
-        Me.Label2.Text = "Thread Numbers"
+        Me.Label2.Text = "Bead Numbers"
         '
         'BtnLoadThreadList
         '
@@ -567,7 +567,7 @@ Partial Class FrmProjectThreads
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvBeads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.DgvBeads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBeads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BeadId, Me.BeadName, Me.BeadNo, Me.BeadSort, Me.BeadColour, Me.beadSelected})
+        Me.DgvBeads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BeadId, Me.BeadName, Me.BeadNo, Me.BeadSortNumber, Me.BeadColour, Me.beadSelected})
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -647,12 +647,12 @@ Partial Class FrmProjectThreads
         Me.BeadNo.ReadOnly = True
         Me.BeadNo.Width = 50
         '
-        'BeadSort
+        'BeadSortNumber
         '
-        Me.BeadSort.HeaderText = "Sort"
-        Me.BeadSort.Name = "BeadSort"
-        Me.BeadSort.ReadOnly = True
-        Me.BeadSort.Visible = False
+        Me.BeadSortNumber.HeaderText = "Sort"
+        Me.BeadSortNumber.Name = "BeadSortNumber"
+        Me.BeadSortNumber.ReadOnly = True
+        Me.BeadSortNumber.Visible = False
         '
         'BeadColour
         '
@@ -760,7 +760,7 @@ Partial Class FrmProjectThreads
     Friend WithEvents BeadId As DataGridViewTextBoxColumn
     Friend WithEvents BeadName As DataGridViewTextBoxColumn
     Friend WithEvents BeadNo As DataGridViewTextBoxColumn
-    Friend WithEvents BeadSort As DataGridViewTextBoxColumn
+    Friend WithEvents BeadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents BeadColour As DataGridViewImageColumn
     Friend WithEvents beadSelected As DataGridViewCheckBoxColumn
 End Class

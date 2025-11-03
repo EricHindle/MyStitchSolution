@@ -76,6 +76,7 @@ Public Class FrmProjectThreads
                 PnlBeads.Visible = False
             End If
             LoadThreadList()
+            LoadBeadList()
         End If
     End Sub
 
@@ -192,50 +193,100 @@ Public Class FrmProjectThreads
         If _selectedProject Is Nothing OrElse Not _selectedProject.IsLoaded Then
             LogUtil.ShowStatus("No project selected", LblStatus, False, MyBase.Name, True)
         Else
-            Dim _usedThreadsBefore As List(Of Thread) = FindThreadsForProject(_selectedProject.ProjectId)
-            Dim _usedThreadsAfter As New List(Of Thread)
-            For Each oRow As DataGridViewRow In DgvThreads.Rows
-                Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
-                If _ChkCell.Value = True Then
-                    Dim _thread As Thread = FindThreadById(oRow.Cells(threadId.Name).Value)
-                    _usedThreadsAfter.Add(_thread)
-                End If
-            Next
-            For Each oThread As Thread In _usedThreadsAfter
-                If Not _usedThreadsBefore.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
+            UpdateThreadList()
+            UpdateBeadList
+            LoadThreadList()
+            LoadBeadList()
+        End If
+    End Sub
+
+    Private Sub UpdateThreadList()
+        Dim _usedThreadsBefore As List(Of Thread) = FindThreadsForProject(_selectedProject.ProjectId)
+        Dim _usedThreadsAfter As New List(Of Thread)
+        For Each oRow As DataGridViewRow In DgvThreads.Rows
+            Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
+            If _ChkCell.Value = True Then
+                Dim _thread As Thread = FindThreadById(oRow.Cells(threadId.Name).Value)
+                _usedThreadsAfter.Add(_thread)
+            End If
+        Next
+        For Each oThread As Thread In _usedThreadsAfter
+            If Not _usedThreadsBefore.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
+                Dim _projectThread As ProjectThread = ProjectThreadBuilder _
+                                                            .AProjectThread _
+                                                            .StartingWithNothing _
+                                                            .WithProjectId(_selectedProject.ProjectId) _
+                                                            .WithThreadId(oThread.ThreadId) _
+                                                            .Build
+                AddNewProjectThread(_projectThread)
+            End If
+        Next
+        For Each oThread As Thread In _usedThreadsBefore
+            If Not _usedThreadsAfter.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
+                Dim _isUsed As Boolean = False
+                For Each _threadId As Integer In UsedThreads
+                    If _threadId = oThread.ThreadId Then
+                        _isUsed = True
+                        Exit For
+                    End If
+                Next
+                If _isUsed Then
+                    MsgBox("Thread [" & oThread.ColourName & "] to be removed is used in the design. No action.", MsgBoxStyle.Information, "Used thread")
+                Else
                     Dim _projectThread As ProjectThread = ProjectThreadBuilder _
                                                                 .AProjectThread _
                                                                 .StartingWithNothing _
                                                                 .WithProjectId(_selectedProject.ProjectId) _
                                                                 .WithThreadId(oThread.ThreadId) _
                                                                 .Build
-                    AddNewProjectThread(_projectThread)
+                    RemoveProjectThread(_projectThread)
                 End If
-            Next
-            For Each oThread As Thread In _usedThreadsBefore
-                If Not _usedThreadsAfter.Exists(Function(aThread As Thread) aThread.ThreadId = oThread.ThreadId) Then
-                    Dim _isUsed As Boolean = False
-                    For Each _threadId As Integer In UsedThreads
-                        If _threadId = oThread.ThreadId Then
-                            _isUsed = True
-                            Exit For
-                        End If
-                    Next
-                    If _isUsed Then
-                        MsgBox("Thread [" & oThread.ColourName & "] to be removed is used in the design. No action.", MsgBoxStyle.Information, "Used thread")
-                    Else
-                        Dim _projectThread As ProjectThread = ProjectThreadBuilder _
-                                                                    .AProjectThread _
-                                                                    .StartingWithNothing _
-                                                                    .WithProjectId(_selectedProject.ProjectId) _
-                                                                    .WithThreadId(oThread.ThreadId) _
-                                                                    .Build
-                        RemoveProjectThread(_projectThread)
+            End If
+        Next
+    End Sub
+    Private Sub UpdateBeadList()
+        Dim _usedBeadsBefore As List(Of Bead) = FindBeadsForProject(_selectedProject.ProjectId)
+        Dim _usedBeadsAfter As New List(Of Bead)
+        For Each oRow As DataGridViewRow In DgvBeads.Rows
+            Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(beadSelected.Name)
+            If _ChkCell.Value = True Then
+                Dim _Bead As Bead = FindBeadById(oRow.Cells(BeadId.Name).Value)
+                _usedBeadsAfter.Add(_Bead)
+            End If
+        Next
+        For Each oBead As Bead In _usedBeadsAfter
+            If Not _usedBeadsBefore.Exists(Function(aBead As Bead) aBead.BeadId = oBead.BeadId) Then
+                Dim _projectBead As ProjectBead = ProjectBeadBuilder _
+                                                            .AProjectBead _
+                                                            .StartingWithNothing _
+                                                            .WithProjectId(_selectedProject.ProjectId) _
+                                                            .WithBeadId(oBead.BeadId) _
+                                                            .Build
+                AddNewProjectBead(_projectBead)
+            End If
+        Next
+        For Each oBead As Bead In _usedBeadsBefore
+            If Not _usedBeadsAfter.Exists(Function(aBead As Bead) aBead.BeadId = oBead.BeadId) Then
+                Dim _isUsed As Boolean = False
+                For Each _BeadId As Integer In UsedBeads
+                    If _BeadId = oBead.BeadId Then
+                        _isUsed = True
+                        Exit For
                     End If
+                Next
+                If _isUsed Then
+                    MsgBox("Bead [" & oBead.ColourName & "] to be removed is used in the design. No action.", MsgBoxStyle.Information, "Used Bead")
+                Else
+                    Dim _projectBead As ProjectBead = ProjectBeadBuilder _
+                                                                .AProjectBead _
+                                                                .StartingWithNothing _
+                                                                .WithProjectId(_selectedProject.ProjectId) _
+                                                                .WithBeadId(oBead.BeadId) _
+                                                                .Build
+                    RemoveProjectBead(_projectBead)
                 End If
-            Next
-            LoadThreadList()
-        End If
+            End If
+        Next
     End Sub
 
     Private Sub BtnGenerateCards_Click(sender As Object, e As EventArgs) Handles BtnGenerateCards.Click
@@ -268,6 +319,7 @@ Public Class FrmProjectThreads
         isShowStock = ChkShowStock.Checked
         If Not isLoading Then
             LoadThreadList()
+            LoadBeadList()
         End If
     End Sub
 
@@ -318,7 +370,7 @@ Public Class FrmProjectThreads
             End If
         Next
         If Not _isFound Then
-            MsgBox("Thread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
+            MsgBox("Bead " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
         End If
     End Sub
 

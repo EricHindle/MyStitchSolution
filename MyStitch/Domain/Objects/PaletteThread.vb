@@ -14,6 +14,15 @@ Namespace Domain.Objects
         Private _PaletteId As Integer
         Private _threadId As Integer
         Private _symbol As Image
+        Private _isBead As Boolean
+        Public Property IsBead() As Boolean
+            Get
+                Return _isBead
+            End Get
+            Set(ByVal value As Boolean)
+                _isBead = value
+            End Set
+        End Property
         Public Property ThreadId() As Integer
             Get
                 Return _threadId
@@ -63,17 +72,20 @@ Namespace Domain.Objects
             _PaletteId = -1
             _threadId = -1
             _symbol = Nothing
+            _isBead = False
         End Sub
         Public Sub New()
             InitialisePaletteThread()
         End Sub
         Public Sub New(pPaletteId As Integer,
                        pThreadId As Integer,
-                       pSymbolId As Integer)
+                       pSymbolId As Integer,
+                       pIsBead As Boolean)
             InitialisePaletteThread()
             _PaletteId = pPaletteId
             _threadId = pThreadId
             _symbolId = pSymbolId
+            _isBead = pIsBead
         End Sub
 #End Region
 #Region "methods"
@@ -88,7 +100,8 @@ Namespace Domain.Objects
             _sb.Append("PaletteThread=[") _
                 .Append("PaletteId=[").Append(CStr(_PaletteId)).Append("], ") _
                 .Append(Thread.ToString).Append(", ") _
-                .Append("SymbolId=[").Append(CStr(_symbolId)).Append("]") _
+                .Append("SymbolId=[").Append(CStr(_symbolId)).Append("],") _
+                .Append(If(_isBead, "Bead", "Thread")) _
                 .Append("]")
             Return _sb.ToString()
         End Function

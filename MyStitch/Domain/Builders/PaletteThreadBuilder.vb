@@ -11,6 +11,7 @@ Namespace Domain.Builders
         Private _symbolId As Integer
         Private _PaletteId As Integer
         Private _threadId As Integer
+        Private _isBead As Boolean
         Public Shared Function APaletteThread() As PaletteThreadBuilder
             Return New PaletteThreadBuilder
         End Function
@@ -18,6 +19,7 @@ Namespace Domain.Builders
             _symbolId = -1
             _threadId = -1
             _PaletteId = -1
+            _isBead = False
             Return Me
         End Function
         Public Function StartingWith(ByRef pThread As PaletteThread) As PaletteThreadBuilder
@@ -27,6 +29,7 @@ Namespace Domain.Builders
                     _PaletteId = .PaletteId
                     _threadId = .ThreadId
                     _symbolId = .SymbolId
+                    _isBead = .IsBead
                 End With
             End If
             Return Me
@@ -40,6 +43,7 @@ Namespace Domain.Builders
                     _PaletteId = .palette_id
                     _threadId = .thread_id
                     _symbolId = .symbol_id
+                    _isBead = (.isbead = 1)
                 End With
             End If
             Return Me
@@ -56,8 +60,12 @@ Namespace Domain.Builders
             _symbolId = pSymbolId
             Return Me
         End Function
+        Public Function WithSIsBead(pIsBead As Boolean) As PaletteThreadBuilder
+            _isBead = pIsBead
+            Return Me
+        End Function
         Public Function Build() As PaletteThread
-            Return New PaletteThread(_PaletteId, _threadId, _symbolId)
+            Return New PaletteThread(_PaletteId, _threadId, _symbolId, _isBead)
         End Function
     End Class
 End Namespace

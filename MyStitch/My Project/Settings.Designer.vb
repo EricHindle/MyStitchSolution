@@ -58,7 +58,7 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-11NSK703\SQLEXPRESS;Initial Catalog=MyStitch;Persist Security "& _ 
-            "Info=True;User ID=sa;Password=dkk.sql;Encrypt=False")>  _
+            "Info=True;User ID=xx;Password=xxxxxxxxxx;Encrypt=False")>  _
         Public ReadOnly Property MyStitchConnectionString() As String
             Get
                 Return CType(Me("MyStitchConnectionString"),String)

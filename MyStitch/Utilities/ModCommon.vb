@@ -131,10 +131,10 @@ Module ModCommon
                     ' Open Options form
                     OpenPreferencesForm(_form)
                     e.Handled = True
-                Case Keys.G
-                    ' Open Global Settings form
-                    OpenGlobalSettingsForm()
-                    e.Handled = True
+                'Case Keys.G
+                '    ' Open Global Settings form
+                '    OpenGlobalSettingsForm()
+                '    e.Handled = True
                 Case Keys.H
                     ' Run housekeeping process
                     RunHousekeeping()
@@ -243,11 +243,11 @@ Module ModCommon
             _backup.ShowDialog()
         End Using
     End Sub
-    Public Sub OpenGlobalSettingsForm()
-        LogUtil.Info("Global Options", MethodBase.GetCurrentMethod.Name)
-        Using _settings As New FrmGlobalSettings
-            _settings.ShowDialog()
-        End Using
-    End Sub
+    'Public Sub OpenGlobalSettingsForm()
+    '    LogUtil.Info("Global Options", MethodBase.GetCurrentMethod.Name)
+    '    Using _settings As New FrmGlobalSettings
+    '        _settings.ShowDialog()
+    '    End Using
+    'End Sub
 #End Region
 End Module

@@ -134,14 +134,15 @@ Public Class FrmDesignInfo
     End Sub
     Private Sub LoadKnotList(pKnots As List(Of Knot))
         For Each _stitch As Knot In pKnots
-            NewKnotRow(_stitch)
-            Dim oThreadRow As DataGridViewRow = FindThreadRow(_stitch.ThreadId)
-            If oThreadRow IsNot Nothing Then
-                oThreadRow.Cells(threadknotcount.Name).Value += 1
-            End If
             If _stitch.IsBead Then
+                NewBeadRow(_stitch)
                 iBeadCount += 1
             Else
+                NewKnotRow(_stitch)
+                Dim oThreadRow As DataGridViewRow = FindThreadRow(_stitch.ThreadId)
+                If oThreadRow IsNot Nothing Then
+                    oThreadRow.Cells(threadknotcount.Name).Value += 1
+                End If
                 iKnotCount += 1
             End If
         Next
@@ -232,8 +233,20 @@ Public Class FrmDesignInfo
             oRow.Cells(knot_pos_y.Name).Value = .BlockPosition.Y
             oRow.Cells(knot_thread_id.Name).Value = .ThreadId
             oRow.Cells(knot_thread_no.Name).Value = .ProjThread.Thread.ThreadNo
-            oRow.Cells(knot_type.Name).Value = If(.IsBead, "Bead", "Knot")
             oRow.Cells(knot_strands.Name).Value = .Strands
+            oRow.Cells(knot_colour.Name).Value = .ProjThread.Thread.ColourName
+
+        End With
+        Return oRow
+    End Function
+    Private Function NewBeadRow(pStitch As Knot) As DataGridViewRow
+        Dim oRow As DataGridViewRow = DgvBead.Rows(DgvBead.Rows.Add())
+        With pStitch
+            oRow.Cells(bead_pos_x.Name).Value = .BlockPosition.X
+            oRow.Cells(bead_pos_y.Name).Value = .BlockPosition.Y
+            oRow.Cells(bead_id.Name).Value = .ThreadId
+            oRow.Cells(bead_no.Name).Value = .ProjThread.Thread.ThreadNo
+            oRow.Cells(bead_colour.Name).Value = .ProjThread.Thread.ColourName
 
         End With
         Return oRow

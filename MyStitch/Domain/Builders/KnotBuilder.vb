@@ -25,6 +25,7 @@ Namespace Domain.Builders
                 _threadId = .ThreadId
                 _projectId = .ProjectId
                 _stitchType = .StitchType
+                _thread = Nothing
             End With
             Return Me
         End Function

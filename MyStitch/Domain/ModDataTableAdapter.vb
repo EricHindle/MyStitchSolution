@@ -35,6 +35,7 @@ Namespace Domain
             Palettes
             PaletteThreads
             Beads
+            ProjectBeads
             Brands
         End Enum
 #End Region
@@ -54,6 +55,7 @@ Namespace Domain
         Private ReadOnly oPalettesDataTable As New PalettesDataTable
         Private ReadOnly oPaletteThreadsDataTable As New PaletteThreadsDataTable
         Private ReadOnly oBeadDataTable As New BeadsDataTable
+        Private ReadOnly oProjectBeadDataTable As New ProjectBeadsDataTable
         Private ReadOnly oBrandDataTable As New BrandsDataTable
 
 #End Region
@@ -135,7 +137,7 @@ Namespace Domain
                         oProjectThreadCardDataTable.Clear()
                         oProjectThreadCardDataTable.ReadXml(oXmlFileName)
                     Else
-                        Throw New ApplicationException("Project Thread Card data file missing.")
+                        Throw New ApplicationException("Project Bead Card data file missing.")
                     End If
                 Case "ProjectThreads"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectThreadDataTable.TableName & DATA_EXT)
@@ -143,7 +145,7 @@ Namespace Domain
                         oProjectThreadDataTable.Clear()
                         oProjectThreadDataTable.ReadXml(oXmlFileName)
                     Else
-                        Throw New ApplicationException("Project Thread data file missing.")
+                        Throw New ApplicationException("Project Bead data file missing.")
                     End If
                 Case "ProjectCardThread"
                     oXmlFileName = Path.Combine(oDataFolderName, oProjectCardThreadDataTable.TableName & DATA_EXT)
@@ -151,7 +153,7 @@ Namespace Domain
                         oProjectCardThreadDataTable.Clear()
                         oProjectCardThreadDataTable.ReadXml(oXmlFileName)
                     Else
-                        Throw New ApplicationException("Project Card Thread data file missing.")
+                        Throw New ApplicationException("Project Card Bead data file missing.")
                     End If
                 Case "Symbols"
                     oXmlFileName = Path.Combine(oDataFolderName, oSymbolsDataTable.TableName & DATA_EXT)
@@ -200,6 +202,14 @@ Namespace Domain
                         oBeadDataTable.ReadXml(oXmlFileName)
                     Else
                         Throw New ApplicationException("Bead data file missing.")
+                    End If
+                Case "ProjectBeads"
+                    oXmlFileName = Path.Combine(oDataFolderName, oProjectBeadDataTable.TableName & DATA_EXT)
+                    If My.Computer.FileSystem.FileExists(oXmlFileName) Then
+                        oProjectBeadDataTable.Clear()
+                        oProjectBeadDataTable.ReadXml(oXmlFileName)
+                    Else
+                        Throw New ApplicationException("Project Bead data file missing.")
                     End If
                 Case "Brands"
                     oXmlFileName = Path.Combine(oDataFolderName, oBrandDataTable.TableName & DATA_EXT)
@@ -263,6 +273,8 @@ Namespace Domain
                                 oDataTable = oPaletteThreadsDataTable
                             Case "Beads"
                                 oDataTable = oBeadDataTable
+                            Case "ProjectBeads"
+                                oDataTable = oProjectBeadDataTable
                             Case "Brands"
                                 oDataTable = oBrandDataTable
                         End Select
@@ -886,9 +898,9 @@ Namespace Domain
             End Try
             Return isOK
         End Function
-        Public Function FillSettingsTable(ByRef pSettingsTable As MyStitchDataSet.SettingsDataTable) As MyStitchDataSet.SettingsDataTable
-            For Each _row As MyStitchDataSet.SettingsRow In oSettingsDataTable.Rows
-                Dim newRow As MyStitchDataSet.SettingsRow = pSettingsTable.NewSettingsRow
+        Public Function FillSettingsTable(ByRef pSettingsTable As MyStitchData.SettingsDataTable) As MyStitchData.SettingsDataTable
+            For Each _row As MyStitchData.SettingsRow In oSettingsDataTable.Rows
+                Dim newRow As MyStitchData.SettingsRow = pSettingsTable.NewSettingsRow
                 newRow.pKey = _row.pKey
                 newRow.pValue = _row.pValue
                 newRow.pType = _row.pType
@@ -1035,6 +1047,13 @@ Namespace Domain
         End Function
 #End Region
 #Region "palettes"
+        Public Function GetPaletteList() As List(Of Palette)
+            Dim oPaletteList As New List(Of Palette)
+            For Each oRow As PalettesRow In oPalettesDataTable.Rows
+                oPaletteList.Add(PaletteBuilder.APalette.StartingWith(oRow).Build)
+            Next
+            Return oPaletteList
+        End Function
         Public Function AddNewPalette(pPalette As String) As Boolean
             LogUtil.LogInfo("Adding new palette", MethodBase.GetCurrentMethod.Name)
             Dim isOK As Boolean = True
@@ -1068,6 +1087,7 @@ Namespace Domain
                 pPaletteThreadRow.palette_id = .PaletteId
                 pPaletteThreadRow.thread_id = .ThreadId
                 pPaletteThreadRow.symbol_id = .SymbolId
+                pPaletteThreadRow.isbead = If(.IsBead, 1, 0)
             End With
             Return pPaletteThreadRow
         End Function
@@ -1185,6 +1205,115 @@ Namespace Domain
             Return isOK
         End Function
 #End Region
+#Region "Project Beads"
+        Public Sub RemoveProjectBead(ByRef pProjectBead As ProjectBead)
+            LogUtil.LogInfo("Removing project Bead", MethodBase.GetCurrentMethod.Name)
+            If pProjectBead IsNot Nothing Then
+                Dim oBeadRow As ProjectBeadsRow = GetProjectBeadByKey(pProjectBead.ProjectId, pProjectBead.Bead.BeadId)
+                If oBeadRow IsNot Nothing Then
+                    oProjectBeadDataTable.Rows.Remove(oBeadRow)
+                End If
+            Else
+                LogUtil.Problem("Trying to remove null project Bead", MethodBase.GetCurrentMethod.Name)
+            End If
+        End Sub
+        Private Function GetProjectBeadByKey(pProjectId As Integer, pBeadId As Integer) As ProjectBeadsRow
+            Dim oBeadRow As ProjectBeadsRow = Nothing
+            Try
+                Dim oBeadRows = From Bead In oProjectBeadDataTable.AsEnumerable()
+                                Select Bead
+                                Where Bead.bead_id = pBeadId And Bead.project_id = pProjectId
+                If oBeadRows.Count = 1 Then
+                    oBeadRow = oBeadRows.First
+                End If
+            Catch ex As Exception
+                LogUtil.DisplayException(ex, "dB", MethodBase.GetCurrentMethod.Name)
+            End Try
+            Return oBeadRow
+        End Function
+        Public Function AddNewProjectBead(pProjectBead As ProjectBead) As Boolean
+            LogUtil.LogInfo("Adding new project Bead", MethodBase.GetCurrentMethod.Name)
+            Dim isOK As Boolean = True
+            If pProjectBead IsNot Nothing Then
+                Dim oProjectBeadRow As ProjectBeadsRow = oProjectBeadDataTable.NewRow
+                oProjectBeadRow = SetProjectBeadRowValues(pProjectBead, oProjectBeadRow)
+                oProjectBeadDataTable.Rows.Add(oProjectBeadRow)
+            Else
+                LogUtil.Problem("Trying to add null project Bead", MethodBase.GetCurrentMethod.Name)
+                isOK = False
+            End If
+            Return isOK
+        End Function
+        Private Function SetProjectBeadRowValues(pProjectBead As ProjectBead, pProjectBeadRow As ProjectBeadsRow) As ProjectBeadsRow
+            With pProjectBead
+                pProjectBeadRow.project_id = .ProjectId
+                pProjectBeadRow.bead_id = .BeadId
+                pProjectBeadRow.is_used = If(.IsUsed, 1, 0)
+            End With
+            Return pProjectBeadRow
+        End Function
+        'Public Function FindBeads() As List(Of Bead)
+        '    Dim oBeads As New List(Of Bead)
+        '    Dim oBeadRows = From Bead In oBeadDataTable.AsEnumerable()
+        '                    Select Bead
+        '    For Each oRow As BeadsRow In oBeadRows
+        '        oBeads.Add(BeadBuilder.ABead.StartingWith(oRow).Build)
+        '    Next
+        '    Return oBeads
+        'End Function
+        Public Function FindProjectBeads(pProjectId As Integer) As ProjectBeadCollection
+            Dim oProjectBeadCollection As New ProjectBeadCollection
+            Dim oBeadRows = From Bead In oProjectBeadDataTable.AsEnumerable()
+                            Select Bead
+                            Where Bead.project_id = pProjectId
+            For Each oRow As ProjectBeadsRow In oBeadRows
+                oProjectBeadCollection.Add(ProjectBeadBuilder.AProjectBead.StartingWith(oRow).Build)
+            Next
+            Return oProjectBeadCollection
+        End Function
+        Public Function FindBeadsForProject(pProjectId As Integer) As List(Of Bead)
+            Dim oBeadList As New List(Of Bead)
+            Dim oBeadRows = From Bead In oProjectBeadDataTable.AsEnumerable()
+                            Select Bead
+                            Where Bead.project_id = pProjectId
+            For Each oRow As ProjectBeadsRow In oBeadRows
+                oBeadList.Add(FindBeadById(oRow.bead_id))
+            Next
+            Return oBeadList
+        End Function
+        Public Function FindUsedBeadsForProject(pProjectId As Integer, pIsUsed As Boolean) As List(Of Integer)
+            Dim _list As New List(Of Integer)
+            Dim oBeadRows = From Bead In oProjectBeadDataTable.AsEnumerable()
+                            Select Bead
+                            Where Bead.project_id = pProjectId And Bead.is_used = If(pIsUsed, 1, 0)
+            For Each oRow As ProjectBeadsRow In oBeadRows
+                _list.Add(oRow.bead_id)
+            Next
+            Return _list
+        End Function
+        Public Function FindProjectBead(pProjectId As Integer, pBeadId As Integer) As ProjectBead
+            Return ProjectBeadBuilder.AProjectBead.StartingWith(GetProjectBeadByKey(pProjectId, pBeadId)).Build
+        End Function
+        Public Function AmendProjectBeadIsUsed(pBead As ProjectBead) As Boolean
+            '           LogUtil.LogInfo("Changing project Bead is used", MethodBase.GetCurrentMethod.Name)
+            Dim oRow As ProjectBeadsRow = GetProjectBeadByKey(pBead.ProjectId, pBead.BeadId)
+            Dim isOk As Boolean = True
+            If oRow IsNot Nothing Then
+                oRow.is_used = If(pBead.IsUsed, 1, 0)
+            Else
+                LogUtil.Problem("Cannot find project Bead", MethodBase.GetCurrentMethod.Name)
+                isOk = False
+            End If
+            Return isOk
+        End Function
+        Public Sub RemoveProjectBeadsForProject(pProjectId As Integer)
+            LogUtil.LogInfo("Removing all project Beads for project " & CStr(pProjectId), MethodBase.GetCurrentMethod.Name)
+            For Each _projectBead As ProjectBead In FindProjectBeads(pProjectId).Beads
+                RemoveProjectBead(_projectBead)
+            Next
+        End Sub
+#End Region
+
 #Region "Brands"
         Public Function GetBrandsList() As List(Of Brand)
             Dim oBrandList As New List(Of Brand)
@@ -1256,8 +1385,8 @@ Namespace Domain
                 LogUtil.Problem("Trying to remove null Brand", MethodBase.GetCurrentMethod.Name)
             End If
         End Sub
-        Public Function FindBrandById(pProjectId As Integer) As Brand
-            Return BrandBuilder.ABrand.StartingWith(GetBrandRow(pProjectId)).Build
+        Public Function FindBrandById(pBrandId As Integer) As Brand
+            Return BrandBuilder.ABrand.StartingWith(GetBrandRow(pBrandId)).Build
         End Function
         Public Function FindBrandByName(pBrandName As String) As Brand
             Dim oBrand As New Brand

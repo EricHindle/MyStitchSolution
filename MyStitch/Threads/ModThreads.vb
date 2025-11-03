@@ -6,7 +6,6 @@
 '
 
 Imports System.ComponentModel
-Imports System.Windows.Forms
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
@@ -126,6 +125,17 @@ Module ModThreads
         End With
         Return oRow
     End Function
+    Private Function NewProjectBeadRow(pDgv As DataGridView, pBead As Bead, pIsShowStock As Boolean) As DataGridViewRow
+        Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
+        With pBead
+            oRow.Cells("BeadId").Value = .BeadId
+            oRow.Cells("BeadName").Value = .ColourName
+            LoadColourCell(pDgv, oRow, "BeadColour", pBead, pIsShowStock)
+            oRow.Cells("BeadSortNumber").Value = .SortNumber
+            oRow.Cells("BeadNo").Value = .BeadNo
+        End With
+        Return oRow
+    End Function
     Private Function NewCardThreadRow(pDgv As DataGridView, pThread As ProjectCardThread, pIsShowStock As Boolean) As DataGridViewRow
         Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
         With pThread
@@ -150,6 +160,13 @@ Module ModThreads
         oRow.Cells("threadSelected").ReadOnly = pIsUsedThread
         Return oRow.Index
     End Function
+    Public Function AddProjectBeadRow(ByRef pDgv As DataGridView, pBead As Bead, pIsPaletteBead As Boolean, pIsShowStock As Boolean, pIsUsedBead As Boolean) As Integer
+        Dim oRow As DataGridViewRow = NewProjectBeadRow(pDgv, pBead, pIsShowStock)
+        oRow.Cells("BeadSelected").Value = pIsPaletteBead
+        oRow.Cells("BeadSelected").ReadOnly = pIsUsedBead
+        Return oRow.Index
+    End Function
+
     Public Sub AddCardThreadRow(pDgv As DataGridView, oThread As ProjectCardThread)
         AddCardThreadRow(pDgv, oThread, False)
     End Sub

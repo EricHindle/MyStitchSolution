@@ -111,7 +111,6 @@ Public Class FrmProject
         If Not isProjectLoading Then
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
-                _selectedProject = ModDataTableAdapter.FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 'NudDesignHeight.Enabled = False
                 'NudDesignWidth.Enabled = False
                 SetEnabledButtons(True)

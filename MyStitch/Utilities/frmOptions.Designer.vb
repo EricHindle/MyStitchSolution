@@ -40,7 +40,6 @@ Partial Class FrmOptions
         Me.Label19 = New System.Windows.Forms.Label()
         Me.TxtLogFilePath = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.BtnGlobalSettings = New System.Windows.Forms.Button()
         Me.BtnBackup = New System.Windows.Forms.Button()
         Me.BtnHousekeeping = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -305,18 +304,6 @@ Partial Class FrmOptions
         Me.Label12.Size = New System.Drawing.Size(77, 14)
         Me.Label12.TabIndex = 10
         Me.Label12.Text = "Log File Path"
-        '
-        'BtnGlobalSettings
-        '
-        Me.BtnGlobalSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnGlobalSettings.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnGlobalSettings.ForeColor = System.Drawing.Color.RoyalBlue
-        Me.BtnGlobalSettings.Location = New System.Drawing.Point(120, 606)
-        Me.BtnGlobalSettings.Name = "BtnGlobalSettings"
-        Me.BtnGlobalSettings.Size = New System.Drawing.Size(86, 60)
-        Me.BtnGlobalSettings.TabIndex = 12
-        Me.BtnGlobalSettings.Text = "Global Settings"
-        Me.BtnGlobalSettings.UseVisualStyleBackColor = True
         '
         'BtnBackup
         '
@@ -1078,7 +1065,6 @@ Partial Class FrmOptions
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.BtnBackup)
-        Me.Controls.Add(Me.BtnGlobalSettings)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.BtnResetForms)
         Me.Controls.Add(Me.Version)
@@ -1140,7 +1126,6 @@ Partial Class FrmOptions
     Friend WithEvents Version As Label
     Friend WithEvents BtnResetForms As Button
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BtnGlobalSettings As Button
     Friend WithEvents TxtLogFilePath As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents BtnBackup As Button

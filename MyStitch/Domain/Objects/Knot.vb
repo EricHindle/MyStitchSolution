@@ -18,6 +18,17 @@ Namespace Domain.Objects
                 _isBead = value
             End Set
         End Property
+        Public Overloads Property ProjThread() As ProjectThread
+            Get
+                If _thread Is Nothing Then
+                    _thread = If(IsBead, FindProjectBead(_projectId, _threadId), FindProjectThread(_projectId, _threadId))
+                End If
+                Return _thread
+            End Get
+            Set(value As ProjectThread)
+                _thread = value
+            End Set
+        End Property
         Public Sub New()
             Initialise()
             _isBead = False
@@ -36,7 +47,7 @@ Namespace Domain.Objects
             Dim _sb As New StringBuilder
             _sb.Append(If(_isBead, "Bead", "Knot")).Append("=[") _
             .Append("ProjectId=[").Append(CStr(_projectId)).Append("], ") _
-            .Append("ThreadId =[").Append(CStr(_threadId)).Append("], ") _
+            .Append("BeadId =[").Append(CStr(_threadId)).Append("], ") _
             .Append("StitchType =[").Append(_stitchType.ToString).Append("], ") _
             .Append("BlockPosition =[").Append(CStr(_blockPos.X)).Append(",").Append(CStr(_blockPos.Y)).Append("], ") _
             .Append("BlockQuarter =[").Append(_blockQtr.ToString).Append("], ") _

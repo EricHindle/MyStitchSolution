@@ -12,8 +12,8 @@ Imports MyStitch.Domain.Objects
 ''' </summary>
 ''' <remarks></remarks>
 Public NotInheritable Class GlobalSettings
-    Private Shared ReadOnly oTa As New MyStitchDataSetTableAdapters.SettingsTableAdapter
-    Private Shared ReadOnly oTable As New MyStitchDataSet.SettingsDataTable
+    Private Shared ReadOnly oTa As New MyStitchDataTableAdapters.SettingsTableAdapter
+    Private Shared ReadOnly oTable As New MyStitchData.SettingsDataTable
     ''' <summary>
     ''' Get a setting
     ''' </summary>

@@ -135,18 +135,22 @@
     </Compile>
     <Compile Include="Domain\Builders\BeadBuilder.vb" />
     <Compile Include="Domain\Builders\BrandBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectBeadBuilder.vb" />
+    <Compile Include="Domain\Builders\ProjectBeadCollectionBuilder.vb" />
     <Compile Include="Domain\ModDataTableAdapter.vb" />
     <Compile Include="Domain\ModMyStitchClasses.vb" />
     <Compile Include="Domain\Objects\Bead.vb" />
     <Compile Include="Domain\Objects\Brand.vb" />
-    <Compile Include="MyStitchData.Designer.vb">
+    <Compile Include="Domain\MyStitchData.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStitchData.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MyStitchData.vb">
+    <Compile Include="Domain\MyStitchData.vb">
       <DependentUpon>MyStitchData.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Objects\ProjectBead.vb" />
+    <Compile Include="Domain\Objects\ProjectBeadCollection.vb" />
     <Compile Include="Print\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -184,9 +188,6 @@
     <Compile Include="Domain\Builders\StitchBuilder.vb" />
     <Compile Include="Domain\Builders\SymbolBuilder.vb" />
     <Compile Include="Domain\Builders\ThreadBuilder.vb" />
-    <Compile Include="Domain\MyStitchDataSet.vb">
-      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Domain\Objects\BackStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitch.vb" />
     <Compile Include="Domain\Objects\BlockStitchQuarter.vb" />
@@ -220,11 +221,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Domain\MyStitchDataSet.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Print\ModPrint.vb" />
     <Compile Include="Project Files\ModFileHandling.vb" />
@@ -303,12 +299,6 @@
     <Compile Include="Utilities\FrmCriticalError.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\FrmGlobalSettings.designer.vb">
-      <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\FrmGlobalSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Utilities\FrmOptions.Designer.vb">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </Compile>
@@ -333,7 +323,6 @@
     <Compile Include="StartUp\FrmStartUp.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Utilities\GlobalSettings.vb" />
     <Compile Include="Utilities\ModCommon.vb" />
     <Compile Include="Utilities\ModOptions.vb" />
   </ItemGroup>
@@ -409,9 +398,6 @@
       <DependentUpon>FrmCriticalError.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
-      <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmOptions.resx">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </EmbeddedResource>
@@ -438,17 +424,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="Domain\MyStitchDataSet.xsc">
-      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Domain\MyStitchDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MyStitchDataSet.Designer.vb</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Domain\MyStitchDataSet.xss">
-      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\DataSources\" />
@@ -460,15 +435,15 @@
     <None Include="Resources\grid.bmp" />
     <None Include="Resources\footertextimage.bmp" />
     <None Include="Resources\titletextImage.bmp" />
-    <None Include="MyStitchData.xsc">
+    <None Include="Domain\MyStitchData.xsc">
       <DependentUpon>MyStitchData.xsd</DependentUpon>
     </None>
-    <None Include="MyStitchData.xsd">
+    <None Include="Domain\MyStitchData.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MyStitchData.Designer.vb</LastGenOutput>
     </None>
-    <None Include="MyStitchData.xss">
+    <None Include="Domain\MyStitchData.xss">
       <DependentUpon>MyStitchData.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />

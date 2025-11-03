@@ -18,6 +18,8 @@ Namespace Domain.Objects
         Friend _sortNumber As Integer
         Friend _stock_level As Integer
         Friend _brandId As Integer
+        Private _brand As Brand
+
         Public Property BrandId() As Integer
             Get
                 Return _brandId
@@ -74,6 +76,7 @@ Namespace Domain.Objects
                 _threadId = value
             End Set
         End Property
+
 #End Region
 #Region "constructors"
         Private Sub InitialiseThread()
@@ -84,6 +87,7 @@ Namespace Domain.Objects
             _sortNumber = -1
             _stock_level = 0
             _brandId = -1
+            _brand = Nothing
         End Sub
         Public Sub New()
             InitialiseThread()
@@ -101,7 +105,7 @@ Namespace Domain.Objects
             _sortNumber = MakeSortNumber(pNo, pId)
             _stock_level = pStock
             _brandId = pBrandId
-            '          LogUtil.Info(Me.ToString, "Thread")
+            _brand = FindBrandById(_brandId)
         End Sub
 #End Region
 #Region "methods"
@@ -110,8 +114,8 @@ Namespace Domain.Objects
         End Function
         Public Overrides Function ToString() As String
             Dim _sb As New StringBuilder
-            _sb.Append("Thread=[") _
-                .Append("ThreadId=[").Append(CStr(_threadId)).Append("], ") _
+            _sb.Append("Bead=[") _
+                .Append("BeadId=[").Append(CStr(_threadId)).Append("], ") _
                 .Append("threadNo =[").Append(_threadNo).Append("], ") _
                 .Append("Colour name =[").Append(_colourName).Append("], ") _
                 .Append("Sort number =[").Append(_sortNumber).Append("], ") _
@@ -152,6 +156,12 @@ Namespace Domain.Objects
                 .Append(CStr(_stock_level)).Append(STITCH_DELIM) _
                 .Append(CStr(_brandId))
             Return _sb.ToString()
+        End Function
+        Public Function Brand() As Brand
+            If _brand Is Nothing Then
+                _brand = FindBrandById(_brandId)
+            End If
+            Return _brand
         End Function
 #End Region
     End Class

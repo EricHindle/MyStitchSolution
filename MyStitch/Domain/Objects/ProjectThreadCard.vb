@@ -50,7 +50,7 @@ Namespace Domain.Objects
 #Region "methods"
         Public Overrides Function ToString() As String
             Dim _sb As New StringBuilder
-            _sb.Append("Project Thread Card=[") _
+            _sb.Append("Project Bead Card=[") _
                 .Append("ProjectId=[").Append(CStr(_project.ProjectId)).Append("], ") _
                 .Append("CardNo=[").Append(CStr(_cardNo)).Append("]]")
             Return _sb.ToString()

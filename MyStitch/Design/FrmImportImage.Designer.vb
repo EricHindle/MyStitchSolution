@@ -614,7 +614,7 @@ Partial Class FrmImportImage
         Me.GroupBox2.Size = New System.Drawing.Size(169, 72)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Thread selection"
+        Me.GroupBox2.Text = "Bead selection"
         '
         'CbPalettes
         '
