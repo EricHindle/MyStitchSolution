@@ -67,6 +67,7 @@ Public Class FrmBeads
         isLoading = True
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         LoadBeadList(DgvBeads, isShowStock, MyBase.Name)
+        LoadBrandList(CbBrand)
         ClearBeadForm()
         isLoading = False
     End Sub
@@ -80,6 +81,7 @@ Public Class FrmBeads
         TxtB.Text = String.Empty
         Dim _colour As Color = Color.White
         LblColour.BackColor = _colour
+        CbBrand.SelectedIndex = -1
     End Sub
     Private Sub LoadBeadForm(oBead As Bead)
         _selectedBead = oBead
@@ -87,6 +89,7 @@ Public Class FrmBeads
         TxtName.Text = oBead.ColourName
         TxtNumber.Text = CStr(oBead.beadNo)
         Dim _colour As Color = oBead.Colour
+        CbBrand.SelectedValue = oBead.BrandId
         Select Case oBead.StockLevel
             Case < STOCK_NOTMUCH
                 RbNone.Checked = True
@@ -114,6 +117,7 @@ Public Class FrmBeads
                                                     .WithColour(LblColour.BackColor) _
                                                     .WithNumber(TxtNumber.Text) _
                                                     .WithStockLevel(CalcStock) _
+                                                    .WithBrandId(CbBrand.SelectedValue) _
                                                     .Build()
         Return _Bead
     End Function

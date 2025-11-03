@@ -244,9 +244,7 @@ Public Class FrmProject
         '
         '   Test code here
         '
-        Dim oProject As Project = ProjectBuilder.AProject.StartingWithNothing.WithName("Testing").Build
-        AddNewProject(oProject)
-        MsgBox("Test complete", MsgBoxStyle.Information, "Test")
+
     End Sub
 
 #End Region

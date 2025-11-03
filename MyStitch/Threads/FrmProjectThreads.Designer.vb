@@ -35,6 +35,8 @@ Partial Class FrmProjectThreads
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmProjectThreads))
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.DgvProjects = New System.Windows.Forms.DataGridView()
@@ -44,14 +46,13 @@ Partial Class FrmProjectThreads
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.BtnAddThreads = New System.Windows.Forms.Button()
         Me.BtnClear = New System.Windows.Forms.Button()
         Me.BtnGenerateCards = New System.Windows.Forms.Button()
         Me.PnlThreads = New System.Windows.Forms.Panel()
@@ -70,10 +71,26 @@ Partial Class FrmProjectThreads
         Me.Label3 = New System.Windows.Forms.Label()
         Me.BtnLoadPalette = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PnlBeads = New System.Windows.Forms.Panel()
+        Me.DgvBeads = New System.Windows.Forms.DataGridView()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.BeadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BeadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BeadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BeadSort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BeadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.beadSelected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.PnlThreads.SuspendLayout()
+        Me.PnlBeads.SuspendLayout()
+        CType(Me.DgvBeads, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label7
@@ -140,7 +157,7 @@ Partial Class FrmProjectThreads
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(265, 203)
+        Me.DgvProjects.Size = New System.Drawing.Size(265, 259)
         Me.DgvProjects.TabIndex = 17
         '
         'projectId
@@ -167,7 +184,7 @@ Partial Class FrmProjectThreads
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(570, 505)
+        Me.BtnClose.Location = New System.Drawing.Point(570, 561)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 31)
@@ -194,7 +211,7 @@ Partial Class FrmProjectThreads
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.threadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -215,7 +232,7 @@ Partial Class FrmProjectThreads
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(347, 349)
+        Me.DgvThreads.Size = New System.Drawing.Size(338, 275)
         Me.DgvThreads.TabIndex = 2
         '
         'threadId
@@ -235,11 +252,11 @@ Partial Class FrmProjectThreads
         '
         'ThreadNo
         '
-        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "ThreadNo"
-        Me.ThreadNo.ReadOnly = True
-        Me.ThreadNo.Width = 50
+        Me.threadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadNo.HeaderText = "No."
+        Me.threadNo.Name = "threadNo"
+        Me.threadNo.ReadOnly = True
+        Me.threadNo.Width = 50
         '
         'threadSortNumber
         '
@@ -273,7 +290,7 @@ Partial Class FrmProjectThreads
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(17, 455)
+        Me.BtnUpdate.Location = New System.Drawing.Point(17, 511)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
         Me.BtnUpdate.Size = New System.Drawing.Size(161, 37)
@@ -284,7 +301,7 @@ Partial Class FrmProjectThreads
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 545)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 601)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(663, 22)
         Me.StatusStrip1.TabIndex = 16
@@ -295,22 +312,6 @@ Partial Class FrmProjectThreads
         Me.LblStatus.Name = "LblStatus"
         Me.LblStatus.Size = New System.Drawing.Size(0, 17)
         '
-        'BtnAddThreads
-        '
-        Me.BtnAddThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnAddThreads.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BtnAddThreads.FlatAppearance.BorderColor = System.Drawing.Color.Black
-        Me.BtnAddThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnAddThreads.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnAddThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAddThreads.Location = New System.Drawing.Point(173, 7)
-        Me.BtnAddThreads.Margin = New System.Windows.Forms.Padding(4)
-        Me.BtnAddThreads.Name = "BtnAddThreads"
-        Me.BtnAddThreads.Size = New System.Drawing.Size(158, 29)
-        Me.BtnAddThreads.TabIndex = 1
-        Me.BtnAddThreads.Text = "Add Missing Threads"
-        Me.BtnAddThreads.UseVisualStyleBackColor = False
-        '
         'BtnClear
         '
         Me.BtnClear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -319,7 +320,7 @@ Partial Class FrmProjectThreads
         Me.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClear.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClear.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClear.Location = New System.Drawing.Point(17, 264)
+        Me.BtnClear.Location = New System.Drawing.Point(17, 320)
         Me.BtnClear.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClear.Name = "BtnClear"
         Me.BtnClear.Size = New System.Drawing.Size(86, 42)
@@ -335,7 +336,7 @@ Partial Class FrmProjectThreads
         Me.BtnGenerateCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnGenerateCards.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGenerateCards.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnGenerateCards.Location = New System.Drawing.Point(391, 455)
+        Me.BtnGenerateCards.Location = New System.Drawing.Point(391, 511)
         Me.BtnGenerateCards.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnGenerateCards.Name = "BtnGenerateCards"
         Me.BtnGenerateCards.Size = New System.Drawing.Size(161, 37)
@@ -348,12 +349,11 @@ Partial Class FrmProjectThreads
         Me.PnlThreads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PnlThreads.Controls.Add(Me.BtnAddThreads)
         Me.PnlThreads.Controls.Add(Me.DgvThreads)
         Me.PnlThreads.Controls.Add(Me.Label7)
-        Me.PnlThreads.Location = New System.Drawing.Point(289, 12)
+        Me.PnlThreads.Location = New System.Drawing.Point(3, 3)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(361, 394)
+        Me.PnlThreads.Size = New System.Drawing.Size(352, 320)
         Me.PnlThreads.TabIndex = 0
         Me.PnlThreads.Visible = False
         '
@@ -361,7 +361,7 @@ Partial Class FrmProjectThreads
         '
         Me.TxtNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtNumber.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtNumber.Location = New System.Drawing.Point(547, 413)
+        Me.TxtNumber.Location = New System.Drawing.Point(547, 469)
         Me.TxtNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtNumber.Name = "TxtNumber"
         Me.TxtNumber.Size = New System.Drawing.Size(73, 27)
@@ -372,7 +372,7 @@ Partial Class FrmProjectThreads
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.Label1.Location = New System.Drawing.Point(507, 419)
+        Me.Label1.Location = New System.Drawing.Point(507, 475)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(33, 17)
         Me.Label1.TabIndex = 21
@@ -383,7 +383,7 @@ Partial Class FrmProjectThreads
         Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkShowStock.AutoSize = True
         Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkShowStock.Location = New System.Drawing.Point(299, 418)
+        Me.ChkShowStock.Location = New System.Drawing.Point(299, 474)
         Me.ChkShowStock.Name = "ChkShowStock"
         Me.ChkShowStock.Size = New System.Drawing.Size(118, 18)
         Me.ChkShowStock.TabIndex = 10
@@ -394,7 +394,7 @@ Partial Class FrmProjectThreads
         '
         Me.TxtPaletteList.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TxtPaletteList.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtPaletteList.Location = New System.Drawing.Point(17, 341)
+        Me.TxtPaletteList.Location = New System.Drawing.Point(17, 397)
         Me.TxtPaletteList.Name = "TxtPaletteList"
         Me.TxtPaletteList.Size = New System.Drawing.Size(178, 20)
         Me.TxtPaletteList.TabIndex = 4
@@ -407,7 +407,7 @@ Partial Class FrmProjectThreads
         Me.BtnPaletteList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPaletteList.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPaletteList.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPaletteList.Location = New System.Drawing.Point(203, 264)
+        Me.BtnPaletteList.Location = New System.Drawing.Point(203, 320)
         Me.BtnPaletteList.Name = "BtnPaletteList"
         Me.BtnPaletteList.Size = New System.Drawing.Size(75, 42)
         Me.BtnPaletteList.TabIndex = 3
@@ -421,7 +421,7 @@ Partial Class FrmProjectThreads
         Me.BtnCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnCopy.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnCopy.Image = CType(resources.GetObject("BtnCopy.Image"), System.Drawing.Image)
-        Me.BtnCopy.Location = New System.Drawing.Point(141, 318)
+        Me.BtnCopy.Location = New System.Drawing.Point(141, 374)
         Me.BtnCopy.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnCopy.Name = "BtnCopy"
         Me.BtnCopy.Size = New System.Drawing.Size(21, 21)
@@ -436,7 +436,7 @@ Partial Class FrmProjectThreads
         Me.BtnPaste.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPaste.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPaste.Image = Global.MyStitch.My.Resources.Resources.paste
-        Me.BtnPaste.Location = New System.Drawing.Point(164, 318)
+        Me.BtnPaste.Location = New System.Drawing.Point(164, 374)
         Me.BtnPaste.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnPaste.Name = "BtnPaste"
         Me.BtnPaste.Size = New System.Drawing.Size(21, 21)
@@ -452,7 +452,7 @@ Partial Class FrmProjectThreads
         Me.BtnSelAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSelAll.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSelAll.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSelAll.Location = New System.Drawing.Point(119, 264)
+        Me.BtnSelAll.Location = New System.Drawing.Point(119, 320)
         Me.BtnSelAll.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSelAll.Name = "BtnSelAll"
         Me.BtnSelAll.Size = New System.Drawing.Size(68, 42)
@@ -465,7 +465,7 @@ Partial Class FrmProjectThreads
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(15, 325)
+        Me.Label2.Location = New System.Drawing.Point(15, 381)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(86, 13)
         Me.Label2.TabIndex = 19
@@ -478,7 +478,7 @@ Partial Class FrmProjectThreads
         Me.BtnLoadThreadList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnLoadThreadList.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnLoadThreadList.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnLoadThreadList.Location = New System.Drawing.Point(201, 337)
+        Me.BtnLoadThreadList.Location = New System.Drawing.Point(201, 393)
         Me.BtnLoadThreadList.Name = "BtnLoadThreadList"
         Me.BtnLoadThreadList.Size = New System.Drawing.Size(81, 27)
         Me.BtnLoadThreadList.TabIndex = 5
@@ -493,7 +493,7 @@ Partial Class FrmProjectThreads
         Me.BtnAssignSymbols.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAssignSymbols.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAssignSymbols.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAssignSymbols.Location = New System.Drawing.Point(204, 455)
+        Me.BtnAssignSymbols.Location = New System.Drawing.Point(204, 511)
         Me.BtnAssignSymbols.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAssignSymbols.Name = "BtnAssignSymbols"
         Me.BtnAssignSymbols.Size = New System.Drawing.Size(161, 37)
@@ -505,7 +505,7 @@ Partial Class FrmProjectThreads
         '
         Me.CbPalettes.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CbPalettes.FormattingEnabled = True
-        Me.CbPalettes.Location = New System.Drawing.Point(18, 388)
+        Me.CbPalettes.Location = New System.Drawing.Point(18, 444)
         Me.CbPalettes.Name = "CbPalettes"
         Me.CbPalettes.Size = New System.Drawing.Size(177, 21)
         Me.CbPalettes.TabIndex = 8
@@ -515,7 +515,7 @@ Partial Class FrmProjectThreads
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(18, 372)
+        Me.Label3.Location = New System.Drawing.Point(18, 428)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(46, 13)
         Me.Label3.TabIndex = 20
@@ -528,18 +528,155 @@ Partial Class FrmProjectThreads
         Me.BtnLoadPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnLoadPalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnLoadPalette.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnLoadPalette.Location = New System.Drawing.Point(201, 384)
+        Me.BtnLoadPalette.Location = New System.Drawing.Point(201, 440)
         Me.BtnLoadPalette.Name = "BtnLoadPalette"
         Me.BtnLoadPalette.Size = New System.Drawing.Size(81, 27)
         Me.BtnLoadPalette.TabIndex = 9
         Me.BtnLoadPalette.Text = "Load Palette"
         Me.BtnLoadPalette.UseVisualStyleBackColor = False
         '
+        'PnlBeads
+        '
+        Me.PnlBeads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlBeads.Controls.Add(Me.DgvBeads)
+        Me.PnlBeads.Controls.Add(Me.Label4)
+        Me.PnlBeads.Location = New System.Drawing.Point(3, 3)
+        Me.PnlBeads.Name = "PnlBeads"
+        Me.PnlBeads.Size = New System.Drawing.Size(352, 112)
+        Me.PnlBeads.TabIndex = 22
+        Me.PnlBeads.Visible = False
+        '
+        'DgvBeads
+        '
+        Me.DgvBeads.AllowUserToAddRows = False
+        Me.DgvBeads.AllowUserToDeleteRows = False
+        Me.DgvBeads.AllowUserToResizeRows = False
+        Me.DgvBeads.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvBeads.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBeads.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvBeads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.DgvBeads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvBeads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.BeadId, Me.BeadName, Me.BeadNo, Me.BeadSort, Me.BeadColour, Me.beadSelected})
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DgvBeads.DefaultCellStyle = DataGridViewCellStyle6
+        Me.DgvBeads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.DgvBeads.Location = New System.Drawing.Point(10, 41)
+        Me.DgvBeads.Margin = New System.Windows.Forms.Padding(4)
+        Me.DgvBeads.MultiSelect = False
+        Me.DgvBeads.Name = "DgvBeads"
+        Me.DgvBeads.RowHeadersVisible = False
+        Me.DgvBeads.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(250, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.DgvBeads.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.DgvBeads.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray
+        Me.DgvBeads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBeads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.DgvBeads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DgvBeads.Size = New System.Drawing.Size(338, 67)
+        Me.DgvBeads.TabIndex = 2
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(9, 10)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(69, 23)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "BEADS"
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer1.Location = New System.Drawing.Point(289, 12)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.PnlThreads)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.PnlBeads)
+        Me.SplitContainer1.Size = New System.Drawing.Size(362, 456)
+        Me.SplitContainer1.SplitterDistance = 330
+        Me.SplitContainer1.TabIndex = 23
+        '
+        'BeadId
+        '
+        Me.BeadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.BeadId.HeaderText = "Id"
+        Me.BeadId.Name = "BeadId"
+        Me.BeadId.ReadOnly = True
+        Me.BeadId.Visible = False
+        '
+        'BeadName
+        '
+        Me.BeadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.BeadName.HeaderText = "Name"
+        Me.BeadName.Name = "BeadName"
+        Me.BeadName.ReadOnly = True
+        '
+        'BeadNo
+        '
+        Me.BeadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.BeadNo.HeaderText = "No."
+        Me.BeadNo.Name = "BeadNo"
+        Me.BeadNo.ReadOnly = True
+        Me.BeadNo.Width = 50
+        '
+        'BeadSort
+        '
+        Me.BeadSort.HeaderText = "Sort"
+        Me.BeadSort.Name = "BeadSort"
+        Me.BeadSort.ReadOnly = True
+        Me.BeadSort.Visible = False
+        '
+        'BeadColour
+        '
+        Me.BeadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.BeadColour.HeaderText = "Colour"
+        Me.BeadColour.Name = "BeadColour"
+        Me.BeadColour.ReadOnly = True
+        Me.BeadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.BeadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.BeadColour.Width = 60
+        '
+        'beadSelected
+        '
+        Me.beadSelected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.beadSelected.HeaderText = ""
+        Me.beadSelected.Name = "beadSelected"
+        Me.beadSelected.Width = 30
+        '
         'FrmProjectThreads
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(663, 567)
+        Me.ClientSize = New System.Drawing.Size(663, 623)
+        Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.BtnLoadPalette)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.CbPalettes)
@@ -554,7 +691,6 @@ Partial Class FrmProjectThreads
         Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TxtNumber)
-        Me.Controls.Add(Me.PnlThreads)
         Me.Controls.Add(Me.BtnGenerateCards)
         Me.Controls.Add(Me.BtnClear)
         Me.Controls.Add(Me.StatusStrip1)
@@ -571,6 +707,13 @@ Partial Class FrmProjectThreads
         Me.StatusStrip1.PerformLayout()
         Me.PnlThreads.ResumeLayout(False)
         Me.PnlThreads.PerformLayout()
+        Me.PnlBeads.ResumeLayout(False)
+        Me.PnlBeads.PerformLayout()
+        CType(Me.DgvBeads, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -585,7 +728,6 @@ Partial Class FrmProjectThreads
     Friend WithEvents DgvThreads As DataGridView
     Friend WithEvents BtnUpdate As Button
     Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents BtnAddThreads As Button
     Friend WithEvents LblStatus As ToolStripStatusLabel
     Friend WithEvents BtnClear As Button
     Friend WithEvents BtnGenerateCards As Button
@@ -594,7 +736,7 @@ Partial Class FrmProjectThreads
     Friend WithEvents Label1 As Label
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
-    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
+    Friend WithEvents threadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadselected As DataGridViewCheckBoxColumn
@@ -611,4 +753,14 @@ Partial Class FrmProjectThreads
     Friend WithEvents Label3 As Label
     Friend WithEvents BtnLoadPalette As Button
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents PnlBeads As Panel
+    Friend WithEvents DgvBeads As DataGridView
+    Friend WithEvents Label4 As Label
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents BeadId As DataGridViewTextBoxColumn
+    Friend WithEvents BeadName As DataGridViewTextBoxColumn
+    Friend WithEvents BeadNo As DataGridViewTextBoxColumn
+    Friend WithEvents BeadSort As DataGridViewTextBoxColumn
+    Friend WithEvents BeadColour As DataGridViewImageColumn
+    Friend WithEvents beadSelected As DataGridViewCheckBoxColumn
 End Class

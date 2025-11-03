@@ -6,6 +6,7 @@
 '
 
 Imports System.ComponentModel
+Imports System.Windows.Forms
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
@@ -29,15 +30,36 @@ Module ModThreads
         pDgv.Sort(pDgv.Columns("threadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
+    Friend Sub LoadBrandList(pBrandList As ComboBox)
+        pBrandList.DataSource = GetBrandsList()
+        pBrandList.DisplayMember = "BrandName"
+        pBrandList.ValueMember = "BrandId"
+        pBrandList.SelectedIndex = -1
+    End Sub
     Public Sub LoadBeadList(ByRef pDgv As DataGridView, pIsShowStock As Boolean, pBaseName As String)
         LogUtil.LogInfo("Load ProjectBead list", pBaseName)
         pDgv.Rows.Clear()
-        'For Each oBead As Bead In FindBeads()
-        '    AddProjectBeadRow(pDgv, oBead, pIsShowStock)
-        'Next
+        For Each oBead As Bead In FindBeads()
+            AddBeadRow(pDgv, oBead, pIsShowStock)
+        Next
         pDgv.Sort(pDgv.Columns("BeadSortNumber"), ListSortDirection.Ascending)
         pDgv.ClearSelection()
     End Sub
+    Public Function AddBeadRow(ByRef pDgv As DataGridView, pBead As Bead, pIsShowStock As Boolean) As Integer
+        Dim oRow As DataGridViewRow = NewBeadRow(pDgv, pBead, pIsShowStock)
+        Return oRow.Index
+    End Function
+    Private Function NewBeadRow(pDgv As DataGridView, pBead As Bead, pIsShowStock As Boolean) As DataGridViewRow
+        Dim oRow As DataGridViewRow = pDgv.Rows(pDgv.Rows.Add())
+        With pBead
+            oRow.Cells("BeadId").Value = .beadId
+            oRow.Cells("BeadName").Value = .ColourName
+            LoadColourCell(pDgv, oRow, "beadColour", pBead, pIsShowStock)
+            oRow.Cells("beadSortNumber").Value = .SortNumber
+            oRow.Cells("beadNo").Value = .BeadNo
+        End With
+        Return oRow
+    End Function
     Public Sub LoadBrandList(ByRef pDgv As DataGridView, pBaseName As String)
         LogUtil.LogInfo("Load Brand list", pBaseName)
         pDgv.Rows.Clear()

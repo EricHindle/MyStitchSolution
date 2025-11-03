@@ -66,6 +66,7 @@ Public Class FrmThread
         isLoading = True
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         LoadThreadList(DgvThreads, isShowStock, MyBase.Name)
+        LoadBrandList(CbBrand)
         ClearThreadForm()
         isLoading = False
     End Sub
@@ -79,12 +80,14 @@ Public Class FrmThread
         TxtB.Text = String.Empty
         Dim _colour As Color = Color.White
         LblColour.BackColor = _colour
+        CbBrand.SelectedIndex = -1
     End Sub
     Private Sub LoadThreadForm(oThread As Thread)
         _selectedThread = oThread
         LblId.Text = _selectedThread.ThreadId
         TxtName.Text = oThread.ColourName
         TxtNumber.Text = CStr(oThread.ThreadNo)
+        CbBrand.SelectedValue = oThread.BrandId
         Dim _colour As Color = oThread.Colour
         Select Case oThread.StockLevel
             Case < STOCK_NOTMUCH
@@ -113,6 +116,7 @@ Public Class FrmThread
                                                     .WithColour(LblColour.BackColor) _
                                                     .WithNumber(TxtNumber.Text) _
                                                     .WithStockLevel(CalcStock) _
+                                                    .WithBrandId(CbBrand.SelectedValue) _
                                                     .Build()
         Return _Thread
     End Function

@@ -14,6 +14,15 @@ Public Class FrmProjectThreads
 #Region "properties"
     Private _selectedProject As Project
     Private _usedThreads As List(Of Integer)
+    Private _usedBeads As List(Of Integer)
+    Public Property UsedBeads() As List(Of Integer)
+        Get
+            Return _usedBeads
+        End Get
+        Set(ByVal value As List(Of Integer))
+            _usedBeads = value
+        End Set
+    End Property
     Public Property UsedThreads() As List(Of Integer)
         Get
             Return _usedThreads
@@ -58,10 +67,13 @@ Public Class FrmProjectThreads
             If DgvProjects.SelectedRows.Count = 1 Then
                 _selectedProject = FindProjectById(DgvProjects.SelectedRows(0).Cells(projectId.Name).Value)
                 UsedThreads = FindUsedThreadsForProject(_selectedProject.ProjectId, True)
+                UsedBeads = FindUsedBeadsForProject(_selectedProject.ProjectId, True)
                 PnlThreads.Visible = True
+                PnlBeads.Visible = True
             Else
                 _selectedProject = ProjectBuilder.AProject.StartingWithNothing.Build
                 PnlThreads.Visible = False
+                PnlBeads.Visible = False
             End If
             LoadThreadList()
         End If
@@ -135,6 +147,30 @@ Public Class FrmProjectThreads
             '       DgvThreads.Rows(_index).Cells(threadselected.Name).Value = False
         Next
         DgvThreads.ClearSelection()
+    End Sub
+    Private Sub LoadBeadList()
+        LogUtil.LogInfo("Load ProjectBead list", MyBase.Name)
+        Dim _paletteBeadList As List(Of Bead) = FindBeadsForProject(_selectedProject.ProjectId)
+        Dim _Beads As List(Of Bead) = FindBeads()
+        Dim _unselectedBeads As New List(Of Bead)
+        For Each oBead As Bead In _Beads
+            If Not _paletteBeadList.Exists(Function(aBead As Bead) aBead.BeadId = oBead.BeadId) Then
+                _unselectedBeads.Add(oBead)
+            End If
+        Next
+        DgvBeads.Rows.Clear()
+        _paletteBeadList.Sort(Function(x As Bead, y As Bead) x.SortNumber.CompareTo(y.SortNumber))
+        _unselectedBeads.Sort(Function(x As Bead, y As Bead) x.SortNumber.CompareTo(y.SortNumber))
+        For Each oBead As Bead In _paletteBeadList
+            Dim _isUsedBead As Boolean = UsedBeads.Exists(Function(p) p = oBead.BeadId)
+            Dim _index = AddProjectBeadRow(DgvBeads, oBead, True, isShowStock, _isUsedBead)
+            '       DgvBeads.Rows(_index).Cells(Beadselected.Name).Value = True
+        Next
+        For Each oBead As Bead In _unselectedBeads
+            Dim _index = AddProjectBeadRow(DgvBeads, oBead, False, isShowStock, False)
+            '       DgvBeads.Rows(_index).Cells(Beadselected.Name).Value = False
+        Next
+        DgvBeads.ClearSelection()
     End Sub
     Private Sub AddProjectRow(oProject As Project)
         Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
@@ -308,6 +344,7 @@ Public Class FrmProjectThreads
             LogUtil.ShowStatus("No palette selected", LblStatus, True)
         End If
     End Sub
+
 #End Region
 
 End Class

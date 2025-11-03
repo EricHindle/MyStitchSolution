@@ -11,13 +11,13 @@ Namespace Domain.Objects
     Public Class Thread
 
 #Region "properties"
-        Private _threadId As Integer
-        Private _threadNo As String
-        Private _colourName As String
-        Private _colour As Color
-        Private _sortNumber As Integer
-        Private _stock_level As Integer
-        Private _brandId As Integer
+        Friend _threadId As Integer
+        Friend _threadNo As String
+        Friend _colourName As String
+        Friend _colour As Color
+        Friend _sortNumber As Integer
+        Friend _stock_level As Integer
+        Friend _brandId As Integer
         Public Property BrandId() As Integer
             Get
                 Return _brandId
@@ -112,7 +112,7 @@ Namespace Domain.Objects
             Dim _sb As New StringBuilder
             _sb.Append("Thread=[") _
                 .Append("ThreadId=[").Append(CStr(_threadId)).Append("], ") _
-                .Append("ThreadNo =[").Append(_threadNo).Append("], ") _
+                .Append("threadNo =[").Append(_threadNo).Append("], ") _
                 .Append("Colour name =[").Append(_colourName).Append("], ") _
                 .Append("Sort number =[").Append(_sortNumber).Append("], ") _
                 .Append("Stock level =[").Append(CStr(_stock_level)) _

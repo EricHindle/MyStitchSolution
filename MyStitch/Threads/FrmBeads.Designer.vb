@@ -63,15 +63,17 @@ Partial Class FrmBeads
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TxtNumber = New System.Windows.Forms.TextBox()
         Me.DgvBeads = New System.Windows.Forms.DataGridView()
-        Me.BtnDelete = New System.Windows.Forms.Button()
-        Me.PnlForm = New System.Windows.Forms.Panel()
-        Me.BtnNew = New System.Windows.Forms.Button()
-        Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.beadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.beadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.beadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.beadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.beadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BtnDelete = New System.Windows.Forms.Button()
+        Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.BtnNew = New System.Windows.Forms.Button()
+        Me.BtnUpdate = New System.Windows.Forms.Button()
+        Me.CbBrand = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.GrpStock.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -446,6 +448,46 @@ Partial Class FrmBeads
         Me.DgvBeads.Size = New System.Drawing.Size(289, 413)
         Me.DgvBeads.TabIndex = 137
         '
+        'beadId
+        '
+        Me.beadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.beadId.HeaderText = "Id"
+        Me.beadId.Name = "beadId"
+        Me.beadId.ReadOnly = True
+        Me.beadId.Visible = False
+        '
+        'beadName
+        '
+        Me.beadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.beadName.HeaderText = "Name"
+        Me.beadName.Name = "beadName"
+        Me.beadName.ReadOnly = True
+        '
+        'beadNo
+        '
+        Me.beadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.beadNo.HeaderText = "No."
+        Me.beadNo.Name = "beadNo"
+        Me.beadNo.ReadOnly = True
+        Me.beadNo.Width = 50
+        '
+        'beadColour
+        '
+        Me.beadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.beadColour.HeaderText = "Colour"
+        Me.beadColour.Name = "beadColour"
+        Me.beadColour.ReadOnly = True
+        Me.beadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.beadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.beadColour.Width = 60
+        '
+        'beadSortNumber
+        '
+        Me.beadSortNumber.HeaderText = ""
+        Me.beadSortNumber.Name = "beadSortNumber"
+        Me.beadSortNumber.ReadOnly = True
+        Me.beadSortNumber.Visible = False
+        '
         'BtnDelete
         '
         Me.BtnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
@@ -464,6 +506,8 @@ Partial Class FrmBeads
         'PnlForm
         '
         Me.PnlForm.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlForm.Controls.Add(Me.Label2)
+        Me.PnlForm.Controls.Add(Me.CbBrand)
         Me.PnlForm.Controls.Add(Me.GrpStock)
         Me.PnlForm.Controls.Add(Me.BtnFind)
         Me.PnlForm.Controls.Add(Me.GroupBox1)
@@ -516,45 +560,27 @@ Partial Class FrmBeads
         Me.BtnUpdate.Text = "Update"
         Me.BtnUpdate.UseVisualStyleBackColor = False
         '
-        'beadId
+        'CbBrand
         '
-        Me.beadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.beadId.HeaderText = "Id"
-        Me.beadId.Name = "beadId"
-        Me.beadId.ReadOnly = True
-        Me.beadId.Visible = False
+        Me.CbBrand.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbBrand.FormattingEnabled = True
+        Me.CbBrand.Location = New System.Drawing.Point(96, 294)
+        Me.CbBrand.Name = "CbBrand"
+        Me.CbBrand.Size = New System.Drawing.Size(121, 27)
+        Me.CbBrand.TabIndex = 135
         '
-        'beadName
+        'Label2
         '
-        Me.beadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.beadName.HeaderText = "Name"
-        Me.beadName.Name = "beadName"
-        Me.beadName.ReadOnly = True
-        '
-        'beadNo
-        '
-        Me.beadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.beadNo.HeaderText = "No."
-        Me.beadNo.Name = "beadNo"
-        Me.beadNo.ReadOnly = True
-        Me.beadNo.Width = 50
-        '
-        'beadColour
-        '
-        Me.beadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.beadColour.HeaderText = "Colour"
-        Me.beadColour.Name = "beadColour"
-        Me.beadColour.ReadOnly = True
-        Me.beadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.beadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.beadColour.Width = 60
-        '
-        'beadSortNumber
-        '
-        Me.beadSortNumber.HeaderText = ""
-        Me.beadSortNumber.Name = "beadSortNumber"
-        Me.beadSortNumber.ReadOnly = True
-        Me.beadSortNumber.Visible = False
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label2.Location = New System.Drawing.Point(17, 297)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(50, 19)
+        Me.Label2.TabIndex = 136
+        Me.Label2.Text = "Brand"
         '
         'FrmBeads
         '
@@ -627,4 +653,6 @@ Partial Class FrmBeads
     Friend WithEvents beadNo As DataGridViewTextBoxColumn
     Friend WithEvents beadColour As DataGridViewImageColumn
     Friend WithEvents beadSortNumber As DataGridViewTextBoxColumn
+    Friend WithEvents Label2 As Label
+    Friend WithEvents CbBrand As ComboBox
 End Class

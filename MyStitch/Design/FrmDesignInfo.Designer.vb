@@ -215,7 +215,7 @@ Partial Class FrmDesignInfo
         '
         Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "ThreadNo"
+        Me.ThreadNo.Name = "threadNo"
         Me.ThreadNo.ReadOnly = True
         Me.ThreadNo.Width = 50
         '

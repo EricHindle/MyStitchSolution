@@ -524,6 +524,7 @@ Namespace Domain
                 pThreadRow.thread_colour = .Colour.ToArgb
                 pThreadRow.thread_colour_name = If(.ColourName, "")
                 pThreadRow.stock_level = .StockLevel
+                pThreadRow.brand_id = .BrandId
             End With
             Return pThreadRow
         End Function
@@ -1093,6 +1094,15 @@ Namespace Domain
             Next
             Return oBeadList
         End Function
+        Public Function FindBeads() As List(Of Bead)
+            Dim oBeads As New List(Of Bead)
+            Dim oBeadRows = From Bead In oBeadDataTable.AsEnumerable()
+                            Select Bead
+            For Each oRow As BeadsRow In oBeadRows
+                oBeads.Add(BeadBuilder.ABead.StartingWith(oRow).Build)
+            Next
+            Return oBeads
+        End Function
         Public Function FindBeadById(pProjectId As Integer) As Bead
             Return BeadBuilder.ABead.StartingWith(GetBeadRow(pProjectId)).Build
         End Function
@@ -1148,6 +1158,7 @@ Namespace Domain
                 pBeadRow.bead_colour = .Colour.ToArgb
                 pBeadRow.bead_colour_name = If(.ColourName, "")
                 pBeadRow.stock_level = .StockLevel
+                pBeadRow.brand_id = .BrandId
             End With
             Return pBeadRow
         End Function
@@ -1175,6 +1186,13 @@ Namespace Domain
         End Function
 #End Region
 #Region "Brands"
+        Public Function GetBrandsList() As List(Of Brand)
+            Dim oBrandList As New List(Of Brand)
+            For Each oRow As BrandsRow In oBrandDataTable.Rows
+                oBrandList.Add(BrandBuilder.ABrand.StartingWith(oRow).Build)
+            Next
+            Return oBrandList
+        End Function
         Public Function AddNewBrand(pBrand As String) As Boolean
             LogUtil.LogInfo("Adding new brand", MethodBase.GetCurrentMethod.Name)
             Dim isOK As Boolean = True
