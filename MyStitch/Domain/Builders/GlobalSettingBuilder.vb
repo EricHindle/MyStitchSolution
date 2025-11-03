@@ -6,7 +6,7 @@
 '
 
 Imports MyStitch.Domain.Objects
-Imports MyStitch.MyStitchData
+Imports MyStitch.MyStitchDataSet
 Namespace Domain.Builders
     Public Class GlobalSettingBuilder
 #Region "variables"

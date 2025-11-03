@@ -6,7 +6,6 @@
 '
 
 Imports System.Drawing.Imaging
-Imports System.IO
 Imports System.Reflection
 Imports HindlewareLib.Imaging
 Imports HindlewareLib.Logging

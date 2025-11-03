@@ -139,18 +139,18 @@
     <Compile Include="Domain\Builders\ProjectBeadCollectionBuilder.vb" />
     <Compile Include="Domain\ModDataTableAdapter.vb" />
     <Compile Include="Domain\ModMyStitchClasses.vb" />
+    <Compile Include="Domain\MyStitchDataSet.vb">
+      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Objects\Bead.vb" />
     <Compile Include="Domain\Objects\Brand.vb" />
-    <Compile Include="Domain\MyStitchData.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyStitchData.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\MyStitchData.vb">
-      <DependentUpon>MyStitchData.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Domain\Objects\ProjectBead.vb" />
     <Compile Include="Domain\Objects\ProjectBeadCollection.vb" />
+    <Compile Include="Domain\MyStitchDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Print\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -431,21 +431,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Domain\MyStitchDataSet.xsc">
+      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Domain\MyStitchDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MyStitchDataSet.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Domain\MyStitchDataSet.xss">
+      <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Resources\Text.png" />
     <None Include="Resources\grid.bmp" />
     <None Include="Resources\footertextimage.bmp" />
     <None Include="Resources\titletextImage.bmp" />
-    <None Include="Domain\MyStitchData.xsc">
-      <DependentUpon>MyStitchData.xsd</DependentUpon>
-    </None>
-    <None Include="Domain\MyStitchData.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MyStitchData.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="Domain\MyStitchData.xss">
-      <DependentUpon>MyStitchData.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Resources\critical.png" />
     <None Include="Resources\paste.png" />

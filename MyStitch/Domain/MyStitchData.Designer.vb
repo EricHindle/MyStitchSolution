@@ -16,45 +16,45 @@ Option Explicit On
 '''<summary>
 '''Represents a strongly typed in-memory cache of data.
 '''</summary>
-<Global.System.Serializable(),
- Global.System.ComponentModel.DesignerCategoryAttribute("code"),
- Global.System.ComponentModel.ToolboxItem(True),
- Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),
- Global.System.Xml.Serialization.XmlRootAttribute("MyStitchData"),
- Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>
+<Global.System.Serializable(),  _
+ Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+ Global.System.ComponentModel.ToolboxItem(true),  _
+ Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("MyStitchData"),  _
+ Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
 Partial Public Class MyStitchData
     Inherits Global.System.Data.DataSet
-
+    
     Private tableProjectCardThread As ProjectCardThreadDataTable
-
+    
     Private tableProjects As ProjectsDataTable
-
+    
     Private tableProjectThreadCards As ProjectThreadCardsDataTable
-
+    
     Private tableProjectThreads As ProjectThreadsDataTable
-
+    
     Private tableThreads As ThreadsDataTable
-
+    
     Private tableSettings As SettingsDataTable
-
+    
     Private tableSymbols As SymbolsDataTable
-
+    
     Private tableProjectWorkTimes As ProjectWorkTimesDataTable
-
+    
     Private tablePalettes As PalettesDataTable
-
+    
     Private tablePaletteThreads As PaletteThreadsDataTable
-
+    
     Private tableBeads As BeadsDataTable
-
+    
     Private tableBrands As BrandsDataTable
-
+    
     Private tableProjectBeads As ProjectBeadsDataTable
-
+    
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Sub New()
         MyBase.New
         Me.BeginInit
@@ -64,19 +64,19 @@ Partial Public Class MyStitchData
         AddHandler MyBase.Relations.CollectionChanged, schemaChangedHandler
         Me.EndInit
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-        MyBase.New(info, context, False)
-        If (Me.IsBinarySerialized(info, context) = True) Then
-            Me.InitVars(False)
+        MyBase.New(info, context, false)
+        If (Me.IsBinarySerialized(info, context) = true) Then
+            Me.InitVars(false)
             Dim schemaChangedHandler1 As Global.System.ComponentModel.CollectionChangeEventHandler = AddressOf Me.SchemaChanged
             AddHandler Me.Tables.CollectionChanged, schemaChangedHandler1
             AddHandler Me.Relations.CollectionChanged, schemaChangedHandler1
             Return
         End If
-        Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)), String)
+        Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)),String)
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
@@ -125,7 +125,7 @@ Partial Public Class MyStitchData
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
+            Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
             Me.InitVars
         Else
             Me.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
@@ -135,141 +135,141 @@ Partial Public Class MyStitchData
         AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
         AddHandler Me.Relations.CollectionChanged, schemaChangedHandler
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property ProjectCardThread() As ProjectCardThreadDataTable
         Get
             Return Me.tableProjectCardThread
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Projects() As ProjectsDataTable
         Get
             Return Me.tableProjects
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property ProjectThreadCards() As ProjectThreadCardsDataTable
         Get
             Return Me.tableProjectThreadCards
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property ProjectThreads() As ProjectThreadsDataTable
         Get
             Return Me.tableProjectThreads
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Threads() As ThreadsDataTable
         Get
             Return Me.tableThreads
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Settings() As SettingsDataTable
         Get
             Return Me.tableSettings
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Symbols() As SymbolsDataTable
         Get
             Return Me.tableSymbols
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property ProjectWorkTimes() As ProjectWorkTimesDataTable
         Get
             Return Me.tableProjectWorkTimes
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Palettes() As PalettesDataTable
         Get
             Return Me.tablePalettes
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property PaletteThreads() As PaletteThreadsDataTable
         Get
             Return Me.tablePaletteThreads
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Beads() As BeadsDataTable
         Get
             Return Me.tableBeads
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property Brands() As BrandsDataTable
         Get
             Return Me.tableBrands
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.Browsable(False),
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property ProjectBeads() As ProjectBeadsDataTable
         Get
             Return Me.tableProjectBeads
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.BrowsableAttribute(True),
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.BrowsableAttribute(true),  _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
         Get
             Return Me._schemaSerializationMode
@@ -278,56 +278,56 @@ Partial Public Class MyStitchData
             Me._schemaSerializationMode = value
         End Set
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
     Public Shadows ReadOnly Property Tables() As Global.System.Data.DataTableCollection
         Get
             Return MyBase.Tables
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
     Public Shadows ReadOnly Property Relations() As Global.System.Data.DataRelationCollection
         Get
             Return MyBase.Relations
         End Get
     End Property
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Overrides Sub InitializeDerivedDataSet()
         Me.BeginInit
         Me.InitClass
         Me.EndInit
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As MyStitchData = CType(MyBase.Clone, MyStitchData)
+        Dim cln As MyStitchData = CType(MyBase.Clone,MyStitchData)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Overrides Function ShouldSerializeTables() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Overrides Function ShouldSerializeRelations() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Overrides Sub ReadXmlSerializable(ByVal reader As Global.System.Xml.XmlReader)
         If (Me.DetermineSchemaSerializationMode(reader) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Me.Reset
@@ -378,119 +378,119 @@ Partial Public Class MyStitchData
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
+            Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
             Me.InitVars
         Else
             Me.ReadXml(reader)
             Me.InitVars
         End If
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Protected Overrides Function GetSchemaSerializable() As Global.System.Xml.Schema.XmlSchema
         Dim stream As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
         Me.WriteXmlSchema(New Global.System.Xml.XmlTextWriter(stream, Nothing))
         stream.Position = 0
         Return Global.System.Xml.Schema.XmlSchema.Read(New Global.System.Xml.XmlTextReader(stream), Nothing)
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Friend Overloads Sub InitVars()
-        Me.InitVars(True)
+        Me.InitVars(true)
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tableProjectCardThread = CType(MyBase.Tables("ProjectCardThread"), ProjectCardThreadDataTable)
-        If (initTable = True) Then
+        Me.tableProjectCardThread = CType(MyBase.Tables("ProjectCardThread"),ProjectCardThreadDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjectCardThread) Is Nothing) Then
                 Me.tableProjectCardThread.InitVars
             End If
         End If
-        Me.tableProjects = CType(MyBase.Tables("Projects"), ProjectsDataTable)
-        If (initTable = True) Then
+        Me.tableProjects = CType(MyBase.Tables("Projects"),ProjectsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjects) Is Nothing) Then
                 Me.tableProjects.InitVars
             End If
         End If
-        Me.tableProjectThreadCards = CType(MyBase.Tables("ProjectThreadCards"), ProjectThreadCardsDataTable)
-        If (initTable = True) Then
+        Me.tableProjectThreadCards = CType(MyBase.Tables("ProjectThreadCards"),ProjectThreadCardsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjectThreadCards) Is Nothing) Then
                 Me.tableProjectThreadCards.InitVars
             End If
         End If
-        Me.tableProjectThreads = CType(MyBase.Tables("ProjectThreads"), ProjectThreadsDataTable)
-        If (initTable = True) Then
+        Me.tableProjectThreads = CType(MyBase.Tables("ProjectThreads"),ProjectThreadsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjectThreads) Is Nothing) Then
                 Me.tableProjectThreads.InitVars
             End If
         End If
-        Me.tableThreads = CType(MyBase.Tables("Threads"), ThreadsDataTable)
-        If (initTable = True) Then
+        Me.tableThreads = CType(MyBase.Tables("Threads"),ThreadsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableThreads) Is Nothing) Then
                 Me.tableThreads.InitVars
             End If
         End If
-        Me.tableSettings = CType(MyBase.Tables("Settings"), SettingsDataTable)
-        If (initTable = True) Then
+        Me.tableSettings = CType(MyBase.Tables("Settings"),SettingsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableSettings) Is Nothing) Then
                 Me.tableSettings.InitVars
             End If
         End If
-        Me.tableSymbols = CType(MyBase.Tables("Symbols"), SymbolsDataTable)
-        If (initTable = True) Then
+        Me.tableSymbols = CType(MyBase.Tables("Symbols"),SymbolsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableSymbols) Is Nothing) Then
                 Me.tableSymbols.InitVars
             End If
         End If
-        Me.tableProjectWorkTimes = CType(MyBase.Tables("ProjectWorkTimes"), ProjectWorkTimesDataTable)
-        If (initTable = True) Then
+        Me.tableProjectWorkTimes = CType(MyBase.Tables("ProjectWorkTimes"),ProjectWorkTimesDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjectWorkTimes) Is Nothing) Then
                 Me.tableProjectWorkTimes.InitVars
             End If
         End If
-        Me.tablePalettes = CType(MyBase.Tables("Palettes"), PalettesDataTable)
-        If (initTable = True) Then
+        Me.tablePalettes = CType(MyBase.Tables("Palettes"),PalettesDataTable)
+        If (initTable = true) Then
             If (Not (Me.tablePalettes) Is Nothing) Then
                 Me.tablePalettes.InitVars
             End If
         End If
-        Me.tablePaletteThreads = CType(MyBase.Tables("PaletteThreads"), PaletteThreadsDataTable)
-        If (initTable = True) Then
+        Me.tablePaletteThreads = CType(MyBase.Tables("PaletteThreads"),PaletteThreadsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tablePaletteThreads) Is Nothing) Then
                 Me.tablePaletteThreads.InitVars
             End If
         End If
-        Me.tableBeads = CType(MyBase.Tables("Beads"), BeadsDataTable)
-        If (initTable = True) Then
+        Me.tableBeads = CType(MyBase.Tables("Beads"),BeadsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableBeads) Is Nothing) Then
                 Me.tableBeads.InitVars
             End If
         End If
-        Me.tableBrands = CType(MyBase.Tables("Brands"), BrandsDataTable)
-        If (initTable = True) Then
+        Me.tableBrands = CType(MyBase.Tables("Brands"),BrandsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableBrands) Is Nothing) Then
                 Me.tableBrands.InitVars
             End If
         End If
-        Me.tableProjectBeads = CType(MyBase.Tables("ProjectBeads"), ProjectBeadsDataTable)
-        If (initTable = True) Then
+        Me.tableProjectBeads = CType(MyBase.Tables("ProjectBeads"),ProjectBeadsDataTable)
+        If (initTable = true) Then
             If (Not (Me.tableProjectBeads) Is Nothing) Then
                 Me.tableProjectBeads.InitVars
             End If
         End If
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Sub InitClass()
         Me.DataSetName = "MyStitchData"
         Me.Prefix = ""
         Me.Namespace = "http://tempuri.org/MyStitchData.xsd"
-        Me.EnforceConstraints = True
+        Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tableProjectCardThread = New ProjectCardThreadDataTable()
         MyBase.Tables.Add(Me.tableProjectCardThread)
@@ -519,95 +519,95 @@ Partial Public Class MyStitchData
         Me.tableProjectBeads = New ProjectBeadsDataTable()
         MyBase.Tables.Add(Me.tableProjectBeads)
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjectCardThread() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjects() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjectThreadCards() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjectThreads() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeThreads() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeSettings() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeSymbols() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjectWorkTimes() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializePalettes() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializePaletteThreads() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeBeads() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeBrands() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Function ShouldSerializeProjectBeads() As Boolean
-        Return False
+        Return false
     End Function
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Private Sub SchemaChanged(ByVal sender As Object, ByVal e As Global.System.ComponentModel.CollectionChangeEventArgs)
         If (e.Action = Global.System.ComponentModel.CollectionChangeAction.Remove) Then
             Me.InitVars
         End If
     End Sub
-
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
         Dim ds As MyStitchData = New MyStitchData()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
@@ -620,28 +620,28 @@ Partial Public Class MyStitchData
         If xs.Contains(dsSchema.TargetNamespace) Then
             Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
             Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-            Try
+            Try 
                 Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                 dsSchema.Write(s1)
                 Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                 Do While schemas.MoveNext
-                    schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                    schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                     s2.SetLength(0)
                     schema.Write(s2)
                     If (s1.Length = s2.Length) Then
                         s1.Position = 0
                         s2.Position = 0
-
-                        Do While ((s1.Position <> s1.Length) _
+                        
+                        Do While ((s1.Position <> s1.Length)  _
                                     AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                            
+                            
                         Loop
                         If (s1.Position = s1.Length) Then
                             Return type
                         End If
                     End If
-
+                    
                 Loop
             Finally
                 If (Not (s1) Is Nothing) Then
@@ -655,64 +655,64 @@ Partial Public Class MyStitchData
         xs.Add(dsSchema)
         Return type
     End Function
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectCardThreadRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectCardThreadRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectsRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectThreadCardsRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectThreadCardsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectThreadsRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectThreadsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ThreadsRowChangeEventHandler(ByVal sender As Object, ByVal e As ThreadsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub SettingsRowChangeEventHandler(ByVal sender As Object, ByVal e As SettingsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub SymbolsRowChangeEventHandler(ByVal sender As Object, ByVal e As SymbolsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectWorkTimesRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectWorkTimesRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub PalettesRowChangeEventHandler(ByVal sender As Object, ByVal e As PalettesRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub PaletteThreadsRowChangeEventHandler(ByVal sender As Object, ByVal e As PaletteThreadsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub BeadsRowChangeEventHandler(ByVal sender As Object, ByVal e As BeadsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub BrandsRowChangeEventHandler(ByVal sender As Object, ByVal e As BrandsRowChangeEvent)
-
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Delegate Sub ProjectBeadsRowChangeEventHandler(ByVal sender As Object, ByVal e As ProjectBeadsRowChangeEvent)
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectCardThreadDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectCardThreadRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_card_no As Global.System.Data.DataColumn
-
+        
         Private columnthread_card_seq As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "ProjectCardThread"
@@ -720,9 +720,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -738,122 +738,122 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_card_noColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_card_no
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_card_seqColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_card_seq
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectCardThreadRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectCardThreadRow
             Get
-                Return CType(Me.Rows(index), ProjectCardThreadRow)
+                Return CType(Me.Rows(index),ProjectCardThreadRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectCardThreadRowChanging As ProjectCardThreadRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectCardThreadRowChanged As ProjectCardThreadRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectCardThreadRowDeleting As ProjectCardThreadRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectCardThreadRowDeleted As ProjectCardThreadRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectCardThreadRow(ByVal row As ProjectCardThreadRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectCardThreadRow(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As ProjectCardThreadRow
-            Dim rowProjectCardThreadRow As ProjectCardThreadRow = CType(Me.NewRow, ProjectCardThreadRow)
+            Dim rowProjectCardThreadRow As ProjectCardThreadRow = CType(Me.NewRow,ProjectCardThreadRow)
             Dim columnValuesArray() As Object = New Object() {project_id, thread_id, thread_card_no, thread_card_seq}
             rowProjectCardThreadRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectCardThreadRow)
             Return rowProjectCardThreadRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_idthread_idthread_card_nothread_card_seq(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As ProjectCardThreadRow
-            Return CType(Me.Rows.Find(New Object() {project_id, thread_id, thread_card_no, thread_card_seq}), ProjectCardThreadRow)
+            Return CType(Me.Rows.Find(New Object() {project_id, thread_id, thread_card_no, thread_card_seq}),ProjectCardThreadRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectCardThreadDataTable = CType(MyBase.Clone, ProjectCardThreadDataTable)
+            Dim cln As ProjectCardThreadDataTable = CType(MyBase.Clone,ProjectCardThreadDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectCardThreadDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnthread_id = MyBase.Columns("thread_id")
             Me.columnthread_card_no = MyBase.Columns("thread_card_no")
             Me.columnthread_card_seq = MyBase.Columns("thread_card_seq")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
@@ -863,75 +863,75 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnthread_card_no)
             Me.columnthread_card_seq = New Global.System.Data.DataColumn("thread_card_seq", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnthread_card_seq)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_id, Me.columnthread_card_no, Me.columnthread_card_seq}, True))
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnthread_id.AllowDBNull = False
-            Me.columnthread_card_no.AllowDBNull = False
-            Me.columnthread_card_seq.AllowDBNull = False
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_id, Me.columnthread_card_no, Me.columnthread_card_seq}, true))
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnthread_id.AllowDBNull = false
+            Me.columnthread_card_no.AllowDBNull = false
+            Me.columnthread_card_seq.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectCardThreadRow() As ProjectCardThreadRow
-            Return CType(Me.NewRow, ProjectCardThreadRow)
+            Return CType(Me.NewRow,ProjectCardThreadRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectCardThreadRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectCardThreadRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectCardThreadRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectCardThreadRowChanged(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row, ProjectCardThreadRow), e.Action))
+                RaiseEvent ProjectCardThreadRowChanged(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row,ProjectCardThreadRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectCardThreadRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectCardThreadRowChanging(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row, ProjectCardThreadRow), e.Action))
+                RaiseEvent ProjectCardThreadRowChanging(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row,ProjectCardThreadRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectCardThreadRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectCardThreadRowDeleted(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row, ProjectCardThreadRow), e.Action))
+                RaiseEvent ProjectCardThreadRowDeleted(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row,ProjectCardThreadRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectCardThreadRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectCardThreadRowDeleting(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row, ProjectCardThreadRow), e.Action))
+                RaiseEvent ProjectCardThreadRowDeleting(Me, New ProjectCardThreadRowChangeEvent(CType(e.Row,ProjectCardThreadRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectCardThreadRow(ByVal row As ProjectCardThreadRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -960,28 +960,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -996,45 +996,45 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectsRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnproject_name As Global.System.Data.DataColumn
-
+        
         Private columndate_started As Global.System.Data.DataColumn
-
+        
         Private columndate_ended As Global.System.Data.DataColumn
-
+        
         Private columndesign_width As Global.System.Data.DataColumn
-
+        
         Private columndesign_height As Global.System.Data.DataColumn
-
+        
         Private columnfabric_width As Global.System.Data.DataColumn
-
+        
         Private columnfabric_height As Global.System.Data.DataColumn
-
+        
         Private columnfabric_colour As Global.System.Data.DataColumn
-
+        
         Private columndesign_file As Global.System.Data.DataColumn
-
+        
         Private columnorigin_x As Global.System.Data.DataColumn
-
+        
         Private columnorigin_y As Global.System.Data.DataColumn
-
+        
         Private columntotal_minutes As Global.System.Data.DataColumn
-
+        
         Private columnfabric_count As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Projects"
@@ -1042,9 +1042,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -1060,193 +1060,193 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_name
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property date_startedColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columndate_started
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property date_endedColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columndate_ended
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property design_widthColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columndesign_width
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property design_heightColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columndesign_height
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property fabric_widthColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnfabric_width
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property fabric_heightColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnfabric_height
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property fabric_colourColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnfabric_colour
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property design_fileColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columndesign_file
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property origin_xColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnorigin_x
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property origin_yColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnorigin_y
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property total_minutesColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columntotal_minutes
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property fabric_countColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnfabric_count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectsRow
             Get
-                Return CType(Me.Rows(index), ProjectsRow)
+                Return CType(Me.Rows(index),ProjectsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectsRowChanging As ProjectsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectsRowChanged As ProjectsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectsRowDeleting As ProjectsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectsRowDeleted As ProjectsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectsRow(ByVal row As ProjectsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectsRow(ByVal project_name As String, ByVal date_started As Date, ByVal date_ended As Date, ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal design_file As String, ByVal origin_x As Integer, ByVal origin_y As Integer, ByVal total_minutes As Integer, ByVal fabric_count As Integer) As ProjectsRow
-            Dim rowProjectsRow As ProjectsRow = CType(Me.NewRow, ProjectsRow)
+            Dim rowProjectsRow As ProjectsRow = CType(Me.NewRow,ProjectsRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, design_file, origin_x, origin_y, total_minutes, fabric_count}
             rowProjectsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectsRow)
             Return rowProjectsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_id(ByVal project_id As Integer) As ProjectsRow
-            Return CType(Me.Rows.Find(New Object() {project_id}), ProjectsRow)
+            Return CType(Me.Rows.Find(New Object() {project_id}),ProjectsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectsDataTable = CType(MyBase.Clone, ProjectsDataTable)
+            Dim cln As ProjectsDataTable = CType(MyBase.Clone,ProjectsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnproject_name = MyBase.Columns("project_name")
@@ -1263,9 +1263,9 @@ Partial Public Class MyStitchData
             Me.columntotal_minutes = MyBase.Columns("total_minutes")
             Me.columnfabric_count = MyBase.Columns("fabric_count")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
@@ -1295,89 +1295,89 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columntotal_minutes)
             Me.columnfabric_count = New Global.System.Data.DataColumn("fabric_count", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfabric_count)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id}, True))
-            Me.columnproject_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id}, true))
+            Me.columnproject_id.AutoIncrement = true
             Me.columnproject_id.AutoIncrementSeed = 1
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnproject_id.ReadOnly = True
-            Me.columnproject_id.Unique = True
-            Me.columnproject_name.AllowDBNull = False
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnproject_id.ReadOnly = true
+            Me.columnproject_id.Unique = true
+            Me.columnproject_name.AllowDBNull = false
             Me.columnproject_name.MaxLength = 100
-            Me.columndesign_width.AllowDBNull = False
-            Me.columndesign_height.AllowDBNull = False
-            Me.columnfabric_width.AllowDBNull = False
-            Me.columnfabric_height.AllowDBNull = False
-            Me.columnfabric_colour.AllowDBNull = False
-            Me.columndesign_file.AllowDBNull = False
+            Me.columndesign_width.AllowDBNull = false
+            Me.columndesign_height.AllowDBNull = false
+            Me.columnfabric_width.AllowDBNull = false
+            Me.columnfabric_height.AllowDBNull = false
+            Me.columnfabric_colour.AllowDBNull = false
+            Me.columndesign_file.AllowDBNull = false
             Me.columndesign_file.MaxLength = 100
-            Me.columnorigin_x.AllowDBNull = False
-            Me.columnorigin_y.AllowDBNull = False
-            Me.columntotal_minutes.AllowDBNull = False
-            Me.columnfabric_count.AllowDBNull = False
+            Me.columnorigin_x.AllowDBNull = false
+            Me.columnorigin_y.AllowDBNull = false
+            Me.columntotal_minutes.AllowDBNull = false
+            Me.columnfabric_count.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectsRow() As ProjectsRow
-            Return CType(Me.NewRow, ProjectsRow)
+            Return CType(Me.NewRow,ProjectsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectsRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectsRowChanged(Me, New ProjectsRowChangeEvent(CType(e.Row, ProjectsRow), e.Action))
+                RaiseEvent ProjectsRowChanged(Me, New ProjectsRowChangeEvent(CType(e.Row,ProjectsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectsRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectsRowChanging(Me, New ProjectsRowChangeEvent(CType(e.Row, ProjectsRow), e.Action))
+                RaiseEvent ProjectsRowChanging(Me, New ProjectsRowChangeEvent(CType(e.Row,ProjectsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectsRowDeleted(Me, New ProjectsRowChangeEvent(CType(e.Row, ProjectsRow), e.Action))
+                RaiseEvent ProjectsRowDeleted(Me, New ProjectsRowChangeEvent(CType(e.Row,ProjectsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectsRowDeleting(Me, New ProjectsRowChangeEvent(CType(e.Row, ProjectsRow), e.Action))
+                RaiseEvent ProjectsRowDeleting(Me, New ProjectsRowChangeEvent(CType(e.Row,ProjectsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectsRow(ByVal row As ProjectsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -1406,28 +1406,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -1442,21 +1442,21 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectThreadCardsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectThreadCardsRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_card_no As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "ProjectThreadCards"
@@ -1464,9 +1464,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -1482,176 +1482,176 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_card_noColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_card_no
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectThreadCardsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectThreadCardsRow
             Get
-                Return CType(Me.Rows(index), ProjectThreadCardsRow)
+                Return CType(Me.Rows(index),ProjectThreadCardsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadCardsRowChanging As ProjectThreadCardsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadCardsRowChanged As ProjectThreadCardsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadCardsRowDeleting As ProjectThreadCardsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadCardsRowDeleted As ProjectThreadCardsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectThreadCardsRow(ByVal row As ProjectThreadCardsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectThreadCardsRow(ByVal project_id As Integer, ByVal thread_card_no As Integer) As ProjectThreadCardsRow
-            Dim rowProjectThreadCardsRow As ProjectThreadCardsRow = CType(Me.NewRow, ProjectThreadCardsRow)
+            Dim rowProjectThreadCardsRow As ProjectThreadCardsRow = CType(Me.NewRow,ProjectThreadCardsRow)
             Dim columnValuesArray() As Object = New Object() {project_id, thread_card_no}
             rowProjectThreadCardsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectThreadCardsRow)
             Return rowProjectThreadCardsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_idthread_card_no(ByVal project_id As Integer, ByVal thread_card_no As Integer) As ProjectThreadCardsRow
-            Return CType(Me.Rows.Find(New Object() {project_id, thread_card_no}), ProjectThreadCardsRow)
+            Return CType(Me.Rows.Find(New Object() {project_id, thread_card_no}),ProjectThreadCardsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectThreadCardsDataTable = CType(MyBase.Clone, ProjectThreadCardsDataTable)
+            Dim cln As ProjectThreadCardsDataTable = CType(MyBase.Clone,ProjectThreadCardsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectThreadCardsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnthread_card_no = MyBase.Columns("thread_card_no")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
             Me.columnthread_card_no = New Global.System.Data.DataColumn("thread_card_no", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnthread_card_no)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_card_no}, True))
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnthread_card_no.AllowDBNull = False
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_card_no}, true))
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnthread_card_no.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectThreadCardsRow() As ProjectThreadCardsRow
-            Return CType(Me.NewRow, ProjectThreadCardsRow)
+            Return CType(Me.NewRow,ProjectThreadCardsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectThreadCardsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectThreadCardsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectThreadCardsRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadCardsRowChanged(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row, ProjectThreadCardsRow), e.Action))
+                RaiseEvent ProjectThreadCardsRowChanged(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row,ProjectThreadCardsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectThreadCardsRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadCardsRowChanging(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row, ProjectThreadCardsRow), e.Action))
+                RaiseEvent ProjectThreadCardsRowChanging(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row,ProjectThreadCardsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectThreadCardsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadCardsRowDeleted(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row, ProjectThreadCardsRow), e.Action))
+                RaiseEvent ProjectThreadCardsRowDeleted(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row,ProjectThreadCardsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectThreadCardsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadCardsRowDeleting(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row, ProjectThreadCardsRow), e.Action))
+                RaiseEvent ProjectThreadCardsRowDeleting(Me, New ProjectThreadCardsRowChangeEvent(CType(e.Row,ProjectThreadCardsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectThreadCardsRow(ByVal row As ProjectThreadCardsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -1680,28 +1680,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -1716,31 +1716,31 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectThreadsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectThreadsRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_id As Global.System.Data.DataColumn
-
+        
         Private columnbackstitch_count As Global.System.Data.DataColumn
-
+        
         Private columnblockstitch_count As Global.System.Data.DataColumn
-
+        
         Private columnknot_count As Global.System.Data.DataColumn
-
+        
         Private columnsymbol_id As Global.System.Data.DataColumn
-
+        
         Private columnis_used As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "ProjectThreads"
@@ -1748,9 +1748,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -1766,137 +1766,137 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property backstitch_countColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbackstitch_count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property blockstitch_countColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnblockstitch_count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property knot_countColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnknot_count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property symbol_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnsymbol_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property is_usedColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnis_used
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectThreadsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectThreadsRow
             Get
-                Return CType(Me.Rows(index), ProjectThreadsRow)
+                Return CType(Me.Rows(index),ProjectThreadsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadsRowChanging As ProjectThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadsRowChanged As ProjectThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadsRowDeleting As ProjectThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectThreadsRowDeleted As ProjectThreadsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectThreadsRow(ByVal row As ProjectThreadsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectThreadsRow(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte) As ProjectThreadsRow
-            Dim rowProjectThreadsRow As ProjectThreadsRow = CType(Me.NewRow, ProjectThreadsRow)
+            Dim rowProjectThreadsRow As ProjectThreadsRow = CType(Me.NewRow,ProjectThreadsRow)
             Dim columnValuesArray() As Object = New Object() {project_id, thread_id, backstitch_count, blockstitch_count, knot_count, symbol_id, is_used}
             rowProjectThreadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectThreadsRow)
             Return rowProjectThreadsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_idthread_id(ByVal project_id As Integer, ByVal thread_id As Integer) As ProjectThreadsRow
-            Return CType(Me.Rows.Find(New Object() {project_id, thread_id}), ProjectThreadsRow)
+            Return CType(Me.Rows.Find(New Object() {project_id, thread_id}),ProjectThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectThreadsDataTable = CType(MyBase.Clone, ProjectThreadsDataTable)
+            Dim cln As ProjectThreadsDataTable = CType(MyBase.Clone,ProjectThreadsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectThreadsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnthread_id = MyBase.Columns("thread_id")
@@ -1906,9 +1906,9 @@ Partial Public Class MyStitchData
             Me.columnsymbol_id = MyBase.Columns("symbol_id")
             Me.columnis_used = MyBase.Columns("is_used")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
@@ -1924,78 +1924,78 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnsymbol_id)
             Me.columnis_used = New Global.System.Data.DataColumn("is_used", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnis_used)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_id}, True))
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnthread_id.AllowDBNull = False
-            Me.columnbackstitch_count.AllowDBNull = False
-            Me.columnblockstitch_count.AllowDBNull = False
-            Me.columnknot_count.AllowDBNull = False
-            Me.columnsymbol_id.AllowDBNull = False
-            Me.columnis_used.AllowDBNull = False
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnthread_id}, true))
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnthread_id.AllowDBNull = false
+            Me.columnbackstitch_count.AllowDBNull = false
+            Me.columnblockstitch_count.AllowDBNull = false
+            Me.columnknot_count.AllowDBNull = false
+            Me.columnsymbol_id.AllowDBNull = false
+            Me.columnis_used.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectThreadsRow() As ProjectThreadsRow
-            Return CType(Me.NewRow, ProjectThreadsRow)
+            Return CType(Me.NewRow,ProjectThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectThreadsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectThreadsRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadsRowChanged(Me, New ProjectThreadsRowChangeEvent(CType(e.Row, ProjectThreadsRow), e.Action))
+                RaiseEvent ProjectThreadsRowChanged(Me, New ProjectThreadsRowChangeEvent(CType(e.Row,ProjectThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectThreadsRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadsRowChanging(Me, New ProjectThreadsRowChangeEvent(CType(e.Row, ProjectThreadsRow), e.Action))
+                RaiseEvent ProjectThreadsRowChanging(Me, New ProjectThreadsRowChangeEvent(CType(e.Row,ProjectThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectThreadsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadsRowDeleted(Me, New ProjectThreadsRowChangeEvent(CType(e.Row, ProjectThreadsRow), e.Action))
+                RaiseEvent ProjectThreadsRowDeleted(Me, New ProjectThreadsRowChangeEvent(CType(e.Row,ProjectThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectThreadsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectThreadsRowDeleting(Me, New ProjectThreadsRowChangeEvent(CType(e.Row, ProjectThreadsRow), e.Action))
+                RaiseEvent ProjectThreadsRowDeleting(Me, New ProjectThreadsRowChangeEvent(CType(e.Row,ProjectThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectThreadsRow(ByVal row As ProjectThreadsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -2024,28 +2024,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -2060,29 +2060,29 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ThreadsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ThreadsRow)
-
+        
         Private columnthread_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_no As Global.System.Data.DataColumn
-
+        
         Private columnthread_colour_name As Global.System.Data.DataColumn
-
+        
         Private columnthread_colour As Global.System.Data.DataColumn
-
+        
         Private columnstock_level As Global.System.Data.DataColumn
-
+        
         Private columnbrand_id As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Threads"
@@ -2090,9 +2090,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -2108,129 +2108,129 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_noColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_no
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_colour_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_colour_name
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_colourColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_colour
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property stock_levelColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnstock_level
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property brand_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbrand_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ThreadsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ThreadsRow
             Get
-                Return CType(Me.Rows(index), ThreadsRow)
+                Return CType(Me.Rows(index),ThreadsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ThreadsRowChanging As ThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ThreadsRowChanged As ThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ThreadsRowDeleting As ThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ThreadsRowDeleted As ThreadsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddThreadsRow(ByVal row As ThreadsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddThreadsRow(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal brand_id As Integer) As ThreadsRow
-            Dim rowThreadsRow As ThreadsRow = CType(Me.NewRow, ThreadsRow)
+            Dim rowThreadsRow As ThreadsRow = CType(Me.NewRow,ThreadsRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, thread_no, thread_colour_name, thread_colour, stock_level, brand_id}
             rowThreadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowThreadsRow)
             Return rowThreadsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBythread_id(ByVal thread_id As Integer) As ThreadsRow
-            Return CType(Me.Rows.Find(New Object() {thread_id}), ThreadsRow)
+            Return CType(Me.Rows.Find(New Object() {thread_id}),ThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ThreadsDataTable = CType(MyBase.Clone, ThreadsDataTable)
+            Dim cln As ThreadsDataTable = CType(MyBase.Clone,ThreadsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ThreadsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnthread_id = MyBase.Columns("thread_id")
             Me.columnthread_no = MyBase.Columns("thread_no")
@@ -2239,9 +2239,9 @@ Partial Public Class MyStitchData
             Me.columnstock_level = MyBase.Columns("stock_level")
             Me.columnbrand_id = MyBase.Columns("brand_id")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnthread_id = New Global.System.Data.DataColumn("thread_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnthread_id)
@@ -2255,84 +2255,84 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnstock_level)
             Me.columnbrand_id = New Global.System.Data.DataColumn("brand_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbrand_id)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnthread_id}, True))
-            Me.columnthread_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnthread_id}, true))
+            Me.columnthread_id.AutoIncrement = true
             Me.columnthread_id.AutoIncrementSeed = 1
-            Me.columnthread_id.AllowDBNull = False
-            Me.columnthread_id.ReadOnly = True
-            Me.columnthread_id.Unique = True
-            Me.columnthread_no.AllowDBNull = False
+            Me.columnthread_id.AllowDBNull = false
+            Me.columnthread_id.ReadOnly = true
+            Me.columnthread_id.Unique = true
+            Me.columnthread_no.AllowDBNull = false
             Me.columnthread_no.MaxLength = 10
-            Me.columnthread_colour_name.AllowDBNull = False
+            Me.columnthread_colour_name.AllowDBNull = false
             Me.columnthread_colour_name.MaxLength = 100
-            Me.columnthread_colour.AllowDBNull = False
-            Me.columnstock_level.AllowDBNull = False
-            Me.columnbrand_id.AllowDBNull = False
-            Me.columnbrand_id.DefaultValue = CType(-1, Integer)
+            Me.columnthread_colour.AllowDBNull = false
+            Me.columnstock_level.AllowDBNull = false
+            Me.columnbrand_id.AllowDBNull = false
+            Me.columnbrand_id.DefaultValue = CType(-1,Integer)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewThreadsRow() As ThreadsRow
-            Return CType(Me.NewRow, ThreadsRow)
+            Return CType(Me.NewRow,ThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ThreadsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ThreadsRowChangedEvent) Is Nothing) Then
-                RaiseEvent ThreadsRowChanged(Me, New ThreadsRowChangeEvent(CType(e.Row, ThreadsRow), e.Action))
+                RaiseEvent ThreadsRowChanged(Me, New ThreadsRowChangeEvent(CType(e.Row,ThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ThreadsRowChangingEvent) Is Nothing) Then
-                RaiseEvent ThreadsRowChanging(Me, New ThreadsRowChangeEvent(CType(e.Row, ThreadsRow), e.Action))
+                RaiseEvent ThreadsRowChanging(Me, New ThreadsRowChangeEvent(CType(e.Row,ThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ThreadsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ThreadsRowDeleted(Me, New ThreadsRowChangeEvent(CType(e.Row, ThreadsRow), e.Action))
+                RaiseEvent ThreadsRowDeleted(Me, New ThreadsRowChangeEvent(CType(e.Row,ThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ThreadsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ThreadsRowDeleting(Me, New ThreadsRowChangeEvent(CType(e.Row, ThreadsRow), e.Action))
+                RaiseEvent ThreadsRowDeleting(Me, New ThreadsRowChangeEvent(CType(e.Row,ThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveThreadsRow(ByVal row As ThreadsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -2361,28 +2361,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -2397,23 +2397,23 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class SettingsDataTable
         Inherits Global.System.Data.TypedTableBase(Of SettingsRow)
-
+        
         Private columnpKey As Global.System.Data.DataColumn
-
+        
         Private columnpValue As Global.System.Data.DataColumn
-
+        
         Private columnpType As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Settings"
@@ -2421,9 +2421,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -2439,113 +2439,113 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property pKeyColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpKey
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property pValueColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpValue
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property pTypeColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpType
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As SettingsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As SettingsRow
             Get
-                Return CType(Me.Rows(index), SettingsRow)
+                Return CType(Me.Rows(index),SettingsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SettingsRowChanging As SettingsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SettingsRowChanged As SettingsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SettingsRowDeleting As SettingsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SettingsRowDeleted As SettingsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddSettingsRow(ByVal row As SettingsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddSettingsRow(ByVal pKey As String, ByVal pValue As String, ByVal pType As String) As SettingsRow
-            Dim rowSettingsRow As SettingsRow = CType(Me.NewRow, SettingsRow)
+            Dim rowSettingsRow As SettingsRow = CType(Me.NewRow,SettingsRow)
             Dim columnValuesArray() As Object = New Object() {pKey, pValue, pType}
             rowSettingsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowSettingsRow)
             Return rowSettingsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBypKey(ByVal pKey As String) As SettingsRow
-            Return CType(Me.Rows.Find(New Object() {pKey}), SettingsRow)
+            Return CType(Me.Rows.Find(New Object() {pKey}),SettingsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As SettingsDataTable = CType(MyBase.Clone, SettingsDataTable)
+            Dim cln As SettingsDataTable = CType(MyBase.Clone,SettingsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New SettingsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnpKey = MyBase.Columns("pKey")
             Me.columnpValue = MyBase.Columns("pValue")
             Me.columnpType = MyBase.Columns("pType")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnpKey = New Global.System.Data.DataColumn("pKey", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnpKey)
@@ -2553,78 +2553,78 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnpValue)
             Me.columnpType = New Global.System.Data.DataColumn("pType", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnpType)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpKey}, True))
-            Me.columnpKey.AllowDBNull = False
-            Me.columnpKey.Unique = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpKey}, true))
+            Me.columnpKey.AllowDBNull = false
+            Me.columnpKey.Unique = true
             Me.columnpKey.MaxLength = 50
-            Me.columnpValue.AllowDBNull = False
+            Me.columnpValue.AllowDBNull = false
             Me.columnpValue.MaxLength = 250
-            Me.columnpType.AllowDBNull = False
+            Me.columnpType.AllowDBNull = false
             Me.columnpType.MaxLength = 10
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewSettingsRow() As SettingsRow
-            Return CType(Me.NewRow, SettingsRow)
+            Return CType(Me.NewRow,SettingsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New SettingsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(SettingsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.SettingsRowChangedEvent) Is Nothing) Then
-                RaiseEvent SettingsRowChanged(Me, New SettingsRowChangeEvent(CType(e.Row, SettingsRow), e.Action))
+                RaiseEvent SettingsRowChanged(Me, New SettingsRowChangeEvent(CType(e.Row,SettingsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.SettingsRowChangingEvent) Is Nothing) Then
-                RaiseEvent SettingsRowChanging(Me, New SettingsRowChangeEvent(CType(e.Row, SettingsRow), e.Action))
+                RaiseEvent SettingsRowChanging(Me, New SettingsRowChangeEvent(CType(e.Row,SettingsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.SettingsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent SettingsRowDeleted(Me, New SettingsRowChangeEvent(CType(e.Row, SettingsRow), e.Action))
+                RaiseEvent SettingsRowDeleted(Me, New SettingsRowChangeEvent(CType(e.Row,SettingsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.SettingsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent SettingsRowDeleting(Me, New SettingsRowChangeEvent(CType(e.Row, SettingsRow), e.Action))
+                RaiseEvent SettingsRowDeleting(Me, New SettingsRowChangeEvent(CType(e.Row,SettingsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveSettingsRow(ByVal row As SettingsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -2653,28 +2653,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -2689,21 +2689,21 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class SymbolsDataTable
         Inherits Global.System.Data.TypedTableBase(Of SymbolsRow)
-
+        
         Private columnsymbol_id As Global.System.Data.DataColumn
-
+        
         Private columnsymbol As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Symbols"
@@ -2711,9 +2711,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -2729,179 +2729,179 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property symbol_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnsymbol_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property symbolColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnsymbol
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As SymbolsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As SymbolsRow
             Get
-                Return CType(Me.Rows(index), SymbolsRow)
+                Return CType(Me.Rows(index),SymbolsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SymbolsRowChanging As SymbolsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SymbolsRowChanged As SymbolsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SymbolsRowDeleting As SymbolsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event SymbolsRowDeleted As SymbolsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddSymbolsRow(ByVal row As SymbolsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddSymbolsRow(ByVal symbol() As Byte) As SymbolsRow
-            Dim rowSymbolsRow As SymbolsRow = CType(Me.NewRow, SymbolsRow)
+            Dim rowSymbolsRow As SymbolsRow = CType(Me.NewRow,SymbolsRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, symbol}
             rowSymbolsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowSymbolsRow)
             Return rowSymbolsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBysymbol_id(ByVal symbol_id As Integer) As SymbolsRow
-            Return CType(Me.Rows.Find(New Object() {symbol_id}), SymbolsRow)
+            Return CType(Me.Rows.Find(New Object() {symbol_id}),SymbolsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As SymbolsDataTable = CType(MyBase.Clone, SymbolsDataTable)
+            Dim cln As SymbolsDataTable = CType(MyBase.Clone,SymbolsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New SymbolsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnsymbol_id = MyBase.Columns("symbol_id")
             Me.columnsymbol = MyBase.Columns("symbol")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnsymbol_id = New Global.System.Data.DataColumn("symbol_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnsymbol_id)
             Me.columnsymbol = New Global.System.Data.DataColumn("symbol", GetType(Byte()), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnsymbol)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnsymbol_id}, True))
-            Me.columnsymbol_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnsymbol_id}, true))
+            Me.columnsymbol_id.AutoIncrement = true
             Me.columnsymbol_id.AutoIncrementSeed = 1
-            Me.columnsymbol_id.AllowDBNull = False
-            Me.columnsymbol_id.ReadOnly = True
-            Me.columnsymbol_id.Unique = True
+            Me.columnsymbol_id.AllowDBNull = false
+            Me.columnsymbol_id.ReadOnly = true
+            Me.columnsymbol_id.Unique = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewSymbolsRow() As SymbolsRow
-            Return CType(Me.NewRow, SymbolsRow)
+            Return CType(Me.NewRow,SymbolsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New SymbolsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(SymbolsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.SymbolsRowChangedEvent) Is Nothing) Then
-                RaiseEvent SymbolsRowChanged(Me, New SymbolsRowChangeEvent(CType(e.Row, SymbolsRow), e.Action))
+                RaiseEvent SymbolsRowChanged(Me, New SymbolsRowChangeEvent(CType(e.Row,SymbolsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.SymbolsRowChangingEvent) Is Nothing) Then
-                RaiseEvent SymbolsRowChanging(Me, New SymbolsRowChangeEvent(CType(e.Row, SymbolsRow), e.Action))
+                RaiseEvent SymbolsRowChanging(Me, New SymbolsRowChangeEvent(CType(e.Row,SymbolsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.SymbolsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent SymbolsRowDeleted(Me, New SymbolsRowChangeEvent(CType(e.Row, SymbolsRow), e.Action))
+                RaiseEvent SymbolsRowDeleted(Me, New SymbolsRowChangeEvent(CType(e.Row,SymbolsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.SymbolsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent SymbolsRowDeleting(Me, New SymbolsRowChangeEvent(CType(e.Row, SymbolsRow), e.Action))
+                RaiseEvent SymbolsRowDeleting(Me, New SymbolsRowChangeEvent(CType(e.Row,SymbolsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveSymbolsRow(ByVal row As SymbolsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -2930,28 +2930,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -2966,25 +2966,25 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectWorkTimesDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectWorkTimesRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnstart_date As Global.System.Data.DataColumn
-
+        
         Private columnend_date As Global.System.Data.DataColumn
-
+        
         Private columnminutes As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "ProjectWorkTimes"
@@ -2992,9 +2992,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -3010,122 +3010,122 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property start_dateColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnstart_date
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property end_dateColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnend_date
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property minutesColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnminutes
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectWorkTimesRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectWorkTimesRow
             Get
-                Return CType(Me.Rows(index), ProjectWorkTimesRow)
+                Return CType(Me.Rows(index),ProjectWorkTimesRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectWorkTimesRowChanging As ProjectWorkTimesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectWorkTimesRowChanged As ProjectWorkTimesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectWorkTimesRowDeleting As ProjectWorkTimesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectWorkTimesRowDeleted As ProjectWorkTimesRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectWorkTimesRow(ByVal row As ProjectWorkTimesRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectWorkTimesRow(ByVal project_id As Integer, ByVal start_date As Date, ByVal end_date As Date, ByVal minutes As Integer) As ProjectWorkTimesRow
-            Dim rowProjectWorkTimesRow As ProjectWorkTimesRow = CType(Me.NewRow, ProjectWorkTimesRow)
+            Dim rowProjectWorkTimesRow As ProjectWorkTimesRow = CType(Me.NewRow,ProjectWorkTimesRow)
             Dim columnValuesArray() As Object = New Object() {project_id, start_date, end_date, minutes}
             rowProjectWorkTimesRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectWorkTimesRow)
             Return rowProjectWorkTimesRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_idstart_date(ByVal project_id As Integer, ByVal start_date As Date) As ProjectWorkTimesRow
-            Return CType(Me.Rows.Find(New Object() {project_id, start_date}), ProjectWorkTimesRow)
+            Return CType(Me.Rows.Find(New Object() {project_id, start_date}),ProjectWorkTimesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectWorkTimesDataTable = CType(MyBase.Clone, ProjectWorkTimesDataTable)
+            Dim cln As ProjectWorkTimesDataTable = CType(MyBase.Clone,ProjectWorkTimesDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectWorkTimesDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnstart_date = MyBase.Columns("start_date")
             Me.columnend_date = MyBase.Columns("end_date")
             Me.columnminutes = MyBase.Columns("minutes")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
@@ -3135,75 +3135,75 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnend_date)
             Me.columnminutes = New Global.System.Data.DataColumn("minutes", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnminutes)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnstart_date}, True))
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnstart_date.AllowDBNull = False
-            Me.columnend_date.AllowDBNull = False
-            Me.columnminutes.AllowDBNull = False
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnstart_date}, true))
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnstart_date.AllowDBNull = false
+            Me.columnend_date.AllowDBNull = false
+            Me.columnminutes.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectWorkTimesRow() As ProjectWorkTimesRow
-            Return CType(Me.NewRow, ProjectWorkTimesRow)
+            Return CType(Me.NewRow,ProjectWorkTimesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectWorkTimesRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectWorkTimesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectWorkTimesRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectWorkTimesRowChanged(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row, ProjectWorkTimesRow), e.Action))
+                RaiseEvent ProjectWorkTimesRowChanged(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row,ProjectWorkTimesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectWorkTimesRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectWorkTimesRowChanging(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row, ProjectWorkTimesRow), e.Action))
+                RaiseEvent ProjectWorkTimesRowChanging(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row,ProjectWorkTimesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectWorkTimesRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectWorkTimesRowDeleted(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row, ProjectWorkTimesRow), e.Action))
+                RaiseEvent ProjectWorkTimesRowDeleted(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row,ProjectWorkTimesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectWorkTimesRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectWorkTimesRowDeleting(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row, ProjectWorkTimesRow), e.Action))
+                RaiseEvent ProjectWorkTimesRowDeleting(Me, New ProjectWorkTimesRowChangeEvent(CType(e.Row,ProjectWorkTimesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectWorkTimesRow(ByVal row As ProjectWorkTimesRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -3232,28 +3232,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -3268,21 +3268,21 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class PalettesDataTable
         Inherits Global.System.Data.TypedTableBase(Of PalettesRow)
-
+        
         Private columnpalette_id As Global.System.Data.DataColumn
-
+        
         Private columnpalette_name As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Palettes"
@@ -3290,9 +3290,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -3308,181 +3308,181 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property palette_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpalette_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property palette_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpalette_name
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As PalettesRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As PalettesRow
             Get
-                Return CType(Me.Rows(index), PalettesRow)
+                Return CType(Me.Rows(index),PalettesRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PalettesRowChanging As PalettesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PalettesRowChanged As PalettesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PalettesRowDeleting As PalettesRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PalettesRowDeleted As PalettesRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddPalettesRow(ByVal row As PalettesRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddPalettesRow(ByVal palette_name As String) As PalettesRow
-            Dim rowPalettesRow As PalettesRow = CType(Me.NewRow, PalettesRow)
+            Dim rowPalettesRow As PalettesRow = CType(Me.NewRow,PalettesRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, palette_name}
             rowPalettesRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowPalettesRow)
             Return rowPalettesRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBypalette_id(ByVal palette_id As Integer) As PalettesRow
-            Return CType(Me.Rows.Find(New Object() {palette_id}), PalettesRow)
+            Return CType(Me.Rows.Find(New Object() {palette_id}),PalettesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As PalettesDataTable = CType(MyBase.Clone, PalettesDataTable)
+            Dim cln As PalettesDataTable = CType(MyBase.Clone,PalettesDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New PalettesDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnpalette_id = MyBase.Columns("palette_id")
             Me.columnpalette_name = MyBase.Columns("palette_name")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnpalette_id = New Global.System.Data.DataColumn("palette_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnpalette_id)
             Me.columnpalette_name = New Global.System.Data.DataColumn("palette_name", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnpalette_name)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id}, True))
-            Me.columnpalette_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id}, true))
+            Me.columnpalette_id.AutoIncrement = true
             Me.columnpalette_id.AutoIncrementSeed = 1
-            Me.columnpalette_id.AllowDBNull = False
-            Me.columnpalette_id.ReadOnly = True
-            Me.columnpalette_id.Unique = True
-            Me.columnpalette_name.AllowDBNull = False
+            Me.columnpalette_id.AllowDBNull = false
+            Me.columnpalette_id.ReadOnly = true
+            Me.columnpalette_id.Unique = true
+            Me.columnpalette_name.AllowDBNull = false
             Me.columnpalette_name.MaxLength = 50
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewPalettesRow() As PalettesRow
-            Return CType(Me.NewRow, PalettesRow)
+            Return CType(Me.NewRow,PalettesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New PalettesRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(PalettesRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.PalettesRowChangedEvent) Is Nothing) Then
-                RaiseEvent PalettesRowChanged(Me, New PalettesRowChangeEvent(CType(e.Row, PalettesRow), e.Action))
+                RaiseEvent PalettesRowChanged(Me, New PalettesRowChangeEvent(CType(e.Row,PalettesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.PalettesRowChangingEvent) Is Nothing) Then
-                RaiseEvent PalettesRowChanging(Me, New PalettesRowChangeEvent(CType(e.Row, PalettesRow), e.Action))
+                RaiseEvent PalettesRowChanging(Me, New PalettesRowChangeEvent(CType(e.Row,PalettesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.PalettesRowDeletedEvent) Is Nothing) Then
-                RaiseEvent PalettesRowDeleted(Me, New PalettesRowChangeEvent(CType(e.Row, PalettesRow), e.Action))
+                RaiseEvent PalettesRowDeleted(Me, New PalettesRowChangeEvent(CType(e.Row,PalettesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.PalettesRowDeletingEvent) Is Nothing) Then
-                RaiseEvent PalettesRowDeleting(Me, New PalettesRowChangeEvent(CType(e.Row, PalettesRow), e.Action))
+                RaiseEvent PalettesRowDeleting(Me, New PalettesRowChangeEvent(CType(e.Row,PalettesRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemovePalettesRow(ByVal row As PalettesRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -3511,28 +3511,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -3547,25 +3547,25 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class PaletteThreadsDataTable
         Inherits Global.System.Data.TypedTableBase(Of PaletteThreadsRow)
-
+        
         Private columnpalette_id As Global.System.Data.DataColumn
-
+        
         Private columnthread_id As Global.System.Data.DataColumn
-
+        
         Private columnsymbol_id As Global.System.Data.DataColumn
-
+        
         Private columnisbead As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "PaletteThreads"
@@ -3573,9 +3573,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -3591,122 +3591,122 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property palette_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnpalette_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property thread_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnthread_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property symbol_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnsymbol_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property isbeadColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnisbead
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As PaletteThreadsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As PaletteThreadsRow
             Get
-                Return CType(Me.Rows(index), PaletteThreadsRow)
+                Return CType(Me.Rows(index),PaletteThreadsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PaletteThreadsRowChanging As PaletteThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PaletteThreadsRowChanged As PaletteThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PaletteThreadsRowDeleting As PaletteThreadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event PaletteThreadsRowDeleted As PaletteThreadsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddPaletteThreadsRow(ByVal row As PaletteThreadsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddPaletteThreadsRow(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal symbol_id As Integer, ByVal isbead As Byte) As PaletteThreadsRow
-            Dim rowPaletteThreadsRow As PaletteThreadsRow = CType(Me.NewRow, PaletteThreadsRow)
+            Dim rowPaletteThreadsRow As PaletteThreadsRow = CType(Me.NewRow,PaletteThreadsRow)
             Dim columnValuesArray() As Object = New Object() {palette_id, thread_id, symbol_id, isbead}
             rowPaletteThreadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowPaletteThreadsRow)
             Return rowPaletteThreadsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBypalette_idthread_id(ByVal palette_id As Integer, ByVal thread_id As Integer) As PaletteThreadsRow
-            Return CType(Me.Rows.Find(New Object() {palette_id, thread_id}), PaletteThreadsRow)
+            Return CType(Me.Rows.Find(New Object() {palette_id, thread_id}),PaletteThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As PaletteThreadsDataTable = CType(MyBase.Clone, PaletteThreadsDataTable)
+            Dim cln As PaletteThreadsDataTable = CType(MyBase.Clone,PaletteThreadsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New PaletteThreadsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnpalette_id = MyBase.Columns("palette_id")
             Me.columnthread_id = MyBase.Columns("thread_id")
             Me.columnsymbol_id = MyBase.Columns("symbol_id")
             Me.columnisbead = MyBase.Columns("isbead")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnpalette_id = New Global.System.Data.DataColumn("palette_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnpalette_id)
@@ -3716,76 +3716,76 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnsymbol_id)
             Me.columnisbead = New Global.System.Data.DataColumn("isbead", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnisbead)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id, Me.columnthread_id}, True))
-            Me.columnpalette_id.AllowDBNull = False
-            Me.columnthread_id.AllowDBNull = False
-            Me.columnsymbol_id.AllowDBNull = False
-            Me.columnisbead.AllowDBNull = False
-            Me.columnisbead.DefaultValue = CType(0, Byte)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id, Me.columnthread_id}, true))
+            Me.columnpalette_id.AllowDBNull = false
+            Me.columnthread_id.AllowDBNull = false
+            Me.columnsymbol_id.AllowDBNull = false
+            Me.columnisbead.AllowDBNull = false
+            Me.columnisbead.DefaultValue = CType(0,Byte)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewPaletteThreadsRow() As PaletteThreadsRow
-            Return CType(Me.NewRow, PaletteThreadsRow)
+            Return CType(Me.NewRow,PaletteThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New PaletteThreadsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(PaletteThreadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.PaletteThreadsRowChangedEvent) Is Nothing) Then
-                RaiseEvent PaletteThreadsRowChanged(Me, New PaletteThreadsRowChangeEvent(CType(e.Row, PaletteThreadsRow), e.Action))
+                RaiseEvent PaletteThreadsRowChanged(Me, New PaletteThreadsRowChangeEvent(CType(e.Row,PaletteThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.PaletteThreadsRowChangingEvent) Is Nothing) Then
-                RaiseEvent PaletteThreadsRowChanging(Me, New PaletteThreadsRowChangeEvent(CType(e.Row, PaletteThreadsRow), e.Action))
+                RaiseEvent PaletteThreadsRowChanging(Me, New PaletteThreadsRowChangeEvent(CType(e.Row,PaletteThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.PaletteThreadsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent PaletteThreadsRowDeleted(Me, New PaletteThreadsRowChangeEvent(CType(e.Row, PaletteThreadsRow), e.Action))
+                RaiseEvent PaletteThreadsRowDeleted(Me, New PaletteThreadsRowChangeEvent(CType(e.Row,PaletteThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.PaletteThreadsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent PaletteThreadsRowDeleting(Me, New PaletteThreadsRowChangeEvent(CType(e.Row, PaletteThreadsRow), e.Action))
+                RaiseEvent PaletteThreadsRowDeleting(Me, New PaletteThreadsRowChangeEvent(CType(e.Row,PaletteThreadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemovePaletteThreadsRow(ByVal row As PaletteThreadsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -3814,28 +3814,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -3850,29 +3850,29 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class BeadsDataTable
         Inherits Global.System.Data.TypedTableBase(Of BeadsRow)
-
+        
         Private columnbead_id As Global.System.Data.DataColumn
-
+        
         Private columnbead_no As Global.System.Data.DataColumn
-
+        
         Private columnbead_colour_name As Global.System.Data.DataColumn
-
+        
         Private columnbead_colour As Global.System.Data.DataColumn
-
+        
         Private columnstock_level As Global.System.Data.DataColumn
-
+        
         Private columnbrand_id As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Beads"
@@ -3880,9 +3880,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -3898,129 +3898,129 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property bead_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbead_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property bead_noColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbead_no
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property bead_colour_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbead_colour_name
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property bead_colourColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbead_colour
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property stock_levelColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnstock_level
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property brand_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbrand_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As BeadsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As BeadsRow
             Get
-                Return CType(Me.Rows(index), BeadsRow)
+                Return CType(Me.Rows(index),BeadsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BeadsRowChanging As BeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BeadsRowChanged As BeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BeadsRowDeleting As BeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BeadsRowDeleted As BeadsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddBeadsRow(ByVal row As BeadsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddBeadsRow(ByVal bead_no As String, ByVal bead_colour_name As String, ByVal bead_colour As Integer, ByVal stock_level As Integer, ByVal brand_id As Integer) As BeadsRow
-            Dim rowBeadsRow As BeadsRow = CType(Me.NewRow, BeadsRow)
+            Dim rowBeadsRow As BeadsRow = CType(Me.NewRow,BeadsRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, bead_no, bead_colour_name, bead_colour, stock_level, brand_id}
             rowBeadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowBeadsRow)
             Return rowBeadsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBybead_id(ByVal bead_id As Integer) As BeadsRow
-            Return CType(Me.Rows.Find(New Object() {bead_id}), BeadsRow)
+            Return CType(Me.Rows.Find(New Object() {bead_id}),BeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As BeadsDataTable = CType(MyBase.Clone, BeadsDataTable)
+            Dim cln As BeadsDataTable = CType(MyBase.Clone,BeadsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New BeadsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnbead_id = MyBase.Columns("bead_id")
             Me.columnbead_no = MyBase.Columns("bead_no")
@@ -4029,9 +4029,9 @@ Partial Public Class MyStitchData
             Me.columnstock_level = MyBase.Columns("stock_level")
             Me.columnbrand_id = MyBase.Columns("brand_id")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnbead_id = New Global.System.Data.DataColumn("bead_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbead_id)
@@ -4045,84 +4045,84 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnstock_level)
             Me.columnbrand_id = New Global.System.Data.DataColumn("brand_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbrand_id)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BeadsKey1", New Global.System.Data.DataColumn() {Me.columnbead_id}, True))
-            Me.columnbead_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BeadsKey1", New Global.System.Data.DataColumn() {Me.columnbead_id}, true))
+            Me.columnbead_id.AutoIncrement = true
             Me.columnbead_id.AutoIncrementSeed = 1
-            Me.columnbead_id.AllowDBNull = False
-            Me.columnbead_id.Unique = True
-            Me.columnbead_no.AllowDBNull = False
-            Me.columnbead_no.DefaultValue = CType("''", String)
-            Me.columnbead_colour_name.AllowDBNull = False
-            Me.columnbead_colour_name.DefaultValue = CType("''", String)
-            Me.columnbead_colour.AllowDBNull = False
-            Me.columnstock_level.AllowDBNull = False
-            Me.columnstock_level.DefaultValue = CType(0, Integer)
-            Me.columnbrand_id.AllowDBNull = False
-            Me.columnbrand_id.DefaultValue = CType(-1, Integer)
+            Me.columnbead_id.AllowDBNull = false
+            Me.columnbead_id.Unique = true
+            Me.columnbead_no.AllowDBNull = false
+            Me.columnbead_no.DefaultValue = CType("''",String)
+            Me.columnbead_colour_name.AllowDBNull = false
+            Me.columnbead_colour_name.DefaultValue = CType("''",String)
+            Me.columnbead_colour.AllowDBNull = false
+            Me.columnstock_level.AllowDBNull = false
+            Me.columnstock_level.DefaultValue = CType(0,Integer)
+            Me.columnbrand_id.AllowDBNull = false
+            Me.columnbrand_id.DefaultValue = CType(-1,Integer)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewBeadsRow() As BeadsRow
-            Return CType(Me.NewRow, BeadsRow)
+            Return CType(Me.NewRow,BeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New BeadsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(BeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.BeadsRowChangedEvent) Is Nothing) Then
-                RaiseEvent BeadsRowChanged(Me, New BeadsRowChangeEvent(CType(e.Row, BeadsRow), e.Action))
+                RaiseEvent BeadsRowChanged(Me, New BeadsRowChangeEvent(CType(e.Row,BeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.BeadsRowChangingEvent) Is Nothing) Then
-                RaiseEvent BeadsRowChanging(Me, New BeadsRowChangeEvent(CType(e.Row, BeadsRow), e.Action))
+                RaiseEvent BeadsRowChanging(Me, New BeadsRowChangeEvent(CType(e.Row,BeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.BeadsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent BeadsRowDeleted(Me, New BeadsRowChangeEvent(CType(e.Row, BeadsRow), e.Action))
+                RaiseEvent BeadsRowDeleted(Me, New BeadsRowChangeEvent(CType(e.Row,BeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.BeadsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent BeadsRowDeleting(Me, New BeadsRowChangeEvent(CType(e.Row, BeadsRow), e.Action))
+                RaiseEvent BeadsRowDeleting(Me, New BeadsRowChangeEvent(CType(e.Row,BeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveBeadsRow(ByVal row As BeadsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -4151,28 +4151,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -4187,21 +4187,21 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class BrandsDataTable
         Inherits Global.System.Data.TypedTableBase(Of BrandsRow)
-
+        
         Private columnbrand_id As Global.System.Data.DataColumn
-
+        
         Private columnbrand_name As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "Brands"
@@ -4209,9 +4209,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -4227,180 +4227,180 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property brand_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbrand_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property brand_nameColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbrand_name
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As BrandsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As BrandsRow
             Get
-                Return CType(Me.Rows(index), BrandsRow)
+                Return CType(Me.Rows(index),BrandsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BrandsRowChanging As BrandsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BrandsRowChanged As BrandsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BrandsRowDeleting As BrandsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event BrandsRowDeleted As BrandsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddBrandsRow(ByVal row As BrandsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddBrandsRow(ByVal brand_name As String) As BrandsRow
-            Dim rowBrandsRow As BrandsRow = CType(Me.NewRow, BrandsRow)
+            Dim rowBrandsRow As BrandsRow = CType(Me.NewRow,BrandsRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, brand_name}
             rowBrandsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowBrandsRow)
             Return rowBrandsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindBybrand_id(ByVal brand_id As Integer) As BrandsRow
-            Return CType(Me.Rows.Find(New Object() {brand_id}), BrandsRow)
+            Return CType(Me.Rows.Find(New Object() {brand_id}),BrandsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As BrandsDataTable = CType(MyBase.Clone, BrandsDataTable)
+            Dim cln As BrandsDataTable = CType(MyBase.Clone,BrandsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New BrandsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnbrand_id = MyBase.Columns("brand_id")
             Me.columnbrand_name = MyBase.Columns("brand_name")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnbrand_id = New Global.System.Data.DataColumn("brand_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbrand_id)
             Me.columnbrand_name = New Global.System.Data.DataColumn("brand_name", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbrand_name)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BrandsKey1", New Global.System.Data.DataColumn() {Me.columnbrand_id}, True))
-            Me.columnbrand_id.AutoIncrement = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BrandsKey1", New Global.System.Data.DataColumn() {Me.columnbrand_id}, true))
+            Me.columnbrand_id.AutoIncrement = true
             Me.columnbrand_id.AutoIncrementSeed = 1
-            Me.columnbrand_id.AllowDBNull = False
-            Me.columnbrand_id.Unique = True
-            Me.columnbrand_name.AllowDBNull = False
-            Me.columnbrand_name.DefaultValue = CType("''", String)
+            Me.columnbrand_id.AllowDBNull = false
+            Me.columnbrand_id.Unique = true
+            Me.columnbrand_name.AllowDBNull = false
+            Me.columnbrand_name.DefaultValue = CType("''",String)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewBrandsRow() As BrandsRow
-            Return CType(Me.NewRow, BrandsRow)
+            Return CType(Me.NewRow,BrandsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New BrandsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(BrandsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.BrandsRowChangedEvent) Is Nothing) Then
-                RaiseEvent BrandsRowChanged(Me, New BrandsRowChangeEvent(CType(e.Row, BrandsRow), e.Action))
+                RaiseEvent BrandsRowChanged(Me, New BrandsRowChangeEvent(CType(e.Row,BrandsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.BrandsRowChangingEvent) Is Nothing) Then
-                RaiseEvent BrandsRowChanging(Me, New BrandsRowChangeEvent(CType(e.Row, BrandsRow), e.Action))
+                RaiseEvent BrandsRowChanging(Me, New BrandsRowChangeEvent(CType(e.Row,BrandsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.BrandsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent BrandsRowDeleted(Me, New BrandsRowChangeEvent(CType(e.Row, BrandsRow), e.Action))
+                RaiseEvent BrandsRowDeleted(Me, New BrandsRowChangeEvent(CType(e.Row,BrandsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.BrandsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent BrandsRowDeleting(Me, New BrandsRowChangeEvent(CType(e.Row, BrandsRow), e.Action))
+                RaiseEvent BrandsRowDeleting(Me, New BrandsRowChangeEvent(CType(e.Row,BrandsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveBrandsRow(ByVal row As BrandsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -4429,28 +4429,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -4465,23 +4465,23 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(),
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class ProjectBeadsDataTable
         Inherits Global.System.Data.TypedTableBase(Of ProjectBeadsRow)
-
+        
         Private columnproject_id As Global.System.Data.DataColumn
-
+        
         Private columnbead_id As Global.System.Data.DataColumn
-
+        
         Private columnis_used As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
             Me.TableName = "ProjectBeads"
@@ -4489,9 +4489,9 @@ Partial Public Class MyStitchData
             Me.InitClass
             Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
             MyBase.New
             Me.TableName = table.TableName
@@ -4507,113 +4507,113 @@ Partial Public Class MyStitchData
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
             Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property project_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnproject_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property bead_idColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnbead_id
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property is_usedColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnis_used
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
-        Default Public ReadOnly Property Item(ByVal index As Integer) As ProjectBeadsRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As ProjectBeadsRow
             Get
-                Return CType(Me.Rows(index), ProjectBeadsRow)
+                Return CType(Me.Rows(index),ProjectBeadsRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectBeadsRowChanging As ProjectBeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectBeadsRowChanged As ProjectBeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectBeadsRowDeleting As ProjectBeadsRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Event ProjectBeadsRowDeleted As ProjectBeadsRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Sub AddProjectBeadsRow(ByVal row As ProjectBeadsRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overloads Function AddProjectBeadsRow(ByVal project_id As Integer, ByVal bead_id As Integer, ByVal is_used As Byte) As ProjectBeadsRow
-            Dim rowProjectBeadsRow As ProjectBeadsRow = CType(Me.NewRow, ProjectBeadsRow)
+            Dim rowProjectBeadsRow As ProjectBeadsRow = CType(Me.NewRow,ProjectBeadsRow)
             Dim columnValuesArray() As Object = New Object() {project_id, bead_id, is_used}
             rowProjectBeadsRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowProjectBeadsRow)
             Return rowProjectBeadsRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function FindByproject_idbead_id(ByVal project_id As Integer, ByVal bead_id As Integer) As ProjectBeadsRow
-            Return CType(Me.Rows.Find(New Object() {project_id, bead_id}), ProjectBeadsRow)
+            Return CType(Me.Rows.Find(New Object() {project_id, bead_id}),ProjectBeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As ProjectBeadsDataTable = CType(MyBase.Clone, ProjectBeadsDataTable)
+            Dim cln As ProjectBeadsDataTable = CType(MyBase.Clone,ProjectBeadsDataTable)
             cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New ProjectBeadsDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnproject_id = MyBase.Columns("project_id")
             Me.columnbead_id = MyBase.Columns("bead_id")
             Me.columnis_used = MyBase.Columns("is_used")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
             Me.columnproject_id = New Global.System.Data.DataColumn("project_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnproject_id)
@@ -4621,73 +4621,73 @@ Partial Public Class MyStitchData
             MyBase.Columns.Add(Me.columnbead_id)
             Me.columnis_used = New Global.System.Data.DataColumn("is_used", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnis_used)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("ProjectBeadsKey1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnbead_id}, True))
-            Me.columnproject_id.AllowDBNull = False
-            Me.columnbead_id.AllowDBNull = False
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("ProjectBeadsKey1", New Global.System.Data.DataColumn() {Me.columnproject_id, Me.columnbead_id}, true))
+            Me.columnproject_id.AllowDBNull = false
+            Me.columnbead_id.AllowDBNull = false
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function NewProjectBeadsRow() As ProjectBeadsRow
-            Return CType(Me.NewRow, ProjectBeadsRow)
+            Return CType(Me.NewRow,ProjectBeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New ProjectBeadsRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(ProjectBeadsRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.ProjectBeadsRowChangedEvent) Is Nothing) Then
-                RaiseEvent ProjectBeadsRowChanged(Me, New ProjectBeadsRowChangeEvent(CType(e.Row, ProjectBeadsRow), e.Action))
+                RaiseEvent ProjectBeadsRowChanged(Me, New ProjectBeadsRowChangeEvent(CType(e.Row,ProjectBeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.ProjectBeadsRowChangingEvent) Is Nothing) Then
-                RaiseEvent ProjectBeadsRowChanging(Me, New ProjectBeadsRowChangeEvent(CType(e.Row, ProjectBeadsRow), e.Action))
+                RaiseEvent ProjectBeadsRowChanging(Me, New ProjectBeadsRowChangeEvent(CType(e.Row,ProjectBeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.ProjectBeadsRowDeletedEvent) Is Nothing) Then
-                RaiseEvent ProjectBeadsRowDeleted(Me, New ProjectBeadsRowChangeEvent(CType(e.Row, ProjectBeadsRow), e.Action))
+                RaiseEvent ProjectBeadsRowDeleted(Me, New ProjectBeadsRowChangeEvent(CType(e.Row,ProjectBeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.ProjectBeadsRowDeletingEvent) Is Nothing) Then
-                RaiseEvent ProjectBeadsRowDeleting(Me, New ProjectBeadsRowChangeEvent(CType(e.Row, ProjectBeadsRow), e.Action))
+                RaiseEvent ProjectBeadsRowDeleting(Me, New ProjectBeadsRowChangeEvent(CType(e.Row,ProjectBeadsRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub RemoveProjectBeadsRow(ByVal row As ProjectBeadsRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -4716,28 +4716,28 @@ Partial Public Class MyStitchData
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
@@ -4752,110 +4752,110 @@ Partial Public Class MyStitchData
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectCardThreadRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjectCardThread As ProjectCardThreadDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjectCardThread = CType(Me.Table, ProjectCardThreadDataTable)
+            Me.tableProjectCardThread = CType(Me.Table,ProjectCardThreadDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectCardThread.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjectCardThread.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectCardThread.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectCardThread.thread_idColumn), Integer)
+                Return CType(Me(Me.tableProjectCardThread.thread_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectCardThread.thread_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_card_no() As Integer
             Get
-                Return CType(Me(Me.tableProjectCardThread.thread_card_noColumn), Integer)
+                Return CType(Me(Me.tableProjectCardThread.thread_card_noColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectCardThread.thread_card_noColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_card_seq() As Integer
             Get
-                Return CType(Me(Me.tableProjectCardThread.thread_card_seqColumn), Integer)
+                Return CType(Me(Me.tableProjectCardThread.thread_card_seqColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectCardThread.thread_card_seqColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjects As ProjectsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjects = CType(Me.Table, ProjectsDataTable)
+            Me.tableProjects = CType(Me.Table,ProjectsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjects.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjects.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_name() As String
             Get
-                Return CType(Me(Me.tableProjects.project_nameColumn), String)
+                Return CType(Me(Me.tableProjects.project_nameColumn),String)
             End Get
             Set
                 Me(Me.tableProjects.project_nameColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property date_started() As Date
             Get
-                Try
-                    Return CType(Me(Me.tableProjects.date_startedColumn), Date)
+                Try 
+                    Return CType(Me(Me.tableProjects.date_startedColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_started' in table 'Projects' is DBNull.", e)
                 End Try
@@ -4864,13 +4864,13 @@ Partial Public Class MyStitchData
                 Me(Me.tableProjects.date_startedColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property date_ended() As Date
             Get
-                Try
-                    Return CType(Me(Me.tableProjects.date_endedColumn), Date)
+                Try 
+                    Return CType(Me(Me.tableProjects.date_endedColumn),Date)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'date_ended' in table 'Projects' is DBNull.", e)
                 End Try
@@ -4879,436 +4879,436 @@ Partial Public Class MyStitchData
                 Me(Me.tableProjects.date_endedColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property design_width() As Integer
             Get
-                Return CType(Me(Me.tableProjects.design_widthColumn), Integer)
+                Return CType(Me(Me.tableProjects.design_widthColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.design_widthColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property design_height() As Integer
             Get
-                Return CType(Me(Me.tableProjects.design_heightColumn), Integer)
+                Return CType(Me(Me.tableProjects.design_heightColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.design_heightColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property fabric_width() As Integer
             Get
-                Return CType(Me(Me.tableProjects.fabric_widthColumn), Integer)
+                Return CType(Me(Me.tableProjects.fabric_widthColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.fabric_widthColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property fabric_height() As Integer
             Get
-                Return CType(Me(Me.tableProjects.fabric_heightColumn), Integer)
+                Return CType(Me(Me.tableProjects.fabric_heightColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.fabric_heightColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property fabric_colour() As Integer
             Get
-                Return CType(Me(Me.tableProjects.fabric_colourColumn), Integer)
+                Return CType(Me(Me.tableProjects.fabric_colourColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.fabric_colourColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property design_file() As String
             Get
-                Return CType(Me(Me.tableProjects.design_fileColumn), String)
+                Return CType(Me(Me.tableProjects.design_fileColumn),String)
             End Get
             Set
                 Me(Me.tableProjects.design_fileColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property origin_x() As Integer
             Get
-                Return CType(Me(Me.tableProjects.origin_xColumn), Integer)
+                Return CType(Me(Me.tableProjects.origin_xColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.origin_xColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property origin_y() As Integer
             Get
-                Return CType(Me(Me.tableProjects.origin_yColumn), Integer)
+                Return CType(Me(Me.tableProjects.origin_yColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.origin_yColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property total_minutes() As Integer
             Get
-                Return CType(Me(Me.tableProjects.total_minutesColumn), Integer)
+                Return CType(Me(Me.tableProjects.total_minutesColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.total_minutesColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property fabric_count() As Integer
             Get
-                Return CType(Me(Me.tableProjects.fabric_countColumn), Integer)
+                Return CType(Me(Me.tableProjects.fabric_countColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjects.fabric_countColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function Isdate_startedNull() As Boolean
             Return Me.IsNull(Me.tableProjects.date_startedColumn)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setdate_startedNull()
             Me(Me.tableProjects.date_startedColumn) = Global.System.Convert.DBNull
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function Isdate_endedNull() As Boolean
             Return Me.IsNull(Me.tableProjects.date_endedColumn)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setdate_endedNull()
             Me(Me.tableProjects.date_endedColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectThreadCardsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjectThreadCards As ProjectThreadCardsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjectThreadCards = CType(Me.Table, ProjectThreadCardsDataTable)
+            Me.tableProjectThreadCards = CType(Me.Table,ProjectThreadCardsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreadCards.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjectThreadCards.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreadCards.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_card_no() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreadCards.thread_card_noColumn), Integer)
+                Return CType(Me(Me.tableProjectThreadCards.thread_card_noColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreadCards.thread_card_noColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectThreadsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjectThreads As ProjectThreadsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjectThreads = CType(Me.Table, ProjectThreadsDataTable)
+            Me.tableProjectThreads = CType(Me.Table,ProjectThreadsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.thread_idColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.thread_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.thread_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property backstitch_count() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.backstitch_countColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.backstitch_countColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.backstitch_countColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property blockstitch_count() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.blockstitch_countColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.blockstitch_countColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.blockstitch_countColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property knot_count() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.knot_countColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.knot_countColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.knot_countColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property symbol_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectThreads.symbol_idColumn), Integer)
+                Return CType(Me(Me.tableProjectThreads.symbol_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectThreads.symbol_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property is_used() As Byte
             Get
-                Return CType(Me(Me.tableProjectThreads.is_usedColumn), Byte)
+                Return CType(Me(Me.tableProjectThreads.is_usedColumn),Byte)
             End Get
             Set
                 Me(Me.tableProjectThreads.is_usedColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ThreadsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableThreads As ThreadsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableThreads = CType(Me.Table, ThreadsDataTable)
+            Me.tableThreads = CType(Me.Table,ThreadsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_id() As Integer
             Get
-                Return CType(Me(Me.tableThreads.thread_idColumn), Integer)
+                Return CType(Me(Me.tableThreads.thread_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableThreads.thread_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_no() As String
             Get
-                Return CType(Me(Me.tableThreads.thread_noColumn), String)
+                Return CType(Me(Me.tableThreads.thread_noColumn),String)
             End Get
             Set
                 Me(Me.tableThreads.thread_noColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_colour_name() As String
             Get
-                Return CType(Me(Me.tableThreads.thread_colour_nameColumn), String)
+                Return CType(Me(Me.tableThreads.thread_colour_nameColumn),String)
             End Get
             Set
                 Me(Me.tableThreads.thread_colour_nameColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_colour() As Integer
             Get
-                Return CType(Me(Me.tableThreads.thread_colourColumn), Integer)
+                Return CType(Me(Me.tableThreads.thread_colourColumn),Integer)
             End Get
             Set
                 Me(Me.tableThreads.thread_colourColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property stock_level() As Integer
             Get
-                Return CType(Me(Me.tableThreads.stock_levelColumn), Integer)
+                Return CType(Me(Me.tableThreads.stock_levelColumn),Integer)
             End Get
             Set
                 Me(Me.tableThreads.stock_levelColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property brand_id() As Integer
             Get
-                Return CType(Me(Me.tableThreads.brand_idColumn), Integer)
+                Return CType(Me(Me.tableThreads.brand_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableThreads.brand_idColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class SettingsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableSettings As SettingsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableSettings = CType(Me.Table, SettingsDataTable)
+            Me.tableSettings = CType(Me.Table,SettingsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property pKey() As String
             Get
-                Return CType(Me(Me.tableSettings.pKeyColumn), String)
+                Return CType(Me(Me.tableSettings.pKeyColumn),String)
             End Get
             Set
                 Me(Me.tableSettings.pKeyColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property pValue() As String
             Get
-                Return CType(Me(Me.tableSettings.pValueColumn), String)
+                Return CType(Me(Me.tableSettings.pValueColumn),String)
             End Get
             Set
                 Me(Me.tableSettings.pValueColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property pType() As String
             Get
-                Return CType(Me(Me.tableSettings.pTypeColumn), String)
+                Return CType(Me(Me.tableSettings.pTypeColumn),String)
             End Get
             Set
                 Me(Me.tableSettings.pTypeColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class SymbolsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableSymbols As SymbolsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableSymbols = CType(Me.Table, SymbolsDataTable)
+            Me.tableSymbols = CType(Me.Table,SymbolsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property symbol_id() As Integer
             Get
-                Return CType(Me(Me.tableSymbols.symbol_idColumn), Integer)
+                Return CType(Me(Me.tableSymbols.symbol_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableSymbols.symbol_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property symbol() As Byte()
             Get
-                Try
-                    Return CType(Me(Me.tableSymbols.symbolColumn), Byte())
+                Try 
+                    Return CType(Me(Me.tableSymbols.symbolColumn),Byte())
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'symbol' in table 'Symbols' is DBNull.", e)
                 End Try
@@ -5317,341 +5317,341 @@ Partial Public Class MyStitchData
                 Me(Me.tableSymbols.symbolColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function IssymbolNull() As Boolean
             Return Me.IsNull(Me.tableSymbols.symbolColumn)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub SetsymbolNull()
             Me(Me.tableSymbols.symbolColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectWorkTimesRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjectWorkTimes As ProjectWorkTimesDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjectWorkTimes = CType(Me.Table, ProjectWorkTimesDataTable)
+            Me.tableProjectWorkTimes = CType(Me.Table,ProjectWorkTimesDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectWorkTimes.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjectWorkTimes.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectWorkTimes.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property start_date() As Date
             Get
-                Return CType(Me(Me.tableProjectWorkTimes.start_dateColumn), Date)
+                Return CType(Me(Me.tableProjectWorkTimes.start_dateColumn),Date)
             End Get
             Set
                 Me(Me.tableProjectWorkTimes.start_dateColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property end_date() As Date
             Get
-                Return CType(Me(Me.tableProjectWorkTimes.end_dateColumn), Date)
+                Return CType(Me(Me.tableProjectWorkTimes.end_dateColumn),Date)
             End Get
             Set
                 Me(Me.tableProjectWorkTimes.end_dateColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property minutes() As Integer
             Get
-                Return CType(Me(Me.tableProjectWorkTimes.minutesColumn), Integer)
+                Return CType(Me(Me.tableProjectWorkTimes.minutesColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectWorkTimes.minutesColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class PalettesRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tablePalettes As PalettesDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tablePalettes = CType(Me.Table, PalettesDataTable)
+            Me.tablePalettes = CType(Me.Table,PalettesDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property palette_id() As Integer
             Get
-                Return CType(Me(Me.tablePalettes.palette_idColumn), Integer)
+                Return CType(Me(Me.tablePalettes.palette_idColumn),Integer)
             End Get
             Set
                 Me(Me.tablePalettes.palette_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property palette_name() As String
             Get
-                Return CType(Me(Me.tablePalettes.palette_nameColumn), String)
+                Return CType(Me(Me.tablePalettes.palette_nameColumn),String)
             End Get
             Set
                 Me(Me.tablePalettes.palette_nameColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class PaletteThreadsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tablePaletteThreads As PaletteThreadsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tablePaletteThreads = CType(Me.Table, PaletteThreadsDataTable)
+            Me.tablePaletteThreads = CType(Me.Table,PaletteThreadsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property palette_id() As Integer
             Get
-                Return CType(Me(Me.tablePaletteThreads.palette_idColumn), Integer)
+                Return CType(Me(Me.tablePaletteThreads.palette_idColumn),Integer)
             End Get
             Set
                 Me(Me.tablePaletteThreads.palette_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property thread_id() As Integer
             Get
-                Return CType(Me(Me.tablePaletteThreads.thread_idColumn), Integer)
+                Return CType(Me(Me.tablePaletteThreads.thread_idColumn),Integer)
             End Get
             Set
                 Me(Me.tablePaletteThreads.thread_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property symbol_id() As Integer
             Get
-                Return CType(Me(Me.tablePaletteThreads.symbol_idColumn), Integer)
+                Return CType(Me(Me.tablePaletteThreads.symbol_idColumn),Integer)
             End Get
             Set
                 Me(Me.tablePaletteThreads.symbol_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property isbead() As Byte
             Get
-                Return CType(Me(Me.tablePaletteThreads.isbeadColumn), Byte)
+                Return CType(Me(Me.tablePaletteThreads.isbeadColumn),Byte)
             End Get
             Set
                 Me(Me.tablePaletteThreads.isbeadColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BeadsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableBeads As BeadsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBeads = CType(Me.Table, BeadsDataTable)
+            Me.tableBeads = CType(Me.Table,BeadsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property bead_id() As Integer
             Get
-                Return CType(Me(Me.tableBeads.bead_idColumn), Integer)
+                Return CType(Me(Me.tableBeads.bead_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableBeads.bead_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property bead_no() As String
             Get
-                Return CType(Me(Me.tableBeads.bead_noColumn), String)
+                Return CType(Me(Me.tableBeads.bead_noColumn),String)
             End Get
             Set
                 Me(Me.tableBeads.bead_noColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property bead_colour_name() As String
             Get
-                Return CType(Me(Me.tableBeads.bead_colour_nameColumn), String)
+                Return CType(Me(Me.tableBeads.bead_colour_nameColumn),String)
             End Get
             Set
                 Me(Me.tableBeads.bead_colour_nameColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property bead_colour() As Integer
             Get
-                Return CType(Me(Me.tableBeads.bead_colourColumn), Integer)
+                Return CType(Me(Me.tableBeads.bead_colourColumn),Integer)
             End Get
             Set
                 Me(Me.tableBeads.bead_colourColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property stock_level() As Integer
             Get
-                Return CType(Me(Me.tableBeads.stock_levelColumn), Integer)
+                Return CType(Me(Me.tableBeads.stock_levelColumn),Integer)
             End Get
             Set
                 Me(Me.tableBeads.stock_levelColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property brand_id() As Integer
             Get
-                Return CType(Me(Me.tableBeads.brand_idColumn), Integer)
+                Return CType(Me(Me.tableBeads.brand_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableBeads.brand_idColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class BrandsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableBrands As BrandsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableBrands = CType(Me.Table, BrandsDataTable)
+            Me.tableBrands = CType(Me.Table,BrandsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property brand_id() As Integer
             Get
-                Return CType(Me(Me.tableBrands.brand_idColumn), Integer)
+                Return CType(Me(Me.tableBrands.brand_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableBrands.brand_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property brand_name() As String
             Get
-                Return CType(Me(Me.tableBrands.brand_nameColumn), String)
+                Return CType(Me(Me.tableBrands.brand_nameColumn),String)
             End Get
             Set
                 Me(Me.tableBrands.brand_nameColumn) = value
             End Set
         End Property
     End Class
-
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class ProjectBeadsRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableProjectBeads As ProjectBeadsDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableProjectBeads = CType(Me.Table, ProjectBeadsDataTable)
+            Me.tableProjectBeads = CType(Me.Table,ProjectBeadsDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property project_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectBeads.project_idColumn), Integer)
+                Return CType(Me(Me.tableProjectBeads.project_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectBeads.project_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property bead_id() As Integer
             Get
-                Return CType(Me(Me.tableProjectBeads.bead_idColumn), Integer)
+                Return CType(Me(Me.tableProjectBeads.bead_idColumn),Integer)
             End Get
             Set
                 Me(Me.tableProjectBeads.bead_idColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property is_used() As Byte
             Get
-                Try
-                    Return CType(Me(Me.tableProjectBeads.is_usedColumn), Byte)
+                Try 
+                    Return CType(Me(Me.tableProjectBeads.is_usedColumn),Byte)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'is_used' in table 'ProjectBeads' is DBNull.", e)
                 End Try
@@ -5660,481 +5660,481 @@ Partial Public Class MyStitchData
                 Me(Me.tableProjectBeads.is_usedColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Function Isis_usedNull() As Boolean
             Return Me.IsNull(Me.tableProjectBeads.is_usedColumn)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub Setis_usedNull()
             Me(Me.tableProjectBeads.is_usedColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectCardThreadRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectCardThreadRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectCardThreadRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectCardThreadRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectThreadCardsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectThreadCardsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectThreadCardsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectThreadCardsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectThreadsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectThreadsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectThreadsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectThreadsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ThreadsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ThreadsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ThreadsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ThreadsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class SettingsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As SettingsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As SettingsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As SettingsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class SymbolsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As SymbolsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As SymbolsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As SymbolsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectWorkTimesRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectWorkTimesRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectWorkTimesRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectWorkTimesRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class PalettesRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As PalettesRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As PalettesRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As PalettesRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class PaletteThreadsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As PaletteThreadsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As PaletteThreadsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As PaletteThreadsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class BeadsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As BeadsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As BeadsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As BeadsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class BrandsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As BrandsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As BrandsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As BrandsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
             End Get
         End Property
     End Class
-
+    
     '''<summary>
     '''Row event argument class
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
     Public Class ProjectBeadsRowChangeEvent
         Inherits Global.System.EventArgs
-
+        
         Private eventRow As ProjectBeadsRow
-
+        
         Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New(ByVal row As ProjectBeadsRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Row() As ProjectBeadsRow
             Get
                 Return Me.eventRow
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property Action() As Global.System.Data.DataRowAction
             Get
                 Return Me.eventAction
@@ -6144,38 +6144,38 @@ Partial Public Class MyStitchData
 End Class
 
 Namespace MyStitchDataTableAdapters
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ProjectCardThreadTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -6184,9 +6184,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -6208,15 +6208,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -6228,23 +6228,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -6253,9 +6253,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -6264,9 +6264,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -6279,132 +6279,132 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectCardThread] WHERE (([project_id] = @Original_project_id" &
-                ") AND ([thread_id] = @Original_thread_id) AND ([thread_card_no] = @Original_thre" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectCardThread] WHERE (([project_id] = @Original_project_id"& _ 
+                ") AND ([thread_id] = @Original_thread_id) AND ([thread_card_no] = @Original_thre"& _ 
                 "ad_card_no) AND ([thread_card_seq] = @Original_thread_card_seq))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectCardThread] ([project_id], [thread_id], [thread_card_no" &
-                "], [thread_card_seq]) VALUES (@project_id, @thread_id, @thread_card_no, @thread_" &
-                "card_seq);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM P" &
-                "rojectCardThread WHERE (project_id = @project_id) AND (thread_card_no = @thread_" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectCardThread] ([project_id], [thread_id], [thread_card_no"& _ 
+                "], [thread_card_seq]) VALUES (@project_id, @thread_id, @thread_card_no, @thread_"& _ 
+                "card_seq);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM P"& _ 
+                "rojectCardThread WHERE (project_id = @project_id) AND (thread_card_no = @thread_"& _ 
                 "card_no) AND (thread_card_seq = @thread_card_seq) AND (thread_id = @thread_id)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectCardThread] SET [project_id] = @project_id, [thread_id] = @t" &
-                "hread_id, [thread_card_no] = @thread_card_no, [thread_card_seq] = @thread_card_s" &
-                "eq WHERE (([project_id] = @Original_project_id) AND ([thread_id] = @Original_thr" &
-                "ead_id) AND ([thread_card_no] = @Original_thread_card_no) AND ([thread_card_seq]" &
-                " = @Original_thread_card_seq));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, thread_id, thread_card_no, t" &
-                "hread_card_seq FROM ProjectCardThread WHERE (project_id = @project_id) AND (thre" &
-                "ad_card_no = @thread_card_no) AND (thread_card_seq = @thread_card_seq) AND (thre" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectCardThread] SET [project_id] = @project_id, [thread_id] = @t"& _ 
+                "hread_id, [thread_card_no] = @thread_card_no, [thread_card_seq] = @thread_card_s"& _ 
+                "eq WHERE (([project_id] = @Original_project_id) AND ([thread_id] = @Original_thr"& _ 
+                "ead_id) AND ([thread_card_no] = @Original_thread_card_no) AND ([thread_card_seq]"& _ 
+                " = @Original_thread_card_seq));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, thread_card_no, t"& _ 
+                "hread_card_seq FROM ProjectCardThread WHERE (project_id = @project_id) AND (thre"& _ 
+                "ad_card_no = @thread_card_no) AND (thread_card_seq = @thread_card_seq) AND (thre"& _ 
                 "ad_id = @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_seq", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_seq", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM dbo.ProjectCar" &
+            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id, thread_card_no, thread_card_seq FROM dbo.ProjectCar"& _ 
                 "dThread"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ProjectCardThreadDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ProjectCardThreadDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ProjectCardThreadDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ProjectCardThreadDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ProjectCardThreadDataTable = New MyStitchData.ProjectCardThreadDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ProjectCardThreadDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ProjectCardThreadDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "ProjectCardThread")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_thread_card_no, Integer)
-            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_card_seq, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_thread_card_no,Integer)
+            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_card_seq,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -6413,22 +6413,22 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As Integer
-            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(2).Value = CType(thread_card_no, Integer)
-            Me.Adapter.InsertCommand.Parameters(3).Value = CType(thread_card_seq, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer) As Integer
+            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(2).Value = CType(thread_card_no,Integer)
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(thread_card_seq,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -6437,26 +6437,26 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
-            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_card_no, Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(thread_card_seq, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_card_no, Integer)
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_card_seq, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal thread_card_no As Integer, ByVal thread_card_seq As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
+            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_card_no,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(thread_card_seq,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_card_no,Integer)
+            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_card_seq,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -6465,47 +6465,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_card_no As Integer, ByVal Original_thread_card_seq As Integer) As Integer
             Return Me.Update(Original_project_id, Original_thread_id, Original_thread_card_no, Original_thread_card_seq, Original_project_id, Original_thread_id, Original_thread_card_no, Original_thread_card_seq)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ProjectsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -6514,9 +6514,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -6538,15 +6538,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -6558,23 +6558,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -6583,9 +6583,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -6594,9 +6594,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -6619,227 +6619,227 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [Projects] WHERE (([project_id] = @Original_project_id) AND ([project" &
-                "_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_starte" &
-                "d] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_date_end" &
-                "ed = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND (" &
-                "[design_width] = @Original_design_width) AND ([design_height] = @Original_design" &
-                "_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height] = @O" &
-                "riginal_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND ([des" &
-                "ign_file] = @Original_design_file) AND ([origin_x] = @Original_origin_x) AND ([o" &
-                "rigin_y] = @Original_origin_y) AND ([total_minutes] = @Original_total_minutes) A" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [Projects] WHERE (([project_id] = @Original_project_id) AND ([project"& _ 
+                "_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_starte"& _ 
+                "d] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_date_end"& _ 
+                "ed = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND ("& _ 
+                "[design_width] = @Original_design_width) AND ([design_height] = @Original_design"& _ 
+                "_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height] = @O"& _ 
+                "riginal_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND ([des"& _ 
+                "ign_file] = @Original_design_file) AND ([origin_x] = @Original_origin_x) AND ([o"& _ 
+                "rigin_y] = @Original_origin_y) AND ([total_minutes] = @Original_total_minutes) A"& _ 
                 "ND ([fabric_count] = @Original_fabric_count))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_started", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, True, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_ended", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, True, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_started", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_ended", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [Projects] ([project_name], [date_started], [date_ended], [design_wid" &
-                "th], [design_height], [fabric_width], [fabric_height], [fabric_colour], [design_" &
-                "file], [origin_x], [origin_y], [total_minutes], [fabric_count]) VALUES (@project" &
-                "_name, @date_started, @date_ended, @design_width, @design_height, @fabric_width," &
-                " @fabric_height, @fabric_colour, @design_file, @origin_x, @origin_y, @total_minu" &
-                "tes, @fabric_count);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, project_name, date_started, date_ended," &
-                " design_width, design_height, fabric_width, fabric_height, fabric_colour, design" &
-                "_file, origin_x, origin_y, total_minutes, fabric_count FROM Projects WHERE (proj" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [Projects] ([project_name], [date_started], [date_ended], [design_wid"& _ 
+                "th], [design_height], [fabric_width], [fabric_height], [fabric_colour], [design_"& _ 
+                "file], [origin_x], [origin_y], [total_minutes], [fabric_count]) VALUES (@project"& _ 
+                "_name, @date_started, @date_ended, @design_width, @design_height, @fabric_width,"& _ 
+                " @fabric_height, @fabric_colour, @design_file, @origin_x, @origin_y, @total_minu"& _ 
+                "tes, @fabric_count);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name, date_started, date_ended,"& _ 
+                " design_width, design_height, fabric_width, fabric_height, fabric_colour, design"& _ 
+                "_file, origin_x, origin_y, total_minutes, fabric_count FROM Projects WHERE (proj"& _ 
                 "ect_id = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [Projects] SET [project_name] = @project_name, [date_started] = @date_star" &
-                "ted, [date_ended] = @date_ended, [design_width] = @design_width, [design_height]" &
-                " = @design_height, [fabric_width] = @fabric_width, [fabric_height] = @fabric_hei" &
-                "ght, [fabric_colour] = @fabric_colour, [design_file] = @design_file, [origin_x] " &
-                "= @origin_x, [origin_y] = @origin_y, [total_minutes] = @total_minutes, [fabric_c" &
-                "ount] = @fabric_count WHERE (([project_id] = @Original_project_id) AND ([project" &
-                "_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_starte" &
-                "d] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_date_end" &
-                "ed = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND (" &
-                "[design_width] = @Original_design_width) AND ([design_height] = @Original_design" &
-                "_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height] = @O" &
-                "riginal_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND ([des" &
-                "ign_file] = @Original_design_file) AND ([origin_x] = @Original_origin_x) AND ([o" &
-                "rigin_y] = @Original_origin_y) AND ([total_minutes] = @Original_total_minutes) A" &
-                "ND ([fabric_count] = @Original_fabric_count));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, project_name," &
-                " date_started, date_ended, design_width, design_height, fabric_width, fabric_hei" &
-                "ght, fabric_colour, design_file, origin_x, origin_y, total_minutes, fabric_count" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [Projects] SET [project_name] = @project_name, [date_started] = @date_star"& _ 
+                "ted, [date_ended] = @date_ended, [design_width] = @design_width, [design_height]"& _ 
+                " = @design_height, [fabric_width] = @fabric_width, [fabric_height] = @fabric_hei"& _ 
+                "ght, [fabric_colour] = @fabric_colour, [design_file] = @design_file, [origin_x] "& _ 
+                "= @origin_x, [origin_y] = @origin_y, [total_minutes] = @total_minutes, [fabric_c"& _ 
+                "ount] = @fabric_count WHERE (([project_id] = @Original_project_id) AND ([project"& _ 
+                "_name] = @Original_project_name) AND ((@IsNull_date_started = 1 AND [date_starte"& _ 
+                "d] IS NULL) OR ([date_started] = @Original_date_started)) AND ((@IsNull_date_end"& _ 
+                "ed = 1 AND [date_ended] IS NULL) OR ([date_ended] = @Original_date_ended)) AND ("& _ 
+                "[design_width] = @Original_design_width) AND ([design_height] = @Original_design"& _ 
+                "_height) AND ([fabric_width] = @Original_fabric_width) AND ([fabric_height] = @O"& _ 
+                "riginal_fabric_height) AND ([fabric_colour] = @Original_fabric_colour) AND ([des"& _ 
+                "ign_file] = @Original_design_file) AND ([origin_x] = @Original_origin_x) AND ([o"& _ 
+                "rigin_y] = @Original_origin_y) AND ([total_minutes] = @Original_total_minutes) A"& _ 
+                "ND ([fabric_count] = @Original_fabric_count));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, project_name,"& _ 
+                " date_started, date_ended, design_width, design_height, fabric_width, fabric_hei"& _ 
+                "ght, fabric_colour, design_file, origin_x, origin_y, total_minutes, fabric_count"& _ 
                 " FROM Projects WHERE (project_id = @project_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_started", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, True, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_ended", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, True, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_started", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_started", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_started", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_date_ended", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_date_ended", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "date_ended", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_width", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_height", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_width", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_width", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_height", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_height", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_design_file", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "design_file", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_x", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_x", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_origin_y", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "origin_y", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_total_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "total_minutes", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fabric_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fabric_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT project_id, project_name, date_started, date_ended, design_width, design_h" &
-                "eight, fabric_width, fabric_height, fabric_colour, design_file, origin_x, origin" &
+            Me._commandCollection(0).CommandText = "SELECT project_id, project_name, date_started, date_ended, design_width, design_h"& _ 
+                "eight, fabric_width, fabric_height, fabric_colour, design_file, origin_x, origin"& _ 
                 "_y, total_minutes, fabric_count FROM Projects"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ProjectsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ProjectsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ProjectsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ProjectsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ProjectsDataTable = New MyStitchData.ProjectsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ProjectsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ProjectsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "Projects")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_project_id As Integer, ByVal Original_project_name As String, ByVal Original_date_started As Global.System.Nullable(Of Date), ByVal Original_date_ended As Global.System.Nullable(Of Date), ByVal Original_design_width As Integer, ByVal Original_design_height As Integer, ByVal Original_fabric_width As Integer, ByVal Original_fabric_height As Integer, ByVal Original_fabric_colour As Integer, ByVal Original_design_file As String, ByVal Original_origin_x As Integer, ByVal Original_origin_y As Integer, ByVal Original_total_minutes As Integer, ByVal Original_fabric_count As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_project_name As String, ByVal Original_date_started As Global.System.Nullable(Of Date), ByVal Original_date_ended As Global.System.Nullable(Of Date), ByVal Original_design_width As Integer, ByVal Original_design_height As Integer, ByVal Original_fabric_width As Integer, ByVal Original_fabric_height As Integer, ByVal Original_fabric_colour As Integer, ByVal Original_design_file As String, ByVal Original_origin_x As Integer, ByVal Original_origin_y As Integer, ByVal Original_total_minutes As Integer, ByVal Original_fabric_count As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
             If (Original_project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_project_name")
             Else
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_project_name, String)
+                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_project_name,String)
             End If
-            If (Original_date_started.HasValue = True) Then
-                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(0, Object)
-                Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_date_started.Value, Date)
+            If (Original_date_started.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_date_started.Value,Date)
             Else
-                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(1, Object)
+                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(3).Value = Global.System.DBNull.Value
             End If
-            If (Original_date_ended.HasValue = True) Then
-                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(0, Object)
-                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(Original_date_ended.Value, Date)
+            If (Original_date_ended.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(Original_date_ended.Value,Date)
             Else
-                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(1, Object)
+                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(5).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_design_width, Integer)
-            Me.Adapter.DeleteCommand.Parameters(7).Value = CType(Original_design_height, Integer)
-            Me.Adapter.DeleteCommand.Parameters(8).Value = CType(Original_fabric_width, Integer)
-            Me.Adapter.DeleteCommand.Parameters(9).Value = CType(Original_fabric_height, Integer)
-            Me.Adapter.DeleteCommand.Parameters(10).Value = CType(Original_fabric_colour, Integer)
+            Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_design_width,Integer)
+            Me.Adapter.DeleteCommand.Parameters(7).Value = CType(Original_design_height,Integer)
+            Me.Adapter.DeleteCommand.Parameters(8).Value = CType(Original_fabric_width,Integer)
+            Me.Adapter.DeleteCommand.Parameters(9).Value = CType(Original_fabric_height,Integer)
+            Me.Adapter.DeleteCommand.Parameters(10).Value = CType(Original_fabric_colour,Integer)
             If (Original_design_file Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_design_file")
             Else
-                Me.Adapter.DeleteCommand.Parameters(11).Value = CType(Original_design_file, String)
+                Me.Adapter.DeleteCommand.Parameters(11).Value = CType(Original_design_file,String)
             End If
-            Me.Adapter.DeleteCommand.Parameters(12).Value = CType(Original_origin_x, Integer)
-            Me.Adapter.DeleteCommand.Parameters(13).Value = CType(Original_origin_y, Integer)
-            Me.Adapter.DeleteCommand.Parameters(14).Value = CType(Original_total_minutes, Integer)
-            Me.Adapter.DeleteCommand.Parameters(15).Value = CType(Original_fabric_count, Integer)
+            Me.Adapter.DeleteCommand.Parameters(12).Value = CType(Original_origin_x,Integer)
+            Me.Adapter.DeleteCommand.Parameters(13).Value = CType(Original_origin_y,Integer)
+            Me.Adapter.DeleteCommand.Parameters(14).Value = CType(Original_total_minutes,Integer)
+            Me.Adapter.DeleteCommand.Parameters(15).Value = CType(Original_fabric_count,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -6848,47 +6848,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal design_file As String, ByVal origin_x As Integer, ByVal origin_y As Integer, ByVal total_minutes As Integer, ByVal fabric_count As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal project_name As String, ByVal date_started As Global.System.Nullable(Of Date), ByVal date_ended As Global.System.Nullable(Of Date), ByVal design_width As Integer, ByVal design_height As Integer, ByVal fabric_width As Integer, ByVal fabric_height As Integer, ByVal fabric_colour As Integer, ByVal design_file As String, ByVal origin_x As Integer, ByVal origin_y As Integer, ByVal total_minutes As Integer, ByVal fabric_count As Integer) As Integer
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_name, String)
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_name,String)
             End If
-            If (date_started.HasValue = True) Then
-                Me.Adapter.InsertCommand.Parameters(1).Value = CType(date_started.Value, Date)
+            If (date_started.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(1).Value = CType(date_started.Value,Date)
             Else
                 Me.Adapter.InsertCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (date_ended.HasValue = True) Then
-                Me.Adapter.InsertCommand.Parameters(2).Value = CType(date_ended.Value, Date)
+            If (date_ended.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(2).Value = CType(date_ended.Value,Date)
             Else
                 Me.Adapter.InsertCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.InsertCommand.Parameters(3).Value = CType(design_width, Integer)
-            Me.Adapter.InsertCommand.Parameters(4).Value = CType(design_height, Integer)
-            Me.Adapter.InsertCommand.Parameters(5).Value = CType(fabric_width, Integer)
-            Me.Adapter.InsertCommand.Parameters(6).Value = CType(fabric_height, Integer)
-            Me.Adapter.InsertCommand.Parameters(7).Value = CType(fabric_colour, Integer)
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(design_width,Integer)
+            Me.Adapter.InsertCommand.Parameters(4).Value = CType(design_height,Integer)
+            Me.Adapter.InsertCommand.Parameters(5).Value = CType(fabric_width,Integer)
+            Me.Adapter.InsertCommand.Parameters(6).Value = CType(fabric_height,Integer)
+            Me.Adapter.InsertCommand.Parameters(7).Value = CType(fabric_colour,Integer)
             If (design_file Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("design_file")
             Else
-                Me.Adapter.InsertCommand.Parameters(8).Value = CType(design_file, String)
+                Me.Adapter.InsertCommand.Parameters(8).Value = CType(design_file,String)
             End If
-            Me.Adapter.InsertCommand.Parameters(9).Value = CType(origin_x, Integer)
-            Me.Adapter.InsertCommand.Parameters(10).Value = CType(origin_y, Integer)
-            Me.Adapter.InsertCommand.Parameters(11).Value = CType(total_minutes, Integer)
-            Me.Adapter.InsertCommand.Parameters(12).Value = CType(fabric_count, Integer)
+            Me.Adapter.InsertCommand.Parameters(9).Value = CType(origin_x,Integer)
+            Me.Adapter.InsertCommand.Parameters(10).Value = CType(origin_y,Integer)
+            Me.Adapter.InsertCommand.Parameters(11).Value = CType(total_minutes,Integer)
+            Me.Adapter.InsertCommand.Parameters(12).Value = CType(fabric_count,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -6897,110 +6897,110 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(
-                    ByVal project_name As String,
-                    ByVal date_started As Global.System.Nullable(Of Date),
-                    ByVal date_ended As Global.System.Nullable(Of Date),
-                    ByVal design_width As Integer,
-                    ByVal design_height As Integer,
-                    ByVal fabric_width As Integer,
-                    ByVal fabric_height As Integer,
-                    ByVal fabric_colour As Integer,
-                    ByVal design_file As String,
-                    ByVal origin_x As Integer,
-                    ByVal origin_y As Integer,
-                    ByVal total_minutes As Integer,
-                    ByVal fabric_count As Integer,
-                    ByVal Original_project_id As Integer,
-                    ByVal Original_project_name As String,
-                    ByVal Original_date_started As Global.System.Nullable(Of Date),
-                    ByVal Original_date_ended As Global.System.Nullable(Of Date),
-                    ByVal Original_design_width As Integer,
-                    ByVal Original_design_height As Integer,
-                    ByVal Original_fabric_width As Integer,
-                    ByVal Original_fabric_height As Integer,
-                    ByVal Original_fabric_colour As Integer,
-                    ByVal Original_design_file As String,
-                    ByVal Original_origin_x As Integer,
-                    ByVal Original_origin_y As Integer,
-                    ByVal Original_total_minutes As Integer,
-                    ByVal Original_fabric_count As Integer,
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update( _
+                    ByVal project_name As String,  _
+                    ByVal date_started As Global.System.Nullable(Of Date),  _
+                    ByVal date_ended As Global.System.Nullable(Of Date),  _
+                    ByVal design_width As Integer,  _
+                    ByVal design_height As Integer,  _
+                    ByVal fabric_width As Integer,  _
+                    ByVal fabric_height As Integer,  _
+                    ByVal fabric_colour As Integer,  _
+                    ByVal design_file As String,  _
+                    ByVal origin_x As Integer,  _
+                    ByVal origin_y As Integer,  _
+                    ByVal total_minutes As Integer,  _
+                    ByVal fabric_count As Integer,  _
+                    ByVal Original_project_id As Integer,  _
+                    ByVal Original_project_name As String,  _
+                    ByVal Original_date_started As Global.System.Nullable(Of Date),  _
+                    ByVal Original_date_ended As Global.System.Nullable(Of Date),  _
+                    ByVal Original_design_width As Integer,  _
+                    ByVal Original_design_height As Integer,  _
+                    ByVal Original_fabric_width As Integer,  _
+                    ByVal Original_fabric_height As Integer,  _
+                    ByVal Original_fabric_colour As Integer,  _
+                    ByVal Original_design_file As String,  _
+                    ByVal Original_origin_x As Integer,  _
+                    ByVal Original_origin_y As Integer,  _
+                    ByVal Original_total_minutes As Integer,  _
+                    ByVal Original_fabric_count As Integer,  _
                     ByVal project_id As Integer) As Integer
             If (project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("project_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_name, String)
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_name,String)
             End If
-            If (date_started.HasValue = True) Then
-                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(date_started.Value, Date)
+            If (date_started.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(date_started.Value,Date)
             Else
                 Me.Adapter.UpdateCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (date_ended.HasValue = True) Then
-                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(date_ended.Value, Date)
+            If (date_ended.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(date_ended.Value,Date)
             Else
                 Me.Adapter.UpdateCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(design_width, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(design_height, Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(fabric_width, Integer)
-            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(fabric_height, Integer)
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(fabric_colour, Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(design_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(design_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(fabric_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(fabric_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(fabric_colour,Integer)
             If (design_file Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("design_file")
             Else
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(design_file, String)
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(design_file,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(origin_x, Integer)
-            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(origin_y, Integer)
-            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(total_minutes, Integer)
-            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(fabric_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_project_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(origin_x,Integer)
+            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(origin_y,Integer)
+            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(total_minutes,Integer)
+            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(fabric_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_project_id,Integer)
             If (Original_project_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_project_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_project_name, String)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_project_name,String)
             End If
-            If (Original_date_started.HasValue = True) Then
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0, Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_date_started.Value, Date)
+            If (Original_date_started.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_date_started.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1, Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
             End If
-            If (Original_date_ended.HasValue = True) Then
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0, Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_date_ended.Value, Date)
+            If (Original_date_ended.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_date_ended.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1, Object)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_design_width, Integer)
-            Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_design_height, Integer)
-            Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_fabric_width, Integer)
-            Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_fabric_height, Integer)
-            Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_fabric_colour, Integer)
+            Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_design_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_design_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_fabric_width,Integer)
+            Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_fabric_height,Integer)
+            Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_fabric_colour,Integer)
             If (Original_design_file Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_design_file")
             Else
-                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_design_file, String)
+                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_design_file,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(25).Value = CType(Original_origin_x, Integer)
-            Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_origin_y, Integer)
-            Me.Adapter.UpdateCommand.Parameters(27).Value = CType(Original_total_minutes, Integer)
-            Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_fabric_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(29).Value = CType(project_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(25).Value = CType(Original_origin_x,Integer)
+            Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_origin_y,Integer)
+            Me.Adapter.UpdateCommand.Parameters(27).Value = CType(Original_total_minutes,Integer)
+            Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_fabric_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(29).Value = CType(project_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7009,74 +7009,74 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(
-                    ByVal project_name As String,
-                    ByVal date_started As Global.System.Nullable(Of Date),
-                    ByVal date_ended As Global.System.Nullable(Of Date),
-                    ByVal design_width As Integer,
-                    ByVal design_height As Integer,
-                    ByVal fabric_width As Integer,
-                    ByVal fabric_height As Integer,
-                    ByVal fabric_colour As Integer,
-                    ByVal design_file As String,
-                    ByVal origin_x As Integer,
-                    ByVal origin_y As Integer,
-                    ByVal total_minutes As Integer,
-                    ByVal fabric_count As Integer,
-                    ByVal Original_project_id As Integer,
-                    ByVal Original_project_name As String,
-                    ByVal Original_date_started As Global.System.Nullable(Of Date),
-                    ByVal Original_date_ended As Global.System.Nullable(Of Date),
-                    ByVal Original_design_width As Integer,
-                    ByVal Original_design_height As Integer,
-                    ByVal Original_fabric_width As Integer,
-                    ByVal Original_fabric_height As Integer,
-                    ByVal Original_fabric_colour As Integer,
-                    ByVal Original_design_file As String,
-                    ByVal Original_origin_x As Integer,
-                    ByVal Original_origin_y As Integer,
-                    ByVal Original_total_minutes As Integer,
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update( _
+                    ByVal project_name As String,  _
+                    ByVal date_started As Global.System.Nullable(Of Date),  _
+                    ByVal date_ended As Global.System.Nullable(Of Date),  _
+                    ByVal design_width As Integer,  _
+                    ByVal design_height As Integer,  _
+                    ByVal fabric_width As Integer,  _
+                    ByVal fabric_height As Integer,  _
+                    ByVal fabric_colour As Integer,  _
+                    ByVal design_file As String,  _
+                    ByVal origin_x As Integer,  _
+                    ByVal origin_y As Integer,  _
+                    ByVal total_minutes As Integer,  _
+                    ByVal fabric_count As Integer,  _
+                    ByVal Original_project_id As Integer,  _
+                    ByVal Original_project_name As String,  _
+                    ByVal Original_date_started As Global.System.Nullable(Of Date),  _
+                    ByVal Original_date_ended As Global.System.Nullable(Of Date),  _
+                    ByVal Original_design_width As Integer,  _
+                    ByVal Original_design_height As Integer,  _
+                    ByVal Original_fabric_width As Integer,  _
+                    ByVal Original_fabric_height As Integer,  _
+                    ByVal Original_fabric_colour As Integer,  _
+                    ByVal Original_design_file As String,  _
+                    ByVal Original_origin_x As Integer,  _
+                    ByVal Original_origin_y As Integer,  _
+                    ByVal Original_total_minutes As Integer,  _
                     ByVal Original_fabric_count As Integer) As Integer
             Return Me.Update(project_name, date_started, date_ended, design_width, design_height, fabric_width, fabric_height, fabric_colour, design_file, origin_x, origin_y, total_minutes, fabric_count, Original_project_id, Original_project_name, Original_date_started, Original_date_ended, Original_design_width, Original_design_height, Original_fabric_width, Original_fabric_height, Original_fabric_colour, Original_design_file, Original_origin_x, Original_origin_y, Original_total_minutes, Original_fabric_count, Original_project_id)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ProjectThreadCardsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -7085,9 +7085,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -7109,15 +7109,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -7129,23 +7129,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -7154,9 +7154,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -7165,9 +7165,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -7178,43 +7178,43 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectThreadCards] WHERE (([project_id] = @Original_project_i" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectThreadCards] WHERE (([project_id] = @Original_project_i"& _ 
                 "d) AND ([thread_card_no] = @Original_thread_card_no))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectThreadCards] ([project_id], [thread_card_no]) VALUES (@" &
-                "project_id, @thread_card_no);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, thread_card_no FROM ProjectThr" &
-                "eadCards WHERE (project_id = @project_id) AND (thread_card_no = @thread_card_no)" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectThreadCards] ([project_id], [thread_card_no]) VALUES (@"& _ 
+                "project_id, @thread_card_no);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_card_no FROM ProjectThr"& _ 
+                "eadCards WHERE (project_id = @project_id) AND (thread_card_no = @thread_card_no)"& _ 
                 ""
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectThreadCards] SET [project_id] = @project_id, [thread_card_no" &
-                "] = @thread_card_no WHERE (([project_id] = @Original_project_id) AND ([thread_ca" &
-                "rd_no] = @Original_thread_card_no));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, thread_card_no FROM Pro" &
-                "jectThreadCards WHERE (project_id = @project_id) AND (thread_card_no = @thread_c" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectThreadCards] SET [project_id] = @project_id, [thread_card_no"& _ 
+                "] = @thread_card_no WHERE (([project_id] = @Original_project_id) AND ([thread_ca"& _ 
+                "rd_no] = @Original_thread_card_no));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_card_no FROM Pro"& _ 
+                "jectThreadCards WHERE (project_id = @project_id) AND (thread_card_no = @thread_c"& _ 
                 "ard_no)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_card_no", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_card_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -7222,72 +7222,72 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT project_id, thread_card_no FROM dbo.ProjectThreadCards"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ProjectThreadCardsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ProjectThreadCardsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ProjectThreadCardsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ProjectThreadCardsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ProjectThreadCardsDataTable = New MyStitchData.ProjectThreadCardsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ProjectThreadCardsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ProjectThreadCardsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "ProjectThreadCards")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_card_no, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_card_no,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7296,20 +7296,20 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal project_id As Integer, ByVal thread_card_no As Integer) As Integer
-            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_card_no, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal project_id As Integer, ByVal thread_card_no As Integer) As Integer
+            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_card_no,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7318,22 +7318,22 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal project_id As Integer, ByVal thread_card_no As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
-            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_card_no, Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_thread_card_no, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal thread_card_no As Integer, ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
+            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_card_no,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_thread_card_no,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7342,47 +7342,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal Original_project_id As Integer, ByVal Original_thread_card_no As Integer) As Integer
             Return Me.Update(Original_project_id, Original_thread_card_no, Original_project_id, Original_thread_card_no)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ProjectThreadsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -7391,9 +7391,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -7415,15 +7415,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -7435,23 +7435,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -7460,9 +7460,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -7471,9 +7471,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -7489,152 +7489,152 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [ProjectThreads] WHERE (([project_id] = @Original_project_id) AND ([t" &
-                "hread_id] = @Original_thread_id) AND ([backstitch_count] = @Original_backstitch_" &
-                "count) AND ([blockstitch_count] = @Original_blockstitch_count) AND ([knot_count]" &
-                " = @Original_knot_count) AND ([symbol_id] = @Original_symbol_id) AND ([is_used] " &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [ProjectThreads] WHERE (([project_id] = @Original_project_id) AND ([t"& _ 
+                "hread_id] = @Original_thread_id) AND ([backstitch_count] = @Original_backstitch_"& _ 
+                "count) AND ([blockstitch_count] = @Original_blockstitch_count) AND ([knot_count]"& _ 
+                " = @Original_knot_count) AND ([symbol_id] = @Original_symbol_id) AND ([is_used] "& _ 
                 "= @Original_is_used))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [ProjectThreads] ([project_id], [thread_id], [backstitch_count], [blo" &
-                "ckstitch_count], [knot_count], [symbol_id], [is_used]) VALUES (@project_id, @thr" &
-                "ead_id, @backstitch_count, @blockstitch_count, @knot_count, @symbol_id, @is_used" &
-                ");" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, thread_id, backstitch_count, blockstitch_count, knot_coun" &
-                "t, symbol_id, is_used FROM ProjectThreads WHERE (project_id = @project_id) AND (" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [ProjectThreads] ([project_id], [thread_id], [backstitch_count], [blo"& _ 
+                "ckstitch_count], [knot_count], [symbol_id], [is_used]) VALUES (@project_id, @thr"& _ 
+                "ead_id, @backstitch_count, @blockstitch_count, @knot_count, @symbol_id, @is_used"& _ 
+                ");"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, thread_id, backstitch_count, blockstitch_count, knot_coun"& _ 
+                "t, symbol_id, is_used FROM ProjectThreads WHERE (project_id = @project_id) AND ("& _ 
                 "thread_id = @thread_id)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [ProjectThreads] SET [project_id] = @project_id, [thread_id] = @thread_id," &
-                " [backstitch_count] = @backstitch_count, [blockstitch_count] = @blockstitch_coun" &
-                "t, [knot_count] = @knot_count, [symbol_id] = @symbol_id, [is_used] = @is_used WH" &
-                "ERE (([project_id] = @Original_project_id) AND ([thread_id] = @Original_thread_i" &
-                "d) AND ([backstitch_count] = @Original_backstitch_count) AND ([blockstitch_count" &
-                "] = @Original_blockstitch_count) AND ([knot_count] = @Original_knot_count) AND (" &
-                "[symbol_id] = @Original_symbol_id) AND ([is_used] = @Original_is_used));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT" &
-                " project_id, thread_id, backstitch_count, blockstitch_count, knot_count, symbol_" &
-                "id, is_used FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id " &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [ProjectThreads] SET [project_id] = @project_id, [thread_id] = @thread_id,"& _ 
+                " [backstitch_count] = @backstitch_count, [blockstitch_count] = @blockstitch_coun"& _ 
+                "t, [knot_count] = @knot_count, [symbol_id] = @symbol_id, [is_used] = @is_used WH"& _ 
+                "ERE (([project_id] = @Original_project_id) AND ([thread_id] = @Original_thread_i"& _ 
+                "d) AND ([backstitch_count] = @Original_backstitch_count) AND ([blockstitch_count"& _ 
+                "] = @Original_blockstitch_count) AND ([knot_count] = @Original_knot_count) AND ("& _ 
+                "[symbol_id] = @Original_symbol_id) AND ([is_used] = @Original_is_used));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT"& _ 
+                " project_id, thread_id, backstitch_count, blockstitch_count, knot_count, symbol_"& _ 
+                "id, is_used FROM ProjectThreads WHERE (project_id = @project_id) AND (thread_id "& _ 
                 "= @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_backstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "backstitch_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_blockstitch_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "blockstitch_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_knot_count", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "knot_count", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_is_used", Global.System.Data.SqlDbType.TinyInt, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "is_used", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id, backstitch_count, blockstitch_count, knot_count, sy" &
+            Me._commandCollection(0).CommandText = "SELECT project_id, thread_id, backstitch_count, blockstitch_count, knot_count, sy"& _ 
                 "mbol_id, is_used FROM ProjectThreads"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ProjectThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ProjectThreadsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ProjectThreadsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ProjectThreadsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ProjectThreadsDataTable = New MyStitchData.ProjectThreadsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ProjectThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ProjectThreadsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "ProjectThreads")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_backstitch_count, Integer)
-            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_blockstitch_count, Integer)
-            Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_knot_count, Integer)
-            Me.Adapter.DeleteCommand.Parameters(5).Value = CType(Original_symbol_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_is_used, Byte)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_backstitch_count,Integer)
+            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_blockstitch_count,Integer)
+            Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_knot_count,Integer)
+            Me.Adapter.DeleteCommand.Parameters(5).Value = CType(Original_symbol_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_is_used,Byte)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7643,25 +7643,25 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte) As Integer
-            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(2).Value = CType(backstitch_count, Integer)
-            Me.Adapter.InsertCommand.Parameters(3).Value = CType(blockstitch_count, Integer)
-            Me.Adapter.InsertCommand.Parameters(4).Value = CType(knot_count, Integer)
-            Me.Adapter.InsertCommand.Parameters(5).Value = CType(symbol_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(6).Value = CType(is_used, Byte)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte) As Integer
+            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(2).Value = CType(backstitch_count,Integer)
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(blockstitch_count,Integer)
+            Me.Adapter.InsertCommand.Parameters(4).Value = CType(knot_count,Integer)
+            Me.Adapter.InsertCommand.Parameters(5).Value = CType(symbol_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(6).Value = CType(is_used,Byte)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7670,32 +7670,32 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
-            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(backstitch_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(blockstitch_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(knot_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(symbol_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(is_used, Byte)
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_backstitch_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_blockstitch_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_knot_count, Integer)
-            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_symbol_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_is_used, Byte)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal thread_id As Integer, ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
+            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(backstitch_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(blockstitch_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(knot_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(symbol_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(is_used,Byte)
+            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_backstitch_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_blockstitch_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_knot_count,Integer)
+            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_symbol_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_is_used,Byte)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7704,47 +7704,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal backstitch_count As Integer, ByVal blockstitch_count As Integer, ByVal knot_count As Integer, ByVal symbol_id As Integer, ByVal is_used As Byte, ByVal Original_project_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_backstitch_count As Integer, ByVal Original_blockstitch_count As Integer, ByVal Original_knot_count As Integer, ByVal Original_symbol_id As Integer, ByVal Original_is_used As Byte) As Integer
             Return Me.Update(Original_project_id, Original_thread_id, backstitch_count, blockstitch_count, knot_count, symbol_id, is_used, Original_project_id, Original_thread_id, Original_backstitch_count, Original_blockstitch_count, Original_knot_count, Original_symbol_id, Original_is_used)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ThreadsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -7753,9 +7753,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -7777,15 +7777,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -7797,23 +7797,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -7822,9 +7822,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -7833,9 +7833,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -7849,143 +7849,143 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Threads] WHERE (([thread_id] = @Original_thread_id) AND ([thre" &
-                "ad_no] = @Original_thread_no) AND ([thread_colour_name] = @Original_thread_colou" &
-                "r_name) AND ([thread_colour] = @Original_thread_colour) AND ([stock_level] = @Or" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Threads] WHERE (([thread_id] = @Original_thread_id) AND ([thre"& _ 
+                "ad_no] = @Original_thread_no) AND ([thread_colour_name] = @Original_thread_colou"& _ 
+                "r_name) AND ([thread_colour] = @Original_thread_colour) AND ([stock_level] = @Or"& _ 
                 "iginal_stock_level))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Threads] ([thread_no], [thread_colour_name], [thread_colour], " &
-                "[stock_level]) VALUES (@thread_no, @thread_colour_name, @thread_colour, @stock_l" &
-                "evel);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT thread_id, thread_no, thread_colour_name, thread_colour, stock_le" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Threads] ([thread_no], [thread_colour_name], [thread_colour], "& _ 
+                "[stock_level]) VALUES (@thread_no, @thread_colour_name, @thread_colour, @stock_l"& _ 
+                "evel);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT thread_id, thread_no, thread_colour_name, thread_colour, stock_le"& _ 
                 "vel FROM Threads WHERE (thread_id = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Threads] SET [thread_no] = @thread_no, [thread_colour_name] = @thre" &
-                "ad_colour_name, [thread_colour] = @thread_colour, [stock_level] = @stock_level W" &
-                "HERE (([thread_id] = @Original_thread_id) AND ([thread_no] = @Original_thread_no" &
-                ") AND ([thread_colour_name] = @Original_thread_colour_name) AND ([thread_colour]" &
-                " = @Original_thread_colour) AND ([stock_level] = @Original_stock_level));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELEC" &
-                "T thread_id, thread_no, thread_colour_name, thread_colour, stock_level FROM Thre" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Threads] SET [thread_no] = @thread_no, [thread_colour_name] = @thre"& _ 
+                "ad_colour_name, [thread_colour] = @thread_colour, [stock_level] = @stock_level W"& _ 
+                "HERE (([thread_id] = @Original_thread_id) AND ([thread_no] = @Original_thread_no"& _ 
+                ") AND ([thread_colour_name] = @Original_thread_colour_name) AND ([thread_colour]"& _ 
+                " = @Original_thread_colour) AND ([stock_level] = @Original_stock_level));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELEC"& _ 
+                "T thread_id, thread_no, thread_colour_name, thread_colour, stock_level FROM Thre"& _ 
                 "ads WHERE (thread_id = @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_no", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_no", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_colour", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_colour", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_stock_level", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "stock_level", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT thread_id, thread_no, thread_colour_name, thread_colour, stock_level FROM " &
+            Me._commandCollection(0).CommandText = "SELECT thread_id, thread_no, thread_colour_name, thread_colour, stock_level FROM "& _ 
                 "dbo.Threads"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ThreadsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ThreadsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ThreadsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ThreadsDataTable = New MyStitchData.ThreadsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ThreadsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "Threads")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_thread_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_thread_id,Integer)
             If (Original_thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_no")
             Else
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_no, String)
+                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_no,String)
             End If
             If (Original_thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_colour_name")
             Else
-                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_thread_colour_name, String)
+                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_thread_colour_name,String)
             End If
-            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_colour, Integer)
-            Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_stock_level, Integer)
+            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_thread_colour,Integer)
+            Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -7994,30 +7994,30 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer) As Integer
             If (thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_no")
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(thread_no, String)
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(thread_no,String)
             End If
             If (thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_colour_name")
             Else
-                Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_colour_name, String)
+                Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_colour_name,String)
             End If
-            Me.Adapter.InsertCommand.Parameters(2).Value = CType(thread_colour, Integer)
-            Me.Adapter.InsertCommand.Parameters(3).Value = CType(stock_level, Integer)
+            Me.Adapter.InsertCommand.Parameters(2).Value = CType(thread_colour,Integer)
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(stock_level,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8026,44 +8026,44 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer, ByVal thread_id As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer, ByVal thread_id As Integer) As Integer
             If (thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_no")
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(thread_no, String)
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(thread_no,String)
             End If
             If (thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("thread_colour_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_colour_name, String)
+                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_colour_name,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_colour, Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(stock_level, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(thread_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(stock_level,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_id,Integer)
             If (Original_thread_no Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_no")
             Else
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_no, String)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_thread_no,String)
             End If
             If (Original_thread_colour_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_thread_colour_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_colour_name, String)
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_thread_colour_name,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_colour, Integer)
-            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_stock_level, Integer)
-            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(thread_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_thread_colour,Integer)
+            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_stock_level,Integer)
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(thread_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8072,47 +8072,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal thread_no As String, ByVal thread_colour_name As String, ByVal thread_colour As Integer, ByVal stock_level As Integer, ByVal Original_thread_id As Integer, ByVal Original_thread_no As String, ByVal Original_thread_colour_name As String, ByVal Original_thread_colour As Integer, ByVal Original_stock_level As Integer) As Integer
             Return Me.Update(thread_no, thread_colour_name, thread_colour, stock_level, Original_thread_id, Original_thread_no, Original_thread_colour_name, Original_thread_colour, Original_stock_level, Original_thread_id)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class SettingsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -8121,9 +8121,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -8145,15 +8145,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -8165,23 +8165,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -8190,9 +8190,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -8201,9 +8201,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -8215,44 +8215,44 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Settings] WHERE (([pKey] = @Original_pKey) AND ([pValue] = @Or" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Settings] WHERE (([pKey] = @Original_pKey) AND ([pValue] = @Or"& _ 
                 "iginal_pValue) AND ([pType] = @Original_pType))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Settings] ([pKey], [pValue], [pType]) VALUES (@pKey, @pValue, " &
-                "@pType);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT pKey, pValue, pType FROM Settings WHERE (pKey = @pKey)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Settings] ([pKey], [pValue], [pType]) VALUES (@pKey, @pValue, "& _ 
+                "@pType);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT pKey, pValue, pType FROM Settings WHERE (pKey = @pKey)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Settings] SET [pKey] = @pKey, [pValue] = @pValue, [pType] = @pType " &
-                "WHERE (([pKey] = @Original_pKey) AND ([pValue] = @Original_pValue) AND ([pType] " &
-                "= @Original_pType));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT pKey, pValue, pType FROM Settings WHERE (pKey = @pK" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Settings] SET [pKey] = @pKey, [pValue] = @pValue, [pType] = @pType "& _ 
+                "WHERE (([pKey] = @Original_pKey) AND ([pValue] = @Original_pValue) AND ([pType] "& _ 
+                "= @Original_pType));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT pKey, pValue, pType FROM Settings WHERE (pKey = @pK"& _ 
                 "ey)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pKey", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pKey", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pValue", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pValue", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_pType", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "pType", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -8260,85 +8260,85 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT pKey, pValue, pType FROM dbo.Settings"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.SettingsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.SettingsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.SettingsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.SettingsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.SettingsDataTable = New MyStitchData.SettingsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.SettingsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.SettingsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "Settings")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
             If (Original_pKey Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pKey")
             Else
-                Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_pKey, String)
+                Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_pKey,String)
             End If
             If (Original_pValue Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pValue")
             Else
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_pValue, String)
+                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_pValue,String)
             End If
             If (Original_pType Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pType")
             Else
-                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_pType, String)
+                Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_pType,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8347,33 +8347,33 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal pKey As String, ByVal pValue As String, ByVal pType As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal pKey As String, ByVal pValue As String, ByVal pType As String) As Integer
             If (pKey Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pKey")
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(pKey, String)
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(pKey,String)
             End If
             If (pValue Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pValue")
             Else
-                Me.Adapter.InsertCommand.Parameters(1).Value = CType(pValue, String)
+                Me.Adapter.InsertCommand.Parameters(1).Value = CType(pValue,String)
             End If
             If (pType Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pType")
             Else
-                Me.Adapter.InsertCommand.Parameters(2).Value = CType(pType, String)
+                Me.Adapter.InsertCommand.Parameters(2).Value = CType(pType,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8382,48 +8382,48 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal pKey As String, ByVal pValue As String, ByVal pType As String, ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal pKey As String, ByVal pValue As String, ByVal pType As String, ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
             If (pKey Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pKey")
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(pKey, String)
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(pKey,String)
             End If
             If (pValue Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pValue")
             Else
-                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(pValue, String)
+                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(pValue,String)
             End If
             If (pType Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("pType")
             Else
-                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(pType, String)
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(pType,String)
             End If
             If (Original_pKey Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pKey")
             Else
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_pKey, String)
+                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_pKey,String)
             End If
             If (Original_pValue Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pValue")
             Else
-                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_pValue, String)
+                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_pValue,String)
             End If
             If (Original_pType Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_pType")
             Else
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_pType, String)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_pType,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8432,47 +8432,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal pValue As String, ByVal pType As String, ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal pValue As String, ByVal pType As String, ByVal Original_pKey As String, ByVal Original_pValue As String, ByVal Original_pType As String) As Integer
             Return Me.Update(Original_pKey, pValue, pType, Original_pKey, Original_pValue, Original_pType)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class SymbolsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -8481,9 +8481,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -8505,15 +8505,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -8525,23 +8525,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -8550,9 +8550,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -8561,9 +8561,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -8576,32 +8576,32 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Symbols] WHERE (([symbol_id] = @Original_symbol_id))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Symbols] ([symbol]) VALUES (@symbol);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT symbol_id, symbo" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Symbols] ([symbol]) VALUES (@symbol);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT symbol_id, symbo"& _ 
                 "l FROM Symbols WHERE (symbol_id = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol", Global.System.Data.SqlDbType.Image, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol", Global.System.Data.SqlDbType.Image, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Symbols] SET [symbol] = @symbol WHERE (([symbol_id] = @Original_sym" &
-                "bol_id));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT symbol_id, symbol FROM Symbols WHERE (symbol_id = @symbol_id)"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Symbols] SET [symbol] = @symbol WHERE (([symbol_id] = @Original_sym"& _ 
+                "bol_id));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT symbol_id, symbol FROM Symbols WHERE (symbol_id = @symbol_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol", Global.System.Data.SqlDbType.Image, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol", Global.System.Data.SqlDbType.Image, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -8609,71 +8609,71 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT symbol_id, symbol FROM dbo.Symbols"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.SymbolsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.SymbolsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.SymbolsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.SymbolsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.SymbolsDataTable = New MyStitchData.SymbolsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.SymbolsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.SymbolsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "Symbols")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_symbol_id As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_symbol_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_symbol_id As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_symbol_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8682,23 +8682,23 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal symbol() As Byte) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal symbol() As Byte) As Integer
             If (symbol Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(symbol, Byte())
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(symbol,Byte())
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8707,25 +8707,25 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal symbol() As Byte, ByVal Original_symbol_id As Integer, ByVal symbol_id As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal symbol() As Byte, ByVal Original_symbol_id As Integer, ByVal symbol_id As Integer) As Integer
             If (symbol Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(symbol, Byte())
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(symbol,Byte())
             End If
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(Original_symbol_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(symbol_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(Original_symbol_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(symbol_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -8734,47 +8734,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal symbol() As Byte, ByVal Original_symbol_id As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal symbol() As Byte, ByVal Original_symbol_id As Integer) As Integer
             Return Me.Update(symbol, Original_symbol_id, Original_symbol_id)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class ProjectWorkTimesTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -8783,9 +8783,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -8807,15 +8807,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -8827,23 +8827,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -8852,9 +8852,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -8863,9 +8863,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -8878,53 +8878,53 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectWorkTimes] WHERE (([project_id] = @Original_project_id)" &
-                " AND ([start_date] = @Original_start_date) AND ([end_date] = @Original_end_date)" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[ProjectWorkTimes] WHERE (([project_id] = @Original_project_id)"& _ 
+                " AND ([start_date] = @Original_start_date) AND ([end_date] = @Original_end_date)"& _ 
                 " AND ([minutes] = @Original_minutes))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectWorkTimes] ([project_id], [start_date], [end_date], [mi" &
-                "nutes]) VALUES (@project_id, @start_date, @end_date, @minutes);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_" &
-                "id, start_date, end_date, minutes FROM ProjectWorkTimes WHERE (project_id = @pro" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[ProjectWorkTimes] ([project_id], [start_date], [end_date], [mi"& _ 
+                "nutes]) VALUES (@project_id, @start_date, @end_date, @minutes);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_"& _ 
+                "id, start_date, end_date, minutes FROM ProjectWorkTimes WHERE (project_id = @pro"& _ 
                 "ject_id) AND (start_date = @start_date)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectWorkTimes] SET [project_id] = @project_id, [start_date] = @s" &
-                "tart_date, [end_date] = @end_date, [minutes] = @minutes WHERE (([project_id] = @" &
-                "Original_project_id) AND ([start_date] = @Original_start_date) AND ([end_date] =" &
-                " @Original_end_date) AND ([minutes] = @Original_minutes));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT project_id, s" &
-                "tart_date, end_date, minutes FROM ProjectWorkTimes WHERE (project_id = @project_" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[ProjectWorkTimes] SET [project_id] = @project_id, [start_date] = @s"& _ 
+                "tart_date, [end_date] = @end_date, [minutes] = @minutes WHERE (([project_id] = @"& _ 
+                "Original_project_id) AND ([start_date] = @Original_start_date) AND ([end_date] ="& _ 
+                " @Original_end_date) AND ([minutes] = @Original_minutes));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT project_id, s"& _ 
+                "tart_date, end_date, minutes FROM ProjectWorkTimes WHERE (project_id = @project_"& _ 
                 "id) AND (start_date = @start_date)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_project_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "project_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_start_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "start_date", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_end_date", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "end_date", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_minutes", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "minutes", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -8932,74 +8932,74 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT project_id, start_date, end_date, minutes FROM dbo.ProjectWorkTimes"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.ProjectWorkTimesDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.ProjectWorkTimesDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.ProjectWorkTimesDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.ProjectWorkTimesDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.ProjectWorkTimesDataTable = New MyStitchData.ProjectWorkTimesDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.ProjectWorkTimesDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.ProjectWorkTimesDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "ProjectWorkTimes")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_start_date, Date)
-            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_end_date, Date)
-            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_minutes, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_project_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_start_date,Date)
+            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_end_date,Date)
+            Me.Adapter.DeleteCommand.Parameters(3).Value = CType(Original_minutes,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9008,22 +9008,22 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal project_id As Integer, ByVal start_date As Date, ByVal end_date As Date, ByVal minutes As Integer) As Integer
-            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(1).Value = CType(start_date, Date)
-            Me.Adapter.InsertCommand.Parameters(2).Value = CType(end_date, Date)
-            Me.Adapter.InsertCommand.Parameters(3).Value = CType(minutes, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal project_id As Integer, ByVal start_date As Date, ByVal end_date As Date, ByVal minutes As Integer) As Integer
+            Me.Adapter.InsertCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(1).Value = CType(start_date,Date)
+            Me.Adapter.InsertCommand.Parameters(2).Value = CType(end_date,Date)
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(minutes,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9032,26 +9032,26 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal project_id As Integer, ByVal start_date As Date, ByVal end_date As Date, ByVal minutes As Integer, ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
-            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(start_date, Date)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(end_date, Date)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(minutes, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_project_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_start_date, Date)
-            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_end_date, Date)
-            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_minutes, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal project_id As Integer, ByVal start_date As Date, ByVal end_date As Date, ByVal minutes As Integer, ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
+            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(start_date,Date)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(end_date,Date)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(minutes,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_project_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_start_date,Date)
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_end_date,Date)
+            Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_minutes,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9060,47 +9060,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal end_date As Date, ByVal minutes As Integer, ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal end_date As Date, ByVal minutes As Integer, ByVal Original_project_id As Integer, ByVal Original_start_date As Date, ByVal Original_end_date As Date, ByVal Original_minutes As Integer) As Integer
             Return Me.Update(Original_project_id, Original_start_date, end_date, minutes, Original_project_id, Original_start_date, Original_end_date, Original_minutes)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class PalettesTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -9109,9 +9109,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -9133,15 +9133,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -9153,23 +9153,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -9178,9 +9178,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -9189,9 +9189,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -9202,38 +9202,38 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Palettes] WHERE (([palette_id] = @Original_palette_id) AND ([p" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Palettes] WHERE (([palette_id] = @Original_palette_id) AND ([p"& _ 
                 "alette_name] = @Original_palette_name))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Palettes] ([palette_name]) VALUES (@palette_name);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT pal" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Palettes] ([palette_name]) VALUES (@palette_name);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT pal"& _ 
                 "ette_id, palette_name FROM Palettes WHERE (palette_id = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Palettes] SET [palette_name] = @palette_name WHERE (([palette_id] =" &
-                " @Original_palette_id) AND ([palette_name] = @Original_palette_name));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT p" &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Palettes] SET [palette_name] = @palette_name WHERE (([palette_id] ="& _ 
+                " @Original_palette_id) AND ([palette_name] = @Original_palette_name));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT p"& _ 
                 "alette_id, palette_name FROM Palettes WHERE (palette_id = @palette_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_name", Global.System.Data.SqlDbType.NVarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_name", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -9241,76 +9241,76 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT palette_id, palette_name FROM dbo.Palettes"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.PalettesDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.PalettesDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.PalettesDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.PalettesDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.PalettesDataTable = New MyStitchData.PalettesDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.PalettesDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.PalettesDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "Palettes")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_palette_id As Integer, ByVal Original_palette_name As String) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_palette_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_palette_id As Integer, ByVal Original_palette_name As String) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_palette_id,Integer)
             If (Original_palette_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_palette_name")
             Else
-                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_palette_name, String)
+                Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_palette_name,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9319,23 +9319,23 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal palette_name As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal palette_name As String) As Integer
             If (palette_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("palette_name")
             Else
-                Me.Adapter.InsertCommand.Parameters(0).Value = CType(palette_name, String)
+                Me.Adapter.InsertCommand.Parameters(0).Value = CType(palette_name,String)
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9344,30 +9344,30 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal palette_name As String, ByVal Original_palette_id As Integer, ByVal Original_palette_name As String, ByVal palette_id As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal palette_name As String, ByVal Original_palette_id As Integer, ByVal Original_palette_name As String, ByVal palette_id As Integer) As Integer
             If (palette_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("palette_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(palette_name, String)
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(palette_name,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(Original_palette_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(Original_palette_id,Integer)
             If (Original_palette_name Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_palette_name")
             Else
-                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_palette_name, String)
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Original_palette_name,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(palette_id, Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(palette_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9376,47 +9376,47 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal palette_name As String, ByVal Original_palette_id As Integer, ByVal Original_palette_name As String) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal palette_name As String, ByVal Original_palette_id As Integer, ByVal Original_palette_name As String) As Integer
             Return Me.Update(palette_name, Original_palette_id, Original_palette_name, Original_palette_id)
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DataObjectAttribute(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" &
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class PaletteThreadsTableAdapter
         Inherits Global.System.ComponentModel.Component
-
+        
         Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-
+        
         Private _connection As Global.System.Data.SqlClient.SqlConnection
-
+        
         Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-
+        
         Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-
+        
         Private _clearBeforeFill As Boolean
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.ClearBeforeFill = True
+            Me.ClearBeforeFill = true
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
             Get
                 If (Me._adapter Is Nothing) Then
@@ -9425,9 +9425,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._adapter
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
             Get
                 If (Me._connection Is Nothing) Then
@@ -9449,15 +9449,15 @@ Namespace MyStitchDataTableAdapters
                 Dim i As Integer = 0
                 Do While (i < Me.CommandCollection.Length)
                     If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i), Global.System.Data.SqlClient.SqlCommand).Connection = value
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
                     End If
                     i = (i + 1)
                 Loop
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
             Get
                 Return Me._transaction
@@ -9469,23 +9469,23 @@ Namespace MyStitchDataTableAdapters
                     Me.CommandCollection(i).Transaction = Me._transaction
                     i = (i + 1)
                 Loop
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
                     Me.Adapter.DeleteCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
                     Me.Adapter.InsertCommand.Transaction = Me._transaction
                 End If
-                If ((Not (Me.Adapter) Is Nothing) _
+                If ((Not (Me.Adapter) Is Nothing)  _
                             AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
                     Me.Adapter.UpdateCommand.Transaction = Me._transaction
                 End If
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
             Get
                 If (Me._commandCollection Is Nothing) Then
@@ -9494,9 +9494,9 @@ Namespace MyStitchDataTableAdapters
                 Return Me._commandCollection
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property ClearBeforeFill() As Boolean
             Get
                 Return Me._clearBeforeFill
@@ -9505,9 +9505,9 @@ Namespace MyStitchDataTableAdapters
                 Me._clearBeforeFill = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitAdapter()
             Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
             Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
@@ -9519,47 +9519,47 @@ Namespace MyStitchDataTableAdapters
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
-            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[PaletteThreads] WHERE (([palette_id] = @Original_palette_id) A" &
+            Me._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[PaletteThreads] WHERE (([palette_id] = @Original_palette_id) A"& _ 
                 "ND ([thread_id] = @Original_thread_id) AND ([symbol_id] = @Original_symbol_id))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[PaletteThreads] ([palette_id], [thread_id], [symbol_id]) VALUE" &
-                "S (@palette_id, @thread_id, @symbol_id);" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "SELECT palette_id, thread_id, symbol_i" &
-                "d FROM PaletteThreads WHERE (palette_id = @palette_id) AND (thread_id = @thread_" &
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[PaletteThreads] ([palette_id], [thread_id], [symbol_id]) VALUE"& _ 
+                "S (@palette_id, @thread_id, @symbol_id);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT palette_id, thread_id, symbol_i"& _ 
+                "d FROM PaletteThreads WHERE (palette_id = @palette_id) AND (thread_id = @thread_"& _ 
                 "id)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[PaletteThreads] SET [palette_id] = @palette_id, [thread_id] = @thre" &
-                "ad_id, [symbol_id] = @symbol_id WHERE (([palette_id] = @Original_palette_id) AND" &
-                " ([thread_id] = @Original_thread_id) AND ([symbol_id] = @Original_symbol_id));" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) &
-                "SELECT palette_id, thread_id, symbol_id FROM PaletteThreads WHERE (palette_id = " &
+            Me._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[PaletteThreads] SET [palette_id] = @palette_id, [thread_id] = @thre"& _ 
+                "ad_id, [symbol_id] = @symbol_id WHERE (([palette_id] = @Original_palette_id) AND"& _ 
+                " ([thread_id] = @Original_thread_id) AND ([symbol_id] = @Original_symbol_id));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)& _ 
+                "SELECT palette_id, thread_id, symbol_id FROM PaletteThreads WHERE (palette_id = "& _ 
                 "@palette_id) AND (thread_id = @thread_id)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, False, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_palette_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "palette_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_thread_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "thread_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_symbol_id", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "symbol_id", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.SqlClient.SqlConnection()
             Me._connection.ConnectionString = Global.MyStitch.My.MySettings.Default.MyStitchConnectionString
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
@@ -9567,73 +9567,73 @@ Namespace MyStitchDataTableAdapters
             Me._commandCollection(0).CommandText = "SELECT palette_id, thread_id, symbol_id FROM dbo.PaletteThreads"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, True)>
-        Public Overridable Overloads Function Fill(ByVal dataTable As MyStitchData.PaletteThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As MyStitchData.PaletteThreadsDataTable) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = True) Then
+            If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
             Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
             Return returnValue
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], True)>
-        Public Overridable Overloads Function GetData() As MyStitchData.PaletteThreadsDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As MyStitchData.PaletteThreadsDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As MyStitchData.PaletteThreadsDataTable = New MyStitchData.PaletteThreadsDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataTable As MyStitchData.PaletteThreadsDataTable) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataTable As MyStitchData.PaletteThreadsDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataSet As MyStitchData) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataSet As MyStitchData) As Integer
             Return Me.Adapter.Update(dataSet, "PaletteThreads")
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRow As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(New Global.System.Data.DataRow() {dataRow})
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>
-        Public Overridable Overloads Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function Update(ByVal dataRows() As Global.System.Data.DataRow) As Integer
             Return Me.Adapter.Update(dataRows)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, True)>
-        Public Overridable Overloads Function Delete(ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
-            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_palette_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_symbol_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
+        Public Overloads Overridable Function Delete(ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
+            Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_palette_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(1).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_symbol_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
-            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.DeleteCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.DeleteCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9642,21 +9642,21 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, True)>
-        Public Overridable Overloads Function Insert(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal symbol_id As Integer) As Integer
-            Me.Adapter.InsertCommand.Parameters(0).Value = CType(palette_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.InsertCommand.Parameters(2).Value = CType(symbol_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
+        Public Overloads Overridable Function Insert(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal symbol_id As Integer) As Integer
+            Me.Adapter.InsertCommand.Parameters(0).Value = CType(palette_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.InsertCommand.Parameters(2).Value = CType(symbol_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
-            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.InsertCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.InsertCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9665,24 +9665,24 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal symbol_id As Integer, ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
-            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(palette_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(symbol_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_palette_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_id, Integer)
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_symbol_id, Integer)
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal symbol_id As Integer, ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
+            Me.Adapter.UpdateCommand.Parameters(0).Value = CType(palette_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(1).Value = CType(thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(2).Value = CType(symbol_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Original_palette_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_thread_id,Integer)
+            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_symbol_id,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
-            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open) _
+            If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 Me.Adapter.UpdateCommand.Connection.Open
             End If
-            Try
+            Try 
                 Dim returnValue As Integer = Me.Adapter.UpdateCommand.ExecuteNonQuery
                 Return returnValue
             Finally
@@ -9691,55 +9691,55 @@ Namespace MyStitchDataTableAdapters
                 End If
             End Try
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, True)>
-        Public Overridable Overloads Function Update(ByVal symbol_id As Integer, ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
+        Public Overloads Overridable Function Update(ByVal symbol_id As Integer, ByVal Original_palette_id As Integer, ByVal Original_thread_id As Integer, ByVal Original_symbol_id As Integer) As Integer
             Return Me.Update(Original_palette_id, Original_thread_id, symbol_id, Original_palette_id, Original_thread_id, Original_symbol_id)
         End Function
     End Class
-
+    
     '''<summary>
     '''TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),
-     Global.System.ComponentModel.ToolboxItem(True),
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerDesigner, Microsoft.VSD" &
-        "esigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapterManager")>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerDesigner, Microsoft.VSD"& _ 
+        "esigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapterManager")>  _
     Partial Public Class TableAdapterManager
         Inherits Global.System.ComponentModel.Component
-
+        
         Private _updateOrder As UpdateOrderOption
-
+        
         Private _projectCardThreadTableAdapter As ProjectCardThreadTableAdapter
-
+        
         Private _projectsTableAdapter As ProjectsTableAdapter
-
+        
         Private _projectThreadCardsTableAdapter As ProjectThreadCardsTableAdapter
-
+        
         Private _projectThreadsTableAdapter As ProjectThreadsTableAdapter
-
+        
         Private _threadsTableAdapter As ThreadsTableAdapter
-
+        
         Private _settingsTableAdapter As SettingsTableAdapter
-
+        
         Private _symbolsTableAdapter As SymbolsTableAdapter
-
+        
         Private _projectWorkTimesTableAdapter As ProjectWorkTimesTableAdapter
-
+        
         Private _palettesTableAdapter As PalettesTableAdapter
-
+        
         Private _paletteThreadsTableAdapter As PaletteThreadsTableAdapter
-
+        
         Private _backupDataSetBeforeUpdate As Boolean
-
+        
         Private _connection As Global.System.Data.IDbConnection
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property UpdateOrder() As UpdateOrderOption
             Get
                 Return Me._updateOrder
@@ -9748,12 +9748,12 @@ Namespace MyStitchDataTableAdapters
                 Me._updateOrder = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ProjectCardThreadTableAdapter() As ProjectCardThreadTableAdapter
             Get
                 Return Me._projectCardThreadTableAdapter
@@ -9762,12 +9762,12 @@ Namespace MyStitchDataTableAdapters
                 Me._projectCardThreadTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ProjectsTableAdapter() As ProjectsTableAdapter
             Get
                 Return Me._projectsTableAdapter
@@ -9776,12 +9776,12 @@ Namespace MyStitchDataTableAdapters
                 Me._projectsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ProjectThreadCardsTableAdapter() As ProjectThreadCardsTableAdapter
             Get
                 Return Me._projectThreadCardsTableAdapter
@@ -9790,12 +9790,12 @@ Namespace MyStitchDataTableAdapters
                 Me._projectThreadCardsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ProjectThreadsTableAdapter() As ProjectThreadsTableAdapter
             Get
                 Return Me._projectThreadsTableAdapter
@@ -9804,12 +9804,12 @@ Namespace MyStitchDataTableAdapters
                 Me._projectThreadsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ThreadsTableAdapter() As ThreadsTableAdapter
             Get
                 Return Me._threadsTableAdapter
@@ -9818,12 +9818,12 @@ Namespace MyStitchDataTableAdapters
                 Me._threadsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property SettingsTableAdapter() As SettingsTableAdapter
             Get
                 Return Me._settingsTableAdapter
@@ -9832,12 +9832,12 @@ Namespace MyStitchDataTableAdapters
                 Me._settingsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property SymbolsTableAdapter() As SymbolsTableAdapter
             Get
                 Return Me._symbolsTableAdapter
@@ -9846,12 +9846,12 @@ Namespace MyStitchDataTableAdapters
                 Me._symbolsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property ProjectWorkTimesTableAdapter() As ProjectWorkTimesTableAdapter
             Get
                 Return Me._projectWorkTimesTableAdapter
@@ -9860,12 +9860,12 @@ Namespace MyStitchDataTableAdapters
                 Me._projectWorkTimesTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property PalettesTableAdapter() As PalettesTableAdapter
             Get
                 Return Me._palettesTableAdapter
@@ -9874,12 +9874,12 @@ Namespace MyStitchDataTableAdapters
                 Me._palettesTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" &
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" &
-            "a", "System.Drawing.Design.UITypeEditor")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso"& _ 
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3"& _ 
+            "a", "System.Drawing.Design.UITypeEditor")>  _
         Public Property PaletteThreadsTableAdapter() As PaletteThreadsTableAdapter
             Get
                 Return Me._paletteThreadsTableAdapter
@@ -9888,9 +9888,9 @@ Namespace MyStitchDataTableAdapters
                 Me._paletteThreadsTableAdapter = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property BackupDataSetBeforeUpdate() As Boolean
             Get
                 Return Me._backupDataSetBeforeUpdate
@@ -9899,52 +9899,52 @@ Namespace MyStitchDataTableAdapters
                 Me._backupDataSetBeforeUpdate = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public Property Connection() As Global.System.Data.IDbConnection
             Get
                 If (Not (Me._connection) Is Nothing) Then
                     Return Me._connection
                 End If
-                If ((Not (Me._projectCardThreadTableAdapter) Is Nothing) _
+                If ((Not (Me._projectCardThreadTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._projectCardThreadTableAdapter.Connection) Is Nothing)) Then
                     Return Me._projectCardThreadTableAdapter.Connection
                 End If
-                If ((Not (Me._projectsTableAdapter) Is Nothing) _
+                If ((Not (Me._projectsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._projectsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._projectsTableAdapter.Connection
                 End If
-                If ((Not (Me._projectThreadCardsTableAdapter) Is Nothing) _
+                If ((Not (Me._projectThreadCardsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._projectThreadCardsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._projectThreadCardsTableAdapter.Connection
                 End If
-                If ((Not (Me._projectThreadsTableAdapter) Is Nothing) _
+                If ((Not (Me._projectThreadsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._projectThreadsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._projectThreadsTableAdapter.Connection
                 End If
-                If ((Not (Me._threadsTableAdapter) Is Nothing) _
+                If ((Not (Me._threadsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._threadsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._threadsTableAdapter.Connection
                 End If
-                If ((Not (Me._settingsTableAdapter) Is Nothing) _
+                If ((Not (Me._settingsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._settingsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._settingsTableAdapter.Connection
                 End If
-                If ((Not (Me._symbolsTableAdapter) Is Nothing) _
+                If ((Not (Me._symbolsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._symbolsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._symbolsTableAdapter.Connection
                 End If
-                If ((Not (Me._projectWorkTimesTableAdapter) Is Nothing) _
+                If ((Not (Me._projectWorkTimesTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._projectWorkTimesTableAdapter.Connection) Is Nothing)) Then
                     Return Me._projectWorkTimesTableAdapter.Connection
                 End If
-                If ((Not (Me._palettesTableAdapter) Is Nothing) _
+                If ((Not (Me._palettesTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._palettesTableAdapter.Connection) Is Nothing)) Then
                     Return Me._palettesTableAdapter.Connection
                 End If
-                If ((Not (Me._paletteThreadsTableAdapter) Is Nothing) _
+                If ((Not (Me._paletteThreadsTableAdapter) Is Nothing)  _
                             AndAlso (Not (Me._paletteThreadsTableAdapter.Connection) Is Nothing)) Then
                     Return Me._paletteThreadsTableAdapter.Connection
                 End If
@@ -9954,10 +9954,10 @@ Namespace MyStitchDataTableAdapters
                 Me._connection = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),
-         Global.System.ComponentModel.Browsable(False)>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property TableAdapterInstanceCount() As Integer
             Get
                 Dim count As Integer = 0
@@ -9994,18 +9994,18 @@ Namespace MyStitchDataTableAdapters
                 Return count
             End Get
         End Property
-
+        
         '''<summary>
         '''Update rows in top-down order.
         '''</summary>
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Function UpdateUpdatedRows(ByVal dataSet As MyStitchData, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow), ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             If (Not (Me._projectsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.Projects.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._projectsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10014,7 +10014,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._projectThreadCardsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.ProjectThreadCards.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._projectThreadCardsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10023,7 +10023,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._projectThreadsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.ProjectThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._projectThreadsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10032,7 +10032,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._threadsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.Threads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._threadsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10041,7 +10041,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._settingsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.Settings.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._settingsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10050,7 +10050,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._symbolsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.Symbols.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._symbolsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10059,7 +10059,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._projectWorkTimesTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.ProjectWorkTimes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._projectWorkTimesTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10068,7 +10068,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._palettesTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.Palettes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._palettesTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10077,7 +10077,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._paletteThreadsTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.PaletteThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._paletteThreadsTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10086,7 +10086,7 @@ Namespace MyStitchDataTableAdapters
             If (Not (Me._projectCardThreadTableAdapter) Is Nothing) Then
                 Dim updatedRows() As Global.System.Data.DataRow = dataSet.ProjectCardThread.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.ModifiedCurrent)
                 updatedRows = Me.GetRealUpdatedRows(updatedRows, allAddedRows)
-                If ((Not (updatedRows) Is Nothing) _
+                If ((Not (updatedRows) Is Nothing)  _
                             AndAlso (0 < updatedRows.Length)) Then
                     result = (result + Me._projectCardThreadTableAdapter.Update(updatedRows))
                     allChangedRows.AddRange(updatedRows)
@@ -10094,17 +10094,17 @@ Namespace MyStitchDataTableAdapters
             End If
             Return result
         End Function
-
+        
         '''<summary>
         '''Insert rows in top-down order.
         '''</summary>
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Function UpdateInsertedRows(ByVal dataSet As MyStitchData, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             If (Not (Me._projectsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.Projects.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._projectsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10112,7 +10112,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectThreadCardsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.ProjectThreadCards.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._projectThreadCardsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10120,7 +10120,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectThreadsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.ProjectThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._projectThreadsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10128,7 +10128,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._threadsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.Threads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._threadsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10136,7 +10136,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._settingsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.Settings.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._settingsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10144,7 +10144,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._symbolsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.Symbols.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._symbolsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10152,7 +10152,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectWorkTimesTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.ProjectWorkTimes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._projectWorkTimesTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10160,7 +10160,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._palettesTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.Palettes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._palettesTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10168,7 +10168,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._paletteThreadsTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.PaletteThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._paletteThreadsTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10176,7 +10176,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectCardThreadTableAdapter) Is Nothing) Then
                 Dim addedRows() As Global.System.Data.DataRow = dataSet.ProjectCardThread.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Added)
-                If ((Not (addedRows) Is Nothing) _
+                If ((Not (addedRows) Is Nothing)  _
                             AndAlso (0 < addedRows.Length)) Then
                     result = (result + Me._projectCardThreadTableAdapter.Update(addedRows))
                     allAddedRows.AddRange(addedRows)
@@ -10184,17 +10184,17 @@ Namespace MyStitchDataTableAdapters
             End If
             Return result
         End Function
-
+        
         '''<summary>
         '''Delete rows in bottom-up order.
         '''</summary>
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Function UpdateDeletedRows(ByVal dataSet As MyStitchData, ByVal allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Integer
             Dim result As Integer = 0
             If (Not (Me._projectCardThreadTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.ProjectCardThread.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._projectCardThreadTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10202,7 +10202,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._paletteThreadsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.PaletteThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._paletteThreadsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10210,7 +10210,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._palettesTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Palettes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._palettesTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10218,7 +10218,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectWorkTimesTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.ProjectWorkTimes.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._projectWorkTimesTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10226,7 +10226,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._symbolsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Symbols.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._symbolsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10234,7 +10234,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._settingsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Settings.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._settingsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10242,7 +10242,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._threadsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Threads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._threadsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10250,7 +10250,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectThreadsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.ProjectThreads.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._projectThreadsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10258,7 +10258,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectThreadCardsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.ProjectThreadCards.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._projectThreadCardsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10266,7 +10266,7 @@ Namespace MyStitchDataTableAdapters
             End If
             If (Not (Me._projectsTableAdapter) Is Nothing) Then
                 Dim deletedRows() As Global.System.Data.DataRow = dataSet.Projects.Select(Nothing, Nothing, Global.System.Data.DataViewRowState.Deleted)
-                If ((Not (deletedRows) Is Nothing) _
+                If ((Not (deletedRows) Is Nothing)  _
                             AndAlso (0 < deletedRows.Length)) Then
                     result = (result + Me._projectsTableAdapter.Update(deletedRows))
                     allChangedRows.AddRange(deletedRows)
@@ -10274,18 +10274,18 @@ Namespace MyStitchDataTableAdapters
             End If
             Return result
         End Function
-
+        
         '''<summary>
         '''Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
         '''</summary>
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Function GetRealUpdatedRows(ByVal updatedRows() As Global.System.Data.DataRow, ByVal allAddedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)) As Global.System.Data.DataRow()
-            If ((updatedRows Is Nothing) _
+            If ((updatedRows Is Nothing)  _
                         OrElse (updatedRows.Length < 1)) Then
                 Return updatedRows
             End If
-            If ((allAddedRows Is Nothing) _
+            If ((allAddedRows Is Nothing)  _
                         OrElse (allAddedRows.Count < 1)) Then
                 Return updatedRows
             End If
@@ -10293,93 +10293,93 @@ Namespace MyStitchDataTableAdapters
             Dim i As Integer = 0
             Do While (i < updatedRows.Length)
                 Dim row As Global.System.Data.DataRow = updatedRows(i)
-                If (allAddedRows.Contains(row) = False) Then
+                If (allAddedRows.Contains(row) = false) Then
                     realUpdatedRows.Add(row)
                 End If
                 i = (i + 1)
             Loop
             Return realUpdatedRows.ToArray
         End Function
-
+        
         '''<summary>
         '''Update all changes to the dataset.
         '''</summary>
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Overridable Function UpdateAll(ByVal dataSet As MyStitchData) As Integer
             If (dataSet Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("dataSet")
             End If
-            If (dataSet.HasChanges = False) Then
+            If (dataSet.HasChanges = false) Then
                 Return 0
             End If
-            If ((Not (Me._projectCardThreadTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._projectCardThreadTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._projectCardThreadTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._projectCardThreadTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._projectsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._projectsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._projectsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._projectsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._projectThreadCardsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._projectThreadCardsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._projectThreadCardsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._projectThreadCardsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._projectThreadsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._projectThreadsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._projectThreadsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._projectThreadsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._threadsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._threadsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._threadsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._threadsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._settingsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._settingsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._settingsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._settingsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._symbolsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._symbolsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._symbolsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._symbolsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._projectWorkTimesTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._projectWorkTimesTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._projectWorkTimesTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._projectWorkTimesTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._palettesTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._palettesTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._palettesTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._palettesTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
-            If ((Not (Me._paletteThreadsTableAdapter) Is Nothing) _
-                        AndAlso (Me.MatchTableAdapterConnection(Me._paletteThreadsTableAdapter.Connection) = False)) Then
-                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" &
+            If ((Not (Me._paletteThreadsTableAdapter) Is Nothing)  _
+                        AndAlso (Me.MatchTableAdapterConnection(Me._paletteThreadsTableAdapter.Connection) = false)) Then
+                Throw New Global.System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s"& _ 
                         "tring.")
             End If
             Dim workConnection As Global.System.Data.IDbConnection = Me.Connection
             If (workConnection Is Nothing) Then
-                Throw New Global.System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana" &
+                Throw New Global.System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana"& _ 
                         "ger TableAdapter property to a valid TableAdapter instance.")
             End If
-            Dim workConnOpened As Boolean = False
-            If ((workConnection.State And Global.System.Data.ConnectionState.Broken) _
+            Dim workConnOpened As Boolean = false
+            If ((workConnection.State And Global.System.Data.ConnectionState.Broken)  _
                         = Global.System.Data.ConnectionState.Broken) Then
                 workConnection.Close
             End If
             If (workConnection.State = Global.System.Data.ConnectionState.Closed) Then
                 workConnection.Open
-                workConnOpened = True
+                workConnOpened = true
             End If
             Dim workTransaction As Global.System.Data.IDbTransaction = workConnection.BeginTransaction
             If (workTransaction Is Nothing) Then
-                Throw New Global.System.ApplicationException("The transaction cannot begin. The current data connection does not support transa" &
+                Throw New Global.System.ApplicationException("The transaction cannot begin. The current data connection does not support transa"& _ 
                         "ctions or the current state is not allowing the transaction to begin.")
             End If
             Dim allChangedRows As Global.System.Collections.Generic.List(Of Global.System.Data.DataRow) = New Global.System.Collections.Generic.List(Of Global.System.Data.DataRow)()
@@ -10392,96 +10392,96 @@ Namespace MyStitchDataTableAdapters
                 backupDataSet = New Global.System.Data.DataSet()
                 backupDataSet.Merge(dataSet)
             End If
-            Try
+            Try 
                 '---- Prepare for update -----------
                 '
                 If (Not (Me._projectCardThreadTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._projectCardThreadTableAdapter, Me._projectCardThreadTableAdapter.Connection)
-                    Me._projectCardThreadTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._projectCardThreadTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._projectCardThreadTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectCardThreadTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._projectCardThreadTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._projectCardThreadTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._projectCardThreadTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._projectCardThreadTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._projectsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._projectsTableAdapter, Me._projectsTableAdapter.Connection)
-                    Me._projectsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._projectsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._projectsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._projectsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._projectsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._projectsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._projectsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._projectThreadCardsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._projectThreadCardsTableAdapter, Me._projectThreadCardsTableAdapter.Connection)
-                    Me._projectThreadCardsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._projectThreadCardsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._projectThreadCardsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectThreadCardsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._projectThreadCardsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._projectThreadCardsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._projectThreadCardsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._projectThreadCardsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._projectThreadsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._projectThreadsTableAdapter, Me._projectThreadsTableAdapter.Connection)
-                    Me._projectThreadsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._projectThreadsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._projectThreadsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectThreadsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._projectThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._projectThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._projectThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._projectThreadsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._threadsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._threadsTableAdapter, Me._threadsTableAdapter.Connection)
-                    Me._threadsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._threadsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._threadsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._threadsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._threadsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._threadsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._threadsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._threadsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._settingsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._settingsTableAdapter, Me._settingsTableAdapter.Connection)
-                    Me._settingsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._settingsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._settingsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._settingsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._settingsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._settingsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._settingsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._settingsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._symbolsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._symbolsTableAdapter, Me._symbolsTableAdapter.Connection)
-                    Me._symbolsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._symbolsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._symbolsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._symbolsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._symbolsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._symbolsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._symbolsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._symbolsTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._projectWorkTimesTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._projectWorkTimesTableAdapter, Me._projectWorkTimesTableAdapter.Connection)
-                    Me._projectWorkTimesTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._projectWorkTimesTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._projectWorkTimesTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectWorkTimesTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._projectWorkTimesTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._projectWorkTimesTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._projectWorkTimesTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._projectWorkTimesTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._palettesTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._palettesTableAdapter, Me._palettesTableAdapter.Connection)
-                    Me._palettesTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._palettesTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._palettesTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._palettesTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._palettesTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._palettesTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._palettesTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._palettesTableAdapter.Adapter)
                     End If
                 End If
                 If (Not (Me._paletteThreadsTableAdapter) Is Nothing) Then
                     revertConnections.Add(Me._paletteThreadsTableAdapter, Me._paletteThreadsTableAdapter.Connection)
-                    Me._paletteThreadsTableAdapter.Connection = CType(workConnection, Global.System.Data.SqlClient.SqlConnection)
-                    Me._paletteThreadsTableAdapter.Transaction = CType(workTransaction, Global.System.Data.SqlClient.SqlTransaction)
+                    Me._paletteThreadsTableAdapter.Connection = CType(workConnection,Global.System.Data.SqlClient.SqlConnection)
+                    Me._paletteThreadsTableAdapter.Transaction = CType(workTransaction,Global.System.Data.SqlClient.SqlTransaction)
                     If Me._paletteThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate Then
-                        Me._paletteThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate = False
+                        Me._paletteThreadsTableAdapter.Adapter.AcceptChangesDuringUpdate = false
                         adaptersWithAcceptChangesDuringUpdate.Add(Me._paletteThreadsTableAdapter.Adapter)
                     End If
                 End If
@@ -10546,43 +10546,43 @@ Namespace MyStitchDataTableAdapters
                     workConnection.Close
                 End If
                 If (Not (Me._projectCardThreadTableAdapter) Is Nothing) Then
-                    Me._projectCardThreadTableAdapter.Connection = CType(revertConnections(Me._projectCardThreadTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectCardThreadTableAdapter.Connection = CType(revertConnections(Me._projectCardThreadTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._projectCardThreadTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._projectsTableAdapter) Is Nothing) Then
-                    Me._projectsTableAdapter.Connection = CType(revertConnections(Me._projectsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectsTableAdapter.Connection = CType(revertConnections(Me._projectsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._projectsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._projectThreadCardsTableAdapter) Is Nothing) Then
-                    Me._projectThreadCardsTableAdapter.Connection = CType(revertConnections(Me._projectThreadCardsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectThreadCardsTableAdapter.Connection = CType(revertConnections(Me._projectThreadCardsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._projectThreadCardsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._projectThreadsTableAdapter) Is Nothing) Then
-                    Me._projectThreadsTableAdapter.Connection = CType(revertConnections(Me._projectThreadsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectThreadsTableAdapter.Connection = CType(revertConnections(Me._projectThreadsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._projectThreadsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._threadsTableAdapter) Is Nothing) Then
-                    Me._threadsTableAdapter.Connection = CType(revertConnections(Me._threadsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._threadsTableAdapter.Connection = CType(revertConnections(Me._threadsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._threadsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._settingsTableAdapter) Is Nothing) Then
-                    Me._settingsTableAdapter.Connection = CType(revertConnections(Me._settingsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._settingsTableAdapter.Connection = CType(revertConnections(Me._settingsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._settingsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._symbolsTableAdapter) Is Nothing) Then
-                    Me._symbolsTableAdapter.Connection = CType(revertConnections(Me._symbolsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._symbolsTableAdapter.Connection = CType(revertConnections(Me._symbolsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._symbolsTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._projectWorkTimesTableAdapter) Is Nothing) Then
-                    Me._projectWorkTimesTableAdapter.Connection = CType(revertConnections(Me._projectWorkTimesTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._projectWorkTimesTableAdapter.Connection = CType(revertConnections(Me._projectWorkTimesTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._projectWorkTimesTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._palettesTableAdapter) Is Nothing) Then
-                    Me._palettesTableAdapter.Connection = CType(revertConnections(Me._palettesTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._palettesTableAdapter.Connection = CType(revertConnections(Me._palettesTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._palettesTableAdapter.Transaction = Nothing
                 End If
                 If (Not (Me._paletteThreadsTableAdapter) Is Nothing) Then
-                    Me._paletteThreadsTableAdapter.Connection = CType(revertConnections(Me._paletteThreadsTableAdapter), Global.System.Data.SqlClient.SqlConnection)
+                    Me._paletteThreadsTableAdapter.Connection = CType(revertConnections(Me._paletteThreadsTableAdapter),Global.System.Data.SqlClient.SqlConnection)
                     Me._paletteThreadsTableAdapter.Transaction = Nothing
                 End If
                 If (0 < adaptersWithAcceptChangesDuringUpdate.Count) Then
@@ -10591,61 +10591,61 @@ Namespace MyStitchDataTableAdapters
                     Dim i As Integer = 0
                     Do While (i < adapters.Length)
                         Dim adapter As Global.System.Data.Common.DataAdapter = adapters(i)
-                        adapter.AcceptChangesDuringUpdate = True
+                        adapter.AcceptChangesDuringUpdate = true
                         i = (i + 1)
                     Loop
                 End If
             End Try
             Return result
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overridable Sub SortSelfReferenceRows(ByVal rows() As Global.System.Data.DataRow, ByVal relation As Global.System.Data.DataRelation, ByVal childFirst As Boolean)
             Global.System.Array.Sort(Of Global.System.Data.DataRow)(rows, New SelfReferenceComparer(relation, childFirst))
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Protected Overridable Function MatchTableAdapterConnection(ByVal inputConnection As Global.System.Data.IDbConnection) As Boolean
             If (Not (Me._connection) Is Nothing) Then
-                Return True
+                Return true
             End If
-            If ((Me.Connection Is Nothing) _
+            If ((Me.Connection Is Nothing)  _
                         OrElse (inputConnection Is Nothing)) Then
-                Return True
+                Return true
             End If
             If String.Equals(Me.Connection.ConnectionString, inputConnection.ConnectionString, Global.System.StringComparison.Ordinal) Then
-                Return True
+                Return true
             End If
-            Return False
+            Return false
         End Function
-
+        
         '''<summary>
         '''Update Order Option
         '''</summary>
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Enum UpdateOrderOption
-
+            
             InsertUpdateDelete = 0
-
+            
             UpdateInsertDelete = 1
         End Enum
-
+        
         '''<summary>
         '''Used to sort self-referenced table's rows
         '''</summary>
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Class SelfReferenceComparer
             Inherits Object
             Implements Global.System.Collections.Generic.IComparer(Of Global.System.Data.DataRow)
-
+            
             Private _relation As Global.System.Data.DataRelation
-
+            
             Private _childFirst As Integer
-
-            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+            
+            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
             Friend Sub New(ByVal relation As Global.System.Data.DataRelation, ByVal childFirst As Boolean)
                 MyBase.New
                 Me._relation = relation
@@ -10655,9 +10655,9 @@ Namespace MyStitchDataTableAdapters
                     Me._childFirst = 1
                 End If
             End Sub
-
-            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+            
+            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
             Private Function GetRoot(ByVal row As Global.System.Data.DataRow, ByRef distance As Integer) As Global.System.Data.DataRow
                 Global.System.Diagnostics.Debug.Assert((Not (row) Is Nothing))
                 Dim root As Global.System.Data.DataRow = row
@@ -10668,8 +10668,8 @@ Namespace MyStitchDataTableAdapters
 
                 Dim parent As Global.System.Data.DataRow = row.GetParentRow(Me._relation, Global.System.Data.DataRowVersion.[Default])
 
-                Do While ((Not (parent) Is Nothing) _
-                            AndAlso (traversedRows.ContainsKey(parent) = False))
+                Do While ((Not (parent) Is Nothing)  _
+                            AndAlso (traversedRows.ContainsKey(parent) = false))
                     distance = (distance + 1)
                     root = parent
                     traversedRows(parent) = parent
@@ -10682,8 +10682,8 @@ Namespace MyStitchDataTableAdapters
                     traversedRows(row) = row
                     parent = row.GetParentRow(Me._relation, Global.System.Data.DataRowVersion.Original)
 
-                    Do While ((Not (parent) Is Nothing) _
-                                AndAlso (traversedRows.ContainsKey(parent) = False))
+                    Do While ((Not (parent) Is Nothing)  _
+                                AndAlso (traversedRows.ContainsKey(parent) = false))
                         distance = (distance + 1)
                         root = parent
                         traversedRows(parent) = parent
@@ -10694,9 +10694,9 @@ Namespace MyStitchDataTableAdapters
 
                 Return root
             End Function
-
-            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>
+            
+            <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+             Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
             Public Function Compare(ByVal row1 As Global.System.Data.DataRow, ByVal row2 As Global.System.Data.DataRow) As Integer Implements Global.System.Collections.Generic.IComparer(Of Global.System.Data.DataRow).Compare
                 If Object.ReferenceEquals(row1, row2) Then
                     Return 0
@@ -10717,7 +10717,7 @@ Namespace MyStitchDataTableAdapters
                 If Object.ReferenceEquals(root1, root2) Then
                     Return (Me._childFirst * distance1.CompareTo(distance2))
                 Else
-                    Global.System.Diagnostics.Debug.Assert(((Not (root1.Table) Is Nothing) _
+                    Global.System.Diagnostics.Debug.Assert(((Not (root1.Table) Is Nothing)  _
                                     AndAlso (Not (root2.Table) Is Nothing)))
                     If (root1.Table.Rows.IndexOf(root1) < root2.Table.Rows.IndexOf(root2)) Then
                         Return -1

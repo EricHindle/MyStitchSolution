@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 Imports MyStitch.Domain.Objects
-Imports MyStitch.MyStitchData
+Imports MyStitch.MyStitchDataSet
 Namespace Domain.Builders
     Public Class ProjectCardThreadBuilder
         Private _project As Project

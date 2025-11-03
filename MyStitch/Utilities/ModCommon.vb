@@ -7,7 +7,6 @@
 
 Imports System.Globalization
 Imports System.IO
-Imports System.Reflection
 Imports HindlewareLib.Logging
 
 Module ModCommon

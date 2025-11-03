@@ -5,7 +5,7 @@
 ' Author Eric Hindle
 '
 Imports MyStitch.Domain.Objects
-Imports MyStitch.MyStitchData
+Imports MyStitch.MyStitchDataSet
 Namespace Domain.Builders
     Public Class PaletteThreadBuilder
         Private _symbolId As Integer

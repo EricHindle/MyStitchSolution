@@ -13,7 +13,7 @@ Imports System.Reflection
 Imports HindlewareLib.Logging
 Imports MyStitch.Domain.Builders
 Imports MyStitch.Domain.Objects
-Imports MyStitch.MyStitchData
+Imports MyStitch.MyStitchDataSet
 Namespace Domain
     Module ModDataTableAdapter
 #Region "constants"
@@ -833,7 +833,7 @@ Namespace Domain
                 Dim oThreadRows = From Thread In oProjectCardThreadDataTable.AsEnumerable()
                                   Select Thread
                                   Where Thread.project_id = pProjectId And Thread.thread_card_no = pCardNo
-                For Each oRow As MyStitchData.ProjectCardThreadRow In oThreadRows
+                For Each oRow As MyStitchDataSet.ProjectCardThreadRow In oThreadRows
                     Dim _cardThread As ProjectCardThread = ProjectCardThreadBuilder.AProjectCardThread.StartingWith(oRow).Build
                     _list.Add(_cardThread)
                 Next
@@ -898,9 +898,9 @@ Namespace Domain
             End Try
             Return isOK
         End Function
-        Public Function FillSettingsTable(ByRef pSettingsTable As MyStitchData.SettingsDataTable) As MyStitchData.SettingsDataTable
-            For Each _row As MyStitchData.SettingsRow In oSettingsDataTable.Rows
-                Dim newRow As MyStitchData.SettingsRow = pSettingsTable.NewSettingsRow
+        Public Function FillSettingsTable(ByRef pSettingsTable As MyStitchDataSet.SettingsDataTable) As MyStitchDataSet.SettingsDataTable
+            For Each _row As MyStitchDataSet.SettingsRow In oSettingsDataTable.Rows
+                Dim newRow As MyStitchDataSet.SettingsRow = pSettingsTable.NewSettingsRow
                 newRow.pKey = _row.pKey
                 newRow.pValue = _row.pValue
                 newRow.pType = _row.pType
