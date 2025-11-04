@@ -23,6 +23,7 @@ Module ModDesign
     Public Const MAGNIFICATION_STEP As Decimal = 1.3
     Public BLACK_THREAD As New Thread(0, "BLACK", "Black", Color.Black, 0, -1)
     Public PALETTE_COLOUR_SIZE As Integer = 55
+    Public BEAD_COLOUR_SIZE As Integer = 40
     Public Const A4_WIDTH_PIXELS As Integer = 3508
     Public Const A4_HEIGHT_PIXELS As Integer = 2480
     Public Const HDR_FLD As Integer = 0

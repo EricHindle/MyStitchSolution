@@ -1301,6 +1301,186 @@ Namespace My
                 Me("BrandFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("160")>  _
+        Public Property SplitDistDesign1() As Integer
+            Get
+                Return CType(Me("SplitDistDesign1"),Integer)
+            End Get
+            Set
+                Me("SplitDistDesign1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("400")>  _
+        Public Property SplitDistDesign2() As Integer
+            Get
+                Return CType(Me("SplitDistDesign2"),Integer)
+            End Get
+            Set
+                Me("SplitDistDesign2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("160")>  _
+        Public Property SplitDistInfo1() As Integer
+            Get
+                Return CType(Me("SplitDistInfo1"),Integer)
+            End Get
+            Set
+                Me("SplitDistInfo1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("190")>  _
+        Public Property SplitDistInfo2() As Integer
+            Get
+                Return CType(Me("SplitDistInfo2"),Integer)
+            End Get
+            Set
+                Me("SplitDistInfo2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("190")>  _
+        Public Property SplitDistInfo3() As Integer
+            Get
+                Return CType(Me("SplitDistInfo3"),Integer)
+            End Get
+            Set
+                Me("SplitDistInfo3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("330")>  _
+        Public Property SplitDistInfo4() As Integer
+            Get
+                Return CType(Me("SplitDistInfo4"),Integer)
+            End Get
+            Set
+                Me("SplitDistInfo4") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("160")>  _
+        Public Property SplitDistImport1() As Integer
+            Get
+                Return CType(Me("SplitDistImport1"),Integer)
+            End Get
+            Set
+                Me("SplitDistImport1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("120")>  _
+        Public Property SplitDistText1() As Integer
+            Get
+                Return CType(Me("SplitDistText1"),Integer)
+            End Get
+            Set
+                Me("SplitDistText1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("460")>  _
+        Public Property SplitDistBackup1() As Integer
+            Get
+                Return CType(Me("SplitDistBackup1"),Integer)
+            End Get
+            Set
+                Me("SplitDistBackup1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("220")>  _
+        Public Property SplitDistBackup2() As Integer
+            Get
+                Return CType(Me("SplitDistBackup2"),Integer)
+            End Get
+            Set
+                Me("SplitDistBackup2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("220")>  _
+        Public Property SplitDistBackup3() As Integer
+            Get
+                Return CType(Me("SplitDistBackup3"),Integer)
+            End Get
+            Set
+                Me("SplitDistBackup3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("350")>  _
+        Public Property SplitDistRestore1() As Integer
+            Get
+                Return CType(Me("SplitDistRestore1"),Integer)
+            End Get
+            Set
+                Me("SplitDistRestore1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("290")>  _
+        Public Property SplitDistRestore2() As Integer
+            Get
+                Return CType(Me("SplitDistRestore2"),Integer)
+            End Get
+            Set
+                Me("SplitDistRestore2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("620")>  _
+        Public Property SplitDistRestore3() As Integer
+            Get
+                Return CType(Me("SplitDistRestore3"),Integer)
+            End Get
+            Set
+                Me("SplitDistRestore3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("330")>  _
+        Public Property SplitDistProjThreads1() As Integer
+            Get
+                Return CType(Me("SplitDistProjThreads1"),Integer)
+            End Get
+            Set
+                Me("SplitDistProjThreads1") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

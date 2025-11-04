@@ -1237,7 +1237,11 @@ Namespace Domain
             If pProjectBead IsNot Nothing Then
                 Dim oProjectBeadRow As ProjectBeadsRow = oProjectBeadDataTable.NewRow
                 oProjectBeadRow = SetProjectBeadRowValues(pProjectBead, oProjectBeadRow)
-                oProjectBeadDataTable.Rows.Add(oProjectBeadRow)
+                Try
+                    oProjectBeadDataTable.Rows.Add(oProjectBeadRow)
+                Catch ex As ConstraintException
+                    LogUtil.LogException(ex, "Error adding project bead", MethodBase.GetCurrentMethod.Name)
+                End Try
             Else
                 LogUtil.Problem("Trying to add null project Bead", MethodBase.GetCurrentMethod.Name)
                 isOK = False

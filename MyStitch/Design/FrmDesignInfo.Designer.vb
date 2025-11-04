@@ -49,9 +49,36 @@ Partial Class FrmDesignInfo
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.DgvBlock = New System.Windows.Forms.DataGridView()
+        Me.block_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_symbol_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.block_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.DgvBack = New System.Windows.Forms.DataGridView()
+        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.DgvKnot = New System.Windows.Forms.DataGridView()
+        Me.knot_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.knot_colour = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.DgvBead = New System.Windows.Forms.DataGridView()
+        Me.bead_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bead_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bead_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bead_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bead_colour = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -98,33 +125,6 @@ Partial Class FrmDesignInfo
         Me.ChkShowBlock = New System.Windows.Forms.CheckBox()
         Me.ChkShowBack = New System.Windows.Forms.CheckBox()
         Me.ChkShowKnots = New System.Windows.Forms.CheckBox()
-        Me.block_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_symbol_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.block_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
-        Me.DgvBead = New System.Windows.Forms.DataGridView()
-        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.bead_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.bead_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.bead_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.bead_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.bead_colour = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_pos_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.knot_colour = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -140,11 +140,11 @@ Partial Class FrmDesignInfo
         Me.SplitContainer3.Panel2.SuspendLayout()
         Me.SplitContainer3.SuspendLayout()
         CType(Me.DgvBack, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer4.Panel1.SuspendLayout()
         Me.SplitContainer4.Panel2.SuspendLayout()
         Me.SplitContainer4.SuspendLayout()
+        CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvBead, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -380,6 +380,53 @@ Partial Class FrmDesignInfo
         Me.DgvBlock.Size = New System.Drawing.Size(652, 152)
         Me.DgvBlock.TabIndex = 158
         '
+        'block_pos_x
+        '
+        Me.block_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.block_pos_x.HeaderText = "X"
+        Me.block_pos_x.Name = "block_pos_x"
+        Me.block_pos_x.ReadOnly = True
+        Me.block_pos_x.Width = 50
+        '
+        'block_pos_y
+        '
+        Me.block_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.block_pos_y.HeaderText = "Y"
+        Me.block_pos_y.Name = "block_pos_y"
+        Me.block_pos_y.ReadOnly = True
+        Me.block_pos_y.Width = 50
+        '
+        'block_thread_id
+        '
+        Me.block_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.block_thread_id.HeaderText = "Thread Id"
+        Me.block_thread_id.Name = "block_thread_id"
+        Me.block_thread_id.ReadOnly = True
+        Me.block_thread_id.Width = 90
+        '
+        'block_thread_no
+        '
+        Me.block_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.block_thread_no.HeaderText = "Thread No"
+        Me.block_thread_no.Name = "block_thread_no"
+        Me.block_thread_no.ReadOnly = True
+        Me.block_thread_no.Width = 90
+        '
+        'block_symbol_id
+        '
+        Me.block_symbol_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.block_symbol_id.HeaderText = "Symbol Id"
+        Me.block_symbol_id.Name = "block_symbol_id"
+        Me.block_symbol_id.ReadOnly = True
+        Me.block_symbol_id.Width = 90
+        '
+        'block_type
+        '
+        Me.block_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.block_type.HeaderText = "Type"
+        Me.block_type.Name = "block_type"
+        Me.block_type.ReadOnly = True
+        '
         'SplitContainer3
         '
         Me.SplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -417,6 +464,83 @@ Partial Class FrmDesignInfo
         Me.DgvBack.Size = New System.Drawing.Size(652, 153)
         Me.DgvBack.TabIndex = 159
         '
+        'back_from_x
+        '
+        Me.back_from_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_from_x.HeaderText = "From X"
+        Me.back_from_x.Name = "back_from_x"
+        Me.back_from_x.ReadOnly = True
+        Me.back_from_x.Width = 70
+        '
+        'back_from_y
+        '
+        Me.back_from_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_from_y.HeaderText = "From Y"
+        Me.back_from_y.Name = "back_from_y"
+        Me.back_from_y.ReadOnly = True
+        Me.back_from_y.Width = 70
+        '
+        'back_to_x
+        '
+        Me.back_to_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_to_x.HeaderText = "To X"
+        Me.back_to_x.Name = "back_to_x"
+        Me.back_to_x.ReadOnly = True
+        Me.back_to_x.Width = 70
+        '
+        'back_to_y
+        '
+        Me.back_to_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_to_y.HeaderText = "To Y"
+        Me.back_to_y.Name = "back_to_y"
+        Me.back_to_y.ReadOnly = True
+        Me.back_to_y.Width = 70
+        '
+        'back_thread_id
+        '
+        Me.back_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_thread_id.HeaderText = "Thread Id"
+        Me.back_thread_id.Name = "back_thread_id"
+        Me.back_thread_id.ReadOnly = True
+        Me.back_thread_id.Width = 90
+        '
+        'back_thread_no
+        '
+        Me.back_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_thread_no.HeaderText = "Thread No"
+        Me.back_thread_no.Name = "back_thread_no"
+        Me.back_thread_no.ReadOnly = True
+        Me.back_thread_no.Width = 90
+        '
+        'back_strands
+        '
+        Me.back_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_strands.HeaderText = "Strands"
+        Me.back_strands.Name = "back_strands"
+        Me.back_strands.ReadOnly = True
+        Me.back_strands.Width = 60
+        '
+        'SplitContainer4
+        '
+        Me.SplitContainer4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer4.Location = New System.Drawing.Point(3, 3)
+        Me.SplitContainer4.Name = "SplitContainer4"
+        '
+        'SplitContainer4.Panel1
+        '
+        Me.SplitContainer4.Panel1.Controls.Add(Me.Label3)
+        Me.SplitContainer4.Panel1.Controls.Add(Me.DgvKnot)
+        '
+        'SplitContainer4.Panel2
+        '
+        Me.SplitContainer4.Panel2.Controls.Add(Me.Label24)
+        Me.SplitContainer4.Panel2.Controls.Add(Me.DgvBead)
+        Me.SplitContainer4.Size = New System.Drawing.Size(658, 123)
+        Me.SplitContainer4.SplitterDistance = 327
+        Me.SplitContainer4.TabIndex = 161
+        '
         'DgvKnot
         '
         Me.DgvKnot.AllowUserToAddRows = False
@@ -433,6 +557,121 @@ Partial Class FrmDesignInfo
         Me.DgvKnot.RowHeadersVisible = False
         Me.DgvKnot.Size = New System.Drawing.Size(304, 98)
         Me.DgvKnot.TabIndex = 160
+        '
+        'knot_pos_x
+        '
+        Me.knot_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.knot_pos_x.HeaderText = "X"
+        Me.knot_pos_x.Name = "knot_pos_x"
+        Me.knot_pos_x.ReadOnly = True
+        Me.knot_pos_x.Width = 30
+        '
+        'knot_pos_y
+        '
+        Me.knot_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.knot_pos_y.HeaderText = "Y"
+        Me.knot_pos_y.Name = "knot_pos_y"
+        Me.knot_pos_y.ReadOnly = True
+        Me.knot_pos_y.Width = 30
+        '
+        'knot_thread_id
+        '
+        Me.knot_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.knot_thread_id.HeaderText = "Thread Id"
+        Me.knot_thread_id.Name = "knot_thread_id"
+        Me.knot_thread_id.ReadOnly = True
+        Me.knot_thread_id.Width = 90
+        '
+        'knot_thread_no
+        '
+        Me.knot_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.knot_thread_no.HeaderText = "Thread No"
+        Me.knot_thread_no.Name = "knot_thread_no"
+        Me.knot_thread_no.ReadOnly = True
+        Me.knot_thread_no.Width = 90
+        '
+        'knot_strands
+        '
+        Me.knot_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.knot_strands.HeaderText = "Strands"
+        Me.knot_strands.Name = "knot_strands"
+        Me.knot_strands.ReadOnly = True
+        Me.knot_strands.Width = 60
+        '
+        'knot_colour
+        '
+        Me.knot_colour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.knot_colour.HeaderText = "Colour"
+        Me.knot_colour.Name = "knot_colour"
+        Me.knot_colour.ReadOnly = True
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label24.Location = New System.Drawing.Point(-1, -1)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(60, 19)
+        Me.Label24.TabIndex = 162
+        Me.Label24.Text = "BEADS"
+        '
+        'DgvBead
+        '
+        Me.DgvBead.AllowUserToAddRows = False
+        Me.DgvBead.AllowUserToDeleteRows = False
+        Me.DgvBead.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvBead.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvBead.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.bead_pos_x, Me.bead_pos_y, Me.bead_id, Me.bead_no, Me.bead_colour})
+        Me.DgvBead.Location = New System.Drawing.Point(3, 22)
+        Me.DgvBead.Name = "DgvBead"
+        Me.DgvBead.ReadOnly = True
+        Me.DgvBead.RowHeadersVisible = False
+        Me.DgvBead.Size = New System.Drawing.Size(321, 98)
+        Me.DgvBead.TabIndex = 161
+        '
+        'bead_pos_x
+        '
+        Me.bead_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.bead_pos_x.HeaderText = "X"
+        Me.bead_pos_x.Name = "bead_pos_x"
+        Me.bead_pos_x.ReadOnly = True
+        Me.bead_pos_x.Width = 30
+        '
+        'bead_pos_y
+        '
+        Me.bead_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.bead_pos_y.HeaderText = "Y"
+        Me.bead_pos_y.Name = "bead_pos_y"
+        Me.bead_pos_y.ReadOnly = True
+        Me.bead_pos_y.Width = 30
+        '
+        'bead_id
+        '
+        Me.bead_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.bead_id.HeaderText = "Bead Id"
+        Me.bead_id.Name = "bead_id"
+        Me.bead_id.ReadOnly = True
+        Me.bead_id.Width = 90
+        '
+        'bead_no
+        '
+        Me.bead_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.bead_no.HeaderText = "Bead No"
+        Me.bead_no.Name = "bead_no"
+        Me.bead_no.ReadOnly = True
+        Me.bead_no.Width = 90
+        '
+        'bead_colour
+        '
+        Me.bead_colour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.bead_colour.HeaderText = "Colour"
+        Me.bead_colour.Name = "bead_colour"
+        Me.bead_colour.ReadOnly = True
         '
         'BtnClose
         '
@@ -944,245 +1183,6 @@ Partial Class FrmDesignInfo
         Me.ChkShowKnots.Text = "Show"
         Me.ChkShowKnots.UseVisualStyleBackColor = True
         '
-        'block_pos_x
-        '
-        Me.block_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.block_pos_x.HeaderText = "X"
-        Me.block_pos_x.Name = "block_pos_x"
-        Me.block_pos_x.ReadOnly = True
-        Me.block_pos_x.Width = 50
-        '
-        'block_pos_y
-        '
-        Me.block_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.block_pos_y.HeaderText = "Y"
-        Me.block_pos_y.Name = "block_pos_y"
-        Me.block_pos_y.ReadOnly = True
-        Me.block_pos_y.Width = 50
-        '
-        'block_thread_id
-        '
-        Me.block_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.block_thread_id.HeaderText = "Thread Id"
-        Me.block_thread_id.Name = "block_thread_id"
-        Me.block_thread_id.ReadOnly = True
-        Me.block_thread_id.Width = 90
-        '
-        'block_thread_no
-        '
-        Me.block_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.block_thread_no.HeaderText = "Thread No"
-        Me.block_thread_no.Name = "block_thread_no"
-        Me.block_thread_no.ReadOnly = True
-        Me.block_thread_no.Width = 90
-        '
-        'block_symbol_id
-        '
-        Me.block_symbol_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.block_symbol_id.HeaderText = "Symbol Id"
-        Me.block_symbol_id.Name = "block_symbol_id"
-        Me.block_symbol_id.ReadOnly = True
-        Me.block_symbol_id.Width = 90
-        '
-        'block_type
-        '
-        Me.block_type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.block_type.HeaderText = "Type"
-        Me.block_type.Name = "block_type"
-        Me.block_type.ReadOnly = True
-        '
-        'SplitContainer4
-        '
-        Me.SplitContainer4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer4.Location = New System.Drawing.Point(3, 3)
-        Me.SplitContainer4.Name = "SplitContainer4"
-        '
-        'SplitContainer4.Panel1
-        '
-        Me.SplitContainer4.Panel1.Controls.Add(Me.Label3)
-        Me.SplitContainer4.Panel1.Controls.Add(Me.DgvKnot)
-        '
-        'SplitContainer4.Panel2
-        '
-        Me.SplitContainer4.Panel2.Controls.Add(Me.Label24)
-        Me.SplitContainer4.Panel2.Controls.Add(Me.DgvBead)
-        Me.SplitContainer4.Size = New System.Drawing.Size(658, 123)
-        Me.SplitContainer4.SplitterDistance = 327
-        Me.SplitContainer4.TabIndex = 161
-        '
-        'DgvBead
-        '
-        Me.DgvBead.AllowUserToAddRows = False
-        Me.DgvBead.AllowUserToDeleteRows = False
-        Me.DgvBead.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvBead.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvBead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBead.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.bead_pos_x, Me.bead_pos_y, Me.bead_id, Me.bead_no, Me.bead_colour})
-        Me.DgvBead.Location = New System.Drawing.Point(3, 22)
-        Me.DgvBead.Name = "DgvBead"
-        Me.DgvBead.ReadOnly = True
-        Me.DgvBead.RowHeadersVisible = False
-        Me.DgvBead.Size = New System.Drawing.Size(321, 98)
-        Me.DgvBead.TabIndex = 161
-        '
-        'back_from_x
-        '
-        Me.back_from_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_from_x.HeaderText = "From X"
-        Me.back_from_x.Name = "back_from_x"
-        Me.back_from_x.ReadOnly = True
-        Me.back_from_x.Width = 70
-        '
-        'back_from_y
-        '
-        Me.back_from_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_from_y.HeaderText = "From Y"
-        Me.back_from_y.Name = "back_from_y"
-        Me.back_from_y.ReadOnly = True
-        Me.back_from_y.Width = 70
-        '
-        'back_to_x
-        '
-        Me.back_to_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_to_x.HeaderText = "To X"
-        Me.back_to_x.Name = "back_to_x"
-        Me.back_to_x.ReadOnly = True
-        Me.back_to_x.Width = 70
-        '
-        'back_to_y
-        '
-        Me.back_to_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_to_y.HeaderText = "To Y"
-        Me.back_to_y.Name = "back_to_y"
-        Me.back_to_y.ReadOnly = True
-        Me.back_to_y.Width = 70
-        '
-        'back_thread_id
-        '
-        Me.back_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_thread_id.HeaderText = "Thread Id"
-        Me.back_thread_id.Name = "back_thread_id"
-        Me.back_thread_id.ReadOnly = True
-        Me.back_thread_id.Width = 90
-        '
-        'back_thread_no
-        '
-        Me.back_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_thread_no.HeaderText = "Thread No"
-        Me.back_thread_no.Name = "back_thread_no"
-        Me.back_thread_no.ReadOnly = True
-        Me.back_thread_no.Width = 90
-        '
-        'back_strands
-        '
-        Me.back_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_strands.HeaderText = "Strands"
-        Me.back_strands.Name = "back_strands"
-        Me.back_strands.ReadOnly = True
-        Me.back_strands.Width = 60
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label24.Location = New System.Drawing.Point(-1, -1)
-        Me.Label24.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(60, 19)
-        Me.Label24.TabIndex = 162
-        Me.Label24.Text = "BEADS"
-        '
-        'bead_pos_x
-        '
-        Me.bead_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.bead_pos_x.HeaderText = "X"
-        Me.bead_pos_x.Name = "bead_pos_x"
-        Me.bead_pos_x.ReadOnly = True
-        Me.bead_pos_x.Width = 30
-        '
-        'bead_pos_y
-        '
-        Me.bead_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.bead_pos_y.HeaderText = "Y"
-        Me.bead_pos_y.Name = "bead_pos_y"
-        Me.bead_pos_y.ReadOnly = True
-        Me.bead_pos_y.Width = 30
-        '
-        'bead_id
-        '
-        Me.bead_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.bead_id.HeaderText = "Bead Id"
-        Me.bead_id.Name = "bead_id"
-        Me.bead_id.ReadOnly = True
-        Me.bead_id.Width = 90
-        '
-        'bead_no
-        '
-        Me.bead_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.bead_no.HeaderText = "Bead No"
-        Me.bead_no.Name = "bead_no"
-        Me.bead_no.ReadOnly = True
-        Me.bead_no.Width = 90
-        '
-        'bead_colour
-        '
-        Me.bead_colour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.bead_colour.HeaderText = "Colour"
-        Me.bead_colour.Name = "bead_colour"
-        Me.bead_colour.ReadOnly = True
-        '
-        'knot_pos_x
-        '
-        Me.knot_pos_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.knot_pos_x.HeaderText = "X"
-        Me.knot_pos_x.Name = "knot_pos_x"
-        Me.knot_pos_x.ReadOnly = True
-        Me.knot_pos_x.Width = 30
-        '
-        'knot_pos_y
-        '
-        Me.knot_pos_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.knot_pos_y.HeaderText = "Y"
-        Me.knot_pos_y.Name = "knot_pos_y"
-        Me.knot_pos_y.ReadOnly = True
-        Me.knot_pos_y.Width = 30
-        '
-        'knot_thread_id
-        '
-        Me.knot_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.knot_thread_id.HeaderText = "Thread Id"
-        Me.knot_thread_id.Name = "knot_thread_id"
-        Me.knot_thread_id.ReadOnly = True
-        Me.knot_thread_id.Width = 90
-        '
-        'knot_thread_no
-        '
-        Me.knot_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.knot_thread_no.HeaderText = "Thread No"
-        Me.knot_thread_no.Name = "knot_thread_no"
-        Me.knot_thread_no.ReadOnly = True
-        Me.knot_thread_no.Width = 90
-        '
-        'knot_strands
-        '
-        Me.knot_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.knot_strands.HeaderText = "Strands"
-        Me.knot_strands.Name = "knot_strands"
-        Me.knot_strands.ReadOnly = True
-        Me.knot_strands.Width = 60
-        '
-        'knot_colour
-        '
-        Me.knot_colour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.knot_colour.HeaderText = "Colour"
-        Me.knot_colour.Name = "knot_colour"
-        Me.knot_colour.ReadOnly = True
-        '
         'FrmDesignInfo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 14.0!)
@@ -1259,13 +1259,13 @@ Partial Class FrmDesignInfo
         CType(Me.SplitContainer3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer3.ResumeLayout(False)
         CType(Me.DgvBack, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer4.Panel1.ResumeLayout(False)
         Me.SplitContainer4.Panel1.PerformLayout()
         Me.SplitContainer4.Panel2.ResumeLayout(False)
         Me.SplitContainer4.Panel2.PerformLayout()
         CType(Me.SplitContainer4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer4.ResumeLayout(False)
+        CType(Me.DgvKnot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvBead, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

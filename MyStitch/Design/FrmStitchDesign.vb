@@ -5,7 +5,9 @@
 ' Author Eric Hindle
 '
 Imports System.Drawing.Imaging
+Imports System.Net.Configuration
 Imports System.Reflection
+Imports HindlewareLib
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -75,7 +77,7 @@ Public Class FrmStitchDesign
 #Region "form events"
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening design", MyBase.Name)
-        GetFormPos(Me, My.Settings.DesignFormPos)
+        RestoreFormLayout
         InitialiseForm()
         If My.Settings.isTimerAutoStart Then
             StartProjectTimer(oProject)
@@ -104,8 +106,7 @@ Public Class FrmStitchDesign
         oFabricPen.Dispose()
         oDesignBitmap = Nothing
         CloseTimer()
-        My.Settings.DesignFormPos = SetFormPos(Me)
-        My.Settings.Save()
+        SaveFormLayout
     End Sub
     Private Sub PicGrid_Click(sender As Object, e As EventArgs) Handles PicGrid.Click
         ToggleGrid()
@@ -1035,7 +1036,6 @@ Public Class FrmStitchDesign
         End If
         Return isOK
     End Function
-
     Private Sub LoadThreadPalette(_stitchDisplayStyle As StitchDisplayStyle)
         ThreadLayoutPanel.Controls.Clear()
         oProjectThreads = FindProjectThreads(oProject.ProjectId)
@@ -1044,7 +1044,7 @@ Public Class FrmStitchDesign
             Dim _panelWidth As Integer = ThreadLayoutPanel.Width
             Dim _panelHeight As Integer = ThreadLayoutPanel.Height
             Dim _threadCt As Integer = oProjectThreads.Count
-            Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt)
+            Dim _picSize As Integer = ShrinkPic(ThreadLayoutPanel, _threadCt, PALETTE_COLOUR_SIZE)
             Dim _firstPicThread As PictureBox = Nothing
 
             For Each _projectThread As ProjectThread In oProjectThreads.Threads
@@ -1118,9 +1118,8 @@ Public Class FrmStitchDesign
             Dim _panelWidth As Integer = BeadLayoutPanel.Width
             Dim _panelHeight As Integer = BeadLayoutPanel.Height
             Dim _BeadCt As Integer = oProjectBeads.Count
-            Dim _picSize As Integer = ShrinkPic(BeadLayoutPanel, _BeadCt)
+            Dim _picSize As Integer = ShrinkPic(BeadLayoutPanel, _BeadCt, BEAD_COLOUR_SIZE)
             Dim _firstPicBead As PictureBox = Nothing
-
             For Each _projectBead As ProjectBead In oProjectBeads.Beads
                 Dim _Bead As Bead = _projectBead.Bead
                 Dim _picBead As New PictureBox()
@@ -1155,10 +1154,26 @@ Public Class FrmStitchDesign
             If _firstPicBead IsNot Nothing Then
                 SelectBeadPaletteColour(_firstPicBead)
             End If
+            ScPalette.Panel2Collapsed = False
+        Else
+            ScPalette.Panel2Collapsed = True
         End If
-
     End Sub
-
+    Private Sub SaveFormLayout()
+        My.Settings.DesignFormPos = SetFormPos(Me)
+        My.Settings.SplitDistDesign1 = ScDesign.SplitterDistance
+        My.Settings.SplitDistDesign2 = ScPalette.SplitterDistance
+        My.Settings.Save()
+    End Sub
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.DesignFormPos)
+        Try
+            If My.Settings.SplitDistDesign1 > 0 Then ScDesign.SplitterDistance = My.Settings.SplitDistDesign1
+            If My.Settings.SplitDistDesign2 > 0 Then ScPalette.SplitterDistance = My.Settings.SplitDistDesign2
+        Catch ex As Exception
+            LogUtil.LogException(ex, "Saving SplitterDistance Settings", MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
     Private Sub SelectThreadPaletteColour(pPicBox As PictureBox)
         If isSingleColour Then
             ToggleSingleColour()
@@ -1584,10 +1599,10 @@ Public Class FrmStitchDesign
         MnuSingleColour.Checked = isSingleColour
         RedrawDesign(False)
     End Sub
-    Private Function ShrinkPic(pFlp As FlowLayoutPanel, pThreadCt As Integer) As Integer
+    Private Function ShrinkPic(pFlp As FlowLayoutPanel, pThreadCt As Integer, pSize As Integer) As Integer
         Dim _panelWidth As Integer = pFlp.Width
         Dim _panelHeight As Integer = pFlp.Height
-        Dim _picSize As Integer = PALETTE_COLOUR_SIZE
+        Dim _picSize As Integer = pSize
         Dim _maxthreadsPerColumn As Integer
         Dim _maxthreadsPerRow As Integer
         Dim _maxThreads As Integer

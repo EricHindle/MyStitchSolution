@@ -44,7 +44,7 @@ Public Class FrmRestore
 #Region "form control handlers"
     Private Sub FrmRestore_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.Info("Restore form loading", MyBase.Name)
-        GetFormPos(Me, My.Settings.RestoreFormPos)
+        RestoreFormLayout
         TxtBackupPath.Text = My.Settings.BackupPath
         _isRestartRequired = False
         _isReloadDataRequired = False
@@ -57,6 +57,10 @@ Public Class FrmRestore
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
+    End Sub
+    Private Sub FrmRestore_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.Info("Closing", MyBase.Name)
+        SaveFormLayout()
     End Sub
     Private Sub BtnRestore_Click(sender As Object, e As EventArgs) Handles BtnRestore.Click
         Try
@@ -93,11 +97,7 @@ Public Class FrmRestore
             End If
         End Using
     End Sub
-    Private Sub FrmRestore_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        LogUtil.Info("Closing", MyBase.Name)
-        My.Settings.RestoreFormPos = SetFormPos(Me)
-        My.Settings.Save()
-    End Sub
+
     Private Sub TxtBackupPath_TextChanged(sender As Object, e As EventArgs) Handles TxtBackupPath.TextChanged
         If isInitializeComponentComplete AndAlso Not isLoading Then
             If My.Computer.FileSystem.DirectoryExists(TxtBackupPath.Text) Then
@@ -119,6 +119,19 @@ Public Class FrmRestore
     End Sub
 #End Region
 #Region "subroutines"
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.RestoreFormPos)
+        SplitContainer1.SplitterDistance = My.Settings.SplitDistRestore1
+        SplitContainer2.SplitterDistance = My.Settings.SplitDistRestore2
+        SplitContainer3.SplitterDistance = My.Settings.SplitDistRestore3
+    End Sub
+    Private Sub SaveFormLayout()
+        If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistRestore1 = SplitContainer1.SplitterDistance
+        If SplitContainer2.SplitterDistance > 0 Then My.Settings.SplitDistRestore2 = SplitContainer2.SplitterDistance
+        If SplitContainer3.SplitterDistance > 0 Then My.Settings.SplitDistRestore3 = SplitContainer3.SplitterDistance
+        My.Settings.RestoreFormPos = SetFormPos(Me)
+        My.Settings.Save()
+    End Sub
     Private Sub SetSourcePaths()
         oSourceImagePath = Path.Combine(TxtBackupPath.Text.Trim, "images")
         oSourceDataPath = Path.Combine(TxtBackupPath.Text.Trim, "data")

@@ -32,10 +32,10 @@ Public Class FrmBackup
 #End Region
 #Region "form control handlers"
     Private Sub FrmBackup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        RestoreFormLayout()
         AddProgress("Backup")
         isFormInitialised = True
         InitialiseData()
-        GetFormPos(Me, My.Settings.BackupFormPos)
         PbCopyProgress.Visible = False
         ApplySettings()
         AddProgress("Selecting Data", 1, 1)
@@ -44,13 +44,16 @@ Public Class FrmBackup
         LoadDesigns()
         KeyPreview = True
     End Sub
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
+        Close()
+    End Sub
+    Private Sub FrmBackup_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        LogUtil.Info("Closing", MyBase.Name)
+        SaveFormLayout()
+    End Sub
     Friend Sub ApplySettings()
         TxtBackupPath.Text = My.Settings.BackupPath
         chkAddDate.Checked = My.Settings.BackupAddDate
-    End Sub
-
-    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
-        Close()
     End Sub
     Private Sub TreeView_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvDatatables.AfterCheck, TvDesigns.AfterCheck, TvImages.AfterCheck
 
@@ -104,20 +107,27 @@ Public Class FrmBackup
     Private Sub BtnSelectPath_Click(sender As Object, e As EventArgs) Handles BtnSelectPath.Click
         SelectPath()
     End Sub
-    Private Sub FrmBackup_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        LogUtil.Info("Closing", MyBase.Name)
-        My.Settings.BackupFormPos = SetFormPos(Me)
-        My.Settings.Save()
-    End Sub
     Private Sub BtnSelectAll_Click(sender As Object, e As EventArgs) Handles BtnSelectAll.Click
         SelectAll()
     End Sub
-
     Private Sub MnuClear_Click(sender As Object, e As EventArgs) Handles MnuClear.Click
         rtbProgress.Text = ""
     End Sub
 #End Region
 #Region "subroutines"
+    Private Sub SaveFormLayout()
+        My.Settings.BackupFormPos = SetFormPos(Me)
+        If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistBackup1 = SplitContainer1.SplitterDistance
+        If SplitContainer2.SplitterDistance > 0 Then My.Settings.SplitDistBackup2 = SplitContainer2.SplitterDistance
+        If SplitContainer3.SplitterDistance > 0 Then My.Settings.SplitDistBackup3 = SplitContainer3.SplitterDistance
+        My.Settings.Save()
+    End Sub
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.BackupFormPos)
+        SplitContainer1.SplitterDistance = My.Settings.SplitDistBackup1
+        SplitContainer2.SplitterDistance = My.Settings.SplitDistBackup2
+        SplitContainer3.SplitterDistance = My.Settings.SplitDistBackup3
+    End Sub
     Private Function CountCheckedNodes(pNode As TreeNode, pTag As String) As Integer
         Dim checkedNodeCount As Integer = 0
         For Each _subnode As TreeNode In pNode.Nodes

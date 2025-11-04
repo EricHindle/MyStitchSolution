@@ -146,8 +146,8 @@ Partial Class FrmRestore
         'SplitContainer3.Panel2
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.GroupBox2)
-        Me.SplitContainer3.Size = New System.Drawing.Size(903, 286)
-        Me.SplitContainer3.SplitterDistance = 619
+        Me.SplitContainer3.Size = New System.Drawing.Size(903, 290)
+        Me.SplitContainer3.SplitterDistance = 620
         Me.SplitContainer3.TabIndex = 0
         '
         'SplitContainer1
@@ -164,8 +164,8 @@ Partial Class FrmRestore
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(619, 286)
-        Me.SplitContainer1.SplitterDistance = 353
+        Me.SplitContainer1.Size = New System.Drawing.Size(620, 290)
+        Me.SplitContainer1.SplitterDistance = 350
         Me.SplitContainer1.TabIndex = 3
         '
         'GroupBox3
@@ -175,7 +175,7 @@ Partial Class FrmRestore
         Me.GroupBox3.ForeColor = System.Drawing.Color.Black
         Me.GroupBox3.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(349, 282)
+        Me.GroupBox3.Size = New System.Drawing.Size(346, 286)
         Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Tables"
@@ -188,7 +188,7 @@ Partial Class FrmRestore
         Me.TvDataSets.ForeColor = System.Drawing.Color.Black
         Me.TvDataSets.Location = New System.Drawing.Point(3, 21)
         Me.TvDataSets.Name = "TvDataSets"
-        Me.TvDataSets.Size = New System.Drawing.Size(343, 258)
+        Me.TvDataSets.Size = New System.Drawing.Size(340, 262)
         Me.TvDataSets.TabIndex = 2
         '
         'GroupBox1
@@ -197,7 +197,7 @@ Partial Class FrmRestore
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(258, 282)
+        Me.GroupBox1.Size = New System.Drawing.Size(262, 286)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Designs"
@@ -209,7 +209,7 @@ Partial Class FrmRestore
         Me.TvDesigns.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TvDesigns.Location = New System.Drawing.Point(3, 21)
         Me.TvDesigns.Name = "TvDesigns"
-        Me.TvDesigns.Size = New System.Drawing.Size(252, 258)
+        Me.TvDesigns.Size = New System.Drawing.Size(256, 262)
         Me.TvDesigns.TabIndex = 2
         '
         'GroupBox2
@@ -218,7 +218,7 @@ Partial Class FrmRestore
         Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(276, 282)
+        Me.GroupBox2.Size = New System.Drawing.Size(275, 286)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Images"
@@ -230,7 +230,7 @@ Partial Class FrmRestore
         Me.TvImages.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TvImages.Location = New System.Drawing.Point(3, 21)
         Me.TvImages.Name = "TvImages"
-        Me.TvImages.Size = New System.Drawing.Size(270, 258)
+        Me.TvImages.Size = New System.Drawing.Size(269, 262)
         Me.TvImages.TabIndex = 2
         '
         'GroupBox4
@@ -240,7 +240,7 @@ Partial Class FrmRestore
         Me.GroupBox4.ForeColor = System.Drawing.Color.Black
         Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(899, 255)
+        Me.GroupBox4.Size = New System.Drawing.Size(899, 251)
         Me.GroupBox4.TabIndex = 9
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Progress"
@@ -253,7 +253,7 @@ Partial Class FrmRestore
         Me.rtbProgress.ForeColor = System.Drawing.Color.White
         Me.rtbProgress.Location = New System.Drawing.Point(3, 21)
         Me.rtbProgress.Name = "rtbProgress"
-        Me.rtbProgress.Size = New System.Drawing.Size(893, 231)
+        Me.rtbProgress.Size = New System.Drawing.Size(893, 227)
         Me.rtbProgress.TabIndex = 8
         Me.rtbProgress.Text = ""
         '
@@ -291,7 +291,7 @@ Partial Class FrmRestore
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox4)
         Me.SplitContainer2.Size = New System.Drawing.Size(903, 549)
-        Me.SplitContainer2.SplitterDistance = 286
+        Me.SplitContainer2.SplitterDistance = 290
         Me.SplitContainer2.TabIndex = 4
         '
         'FrmRestore

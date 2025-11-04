@@ -24,11 +24,13 @@ Partial Class FrmStitchDesign
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStitchDesign))
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.ScDesign = New System.Windows.Forms.SplitContainer()
+        Me.ScPalette = New System.Windows.Forms.SplitContainer()
+        Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
+        Me.BeadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.RbDouble = New System.Windows.Forms.RadioButton()
         Me.RbSingle = New System.Windows.Forms.RadioButton()
-        Me.ThreadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PnlPaletteName = New System.Windows.Forms.Panel()
         Me.BtnCancelPalette = New System.Windows.Forms.Button()
@@ -164,12 +166,16 @@ Partial Class FrmStitchDesign
         Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.BeadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        CType(Me.ScDesign, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ScDesign.Panel1.SuspendLayout()
+        Me.ScDesign.Panel2.SuspendLayout()
+        Me.ScDesign.SuspendLayout()
+        CType(Me.ScPalette, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ScPalette.Panel1.SuspendLayout()
+        Me.ScPalette.Panel2.SuspendLayout()
+        Me.ScPalette.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.PnlPaletteName.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,43 +186,84 @@ Partial Class FrmStitchDesign
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer2.Panel1.SuspendLayout()
-        Me.SplitContainer2.Panel2.SuspendLayout()
-        Me.SplitContainer2.SuspendLayout()
         Me.SuspendLayout()
         '
-        'SplitContainer1
+        'ScDesign
         '
-        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.ScDesign.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer1.Location = New System.Drawing.Point(2, 27)
-        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.ScDesign.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.ScDesign.Location = New System.Drawing.Point(2, 27)
+        Me.ScDesign.Name = "ScDesign"
         '
-        'SplitContainer1.Panel1
+        'ScDesign.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.SplitContainer2)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.RbDouble)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.RbSingle)
+        Me.ScDesign.Panel1.Controls.Add(Me.ScPalette)
         '
-        'SplitContainer1.Panel2
+        'ScDesign.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.ToolStrip2)
-        Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SplitContainer1.Size = New System.Drawing.Size(851, 470)
-        Me.SplitContainer1.SplitterDistance = 128
-        Me.SplitContainer1.TabIndex = 137
+        Me.ScDesign.Panel2.Controls.Add(Me.Panel1)
+        Me.ScDesign.Panel2.Controls.Add(Me.ToolStrip1)
+        Me.ScDesign.Panel2.Controls.Add(Me.ToolStrip2)
+        Me.ScDesign.Panel2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ScDesign.Size = New System.Drawing.Size(1039, 532)
+        Me.ScDesign.SplitterDistance = 156
+        Me.ScDesign.TabIndex = 137
+        '
+        'ScPalette
+        '
+        Me.ScPalette.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ScPalette.Location = New System.Drawing.Point(0, 0)
+        Me.ScPalette.Name = "ScPalette"
+        Me.ScPalette.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'ScPalette.Panel1
+        '
+        Me.ScPalette.Panel1.Controls.Add(Me.Label3)
+        Me.ScPalette.Panel1.Controls.Add(Me.Label2)
+        Me.ScPalette.Panel1.Controls.Add(Me.RbDouble)
+        Me.ScPalette.Panel1.Controls.Add(Me.ThreadLayoutPanel)
+        Me.ScPalette.Panel1.Controls.Add(Me.RbSingle)
+        '
+        'ScPalette.Panel2
+        '
+        Me.ScPalette.Panel2.Controls.Add(Me.Label4)
+        Me.ScPalette.Panel2.Controls.Add(Me.BeadLayoutPanel)
+        Me.ScPalette.Size = New System.Drawing.Size(152, 528)
+        Me.ScPalette.SplitterDistance = 405
+        Me.ScPalette.TabIndex = 135
+        '
+        'ThreadLayoutPanel
+        '
+        Me.ThreadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(3, 45)
+        Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(146, 357)
+        Me.ThreadLayoutPanel.TabIndex = 131
+        '
+        'BeadLayoutPanel
+        '
+        Me.BeadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BeadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.BeadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.BeadLayoutPanel.Location = New System.Drawing.Point(2, 18)
+        Me.BeadLayoutPanel.Name = "BeadLayoutPanel"
+        Me.BeadLayoutPanel.Size = New System.Drawing.Size(146, 98)
+        Me.BeadLayoutPanel.TabIndex = 132
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(74, 7)
+        Me.Label2.Location = New System.Drawing.Point(105, 26)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(43, 13)
         Me.Label2.TabIndex = 134
@@ -224,10 +271,11 @@ Partial Class FrmStitchDesign
         '
         'RbDouble
         '
+        Me.RbDouble.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RbDouble.AutoSize = True
         Me.RbDouble.Checked = True
         Me.RbDouble.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbDouble.Location = New System.Drawing.Point(39, 5)
+        Me.RbDouble.Location = New System.Drawing.Point(70, 24)
         Me.RbDouble.Margin = New System.Windows.Forms.Padding(1)
         Me.RbDouble.Name = "RbDouble"
         Me.RbDouble.Size = New System.Drawing.Size(31, 17)
@@ -238,27 +286,16 @@ Partial Class FrmStitchDesign
         '
         'RbSingle
         '
+        Me.RbSingle.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RbSingle.AutoSize = True
         Me.RbSingle.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RbSingle.Location = New System.Drawing.Point(6, 5)
+        Me.RbSingle.Location = New System.Drawing.Point(37, 24)
         Me.RbSingle.Margin = New System.Windows.Forms.Padding(1)
         Me.RbSingle.Name = "RbSingle"
         Me.RbSingle.Size = New System.Drawing.Size(31, 17)
         Me.RbSingle.TabIndex = 132
         Me.RbSingle.Text = "1"
         Me.RbSingle.UseVisualStyleBackColor = True
-        '
-        'ThreadLayoutPanel
-        '
-        Me.ThreadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ThreadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.ThreadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.ThreadLayoutPanel.Location = New System.Drawing.Point(3, 3)
-        Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(112, 346)
-        Me.ThreadLayoutPanel.TabIndex = 131
         '
         'Panel1
         '
@@ -272,7 +309,7 @@ Partial Class FrmStitchDesign
         Me.Panel1.Controls.Add(Me.VScrollBar1)
         Me.Panel1.Location = New System.Drawing.Point(6, 63)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(706, 400)
+        Me.Panel1.Size = New System.Drawing.Size(866, 462)
         Me.Panel1.TabIndex = 137
         '
         'PnlPaletteName
@@ -336,7 +373,7 @@ Partial Class FrmStitchDesign
         Me.PicDesign.BackColor = System.Drawing.Color.White
         Me.PicDesign.Location = New System.Drawing.Point(3, -2)
         Me.PicDesign.Name = "PicDesign"
-        Me.PicDesign.Size = New System.Drawing.Size(672, 367)
+        Me.PicDesign.Size = New System.Drawing.Size(832, 429)
         Me.PicDesign.TabIndex = 133
         Me.PicDesign.TabStop = False
         '
@@ -344,18 +381,18 @@ Partial Class FrmStitchDesign
         '
         Me.HScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.HScrollBar1.Location = New System.Drawing.Point(3, 376)
+        Me.HScrollBar1.Location = New System.Drawing.Point(3, 438)
         Me.HScrollBar1.Name = "HScrollBar1"
-        Me.HScrollBar1.Size = New System.Drawing.Size(672, 20)
+        Me.HScrollBar1.Size = New System.Drawing.Size(832, 20)
         Me.HScrollBar1.TabIndex = 135
         '
         'VScrollBar1
         '
         Me.VScrollBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.VScrollBar1.Location = New System.Drawing.Point(678, 3)
+        Me.VScrollBar1.Location = New System.Drawing.Point(838, 3)
         Me.VScrollBar1.Name = "VScrollBar1"
-        Me.VScrollBar1.Size = New System.Drawing.Size(20, 367)
+        Me.VScrollBar1.Size = New System.Drawing.Size(20, 429)
         Me.VScrollBar1.TabIndex = 134
         '
         'ToolStrip1
@@ -371,7 +408,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.Location = New System.Drawing.Point(6, 5)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
-        Me.ToolStrip1.Size = New System.Drawing.Size(700, 26)
+        Me.ToolStrip1.Size = New System.Drawing.Size(860, 26)
         Me.ToolStrip1.TabIndex = 135
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -739,7 +776,7 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.Location = New System.Drawing.Point(6, 31)
         Me.ToolStrip2.Name = "ToolStrip2"
         Me.ToolStrip2.Padding = New System.Windows.Forms.Padding(2, 1, 1, 1)
-        Me.ToolStrip2.Size = New System.Drawing.Size(700, 26)
+        Me.ToolStrip2.Size = New System.Drawing.Size(860, 26)
         Me.ToolStrip2.TabIndex = 136
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -1017,12 +1054,12 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.Controls.Add(Me.LblSelection, 5, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.LblStatus, 2, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 503)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 565)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(865, 50)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1053, 50)
         Me.TableLayoutPanel1.TabIndex = 138
         '
         'PicCentreLines
@@ -1041,7 +1078,7 @@ Partial Class FrmStitchDesign
         '
         Me.LblPixelColourName.AutoSize = True
         Me.LblPixelColourName.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPixelColourName.Location = New System.Drawing.Point(513, 6)
+        Me.LblPixelColourName.Location = New System.Drawing.Point(618, 6)
         Me.LblPixelColourName.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.LblPixelColourName.Name = "LblPixelColourName"
         Me.LblPixelColourName.Size = New System.Drawing.Size(119, 14)
@@ -1096,7 +1133,7 @@ Partial Class FrmStitchDesign
         '
         Me.LblCursorPos.AutoSize = True
         Me.LblCursorPos.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblCursorPos.Location = New System.Drawing.Point(690, 6)
+        Me.LblCursorPos.Location = New System.Drawing.Point(836, 6)
         Me.LblCursorPos.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.LblCursorPos.Name = "LblCursorPos"
         Me.LblCursorPos.Size = New System.Drawing.Size(58, 14)
@@ -1107,7 +1144,7 @@ Partial Class FrmStitchDesign
         'PnlPixelColour
         '
         Me.PnlPixelColour.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PnlPixelColour.Location = New System.Drawing.Point(487, 3)
+        Me.PnlPixelColour.Location = New System.Drawing.Point(592, 3)
         Me.PnlPixelColour.Margin = New System.Windows.Forms.Padding(0)
         Me.PnlPixelColour.Name = "PnlPixelColour"
         Me.PnlPixelColour.Size = New System.Drawing.Size(20, 20)
@@ -1117,7 +1154,7 @@ Partial Class FrmStitchDesign
         '
         Me.LblSelectMessage.AutoSize = True
         Me.LblSelectMessage.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblSelectMessage.Location = New System.Drawing.Point(513, 29)
+        Me.LblSelectMessage.Location = New System.Drawing.Point(618, 29)
         Me.LblSelectMessage.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.LblSelectMessage.Name = "LblSelectMessage"
         Me.LblSelectMessage.Size = New System.Drawing.Size(106, 14)
@@ -1129,7 +1166,7 @@ Partial Class FrmStitchDesign
         '
         Me.LblSelection.AutoSize = True
         Me.LblSelection.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblSelection.Location = New System.Drawing.Point(690, 29)
+        Me.LblSelection.Location = New System.Drawing.Point(836, 29)
         Me.LblSelection.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.LblSelection.Name = "LblSelection"
         Me.LblSelection.Size = New System.Drawing.Size(104, 14)
@@ -1155,7 +1192,7 @@ Partial Class FrmStitchDesign
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuPalette, Me.MnuThreads, Me.MnuEdit, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(865, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1053, 24)
         Me.MenuStrip1.TabIndex = 139
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -1169,58 +1206,58 @@ Partial Class FrmStitchDesign
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(148, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open"
         '
         'MnuSaveDesign
         '
         Me.MnuSaveDesign.Name = "MnuSaveDesign"
-        Me.MnuSaveDesign.Size = New System.Drawing.Size(148, 22)
+        Me.MnuSaveDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesign.Text = "Save"
         '
         'MnuSaveDesignAs
         '
         Me.MnuSaveDesignAs.Name = "MnuSaveDesignAs"
-        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(148, 22)
+        Me.MnuSaveDesignAs.Size = New System.Drawing.Size(180, 22)
         Me.MnuSaveDesignAs.Text = "Save As..."
         '
         'ToolStripSeparator10
         '
         Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(177, 6)
         '
         'MnuCropDesign
         '
         Me.MnuCropDesign.Name = "MnuCropDesign"
-        Me.MnuCropDesign.Size = New System.Drawing.Size(148, 22)
+        Me.MnuCropDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuCropDesign.Text = "Crop Design"
         '
         'MnuExtendDesign
         '
         Me.MnuExtendDesign.Name = "MnuExtendDesign"
-        Me.MnuExtendDesign.Size = New System.Drawing.Size(148, 22)
+        Me.MnuExtendDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuExtendDesign.Text = "Extend Design"
         '
         'ToolStripSeparator17
         '
         Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(177, 6)
         '
         'MnuPrint
         '
         Me.MnuPrint.Name = "MnuPrint"
-        Me.MnuPrint.Size = New System.Drawing.Size(148, 22)
+        Me.MnuPrint.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrint.Text = "Print"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(145, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
         '
         'MnuExit
         '
         Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(148, 22)
+        Me.MnuExit.Size = New System.Drawing.Size(180, 22)
         Me.MnuExit.Text = "Exit"
         '
         'MnuPalette
@@ -1233,20 +1270,20 @@ Partial Class FrmStitchDesign
         'MnuSelectColours
         '
         Me.MnuSelectColours.Name = "MnuSelectColours"
-        Me.MnuSelectColours.Size = New System.Drawing.Size(230, 22)
-        Me.MnuSelectColours.Text = "Select Colours"
+        Me.MnuSelectColours.Size = New System.Drawing.Size(234, 22)
+        Me.MnuSelectColours.Text = "Select Threads/Beads"
         '
         'MnuRemoveUnused
         '
         Me.MnuRemoveUnused.Name = "MnuRemoveUnused"
-        Me.MnuRemoveUnused.Size = New System.Drawing.Size(230, 22)
-        Me.MnuRemoveUnused.Text = "Remove Unused Colours"
+        Me.MnuRemoveUnused.Size = New System.Drawing.Size(234, 22)
+        Me.MnuRemoveUnused.Text = "Remove Unused Threads"
         '
         'MnuSavePalette
         '
         Me.MnuSavePalette.Name = "MnuSavePalette"
-        Me.MnuSavePalette.Size = New System.Drawing.Size(230, 22)
-        Me.MnuSavePalette.Text = "Save Palette"
+        Me.MnuSavePalette.Size = New System.Drawing.Size(256, 22)
+        Me.MnuSavePalette.Text = "Save Current Palette"
         '
         'ToolStripSeparator19
         '
@@ -1256,14 +1293,14 @@ Partial Class FrmStitchDesign
         'MnuSymbols
         '
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(230, 22)
-        Me.MnuSymbols.Text = "Design Symbols"
+        Me.MnuSymbols.Size = New System.Drawing.Size(256, 22)
+        Me.MnuSymbols.Text = "Create Design Symbols"
         '
         'MnuThreadSymbols
         '
         Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
-        Me.MnuThreadSymbols.Size = New System.Drawing.Size(230, 22)
-        Me.MnuThreadSymbols.Text = "Select ProjectThread Symbols"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(256, 22)
+        Me.MnuThreadSymbols.Text = "Assign Symbols to Project Threads"
         '
         'ToolStripSeparator16
         '
@@ -1286,8 +1323,8 @@ Partial Class FrmStitchDesign
         '
         Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPickColour, Me.MnuChangeColour, Me.MnuDeleteColour})
         Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(101, 20)
-        Me.MnuThreads.Text = "Project Threads"
+        Me.MnuThreads.Size = New System.Drawing.Size(61, 20)
+        Me.MnuThreads.Text = "Threads"
         '
         'MnuPickColour
         '
@@ -1548,60 +1585,57 @@ Partial Class FrmStitchDesign
         'MnuShow
         '
         Me.MnuShow.Name = "MnuShow"
-        Me.MnuShow.Size = New System.Drawing.Size(116, 22)
-        Me.MnuShow.Text = "Info"
+        Me.MnuShow.Size = New System.Drawing.Size(180, 22)
+        Me.MnuShow.Text = "Design Information"
         '
-        'SplitContainer2
+        'Label4
         '
-        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer2.Location = New System.Drawing.Point(3, 26)
-        Me.SplitContainer2.Name = "SplitContainer2"
-        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(1, 3)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(45, 14)
+        Me.Label4.TabIndex = 133
+        Me.Label4.Text = "BEADS"
         '
-        'SplitContainer2.Panel1
+        'Label3
         '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.ThreadLayoutPanel)
-        '
-        'SplitContainer2.Panel2
-        '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.BeadLayoutPanel)
-        Me.SplitContainer2.Size = New System.Drawing.Size(118, 437)
-        Me.SplitContainer2.SplitterDistance = 352
-        Me.SplitContainer2.TabIndex = 135
-        '
-        'BeadLayoutPanel
-        '
-        Me.BeadLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BeadLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.BeadLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.BeadLayoutPanel.Location = New System.Drawing.Point(2, 3)
-        Me.BeadLayoutPanel.Name = "BeadLayoutPanel"
-        Me.BeadLayoutPanel.Size = New System.Drawing.Size(112, 75)
-        Me.BeadLayoutPanel.TabIndex = 132
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Felix Titling", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(4, 5)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(64, 14)
+        Me.Label3.TabIndex = 134
+        Me.Label3.Text = "THREADS"
         '
         'FrmStitchDesign
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.AliceBlue
-        Me.ClientSize = New System.Drawing.Size(865, 553)
+        Me.ClientSize = New System.Drawing.Size(1053, 615)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.ScDesign)
         Me.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmStitchDesign"
         Me.Text = "Stitch Design"
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.PerformLayout()
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
+        Me.ScDesign.Panel1.ResumeLayout(False)
+        Me.ScDesign.Panel2.ResumeLayout(False)
+        CType(Me.ScDesign, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ScDesign.ResumeLayout(False)
+        Me.ScPalette.Panel1.ResumeLayout(False)
+        Me.ScPalette.Panel1.PerformLayout()
+        Me.ScPalette.Panel2.ResumeLayout(False)
+        Me.ScPalette.Panel2.PerformLayout()
+        CType(Me.ScPalette, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ScPalette.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.PnlPaletteName.ResumeLayout(False)
         Me.PnlPaletteName.PerformLayout()
@@ -1617,16 +1651,12 @@ Partial Class FrmStitchDesign
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.SplitContainer2.Panel1.ResumeLayout(False)
-        Me.SplitContainer2.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents ScDesign As SplitContainer
     Friend WithEvents ThreadLayoutPanel As FlowLayoutPanel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PicDesign As PictureBox
@@ -1766,6 +1796,8 @@ Partial Class FrmStitchDesign
     Friend WithEvents Label2 As Label
     Friend WithEvents RbDouble As RadioButton
     Friend WithEvents RbSingle As RadioButton
-    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents ScPalette As SplitContainer
     Friend WithEvents BeadLayoutPanel As FlowLayoutPanel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
 End Class

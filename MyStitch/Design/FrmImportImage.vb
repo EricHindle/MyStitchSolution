@@ -30,7 +30,7 @@ Public Class FrmImportImage
 #Region "form control handling"
     Private Sub FrmImportImage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening import form", MyBase.Name)
-        GetFormPos(Me, My.Settings.ImportFormPos)
+        RestoreFormLayout()
         InitialiseForm()
     End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
@@ -38,8 +38,7 @@ Public Class FrmImportImage
     End Sub
     Private Sub FrmProject_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
-        My.Settings.ImportFormPos = SetFormPos(Me)
-        My.Settings.Save()
+        SaveFormLayout()
     End Sub
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles BtnSelect.Click
         LogUtil.LogInfo("Selecting image", MyBase.Name)
@@ -245,6 +244,15 @@ Public Class FrmImportImage
         ClearForm()
         ClearPalette()
         isLoading = False
+    End Sub
+    Private Sub SaveFormLayout()
+        My.Settings.ImportFormPos = SetFormPos(Me)
+        If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistImport1 = SplitContainer1.SplitterDistance
+        My.Settings.Save()
+    End Sub
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.ImportFormPos)
+        SplitContainer1.SplitterDistance = My.Settings.SplitDistImport1
     End Sub
     Private Sub LoadThreads()
         LogUtil.ShowStatus("Loading threads", LblStatus, MyBase.Name)

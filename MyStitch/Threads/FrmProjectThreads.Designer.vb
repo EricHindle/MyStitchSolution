@@ -73,14 +73,14 @@ Partial Class FrmProjectThreads
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.PnlBeads = New System.Windows.Forms.Panel()
         Me.DgvBeads = New System.Windows.Forms.DataGridView()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.BeadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BeadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.beadSelected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -467,9 +467,9 @@ Partial Class FrmProjectThreads
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(15, 381)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(76, 13)
+        Me.Label2.Size = New System.Drawing.Size(86, 13)
         Me.Label2.TabIndex = 19
-        Me.Label2.Text = "Bead Numbers"
+        Me.Label2.Text = "Thread Numbers"
         '
         'BtnLoadThreadList
         '
@@ -591,39 +591,6 @@ Partial Class FrmProjectThreads
         Me.DgvBeads.Size = New System.Drawing.Size(338, 67)
         Me.DgvBeads.TabIndex = 2
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(9, 10)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(69, 23)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "BEADS"
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer1.Location = New System.Drawing.Point(289, 12)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.PnlThreads)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PnlBeads)
-        Me.SplitContainer1.Size = New System.Drawing.Size(362, 456)
-        Me.SplitContainer1.SplitterDistance = 330
-        Me.SplitContainer1.TabIndex = 23
-        '
         'BeadId
         '
         Me.BeadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
@@ -670,6 +637,39 @@ Partial Class FrmProjectThreads
         Me.beadSelected.HeaderText = ""
         Me.beadSelected.Name = "beadSelected"
         Me.beadSelected.Width = 30
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(9, 10)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(69, 23)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "BEADS"
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer1.Location = New System.Drawing.Point(289, 12)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.PnlThreads)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.PnlBeads)
+        Me.SplitContainer1.Size = New System.Drawing.Size(362, 456)
+        Me.SplitContainer1.SplitterDistance = 330
+        Me.SplitContainer1.TabIndex = 23
         '
         'FrmProjectThreads
         '

@@ -58,8 +58,7 @@ Public Class FrmProjectThreads
 
     Private Sub FrmProject_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
-        My.Settings.ProjectThreadsFormPos = SetFormPos(Me)
-        My.Settings.Save()
+        SaveFormLayout()
     End Sub
 
     Private Sub DgvProjects_SelectionChanged(sender As Object, e As EventArgs) Handles DgvProjects.SelectionChanged
@@ -80,20 +79,12 @@ Public Class FrmProjectThreads
         End If
     End Sub
 
-    Private Sub SelectProjectThreads()
-        If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
-            Dim oSelectedThreads As List(Of Thread) = FindThreadsForProject(_selectedProject.ProjectId)
-            For Each _thread As Thread In oSelectedThreads
-                CheckThreadInList(_thread)
-            Next
-        End If
-    End Sub
 
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
+        RestoreFormLayout()
         isLoading = True
-        GetFormPos(Me, My.Settings.ProjectThreadsFormPos)
         PnlThreads.Visible = False
         LoadProjectList(DgvProjects, MyBase.Name)
         DgvProjects.ClearSelection()
@@ -109,7 +100,23 @@ Public Class FrmProjectThreads
             SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
         End If
     End Sub
-
+    Private Sub SaveFormLayout()
+        If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistProjThreads1 = SplitContainer1.SplitterDistance
+        My.Settings.ProjectThreadsFormPos = SetFormPos(Me)
+        My.Settings.Save()
+    End Sub
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.ProjectThreadsFormPos)
+        SplitContainer1.SplitterDistance = My.Settings.SplitDistProjThreads1
+    End Sub
+    Private Sub SelectProjectThreads()
+        If _selectedProject IsNot Nothing AndAlso _selectedProject.ProjectId > 0 Then
+            Dim oSelectedThreads As List(Of Thread) = FindThreadsForProject(_selectedProject.ProjectId)
+            For Each _thread As Thread In oSelectedThreads
+                CheckThreadInList(_thread)
+            Next
+        End If
+    End Sub
     Private Sub CheckThreadInList(pThread As Thread)
         Dim _rowNo As Integer = DgvThreads.SelectedRows(0).Index - DgvThreads.FirstDisplayedCell.RowIndex
         SelectItemInList(DgvThreads, threadId.Name, pThread.ThreadId, _rowNo)

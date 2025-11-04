@@ -53,12 +53,12 @@ Public Class FrmDesignInfo
 
     Private Sub FrmDesignInfo_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing", MyBase.Name)
-        My.Settings.DesignInfoFormPos = SetFormPos(Me)
-        My.Settings.Save()
+        SaveFormLayout()
     End Sub
 
     Private Sub FrmDesignInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("ProjectThread maintenence", MyBase.Name)
+        RestoreFormLayout()
         isLoading = True
         InitialiseForm()
         isLoading = False
@@ -66,7 +66,6 @@ Public Class FrmDesignInfo
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
-        GetFormPos(Me, My.Settings.DesignInfoFormPos)
         isComponentInitialized = True
         ChkShowStock.Checked = My.Settings.isShowStockLevels
         isShowStock = ChkShowStock.Checked
@@ -97,7 +96,21 @@ Public Class FrmDesignInfo
             End If
         End If
     End Sub
-
+    Private Sub SaveFormLayout()
+        My.Settings.DesignInfoFormPos = SetFormPos(Me)
+        If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistInfo1 = SplitContainer1.SplitterDistance
+        If SplitContainer2.SplitterDistance > 0 Then My.Settings.SplitDistInfo2 = SplitContainer2.SplitterDistance
+        If SplitContainer3.SplitterDistance > 0 Then My.Settings.SplitDistInfo3 = SplitContainer3.SplitterDistance
+        If SplitContainer4.SplitterDistance > 0 Then My.Settings.SplitDistInfo4 = SplitContainer4.SplitterDistance
+        My.Settings.Save()
+    End Sub
+    Private Sub RestoreFormLayout()
+        GetFormPos(Me, My.Settings.DesignInfoFormPos)
+        SplitContainer1.SplitterDistance = My.Settings.SplitDistInfo1
+        SplitContainer2.SplitterDistance = My.Settings.SplitDistInfo2
+        SplitContainer3.SplitterDistance = My.Settings.SplitDistInfo3
+        SplitContainer4.SplitterDistance = My.Settings.SplitDistInfo4
+    End Sub
     Private Sub LoadBlockStitchList(pBlockStitches As List(Of BlockStitch))
         For Each _stitch As BlockStitch In pBlockStitches
             NewBlockstitchRow(_stitch)
