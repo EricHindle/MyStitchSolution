@@ -8,7 +8,7 @@
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="project_id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
-                <xs:element name="project_name">
+                <xs:element name="project_name" default="''">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="100" />
@@ -16,29 +16,29 @@
                   </xs:simpleType>
                 </xs:element>
                 <xs:element name="date_started" type="xs:dateTime" minOccurs="0" />
-                <xs:element name="date_ended" type="xs:dateTime" minOccurs="0" />
-                <xs:element name="design_width" type="xs:int" />
-                <xs:element name="design_height" type="xs:int" />
-                <xs:element name="fabric_width" type="xs:int" />
-                <xs:element name="fabric_height" type="xs:int" />
+                <xs:element name="date_ended" type="xs:dateTime" />
+                <xs:element name="design_width" type="xs:int" default="1" />
+                <xs:element name="design_height" type="xs:int" default="1" />
+                <xs:element name="fabric_width" type="xs:int" default="1" />
+                <xs:element name="fabric_height" type="xs:int" default="1" />
                 <xs:element name="fabric_colour" type="xs:int" />
-                <xs:element name="design_file">
+                <xs:element name="design_file" default="''">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="100" />
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:element>
-                <xs:element name="origin_x" type="xs:int" />
-                <xs:element name="origin_y" type="xs:int" />
-                <xs:element name="total_minutes" type="xs:int" />
-                <xs:element name="fabric_count" type="xs:int" />
+                <xs:element name="origin_x" type="xs:int" default="0" />
+                <xs:element name="origin_y" type="xs:int" default="0" />
+                <xs:element name="total_minutes" type="xs:int" default="0" />
+                <xs:element name="fabric_count" type="xs:int" default="1" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="ProjectsKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//Projects" />
         <xs:field xpath="project_id" />
       </xs:unique>

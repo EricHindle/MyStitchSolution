@@ -7,14 +7,14 @@
           <xs:element name="Symbols">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="symbol_id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="symbol_id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
                 <xs:element name="symbol" type="xs:base64Binary" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="SymbolsKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//Symbols" />
         <xs:field xpath="symbol_id" />
       </xs:unique>

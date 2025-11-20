@@ -160,7 +160,7 @@ Namespace Domain.Objects
             _designWidth = 1
             _fabricWidth = 1
             _fabricHeight = 1
-            _fabricColour = Color.White.ToArgb
+            _fabricColour = 1
             _design = New ProjectDesign
             _designFileName = String.Empty
             _originX = 0

@@ -147,6 +147,7 @@ Partial Class FrmBrands
         '
         'DgvBrands
         '
+        Me.DgvBrands.AllowUserToAddRows = False
         Me.DgvBrands.AllowUserToDeleteRows = False
         Me.DgvBrands.AllowUserToResizeRows = False
         Me.DgvBrands.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _

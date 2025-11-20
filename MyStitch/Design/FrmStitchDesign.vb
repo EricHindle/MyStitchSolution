@@ -721,14 +721,17 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub Btn3QtrsTL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTL.Click
         oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopLeft
+        RbDouble.Checked = True
         StitchButtonSelected(Btn3QtrsTL)
     End Sub
     Private Sub Btn3QtrsTR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsTR.Click
         oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchTopRight
+        RbDouble.Checked = True
         StitchButtonSelected(Btn3QtrsTR)
     End Sub
     Private Sub Btn3QtrsBR_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBR.Click
         oCurrentStitchType = DesignAction.ThreeQuarterBlockstitchBottomRight
+        RbDouble.Checked = True
         StitchButtonSelected(Btn3QtrsBR)
     End Sub
     Private Sub Btn3QtrsBL_Click(sender As Object, e As EventArgs) Handles Btn3QtrsBL.Click
@@ -737,42 +740,52 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BtnHalfForward_Click(sender As Object, e As EventArgs) Handles BtnHalfForward.Click
         oCurrentStitchType = DesignAction.HalfBlockstitchForward
+        RbDouble.Checked = True
         StitchButtonSelected(BtnHalfForward)
     End Sub
     Private Sub BtnHalfBack_Click(sender As Object, e As EventArgs) Handles BtnHalfBack.Click
         oCurrentStitchType = DesignAction.HalfBlockstitchBack
+        RbDouble.Checked = True
         StitchButtonSelected(BtnHalfBack)
     End Sub
     Private Sub BtnQtrTL_Click(sender As Object, e As EventArgs) Handles BtnQtrTL.Click
         oCurrentStitchType = DesignAction.QuarterBlockstitchTopLeft
+        RbDouble.Checked = True
         StitchButtonSelected(BtnQtrTL)
     End Sub
     Private Sub BtnQWtrTR_Click(sender As Object, e As EventArgs) Handles BtnQtrTR.Click
         oCurrentStitchType = DesignAction.QuarterBlockstitchTopRight
+        RbDouble.Checked = True
         StitchButtonSelected(BtnQtrTR)
     End Sub
     Private Sub BtnQtrBR_Click(sender As Object, e As EventArgs) Handles BtnQtrBR.Click
         oCurrentStitchType = DesignAction.QuarterBlockstitchBottomRight
+        RbDouble.Checked = True
         StitchButtonSelected(BtnQtrBR)
     End Sub
     Private Sub BtnQtrBL_Click(sender As Object, e As EventArgs) Handles BtnQtrBL.Click
         oCurrentStitchType = DesignAction.QuarterBlockstitchBottonLeft
+        RbDouble.Checked = True
         StitchButtonSelected(BtnQtrBL)
     End Sub
     Private Sub BtnQuarters_Click(sender As Object, e As EventArgs) Handles BtnQuarters.Click
         oCurrentStitchType = DesignAction.BlockstitchQuarters
+        RbDouble.Checked = True
         StitchButtonSelected(BtnQuarters)
     End Sub
     Private Sub BtnFullBackstitchThin_Click(sender As Object, e As EventArgs) Handles BtnFullBackstitch.Click
         oCurrentStitchType = DesignAction.BackStitchFullThin
+        RbSingle.Checked = True
         StitchButtonSelected(BtnFullBackstitch)
     End Sub
     Private Sub BtnHalfBackStitchThin_Click(sender As Object, e As EventArgs) Handles BtnHalfBackStitch.Click
         oCurrentStitchType = DesignAction.BackstitchHalfThin
+        RbSingle.Checked = True
         StitchButtonSelected(BtnHalfBackStitch)
     End Sub
     Private Sub BtnKnot_Click(sender As Object, e As EventArgs) Handles BtnKnot.Click
         oCurrentStitchType = DesignAction.Knot
+        RbDouble.Checked = True
         StitchButtonSelected(BtnKnot)
     End Sub
     Private Sub BtnBead_Click(sender As Object, e As EventArgs) Handles BtnBead.Click
@@ -786,6 +799,7 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub SelectFullBlockstitch()
         oCurrentStitchType = DesignAction.FullBlockstitch
+        RbDouble.Checked = True
         StitchButtonSelected(BtnFullStitch)
     End Sub
     Private Sub StitchButtonSelected()

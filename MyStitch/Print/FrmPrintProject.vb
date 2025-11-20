@@ -254,8 +254,7 @@ Public Class FrmPrintProject
         oPrintTextfont = New Font(BtnTextFont.Font.FontFamily, BtnTextFont.Font.SizeInPoints, BtnTextFont.Font.Style, GraphicsUnit.Point)
         oPrintFooterfont = New Font(BtnFooterFont.Font.FontFamily, BtnFooterFont.Font.SizeInPoints, BtnFooterFont.Font.Style, GraphicsUnit.Point)
     End Sub
-    Private Sub CreatePageGraphics(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size, pPixelsPerCell As Integer)
-        oPagePixelsPerCell = pPixelsPerCell
+    Private Sub CreatePageGraphics(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         gap = oPagePixelsPerCell
         Dim _footerText As String = BuildFooter(pPage, ChkShowPageOrder.Checked)
         pPageGraphics.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
@@ -428,7 +427,7 @@ Public Class FrmPrintProject
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
         Dim pX As Integer = ((pBlockStitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
         Dim pY As Integer = ((pBlockStitch.BlockPosition.Y + oPrintProject.OriginY - pPage.TopLeft.Y) * oPagePixelsPerCell) + oTopMargin
-        FullBlockStitch(pBlockStitch, pDesignGraphics, oPagePixelsPerCell, pStitchDisplayStyle, _threadColour)
+        FullBlockStitch(pBlockStitch, pDesignGraphics, oPagePixelsPerCell, pStitchDisplayStyle, _threadColour, pX, pY)
     End Sub
     Friend Sub PrintQuarterBlockStitches(pBlockstitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle, pPage As Page)
         Dim pX As Integer = ((pBlockstitch.BlockPosition.X + oPrintProject.OriginX - pPage.TopLeft.X) * oPagePixelsPerCell) + oLeftMargin
@@ -685,7 +684,7 @@ Public Class FrmPrintProject
         oPrintBitmap = New Bitmap(oPrintablePageWidth, oPrintablePageHeight)
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         oPrintGraphics = Graphics.FromImage(oPrintBitmap)
-        CreatePageGraphics(oSelectedPage, oPrintGraphics, oPrintBitmap.Size, oPagePixelsPerCell)
+        CreatePageGraphics(oSelectedPage, oPrintGraphics, oPrintBitmap.Size)
     End Sub
     Private Sub CreateKeyBitmap()
         SetPrintFonts()

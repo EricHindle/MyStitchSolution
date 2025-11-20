@@ -7,7 +7,7 @@
           <xs:element name="ProjectWorkTimes">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="project_id" type="xs:int" />
+                <xs:element name="project_id" type="xs:int" default="-1" />
                 <xs:element name="start_date" type="xs:dateTime" />
                 <xs:element name="end_date" type="xs:dateTime" />
                 <xs:element name="minutes" type="xs:int" />
@@ -16,11 +16,11 @@
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="ProjectWorkTimesKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//ProjectWorkTimes" />
         <xs:field xpath="project_id" />
         <xs:field xpath="start_date" />
       </xs:unique>
     </xs:element>
   </xs:schema>
- </NewDataSet>
+</NewDataSet>

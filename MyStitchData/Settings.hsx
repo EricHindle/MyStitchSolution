@@ -7,21 +7,21 @@
           <xs:element name="Settings">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="pKey">
+                <xs:element name="pKey" default="''">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="50" />
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:element>
-                <xs:element name="pValue">
+                <xs:element name="pValue" default="''">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="250" />
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:element>
-                <xs:element name="pType">
+                <xs:element name="pType" default="'string'">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="10" />
@@ -33,7 +33,7 @@
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="SettingsKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//Settings" />
         <xs:field xpath="pKey" />
       </xs:unique>

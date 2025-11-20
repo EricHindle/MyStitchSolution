@@ -85,11 +85,9 @@ Public Class FrmSymbols
         Next
     End Sub
     Private Sub SetButtons()
-
         BtnAddSymbol.Enabled = isSourceSymbolLoaded
         BtnRemove.Enabled = oSelectedSymbol.IsLoaded
         BtnReplace.Enabled = oSelectedSymbol.IsLoaded AndAlso isSourceSymbolLoaded
-
     End Sub
     Private Sub BtnAddSymbol_Click(sender As Object, e As EventArgs) Handles BtnAddSymbol.Click
         If isSourceSymbolLoaded Then

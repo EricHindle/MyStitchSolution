@@ -251,6 +251,7 @@ Public Class FrmProject
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.ProjectFormPos)
         LoadProjectList(DgvProjects, MyBase.Name)
+        LoadProjectForm(_selectedProject)
         oProject = New Project
         oProjectDesign = New ProjectDesign
     End Sub

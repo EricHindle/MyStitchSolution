@@ -7,19 +7,19 @@
           <xs:element name="ProjectThreads">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="project_id" type="xs:int" />
-                <xs:element name="thread_id" type="xs:int" />
-                <xs:element name="backstitch_count" type="xs:int" />
-                <xs:element name="blockstitch_count" type="xs:int" />
-                <xs:element name="knot_count" type="xs:int" />
-                <xs:element name="symbol_id" type="xs:int" />
-                <xs:element name="is_used" type="xs:unsignedByte" />
+                <xs:element name="project_id" type="xs:int" default="-1" />
+                <xs:element name="thread_id" type="xs:int" default="-1" />
+                <xs:element name="backstitch_count" type="xs:int" default="0" />
+                <xs:element name="blockstitch_count" type="xs:int" default="0" />
+                <xs:element name="knot_count" type="xs:int" default="0" />
+                <xs:element name="symbol_id" type="xs:int" default="-1" />
+                <xs:element name="is_used" type="xs:unsignedByte" default="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="ProjectThreadsKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//ProjectThreads" />
         <xs:field xpath="project_id" />
         <xs:field xpath="thread_id" />

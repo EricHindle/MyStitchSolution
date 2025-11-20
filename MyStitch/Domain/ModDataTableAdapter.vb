@@ -954,7 +954,6 @@ Namespace Domain
         End Function
         Private Function SetSymbolRowValues(pSymbol As Symbol, pSymbolRow As SymbolsRow) As SymbolsRow
             With pSymbol
-                pSymbolRow.symbol_id = .SymbolId
                 pSymbolRow.symbol = .SymbolBytes
             End With
             Return pSymbolRow
@@ -971,6 +970,7 @@ Namespace Domain
                 Dim oSymbolRow As SymbolsRow = oSymbolsDataTable.NewRow
                 oSymbolRow = SetSymbolRowValues(pSymbol, oSymbolRow)
                 oSymbolsDataTable.Rows.Add(oSymbolRow)
+                WriteXmlFromTable(oSymbolsDataTable)
             Else
                 isOK = False
                 LogUtil.Problem("Trying to add null symbol", MethodBase.GetCurrentMethod.Name)

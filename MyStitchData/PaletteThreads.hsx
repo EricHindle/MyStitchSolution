@@ -9,13 +9,14 @@
               <xs:sequence>
                 <xs:element name="palette_id" type="xs:int" />
                 <xs:element name="thread_id" type="xs:int" />
-                <xs:element name="symbol_id" type="xs:int" />
+                <xs:element name="symbol_id" type="xs:int" default="-1" />
+                <xs:element name="isbead" type="xs:unsignedByte" default="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="PaletteThreadsKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//PaletteThreads" />
         <xs:field xpath="palette_id" />
         <xs:field xpath="thread_id" />

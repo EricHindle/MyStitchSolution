@@ -408,11 +408,12 @@ Module ModDesign
     End Sub
     Public Sub DrawFullBlockStitch(pBlockStitch As BlockStitch, ByRef pDesignGraphics As Graphics, pStitchDisplayStyle As StitchDisplayStyle)
         Dim _threadColour As Color = pBlockStitch.ProjThread.Thread.Colour
-        FullBlockStitch(pBlockStitch, pDesignGraphics, iPixelsPerCell, pStitchDisplayStyle, _threadColour)
+        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * iPixelsPerCell
+        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * iPixelsPerCell
+        FullBlockStitch(pBlockStitch, pDesignGraphics, iPixelsPerCell, pStitchDisplayStyle, _threadColour, pX, pY)
     End Sub
-    Friend Sub FullBlockStitch(pBlockStitch As BlockStitch, pDesignGraphics As Graphics, pPixelsPerCell As Integer, pStitchDisplayStyle As StitchDisplayStyle, _threadColour As Color)
-        Dim pX As Integer = (pBlockStitch.BlockPosition.X + iOriginX) * pPixelsPerCell
-        Dim pY As Integer = (pBlockStitch.BlockPosition.Y + iOriginY) * pPixelsPerCell
+    Friend Sub FullBlockStitch(pBlockStitch As BlockStitch, pDesignGraphics As Graphics, pPixelsPerCell As Integer, pStitchDisplayStyle As StitchDisplayStyle, _threadColour As Color, pX As Integer, pY As Integer)
+
         Dim _tl As New Point(pX, pY)
         Dim _tr As New Point(pX + pPixelsPerCell, pY)
         Dim _bl As New Point(pX, pY + pPixelsPerCell)

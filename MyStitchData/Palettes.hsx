@@ -7,8 +7,8 @@
           <xs:element name="Palettes">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="palette_id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
-                <xs:element name="palette_name">
+                <xs:element name="palette_id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="palette_name" default="''">
                   <xs:simpleType>
                     <xs:restriction base="xs:string">
                       <xs:maxLength value="50" />
@@ -20,7 +20,7 @@
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:unique name="PalettesKey1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//Palettes" />
         <xs:field xpath="palette_id" />
       </xs:unique>

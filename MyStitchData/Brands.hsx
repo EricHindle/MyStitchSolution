@@ -1,0 +1,39 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Brands" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Brands">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="brand_id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" type="xs:int" />
+                <xs:element name="brand_name" type="xs:string" default="''" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="BrandsKey1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Brands" />
+        <xs:field xpath="brand_id" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Brands>
+    <brand_id>1</brand_id>
+    <brand_name>DMC</brand_name>
+  </Brands>
+  <Brands>
+    <brand_id>2</brand_id>
+    <brand_name>Anchor</brand_name>
+  </Brands>
+  <Brands>
+    <brand_id>3</brand_id>
+    <brand_name>Madeira</brand_name>
+  </Brands>
+  <Brands>
+    <brand_id>4</brand_id>
+    <brand_name>Millhill</brand_name>
+  </Brands>
+</NewDataSet>

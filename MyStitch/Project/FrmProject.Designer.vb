@@ -709,31 +709,31 @@ Partial Class FrmProject
         'MnuFullThreadList
         '
         Me.MnuFullThreadList.Name = "MnuFullThreadList"
-        Me.MnuFullThreadList.Size = New System.Drawing.Size(188, 22)
-        Me.MnuFullThreadList.Text = "Thread List"
+        Me.MnuFullThreadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuFullThreadList.Text = "Full Thread List"
         '
         'MnuProjectThreads
         '
         Me.MnuProjectThreads.Name = "MnuProjectThreads"
-        Me.MnuProjectThreads.Size = New System.Drawing.Size(188, 22)
+        Me.MnuProjectThreads.Size = New System.Drawing.Size(199, 22)
         Me.MnuProjectThreads.Text = "Project Threads"
         '
         'MnuProjectThreadSymbols
         '
         Me.MnuProjectThreadSymbols.Name = "MnuProjectThreadSymbols"
-        Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(188, 22)
-        Me.MnuProjectThreadSymbols.Text = "Project Bead Symbols"
+        Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
         '
         'MnuBeadList
         '
         Me.MnuBeadList.Name = "MnuBeadList"
-        Me.MnuBeadList.Size = New System.Drawing.Size(188, 22)
-        Me.MnuBeadList.Text = "Bead List"
+        Me.MnuBeadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBeadList.Text = "Full Bead List"
         '
         'MnuBrandList
         '
         Me.MnuBrandList.Name = "MnuBrandList"
-        Me.MnuBrandList.Size = New System.Drawing.Size(188, 22)
+        Me.MnuBrandList.Size = New System.Drawing.Size(199, 22)
         Me.MnuBrandList.Text = "Brand List"
         '
         'MnuSymbols
@@ -746,32 +746,32 @@ Partial Class FrmProject
         'MnuMaintainSymbols
         '
         Me.MnuMaintainSymbols.Name = "MnuMaintainSymbols"
-        Me.MnuMaintainSymbols.Size = New System.Drawing.Size(188, 22)
+        Me.MnuMaintainSymbols.Size = New System.Drawing.Size(199, 22)
         Me.MnuMaintainSymbols.Text = "Maintain Symbols"
         '
         'MnuProjectSymbols
         '
         Me.MnuProjectSymbols.Name = "MnuProjectSymbols"
-        Me.MnuProjectSymbols.Size = New System.Drawing.Size(188, 22)
-        Me.MnuProjectSymbols.Text = "Project Bead Symbols"
+        Me.MnuProjectSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuProjectSymbols.Text = "Project Thread Symbols"
         '
         'ThreadCardsToolStripMenuItem
         '
         Me.ThreadCardsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBuildCards, Me.MnuPrintCards})
         Me.ThreadCardsToolStripMenuItem.Name = "ThreadCardsToolStripMenuItem"
         Me.ThreadCardsToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.ThreadCardsToolStripMenuItem.Text = "Bead Cards"
+        Me.ThreadCardsToolStripMenuItem.Text = "Thread Cards"
         '
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'ToolStripSeparator2
