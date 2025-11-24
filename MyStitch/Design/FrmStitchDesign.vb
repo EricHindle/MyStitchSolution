@@ -5,9 +5,7 @@
 ' Author Eric Hindle
 '
 Imports System.Drawing.Imaging
-Imports System.Net.Configuration
 Imports System.Reflection
-Imports HindlewareLib
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -71,7 +69,9 @@ Public Class FrmStitchDesign
 
     Private aTimer As System.Timers.Timer
     Private isThreadOn As Boolean
+    Private iFloodFillCount As Integer
 
+    Private isFloodCancelled As Boolean
 #End Region
 #Region "form control event handlers"
 #Region "form events"
@@ -982,7 +982,7 @@ Public Class FrmStitchDesign
         LblCurrentAction.Text = "Change colour"
         SelectionMessage("Click on stitch to change colour")
     End Sub
-    Private Sub BeginFloodFill()
+    Friend Sub BeginFloodFill()
         oCurrentAction = DesignAction.Fill
         LblCurrentAction.Text = "Fill area"
         SelectionMessage("Click in area to fill")
@@ -2332,6 +2332,9 @@ Public Class FrmStitchDesign
         End If
     End Function
     Private Sub DepthFirstSearch(pCellPosition As Point, pOldColour As Color, pNewThread As Thread, pBlockStitchType As BlockStitchType)
+        If isFloodCancelled Then
+            Return
+        End If
         Dim _cellColour As Color = FindColourFromCellPosition(pCellPosition)
         If pCellPosition.X < 0 OrElse pCellPosition.Y < 0 _
             OrElse pCellPosition.X >= oProject.DesignWidth _
@@ -2344,12 +2347,29 @@ Public Class FrmStitchDesign
         Else
             AddBlockStitch(oProject, oProjectDesign, pCellPosition, pNewThread, pBlockStitchType)
         End If
-        DepthFirstSearch(New Point(pCellPosition.X - 1, pCellPosition.Y), pOldColour, pNewThread, pBlockStitchType) ' Left
+        iFloodFillCount += 1
+        If iFloodFillCount > 500 Then
+            Dim _result As MsgBoxResult = MsgBox("500 stitches done. Continue?", MsgBoxStyle.Question Or MsgBoxStyle.YesNoCancel, "Checking")
+            If _result = MsgBoxResult.No Then
+                isFloodCancelled = True
+                Return
+            ElseIf _result = MsgBoxResult.Cancel Then
+                AddActionsToUndoList(oCurrentUndoList)
+                oCurrentUndoList.Clear()
+                UndoLastAction()
+                isFloodCancelled = True
+                Return
+            End If
+            iFloodFillCount = 0
+        End If
+        DepthFirstSearch(New Point(pCellPosition.X - 1, pCellPosition.Y), pOldColour, pNewThread, pBlockStitchType)  ' Left
         DepthFirstSearch(New Point(pCellPosition.X + 1, pCellPosition.Y), pOldColour, pNewThread, pBlockStitchType) ' Right
         DepthFirstSearch(New Point(pCellPosition.X, pCellPosition.Y - 1), pOldColour, pNewThread, pBlockStitchType) ' Up
         DepthFirstSearch(New Point(pCellPosition.X, pCellPosition.Y + 1), pOldColour, pNewThread, pBlockStitchType) ' Down
     End Sub
     Private Sub FloodFill(pCell As Cell, pThread As Thread, pBlockStitchType As BlockStitchType)
+        iFloodFillCount = 0
+        isFloodCancelled = False
         Dim _existingColour As Color = FindColourFromCellPosition(pCell.Position)
         If pThread Is Nothing Then
             If _existingColour <> Color.Transparent Then
@@ -2366,7 +2386,7 @@ Public Class FrmStitchDesign
     End Sub
 #End Region
 #Region "Undo/Redo"
-    Private Sub UndoLastAction()
+    Friend Sub UndoLastAction()
         If oUndoList.Count > 0 Then
             Dim _stitchActions As List(Of StitchAction) = oUndoList.Last
             Dim _redoList As New List(Of StitchAction)
@@ -2427,7 +2447,7 @@ Public Class FrmStitchDesign
             RedrawDesign(False)
         End If
     End Sub
-    Private Sub RedoLastUndo()
+    Friend Sub RedoLastUndo()
         If oRedoList.Count > 0 Then
             Dim _stitchActions As List(Of StitchAction) = oRedoList.Last
             Dim _undoList As New List(Of StitchAction)

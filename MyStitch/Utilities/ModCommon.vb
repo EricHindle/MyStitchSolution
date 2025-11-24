@@ -159,6 +159,7 @@ Module ModCommon
                         e.Handled = True
                     End If
                 Case Keys.P
+                    ' Print
                     If pFormType = FormType.Design Then
                         OpenPrintForm(_form, oProject)
                         e.Handled = True
@@ -171,6 +172,24 @@ Module ModCommon
                         End Using
                         e.Handled = True
                     End If
+                Case Keys.F
+                    ' Fill
+                    If pFormType = FormType.Design Then
+                        _designForm.BeginFloodFill()
+                    End If
+                    e.Handled = True
+                Case Keys.Z
+                    ' Undo
+                    If pFormType = FormType.Design Then
+                        _designForm.UndoLastAction()
+                    End If
+                    e.Handled = True
+                Case Keys.Y
+                    ' Redo
+                    If pFormType = FormType.Design Then
+                        _designForm.RedoLastUndo()
+                    End If
+                    e.Handled = True
                 Case Keys.Add
                     If pFormType = FormType.Design Then
                         _designForm.IncreaseMagnification()
