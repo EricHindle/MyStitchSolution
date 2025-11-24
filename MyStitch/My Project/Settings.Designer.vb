@@ -1481,6 +1481,18 @@ Namespace My
                 Me("SplitDistProjThreads1") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PaletteFormPos() As String
+            Get
+                Return CType(Me("PaletteFormPos"),String)
+            End Get
+            Set
+                Me("PaletteFormPos") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

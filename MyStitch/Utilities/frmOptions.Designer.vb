@@ -801,11 +801,11 @@ Partial Class FrmOptions
         'ChkTimerAutoStart
         '
         Me.ChkTimerAutoStart.AutoSize = True
-        Me.ChkTimerAutoStart.Location = New System.Drawing.Point(15, 26)
+        Me.ChkTimerAutoStart.Location = New System.Drawing.Point(6, 26)
         Me.ChkTimerAutoStart.Name = "ChkTimerAutoStart"
-        Me.ChkTimerAutoStart.Size = New System.Drawing.Size(163, 18)
+        Me.ChkTimerAutoStart.Size = New System.Drawing.Size(173, 18)
         Me.ChkTimerAutoStart.TabIndex = 0
-        Me.ChkTimerAutoStart.Text = "Auto Start on form open"
+        Me.ChkTimerAutoStart.Text = "Auto Start on design open"
         Me.ChkTimerAutoStart.UseVisualStyleBackColor = True
         '
         'ChkTimerAutoSave

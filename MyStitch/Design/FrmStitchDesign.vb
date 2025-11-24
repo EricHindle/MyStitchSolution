@@ -814,11 +814,11 @@ Public Class FrmStitchDesign
         End If
         If oCurrentStitchType = DesignAction.Bead Then
             If oCurrentBead IsNot Nothing Then
-                LblCurrentColour.Text = oCurrentBead.Bead.ColourName & " : " & oCurrentBead.Bead.Brand.BrandName & " " & CStr(oCurrentBead.Bead.ThreadNo)
+                LblCurrentThreadColour.Text = oCurrentBead.Bead.ColourName & " : " & oCurrentBead.Bead.Brand.BrandName & " " & CStr(oCurrentBead.Bead.ThreadNo)
             End If
         Else
             If oCurrentThread IsNot Nothing Then
-                LblCurrentColour.Text = oCurrentThread.Thread.ColourName & " : " & oCurrentThread.Thread.Brand.BrandName & " " & CStr(oCurrentThread.Thread.ThreadNo)
+                LblCurrentThreadColour.Text = oCurrentThread.Thread.ColourName & " : " & oCurrentThread.Thread.Brand.BrandName & " " & CStr(oCurrentThread.Thread.ThreadNo)
             End If
         End If
 
@@ -904,30 +904,35 @@ Public Class FrmStitchDesign
 #Region "begin actions"
     Private Sub BeginCopy()
         oCurrentAction = DesignAction.Copy
+        LblCurrentAction.Text = "Copy selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to copy")
     End Sub
     Private Sub BeginZoom()
         oCurrentAction = DesignAction.Zoom
+        LblCurrentAction.Text = "Zoom into selected area"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to zoom into")
     End Sub
     Private Sub BeginMove()
         oCurrentAction = DesignAction.Move
+        LblCurrentAction.Text = "Move selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to move")
     End Sub
     Private Sub BeginCut()
         oCurrentAction = DesignAction.Cut
+        LblCurrentAction.Text = "Cut selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to cut")
     End Sub
     Private Sub BeginPaste()
         oCurrentAction = DesignAction.Paste
+        LblCurrentAction.Text = "Paste stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select location to paste")
@@ -935,24 +940,28 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BeginFlip()
         oCurrentAction = DesignAction.Flip
+        LblCurrentAction.Text = "Flip selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to flip")
     End Sub
     Private Sub BeginMirror()
         oCurrentAction = DesignAction.Mirror
+        LblCurrentAction.Text = "Mirror selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to mirror")
     End Sub
     Private Sub BeginRotate()
         oCurrentAction = DesignAction.Rotate
+        LblCurrentAction.Text = "Rotate selected stitches"
         oCurrentStitchType = DesignAction.none
         StitchButtonSelected()
         SelectionMessage("Select area to rotate")
     End Sub
     Private Sub BeginDrawShape(pShape As ShapeType)
         oCurrentAction = DesignAction.DrawShape
+        LblCurrentAction.Text = "Draw shape"
         oCurrentStitchType = DesignAction.none
         oCurrentShapeType = pShape
         StitchButtonSelected()
@@ -960,22 +969,27 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BeginDeleteColour()
         oCurrentAction = DesignAction.DeleteColour
+        LblCurrentAction.Text = "Delete all stitches of selected colour"
         SelectionMessage("Click on stitch to delete colour")
     End Sub
     Private Sub BeginPickColour()
         oCurrentAction = DesignAction.PickColour
+        LblCurrentAction.Text = "Pick colour of selected stitch"
         SelectionMessage("Click on stitch to select colour")
     End Sub
     Private Sub BeginChangeColour()
         oCurrentAction = DesignAction.ChangeColour
+        LblCurrentAction.Text = "Change colour"
         SelectionMessage("Click on stitch to change colour")
     End Sub
     Private Sub BeginFloodFill()
         oCurrentAction = DesignAction.Fill
+        LblCurrentAction.Text = "Fill area"
         SelectionMessage("Click in area to fill")
     End Sub
     Private Sub BeginClearArea()
         oCurrentAction = DesignAction.Clear
+        LblCurrentAction.Text = "Clear area"
         SelectionMessage("Click in area to clear")
     End Sub
 #End Region
@@ -1003,7 +1017,10 @@ Public Class FrmStitchDesign
         SetIsCentreOn()
         SetShowStitchTypesMenu()
         SelectFullBlockstitch()
-        PicSelectedColour.BackColor = Me.BackColor
+        PicSelectedThreadColour.BackColor = Me.BackColor
+        PicBeadColour.BackColor = Me.BackColor
+
+        LblCurrentAction.Text = String.Empty
         If oProject.IsLoaded Then
             InitialisePalette()
             LblStatus.Text = "Loading..."
@@ -1039,7 +1056,7 @@ Public Class FrmStitchDesign
         Dim _stitchDisplayStyle As StitchDisplayStyle = My.Settings.PaletteStitchDisplay
         If isComponentInitialised Then
             LoadThreadPalette(_stitchDisplayStyle)
-            LoadBeadPalette
+            LoadBeadPalette()
         End If
         Return isOK
     End Function
@@ -1190,8 +1207,8 @@ Public Class FrmStitchDesign
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
         Dim _thread As Thread = _projectThread.Thread
         oCurrentThread = _projectThread
-        PicSelectedColour.BackColor = _thread.Colour
-        LblCurrentColour.Text = _thread.ColourName & " : " & _thread.Brand.BrandName & " " & CStr(_thread.ThreadNo)
+        PicSelectedThreadColour.BackColor = _thread.Colour
+        LblCurrentThreadColour.Text = _thread.ColourName & " : " & _thread.Brand.BrandName & " " & CStr(_thread.ThreadNo)
     End Sub
     Private Sub SelectBeadPaletteColour(pPicBox As PictureBox)
         If isSingleColour Then
@@ -1202,8 +1219,8 @@ Public Class FrmStitchDesign
         Dim _projectBead As ProjectBead = CType(oProjectBeads.Beads.Find(Function(p) p.Bead.BeadId = CInt(pPicBox.Name)), ProjectBead)
         Dim _Bead As Bead = _projectBead.Bead
         oCurrentBead = _projectBead
-        PicSelectedColour.BackColor = _Bead.Colour
-        LblCurrentColour.Text = _Bead.ColourName & " : " & _Bead.Brand.BrandName & " " & CStr(_Bead.BeadNo)
+        PicBeadColour.BackColor = _Bead.Colour
+        LblBeadColour.Text = _Bead.ColourName & " : " & _Bead.Brand.BrandName & " " & CStr(_Bead.BeadNo)
     End Sub
     Private Sub OpenProjectThreadsForm()
         If oProject.ProjectId > 0 Then
@@ -1505,6 +1522,7 @@ Public Class FrmStitchDesign
         oBackstitchInProgress = Nothing
         SelectionMessage(String.Empty)
         oCurrentAction = DesignAction.none
+        LblCurrentAction.Text = String.Empty
     End Sub
     Private Sub EndSelection(pCell As Cell)
         If isSelectionInProgress Then
@@ -2508,6 +2526,10 @@ Public Class FrmStitchDesign
         If MnuKnots.Checked <> isKnotsOn Then
             ToggleKnots()
         End If
+    End Sub
+
+    Private Sub PicSelectedColour_Click(sender As Object, e As EventArgs) Handles PicSelectedThreadColour.Click
+        ToggleSingleColour()
     End Sub
 #End Region
 #End Region

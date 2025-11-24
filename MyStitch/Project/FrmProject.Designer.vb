@@ -709,7 +709,7 @@ Partial Class FrmProject
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(142, 22)
         Me.MnuOpenDesign.Text = "Open Design"
         '
         'ToolStripMenuItem4
