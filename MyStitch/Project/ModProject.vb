@@ -106,7 +106,7 @@ Module ModProject
     End Sub
 
     Private Sub AddMissingProjectThread(pThread As ProjectThread, pFileProjectThreadCollection As ProjectThreadCollection)
-        Dim _foundThread As ProjectThread = CType(oFileProjectThreadCollection.Threads.Find(Function(p) p.Thread.ThreadId = pThread.ThreadId), ProjectThread)
+        Dim _foundThread As ProjectThread = CType(pFileProjectThreadCollection.Threads.Find(Function(p) p.Thread.ThreadId = pThread.ThreadId), ProjectThread)
         If oFileProjectThreadCollection.Threads.Find(Function(p) p.Thread.ThreadId = pThread.ThreadId) Is Nothing Then
             LogUtil.LogInfo("Adding project thread to collection", MethodBase.GetCurrentMethod.Name)
             oFileProjectThreadCollection.Threads.Add(pThread)

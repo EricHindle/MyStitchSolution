@@ -431,6 +431,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\knton.png" />
+    <None Include="Resources\kntoff.png" />
+    <None Include="Resources\bson.png" />
+    <None Include="Resources\bsoff.png" />
+    <None Include="Resources\blson.png" />
+    <None Include="Resources\blsoff.png" />
     <None Include="Domain\MyStitchDataSet.xsc">
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </None>

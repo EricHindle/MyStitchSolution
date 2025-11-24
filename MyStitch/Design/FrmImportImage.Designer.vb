@@ -60,6 +60,8 @@ Partial Class FrmImportImage
         Me.PicImagePreview = New System.Windows.Forms.PictureBox()
         Me.BtnSave = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.BtnClearPalette = New System.Windows.Forms.Button()
+        Me.CbPalettes = New System.Windows.Forms.ComboBox()
         Me.BtnLoadPalette = New System.Windows.Forms.Button()
         Me.BtnSavePalette = New System.Windows.Forms.Button()
         Me.ChkStockOnly = New System.Windows.Forms.CheckBox()
@@ -71,7 +73,8 @@ Partial Class FrmImportImage
         Me.RbCrosses = New System.Windows.Forms.RadioButton()
         Me.RbBlocks = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.CbPalettes = New System.Windows.Forms.ComboBox()
+        Me.NudMaxThreads = New System.Windows.Forms.NumericUpDown()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.PnlForm.SuspendLayout()
         CType(Me.NudScaleFactor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudFabricCount, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,6 +94,7 @@ Partial Class FrmImportImage
         Me.SplitContainer1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PnlForm
@@ -465,14 +469,40 @@ Partial Class FrmImportImage
         Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.BtnClearPalette)
         Me.Panel1.Controls.Add(Me.CbPalettes)
         Me.Panel1.Controls.Add(Me.BtnLoadPalette)
         Me.Panel1.Controls.Add(Me.BtnSavePalette)
-        Me.Panel1.Location = New System.Drawing.Point(4, 386)
+        Me.Panel1.Location = New System.Drawing.Point(4, 358)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(150, 80)
+        Me.Panel1.Size = New System.Drawing.Size(150, 108)
         Me.Panel1.TabIndex = 1
+        '
+        'BtnClearPalette
+        '
+        Me.BtnClearPalette.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnClearPalette.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnClearPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnClearPalette.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnClearPalette.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnClearPalette.Location = New System.Drawing.Point(42, 50)
+        Me.BtnClearPalette.Margin = New System.Windows.Forms.Padding(5)
+        Me.BtnClearPalette.Name = "BtnClearPalette"
+        Me.BtnClearPalette.Size = New System.Drawing.Size(63, 24)
+        Me.BtnClearPalette.TabIndex = 3
+        Me.BtnClearPalette.Text = "Clear"
+        Me.BtnClearPalette.UseVisualStyleBackColor = False
+        '
+        'CbPalettes
+        '
+        Me.CbPalettes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CbPalettes.FormattingEnabled = True
+        Me.CbPalettes.Location = New System.Drawing.Point(5, 77)
+        Me.CbPalettes.Name = "CbPalettes"
+        Me.CbPalettes.Size = New System.Drawing.Size(136, 24)
+        Me.CbPalettes.TabIndex = 2
         '
         'BtnLoadPalette
         '
@@ -536,7 +566,7 @@ Partial Class FrmImportImage
         Me.ThreadLayoutPanel.Location = New System.Drawing.Point(4, 4)
         Me.ThreadLayoutPanel.Margin = New System.Windows.Forms.Padding(4)
         Me.ThreadLayoutPanel.Name = "ThreadLayoutPanel"
-        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(150, 363)
+        Me.ThreadLayoutPanel.Size = New System.Drawing.Size(150, 346)
         Me.ThreadLayoutPanel.TabIndex = 0
         '
         'TxtImagePath
@@ -606,25 +636,33 @@ Partial Class FrmImportImage
         'GroupBox2
         '
         Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.NudMaxThreads)
+        Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.ChkPaletteOnly)
         Me.GroupBox2.Controls.Add(Me.ChkStockOnly)
         Me.GroupBox2.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(116, 417)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(169, 72)
+        Me.GroupBox2.Size = New System.Drawing.Size(342, 72)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Bead selection"
+        Me.GroupBox2.Text = "Thread selection"
         '
-        'CbPalettes
+        'NudMaxThreads
         '
-        Me.CbPalettes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CbPalettes.FormattingEnabled = True
-        Me.CbPalettes.Location = New System.Drawing.Point(5, 49)
-        Me.CbPalettes.Name = "CbPalettes"
-        Me.CbPalettes.Size = New System.Drawing.Size(136, 24)
-        Me.CbPalettes.TabIndex = 2
+        Me.NudMaxThreads.Location = New System.Drawing.Point(253, 39)
+        Me.NudMaxThreads.Name = "NudMaxThreads"
+        Me.NudMaxThreads.Size = New System.Drawing.Size(57, 22)
+        Me.NudMaxThreads.TabIndex = 3
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(164, 22)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(163, 14)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "Maximum number of threads"
         '
         'FrmImportImage
         '
@@ -670,6 +708,7 @@ Partial Class FrmImportImage
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -717,4 +756,7 @@ Partial Class FrmImportImage
     Friend WithEvents RbBlocks As RadioButton
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents CbPalettes As ComboBox
+    Friend WithEvents NudMaxThreads As NumericUpDown
+    Friend WithEvents Label3 As Label
+    Friend WithEvents BtnClearPalette As Button
 End Class

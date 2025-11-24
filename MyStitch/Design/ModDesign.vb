@@ -136,7 +136,9 @@ Module ModDesign
     Friend isSelectionWidthVariable As Boolean
     Friend oVariableWidthFraction As Integer
     Friend isSingleColour As Boolean
-
+    Friend isBlocksOn As Boolean
+    Friend isBackStitchOn As Boolean
+    Friend isKnotsOn As Boolean
     Friend isCentreOn As Boolean
     Friend isCentreMarksOn As Boolean
     Friend isGridOn As Boolean

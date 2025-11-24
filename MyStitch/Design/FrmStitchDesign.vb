@@ -496,14 +496,7 @@ Public Class FrmStitchDesign
             InitialisePalette()
         End If
     End Sub
-    Private Sub Stitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBlockStitches.CheckedChanged,
-                                                                                 MnuKnots.CheckedChanged,
-                                                                                 MnuBackStitches.CheckedChanged
-        SetStitchTypesSettings()
-        If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(False)
-        End If
-    End Sub
+
     Private Sub Thread_Palette_Click(sender As Object, e As EventArgs)
         ResetPaletteBorders(ThreadLayoutPanel)
         Dim _picBox As PictureBox = CType(sender, PictureBox)
@@ -1010,7 +1003,7 @@ Public Class FrmStitchDesign
         SetIsCentreOn()
         SetShowStitchTypesMenu()
         SelectFullBlockstitch()
-        PnlSelectedColor.BackColor = Me.BackColor
+        PicSelectedColour.BackColor = Me.BackColor
         If oProject.IsLoaded Then
             InitialisePalette()
             LblStatus.Text = "Loading..."
@@ -1197,7 +1190,7 @@ Public Class FrmStitchDesign
         Dim _projectThread As ProjectThread = CType(oProjectThreads.Threads.Find(Function(p) p.Thread.ThreadId = CInt(pPicBox.Name)), ProjectThread)
         Dim _thread As Thread = _projectThread.Thread
         oCurrentThread = _projectThread
-        PnlSelectedColor.BackColor = _thread.Colour
+        PicSelectedColour.BackColor = _thread.Colour
         LblCurrentColour.Text = _thread.ColourName & " : " & _thread.Brand.BrandName & " " & CStr(_thread.ThreadNo)
     End Sub
     Private Sub SelectBeadPaletteColour(pPicBox As PictureBox)
@@ -1209,7 +1202,7 @@ Public Class FrmStitchDesign
         Dim _projectBead As ProjectBead = CType(oProjectBeads.Beads.Find(Function(p) p.Bead.BeadId = CInt(pPicBox.Name)), ProjectBead)
         Dim _Bead As Bead = _projectBead.Bead
         oCurrentBead = _projectBead
-        PnlSelectedColor.BackColor = _Bead.Colour
+        PicSelectedColour.BackColor = _Bead.Colour
         LblCurrentColour.Text = _Bead.ColourName & " : " & _Bead.Brand.BrandName & " " & CStr(_Bead.BeadNo)
     End Sub
     Private Sub OpenProjectThreadsForm()
@@ -1258,15 +1251,9 @@ Public Class FrmStitchDesign
         Return isHasThreads
     End Function
     Private Sub SetShowStitchTypesMenu()
-        MnuBackStitches.Checked = My.Settings.IsShowBackstitches
-        MnuBlockStitches.Checked = My.Settings.IsShowBlockstitches
+        MnuBlockStitches.Checked = My.Settings.IsShowBackstitches
+        MnuBackStitches.Checked = My.Settings.IsShowBlockstitches
         MnuKnots.Checked = My.Settings.IsShowKnots
-    End Sub
-    Private Sub SetStitchTypesSettings()
-        My.Settings.IsShowBackstitches = MnuBackStitches.Checked
-        My.Settings.IsShowBlockstitches = MnuBlockStitches.Checked
-        My.Settings.IsShowKnots = MnuKnots.Checked
-        My.Settings.Save()
     End Sub
     Private Sub SetCurrentActionClass()
         isKnotAction = False
@@ -1704,6 +1691,48 @@ Public Class FrmStitchDesign
         My.Settings.Save()
         SetIsCentreOn()
         RedrawDesign(False)
+    End Sub
+    Private Sub ToggleBlocks()
+        isBlocksOn = Not isBlocksOn
+        My.Settings.IsShowBlockstitches = isBlocksOn
+        My.Settings.Save()
+        MnuBlockStitches.Checked = isBlocksOn
+        If isBlocksOn Then
+            PicBlocksOn.Image = My.Resources.blson
+        Else
+            PicBlocksOn.Image = My.Resources.blsoff
+        End If
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
+    End Sub
+    Private Sub ToggleBackstitches()
+        isBackStitchOn = Not isBackStitchOn
+        My.Settings.IsShowBackstitches = isBackStitchOn
+        My.Settings.Save()
+        MnuBackStitches.Checked = isBackStitchOn
+        If isBackStitchOn Then
+            PicBackOn.Image = My.Resources.bson
+        Else
+            PicBackOn.Image = My.Resources.bsoff
+        End If
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
+    End Sub
+    Private Sub ToggleKnots()
+        isKnotsOn = Not isKnotsOn
+        My.Settings.IsShowKnots = isKnotsOn
+        My.Settings.Save()
+        MnuKnots.Checked = isKnotsOn
+        If isKnotsOn Then
+            PicKnotsOn.Image = My.Resources.knton
+        Else
+            PicKnotsOn.Image = My.Resources.kntoff
+        End If
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
     End Sub
     Private Sub ToggleCentreMarks()
         isCentreMarksOn = Not isCentreMarksOn
@@ -2452,6 +2481,33 @@ Public Class FrmStitchDesign
             _newList.Add(New StitchAction(_action.Stitch, _action.DoneAction, _action.NewThread))
         Next
         oUndoList.Add(_newList)
+    End Sub
+
+    Private Sub PicBlocksOn_Click(sender As Object, e As EventArgs) Handles PicBlocksOn.Click
+        ToggleBlocks()
+    End Sub
+
+    Private Sub PicBackOn_Click(sender As Object, e As EventArgs) Handles PicBackOn.Click
+        ToggleBackstitches()
+    End Sub
+
+    Private Sub PicKnotsOn_Click(sender As Object, e As EventArgs) Handles PicKnotsOn.Click
+        ToggleKnots()
+    End Sub
+    Private Sub MnuBlockStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBlockStitches.CheckedChanged
+        If MnuBlockStitches.Checked <> isBlocksOn Then
+            ToggleBlocks()
+        End If
+    End Sub
+    Private Sub MnuBackStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBackStitches.CheckedChanged
+        If MnuBackStitches.Checked <> isBackStitchOn Then
+            ToggleBackstitches()
+        End If
+    End Sub
+    Private Sub MnuKnots_CheckedChanged(sender As Object, e As EventArgs) Handles MnuKnots.CheckedChanged
+        If MnuKnots.Checked <> isKnotsOn Then
+            ToggleKnots()
+        End If
     End Sub
 #End Region
 #End Region

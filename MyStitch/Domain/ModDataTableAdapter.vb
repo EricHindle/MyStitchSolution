@@ -1054,17 +1054,18 @@ Namespace Domain
             Next
             Return oPaletteList
         End Function
-        Public Function AddNewPalette(pPalette As String) As Boolean
+        Public Function AddNewPalette(pPalette As String) As Integer
             LogUtil.LogInfo("Adding new palette", MethodBase.GetCurrentMethod.Name)
-            Dim isOK As Boolean = True
+            Dim oPaletteId As Integer = -1
             If pPalette IsNot Nothing Then
                 Dim oPaletteRow As PalettesRow = oPalettesDataTable.NewRow
                 oPaletteRow = SetPaletteRowValues(pPalette, oPaletteRow)
                 oPalettesDataTable.Rows.Add(oPaletteRow)
+                oPaletteId = oPaletteRow.palette_id
             Else
                 LogUtil.Problem("Trying to add null palette", MethodBase.GetCurrentMethod.Name)
             End If
-            Return isOK
+            Return oPaletteId
         End Function
         Private Function SetPaletteRowValues(pPalette As String, pPaletteRow As PalettesRow) As PalettesRow
             pPaletteRow.palette_name = pPalette

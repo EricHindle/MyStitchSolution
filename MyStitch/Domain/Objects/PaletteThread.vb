@@ -15,6 +15,15 @@ Namespace Domain.Objects
         Private _threadId As Integer
         Private _symbol As Image
         Private _isBead As Boolean
+        Private _stitchCount As Integer
+        Public Property StitchCount() As Integer
+            Get
+                Return _stitchCount
+            End Get
+            Set(ByVal value As Integer)
+                _stitchCount = value
+            End Set
+        End Property
         Public Property IsBead() As Boolean
             Get
                 Return _isBead
@@ -73,6 +82,7 @@ Namespace Domain.Objects
             _threadId = -1
             _symbol = Nothing
             _isBead = False
+            _stitchCount = 0
         End Sub
         Public Sub New()
             InitialisePaletteThread()
@@ -91,6 +101,10 @@ Namespace Domain.Objects
 #Region "methods"
         Public Function IsLoaded() As Boolean
             Return _PaletteId > -1 And _threadId > -1
+        End Function
+        Public Function AddStitch() As Integer
+            _stitchCount += 1
+            Return _stitchCount
         End Function
         Public Function Key() As String
             Return CStr(_PaletteId) & ":" & CStr(_threadId)

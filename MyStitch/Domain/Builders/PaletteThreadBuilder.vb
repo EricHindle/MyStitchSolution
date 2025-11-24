@@ -60,7 +60,7 @@ Namespace Domain.Builders
             _symbolId = pSymbolId
             Return Me
         End Function
-        Public Function WithSIsBead(pIsBead As Boolean) As PaletteThreadBuilder
+        Public Function WithIsBead(pIsBead As Boolean) As PaletteThreadBuilder
             _isBead = pIsBead
             Return Me
         End Function

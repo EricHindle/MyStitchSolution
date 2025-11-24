@@ -122,6 +122,46 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property blsoff() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("blsoff", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property blson() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("blson", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property bsoff() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bsoff", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property bson() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bson", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property BtnBkgrd() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("BtnBkgrd", resourceCulture)
@@ -405,6 +445,26 @@ Namespace My.Resources
         Friend ReadOnly Property knot() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("knot", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property kntoff() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("kntoff", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property knton() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("knton", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

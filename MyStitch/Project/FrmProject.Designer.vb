@@ -77,38 +77,36 @@ Partial Class FrmProject
         Me.MnuButton = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOpenProjectFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOpenSelectedProject = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuResizeDesign = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuThreads = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuFullThreadList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuBeadList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuBrandList = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuMaintainSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuProjectSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ThreadCardsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuBuildCards = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuPrintCards = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MnuImportImage = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.MnuLogging = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuShowLog = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuDebugOn = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuBackup = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuRestore = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuPrintSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuTest = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuThreadList = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBeads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBrands = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem13 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBuildCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPrintCards = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuImportImage = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem17 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuShowLog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuDebug = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem20 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBackup = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuRestore = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem23 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPrintSettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuGlobalSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.PnlButtons = New System.Windows.Forms.Panel()
         Me.LblInstruction = New System.Windows.Forms.Label()
         Me.PnlInstruction = New System.Windows.Forms.Panel()
@@ -648,7 +646,7 @@ Partial Class FrmProject
         'MenuStrip1
         '
         Me.MenuStrip1.AutoSize = False
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuButton})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuButton, Me.ToolStripMenuItem1, Me.ToolStripMenuItem4, Me.ToolStripMenuItem10, Me.ToolStripMenuItem13, Me.MnuImportImage, Me.SettingsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(695, 28)
@@ -657,15 +655,14 @@ Partial Class FrmProject
         '
         'MnuButton
         '
-        Me.MnuButton.AutoSize = False
-        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.MnuDesign, Me.MnuThreads, Me.MnuSymbols, Me.ThreadCardsToolStripMenuItem, Me.ToolStripSeparator2, Me.MnuImportImage, Me.ToolStripSeparator3, Me.MnuLogging, Me.BackupToolStripMenuItem, Me.MnuOptions, Me.ToolStripSeparator4, Me.MnuTest, Me.ToolStripSeparator1, Me.MnuExit})
-        Me.MnuButton.Image = CType(resources.GetObject("MnuButton.Image"), System.Drawing.Image)
+        Me.MnuButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenProjectFile, Me.MnuOpenSelectedProject, Me.ToolStripSeparator2, Me.MnuTest, Me.ToolStripSeparator1, Me.MnuExit})
         Me.MnuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MnuButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.MnuButton.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.MnuButton.Name = "MnuButton"
         Me.MnuButton.Padding = New System.Windows.Forms.Padding(0)
-        Me.MnuButton.Size = New System.Drawing.Size(122, 28)
+        Me.MnuButton.Size = New System.Drawing.Size(53, 24)
+        Me.MnuButton.Text = "Projects"
         '
         'MnuOpenProjectFile
         '
@@ -679,38 +676,54 @@ Partial Class FrmProject
         Me.MnuOpenSelectedProject.Size = New System.Drawing.Size(211, 22)
         Me.MnuOpenSelectedProject.Text = "Open Selected Project File"
         '
-        'MnuDesign
+        'ToolStripSeparator2
         '
-        Me.MnuDesign.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign, Me.MnuResizeDesign})
-        Me.MnuDesign.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.MnuDesign.Name = "MnuDesign"
-        Me.MnuDesign.Size = New System.Drawing.Size(211, 22)
-        Me.MnuDesign.Text = "Design"
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
+        '
+        'MnuTest
+        '
+        Me.MnuTest.Name = "MnuTest"
+        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
+        Me.MnuTest.Text = "Test"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(208, 6)
+        '
+        'MnuExit
+        '
+        Me.MnuExit.Name = "MnuExit"
+        Me.MnuExit.Size = New System.Drawing.Size(211, 22)
+        Me.MnuExit.Text = "Exit"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuOpenDesign})
+        Me.ToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(55, 24)
+        Me.ToolStripMenuItem1.Text = "Design"
         '
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(142, 22)
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(180, 22)
         Me.MnuOpenDesign.Text = "Open Design"
         '
-        'MnuResizeDesign
+        'ToolStripMenuItem4
         '
-        Me.MnuResizeDesign.Name = "MnuResizeDesign"
-        Me.MnuResizeDesign.Size = New System.Drawing.Size(142, 22)
-        Me.MnuResizeDesign.Text = "Resize"
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.MnuBeads, Me.MnuBrands})
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(97, 24)
+        Me.ToolStripMenuItem4.Text = "Threads/Beads"
         '
-        'MnuThreads
+        'MnuThreadList
         '
-        Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuFullThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.MnuBeadList, Me.MnuBrandList})
-        Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(211, 22)
-        Me.MnuThreads.Text = "Threads/Beads"
-        '
-        'MnuFullThreadList
-        '
-        Me.MnuFullThreadList.Name = "MnuFullThreadList"
-        Me.MnuFullThreadList.Size = New System.Drawing.Size(199, 22)
-        Me.MnuFullThreadList.Text = "Full Thread List"
+        Me.MnuThreadList.Name = "MnuThreadList"
+        Me.MnuThreadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuThreadList.Text = "Full Thread List"
         '
         'MnuProjectThreads
         '
@@ -724,78 +737,75 @@ Partial Class FrmProject
         Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
         Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
         '
-        'MnuBeadList
+        'MnuBeads
         '
-        Me.MnuBeadList.Name = "MnuBeadList"
-        Me.MnuBeadList.Size = New System.Drawing.Size(199, 22)
-        Me.MnuBeadList.Text = "Full Bead List"
+        Me.MnuBeads.Name = "MnuBeads"
+        Me.MnuBeads.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBeads.Text = "Full Bead List"
         '
-        'MnuBrandList
+        'MnuBrands
         '
-        Me.MnuBrandList.Name = "MnuBrandList"
-        Me.MnuBrandList.Size = New System.Drawing.Size(199, 22)
-        Me.MnuBrandList.Text = "Brand List"
+        Me.MnuBrands.Name = "MnuBrands"
+        Me.MnuBrands.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBrands.Text = "Brand List"
+        '
+        'ToolStripMenuItem10
+        '
+        Me.ToolStripMenuItem10.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuSymbols, Me.MnuThreadSymbols})
+        Me.ToolStripMenuItem10.Name = "ToolStripMenuItem10"
+        Me.ToolStripMenuItem10.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem10.Text = "Symbols"
         '
         'MnuSymbols
         '
-        Me.MnuSymbols.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuMaintainSymbols, Me.MnuProjectSymbols})
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(211, 22)
-        Me.MnuSymbols.Text = "Symbols"
+        Me.MnuSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuSymbols.Text = "Maintain Symbols"
         '
-        'MnuMaintainSymbols
+        'MnuThreadSymbols
         '
-        Me.MnuMaintainSymbols.Name = "MnuMaintainSymbols"
-        Me.MnuMaintainSymbols.Size = New System.Drawing.Size(199, 22)
-        Me.MnuMaintainSymbols.Text = "Maintain Symbols"
+        Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuThreadSymbols.Text = "Project Thread Symbols"
         '
-        'MnuProjectSymbols
+        'ToolStripMenuItem13
         '
-        Me.MnuProjectSymbols.Name = "MnuProjectSymbols"
-        Me.MnuProjectSymbols.Size = New System.Drawing.Size(199, 22)
-        Me.MnuProjectSymbols.Text = "Project Thread Symbols"
-        '
-        'ThreadCardsToolStripMenuItem
-        '
-        Me.ThreadCardsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBuildCards, Me.MnuPrintCards})
-        Me.ThreadCardsToolStripMenuItem.Name = "ThreadCardsToolStripMenuItem"
-        Me.ThreadCardsToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.ThreadCardsToolStripMenuItem.Text = "Thread Cards"
+        Me.ToolStripMenuItem13.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBuildCards, Me.MnuPrintCards})
+        Me.ToolStripMenuItem13.Name = "ToolStripMenuItem13"
+        Me.ToolStripMenuItem13.Size = New System.Drawing.Size(89, 24)
+        Me.ToolStripMenuItem13.Text = "Thread Cards"
         '
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuPrintCards.Text = "Print Cards"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
         '
         'MnuImportImage
         '
         Me.MnuImportImage.Name = "MnuImportImage"
-        Me.MnuImportImage.Size = New System.Drawing.Size(211, 22)
+        Me.MnuImportImage.Size = New System.Drawing.Size(91, 24)
         Me.MnuImportImage.Text = "Import Image"
         '
-        'ToolStripSeparator3
+        'SettingsToolStripMenuItem
         '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(208, 6)
+        Me.SettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem17, Me.ToolStripMenuItem20, Me.ToolStripMenuItem23})
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(47, 24)
+        Me.SettingsToolStripMenuItem.Text = "Tools"
         '
-        'MnuLogging
+        'ToolStripMenuItem17
         '
-        Me.MnuLogging.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebugOn})
-        Me.MnuLogging.Name = "MnuLogging"
-        Me.MnuLogging.Size = New System.Drawing.Size(211, 22)
-        Me.MnuLogging.Text = "Logging"
+        Me.ToolStripMenuItem17.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebug})
+        Me.ToolStripMenuItem17.Name = "ToolStripMenuItem17"
+        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem17.Text = "Logging"
         '
         'MnuShowLog
         '
@@ -803,19 +813,19 @@ Partial Class FrmProject
         Me.MnuShowLog.Size = New System.Drawing.Size(128, 22)
         Me.MnuShowLog.Text = "Show Log"
         '
-        'MnuDebugOn
+        'MnuDebug
         '
-        Me.MnuDebugOn.CheckOnClick = True
-        Me.MnuDebugOn.Name = "MnuDebugOn"
-        Me.MnuDebugOn.Size = New System.Drawing.Size(128, 22)
-        Me.MnuDebugOn.Text = "Debug On"
+        Me.MnuDebug.CheckOnClick = True
+        Me.MnuDebug.Name = "MnuDebug"
+        Me.MnuDebug.Size = New System.Drawing.Size(128, 22)
+        Me.MnuDebug.Text = "Debug On"
         '
-        'BackupToolStripMenuItem
+        'ToolStripMenuItem20
         '
-        Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
-        Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
-        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.BackupToolStripMenuItem.Text = "Backup/Restore"
+        Me.ToolStripMenuItem20.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
+        Me.ToolStripMenuItem20.Name = "ToolStripMenuItem20"
+        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem20.Text = "Backup/Restore"
         '
         'MnuBackup
         '
@@ -829,12 +839,12 @@ Partial Class FrmProject
         Me.MnuRestore.Size = New System.Drawing.Size(113, 22)
         Me.MnuRestore.Text = "Restore"
         '
-        'MnuOptions
+        'ToolStripMenuItem23
         '
-        Me.MnuOptions.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.MnuPrintSettings, Me.MnuGlobalSettings})
-        Me.MnuOptions.Name = "MnuOptions"
-        Me.MnuOptions.Size = New System.Drawing.Size(211, 22)
-        Me.MnuOptions.Text = "Preferences"
+        Me.ToolStripMenuItem23.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.MnuPrintSettings, Me.MnuGlobalSettings})
+        Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
+        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem23.Text = "Preferences"
         '
         'MnuPreferences
         '
@@ -853,28 +863,6 @@ Partial Class FrmProject
         Me.MnuGlobalSettings.Name = "MnuGlobalSettings"
         Me.MnuGlobalSettings.Size = New System.Drawing.Size(153, 22)
         Me.MnuGlobalSettings.Text = "Global Settings"
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
-        '
-        'MnuTest
-        '
-        Me.MnuTest.Name = "MnuTest"
-        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
-        Me.MnuTest.Text = "Test"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(208, 6)
-        '
-        'MnuExit
-        '
-        Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(211, 22)
-        Me.MnuExit.Text = "Exit"
         '
         'PnlButtons
         '
@@ -987,44 +975,18 @@ Partial Class FrmProject
     Friend WithEvents BtnDesign As Button
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents MnuButton As ToolStripMenuItem
-    Friend WithEvents MnuLogging As ToolStripMenuItem
-    Friend WithEvents MnuOptions As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents MnuExit As ToolStripMenuItem
-    Friend WithEvents MnuDesign As ToolStripMenuItem
-    Friend WithEvents MnuShowLog As ToolStripMenuItem
-    Friend WithEvents MnuDebugOn As ToolStripMenuItem
-    Friend WithEvents MnuPreferences As ToolStripMenuItem
-    Friend WithEvents MnuSymbols As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents MnuThreads As ToolStripMenuItem
-    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MnuBackup As ToolStripMenuItem
-    Friend WithEvents MnuRestore As ToolStripMenuItem
-    Friend WithEvents MnuOpenDesign As ToolStripMenuItem
-    Friend WithEvents MnuResizeDesign As ToolStripMenuItem
     Friend WithEvents Label14 As Label
     Friend WithEvents LblElapsedTime As Label
     Friend WithEvents LblEndTime As Label
     Friend WithEvents LblStartTime As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents MnuFullThreadList As ToolStripMenuItem
-    Friend WithEvents MnuProjectThreads As ToolStripMenuItem
-    Friend WithEvents MnuProjectThreadSymbols As ToolStripMenuItem
-    Friend WithEvents MnuMaintainSymbols As ToolStripMenuItem
-    Friend WithEvents MnuProjectSymbols As ToolStripMenuItem
-    Friend WithEvents ThreadCardsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MnuBuildCards As ToolStripMenuItem
-    Friend WithEvents MnuPrintCards As ToolStripMenuItem
-    Friend WithEvents MnuGlobalSettings As ToolStripMenuItem
-    Friend WithEvents MnuPrintSettings As ToolStripMenuItem
     Friend WithEvents MnuOpenProjectFile As ToolStripMenuItem
     Friend WithEvents MnuOpenSelectedProject As ToolStripMenuItem
     Friend WithEvents Label9 As Label
     Friend WithEvents NudFabricCount As NumericUpDown
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents MnuImportImage As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents MnuTest As ToolStripMenuItem
     Friend WithEvents Label10 As Label
     Friend WithEvents LblFilename As Label
@@ -1032,6 +994,30 @@ Partial Class FrmProject
     Friend WithEvents LblInstruction As Label
     Friend WithEvents PnlInstruction As Panel
     Friend WithEvents LblOrigin As Label
-    Friend WithEvents MnuBeadList As ToolStripMenuItem
-    Friend WithEvents MnuBrandList As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents MnuOpenDesign As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem4 As ToolStripMenuItem
+    Friend WithEvents MnuThreadList As ToolStripMenuItem
+    Friend WithEvents MnuProjectThreads As ToolStripMenuItem
+    Friend WithEvents MnuProjectThreadSymbols As ToolStripMenuItem
+    Friend WithEvents MnuBeads As ToolStripMenuItem
+    Friend WithEvents MnuBrands As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem10 As ToolStripMenuItem
+    Friend WithEvents MnuSymbols As ToolStripMenuItem
+    Friend WithEvents MnuThreadSymbols As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem13 As ToolStripMenuItem
+    Friend WithEvents MnuBuildCards As ToolStripMenuItem
+    Friend WithEvents MnuPrintCards As ToolStripMenuItem
+    Friend WithEvents MnuImportImage As ToolStripMenuItem
+    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem17 As ToolStripMenuItem
+    Friend WithEvents MnuShowLog As ToolStripMenuItem
+    Friend WithEvents MnuDebug As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem20 As ToolStripMenuItem
+    Friend WithEvents MnuBackup As ToolStripMenuItem
+    Friend WithEvents MnuRestore As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem23 As ToolStripMenuItem
+    Friend WithEvents MnuPreferences As ToolStripMenuItem
+    Friend WithEvents MnuPrintSettings As ToolStripMenuItem
+    Friend WithEvents MnuGlobalSettings As ToolStripMenuItem
 End Class

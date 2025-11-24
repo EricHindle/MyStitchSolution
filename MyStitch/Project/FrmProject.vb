@@ -174,13 +174,10 @@ Public Class FrmProject
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
         OpenProjectDesign()
     End Sub
-    Private Sub MnuResizeDesign_Click(sender As Object, e As EventArgs) Handles MnuResizeDesign.Click
-
-    End Sub
-    Private Sub MnuDebugOn_Click(sender As Object, e As EventArgs) Handles MnuDebugOn.Click
+    Private Sub MnuDebugOn_Click(sender As Object, e As EventArgs) Handles MnuDebug.Click
         My.Settings.isDebugOn = Not My.Settings.isDebugOn
         LogUtil.IsDebugOn = My.Settings.isDebugOn
-        MnuDebugOn.Checked = My.Settings.isDebugOn
+        MnuDebug.Checked = My.Settings.isDebugOn
         My.Settings.Save()
         LogUtil.LogInfo("Debugging is " & If(My.Settings.isDebugOn, "ON", "OFF"), MyBase.Name)
     End Sub
@@ -201,22 +198,19 @@ Public Class FrmProject
         'NudDesignWidth.Enabled = False
         OpenProjectDesign()
     End Sub
-    Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuFullThreadList.Click
+    Private Sub MnuFullThreadList_Click(sender As Object, e As EventArgs) Handles MnuThreadList.Click
         OpenThreadListForm()
     End Sub
-    Private Sub MnuBeadList_Click(sender As Object, e As EventArgs) Handles MnuBeadList.Click
+    Private Sub MnuBeadList_Click(sender As Object, e As EventArgs) Handles MnuBeads.Click
         OpenBeadListForm()
-    End Sub
-    Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
-        OpenProjectThreadSymbolForm()
     End Sub
     Private Sub MnuProjectThreads_Click(sender As Object, e As EventArgs) Handles MnuProjectThreads.Click
         OpenProjectThreadListForm()
     End Sub
-    Private Sub MaintainSymbolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuMaintainSymbols.Click
+    Private Sub MaintainSymbolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MnuSymbols.Click
         OpenSymbolsForm()
     End Sub
-    Private Sub MnuProjectSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectSymbols.Click
+    Private Sub MnuProjectSymbols_Click(sender As Object, e As EventArgs) Handles MnuThreadSymbols.Click
         OpenProjectThreadSymbolForm()
     End Sub
     Private Sub MnuBuildCards_Click(sender As Object, e As EventArgs) Handles MnuBuildCards.Click
@@ -256,7 +250,7 @@ Public Class FrmProject
         oProjectDesign = New ProjectDesign
     End Sub
     Friend Sub LoadProjectSettings()
-        MnuDebugOn.Checked = My.Settings.isDebugOn
+        MnuDebug.Checked = My.Settings.isDebugOn
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
@@ -536,13 +530,17 @@ Public Class FrmProject
         End Try
     End Sub
 
-    Private Sub MnuBrandList_Click(sender As Object, e As EventArgs) Handles MnuBrandList.Click
-        OpenBrandListForm()
+    Private Sub MnuBrandList_Click(sender As Object, e As EventArgs)
+        OpenbrandListForm()
     End Sub
     Private Shared Sub OpenbrandListForm()
         Using _brands As New FrmBrands
             _brands.ShowDialog()
         End Using
+    End Sub
+
+    Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
+        OpenProjectThreadSymbolForm()
     End Sub
 
 #End Region
