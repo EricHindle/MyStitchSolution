@@ -1339,6 +1339,7 @@ Public Class FrmStitchDesign
                 .WithThreadId(_thread.ThreadId) _
                 .WithPaletteId(pPaletteId) _
                 .WithSymbolId(_thread.SymbolId) _
+                .WithIsBead(False) _
                 .Build
             AddNewPaletteThread(_paletteThread)
         Next
@@ -1347,6 +1348,7 @@ Public Class FrmStitchDesign
                 .WithThreadId(_bead.ThreadId) _
                 .WithPaletteId(pPaletteId) _
                 .WithSymbolId(-1) _
+                .WithIsBead(True) _
                 .Build
             AddNewPaletteThread(_paletteThread)
         Next

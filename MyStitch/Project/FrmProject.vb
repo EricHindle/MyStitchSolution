@@ -529,11 +529,7 @@ Public Class FrmProject
             Beep()
         End Try
     End Sub
-    Private Shared Sub OpenbrandListForm()
-        Using _brands As New FrmBrands
-            _brands.ShowDialog()
-        End Using
-    End Sub
+
 
     Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
         OpenProjectThreadSymbolForm()
@@ -541,6 +537,10 @@ Public Class FrmProject
 
     Private Sub MnuBrands_Click(sender As Object, e As EventArgs) Handles MnuBrands.Click
         OpenbrandListForm()
+    End Sub
+
+    Private Sub MnuPalettes_Click(sender As Object, e As EventArgs) Handles MnuPalettes.Click
+        OpenPaletteForm
     End Sub
 
 #End Region

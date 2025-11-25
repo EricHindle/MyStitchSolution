@@ -188,10 +188,17 @@ Public Class FrmProjectThreads
 
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles BtnClear.Click
         SetAllThreadSelections(False)
+        SetAllBeadSelections(False)
     End Sub
     Private Sub SetAllThreadSelections(pIsSelected As Boolean)
         For Each oRow As DataGridViewRow In DgvThreads.Rows
             Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(threadselected.Name)
+            _ChkCell.Value = pIsSelected
+        Next
+    End Sub
+    Private Sub SetAllBeadSelections(pIsSelected As Boolean)
+        For Each oRow As DataGridViewRow In DgvBeads.Rows
+            Dim _ChkCell As DataGridViewCheckBoxCell = oRow.Cells(beadSelected.Name)
             _ChkCell.Value = pIsSelected
         Next
     End Sub
@@ -377,10 +384,21 @@ Public Class FrmProjectThreads
             End If
         Next
         If Not _isFound Then
-            MsgBox("Bead " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
+            MsgBox("Thread " & pThreadNo & " not found", MsgBoxStyle.Information, "Missing thread")
         End If
     End Sub
-
+    Private Sub SelectBeadInTable(pDgv As DataGridView, pBeadNo As String)
+        Dim _isFound As Boolean = False
+        For Each orow As DataGridViewRow In pDgv.Rows
+            If orow.Cells(BeadNo.Name).Value = pBeadNo Then
+                _isFound = True
+                orow.Cells(beadSelected.Name).Value = True
+            End If
+        Next
+        If Not _isFound Then
+            MsgBox("Bead " & pBeadNo & " not found", MsgBoxStyle.Information, "Missing bead")
+        End If
+    End Sub
     Private Sub BtnAssignSymbols_Click(sender As Object, e As EventArgs) Handles BtnAssignSymbols.Click
         Using _symbols As New FrmThreadSymbols
             _symbols.SelectedProject = _selectedProject
@@ -393,8 +411,13 @@ Public Class FrmProjectThreads
             Dim _threads As List(Of PaletteThread) = FindPaletteThreadsByPaletteId(CbPalettes.SelectedValue)
             If _threads IsNot Nothing AndAlso _threads.Count > 0 Then
                 SetAllThreadSelections(False)
+                setallBeadSelections(False)
                 For Each oThread As PaletteThread In _threads
-                    SelectThreadInTable(DgvThreads, oThread.Thread.ThreadNo)
+                    If oThread.IsBead Then
+                        SelectBeadInTable(DgvBeads, oThread.Thread.ThreadNo)
+                    Else
+                        SelectThreadInTable(DgvThreads, oThread.Thread.ThreadNo)
+                    End If
                 Next
             Else
                 LogUtil.ShowStatus("No threads in palette", LblStatus, True)

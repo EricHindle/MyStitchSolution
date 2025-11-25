@@ -85,9 +85,12 @@ Partial Class FrmProject
         Me.MnuOpenDesign = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuThreadList = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuBeads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuBeads = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuPalettes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuBrands = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem10 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuSymbols = New System.Windows.Forms.ToolStripMenuItem()
@@ -110,6 +113,7 @@ Partial Class FrmProject
         Me.PnlButtons = New System.Windows.Forms.Panel()
         Me.LblInstruction = New System.Windows.Forms.Label()
         Me.PnlInstruction = New System.Windows.Forms.Panel()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -714,7 +718,7 @@ Partial Class FrmProject
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuThreadList, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.MnuBeads, Me.MnuBrands})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuThreadList, Me.MnuBeads, Me.ToolStripSeparator3, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.ToolStripSeparator5, Me.MnuPalettes, Me.ToolStripSeparator4, Me.MnuBrands})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(97, 24)
         Me.ToolStripMenuItem4.Text = "Threads/Beads"
@@ -724,6 +728,17 @@ Partial Class FrmProject
         Me.MnuThreadList.Name = "MnuThreadList"
         Me.MnuThreadList.Size = New System.Drawing.Size(199, 22)
         Me.MnuThreadList.Text = "Full Thread List"
+        '
+        'MnuBeads
+        '
+        Me.MnuBeads.Name = "MnuBeads"
+        Me.MnuBeads.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBeads.Text = "Full Bead List"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(196, 6)
         '
         'MnuProjectThreads
         '
@@ -737,11 +752,16 @@ Partial Class FrmProject
         Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
         Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
         '
-        'MnuBeads
+        'MnuPalettes
         '
-        Me.MnuBeads.Name = "MnuBeads"
-        Me.MnuBeads.Size = New System.Drawing.Size(199, 22)
-        Me.MnuBeads.Text = "Full Bead List"
+        Me.MnuPalettes.Name = "MnuPalettes"
+        Me.MnuPalettes.Size = New System.Drawing.Size(199, 22)
+        Me.MnuPalettes.Text = "Palettes"
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(196, 6)
         '
         'MnuBrands
         '
@@ -900,6 +920,11 @@ Partial Class FrmProject
         Me.PnlInstruction.Size = New System.Drawing.Size(549, 40)
         Me.PnlInstruction.TabIndex = 133
         '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
+        '
         'FrmProject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
@@ -1020,4 +1045,8 @@ Partial Class FrmProject
     Friend WithEvents MnuPreferences As ToolStripMenuItem
     Friend WithEvents MnuPrintSettings As ToolStripMenuItem
     Friend WithEvents MnuGlobalSettings As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents MnuPalettes As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
 End Class

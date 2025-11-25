@@ -259,4 +259,14 @@ Module ModProject
             oTimerForm.Close()
         End If
     End Sub
+    Friend Sub OpenBrandListForm()
+        Using _brands As New FrmBrands
+            _brands.ShowDialog()
+        End Using
+    End Sub
+    Friend Sub OpenPaletteForm()
+        Using _palettes As New FrmPaletteMaint
+            _palettes.ShowDialog()
+        End Using
+    End Sub
 End Module

@@ -114,9 +114,9 @@ Namespace Domain.Objects
         End Function
         Public Overrides Function ToString() As String
             Dim _sb As New StringBuilder
-            _sb.Append("Bead=[") _
-                .Append("BeadId=[").Append(CStr(_threadId)).Append("], ") _
-                .Append("threadNo =[").Append(_threadNo).Append("], ") _
+            _sb.Append("Thread=[") _
+                .Append("ThreadId=[").Append(CStr(_threadId)).Append("], ") _
+                .Append("ThreadNo =[").Append(_threadNo).Append("], ") _
                 .Append("Colour name =[").Append(_colourName).Append("], ") _
                 .Append("Sort number =[").Append(_sortNumber).Append("], ") _
                 .Append("Stock level =[").Append(CStr(_stock_level)) _

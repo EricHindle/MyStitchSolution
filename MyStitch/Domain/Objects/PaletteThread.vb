@@ -59,7 +59,11 @@ Namespace Domain.Objects
         Public ReadOnly Property Thread() As Thread
             Get
                 If _thread Is Nothing Then
-                    _thread = FindThreadById(_threadId)
+                    If _isBead Then
+                        _thread = FindBeadById(_threadId)
+                    Else
+                        _thread = FindThreadById(_threadId)
+                    End If
                 End If
                 Return _thread
             End Get

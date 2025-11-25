@@ -1493,6 +1493,18 @@ Namespace My
                 Me("PaletteFormPos") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("330")>  _
+        Public Property SplitDistPalette1() As Integer
+            Get
+                Return CType(Me("SplitDistPalette1"),Integer)
+            End Get
+            Set
+                Me("SplitDistPalette1") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -3725,8 +3725,8 @@ Partial Public Class MyStitchDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function FindBypalette_idthread_id(ByVal palette_id As Integer, ByVal thread_id As Integer) As PaletteThreadsRow
-            Return CType(Me.Rows.Find(New Object() {palette_id, thread_id}),PaletteThreadsRow)
+        Public Function FindBypalette_idthread_idisbead(ByVal palette_id As Integer, ByVal thread_id As Integer, ByVal isbead As Byte) As PaletteThreadsRow
+            Return CType(Me.Rows.Find(New Object() {palette_id, thread_id, isbead}),PaletteThreadsRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3763,7 +3763,7 @@ Partial Public Class MyStitchDataSet
             MyBase.Columns.Add(Me.columnsymbol_id)
             Me.columnisbead = New Global.System.Data.DataColumn("isbead", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnisbead)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("PaletteThreadsKey1", New Global.System.Data.DataColumn() {Me.columnpalette_id, Me.columnthread_id}, true))
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnpalette_id, Me.columnthread_id, Me.columnisbead}, true))
             Me.columnpalette_id.AllowDBNull = false
             Me.columnthread_id.AllowDBNull = false
             Me.columnsymbol_id.AllowDBNull = false

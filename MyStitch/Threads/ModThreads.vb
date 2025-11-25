@@ -30,7 +30,7 @@ Module ModThreads
         pDgv.ClearSelection()
     End Sub
     Friend Sub LoadBrandList(pBrandList As ComboBox)
-        pBrandList.DataSource = GetBrandsList()
+        pBrandList.DataSource = FindBrands()
         pBrandList.DisplayMember = "BrandName"
         pBrandList.ValueMember = "BrandId"
         pBrandList.SelectedIndex = -1
