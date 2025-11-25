@@ -762,7 +762,7 @@ Module ModDesign
         Return DetermineUsedThreads(oProjectDesign, oProjectThreads, oProjectBeads, pIsRemoveUnused)
     End Function
     Public Function DetermineUsedThreads(ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreads As ProjectThreadCollection, ByRef pProjectBeads As ProjectBeadCollection, pIsRemoveUnused As Boolean) As List(Of Integer)
-        LogUtil.LogInfo("Determining unused threads", MethodBase.GetCurrentMethod.Name)
+        'LogUtil.Debug("Determining unused threads", MethodBase.GetCurrentMethod.Name)
         Dim _usedThreads As New List(Of Integer)
         Dim _removeThreads As New List(Of Integer)
         For Each _thread As ProjectThread In pProjectThreads.Threads

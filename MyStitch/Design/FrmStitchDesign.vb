@@ -2026,21 +2026,21 @@ Public Class FrmStitchDesign
         RedrawDesign(False)
     End Sub
     Private Sub NextBackstitchToRemove()
-        LogUtil.LogInfo("Stopping timer", MyBase.Name)
+        LogUtil.Debug("Stopping timer", MyBase.Name)
         StopTimer()
         oSelectedBackstitchIndex += 1
         If oSelectedBackstitchIndex < 0 OrElse oSelectedBackstitchIndex >= oNearestBackstitches.Count Then
-            LogUtil.LogInfo("No more threads", MyBase.Name)
+            LogUtil.Debug("No more threads", MyBase.Name)
             EndRemoveBackStitch()
             oSelectedBackstitchIndex = -1
         Else
-            LogUtil.LogInfo("Next backstitch", MyBase.Name)
+            LogUtil.Debug("Next backstitch", MyBase.Name)
             oRemoveBackstitch = BackstitchBuilder.ABackStitch.StartingWith(oNearestBackstitches(oSelectedBackstitchIndex)).Build
             StartTimer()
         End If
     End Sub
     Private Sub BeginBackstitchRemove(pCell As Cell)
-        LogUtil.LogInfo("Start remove backstitch", MyBase.Name)
+        LogUtil.Debug("Start remove backstitch", MyBase.Name)
         oNearestBackstitches = FindBackstitches(pCell.Position)
         If oNearestBackstitches.Count > 0 Then
             oSelectedBackstitchIndex = 0
