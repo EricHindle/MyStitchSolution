@@ -15,7 +15,31 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_08A767E633324AC0A2A2C454C6BDF2B8"
+        "MsmKey" = "8:_03C7DC2528E3487DA081B7E01D8E1924"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_04A7880C0DE241DF997F923A98DF7F56"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0714A460BA464E8F8310B803512E5518"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_145C489ADDEE439988DA3D29CC466C5A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1D55F0B43130469F924E45C6FDBCFC49"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -27,13 +51,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3350DF986D70477CA06413045EA24CA7"
+        "MsmKey" = "8:_3116334DFE4C46919328D52421ACFB75"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_33D078BF65064808B03C3B9070E7AEDF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_3CECFBD14D8E4AA0993520DA99593047"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4338F32560074A5081C0F3BFBC1CA1C3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,7 +99,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_72D8AF70062F4FB085F61ED7FC06EF1D"
+        "MsmKey" = "8:_83FA56AA668448A0B68FAE5DCD693C0C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,19 +111,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9516AC03060942C1B2BE1D900AF68E41"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_97438E191F194DB59229919F96860314"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9D2DB5CC8AC947F0B38A7B6CB7F88641"
+        "MsmKey" = "8:_AD99557727634695A419298CBCA4B500"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -99,31 +123,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AE85E317C52749CD9CDB31132D1EB97B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B9D6EE7B6E194EF482AAD14C734F7459"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C03C48DD3D8F4D8CB5D39A090F8F908C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C1BCE64212994DC391E1921FC8344355"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C936918D137E4A469C0E07A527BEF44E"
+        "MsmKey" = "8:_C6BF029EE2BE4786950F37EA0D0B06B4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -135,19 +135,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DDA98DD8336F41F2A6C7DE3D7048EFBE"
+        "MsmKey" = "8:_CADEAE2F1FA443B1992CD777961942F9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E0C554673EEA4AB3B2522EEF7A343908"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EA0B0103948F480FA9E7B73B81189E15"
+        "MsmKey" = "8:_EB228270EFEB4E0FBDB8BE114B96F5AB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -155,6 +149,18 @@
         {
         "MsmKey" = "8:_FA01631D13FF5946FE3B013A164BDCBF"
         "OwnerKey" = "8:_8E6C601548944E2F9C0C36EB34076ED9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FA2303F2DEC44F809F61F93FC3BFC1E0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FF379F900FDD46269FD9CBDF52ED5D30"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -294,10 +300,90 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_08A767E633324AC0A2A2C454C6BDF2B8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_03C7DC2528E3487DA081B7E01D8E1924"
             {
-            "SourcePath" = "8:..\\MyStitchData\\Settings.hsx"
-            "TargetName" = "8:Settings.hsx"
+            "SourcePath" = "8:..\\MyStitchData\\Projects.hsx"
+            "TargetName" = "8:Projects.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_04A7880C0DE241DF997F923A98DF7F56"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\Beads.hsx"
+            "TargetName" = "8:Beads.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0714A460BA464E8F8310B803512E5518"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\ProjectWorkTimes.hsx"
+            "TargetName" = "8:ProjectWorkTimes.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_145C489ADDEE439988DA3D29CC466C5A"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\Brands.hsx"
+            "TargetName" = "8:Brands.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1D55F0B43130469F924E45C6FDBCFC49"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\MyStitchData.hsf"
+            "TargetName" = "8:MyStitchData.hsf"
             "Tag" = "8:"
             "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
             "Condition" = "8:"
@@ -345,10 +431,30 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3350DF986D70477CA06413045EA24CA7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3116334DFE4C46919328D52421ACFB75"
             {
-            "SourcePath" = "8:..\\MyStitchData\\Brands.hsx"
-            "TargetName" = "8:Brands.hsx"
+            "SourcePath" = "8:..\\MyStitchData\\PaletteThreads.hsx"
+            "TargetName" = "8:PaletteThreads.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_33D078BF65064808B03C3B9070E7AEDF"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\ProjectThreadCards.hsx"
+            "TargetName" = "8:ProjectThreadCards.hsx"
             "Tag" = "8:"
             "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
             "Condition" = "8:"
@@ -371,6 +477,26 @@
             "TargetName" = "8:MyStitch.ico"
             "Tag" = "8:"
             "Folder" = "8:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4338F32560074A5081C0F3BFBC1CA1C3"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\Designs\\1_choo_choo_baby.hsz"
+            "TargetName" = "8:1_choo_choo_baby.hsz"
+            "Tag" = "8:"
+            "Folder" = "8:_429AF5B5E36647CCB62EF24EAE8B7F81"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -478,70 +604,30 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_72D8AF70062F4FB085F61ED7FC06EF1D"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\Threads.hsx"
-            "TargetName" = "8:Threads.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9516AC03060942C1B2BE1D900AF68E41"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\ProjectCardThread.hsx"
-            "TargetName" = "8:ProjectCardThread.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_97438E191F194DB59229919F96860314"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\PaletteThreads.hsx"
-            "TargetName" = "8:PaletteThreads.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D2DB5CC8AC947F0B38A7B6CB7F88641"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83FA56AA668448A0B68FAE5DCD693C0C"
             {
             "SourcePath" = "8:..\\MyStitchData\\Palettes.hsx"
             "TargetName" = "8:Palettes.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD99557727634695A419298CBCA4B500"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\ProjectCardThread.hsx"
+            "TargetName" = "8:ProjectCardThread.hsx"
             "Tag" = "8:"
             "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
             "Condition" = "8:"
@@ -578,90 +664,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE85E317C52749CD9CDB31132D1EB97B"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\ProjectWorkTimes.hsx"
-            "TargetName" = "8:ProjectWorkTimes.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B9D6EE7B6E194EF482AAD14C734F7459"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\MyStitchData.hsf"
-            "TargetName" = "8:MyStitchData.hsf"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C03C48DD3D8F4D8CB5D39A090F8F908C"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\Beads.hsx"
-            "TargetName" = "8:Beads.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C1BCE64212994DC391E1921FC8344355"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6BF029EE2BE4786950F37EA0D0B06B4"
             {
             "SourcePath" = "8:..\\MyStitchData\\ProjectThreads.hsx"
             "TargetName" = "8:ProjectThreads.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C936918D137E4A469C0E07A527BEF44E"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\ProjectThreadCards.hsx"
-            "TargetName" = "8:ProjectThreadCards.hsx"
             "Tag" = "8:"
             "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
             "Condition" = "8:"
@@ -709,10 +715,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DDA98DD8336F41F2A6C7DE3D7048EFBE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CADEAE2F1FA443B1992CD777961942F9"
             {
-            "SourcePath" = "8:..\\MyStitchData\\Projects.hsx"
-            "TargetName" = "8:Projects.hsx"
+            "SourcePath" = "8:..\\MyStitchData\\Threads.hsx"
+            "TargetName" = "8:Threads.hsx"
             "Tag" = "8:"
             "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
             "Condition" = "8:"
@@ -729,27 +735,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E0C554673EEA4AB3B2522EEF7A343908"
-            {
-            "SourcePath" = "8:..\\MyStitchData\\Symbols.hsx"
-            "TargetName" = "8:Symbols.hsx"
-            "Tag" = "8:"
-            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EA0B0103948F480FA9E7B73B81189E15"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB228270EFEB4E0FBDB8BE114B96F5AB"
             {
             "SourcePath" = "8:..\\MyStitchData\\ProjectBeads.hsx"
             "TargetName" = "8:ProjectBeads.hsx"
@@ -800,6 +786,46 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA2303F2DEC44F809F61F93FC3BFC1E0"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\Symbols.hsx"
+            "TargetName" = "8:Symbols.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF379F900FDD46269FD9CBDF52ED5D30"
+            {
+            "SourcePath" = "8:..\\MyStitchData\\Settings.hsx"
+            "TargetName" = "8:Settings.hsx"
+            "Tag" = "8:"
+            "Folder" = "8:_A9F00E40CAEA45E38DAD300FD6B7717B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -817,7 +843,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_CAE3E9D0CDA44436B99776A8DC44A8E2"
                     {
-                    "Name" = "8:netWYrks"
+                    "Name" = "8:hindleware"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -860,6 +886,17 @@
             "Property" = "8:DesktopFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_429AF5B5E36647CCB62EF24EAE8B7F81"
+                    {
+                    "Name" = "8:MyStitchTempFolder"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_82B4B16F60B144ABBB639038725580EB"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -879,7 +916,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MyStitch"
         "ProductCode" = "8:{474C3F01-CC2C-4185-AAF4-359EB2F12380}"
-        "PackageCode" = "8:{0CE1262D-9EC3-473F-8CA1-B4BF1960F67A}"
+        "PackageCode" = "8:{AF3D710C-365F-438A-9954-743AE416DF4A}"
         "UpgradeCode" = "8:{E7076867-D58D-4480-A896-157A9A9127B9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

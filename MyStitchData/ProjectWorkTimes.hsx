@@ -23,4 +23,10 @@
       </xs:unique>
     </xs:element>
   </xs:schema>
+  <ProjectWorkTimes>
+    <project_id>1</project_id>
+    <start_date>2025-11-26T20:02:31.3324813+00:00</start_date>
+    <end_date>2025-11-26T21:28:11.497782+00:00</end_date>
+    <minutes>86</minutes>
+  </ProjectWorkTimes>
 </NewDataSet>

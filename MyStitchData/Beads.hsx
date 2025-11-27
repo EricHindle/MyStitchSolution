@@ -24,4 +24,28 @@
       </xs:unique>
     </xs:element>
   </xs:schema>
+  <Beads>
+    <bead_id>1</bead_id>
+    <bead_no>00557</bead_no>
+    <bead_colour_name>Gold seed bead</bead_colour_name>
+    <bead_colour>-1123407</bead_colour>
+    <stock_level>0</stock_level>
+    <brand_id>4</brand_id>
+  </Beads>
+  <Beads>
+    <bead_id>2</bead_id>
+    <bead_no>03021</bead_no>
+    <bead_colour_name>Royal Pearl antique bead</bead_colour_name>
+    <bead_colour>-1575</bead_colour>
+    <stock_level>0</stock_level>
+    <brand_id>4</brand_id>
+  </Beads>
+  <Beads>
+    <bead_id>3</bead_id>
+    <bead_no>03049</bead_no>
+    <bead_colour_name>Rich Red antique bead</bead_colour_name>
+    <bead_colour>-8969948</bead_colour>
+    <stock_level>0</stock_level>
+    <brand_id>4</brand_id>
+  </Beads>
 </NewDataSet>

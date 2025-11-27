@@ -41,7 +41,10 @@ Public NotInheritable Class FrmStartUp
             CheckAppPaths()
             Dim oFromFolder As String = Path.Combine(My.Application.Info.DirectoryPath, "Data")
             Dim oToFolder As String = My.Settings.DataFilePath
+            Dim oTempDesignFolder As String = Path.Combine(GetFolderPath(SpecialFolder.Desktop), "MyStitchTempFolder")
+            Dim oToDesignFolder As String = My.Settings.DesignFilePath
             InstallDataArchive(oFromFolder, oToFolder)
+            InstallSampleDesign(oTempDesignFolder, oToDesignFolder)
             My.Settings.isInstallationComplete = True
             My.Settings.Save()
             LogUtil.LogInfo("Installation complete", MethodBase.GetCurrentMethod.Name)
@@ -97,8 +100,24 @@ Public NotInheritable Class FrmStartUp
         BtnExit.Enabled = True
         btnSave.Enabled = True
     End Sub
+    Private Sub InstallSampleDesign(pFromFolder As String, pToFolder As String)
+        LogUtil.LogInfo("Installing sample design", MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("From folder " & pFromFolder, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("To Folder " & pToFolder, MethodBase.GetCurrentMethod.Name)
+        Dim fileList As IReadOnlyCollection(Of String) = My.Computer.FileSystem.GetFiles(pFromFolder)
+        For Each _filename As String In fileList
+            Dim _file As String = Path.GetFileName(_filename)
+            LogUtil.LogInfo("File : " & _file, MethodBase.GetCurrentMethod.Name)
+            Dim _fromFile As String = Path.Combine(pFromFolder, _file)
+            Dim _toFile As String = Path.Combine(pToFolder, _file)
+            LogUtil.LogInfo("Copying " & _fromFile & " to " & _toFile, MethodBase.GetCurrentMethod.Name)
+            TryCopyFile(_fromFile, _toFile, True)
+        Next
+    End Sub
     Private Sub InstallDataArchive(pFromFolder As String, pToFolder As String)
         LogUtil.LogInfo("Unpacking Data File", MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("From folder " & pFromFolder, MethodBase.GetCurrentMethod.Name)
+        LogUtil.LogInfo("To Folder " & pToFolder, MethodBase.GetCurrentMethod.Name)
         Dim oDataFileName As String = Path.Combine(pFromFolder, DATA_FILE_NAME & DATA_ZIP_EXT)
         If My.Computer.FileSystem.FileExists(oDataFileName) = True Then
             Try
@@ -162,6 +181,7 @@ Public NotInheritable Class FrmStartUp
         Else
             Throw New ArgumentException("You must provide a Log File Folder name", "Log File Folder")
         End If
+        My.Settings.ApplicationPath = My.Application.Info.DirectoryPath
         My.Settings.Save()
     End Sub
 #End Region

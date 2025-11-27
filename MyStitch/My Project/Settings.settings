@@ -15,10 +15,10 @@
       <Value Profile="(Default)">D:\MyStitch\Designs</Value>
     </Setting>
     <Setting Name="DesignStitchDisplay" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="PaletteStitchDisplay" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="StitchDisplayStyleFormPos" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -50,11 +50,8 @@
     <Setting Name="BackupPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\MyStitch\Backup</Value>
     </Setting>
-    <Setting Name="AppendDbBackup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="BackupAddDate" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ColourCaptureFormPos" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -69,7 +66,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="LogZoomOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="isDebugOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -90,7 +87,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="IsCentreOn" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CentrelineColour" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">Red</Value>
@@ -123,13 +120,13 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="isPrintKey" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrintKeyOrder" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="PrintSquaresPerInch" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="TilingOverlap" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -183,13 +180,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Grid1Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Grid5Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="Grid10Colour" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="Grid1Thickness" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -198,7 +195,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="Grid10Thickness" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="PrintCentreMarks" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -207,7 +204,7 @@
       <Value Profile="(Default)">Black</Value>
     </Setting>
     <Setting Name="BackstitchWidth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="SelectionBorderWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -279,10 +276,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrintRowNumbers" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrintColumnNumbers" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PrintGrid1Colour" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>

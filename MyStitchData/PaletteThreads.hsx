@@ -16,10 +16,11 @@
           </xs:element>
         </xs:choice>
       </xs:complexType>
-      <xs:unique name="PaletteThreadsKey1" msdata:PrimaryKey="true">
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
         <xs:selector xpath=".//PaletteThreads" />
         <xs:field xpath="palette_id" />
         <xs:field xpath="thread_id" />
+        <xs:field xpath="isbead" />
       </xs:unique>
     </xs:element>
   </xs:schema>

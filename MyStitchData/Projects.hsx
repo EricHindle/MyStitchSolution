@@ -44,4 +44,20 @@
       </xs:unique>
     </xs:element>
   </xs:schema>
- </NewDataSet>
+  <Projects>
+    <project_id>1</project_id>
+    <project_name>Choo Choo Baby</project_name>
+    <date_started>2025-11-26T19:55:41.5086387+00:00</date_started>
+    <date_ended>2025-11-26T21:28:11.497782+00:00</date_ended>
+    <design_width>127</design_width>
+    <design_height>39</design_height>
+    <fabric_width>131</fabric_width>
+    <fabric_height>43</fabric_height>
+    <fabric_colour>1</fabric_colour>
+    <design_file>1_choo_choo_baby</design_file>
+    <origin_x>4</origin_x>
+    <origin_y>4</origin_y>
+    <total_minutes>86</total_minutes>
+    <fabric_count>14</fabric_count>
+  </Projects>
+</NewDataSet>
