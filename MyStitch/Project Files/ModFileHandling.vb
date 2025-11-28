@@ -22,6 +22,7 @@ Module ModFileHandling
     Public Const DESIGN_EXT As String = ".hsd"
     Public Const PROJECT_EXT As String = ".hsp"
     Public Const PROJECT_THREADS_EXT As String = ".hst"
+    Public Const PROJECT_BEADS_EXT As String = ".hsb"
     Public Const DATA_ARC_EXT As String = ".hsg"
     Public Const DATA_ZIP_EXT As String = ".hsf"
     Public Const DATA_EXT As String = ".hsx"
@@ -197,6 +198,11 @@ Module ModFileHandling
                                 _projectStrings.Add(_input.ReadLine())
                             End Using
                         End If
+                        If _entry.Name.EndsWith(PROJECT_BEADS_EXT) Then
+                            Using _input As New StreamReader(_entry.Open())
+                                _projectStrings.Add(_input.ReadLine())
+                            End Using
+                        End If
                     Next
                 End Using
             End If
@@ -212,7 +218,7 @@ Module ModFileHandling
         End Try
         Return _projectStrings
     End Function
-    Public Function SaveDesignDelimited(pProject As Project, pDesign As ProjectDesign, pThreads As ProjectThreadCollection, pDesignFileName As String) As Boolean
+    Public Function SaveDesignDelimited(pProject As Project, pDesign As ProjectDesign, pThreads As ProjectThreadCollection, pBeads As ProjectBeadCollection, pDesignFileName As String) As Boolean
         Dim isOK As Boolean
         Dim _designEntryName As String = pDesignFileName & DESIGN_EXT
         Dim _designFile As String = Path.Combine(oDesignFolderName, _designEntryName)
@@ -220,6 +226,8 @@ Module ModFileHandling
         Dim _projectFile As String = Path.Combine(oDesignFolderName, _projectEntryName)
         Dim _projectThreadsEntryName As String = pDesignFileName & PROJECT_THREADS_EXT
         Dim _projectThreadsFile As String = Path.Combine(oDesignFolderName, _projectThreadsEntryName)
+        Dim _projectBeadsEntryName As String = pDesignFileName & PROJECT_BEADS_EXT
+        Dim _projectBeadsFile As String = Path.Combine(oDesignFolderName, _projectBeadsEntryName)
         Dim _zipFile As String = Path.Combine(oDesignFolderName, pDesignFileName & DESIGN_ZIP_EXT)
 
         Try
@@ -257,6 +265,15 @@ Module ModFileHandling
                     Dim threadsEntry As ZipArchiveEntry = archive.CreateEntry(_projectThreadsEntryName)
                     Using _output As New StreamWriter(threadsEntry.Open())
                         _output.WriteLine(pThreads.ToSaveString)
+                        _output.Close()
+                    End Using
+                End If
+                ' Save the beads file
+                If pBeads IsNot Nothing AndAlso pBeads.Count > 0 Then
+                    LogUtil.LogInfo("Saving project beads to " & _projectBeadsEntryName, MethodBase.GetCurrentMethod.Name)
+                    Dim beadsEntry As ZipArchiveEntry = archive.CreateEntry(_projectBeadsEntryName)
+                    Using _output As New StreamWriter(beadsEntry.Open())
+                        _output.WriteLine(pBeads.ToSaveString)
                         _output.Close()
                     End Using
                 End If

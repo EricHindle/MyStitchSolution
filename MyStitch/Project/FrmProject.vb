@@ -24,9 +24,6 @@ Public Class FrmProject
     Private Const INVALID_WIDTH As String = "INVALID WIDTH"
     Private Const INVALID_HEIGHT As String = "INVALID HEIGHT"
     Private Const UNEXPECTED_ERROR As String = "UNEXPECTED ERROR - SEE LOG"
-    Private Const PROJECT_ADDED As String = "Project Added"
-    Private Const PROJECT_REMOVED As String = "Project Removed"
-    Private Const PROJECT_UPDATED As String = "Project Updated"
     Private Const PROJECT_NOT_UPDATED As String = "Project NOT Updated"
     Private Const NO_PROJECT_SELECTED As String = "No Project Selected"
     Private Const DESIGN_NOT_FOUND As String = "Design File not found"
@@ -45,12 +42,20 @@ Public Class FrmProject
         KeyPreview = True
         Dim _projectFile As String = CheckRunTimeParameters()
         If _projectFile IsNot Nothing Then
-            OpenProjectFromFile(_projectFile, DgvProjects, LblStatus)
-            If oFileProject.IsLoaded Then
-                SelectProjectInList(DgvProjects, oFileProject.ProjectId)
-                OpenProjectDesign()
+            ModProject.OpenProjectFile(_projectFile, LblStatus)
+            If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
+                Dim _path As String = Path.GetDirectoryName(_projectFile)
+                If _path = oDesignFolderName AndAlso IsProjectInList(oFileProject) Then
+                    OpenProjectDesign()
+                Else
+                    If ImportProject(_projectFile) Then
+                            LoadProjectList(DgvProjects, MyBase.Name)
+                            SelectProjectInList(DgvProjects, oFileProject.ProjectId)
+                            OpenProjectDesign()
+                        End If
+                    End If
+                End If
             End If
-        End If
     End Sub
     Private Sub SetEnabledButtons(pIsEnabled)
         PnlButtons.Enabled = pIsEnabled
@@ -73,21 +78,33 @@ Public Class FrmProject
         Dim _filename As String = Nothing
         ' Check if a project file is passed as a parameter
         If _params.Length > 1 Then
-            LogUtil.LogInfo("Runtime parameter found : " & _params(1), MyBase.Name)
-            If My.Computer.FileSystem.FileExists(_params(1)) Then
+            Dim _firstParameter As String = _params(1)
+            LogUtil.LogInfo("Runtime parameter found : " & _firstParameter, MyBase.Name)
+            If My.Computer.FileSystem.FileExists(_firstParameter) Then
                 Try
-                    Dim _suffix As String = Path.GetExtension(_params(1)).ToLower
+                    Dim _suffix As String = Path.GetExtension(_firstParameter).ToLower
                     If _suffix = DESIGN_ARC_EXT Or _suffix = DESIGN_ZIP_EXT Then
-                        _filename = _params(1)
+                        _filename = _firstParameter
                     End If
                 Catch ex As ArgumentException
                     LogUtil.LogException(ex, "Runtime parameter exception", MyBase.Name)
                 End Try
             Else
-                LogUtil.LogInfo("File not found: " & _params(1), MyBase.Name)
+                LogUtil.LogInfo("File not found: " & _firstParameter, MyBase.Name)
             End If
         End If
         Return _filename
+    End Function
+    Private Function IsProjectInList(pProject As Project) As Boolean
+        Dim isProjectFound As Boolean = False
+        For Each oRow In DgvProjects.Rows
+            If oRow.cells(projectId.Name).value = pProject.ProjectId And oRow.cells(projectName.Name).value = pProject.ProjectName Then
+                isProjectFound = True
+                oRow.selected = True
+                Exit For
+            End If
+        Next
+        Return isProjectFound
     End Function
     Private Sub MyBase_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         KeyHandler(Me, FormType.Project, e)
@@ -226,9 +243,9 @@ Public Class FrmProject
         '      OpenProjectFile(oProject.ProjectId)
     End Sub
     Private Sub MnuOpenProjectFile_Click(sender As Object, e As EventArgs) Handles MnuOpenProjectFile.Click
-        Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
-        OpenProjectFromFile(_filename, DgvProjects, LblStatus)
-        OpenProjectDesign()
+        '    Dim _filename As String = FileUtil.GetFileName(FileUtil.OpenOrSave.Open, FileUtil.FileType.HSZ, oDesignFolderName)
+         '   OpenProjectFromFile(_filename, DgvProjects, LblStatus)
+        '    OpenProjectDesign()
     End Sub
     Private Sub MnuImportImage_Click(sender As Object, e As EventArgs) Handles MnuImportImage.Click
         ShowImportImageForm()
@@ -488,7 +505,16 @@ Public Class FrmProject
             End If
         End Using
     End Sub
-
+    Private Function ImportProject(pFilename As String) As Boolean
+        Dim isImported As Boolean
+        Using _importProject As New FrmImportProject
+            _importProject.ProjectFilename = pFilename
+            _importProject.IsDuplicateProject = IsProjectInList(oFileProject)
+            _importProject.ShowDialog()
+            isImported = _importProject.IsImportComplete
+        End Using
+        Return isImported
+    End Function
     Private Sub ShowImportImageForm()
         Using _import As New FrmImportImage
             _import.ShowDialog()

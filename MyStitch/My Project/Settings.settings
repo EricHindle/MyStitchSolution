@@ -230,7 +230,7 @@
     <Setting Name="DefaultFabricCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">14</Value>
     </Setting>
-    <Setting Name="ImportFormPos" Type="System.String" Scope="User">
+    <Setting Name="ImportImageFormPos" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PrintGrid" Type="System.Boolean" Scope="User">
@@ -361,6 +361,12 @@
     </Setting>
     <Setting Name="SplitDistPalette1" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">330</Value>
+    </Setting>
+    <Setting Name="ImportDesignFormPos" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SplitDistImportDesign1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">350</Value>
     </Setting>
   </Settings>
 </SettingsFile>

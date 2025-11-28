@@ -89,6 +89,7 @@ Partial Class FrmProject
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuProjectThreads = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuProjectThreadSymbols = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuPalettes = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.MnuBrands = New System.Windows.Forms.ToolStripMenuItem()
@@ -113,7 +114,6 @@ Partial Class FrmProject
         Me.PnlButtons = New System.Windows.Forms.Panel()
         Me.LblInstruction = New System.Windows.Forms.Label()
         Me.PnlInstruction = New System.Windows.Forms.Panel()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
@@ -671,35 +671,35 @@ Partial Class FrmProject
         'MnuOpenProjectFile
         '
         Me.MnuOpenProjectFile.Name = "MnuOpenProjectFile"
-        Me.MnuOpenProjectFile.Size = New System.Drawing.Size(211, 22)
-        Me.MnuOpenProjectFile.Text = "Open Project File"
+        Me.MnuOpenProjectFile.Size = New System.Drawing.Size(222, 22)
+        Me.MnuOpenProjectFile.Text = "Import Project File"
         '
         'MnuOpenSelectedProject
         '
         Me.MnuOpenSelectedProject.Name = "MnuOpenSelectedProject"
-        Me.MnuOpenSelectedProject.Size = New System.Drawing.Size(211, 22)
-        Me.MnuOpenSelectedProject.Text = "Open Selected Project File"
+        Me.MnuOpenSelectedProject.Size = New System.Drawing.Size(222, 22)
+        Me.MnuOpenSelectedProject.Text = "Reopen Selected Project File"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(219, 6)
         '
         'MnuTest
         '
         Me.MnuTest.Name = "MnuTest"
-        Me.MnuTest.Size = New System.Drawing.Size(211, 22)
+        Me.MnuTest.Size = New System.Drawing.Size(222, 22)
         Me.MnuTest.Text = "Test"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(208, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(219, 6)
         '
         'MnuExit
         '
         Me.MnuExit.Name = "MnuExit"
-        Me.MnuExit.Size = New System.Drawing.Size(211, 22)
+        Me.MnuExit.Size = New System.Drawing.Size(222, 22)
         Me.MnuExit.Text = "Exit"
         '
         'ToolStripMenuItem1
@@ -713,8 +713,8 @@ Partial Class FrmProject
         'MnuOpenDesign
         '
         Me.MnuOpenDesign.Name = "MnuOpenDesign"
-        Me.MnuOpenDesign.Size = New System.Drawing.Size(142, 22)
-        Me.MnuOpenDesign.Text = "Open Design"
+        Me.MnuOpenDesign.Size = New System.Drawing.Size(189, 22)
+        Me.MnuOpenDesign.Text = "Open Selected Design"
         '
         'ToolStripMenuItem4
         '
@@ -751,6 +751,11 @@ Partial Class FrmProject
         Me.MnuProjectThreadSymbols.Name = "MnuProjectThreadSymbols"
         Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
         Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
         '
         'MnuPalettes
         '
@@ -798,13 +803,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'MnuImportImage
@@ -919,11 +924,6 @@ Partial Class FrmProject
         Me.PnlInstruction.Name = "PnlInstruction"
         Me.PnlInstruction.Size = New System.Drawing.Size(549, 40)
         Me.PnlInstruction.TabIndex = 133
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
         '
         'FrmProject
         '

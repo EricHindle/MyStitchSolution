@@ -281,12 +281,12 @@ Public Class FrmImportImage
         isLoading = False
     End Sub
     Private Sub SaveFormLayout()
-        My.Settings.ImportFormPos = SetFormPos(Me)
+        My.Settings.ImportImageFormPos = SetFormPos(Me)
         If SplitContainer1.SplitterDistance > 0 Then My.Settings.SplitDistImport1 = SplitContainer1.SplitterDistance
         My.Settings.Save()
     End Sub
     Private Sub RestoreFormLayout()
-        GetFormPos(Me, My.Settings.ImportFormPos)
+        GetFormPos(Me, My.Settings.ImportImageFormPos)
         SplitContainer1.SplitterDistance = My.Settings.SplitDistImport1
     End Sub
     Private Sub LoadThreads()

@@ -25,7 +25,9 @@ Module ModProject
     Public Const ORIGIN_X_FLD As Integer = 12
     Public Const ORIGIN_Y_FLD As Integer = 13
     Public Const TOTAL_MINUTES_FLD As Integer = 14
-
+    Public Const PROJECT_ADDED As String = "Project Added"
+    Public Const PROJECT_REMOVED As String = "Project Removed"
+    Public Const PROJECT_UPDATED As String = "Project Updated"
     Public MIN_DATE As New DateTime(2001, 1, 1)
     Public oTimerForm As FrmProjectTimer
     Public isSaved As Boolean = True
@@ -33,6 +35,7 @@ Module ModProject
     Public oFileProject As Project
     Public oFileProjectDesign As ProjectDesign
     Public oFileProjectThreadCollection As ProjectThreadCollection
+    Public oFileProjectBeadCollection As ProjectBeadCollection
     Public Function SaveDesign() As String
         Dim _reply As String
         If oProject.IsLoaded Then
@@ -57,7 +60,7 @@ Module ModProject
 
             End Try
         End If
-        SaveDesignDelimited(oProject, oProjectDesign, oProjectThreads, pFilename)
+        SaveDesignDelimited(oProject, oProjectDesign, oProjectThreads, oProjectBeads, pFilename)
         isSaved = True
         LogUtil.LogInfo("Design saved to " & pFilename, MethodBase.GetCurrentMethod.Name)
         _reply = "Save complete"
@@ -125,26 +128,26 @@ Module ModProject
         LoadProjectList(pDgv, MethodBase.GetCurrentMethod.Name)
         isProjectLoading = False
     End Sub
-    Public Sub OpenProjectFromFile(_filename As String, pDgv As DataGridView, pStatus As ToolStripStatusLabel)
-        ModProject.OpenProjectFile(_filename, pStatus)
-        If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
-            LogUtil.ShowStatus("Project file opened: " & _filename, pStatus, MethodBase.GetCurrentMethod.Name)
-            Dim _existingProject As Project = FindProjectById(oFileProject.ProjectId)
-            If _existingProject.IsLoaded Then
-                If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
-                    AmendProject(oFileProject)
-                    LoadProject(pDgv)
-                Else
-                    LogUtil.ShowStatus("Project not updated: " & _existingProject.ProjectName, pStatus, MethodBase.GetCurrentMethod.Name)
-                End If
-            Else
-                LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MethodBase.GetCurrentMethod.Name)
-                Dim _newId As Integer = AddNewProject(oFileProject)
-                SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
-                LoadProject(pDgv)
-            End If
-        End If
-    End Sub
+    'Public Sub OpenProjectFromFile(_filename As String, pDgv As DataGridView, pStatus As ToolStripStatusLabel)
+    '    ModProject.OpenProjectFile(_filename, pStatus)
+    '    If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
+    '        LogUtil.ShowStatus("Project file opened: " & _filename, pStatus, MethodBase.GetCurrentMethod.Name)
+    '        Dim _existingProject As Project = FindProjectById(oFileProject.ProjectId)
+    '        If _existingProject.IsLoaded Then
+    '            If MsgBox("Project already exists. Do you want to update the existing project?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Update Project") = MsgBoxResult.Yes Then
+    '                AmendProject(oFileProject)
+    '                LoadProject(pDgv)
+    '            Else
+    '                LogUtil.ShowStatus("Project not updated: " & _existingProject.ProjectName, pStatus, MethodBase.GetCurrentMethod.Name)
+    '            End If
+    '        Else
+    '            LogUtil.LogInfo("New project found: " & oFileProject.ProjectName, MethodBase.GetCurrentMethod.Name)
+    '            Dim _newId As Integer = AddNewProject(oFileProject)
+    '            SetNewProjectId(_newId, oFileProject, oFileProjectDesign, oFileProjectThreadCollection)
+    '            LoadProject(pDgv)
+    '        End If
+    '    End If
+    'End Sub
     Public Sub OpenProjectFile(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
         If Not String.IsNullOrEmpty(pFilename) Then
             LogUtil.ShowStatus("Opening project file " & pFilename, pStatus, MethodBase.GetCurrentMethod.Name)
@@ -160,6 +163,10 @@ Module ModProject
     End Sub
 
     Private Sub CreateProjectArtifactsFromFileContents(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
+        oFileProject = ProjectBuilder.AProject.StartingWithNothing.Build
+        oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWithNothing().Build
+        oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWithNothing().Build
+        oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWithNothing().Build
         Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
         For Each _string As String In _projectStrings
             Select Case True
@@ -184,6 +191,14 @@ Module ModProject
                         LogUtil.ShowStatus("No threads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
                         Exit For
                     End If
+                Case _string.StartsWith(PROJECT_BEADS_HDR)
+                    Dim _beadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
+                    oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWith(_beadStrings).Build
+                    If oFileProjectBeadCollection Is Nothing OrElse oFileProjectBeadCollection.Count = 0 Then
+                        LogUtil.ShowStatus("No beads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                        Exit For
+                    End If
+
                 Case Else
                     LogUtil.ShowStatus("Unknown data in project file", pStatus, MethodBase.GetCurrentMethod.Name)
             End Select
