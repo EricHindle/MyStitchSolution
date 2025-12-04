@@ -69,6 +69,7 @@ Public Class FrmPrintProject
     End Sub
     Private Sub FrmStitchDesign_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         LogUtil.LogInfo("Closing...", MyBase.Name)
+        RbPortrait.Checked = True
         My.Settings.PrintFormPos = SetFormPos(Me)
         My.Settings.Save()
         PenDispose()
@@ -138,14 +139,42 @@ Public Class FrmPrintProject
             LoadFormPages()
         End If
     End Sub
+    Private Sub ChkPrintKey_CheckedChanged(sender As Object, e As EventArgs) Handles ChkPrintKey.CheckedChanged
+        isPrintKey = ChkPrintKey.Checked
+    End Sub
+    Private Sub RbLandscape_CheckedChanged(sender As Object, e As EventArgs) Handles RbLandscape.CheckedChanged
+        If isComponentInitialised Then
+            isLandscape = RbLandscape.Checked
+            If isLandscape Then
+                oPagesize = New Size(A4_HEIGHT, A4_WIDTH)
+                Me.Size = New Size(Me.Size.Width + oWidthHeightDifference, Me.Size.Height)
+                PnlDesignPicture.Size = New Size(PnlDesignPicture.Size.Width + oWidthHeightDifference, PnlDesignPicture.Height - oWidthHeightDifference)
+                PicDesign.Size = New Size(PicDesign.Size.Width + oWidthHeightDifference, PicDesign.Height - oWidthHeightDifference)
+            Else
+                oPagesize = New Size(A4_WIDTH, A4_HEIGHT)
+                Me.Size = New Size(Me.Size.Width - oWidthHeightDifference, Me.Size.Height)
+                PnlDesignPicture.Size = New Size(PnlDesignPicture.Size.Width - oWidthHeightDifference, PnlDesignPicture.Height + oWidthHeightDifference)
+                PicDesign.Size = New Size(PicDesign.Size.Width - oWidthHeightDifference, PicDesign.Height + oWidthHeightDifference)
+            End If
+            If Not isPrintLoading Then
+                InitialisePrintDocument()
+                LoadFormPages()
+            End If
+        End If
+    End Sub
 #End Region
 #Region "subroutines"
     Private Sub InitialiseForm()
         isComponentInitialised = True
         isPrintLoading = True
+        oPagesize = New Size(A4_WIDTH, A4_HEIGHT)
+        oWidthHeightDifference = PnlDesignPicture.Height - PnlDesignPicture.Width
+        If oPrintProject.DesignHeight < oPrintProject.DesignWidth Then
+            RbLandscape.Checked = True
+        End If
         LoadInstalledPrinters()
         InitialisePrintDocument()
-        oPageToFormRatio = Math.Ceiling(A4_WIDTH / PicDesign.Width)
+        oPageToFormRatio = Math.Ceiling(oPagesize.Width / PicDesign.Width)
         LoadFormFromSettings()
         SetPrintFonts()
         CbDisplayStyle.SelectedIndex = oStitchDisplayStyle
@@ -557,7 +586,7 @@ Public Class FrmPrintProject
         pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(oPrintablePageWidth, oTopMargin - 2)))
         pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, oBottomGapY), New Size(oPrintablePageWidth, oPrintablePageHeight - oBottomGapY - 2)))
         pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(0, 0), New Size(oLeftMargin - 2, oPrintablePageHeight)))
-        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(oRightGapX, 0), New Size(oPrintablePageWidth - oRightGapX - 2, A4_HEIGHT)))
+        pPageGraphics.FillRectangle(New SolidBrush(Color.White), New Rectangle(New Point(oRightGapX, 0), New Size(oPrintablePageWidth - oRightGapX - 2, oPagesize.Height)))
     End Sub
     Private Sub PrintGrid(pPage As Page, ByRef pPageGraphics As Graphics, pSize As Size)
         Dim _widthInColumns As Integer = pPage.BottomRight.X - pPage.TopLeft.X
@@ -692,9 +721,6 @@ Public Class FrmPrintProject
         oPrintBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         oPrintGraphics = Graphics.FromImage(oPrintBitmap)
         CreateKeyGraphics(oPrintGraphics, oPrintBitmap.Size)
-    End Sub
-    Private Sub ChkPrintKey_CheckedChanged(sender As Object, e As EventArgs) Handles ChkPrintKey.CheckedChanged
-        isPrintKey = ChkPrintKey.Checked
     End Sub
 #End Region
 End Class

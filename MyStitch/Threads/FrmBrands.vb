@@ -60,10 +60,8 @@ Public Class FrmBrands
 #Region "functions"
     Private Sub InitialiseForm()
         GetFormPos(Me, My.Settings.BrandFormPos)
-        isLoading = True
         ClearBrandForm()
         LoadBrandList(DgvBrands, MyBase.Name)
-        isLoading = False
     End Sub
     Private Sub ClearBrandForm()
         DgvBrands.ClearSelection()

@@ -856,7 +856,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_19DA77A7C72D4EE0B0C3E11A9F0065A8"
             {
-            "DefaultLocation" = "8:D:\\netWYrks\\MyStitch"
+            "DefaultLocation" = "8:D:\\netwyrks\\MyStitch"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -916,7 +916,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MyStitch"
         "ProductCode" = "8:{474C3F01-CC2C-4185-AAF4-359EB2F12380}"
-        "PackageCode" = "8:{ED9A8F58-EC7F-4F5F-BF15-FC5DC52CCFEA}"
+        "PackageCode" = "8:{7AE4A9A2-095F-4B2C-AB17-AFA563FE4F3C}"
         "UpgradeCode" = "8:{E7076867-D58D-4480-A896-157A9A9127B9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

@@ -38,6 +38,9 @@ Partial Class FrmPrintProject
         Me.BtnPrintPage = New System.Windows.Forms.Button()
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.RbLandscape = New System.Windows.Forms.RadioButton()
+        Me.RbPortrait = New System.Windows.Forms.RadioButton()
         Me.BtnMoreSettings = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.BtnFooterFont = New System.Windows.Forms.Button()
@@ -92,6 +95,7 @@ Partial Class FrmPrintProject
         Me.TabControl1.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -187,6 +191,7 @@ Partial Class FrmPrintProject
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.GroupBox6)
         Me.GroupBox1.Controls.Add(Me.BtnMoreSettings)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -218,6 +223,39 @@ Partial Class FrmPrintProject
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Settings"
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.RbLandscape)
+        Me.GroupBox6.Controls.Add(Me.RbPortrait)
+        Me.GroupBox6.Location = New System.Drawing.Point(237, 142)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(100, 72)
+        Me.GroupBox6.TabIndex = 30
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Orientation"
+        '
+        'RbLandscape
+        '
+        Me.RbLandscape.AutoSize = True
+        Me.RbLandscape.Location = New System.Drawing.Point(7, 45)
+        Me.RbLandscape.Name = "RbLandscape"
+        Me.RbLandscape.Size = New System.Drawing.Size(82, 18)
+        Me.RbLandscape.TabIndex = 1
+        Me.RbLandscape.Text = "Landscape"
+        Me.RbLandscape.UseVisualStyleBackColor = True
+        '
+        'RbPortrait
+        '
+        Me.RbPortrait.AutoSize = True
+        Me.RbPortrait.Checked = True
+        Me.RbPortrait.Location = New System.Drawing.Point(7, 21)
+        Me.RbPortrait.Name = "RbPortrait"
+        Me.RbPortrait.Size = New System.Drawing.Size(65, 18)
+        Me.RbPortrait.TabIndex = 0
+        Me.RbPortrait.TabStop = True
+        Me.RbPortrait.Text = "Portrait"
+        Me.RbPortrait.UseVisualStyleBackColor = True
         '
         'BtnMoreSettings
         '
@@ -754,7 +792,7 @@ Partial Class FrmPrintProject
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(754, 702)
+        Me.MinimumSize = New System.Drawing.Size(778, 720)
         Me.Name = "FrmPrintProject"
         Me.Text = "Print Project"
         Me.StatusStrip1.ResumeLayout(False)
@@ -763,6 +801,8 @@ Partial Class FrmPrintProject
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
@@ -840,4 +880,7 @@ Partial Class FrmPrintProject
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents BtnPrintKey As Button
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents RbLandscape As RadioButton
+    Friend WithEvents RbPortrait As RadioButton
 End Class

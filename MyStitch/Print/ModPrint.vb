@@ -15,6 +15,9 @@ Module ModPrint
     Public Const A4_HEIGHT As Integer = 3508
 #End Region
 #Region "variables"
+    Friend oPagesize As Size
+    Friend isLandscape As Boolean
+    Friend oWidthHeightDifference As Integer
     Friend oPrinterHardMarginX As Integer
     Friend oPrinterHardMarginY As Integer
     Friend oPrintablePageWidth As Integer
@@ -100,15 +103,15 @@ Module ModPrint
         Next
         oPageSettings = oPrintDoc.DefaultPageSettings
         ' Set default page settings
-        oPrintDoc.DefaultPageSettings.Landscape = False
+        oPrintDoc.DefaultPageSettings.Landscape = isLandscape
         oPrintDoc.DefaultPageSettings.Margins.Left = 0
         oPrintDoc.DefaultPageSettings.Margins.Right = 0
         oPrintDoc.DefaultPageSettings.Margins.Top = 0
         oPrintDoc.DefaultPageSettings.Margins.Bottom = 0
         oPrinterHardMarginX = oPageSettings.HardMarginX / 100 * PRINT_DPI
         oPrinterHardMarginY = oPageSettings.HardMarginY / 100 * PRINT_DPI
-        oPrintablePageWidth = A4_WIDTH - (oPrinterHardMarginX * 2)
-        oPrintablePageHeight = A4_HEIGHT - (oPrinterHardMarginY * 2)
+        oPrintablePageWidth = oPagesize.Width - (oPrinterHardMarginX * 2)
+        oPrintablePageHeight = oPagesize.Height - (oPrinterHardMarginY * 2)
     End Sub
 #End Region
 End Module
