@@ -377,17 +377,21 @@ Public Class FrmImportImage
     End Sub
     Private Sub InsertImportedProject()
         LogUtil.LogInfo("Saving imported project", MyBase.Name)
-        Dim _project As Project = BuildProjectFromForm(-1)
-        If _project IsNot Nothing Then
-            _project.ProjectId = AddNewProject(_project)
-            oProject = _project
-            For Each _blockStitch In oProjectDesign.BlockStitches
-                _blockStitch.ProjectId = _project.ProjectId
-            Next
-            SaveProjectThreads(_project.ProjectId)
-            SaveDesign()
+        If Not String.IsNullOrEmpty(TxtName.Text) Then
+            Dim _project As Project = BuildProjectFromForm(-1)
+            If _project IsNot Nothing Then
+                _project.ProjectId = AddNewProject(_project)
+                oProject = _project
+                For Each _blockStitch In oProjectDesign.BlockStitches
+                    _blockStitch.ProjectId = _project.ProjectId
+                Next
+                SaveProjectThreads(_project.ProjectId)
+                SaveDesign()
+            End If
+            LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
+        Else
+            LogUtil.ShowStatus("Give the project a name", LblStatus, MyBase.Name)
         End If
-        LogUtil.ShowStatus("Project Added", LblStatus, MyBase.Name)
     End Sub
     Private Sub SaveProjectThreads(pProjectId As Integer)
         Randomize()

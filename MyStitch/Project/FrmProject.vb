@@ -138,6 +138,7 @@ Public Class FrmProject
                 'NudDesignWidth.Enabled = True
                 oProjectDesign = New ProjectDesign
                 oProjectThreads = New ProjectThreadCollection
+                oProjectBeads = New ProjectBeadCollection
                 oDesignBitmap = New Bitmap(1, 1)
                 SetEnabledButtons(False)
                 AddInstruction(SELECT_OR_ADD)
@@ -249,12 +250,22 @@ Public Class FrmProject
     End Sub
     Private Sub MnuImportImage_Click(sender As Object, e As EventArgs) Handles MnuImportImage.Click
         ShowImportImageForm()
+        LoadProjectTable(DgvProjects)
     End Sub
     Private Sub MnuTest_Click(sender As Object, e As EventArgs) Handles MnuTest.Click
         '
         '   Test code here
         '
 
+    End Sub
+    Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
+        OpenProjectThreadSymbolForm()
+    End Sub
+    Private Sub MnuBrands_Click(sender As Object, e As EventArgs) Handles MnuBrands.Click
+        OpenBrandListForm()
+    End Sub
+    Private Sub MnuPalettes_Click(sender As Object, e As EventArgs) Handles MnuPalettes.Click
+        OpenPaletteForm()
     End Sub
 
 #End Region
@@ -554,19 +565,6 @@ Public Class FrmProject
             LogUtil.Problem(ex.InnerException.Message)
             Beep()
         End Try
-    End Sub
-
-
-    Private Sub MnuProjectThreadSymbols_Click(sender As Object, e As EventArgs) Handles MnuProjectThreadSymbols.Click
-        OpenProjectThreadSymbolForm()
-    End Sub
-
-    Private Sub MnuBrands_Click(sender As Object, e As EventArgs) Handles MnuBrands.Click
-        OpenbrandListForm()
-    End Sub
-
-    Private Sub MnuPalettes_Click(sender As Object, e As EventArgs) Handles MnuPalettes.Click
-        OpenPaletteForm
     End Sub
 
 #End Region

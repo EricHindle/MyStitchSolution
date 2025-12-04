@@ -70,7 +70,6 @@ Public Class FrmStitchDesign
     Private aTimer As System.Timers.Timer
     Private isThreadOn As Boolean
     Private iFloodFillCount As Integer
-
     Private isFloodCancelled As Boolean
 #End Region
 #Region "form control event handlers"
@@ -1063,6 +1062,7 @@ Public Class FrmStitchDesign
     Private Sub LoadThreadPalette(_stitchDisplayStyle As StitchDisplayStyle)
         ThreadLayoutPanel.Controls.Clear()
         oProjectThreads = FindProjectThreads(oProject.ProjectId)
+        oProjectBeads = FindProjectBeads(oProject.ProjectId)
         If IsProjectHasThreads() Then
             oProjectThreads.Threads.Sort(Function(x As ProjectThread, y As ProjectThread) x.Thread.SortNumber.CompareTo(y.Thread.SortNumber))
             Dim _panelWidth As Integer = ThreadLayoutPanel.Width
