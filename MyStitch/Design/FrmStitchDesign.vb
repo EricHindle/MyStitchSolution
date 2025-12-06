@@ -1413,34 +1413,39 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub EndSelectionAndContinueAction(e As MouseEventArgs, pCell As Cell)
-        EndCopySelection(pCell)
-        Select Case oCurrentAction
-            Case DesignAction.Copy
-                StartMoveSelection()
-            Case DesignAction.Move
-                StartMoveSelection()
-            Case DesignAction.Cut
-                RemoveSelectedCells()
-                ClearSelection()
-            Case DesignAction.Flip
-                RemoveSelectedCells()
-                FlipSelectedCells()
-                PasteSelectedCells(oCurrentSelection(0))
-                ClearSelection()
-            Case DesignAction.Mirror
-                RemoveSelectedCells()
-                MirrorSelectedCells()
-                PasteSelectedCells(oCurrentSelection(0))
-                ClearSelection()
-            Case DesignAction.Rotate
-                StartMoveSelection()
-            Case DesignAction.Zoom
-                ResizeImageForSelectedCells()
-                ClearSelection()
-            Case DesignAction.DrawShape
-                PlaceShape(oCurrentShapeType, oInProgressAnchor, oInProgressTerminus)
-                ClearSelection()
-        End Select
+        Dim isStitchesSelected As Boolean = EndCopySelection(pCell)
+        If isStitchesSelected Then
+            Select Case oCurrentAction
+                Case DesignAction.Copy
+                    StartMoveSelection()
+                Case DesignAction.Move
+                    StartMoveSelection()
+                Case DesignAction.Cut
+                    RemoveSelectedCells()
+                    ClearSelection()
+                Case DesignAction.Flip
+                    RemoveSelectedCells()
+                    FlipSelectedCells()
+                    PasteSelectedCells(oCurrentSelection(0))
+                    ClearSelection()
+                Case DesignAction.Mirror
+                    RemoveSelectedCells()
+                    MirrorSelectedCells()
+                    PasteSelectedCells(oCurrentSelection(0))
+                    ClearSelection()
+                Case DesignAction.Rotate
+                    StartMoveSelection()
+                Case DesignAction.Zoom
+                    ResizeImageForSelectedCells()
+                    ClearSelection()
+                Case DesignAction.DrawShape
+                    PlaceShape(oCurrentShapeType, oInProgressAnchor, oInProgressTerminus)
+                    ClearSelection()
+            End Select
+        Else
+            ClearSelection()
+            SelectionMessage("Nothing selected")
+        End If
     End Sub
     Private Sub PlaceShape(oCurrentShapeType As ShapeType, oInProgressAnchor As Point, oInProgressTerminus As Point)
         If oCurrentShapeType = ShapeType.Line Then
@@ -1478,15 +1483,22 @@ Public Class FrmStitchDesign
         End If
         PicDesign.Invalidate()
     End Sub
-    Private Sub EndCopySelection(pCell As Cell)
+    Private Function EndCopySelection(pCell As Cell) As Boolean
+        Dim isStitchesSelected As Boolean
         pCell = AdjustCellOntoDesign(pCell)
         oInProgressTerminus = pCell.Position
         AdjustTerminusForLine(pCell.Position)
         oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
         GetSelectedCells()
         isSelectionInProgress = False
-        SelectionMessage("Selection complete")
-    End Sub
+        If oCurrentSelectedBackstitch.Count = 0 AndAlso oCurrentSelectedBlockStitch.Count = 0 AndAlso oCurrentSelectedKnot.Count = 0 Then
+            isStitchesSelected = False
+        Else
+            SelectionMessage("Selection complete")
+            isStitchesSelected = True
+        End If
+        Return isStitchesSelected
+    End Function
     Private Sub StartMoveSelection()
         isMoveInProgress = True
         SelectionMessage("Move in progress")
