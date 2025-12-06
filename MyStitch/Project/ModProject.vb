@@ -153,7 +153,7 @@ Module ModProject
             LogUtil.ShowStatus("Opening project file " & pFilename, pStatus, MethodBase.GetCurrentMethod.Name)
             If My.Computer.FileSystem.FileExists(pFilename) = True Then
                 CreateProjectArtifactsFromFileContents(pFilename, pStatus)
-                LogUtil.ShowStatus("Project Loaded OK", pStatus, MethodBase.GetCurrentMethod.Name)
+                LogUtil.ShowStatus("Project Load Complete", pStatus, MethodBase.GetCurrentMethod.Name)
             Else
                 LogUtil.ShowStatus("Project file not found", pStatus, MethodBase.GetCurrentMethod.Name)
             End If
@@ -163,46 +163,54 @@ Module ModProject
     End Sub
 
     Private Sub CreateProjectArtifactsFromFileContents(pFilename As String, ByRef pStatus As ToolStripStatusLabel)
-        oFileProject = ProjectBuilder.AProject.StartingWithNothing.Build
-        oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWithNothing().Build
-        oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWithNothing().Build
-        oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWithNothing().Build
-        Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
-        For Each _string As String In _projectStrings
-            Select Case True
-                Case _string.StartsWith(PROJECT_HDR)
-                    Dim _projectValues As String() = _string.Split(DESIGN_DELIM)
-                    oFileProject = ProjectBuilder.AProject.StartingWith(_projectValues).Build
-                    If Not oFileProject.IsLoaded Then
-                        LogUtil.ShowStatus("Project not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
-                        Exit For
-                    End If
-                Case _string.StartsWith(DESIGN_HDR)
-                    Dim _designValues As String() = _string.Split(DESIGN_DELIM)
-                    oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
-                    If Not oFileProjectDesign.IsLoaded Then
-                        LogUtil.ShowStatus("Design not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
-                        Exit For
-                    End If
-                Case _string.StartsWith(PROJECT_THREADS_HDR)
-                    Dim _threadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
-                    oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWith(_threadStrings).Build
-                    If oFileProjectThreadCollection Is Nothing OrElse oFileProjectThreadCollection.Count = 0 Then
-                        LogUtil.ShowStatus("No threads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
-                        Exit For
-                    End If
-                Case _string.StartsWith(PROJECT_BEADS_HDR)
-                    Dim _beadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
-                    oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWith(_beadStrings).Build
-                    If oFileProjectBeadCollection Is Nothing OrElse oFileProjectBeadCollection.Count = 0 Then
-                        LogUtil.ShowStatus("No beads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
-                        Exit For
-                    End If
+        Try
+            oFileProject = ProjectBuilder.AProject.StartingWithNothing.Build
+            oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWithNothing().Build
+            oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWithNothing().Build
+            oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWithNothing().Build
+            Dim _projectStrings As List(Of String) = ExtractDesignStrings(pFilename)
+            For Each _string As String In _projectStrings
+                If _string Is Nothing Then
+                    Throw New ApplicationException("Project Design file has null string", Nothing)
+                    _string = String.Empty
+                End If
+                Select Case True
+                    Case _string.StartsWith(PROJECT_HDR)
+                        Dim _projectValues As String() = _string.Split(DESIGN_DELIM)
+                        oFileProject = ProjectBuilder.AProject.StartingWith(_projectValues).Build
+                        If Not oFileProject.IsLoaded Then
+                            LogUtil.ShowStatus("Project not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                            Exit For
+                        End If
+                    Case _string.StartsWith(DESIGN_HDR)
+                        Dim _designValues As String() = _string.Split(DESIGN_DELIM)
+                        oFileProjectDesign = ProjectDesignBuilder.AProjectDesign.StartingWith(_designValues).Build
+                        If Not oFileProjectDesign.IsLoaded Then
+                            LogUtil.ShowStatus("Design not loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                            Exit For
+                        End If
+                    Case _string.StartsWith(PROJECT_THREADS_HDR)
+                        Dim _threadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
+                        oFileProjectThreadCollection = ProjectThreadCollectionBuilder.AProjectThreadCollection.StartingWith(_threadStrings).Build
+                        If oFileProjectThreadCollection Is Nothing OrElse oFileProjectThreadCollection.Count = 0 Then
+                            LogUtil.ShowStatus("No threads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                            Exit For
+                        End If
+                    Case _string.StartsWith(PROJECT_BEADS_HDR)
+                        Dim _beadStrings As String() = _string.Trim(BLOCK_DELIM).Split(BLOCK_DELIM)
+                        oFileProjectBeadCollection = ProjectBeadCollectionBuilder.AProjectBeadCollection.StartingWith(_beadStrings).Build
+                        If oFileProjectBeadCollection Is Nothing OrElse oFileProjectBeadCollection.Count = 0 Then
+                            LogUtil.ShowStatus("No beads loaded", pStatus, MethodBase.GetCurrentMethod.Name)
+                            Exit For
+                        End If
 
-                Case Else
-                    LogUtil.ShowStatus("Unknown data in project file", pStatus, MethodBase.GetCurrentMethod.Name)
-            End Select
-        Next
+                    Case Else
+                        LogUtil.ShowStatus("Unknown data in project file", pStatus, MethodBase.GetCurrentMethod.Name)
+                End Select
+            Next
+        Catch ex As ApplicationException
+            Throw ex
+        End Try
     End Sub
 
     Public Sub SetNewProjectId(pId As Integer, ByRef pProject As Project, ByRef pProjectDesign As ProjectDesign, ByRef pProjectThreadCollection As ProjectThreadCollection)

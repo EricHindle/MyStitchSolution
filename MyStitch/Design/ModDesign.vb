@@ -47,6 +47,7 @@ Module ModDesign
         Rectangle
         FilledEllipse
         FilledRectangle
+        Line
         None
     End Enum
     Public Enum DesignAction

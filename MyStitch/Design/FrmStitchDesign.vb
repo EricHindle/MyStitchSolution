@@ -6,6 +6,7 @@
 '
 Imports System.Drawing.Imaging
 Imports System.Reflection
+Imports System.Security
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -76,7 +77,7 @@ Public Class FrmStitchDesign
 #Region "form events"
     Private Sub FrmStitchDesign_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Opening design", MyBase.Name)
-        RestoreFormLayout
+        RestoreFormLayout()
         InitialiseForm()
         If My.Settings.isTimerAutoStart Then
             StartProjectTimer(oProject)
@@ -105,7 +106,7 @@ Public Class FrmStitchDesign
         oFabricPen.Dispose()
         oDesignBitmap = Nothing
         CloseTimer()
-        SaveFormLayout
+        SaveFormLayout()
     End Sub
     Private Sub PicGrid_Click(sender As Object, e As EventArgs) Handles PicGrid.Click
         ToggleGrid()
@@ -670,6 +671,9 @@ Public Class FrmStitchDesign
     Private Sub MnuRectangle_Click(sender As Object, e As EventArgs) Handles MnuRectangle.Click
         BeginDrawShape(ShapeType.Rectangle)
     End Sub
+    Private Sub MnuDrawLine_Click(sender As Object, e As EventArgs) Handles MnuDrawLine.Click
+        BeginDrawShape(ShapeType.Line)
+    End Sub
     Private Sub MnuFilledEllipse_Click(sender As Object, e As EventArgs) Handles MnuFilledEllipse.Click
         BeginDrawShape(ShapeType.FilledEllipse)
     End Sub
@@ -959,12 +963,13 @@ Public Class FrmStitchDesign
         SelectionMessage("Select area to rotate")
     End Sub
     Private Sub BeginDrawShape(pShape As ShapeType)
+        Dim ShapeOrLine As String = If(pShape = ShapeType.Line, "line", "shape")
         oCurrentAction = DesignAction.DrawShape
-        LblCurrentAction.Text = "Draw shape"
+        LblCurrentAction.Text = "Draw " & ShapeOrLine
         oCurrentStitchType = DesignAction.none
         oCurrentShapeType = pShape
         StitchButtonSelected()
-        SelectionMessage("Select location for shape")
+        SelectionMessage("Select location for " & ShapeOrLine)
     End Sub
     Private Sub BeginDeleteColour()
         oCurrentAction = DesignAction.DeleteColour
@@ -1438,32 +1443,45 @@ Public Class FrmStitchDesign
         End Select
     End Sub
     Private Sub PlaceShape(oCurrentShapeType As ShapeType, oInProgressAnchor As Point, oInProgressTerminus As Point)
-        Dim _tempBitmap As New Bitmap(oCurrentSelection(1).X - oCurrentSelection(0).X, oCurrentSelection(1).Y - oCurrentSelection(0).Y)
-        Using _graphics As Graphics = Graphics.FromImage(_tempBitmap)
-            Select Case oCurrentShapeType
-                Case ShapeType.Rectangle
-                    _graphics.DrawRectangle(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
-                Case ShapeType.Ellipse
-                    _graphics.DrawEllipse(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
-                Case ShapeType.FilledRectangle
-                    _graphics.FillRectangle(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
-                Case ShapeType.FilledEllipse
-                    _graphics.FillEllipse(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
-            End Select
-            For Each _x As Integer In Enumerable.Range(0, _tempBitmap.Width)
-                For Each _y As Integer In Enumerable.Range(0, _tempBitmap.Height)
-                    Dim _pixelColour As Color = _tempBitmap.GetPixel(_x, _y)
-                    If _pixelColour = oCurrentThread.Thread.Colour Then
-                        AddBlockStitch(oProject, oProjectDesign, New Point(oInProgressAnchor.X + _x, oInProgressAnchor.Y + _y), oCurrentThread.Thread, BlockStitchType.Full)
-                    End If
+        If oCurrentShapeType = ShapeType.Line Then
+            Dim _fromX As Integer = oInProgressAnchor.X
+            Dim _fromY As Integer = oInProgressAnchor.Y
+            Dim _toX As Integer = If(oInProgressAnchor.X = oInProgressTerminus.X, _fromX, oInProgressTerminus.X)
+            Dim _toY As Integer = If(oInProgressAnchor.Y = oInProgressTerminus.Y, _fromY, oInProgressTerminus.Y)
+            For _x = _fromX To _toX
+                For _y = _fromY To _toY
+                    AddBlockStitch(oProject, oProjectDesign, New Point(_x, _y), oCurrentThread.Thread, BlockStitchType.Full)
                 Next
             Next
-        End Using
+        Else
+            Dim _tempBitmap As New Bitmap(oCurrentSelection(1).X - oCurrentSelection(0).X, oCurrentSelection(1).Y - oCurrentSelection(0).Y)
+            Using _graphics As Graphics = Graphics.FromImage(_tempBitmap)
+                Select Case oCurrentShapeType
+                    Case ShapeType.Rectangle
+                        _graphics.DrawRectangle(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
+                    Case ShapeType.Ellipse
+                        _graphics.DrawEllipse(New Pen(oCurrentThread.Thread.Colour), 0, 0, _tempBitmap.Width - 1, _tempBitmap.Height - 1)
+                    Case ShapeType.FilledRectangle
+                        _graphics.FillRectangle(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
+                    Case ShapeType.FilledEllipse
+                        _graphics.FillEllipse(New SolidBrush(oCurrentThread.Thread.Colour), -1, -1, _tempBitmap.Width + 1, _tempBitmap.Height + 1)
+                End Select
+                For Each _x As Integer In Enumerable.Range(0, _tempBitmap.Width)
+                    For Each _y As Integer In Enumerable.Range(0, _tempBitmap.Height)
+                        Dim _pixelColour As Color = _tempBitmap.GetPixel(_x, _y)
+                        If _pixelColour = oCurrentThread.Thread.Colour Then
+                            AddBlockStitch(oProject, oProjectDesign, New Point(oInProgressAnchor.X + _x, oInProgressAnchor.Y + _y), oCurrentThread.Thread, BlockStitchType.Full)
+                        End If
+                    Next
+                Next
+            End Using
+        End If
         PicDesign.Invalidate()
     End Sub
     Private Sub EndCopySelection(pCell As Cell)
         pCell = AdjustCellOntoDesign(pCell)
         oInProgressTerminus = pCell.Position
+        AdjustTerminusForLine(pCell.Position)
         oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
         GetSelectedCells()
         isSelectionInProgress = False
@@ -1529,6 +1547,7 @@ Public Class FrmStitchDesign
     Private Sub EndSelection(pCell As Cell)
         If isSelectionInProgress Then
             oInProgressTerminus = pCell.Position
+            AdjustTerminusForLine(oInProgressTerminus)
             oCurrentSelection = New Point() {oInProgressAnchor, oInProgressTerminus}
             GetSelectedCells()
             ClearSelection()
@@ -1549,6 +1568,7 @@ Public Class FrmStitchDesign
     End Function
     Private Sub DrawSelectionInProgress(pCell As Point)
         oInProgressTerminus = New Point(pCell.X - 1, pCell.Y - 1)
+        AdjustTerminusForLine(pCell)
         If isSelectionWidthVariable Then
             oSelectionPenWidth = Math.Max(2, iPixelsPerCell / oVariableWidthFraction)
         Else
@@ -1560,6 +1580,17 @@ Public Class FrmStitchDesign
         _toCellLocation_x = (oInProgressTerminus.X + iOriginX + iXOffset - topcorner.X) * iPixelsPerCell
         _toCellLocation_y = (oInProgressTerminus.Y + iOriginY + iYOffset - topcorner.Y) * iPixelsPerCell
         PicDesign.Invalidate()
+    End Sub
+    Private Sub AdjustTerminusForLine(pCell As Point)
+        If oCurrentShapeType = ShapeType.Line Then
+            Dim _iWidth As Integer = Math.Abs(oInProgressAnchor.X - oInProgressTerminus.X)
+            Dim _iHeight As Integer = Math.Abs(oInProgressAnchor.Y - oInProgressTerminus.Y)
+            If _iWidth > _iHeight Then
+                oInProgressTerminus = New Point(pCell.X - 1, oInProgressAnchor.Y)
+            Else
+                oInProgressTerminus = New Point(oInProgressAnchor.X, pCell.Y - 1)
+            End If
+        End If
     End Sub
     Private Sub GetSelectedCells()
         Dim _from_x As Integer = oCurrentSelection(0).X
@@ -2549,7 +2580,6 @@ Public Class FrmStitchDesign
             ToggleKnots()
         End If
     End Sub
-
     Private Sub PicSelectedColour_Click(sender As Object, e As EventArgs) Handles PicSelectedThreadColour.Click
         ToggleSingleColour()
     End Sub

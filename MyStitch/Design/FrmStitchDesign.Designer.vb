@@ -92,20 +92,23 @@ Partial Class FrmStitchDesign
         Me.BtnKnot = New System.Windows.Forms.ToolStripButton()
         Me.BtnBead = New System.Windows.Forms.ToolStripButton()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.PicKnotsOn = New System.Windows.Forms.PictureBox()
         Me.LblPixelColourName = New System.Windows.Forms.Label()
-        Me.PicStitch = New System.Windows.Forms.PictureBox()
         Me.LblCurrentThreadColour = New System.Windows.Forms.Label()
         Me.LblCursorPos = New System.Windows.Forms.Label()
         Me.PnlPixelColour = New System.Windows.Forms.Panel()
         Me.LblSelectMessage = New System.Windows.Forms.Label()
         Me.LblSelection = New System.Windows.Forms.Label()
-        Me.PicSelectedThreadColour = New System.Windows.Forms.PictureBox()
-        Me.LblStatus = New System.Windows.Forms.Label()
+        Me.LblCurrentAction = New System.Windows.Forms.Label()
+        Me.PicStitch = New System.Windows.Forms.PictureBox()
         Me.PicGrid = New System.Windows.Forms.PictureBox()
-        Me.PicBlocksOn = New System.Windows.Forms.PictureBox()
         Me.PicCentreLines = New System.Windows.Forms.PictureBox()
+        Me.PicBlocksOn = New System.Windows.Forms.PictureBox()
         Me.PicBackOn = New System.Windows.Forms.PictureBox()
+        Me.PicKnotsOn = New System.Windows.Forms.PictureBox()
+        Me.LblStatus = New System.Windows.Forms.Label()
+        Me.LblBeadColour = New System.Windows.Forms.Label()
+        Me.PicSelectedThreadColour = New System.Windows.Forms.PictureBox()
+        Me.PicBeadColour = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MnuDesign = New System.Windows.Forms.ToolStripMenuItem()
@@ -171,9 +174,7 @@ Partial Class FrmStitchDesign
         Me.MnuTools = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuOptions = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuShow = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LblCurrentAction = New System.Windows.Forms.Label()
-        Me.LblBeadColour = New System.Windows.Forms.Label()
-        Me.PicBeadColour = New System.Windows.Forms.PictureBox()
+        Me.MnuDrawLine = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.ScDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ScDesign.Panel1.SuspendLayout()
         Me.ScDesign.Panel2.SuspendLayout()
@@ -188,15 +189,15 @@ Partial Class FrmStitchDesign
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.PicKnotsOn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicSelectedThreadColour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PicBlocksOn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicCentreLines, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicBlocksOn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicBackOn, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
+        CType(Me.PicKnotsOn, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PicSelectedThreadColour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PicBeadColour, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ScDesign
@@ -1107,18 +1108,6 @@ Partial Class FrmStitchDesign
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1053, 50)
         Me.TableLayoutPanel1.TabIndex = 138
         '
-        'PicKnotsOn
-        '
-        Me.PicKnotsOn.BackColor = System.Drawing.Color.AliceBlue
-        Me.PicKnotsOn.Location = New System.Drawing.Point(49, 26)
-        Me.PicKnotsOn.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicKnotsOn.Name = "PicKnotsOn"
-        Me.PicKnotsOn.Size = New System.Drawing.Size(20, 21)
-        Me.PicKnotsOn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicKnotsOn.TabIndex = 15
-        Me.PicKnotsOn.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PicKnotsOn, "Toggle knots and beads on/off")
-        '
         'LblPixelColourName
         '
         Me.LblPixelColourName.AutoSize = True
@@ -1130,17 +1119,6 @@ Partial Class FrmStitchDesign
         Me.LblPixelColourName.TabIndex = 6
         Me.LblPixelColourName.Text = "No colour selected"
         Me.LblPixelColourName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PicStitch
-        '
-        Me.PicStitch.Location = New System.Drawing.Point(610, 26)
-        Me.PicStitch.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicStitch.Name = "PicStitch"
-        Me.PicStitch.Size = New System.Drawing.Size(20, 21)
-        Me.PicStitch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicStitch.TabIndex = 1
-        Me.PicStitch.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PicStitch, "Current stitch type")
         '
         'LblCurrentThreadColour
         '
@@ -1200,29 +1178,28 @@ Partial Class FrmStitchDesign
         Me.LblSelection.Text = "From 0,0 To 0,0"
         Me.LblSelection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'PicSelectedThreadColour
+        'LblCurrentAction
         '
-        Me.PicSelectedThreadColour.BackColor = System.Drawing.Color.AliceBlue
-        Me.PicSelectedThreadColour.Location = New System.Drawing.Point(72, 3)
-        Me.PicSelectedThreadColour.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicSelectedThreadColour.Name = "PicSelectedThreadColour"
-        Me.PicSelectedThreadColour.Size = New System.Drawing.Size(20, 20)
-        Me.PicSelectedThreadColour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicSelectedThreadColour.TabIndex = 11
-        Me.PicSelectedThreadColour.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PicSelectedThreadColour, "Current stitch colour")
+        Me.LblCurrentAction.AutoSize = True
+        Me.LblCurrentAction.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCurrentAction.Location = New System.Drawing.Point(425, 29)
+        Me.LblCurrentAction.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblCurrentAction.Name = "LblCurrentAction"
+        Me.LblCurrentAction.Size = New System.Drawing.Size(28, 14)
+        Me.LblCurrentAction.TabIndex = 16
+        Me.LblCurrentAction.Text = "xxx"
+        Me.LblCurrentAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'LblStatus
+        'PicStitch
         '
-        Me.LblStatus.AutoSize = True
-        Me.LblStatus.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblStatus.Location = New System.Drawing.Point(425, 6)
-        Me.LblStatus.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.LblStatus.Name = "LblStatus"
-        Me.LblStatus.Size = New System.Drawing.Size(28, 14)
-        Me.LblStatus.TabIndex = 9
-        Me.LblStatus.Text = "xxx"
-        Me.LblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PicStitch.Location = New System.Drawing.Point(610, 26)
+        Me.PicStitch.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicStitch.Name = "PicStitch"
+        Me.PicStitch.Size = New System.Drawing.Size(20, 21)
+        Me.PicStitch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicStitch.TabIndex = 1
+        Me.PicStitch.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicStitch, "Current stitch type")
         '
         'PicGrid
         '
@@ -1236,18 +1213,6 @@ Partial Class FrmStitchDesign
         Me.PicGrid.TabStop = False
         Me.ToolTip1.SetToolTip(Me.PicGrid, "Toggle grid on/off")
         '
-        'PicBlocksOn
-        '
-        Me.PicBlocksOn.BackColor = System.Drawing.Color.AliceBlue
-        Me.PicBlocksOn.Location = New System.Drawing.Point(3, 26)
-        Me.PicBlocksOn.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicBlocksOn.Name = "PicBlocksOn"
-        Me.PicBlocksOn.Size = New System.Drawing.Size(20, 21)
-        Me.PicBlocksOn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicBlocksOn.TabIndex = 12
-        Me.PicBlocksOn.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PicBlocksOn, "Toggle blockstitch on/off")
-        '
         'PicCentreLines
         '
         Me.PicCentreLines.BackColor = System.Drawing.Color.AliceBlue
@@ -1260,6 +1225,18 @@ Partial Class FrmStitchDesign
         Me.PicCentreLines.TabStop = False
         Me.ToolTip1.SetToolTip(Me.PicCentreLines, "Toggle centre lines on/off")
         '
+        'PicBlocksOn
+        '
+        Me.PicBlocksOn.BackColor = System.Drawing.Color.AliceBlue
+        Me.PicBlocksOn.Location = New System.Drawing.Point(3, 26)
+        Me.PicBlocksOn.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicBlocksOn.Name = "PicBlocksOn"
+        Me.PicBlocksOn.Size = New System.Drawing.Size(20, 21)
+        Me.PicBlocksOn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicBlocksOn.TabIndex = 12
+        Me.PicBlocksOn.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicBlocksOn, "Toggle blockstitch on/off")
+        '
         'PicBackOn
         '
         Me.PicBackOn.BackColor = System.Drawing.Color.AliceBlue
@@ -1271,6 +1248,66 @@ Partial Class FrmStitchDesign
         Me.PicBackOn.TabIndex = 14
         Me.PicBackOn.TabStop = False
         Me.ToolTip1.SetToolTip(Me.PicBackOn, "Toggle backstitch on/off")
+        '
+        'PicKnotsOn
+        '
+        Me.PicKnotsOn.BackColor = System.Drawing.Color.AliceBlue
+        Me.PicKnotsOn.Location = New System.Drawing.Point(49, 26)
+        Me.PicKnotsOn.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicKnotsOn.Name = "PicKnotsOn"
+        Me.PicKnotsOn.Size = New System.Drawing.Size(20, 21)
+        Me.PicKnotsOn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicKnotsOn.TabIndex = 15
+        Me.PicKnotsOn.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicKnotsOn, "Toggle knots and beads on/off")
+        '
+        'LblStatus
+        '
+        Me.LblStatus.AutoSize = True
+        Me.LblStatus.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblStatus.Location = New System.Drawing.Point(425, 6)
+        Me.LblStatus.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblStatus.Name = "LblStatus"
+        Me.LblStatus.Size = New System.Drawing.Size(28, 14)
+        Me.LblStatus.TabIndex = 9
+        Me.LblStatus.Text = "xxx"
+        Me.LblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LblBeadColour
+        '
+        Me.LblBeadColour.AutoSize = True
+        Me.LblBeadColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblBeadColour.Location = New System.Drawing.Point(98, 29)
+        Me.LblBeadColour.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.LblBeadColour.Name = "LblBeadColour"
+        Me.LblBeadColour.Size = New System.Drawing.Size(119, 14)
+        Me.LblBeadColour.TabIndex = 17
+        Me.LblBeadColour.Text = "No colour selected"
+        Me.LblBeadColour.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'PicSelectedThreadColour
+        '
+        Me.PicSelectedThreadColour.BackColor = System.Drawing.Color.AliceBlue
+        Me.PicSelectedThreadColour.Location = New System.Drawing.Point(72, 3)
+        Me.PicSelectedThreadColour.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicSelectedThreadColour.Name = "PicSelectedThreadColour"
+        Me.PicSelectedThreadColour.Size = New System.Drawing.Size(20, 20)
+        Me.PicSelectedThreadColour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicSelectedThreadColour.TabIndex = 11
+        Me.PicSelectedThreadColour.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicSelectedThreadColour, "Current stitch colour")
+        '
+        'PicBeadColour
+        '
+        Me.PicBeadColour.BackColor = System.Drawing.Color.AliceBlue
+        Me.PicBeadColour.Location = New System.Drawing.Point(72, 26)
+        Me.PicBeadColour.Margin = New System.Windows.Forms.Padding(0)
+        Me.PicBeadColour.Name = "PicBeadColour"
+        Me.PicBeadColour.Size = New System.Drawing.Size(20, 20)
+        Me.PicBeadColour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PicBeadColour.TabIndex = 18
+        Me.PicBeadColour.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PicBeadColour, "Current stitch colour")
         '
         'MenuStrip1
         '
@@ -1486,7 +1523,7 @@ Partial Class FrmStitchDesign
         '
         'MnuDraw
         '
-        Me.MnuDraw.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDrawShape, Me.MnuDrawFilledShape, Me.ToolStripSeparator11, Me.MnuFloodFill, Me.MnuClearArea})
+        Me.MnuDraw.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDrawShape, Me.MnuDrawFilledShape, Me.MnuDrawLine, Me.ToolStripSeparator11, Me.MnuFloodFill, Me.MnuClearArea})
         Me.MnuDraw.Name = "MnuDraw"
         Me.MnuDraw.Size = New System.Drawing.Size(46, 20)
         Me.MnuDraw.Text = "Draw"
@@ -1520,13 +1557,13 @@ Partial Class FrmStitchDesign
         'MnuFilledEllipse
         '
         Me.MnuFilledEllipse.Name = "MnuFilledEllipse"
-        Me.MnuFilledEllipse.Size = New System.Drawing.Size(126, 22)
+        Me.MnuFilledEllipse.Size = New System.Drawing.Size(180, 22)
         Me.MnuFilledEllipse.Text = "Ellipse"
         '
         'MnuFilledRecangle
         '
         Me.MnuFilledRecangle.Name = "MnuFilledRecangle"
-        Me.MnuFilledRecangle.Size = New System.Drawing.Size(126, 22)
+        Me.MnuFilledRecangle.Size = New System.Drawing.Size(180, 22)
         Me.MnuFilledRecangle.Text = "Rectangle"
         '
         'ToolStripSeparator11
@@ -1562,70 +1599,70 @@ Partial Class FrmStitchDesign
         'MnuRedraw
         '
         Me.MnuRedraw.Name = "MnuRedraw"
-        Me.MnuRedraw.Size = New System.Drawing.Size(180, 22)
+        Me.MnuRedraw.Size = New System.Drawing.Size(173, 22)
         Me.MnuRedraw.Text = "Redraw"
         '
         'MnuZoomIn
         '
         Me.MnuZoomIn.Name = "MnuZoomIn"
-        Me.MnuZoomIn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomIn.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomIn.Text = "Zoom In"
         '
         'MnuZoomOut
         '
         Me.MnuZoomOut.Name = "MnuZoomOut"
-        Me.MnuZoomOut.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoomOut.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoomOut.Text = "Zoom Out"
         '
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
         Me.MnuZoom.Text = "Zoom"
         '
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(170, 6)
         '
         'MnuGridOn
         '
         Me.MnuGridOn.Name = "MnuGridOn"
-        Me.MnuGridOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuGridOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuGridOn.Text = "Grid"
         '
         'MnuCentreOn
         '
         Me.MnuCentreOn.CheckOnClick = True
         Me.MnuCentreOn.Name = "MnuCentreOn"
-        Me.MnuCentreOn.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCentreOn.Size = New System.Drawing.Size(173, 22)
         Me.MnuCentreOn.Text = "Centre Lines"
         '
         'MnuCentreMarks
         '
         Me.MnuCentreMarks.CheckOnClick = True
         Me.MnuCentreMarks.Name = "MnuCentreMarks"
-        Me.MnuCentreMarks.Size = New System.Drawing.Size(180, 22)
+        Me.MnuCentreMarks.Size = New System.Drawing.Size(173, 22)
         Me.MnuCentreMarks.Text = "CentreMarks"
         '
         'MnuSingleColour
         '
         Me.MnuSingleColour.CheckOnClick = True
         Me.MnuSingleColour.Name = "MnuSingleColour"
-        Me.MnuSingleColour.Size = New System.Drawing.Size(180, 22)
+        Me.MnuSingleColour.Size = New System.Drawing.Size(173, 22)
         Me.MnuSingleColour.Text = "Single Colour"
         '
         'MnuStitchDisplayStyle
         '
         Me.MnuStitchDisplayStyle.Name = "MnuStitchDisplayStyle"
-        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchDisplayStyle.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchDisplayStyle.Text = "Stitch Display Style"
         '
         'MnuStitchTypes
         '
         Me.MnuStitchTypes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBlockStitches, Me.MnuBackStitches, Me.MnuKnots})
         Me.MnuStitchTypes.Name = "MnuStitchTypes"
-        Me.MnuStitchTypes.Size = New System.Drawing.Size(180, 22)
+        Me.MnuStitchTypes.Size = New System.Drawing.Size(173, 22)
         Me.MnuStitchTypes.Text = "Stitch Types"
         '
         'MnuBlockStitches
@@ -1674,41 +1711,11 @@ Partial Class FrmStitchDesign
         Me.MnuShow.Size = New System.Drawing.Size(176, 22)
         Me.MnuShow.Text = "Design Information"
         '
-        'LblCurrentAction
+        'MnuDrawLine
         '
-        Me.LblCurrentAction.AutoSize = True
-        Me.LblCurrentAction.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblCurrentAction.Location = New System.Drawing.Point(425, 29)
-        Me.LblCurrentAction.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.LblCurrentAction.Name = "LblCurrentAction"
-        Me.LblCurrentAction.Size = New System.Drawing.Size(28, 14)
-        Me.LblCurrentAction.TabIndex = 16
-        Me.LblCurrentAction.Text = "xxx"
-        Me.LblCurrentAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'LblBeadColour
-        '
-        Me.LblBeadColour.AutoSize = True
-        Me.LblBeadColour.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblBeadColour.Location = New System.Drawing.Point(98, 29)
-        Me.LblBeadColour.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.LblBeadColour.Name = "LblBeadColour"
-        Me.LblBeadColour.Size = New System.Drawing.Size(119, 14)
-        Me.LblBeadColour.TabIndex = 17
-        Me.LblBeadColour.Text = "No colour selected"
-        Me.LblBeadColour.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PicBeadColour
-        '
-        Me.PicBeadColour.BackColor = System.Drawing.Color.AliceBlue
-        Me.PicBeadColour.Location = New System.Drawing.Point(72, 26)
-        Me.PicBeadColour.Margin = New System.Windows.Forms.Padding(0)
-        Me.PicBeadColour.Name = "PicBeadColour"
-        Me.PicBeadColour.Size = New System.Drawing.Size(20, 20)
-        Me.PicBeadColour.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PicBeadColour.TabIndex = 18
-        Me.PicBeadColour.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PicBeadColour, "Current stitch colour")
+        Me.MnuDrawLine.Name = "MnuDrawLine"
+        Me.MnuDrawLine.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDrawLine.Text = "Draw Line"
         '
         'FrmStitchDesign
         '
@@ -1744,16 +1751,16 @@ Partial Class FrmStitchDesign
         Me.ToolStrip2.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.PicKnotsOn, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicStitch, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicSelectedThreadColour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PicBlocksOn, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicCentreLines, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicBlocksOn, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PicBackOn, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicKnotsOn, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicSelectedThreadColour, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PicBeadColour, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.PicBeadColour, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1909,4 +1916,5 @@ Partial Class FrmStitchDesign
     Friend WithEvents LblCurrentAction As Label
     Friend WithEvents LblBeadColour As Label
     Friend WithEvents PicBeadColour As PictureBox
+    Friend WithEvents MnuDrawLine As ToolStripMenuItem
 End Class

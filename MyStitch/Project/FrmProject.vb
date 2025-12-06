@@ -42,20 +42,24 @@ Public Class FrmProject
         KeyPreview = True
         Dim _projectFile As String = CheckRunTimeParameters()
         If _projectFile IsNot Nothing Then
-            ModProject.OpenProjectFile(_projectFile, LblStatus)
-            If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
-                Dim _path As String = Path.GetDirectoryName(_projectFile)
-                If _path = oDesignFolderName AndAlso IsProjectInList(oFileProject) Then
-                    OpenProjectDesign()
-                Else
-                    If ImportProject(_projectFile) Then
+            Try
+                ModProject.OpenProjectFile(_projectFile, LblStatus)
+                If oFileProject IsNot Nothing AndAlso oFileProject.IsLoaded Then
+                    Dim _path As String = Path.GetDirectoryName(_projectFile)
+                    If _path = oDesignFolderName AndAlso IsProjectInList(oFileProject) Then
+                        OpenProjectDesign()
+                    Else
+                        If ImportProject(_projectFile) Then
                             LoadProjectList(DgvProjects, MyBase.Name)
                             SelectProjectInList(DgvProjects, oFileProject.ProjectId)
                             OpenProjectDesign()
                         End If
                     End If
                 End If
-            End If
+            Catch ex As ApplicationException
+                LogUtil.DisplayException(ex, "Error importing design file", MethodBase.GetCurrentMethod.Name)
+            End Try
+        End If
     End Sub
     Private Sub SetEnabledButtons(pIsEnabled)
         PnlButtons.Enabled = pIsEnabled
