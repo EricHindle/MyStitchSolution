@@ -2001,13 +2001,15 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub EndBackstitch(pCellLocation As Point, pQtr As BlockQuarter)
         If isBackstitchInProgress Then
-            oBackstitchInProgress.ToBlockQuarter = pQtr
-            oBackstitchInProgress.ToBlockLocation = pCellLocation
-            AddBackStitchToDesign(BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
-            DrawBackstitch(oBackstitchInProgress)
-            PicDesign.Invalidate()
-            oBackstitchInProgress.FromBlockQuarter = pQtr
-            oBackstitchInProgress.FromBlockLocation = pCellLocation
+            If oBackstitchInProgress.FromBlockLocation <> pCellLocation Or oBackstitchInProgress.FromBlockQuarter <> pQtr Then
+                oBackstitchInProgress.ToBlockQuarter = pQtr
+                oBackstitchInProgress.ToBlockLocation = pCellLocation
+                AddBackStitchToDesign(BackstitchBuilder.ABackStitch.StartingWith(oBackstitchInProgress).Build)
+                DrawBackstitch(oBackstitchInProgress)
+                PicDesign.Invalidate()
+                oBackstitchInProgress.FromBlockQuarter = pQtr
+                oBackstitchInProgress.FromBlockLocation = pCellLocation
+            End If
         Else
             LogUtil.Debug("Ending backstitch - error not in progress", MyBase.Name)
         End If

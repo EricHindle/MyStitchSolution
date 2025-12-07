@@ -230,12 +230,13 @@ Public Class FrmDesignInfo
         With pStitch
             oRow.Cells(back_from_x.Name).Value = .FromBlockPosition.X
             oRow.Cells(back_from_y.Name).Value = .FromBlockPosition.Y
+            oRow.Cells(back_from_qtr.Name).Value = .FromBlockQuarter
             oRow.Cells(back_to_x.Name).Value = .ToBlockPosition.X
             oRow.Cells(back_to_y.Name).Value = .ToBlockPosition.Y
+            oRow.Cells(back_to_qtr.Name).Value = .ToBlockQuarter
             oRow.Cells(back_thread_id.Name).Value = .ThreadId
             oRow.Cells(back_thread_no.Name).Value = .ProjThread.Thread.ThreadNo
             oRow.Cells(back_strands.Name).Value = .Strands
-
         End With
         Return oRow
     End Function
