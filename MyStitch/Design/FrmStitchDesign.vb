@@ -375,7 +375,6 @@ Public Class FrmStitchDesign
         Dim isRightButton As Boolean = e.Button = MouseButtons.Right
         Dim isNoButton As Boolean = e.Button = MouseButtons.None
         If oCurrentAction = DesignAction.none Then
-
             If isRightButton Then
                 If isKnotAction Then
                     Dim _exists As Knot = FindKnot(_cell)
@@ -474,7 +473,6 @@ Public Class FrmStitchDesign
         Try
             DisplayImage(oDesignBitmap, iXOffset, iYOffset, e)
         Catch ex As ApplicationException
-
             LogUtil.LogException(ex, "Error displaying design image", MethodBase.GetCurrentMethod.Name)
         End Try
         If isBackstitchInProgress Then
@@ -1414,38 +1412,33 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub EndSelectionAndContinueAction(e As MouseEventArgs, pCell As Cell)
         Dim isStitchesSelected As Boolean = EndCopySelection(pCell)
-        If isStitchesSelected Then
-            Select Case oCurrentAction
-                Case DesignAction.Copy
-                    StartMoveSelection()
-                Case DesignAction.Move
-                    StartMoveSelection()
-                Case DesignAction.Cut
-                    RemoveSelectedCells()
-                    ClearSelection()
-                Case DesignAction.Flip
-                    RemoveSelectedCells()
-                    FlipSelectedCells()
-                    PasteSelectedCells(oCurrentSelection(0))
-                    ClearSelection()
-                Case DesignAction.Mirror
-                    RemoveSelectedCells()
-                    MirrorSelectedCells()
-                    PasteSelectedCells(oCurrentSelection(0))
-                    ClearSelection()
-                Case DesignAction.Rotate
-                    StartMoveSelection()
-                Case DesignAction.Zoom
-                    ResizeImageForSelectedCells()
-                    ClearSelection()
-                Case DesignAction.DrawShape
-                    PlaceShape(oCurrentShapeType, oInProgressAnchor, oInProgressTerminus)
-                    ClearSelection()
-            End Select
-        Else
-            ClearSelection()
-            SelectionMessage("Nothing selected")
-        End If
+        Select Case oCurrentAction
+            Case DesignAction.Copy
+                StartMoveSelection()
+            Case DesignAction.Move
+                StartMoveSelection()
+            Case DesignAction.Cut
+                RemoveSelectedCells()
+                ClearSelection()
+            Case DesignAction.Flip
+                RemoveSelectedCells()
+                FlipSelectedCells()
+                PasteSelectedCells(oCurrentSelection(0))
+                ClearSelection()
+            Case DesignAction.Mirror
+                RemoveSelectedCells()
+                MirrorSelectedCells()
+                PasteSelectedCells(oCurrentSelection(0))
+                ClearSelection()
+            Case DesignAction.Rotate
+                StartMoveSelection()
+            Case DesignAction.Zoom
+                ResizeImageForSelectedCells()
+                ClearSelection()
+            Case DesignAction.DrawShape
+                PlaceShape(oCurrentShapeType, oInProgressAnchor, oInProgressTerminus)
+                ClearSelection()
+        End Select
     End Sub
     Private Sub PlaceShape(oCurrentShapeType As ShapeType, oInProgressAnchor As Point, oInProgressTerminus As Point)
         If oCurrentShapeType = ShapeType.Line Then
@@ -1554,6 +1547,7 @@ Public Class FrmStitchDesign
         oBackstitchInProgress = Nothing
         SelectionMessage(String.Empty)
         oCurrentAction = DesignAction.none
+        oCurrentShapeType = ShapeType.None
         LblCurrentAction.Text = String.Empty
     End Sub
     Private Sub EndSelection(pCell As Cell)
