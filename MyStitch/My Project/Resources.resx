@@ -298,6 +298,21 @@
   <data name="String" xml:space="preserve">
     <value>_usedThreadList.Sort(Function(x As Thread, y As Thread) x.SortNumber.CompareTo(y.SortNumber))</value>
   </data>
+  <data name="style0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\style0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="style1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\style1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="style2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\style2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="style3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\style3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="style4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\style4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

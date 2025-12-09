@@ -453,6 +453,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\style4.png" />
+    <None Include="Resources\style3.png" />
+    <None Include="Resources\style2.png" />
+    <None Include="Resources\style1.png" />
+    <None Include="Resources\style0.png" />
     <None Include="Resources\knton.png" />
     <None Include="Resources\kntoff.png" />
     <None Include="Resources\bson.png" />

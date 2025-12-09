@@ -916,7 +916,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MyStitch"
         "ProductCode" = "8:{474C3F01-CC2C-4185-AAF4-359EB2F12380}"
-        "PackageCode" = "8:{D3053BB6-AEEB-4F08-B392-4B34F2C63313}"
+        "PackageCode" = "8:{C7602365-ADE0-4B28-9E6D-7AE9232986BE}"
         "UpgradeCode" = "8:{E7076867-D58D-4480-A896-157A9A9127B9}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

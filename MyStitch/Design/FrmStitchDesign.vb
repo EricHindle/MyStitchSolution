@@ -6,7 +6,6 @@
 '
 Imports System.Drawing.Imaging
 Imports System.Reflection
-Imports System.Security
 Imports HindlewareLib.Logging
 Imports HindlewareLib.Utilities
 Imports MyStitch.Domain
@@ -901,7 +900,41 @@ Public Class FrmStitchDesign
     Private Sub BtnText_Click(sender As Object, e As EventArgs) Handles BtnText.Click
         BeginText()
     End Sub
-
+    Private Sub PicSelectedColour_Click(sender As Object, e As EventArgs) Handles PicSelectedThreadColour.Click
+        ToggleSingleColour()
+    End Sub
+    Private Sub PicStyle_Click(sender As Object, e As EventArgs) Handles PicStyle.Click
+        oStitchDisplayStyle = If(oStitchDisplayStyle = 4, 0, oStitchDisplayStyle + 1)
+        My.Settings.DesignStitchDisplay = oStitchDisplayStyle
+        My.Settings.Save()
+        SetDisplayStyleImage()
+        RedrawDesign(False)
+        InitialisePalette()
+    End Sub
+    Private Sub PicBlocksOn_Click(sender As Object, e As EventArgs) Handles PicBlocksOn.Click
+        ToggleBlocks()
+    End Sub
+    Private Sub PicBackOn_Click(sender As Object, e As EventArgs) Handles PicBackOn.Click
+        ToggleBackstitches()
+    End Sub
+    Private Sub PicKnotsOn_Click(sender As Object, e As EventArgs) Handles PicKnotsOn.Click
+        ToggleKnots()
+    End Sub
+    Private Sub MnuBlockStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBlockStitches.CheckedChanged
+        If MnuBlockStitches.Checked <> isBlocksOn Then
+            ToggleBlocks()
+        End If
+    End Sub
+    Private Sub MnuBackStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBackStitches.CheckedChanged
+        If MnuBackStitches.Checked <> isBackStitchOn Then
+            ToggleBackstitches()
+        End If
+    End Sub
+    Private Sub MnuKnots_CheckedChanged(sender As Object, e As EventArgs) Handles MnuKnots.CheckedChanged
+        If MnuKnots.Checked <> isKnotsOn Then
+            ToggleKnots()
+        End If
+    End Sub
 #Region "begin actions"
     Private Sub BeginCopy()
         oCurrentAction = DesignAction.Copy
@@ -1015,13 +1048,13 @@ Public Class FrmStitchDesign
         BtnRedo.Enabled = False
         BtnPrint.Enabled = False
         oStitchDisplayStyle = My.Settings.DesignStitchDisplay
+        SetDisplayStyleImage
         SetIsGridOn()
         SetIsCentreOn()
         SetShowStitchTypesMenu()
         SelectFullBlockstitch()
         PicSelectedThreadColour.BackColor = Me.BackColor
         PicBeadColour.BackColor = Me.BackColor
-
         LblCurrentAction.Text = String.Empty
         If oProject.IsLoaded Then
             InitialisePalette()
@@ -1047,7 +1080,6 @@ Public Class FrmStitchDesign
         SetIsCentreOn()
         SetIsGridOn()
         SetIsCentreMarks()
-
         If Not isLoading Then
             RedrawDesign(False)
         End If
@@ -1270,10 +1302,35 @@ Public Class FrmStitchDesign
         Loop
         Return isHasThreads
     End Function
+    Private Sub SetDisplayStyleImage()
+        Select Case oStitchDisplayStyle
+            Case StitchDisplayStyle.Crosses
+                PicStyle.Image = My.Resources.style0
+                ToolTip1.SetToolTip(PicStyle, "Display Style - crosses")
+            Case StitchDisplayStyle.Blocks
+                PicStyle.Image = My.Resources.style1
+                ToolTip1.SetToolTip(PicStyle, "Display Style - blocks")
+            Case StitchDisplayStyle.ColouredSymbols
+                PicStyle.Image = My.Resources.style2
+                ToolTip1.SetToolTip(PicStyle, "Display Style - coloured symbols")
+            Case StitchDisplayStyle.BlackWhiteSymbols
+                PicStyle.Image = My.Resources.style3
+                ToolTip1.SetToolTip(PicStyle, "Display Style - b&w symbols")
+            Case StitchDisplayStyle.BlocksWithSymbols
+                PicStyle.Image = My.Resources.style4
+                ToolTip1.SetToolTip(PicStyle, "Display Style - blocks with symbols")
+        End Select
+    End Sub
     Private Sub SetShowStitchTypesMenu()
-        MnuBlockStitches.Checked = My.Settings.IsShowBackstitches
-        MnuBackStitches.Checked = My.Settings.IsShowBlockstitches
-        MnuKnots.Checked = My.Settings.IsShowKnots
+        isBlocksOn = My.Settings.IsShowBlockstitches
+        isBackStitchOn = My.Settings.IsShowBackstitches
+        isKnotsOn = My.Settings.IsShowKnots
+        MnuBackStitches.Checked = isBackStitchOn
+        MnuBlockStitches.Checked = isBlocksOn
+        MnuKnots.Checked = isKnotsOn
+        SelectBackStitchImage()
+        SelectBlockStitchImage()
+        SelectKnotImage()
     End Sub
     Private Sub SetCurrentActionClass()
         isKnotAction = False
@@ -1754,43 +1811,57 @@ Public Class FrmStitchDesign
         My.Settings.IsShowBlockstitches = isBlocksOn
         My.Settings.Save()
         MnuBlockStitches.Checked = isBlocksOn
+        SelectBlockStitchImage()
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
+    End Sub
+
+    Private Sub SelectBlockStitchImage()
         If isBlocksOn Then
             PicBlocksOn.Image = My.Resources.blson
         Else
             PicBlocksOn.Image = My.Resources.blsoff
         End If
-        If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(False)
-        End If
     End Sub
+
     Private Sub ToggleBackstitches()
         isBackStitchOn = Not isBackStitchOn
         My.Settings.IsShowBackstitches = isBackStitchOn
         My.Settings.Save()
         MnuBackStitches.Checked = isBackStitchOn
+        SelectBackStitchImage()
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
+    End Sub
+    Private Sub SelectBackStitchImage()
         If isBackStitchOn Then
             PicBackOn.Image = My.Resources.bson
         Else
             PicBackOn.Image = My.Resources.bsoff
         End If
-        If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(False)
-        End If
     End Sub
+
     Private Sub ToggleKnots()
         isKnotsOn = Not isKnotsOn
         My.Settings.IsShowKnots = isKnotsOn
         My.Settings.Save()
         MnuKnots.Checked = isKnotsOn
+        SelectKnotImage()
+        If isComponentInitialised AndAlso Not isLoading Then
+            RedrawDesign(False)
+        End If
+    End Sub
+
+    Private Sub SelectKnotImage()
         If isKnotsOn Then
             PicKnotsOn.Image = My.Resources.knton
         Else
             PicKnotsOn.Image = My.Resources.kntoff
         End If
-        If isComponentInitialised AndAlso Not isLoading Then
-            RedrawDesign(False)
-        End If
     End Sub
+
     Private Sub ToggleCentreMarks()
         isCentreMarksOn = Not isCentreMarksOn
         My.Settings.isCentreMarksOn = isCentreMarksOn
@@ -2560,36 +2631,6 @@ Public Class FrmStitchDesign
             _newList.Add(New StitchAction(_action.Stitch, _action.DoneAction, _action.NewThread))
         Next
         oUndoList.Add(_newList)
-    End Sub
-
-    Private Sub PicBlocksOn_Click(sender As Object, e As EventArgs) Handles PicBlocksOn.Click
-        ToggleBlocks()
-    End Sub
-
-    Private Sub PicBackOn_Click(sender As Object, e As EventArgs) Handles PicBackOn.Click
-        ToggleBackstitches()
-    End Sub
-
-    Private Sub PicKnotsOn_Click(sender As Object, e As EventArgs) Handles PicKnotsOn.Click
-        ToggleKnots()
-    End Sub
-    Private Sub MnuBlockStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBlockStitches.CheckedChanged
-        If MnuBlockStitches.Checked <> isBlocksOn Then
-            ToggleBlocks()
-        End If
-    End Sub
-    Private Sub MnuBackStitches_CheckedChanged(sender As Object, e As EventArgs) Handles MnuBackStitches.CheckedChanged
-        If MnuBackStitches.Checked <> isBackStitchOn Then
-            ToggleBackstitches()
-        End If
-    End Sub
-    Private Sub MnuKnots_CheckedChanged(sender As Object, e As EventArgs) Handles MnuKnots.CheckedChanged
-        If MnuKnots.Checked <> isKnotsOn Then
-            ToggleKnots()
-        End If
-    End Sub
-    Private Sub PicSelectedColour_Click(sender As Object, e As EventArgs) Handles PicSelectedThreadColour.Click
-        ToggleSingleColour()
     End Sub
 #End Region
 #End Region
