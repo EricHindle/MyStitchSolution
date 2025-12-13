@@ -571,5 +571,13 @@ Public Class FrmProject
         End Try
     End Sub
 
+    Private Sub NudDesignWidth_ValueChanged(sender As Object, e As EventArgs) Handles NudDesignWidth.ValueChanged
+        NudFabricWidth.Value = Math.Max(NudFabricWidth.Value, NudDesignWidth.Value)
+    End Sub
+
+    Private Sub NudDesignHeight_ValueChanged(sender As Object, e As EventArgs) Handles NudDesignHeight.ValueChanged
+        NudFabricHeight.Value = Math.Max(NudFabricHeight.Value, NudDesignHeight.Value)
+    End Sub
+
 #End Region
 End Class

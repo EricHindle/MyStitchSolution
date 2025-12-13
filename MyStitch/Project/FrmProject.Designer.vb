@@ -803,13 +803,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'MnuImportImage
