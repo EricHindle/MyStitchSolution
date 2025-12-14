@@ -707,6 +707,10 @@ Public Class FrmStitchDesign
     Private Sub MnuText_Click(sender As Object, e As EventArgs) Handles MnuText.Click
         BeginText()
     End Sub
+    Private Sub MnuErase_Click(sender As Object, e As EventArgs) Handles MnuErase.Click
+        EraseDesign()
+    End Sub
+
 #End Region
 #Region "stitch buttons"
     Private Sub BtnFullStitch_Click(sender As Object, e As EventArgs) Handles BtnFullStitch.Click
@@ -842,6 +846,9 @@ Public Class FrmStitchDesign
     End Sub
     Private Sub BtnPaste_Click(sender As Object, e As EventArgs) Handles BtnPaste.Click
         BeginPaste()
+    End Sub
+    Private Sub BtnErase_Click(sender As Object, e As EventArgs) Handles BtnErase.Click
+        EraseDesign()
     End Sub
     Private Sub BtnMirror_Click(sender As Object, e As EventArgs) Handles BtnMirror.Click
         BeginMirror()
@@ -1048,7 +1055,7 @@ Public Class FrmStitchDesign
         BtnRedo.Enabled = False
         BtnPrint.Enabled = False
         oStitchDisplayStyle = My.Settings.DesignStitchDisplay
-        SetDisplayStyleImage
+        SetDisplayStyleImage()
         SetIsGridOn()
         SetIsCentreOn()
         SetShowStitchTypesMenu()
@@ -2015,6 +2022,19 @@ Public Class FrmStitchDesign
             Case Else
                 DrawQuarterBlockStitches(_newBs, oDesignGraphics)
         End Select
+    End Sub
+    Private Sub EraseDesign()
+        If MsgBox("All stitches will be permanently removed." & vbCrLf & "Are you sure that you want to erase the design?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+            oProjectDesign.BlockStitches = New List(Of BlockStitch)
+            oProjectDesign.BackStitches = New List(Of BackStitch)
+            oProjectDesign.Knots = New List(Of Knot)
+            oUndoList.Clear()
+            oRedoList.Clear()
+            oCurrentUndoList.Clear()
+            BtnRedo.Enabled = False
+            BtnUndo.Enabled = False
+            RedrawDesign(False)
+        End If
     End Sub
 #End Region
 #Region "backstitch"

@@ -121,13 +121,14 @@ Public Class FrmText
         isLoading = True
         oStitches = New List(Of BlockStitch)
         oTextFont = New Font(INITIAL_FONT_FAMILY, INITIAL_FONT_SIZE, INITIAL_FONT_STYLE)
+        If My.Settings.LastTextFont IsNot Nothing Then
+            oTextFont = My.Settings.LastTextFont
+        End If
         oTextColour = _selectedThread.Thread.Colour
         oTextBackColour = Color.Transparent
-        NudTextSize.Value = INITIAL_FONT_SIZE
-        TbFontSize.Value = INITIAL_FONT_SIZE
         LblColour.ForeColor = oTextColour
         LblColour.BackColor = GetColourFromProject(_selectedProject.FabricColour, oFabricColourList)
-        SetFontText()
+        ApplySelectedFont()
         isLoading = False
     End Sub
     Private Sub PlaceText(pText As String)
@@ -222,12 +223,18 @@ Public Class FrmText
         FontDialog1.Font = oTextFont
         FontDialog1.ShowDialog()
         oTextFont = FontDialog1.Font
+        ApplySelectedFont()
+        My.Settings.LastTextFont = oTextFont
+        isLoading = False
+    End Sub
+
+    Private Sub ApplySelectedFont()
         TbFontSize.Value = oTextFont.Size
         NudTextSize.Value = oTextFont.Size
         SetFontText()
         PlaceText(TxtText.Text)
-        isLoading = False
     End Sub
+
     Private Sub SetFontText()
         LblFont.Text = oTextFont.FontFamily.Name & ", " & oTextFont.Size & "pt."
         Dim _fontStyles As New List(Of String)
@@ -265,6 +272,7 @@ Public Class FrmText
             NudTextSize.Value = pNewValue
             SetFontText()
             PlaceText(TxtText.Text)
+            My.Settings.LastTextFont = oTextFont
             isLoading = False
         End If
     End Sub

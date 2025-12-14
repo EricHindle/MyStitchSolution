@@ -368,5 +368,8 @@
     <Setting Name="SplitDistImportDesign1" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">350</Value>
     </Setting>
+    <Setting Name="LastTextFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Times New Roman, 18pt</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
