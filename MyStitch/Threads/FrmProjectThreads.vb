@@ -410,21 +410,27 @@ Public Class FrmProjectThreads
         If CbPalettes.SelectedIndex >= 0 Then
             Dim _threads As List(Of PaletteThread) = FindPaletteThreadsByPaletteId(CbPalettes.SelectedValue)
             If _threads IsNot Nothing AndAlso _threads.Count > 0 Then
-                SetAllThreadSelections(False)
-                setallBeadSelections(False)
-                For Each oThread As PaletteThread In _threads
-                    If oThread.IsBead Then
-                        SelectBeadInTable(DgvBeads, oThread.Thread.ThreadNo)
-                    Else
-                        SelectThreadInTable(DgvThreads, oThread.Thread.ThreadNo)
-                    End If
-                Next
+                If MsgBox("Existing project palette will be replaced. OK to continue?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Confirm") = MsgBoxResult.Yes Then
+                    SetAllThreadSelections(False)
+                    SetAllBeadSelections(False)
+                    For Each oThread As PaletteThread In _threads
+                        If oThread.IsBead Then
+                            SelectBeadInTable(DgvBeads, oThread.Thread.ThreadNo)
+                        Else
+                            SelectThreadInTable(DgvThreads, oThread.Thread.ThreadNo)
+                        End If
+                    Next
+                End If
             Else
-                LogUtil.ShowStatus("No threads in palette", LblStatus, True)
+                    LogUtil.ShowStatus("No threads in palette", LblStatus, True)
             End If
         Else
             LogUtil.ShowStatus("No palette selected", LblStatus, True)
         End If
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+
     End Sub
 
 #End Region

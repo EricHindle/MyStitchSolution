@@ -294,7 +294,7 @@ Namespace Domain
                         End Select
                         If oDataTable IsNot Nothing Then
                             Try
-                                LogUtil.LogInfo("Saving table " & oDataTable.TableName, MethodBase.GetCurrentMethod.Name)
+                                LogUtil.Debug("Saving table " & oDataTable.TableName, MethodBase.GetCurrentMethod.Name)
                                 oXmlFileName = WriteXmlFromTable(oDataTable)
                                 Dim fileText As String = My.Computer.FileSystem.ReadAllText(oXmlFileName)
                                 Dim _projectEntryName As String = Path.GetFileName(oXmlFileName)
@@ -1250,7 +1250,7 @@ Namespace Domain
             Return pPaletteRow
         End Function
         Public Function AddNewPaletteThread(pPaletteThread As PaletteThread) As Boolean
-            LogUtil.LogInfo("Adding new palette thread", MethodBase.GetCurrentMethod.Name)
+            LogUtil.Debug("Adding new palette thread", MethodBase.GetCurrentMethod.Name)
             Dim isOK As Boolean = True
             If pPaletteThread IsNot Nothing Then
                 Try

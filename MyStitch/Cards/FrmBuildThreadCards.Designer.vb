@@ -57,7 +57,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.threadselected = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -198,9 +198,9 @@ Partial Class FrmBuildThreadCards
         Me.Label7.Location = New System.Drawing.Point(4, 10)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(185, 23)
+        Me.Label7.Size = New System.Drawing.Size(179, 23)
         Me.Label7.TabIndex = 136
-        Me.Label7.Text = "PROJECT THREADS"
+        Me.Label7.Text = "PALETTE THREADS"
         '
         'NudMaxThreads
         '
@@ -371,7 +371,7 @@ Partial Class FrmBuildThreadCards
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.threadNo, Me.threadSortNumber, Me.threadColour, Me.threadselected})
         Me.DgvThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvThreads.Location = New System.Drawing.Point(4, 37)
         Me.DgvThreads.Margin = New System.Windows.Forms.Padding(4)
@@ -402,13 +402,13 @@ Partial Class FrmBuildThreadCards
         Me.threadName.Name = "threadName"
         Me.threadName.ReadOnly = True
         '
-        'ThreadNo
+        'threadNo
         '
-        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "threadNo"
-        Me.ThreadNo.ReadOnly = True
-        Me.ThreadNo.Width = 50
+        Me.threadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadNo.HeaderText = "No."
+        Me.threadNo.Name = "threadNo"
+        Me.threadNo.ReadOnly = True
+        Me.threadNo.Width = 50
         '
         'threadSortNumber
         '
@@ -609,7 +609,6 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
-    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadselected As DataGridViewCheckBoxColumn
@@ -620,4 +619,5 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents cardthreadcolour As DataGridViewImageColumn
     Friend WithEvents ChkShowStock As CheckBox
     Friend WithEvents LblStatus As ToolStripStatusLabel
+    Friend WithEvents threadNo As DataGridViewTextBoxColumn
 End Class

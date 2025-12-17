@@ -152,6 +152,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyStitchDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Palettes\FrmPaletteName.Designer.vb">
+      <DependentUpon>FrmPaletteName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Palettes\FrmPaletteName.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Palettes\ModPalettes.vb" />
     <Compile Include="Print\FrmPrintProject.Designer.vb">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </Compile>
@@ -362,6 +369,9 @@
     <EmbeddedResource Include="Design\FrmText.resx">
       <DependentUpon>FrmText.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Palettes\FrmPaletteName.resx">
+      <DependentUpon>FrmPaletteName.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Print\FrmPrintProject.resx">
       <DependentUpon>FrmPrintProject.vb</DependentUpon>
     </EmbeddedResource>
@@ -453,6 +463,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\up24.png" />
+    <None Include="Resources\right24.png" />
+    <None Include="Resources\left24.png" />
+    <None Include="Resources\down24.png" />
     <None Include="Resources\erase.png" />
     <None Include="Resources\line.png" />
     <None Include="Resources\style4.png" />
@@ -518,10 +532,6 @@
     <None Include="Resources\3qtrsbl.png" />
     <None Include="Resources\ColrBtnDown.png" />
     <None Include="Resources\print.png" />
-    <None Include="Resources\down24.png" />
-    <None Include="Resources\up24.png" />
-    <None Include="Resources\right24.png" />
-    <None Include="Resources\left24.png" />
     <None Include="Resources\singlecolour.png" />
     <None Include="Resources\timer.png" />
     <None Include="Resources\stoptimer.png" />

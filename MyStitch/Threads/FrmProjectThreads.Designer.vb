@@ -290,12 +290,12 @@ Partial Class FrmProjectThreads
         Me.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnUpdate.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnUpdate.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnUpdate.Location = New System.Drawing.Point(17, 511)
+        Me.BtnUpdate.Location = New System.Drawing.Point(17, 517)
         Me.BtnUpdate.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnUpdate.Name = "BtnUpdate"
-        Me.BtnUpdate.Size = New System.Drawing.Size(161, 37)
+        Me.BtnUpdate.Size = New System.Drawing.Size(145, 49)
         Me.BtnUpdate.TabIndex = 12
-        Me.BtnUpdate.Text = "Update Project"
+        Me.BtnUpdate.Text = "Update Project Palette"
         Me.BtnUpdate.UseVisualStyleBackColor = False
         '
         'StatusStrip1
@@ -336,10 +336,10 @@ Partial Class FrmProjectThreads
         Me.BtnGenerateCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnGenerateCards.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnGenerateCards.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnGenerateCards.Location = New System.Drawing.Point(391, 511)
+        Me.BtnGenerateCards.Location = New System.Drawing.Point(361, 517)
         Me.BtnGenerateCards.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnGenerateCards.Name = "BtnGenerateCards"
-        Me.BtnGenerateCards.Size = New System.Drawing.Size(161, 37)
+        Me.BtnGenerateCards.Size = New System.Drawing.Size(145, 49)
         Me.BtnGenerateCards.TabIndex = 14
         Me.BtnGenerateCards.Text = "Build Project Cards"
         Me.BtnGenerateCards.UseVisualStyleBackColor = False
@@ -493,12 +493,12 @@ Partial Class FrmProjectThreads
         Me.BtnAssignSymbols.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAssignSymbols.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAssignSymbols.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAssignSymbols.Location = New System.Drawing.Point(204, 511)
+        Me.BtnAssignSymbols.Location = New System.Drawing.Point(189, 517)
         Me.BtnAssignSymbols.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAssignSymbols.Name = "BtnAssignSymbols"
-        Me.BtnAssignSymbols.Size = New System.Drawing.Size(161, 37)
+        Me.BtnAssignSymbols.Size = New System.Drawing.Size(145, 49)
         Me.BtnAssignSymbols.TabIndex = 13
-        Me.BtnAssignSymbols.Text = "Assign Symbols"
+        Me.BtnAssignSymbols.Text = "Assign Symbols to Threads"
         Me.BtnAssignSymbols.UseVisualStyleBackColor = False
         '
         'CbPalettes
@@ -517,9 +517,9 @@ Partial Class FrmProjectThreads
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(18, 428)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(46, 13)
+        Me.Label3.Size = New System.Drawing.Size(81, 13)
         Me.Label3.TabIndex = 20
-        Me.Label3.Text = "Palettes"
+        Me.Label3.Text = "Stored Palettes"
         '
         'BtnLoadPalette
         '
@@ -700,7 +700,7 @@ Partial Class FrmProjectThreads
         Me.Controls.Add(Me.BtnUpdate)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmProjectThreads"
-        Me.Text = "Project Threads"
+        Me.Text = "Project Palette"
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)

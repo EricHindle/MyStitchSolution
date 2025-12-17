@@ -1484,7 +1484,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("330")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("390")>  _
         Public Property SplitDistPalette1() As Integer
             Get
                 Return CType(Me("SplitDistPalette1"),Integer)
@@ -1527,6 +1527,30 @@ Namespace My
             End Get
             Set
                 Me("LastTextFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("300")>  _
+        Public Property SplitDistPalette2() As Integer
+            Get
+                Return CType(Me("SplitDistPalette2"),Integer)
+            End Get
+            Set
+                Me("SplitDistPalette2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("390")>  _
+        Public Property SplitDistPalette3() As String
+            Get
+                Return CType(Me("SplitDistPalette3"),String)
+            End Get
+            Set
+                Me("SplitDistPalette3") = value
             End Set
         End Property
     End Class

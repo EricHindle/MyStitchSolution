@@ -314,6 +314,7 @@ Partial Class FrmProject
         '
         Me.LblOrigin.AutoSize = True
         Me.LblOrigin.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblOrigin.ForeColor = System.Drawing.Color.DarkGray
         Me.LblOrigin.Location = New System.Drawing.Point(48, 408)
         Me.LblOrigin.Name = "LblOrigin"
         Me.LblOrigin.Size = New System.Drawing.Size(88, 14)
@@ -325,8 +326,8 @@ Partial Class FrmProject
         Me.LblFilename.AutoEllipsis = True
         Me.LblFilename.AutoSize = True
         Me.LblFilename.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblFilename.ForeColor = System.Drawing.Color.Black
-        Me.LblFilename.Location = New System.Drawing.Point(64, 181)
+        Me.LblFilename.ForeColor = System.Drawing.Color.DarkGray
+        Me.LblFilename.Location = New System.Drawing.Point(64, 179)
         Me.LblFilename.Name = "LblFilename"
         Me.LblFilename.Size = New System.Drawing.Size(58, 14)
         Me.LblFilename.TabIndex = 165
@@ -336,6 +337,7 @@ Partial Class FrmProject
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.DarkGray
         Me.Label10.Location = New System.Drawing.Point(46, 155)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(94, 14)
@@ -726,52 +728,52 @@ Partial Class FrmProject
         'MnuThreadList
         '
         Me.MnuThreadList.Name = "MnuThreadList"
-        Me.MnuThreadList.Size = New System.Drawing.Size(199, 22)
+        Me.MnuThreadList.Size = New System.Drawing.Size(198, 22)
         Me.MnuThreadList.Text = "Full Thread List"
         '
         'MnuBeads
         '
         Me.MnuBeads.Name = "MnuBeads"
-        Me.MnuBeads.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBeads.Size = New System.Drawing.Size(198, 22)
         Me.MnuBeads.Text = "Full Bead List"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(196, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(195, 6)
         '
         'MnuProjectThreads
         '
         Me.MnuProjectThreads.Name = "MnuProjectThreads"
-        Me.MnuProjectThreads.Size = New System.Drawing.Size(199, 22)
-        Me.MnuProjectThreads.Text = "Project Threads"
+        Me.MnuProjectThreads.Size = New System.Drawing.Size(198, 22)
+        Me.MnuProjectThreads.Text = "Project Palette"
         '
         'MnuProjectThreadSymbols
         '
         Me.MnuProjectThreadSymbols.Name = "MnuProjectThreadSymbols"
-        Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(199, 22)
-        Me.MnuProjectThreadSymbols.Text = "Project Thread Symbols"
+        Me.MnuProjectThreadSymbols.Size = New System.Drawing.Size(198, 22)
+        Me.MnuProjectThreadSymbols.Text = "Project Palette Symbols"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(196, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(195, 6)
         '
         'MnuPalettes
         '
         Me.MnuPalettes.Name = "MnuPalettes"
-        Me.MnuPalettes.Size = New System.Drawing.Size(199, 22)
-        Me.MnuPalettes.Text = "Palettes"
+        Me.MnuPalettes.Size = New System.Drawing.Size(198, 22)
+        Me.MnuPalettes.Text = "Stored Palettes"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(196, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(195, 6)
         '
         'MnuBrands
         '
         Me.MnuBrands.Name = "MnuBrands"
-        Me.MnuBrands.Size = New System.Drawing.Size(199, 22)
+        Me.MnuBrands.Size = New System.Drawing.Size(198, 22)
         Me.MnuBrands.Text = "Brand List"
         '
         'ToolStripMenuItem10
@@ -784,14 +786,14 @@ Partial Class FrmProject
         'MnuSymbols
         '
         Me.MnuSymbols.Name = "MnuSymbols"
-        Me.MnuSymbols.Size = New System.Drawing.Size(199, 22)
+        Me.MnuSymbols.Size = New System.Drawing.Size(198, 22)
         Me.MnuSymbols.Text = "Maintain Symbols"
         '
         'MnuThreadSymbols
         '
         Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
-        Me.MnuThreadSymbols.Size = New System.Drawing.Size(199, 22)
-        Me.MnuThreadSymbols.Text = "Project Thread Symbols"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(198, 22)
+        Me.MnuThreadSymbols.Text = "Project Palette Symbols"
         '
         'ToolStripMenuItem13
         '
@@ -803,13 +805,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'MnuImportImage
@@ -829,7 +831,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem17.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebug})
         Me.ToolStripMenuItem17.Name = "ToolStripMenuItem17"
-        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem17.Text = "Logging"
         '
         'MnuShowLog
@@ -849,7 +851,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem20.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
         Me.ToolStripMenuItem20.Name = "ToolStripMenuItem20"
-        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem20.Text = "Backup/Restore"
         '
         'MnuBackup
@@ -868,7 +870,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem23.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.MnuPrintSettings, Me.MnuGlobalSettings})
         Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
-        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(157, 22)
+        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripMenuItem23.Text = "Preferences"
         '
         'MnuPreferences

@@ -18,7 +18,7 @@ Public Class FrmProject
 
 #End Region
 #Region "constants"
-    Private Const SELECT_OR_ADD As String = "SELECT A PROJECT FROM THE LIST OR ADD A NEW ONE"
+    Private Const SELECT_OR_ADD As String = "SELECT A PROJECT FROM THE LIST OR ADD A NEW PROJECT"
     Private Const INVALID_PROJECT As String = "PROJECT DETAILS MISSING OR INVALID"
     Private Const INVALID_PROJECT_NAME As String = "PROJECT NAME MISSING"
     Private Const INVALID_WIDTH As String = "INVALID WIDTH"

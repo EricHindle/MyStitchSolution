@@ -515,13 +515,7 @@ Public Class FrmStitchDesign
         Dim _picBox As PictureBox = CType(sender, PictureBox)
         SelectBeadPaletteColour(_picBox)
     End Sub
-    Private Sub BtnCancelPalette_Click(sender As Object, e As EventArgs) Handles BtnCancelPalette.Click
-        PnlPaletteName.Visible = False
-    End Sub
-    Private Sub BtnSavePalette_Click(sender As Object, e As EventArgs) Handles BtnSavePalette.Click
-        SaveProjectThreadsAsPalette()
-        PnlPaletteName.Visible = False
-    End Sub
+
 #End Region
 #Region "menus"
     Private Sub MnuOpenDesign_Click(sender As Object, e As EventArgs) Handles MnuOpenDesign.Click
@@ -692,7 +686,10 @@ Public Class FrmStitchDesign
         InitialisePalette()
     End Sub
     Private Sub MnuSavePalette_Click(sender As Object, e As EventArgs) Handles MnuSavePalette.Click
-        GetPaletteName()
+        Dim _newName As String = GetPaletteName(oProject.ProjectName)
+        If Not String.IsNullOrEmpty(_newName) Then
+            SaveProjectThreadsAsPalette(_newName)
+        End If
     End Sub
     Private Sub MnuThreadCards_Click(sender As Object, e As EventArgs) Handles MnuThreadCards.Click
 
@@ -1386,15 +1383,11 @@ Public Class FrmStitchDesign
     Private Sub ShowPrintForm()
         OpenPrintForm(Me, oProject)
     End Sub
-    Private Sub GetPaletteName()
-        PnlPaletteName.Location = New Point(PicDesign.Location.X + 100, PicDesign.Location.Y + 100)
-        TxtPaletteName.Text = oProject.ProjectName
-        PnlPaletteName.Visible = True
-    End Sub
-    Private Sub SaveProjectThreadsAsPalette()
+
+    Private Sub SaveProjectThreadsAsPalette(pNewName As String)
         LogUtil.ShowStatus("Saving palette", LblStatus, MyBase.Name)
-        If Not String.IsNullOrEmpty(TxtPaletteName.Text.Trim) Then
-            Dim _paletteId As Integer = AddNewPalette(TxtPaletteName.Text.Trim)
+        If Not String.IsNullOrEmpty(pNewName.Trim) Then
+            Dim _paletteId As Integer = AddNewPalette(pNewName.Trim)
             SavePaletteThreads(_paletteId)
         Else
             LogUtil.ShowStatus("No palette name", LblStatus, MyBase.Name)

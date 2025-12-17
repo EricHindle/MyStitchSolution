@@ -360,7 +360,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SplitDistPalette1" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">330</Value>
+      <Value Profile="(Default)">390</Value>
     </Setting>
     <Setting Name="ImportDesignFormPos" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -370,6 +370,12 @@
     </Setting>
     <Setting Name="LastTextFont" Type="System.Drawing.Font" Scope="User">
       <Value Profile="(Default)">Times New Roman, 18pt</Value>
+    </Setting>
+    <Setting Name="SplitDistPalette2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="SplitDistPalette3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">390</Value>
     </Setting>
   </Settings>
 </SettingsFile>

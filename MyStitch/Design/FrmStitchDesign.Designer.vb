@@ -34,11 +34,6 @@ Partial Class FrmStitchDesign
         Me.Label4 = New System.Windows.Forms.Label()
         Me.BeadLayoutPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PnlPaletteName = New System.Windows.Forms.Panel()
-        Me.BtnCancelPalette = New System.Windows.Forms.Button()
-        Me.BtnSavePalette = New System.Windows.Forms.Button()
-        Me.TxtPaletteName = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.PicDesign = New System.Windows.Forms.PictureBox()
         Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
         Me.VScrollBar1 = New System.Windows.Forms.VScrollBar()
@@ -189,7 +184,6 @@ Partial Class FrmStitchDesign
         Me.ScPalette.Panel2.SuspendLayout()
         Me.ScPalette.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.PnlPaletteName.SuspendLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.ToolStrip2.SuspendLayout()
@@ -345,7 +339,6 @@ Partial Class FrmStitchDesign
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel1.Controls.Add(Me.PnlPaletteName)
         Me.Panel1.Controls.Add(Me.PicDesign)
         Me.Panel1.Controls.Add(Me.HScrollBar1)
         Me.Panel1.Controls.Add(Me.VScrollBar1)
@@ -353,59 +346,6 @@ Partial Class FrmStitchDesign
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(866, 462)
         Me.Panel1.TabIndex = 137
-        '
-        'PnlPaletteName
-        '
-        Me.PnlPaletteName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PnlPaletteName.Controls.Add(Me.BtnCancelPalette)
-        Me.PnlPaletteName.Controls.Add(Me.BtnSavePalette)
-        Me.PnlPaletteName.Controls.Add(Me.TxtPaletteName)
-        Me.PnlPaletteName.Controls.Add(Me.Label1)
-        Me.PnlPaletteName.Location = New System.Drawing.Point(103, 103)
-        Me.PnlPaletteName.Name = "PnlPaletteName"
-        Me.PnlPaletteName.Size = New System.Drawing.Size(200, 76)
-        Me.PnlPaletteName.TabIndex = 136
-        Me.PnlPaletteName.Visible = False
-        '
-        'BtnCancelPalette
-        '
-        Me.BtnCancelPalette.BackColor = System.Drawing.Color.MistyRose
-        Me.BtnCancelPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnCancelPalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnCancelPalette.Location = New System.Drawing.Point(6, 45)
-        Me.BtnCancelPalette.Name = "BtnCancelPalette"
-        Me.BtnCancelPalette.Size = New System.Drawing.Size(60, 23)
-        Me.BtnCancelPalette.TabIndex = 3
-        Me.BtnCancelPalette.Text = "Cancel"
-        Me.BtnCancelPalette.UseVisualStyleBackColor = False
-        '
-        'BtnSavePalette
-        '
-        Me.BtnSavePalette.BackColor = System.Drawing.Color.Honeydew
-        Me.BtnSavePalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BtnSavePalette.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnSavePalette.Location = New System.Drawing.Point(135, 45)
-        Me.BtnSavePalette.Name = "BtnSavePalette"
-        Me.BtnSavePalette.Size = New System.Drawing.Size(60, 23)
-        Me.BtnSavePalette.TabIndex = 2
-        Me.BtnSavePalette.Text = "Save"
-        Me.BtnSavePalette.UseVisualStyleBackColor = False
-        '
-        'TxtPaletteName
-        '
-        Me.TxtPaletteName.Location = New System.Drawing.Point(6, 17)
-        Me.TxtPaletteName.Name = "TxtPaletteName"
-        Me.TxtPaletteName.Size = New System.Drawing.Size(189, 22)
-        Me.TxtPaletteName.TabIndex = 1
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(81, 14)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Palette Name"
         '
         'PicDesign
         '
@@ -1353,7 +1293,7 @@ Partial Class FrmStitchDesign
         'MenuStrip1
         '
         Me.MenuStrip1.BackgroundImage = CType(resources.GetObject("MenuStrip1.BackgroundImage"), System.Drawing.Image)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuPalette, Me.MnuThreads, Me.MnuEdit, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuDesign, Me.MnuPalette, Me.MnuEdit, Me.MnuThreads, Me.MnuDraw, Me.MnuText, Me.ViewToolStripMenuItem, Me.MnuTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1053, 24)
@@ -1445,8 +1385,8 @@ Partial Class FrmStitchDesign
         'MnuSelectColours
         '
         Me.MnuSelectColours.Name = "MnuSelectColours"
-        Me.MnuSelectColours.Size = New System.Drawing.Size(256, 22)
-        Me.MnuSelectColours.Text = "Select Threads/Beads"
+        Me.MnuSelectColours.Size = New System.Drawing.Size(250, 22)
+        Me.MnuSelectColours.Text = "Update Project Palette"
         '
         'MnuRemoveUnused
         '
@@ -1474,8 +1414,8 @@ Partial Class FrmStitchDesign
         'MnuThreadSymbols
         '
         Me.MnuThreadSymbols.Name = "MnuThreadSymbols"
-        Me.MnuThreadSymbols.Size = New System.Drawing.Size(256, 22)
-        Me.MnuThreadSymbols.Text = "Assign Symbols to Project Threads"
+        Me.MnuThreadSymbols.Size = New System.Drawing.Size(250, 22)
+        Me.MnuThreadSymbols.Text = "Assign Symbols to Project Palette"
         '
         'ToolStripSeparator16
         '
@@ -1498,26 +1438,26 @@ Partial Class FrmStitchDesign
         '
         Me.MnuThreads.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPickColour, Me.MnuChangeColour, Me.MnuDeleteColour})
         Me.MnuThreads.Name = "MnuThreads"
-        Me.MnuThreads.Size = New System.Drawing.Size(61, 20)
-        Me.MnuThreads.Text = "Threads"
+        Me.MnuThreads.Size = New System.Drawing.Size(60, 20)
+        Me.MnuThreads.Text = "Colours"
         '
         'MnuPickColour
         '
         Me.MnuPickColour.Name = "MnuPickColour"
-        Me.MnuPickColour.Size = New System.Drawing.Size(194, 22)
-        Me.MnuPickColour.Text = "Pick colour from stitch"
+        Me.MnuPickColour.Size = New System.Drawing.Size(214, 22)
+        Me.MnuPickColour.Text = "Pick Colour From Stitch"
         '
         'MnuChangeColour
         '
         Me.MnuChangeColour.Name = "MnuChangeColour"
-        Me.MnuChangeColour.Size = New System.Drawing.Size(194, 22)
-        Me.MnuChangeColour.Text = "Change colour"
+        Me.MnuChangeColour.Size = New System.Drawing.Size(214, 22)
+        Me.MnuChangeColour.Text = "Change Colour in Design"
         '
         'MnuDeleteColour
         '
         Me.MnuDeleteColour.Name = "MnuDeleteColour"
-        Me.MnuDeleteColour.Size = New System.Drawing.Size(194, 22)
-        Me.MnuDeleteColour.Text = "Delete colour"
+        Me.MnuDeleteColour.Size = New System.Drawing.Size(214, 22)
+        Me.MnuDeleteColour.Text = "Delete Colour from Design"
         '
         'MnuEdit
         '
@@ -1584,8 +1524,8 @@ Partial Class FrmStitchDesign
         '
         Me.MnuDrawShape.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuEllipse, Me.MnuRectangle})
         Me.MnuDrawShape.Name = "MnuDrawShape"
-        Me.MnuDrawShape.Size = New System.Drawing.Size(167, 22)
-        Me.MnuDrawShape.Text = "Draw Shape"
+        Me.MnuDrawShape.Size = New System.Drawing.Size(180, 22)
+        Me.MnuDrawShape.Text = "Draw Shape Outline"
         '
         'MnuEllipse
         '
@@ -1675,8 +1615,8 @@ Partial Class FrmStitchDesign
         'MnuZoom
         '
         Me.MnuZoom.Name = "MnuZoom"
-        Me.MnuZoom.Size = New System.Drawing.Size(173, 22)
-        Me.MnuZoom.Text = "Zoom"
+        Me.MnuZoom.Size = New System.Drawing.Size(180, 22)
+        Me.MnuZoom.Text = "Zoom to Selection"
         '
         'ToolStripSeparator12
         '
@@ -1794,8 +1734,6 @@ Partial Class FrmStitchDesign
         CType(Me.ScPalette, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ScPalette.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
-        Me.PnlPaletteName.ResumeLayout(False)
-        Me.PnlPaletteName.PerformLayout()
         CType(Me.PicDesign, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
@@ -1945,11 +1883,6 @@ Partial Class FrmStitchDesign
     Friend WithEvents MnuChangeColour As ToolStripMenuItem
     Friend WithEvents MnuDeleteColour As ToolStripMenuItem
     Friend WithEvents MnuSavePalette As ToolStripMenuItem
-    Friend WithEvents PnlPaletteName As Panel
-    Friend WithEvents BtnCancelPalette As Button
-    Friend WithEvents BtnSavePalette As Button
-    Friend WithEvents TxtPaletteName As TextBox
-    Friend WithEvents Label1 As Label
     Friend WithEvents MnuCentreMarks As ToolStripMenuItem
     Friend WithEvents MnuCropDesign As ToolStripMenuItem
     Friend WithEvents MnuExtendDesign As ToolStripMenuItem
