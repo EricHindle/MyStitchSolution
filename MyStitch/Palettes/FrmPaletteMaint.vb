@@ -89,14 +89,20 @@ Class FrmPaletteMaint
         DgvBeadList.ClearSelection()
     End Sub
     Private Sub BtnAddThread_Click(sender As Object, e As EventArgs) Handles BtnAddThread.Click
-        For Each oRow As DataGridViewRow In DgvThreadList.SelectedRows
-            AddThreadToPaletteList(DgvPaletteThreads, ListThreadId.Name, oRow)
+        For Each oRow As DataGridViewRow In DgvThreadList.Rows
+            If oRow.Cells(listthreadsel.Name).Value Then
+                AddThreadToPaletteList(DgvPaletteThreads, ListThreadId.Name, oRow)
+                oRow.Cells(listthreadsel.Name).Value = False
+            End If
         Next
         DgvThreadList.ClearSelection()
     End Sub
     Private Sub BtnAddBead_Click(sender As Object, e As EventArgs) Handles BtnAddBead.Click
-        For Each oRow As DataGridViewRow In DgvBeadList.SelectedRows
-            AddBeadToPaletteList(DgvPaletteBeads, ListBeadId.Name, oRow)
+        For Each oRow As DataGridViewRow In DgvBeadList.Rows
+            If oRow.Cells(listbeadsel.Name).Value Then
+                AddBeadToPaletteList(DgvPaletteBeads, ListBeadId.Name, oRow)
+                oRow.Cells(listbeadsel.Name).Value = False
+            End If
         Next
         DgvBeadList.ClearSelection()
     End Sub
@@ -161,6 +167,7 @@ Class FrmPaletteMaint
             LblPaletteName.Text = String.Empty
         End If
         LoadThreadList()
+        LogUtil.ClearStatus(LblStatus)
     End Sub
     Private Sub AddPalette(pName As String)
         Dim _paletteId As Integer = AddNewPalette(pName.Trim)

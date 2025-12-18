@@ -722,8 +722,8 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuThreadList, Me.MnuBeads, Me.ToolStripSeparator3, Me.MnuProjectThreads, Me.MnuProjectThreadSymbols, Me.ToolStripSeparator5, Me.MnuPalettes, Me.ToolStripSeparator4, Me.MnuBrands})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(97, 24)
-        Me.ToolStripMenuItem4.Text = "Threads/Beads"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(61, 24)
+        Me.ToolStripMenuItem4.Text = "Threads"
         '
         'MnuThreadList
         '
@@ -805,13 +805,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuBuildCards.Text = "Build Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(134, 22)
         Me.MnuPrintCards.Text = "Print Cards"
         '
         'MnuImportImage
@@ -831,7 +831,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem17.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuShowLog, Me.MnuDebug})
         Me.ToolStripMenuItem17.Name = "ToolStripMenuItem17"
-        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem17.Size = New System.Drawing.Size(157, 22)
         Me.ToolStripMenuItem17.Text = "Logging"
         '
         'MnuShowLog
@@ -851,7 +851,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem20.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuBackup, Me.MnuRestore})
         Me.ToolStripMenuItem20.Name = "ToolStripMenuItem20"
-        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem20.Size = New System.Drawing.Size(157, 22)
         Me.ToolStripMenuItem20.Text = "Backup/Restore"
         '
         'MnuBackup
@@ -870,7 +870,7 @@ Partial Class FrmProject
         '
         Me.ToolStripMenuItem23.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuPreferences, Me.MnuPrintSettings, Me.MnuGlobalSettings})
         Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
-        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(157, 22)
         Me.ToolStripMenuItem23.Text = "Preferences"
         '
         'MnuPreferences

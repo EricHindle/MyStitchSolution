@@ -75,11 +75,6 @@ Partial Class FrmPaletteMaint
         Me.TxtThreadNumber = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DgvThreadList = New System.Windows.Forms.DataGridView()
-        Me.ListThreadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -87,12 +82,19 @@ Partial Class FrmPaletteMaint
         Me.TxtBeadNumber = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DgvBeadList = New System.Windows.Forms.DataGridView()
+        Me.LblPaletteName = New System.Windows.Forms.Label()
+        Me.ListThreadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.listthreadsel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.ListBeadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadColour = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.LblPaletteName = New System.Windows.Forms.Label()
+        Me.listbeadsel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         CType(Me.DgvPalettes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -263,7 +265,7 @@ Partial Class FrmPaletteMaint
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 472)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 16, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(871, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(905, 22)
         Me.StatusStrip1.TabIndex = 154
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -289,7 +291,7 @@ Partial Class FrmPaletteMaint
         Me.BtnRemoveThread.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnRemoveThread.BackgroundImage = CType(resources.GetObject("BtnRemoveThread.BackgroundImage"), System.Drawing.Image)
         Me.BtnRemoveThread.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnRemoveThread.Location = New System.Drawing.Point(234, 67)
+        Me.BtnRemoveThread.Location = New System.Drawing.Point(248, 67)
         Me.BtnRemoveThread.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnRemoveThread.Name = "BtnRemoveThread"
         Me.BtnRemoveThread.Size = New System.Drawing.Size(26, 26)
@@ -302,7 +304,7 @@ Partial Class FrmPaletteMaint
         Me.BtnRemoveBead.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BtnRemoveBead.BackgroundImage = CType(resources.GetObject("BtnRemoveBead.BackgroundImage"), System.Drawing.Image)
         Me.BtnRemoveBead.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.BtnRemoveBead.Location = New System.Drawing.Point(234, 67)
+        Me.BtnRemoveBead.Location = New System.Drawing.Point(248, 67)
         Me.BtnRemoveBead.Margin = New System.Windows.Forms.Padding(1)
         Me.BtnRemoveBead.Name = "BtnRemoveBead"
         Me.BtnRemoveBead.Size = New System.Drawing.Size(26, 26)
@@ -337,7 +339,7 @@ Partial Class FrmPaletteMaint
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(265, 412)
+        Me.SplitContainer1.Size = New System.Drawing.Size(279, 412)
         Me.SplitContainer1.SplitterDistance = 264
         Me.SplitContainer1.TabIndex = 23
         '
@@ -350,7 +352,7 @@ Partial Class FrmPaletteMaint
         Me.PnlPaletteThreads.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PnlPaletteThreads.Location = New System.Drawing.Point(0, 0)
         Me.PnlPaletteThreads.Name = "PnlPaletteThreads"
-        Me.PnlPaletteThreads.Size = New System.Drawing.Size(261, 260)
+        Me.PnlPaletteThreads.Size = New System.Drawing.Size(275, 260)
         Me.PnlPaletteThreads.TabIndex = 155
         '
         'DgvPaletteThreads
@@ -384,7 +386,7 @@ Partial Class FrmPaletteMaint
         Me.DgvPaletteThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvPaletteThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvPaletteThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvPaletteThreads.Size = New System.Drawing.Size(229, 221)
+        Me.DgvPaletteThreads.Size = New System.Drawing.Size(243, 221)
         Me.DgvPaletteThreads.TabIndex = 151
         '
         'palettethreadid
@@ -432,7 +434,7 @@ Partial Class FrmPaletteMaint
         Me.BtnDeleteThreads.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnDeleteThreads.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnDeleteThreads.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnDeleteThreads.Location = New System.Drawing.Point(168, 4)
+        Me.BtnDeleteThreads.Location = New System.Drawing.Point(182, 4)
         Me.BtnDeleteThreads.Margin = New System.Windows.Forms.Padding(5)
         Me.BtnDeleteThreads.Name = "BtnDeleteThreads"
         Me.BtnDeleteThreads.Size = New System.Drawing.Size(62, 23)
@@ -460,7 +462,7 @@ Partial Class FrmPaletteMaint
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(261, 140)
+        Me.Panel1.Size = New System.Drawing.Size(275, 140)
         Me.Panel1.TabIndex = 156
         '
         'DgvPaletteBeads
@@ -494,7 +496,7 @@ Partial Class FrmPaletteMaint
         Me.DgvPaletteBeads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvPaletteBeads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvPaletteBeads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvPaletteBeads.Size = New System.Drawing.Size(229, 101)
+        Me.DgvPaletteBeads.Size = New System.Drawing.Size(243, 101)
         Me.DgvPaletteBeads.TabIndex = 151
         '
         'PaletteBeadId
@@ -556,7 +558,7 @@ Partial Class FrmPaletteMaint
         Me.PnlThreadList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PnlThreadList.Location = New System.Drawing.Point(0, 0)
         Me.PnlThreadList.Name = "PnlThreadList"
-        Me.PnlThreadList.Size = New System.Drawing.Size(264, 259)
+        Me.PnlThreadList.Size = New System.Drawing.Size(284, 259)
         Me.PnlThreadList.TabIndex = 158
         '
         'Label5
@@ -564,7 +566,7 @@ Partial Class FrmPaletteMaint
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(166, 8)
+        Me.Label5.Location = New System.Drawing.Point(186, 8)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(29, 14)
         Me.Label5.TabIndex = 161
@@ -574,7 +576,7 @@ Partial Class FrmPaletteMaint
         '
         Me.TxtThreadNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtThreadNumber.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtThreadNumber.Location = New System.Drawing.Point(202, 5)
+        Me.TxtThreadNumber.Location = New System.Drawing.Point(222, 5)
         Me.TxtThreadNumber.Margin = New System.Windows.Forms.Padding(4)
         Me.TxtThreadNumber.Name = "TxtThreadNumber"
         Me.TxtThreadNumber.Size = New System.Drawing.Size(58, 22)
@@ -611,7 +613,7 @@ Partial Class FrmPaletteMaint
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreadList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.DgvThreadList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreadList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ListThreadId, Me.ListThreadName, Me.ListThreadNo, Me.ListThreadSeq, Me.ListThreadColour})
+        Me.DgvThreadList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ListThreadId, Me.ListThreadName, Me.ListThreadNo, Me.ListThreadSeq, Me.ListThreadColour, Me.listthreadsel})
         Me.DgvThreadList.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.DgvThreadList.Location = New System.Drawing.Point(31, 30)
         Me.DgvThreadList.Margin = New System.Windows.Forms.Padding(1)
@@ -623,8 +625,140 @@ Partial Class FrmPaletteMaint
         Me.DgvThreadList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvThreadList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreadList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreadList.Size = New System.Drawing.Size(232, 221)
+        Me.DgvThreadList.Size = New System.Drawing.Size(252, 221)
         Me.DgvThreadList.TabIndex = 154
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer2.Location = New System.Drawing.Point(322, 42)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.SplitContainer1)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
+        Me.SplitContainer2.Size = New System.Drawing.Size(571, 412)
+        Me.SplitContainer2.SplitterDistance = 279
+        Me.SplitContainer2.TabIndex = 159
+        '
+        'SplitContainer3
+        '
+        Me.SplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer3.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer3.Name = "SplitContainer3"
+        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer3.Panel1
+        '
+        Me.SplitContainer3.Panel1.Controls.Add(Me.PnlThreadList)
+        '
+        'SplitContainer3.Panel2
+        '
+        Me.SplitContainer3.Panel2.Controls.Add(Me.Panel2)
+        Me.SplitContainer3.Size = New System.Drawing.Size(288, 412)
+        Me.SplitContainer3.SplitterDistance = 263
+        Me.SplitContainer3.TabIndex = 159
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.TxtBeadNumber)
+        Me.Panel2.Controls.Add(Me.BtnAddBead)
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.DgvBeadList)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(284, 141)
+        Me.Panel2.TabIndex = 159
+        '
+        'Label6
+        '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(186, 9)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(29, 14)
+        Me.Label6.TabIndex = 163
+        Me.Label6.Text = "Find"
+        '
+        'TxtBeadNumber
+        '
+        Me.TxtBeadNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TxtBeadNumber.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TxtBeadNumber.Location = New System.Drawing.Point(222, 6)
+        Me.TxtBeadNumber.Margin = New System.Windows.Forms.Padding(4)
+        Me.TxtBeadNumber.Name = "TxtBeadNumber"
+        Me.TxtBeadNumber.Size = New System.Drawing.Size(58, 22)
+        Me.TxtBeadNumber.TabIndex = 162
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(37, 6)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(88, 19)
+        Me.Label4.TabIndex = 136
+        Me.Label4.Text = "BEAD LIST"
+        '
+        'DgvBeadList
+        '
+        Me.DgvBeadList.AllowUserToAddRows = False
+        Me.DgvBeadList.AllowUserToDeleteRows = False
+        Me.DgvBeadList.AllowUserToResizeRows = False
+        Me.DgvBeadList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DgvBeadList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        Me.DgvBeadList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DgvBeadList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.DgvBeadList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DgvBeadList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ListBeadId, Me.ListBeadName, Me.ListBeadNo, Me.ListBeadSeq, Me.ListBeadColour, Me.listbeadsel})
+        Me.DgvBeadList.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.DgvBeadList.Location = New System.Drawing.Point(31, 30)
+        Me.DgvBeadList.Margin = New System.Windows.Forms.Padding(1)
+        Me.DgvBeadList.Name = "DgvBeadList"
+        Me.DgvBeadList.RowHeadersVisible = False
+        Me.DgvBeadList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(250, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
+        Me.DgvBeadList.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 10.0!)
+        Me.DgvBeadList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray
+        Me.DgvBeadList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
+        Me.DgvBeadList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
+        Me.DgvBeadList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DgvBeadList.Size = New System.Drawing.Size(252, 103)
+        Me.DgvBeadList.TabIndex = 154
+        '
+        'LblPaletteName
+        '
+        Me.LblPaletteName.AutoSize = True
+        Me.LblPaletteName.BackColor = System.Drawing.SystemColors.Control
+        Me.LblPaletteName.Font = New System.Drawing.Font("Felix Titling", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblPaletteName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.LblPaletteName.Location = New System.Drawing.Point(321, 16)
+        Me.LblPaletteName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.LblPaletteName.Name = "LblPaletteName"
+        Me.LblPaletteName.Size = New System.Drawing.Size(109, 16)
+        Me.LblPaletteName.TabIndex = 160
+        Me.LblPaletteName.Text = "PALETTE NAME"
         '
         'ListThreadId
         '
@@ -666,124 +800,12 @@ Partial Class FrmPaletteMaint
         Me.ListThreadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.ListThreadColour.Width = 60
         '
-        'SplitContainer2
+        'listthreadsel
         '
-        Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer2.Location = New System.Drawing.Point(322, 42)
-        Me.SplitContainer2.Name = "SplitContainer2"
-        '
-        'SplitContainer2.Panel1
-        '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.SplitContainer1)
-        '
-        'SplitContainer2.Panel2
-        '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(537, 412)
-        Me.SplitContainer2.SplitterDistance = 265
-        Me.SplitContainer2.TabIndex = 159
-        '
-        'SplitContainer3
-        '
-        Me.SplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer3.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer3.Name = "SplitContainer3"
-        Me.SplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer3.Panel1
-        '
-        Me.SplitContainer3.Panel1.Controls.Add(Me.PnlThreadList)
-        '
-        'SplitContainer3.Panel2
-        '
-        Me.SplitContainer3.Panel2.Controls.Add(Me.Panel2)
-        Me.SplitContainer3.Size = New System.Drawing.Size(268, 412)
-        Me.SplitContainer3.SplitterDistance = 263
-        Me.SplitContainer3.TabIndex = 159
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.Label6)
-        Me.Panel2.Controls.Add(Me.TxtBeadNumber)
-        Me.Panel2.Controls.Add(Me.BtnAddBead)
-        Me.Panel2.Controls.Add(Me.Label4)
-        Me.Panel2.Controls.Add(Me.DgvBeadList)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(264, 141)
-        Me.Panel2.TabIndex = 159
-        '
-        'Label6
-        '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(166, 9)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(29, 14)
-        Me.Label6.TabIndex = 163
-        Me.Label6.Text = "Find"
-        '
-        'TxtBeadNumber
-        '
-        Me.TxtBeadNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TxtBeadNumber.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TxtBeadNumber.Location = New System.Drawing.Point(202, 6)
-        Me.TxtBeadNumber.Margin = New System.Windows.Forms.Padding(4)
-        Me.TxtBeadNumber.Name = "TxtBeadNumber"
-        Me.TxtBeadNumber.Size = New System.Drawing.Size(58, 22)
-        Me.TxtBeadNumber.TabIndex = 162
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(37, 6)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(88, 19)
-        Me.Label4.TabIndex = 136
-        Me.Label4.Text = "BEAD LIST"
-        '
-        'DgvBeadList
-        '
-        Me.DgvBeadList.AllowUserToAddRows = False
-        Me.DgvBeadList.AllowUserToDeleteRows = False
-        Me.DgvBeadList.AllowUserToResizeRows = False
-        Me.DgvBeadList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DgvBeadList.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        Me.DgvBeadList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Tahoma", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(239, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(230, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(0, Byte), Integer))
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DgvBeadList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
-        Me.DgvBeadList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvBeadList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ListBeadId, Me.ListBeadName, Me.ListBeadNo, Me.ListBeadSeq, Me.ListBeadColour})
-        Me.DgvBeadList.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.DgvBeadList.Location = New System.Drawing.Point(31, 30)
-        Me.DgvBeadList.Margin = New System.Windows.Forms.Padding(1)
-        Me.DgvBeadList.Name = "DgvBeadList"
-        Me.DgvBeadList.RowHeadersVisible = False
-        Me.DgvBeadList.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(250, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(240, Byte), Integer))
-        Me.DgvBeadList.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 10.0!)
-        Me.DgvBeadList.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.DimGray
-        Me.DgvBeadList.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
-        Me.DgvBeadList.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
-        Me.DgvBeadList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvBeadList.Size = New System.Drawing.Size(232, 103)
-        Me.DgvBeadList.TabIndex = 154
+        Me.listthreadsel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.listthreadsel.HeaderText = ""
+        Me.listthreadsel.Name = "listthreadsel"
+        Me.listthreadsel.Width = 30
         '
         'ListBeadId
         '
@@ -825,24 +847,18 @@ Partial Class FrmPaletteMaint
         Me.ListBeadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.ListBeadColour.Width = 60
         '
-        'LblPaletteName
+        'listbeadsel
         '
-        Me.LblPaletteName.AutoSize = True
-        Me.LblPaletteName.BackColor = System.Drawing.SystemColors.Control
-        Me.LblPaletteName.Font = New System.Drawing.Font("Felix Titling", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPaletteName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.LblPaletteName.Location = New System.Drawing.Point(321, 16)
-        Me.LblPaletteName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.LblPaletteName.Name = "LblPaletteName"
-        Me.LblPaletteName.Size = New System.Drawing.Size(109, 16)
-        Me.LblPaletteName.TabIndex = 160
-        Me.LblPaletteName.Text = "PALETTE NAME"
+        Me.listbeadsel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.listbeadsel.HeaderText = ""
+        Me.listbeadsel.Name = "listbeadsel"
+        Me.listbeadsel.Width = 30
         '
         'FrmPaletteMaint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(871, 494)
+        Me.ClientSize = New System.Drawing.Size(905, 494)
         Me.Controls.Add(Me.LblPaletteName)
         Me.Controls.Add(Me.SplitContainer2)
         Me.Controls.Add(Me.StatusStrip1)
@@ -942,9 +958,11 @@ Partial Class FrmPaletteMaint
     Friend WithEvents ListThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents ListThreadSeq As DataGridViewTextBoxColumn
     Friend WithEvents ListThreadColour As DataGridViewImageColumn
+    Friend WithEvents listthreadsel As DataGridViewCheckBoxColumn
     Friend WithEvents ListBeadId As DataGridViewTextBoxColumn
     Friend WithEvents ListBeadName As DataGridViewTextBoxColumn
     Friend WithEvents ListBeadNo As DataGridViewTextBoxColumn
     Friend WithEvents ListBeadSeq As DataGridViewTextBoxColumn
     Friend WithEvents ListBeadColour As DataGridViewImageColumn
+    Friend WithEvents listbeadsel As DataGridViewCheckBoxColumn
 End Class
