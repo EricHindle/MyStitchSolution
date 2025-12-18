@@ -635,6 +635,7 @@ Public Class FrmStitchDesign
             _stitchStyle.ShowDialog()
         End Using
         oStitchDisplayStyle = My.Settings.DesignStitchDisplay
+        SetDisplayStyleImage()
         RedrawDesign(False)
         InitialisePalette()
     End Sub
@@ -2645,6 +2646,7 @@ Public Class FrmStitchDesign
         Next
         oUndoList.Add(_newList)
     End Sub
+
 #End Region
 #End Region
 End Class
