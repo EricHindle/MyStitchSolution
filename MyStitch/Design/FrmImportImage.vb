@@ -80,6 +80,7 @@ Public Class FrmImportImage
             Dim _sidesratio As Double = _imageSize.Height / _imageSize.Width
             NudDesignHeight.Value = Math.Ceiling(_sidesratio * _scaleWidth)
             NudScaleFactor.Value = Math.Max(1, _imageSize.Width / _scaleWidth)
+            NudFabricWidth.Value = NudDesignWidth.Value + 4
             isSizeChanging = False
         End If
     End Sub
@@ -90,6 +91,7 @@ Public Class FrmImportImage
             Dim _sidesratio As Double = _imageSize.Height / _imageSize.Width
             NudDesignWidth.Value = Math.Ceiling(_scaleHeight / _sidesratio)
             NudScaleFactor.Value = Math.Max(1, _imageSize.Height / _scaleHeight)
+            NudFabricHeight.Value = NudDesignHeight.Value + 4
             isSizeChanging = False
         End If
     End Sub

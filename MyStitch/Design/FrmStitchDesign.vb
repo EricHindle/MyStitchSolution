@@ -788,7 +788,7 @@ Public Class FrmStitchDesign
             oCurrentStitchType = DesignAction.Bead
             StitchButtonSelected(BtnBead)
         Else
-            MsgBox("Add beads to the palette to use beads in the design", MsgBoxStyle.Exclamation, "Function no available")
+            MsgBox("Add beads to the palette to use beads in the design", MsgBoxStyle.Exclamation, "Function not available")
             LogUtil.ShowStatus("No beads on the palette", LblStatus)
         End If
     End Sub

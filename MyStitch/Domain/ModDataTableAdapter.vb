@@ -666,7 +666,7 @@ Namespace Domain
             Return ProjectThreadBuilder.AProjectThread.StartingWith(GetProjectThreadByKey(pProjectId, pThreadId)).Build
         End Function
         Public Function AddNewProjectThread(pProjectThread As ProjectThread) As Boolean
-            LogUtil.LogInfo("Adding new project thread", MethodBase.GetCurrentMethod.Name)
+            LogUtil.Debug("Adding new project thread", MethodBase.GetCurrentMethod.Name)
             Dim isOK As Boolean = True
             If pProjectThread IsNot Nothing Then
                 Try
@@ -873,7 +873,7 @@ Namespace Domain
             Return _list
         End Function
         Public Function AddNewCardThread(ByRef pProjectCardThread As ProjectCardThread) As Boolean
-            LogUtil.LogInfo("Adding new card thread", MethodBase.GetCurrentMethod.Name)
+            LogUtil.Debug("Adding new card thread", MethodBase.GetCurrentMethod.Name)
             If pProjectCardThread IsNot Nothing Then
                 Try
                     Dim oThreadRow As ProjectCardThreadRow = oProjectCardThreadDataTable.NewRow
