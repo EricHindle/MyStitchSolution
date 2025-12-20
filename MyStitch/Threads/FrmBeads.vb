@@ -73,7 +73,8 @@ Public Class FrmBeads
     End Sub
     Private Sub ClearBeadForm()
         DgvBeads.ClearSelection()
-        LblId.Text = _selectedBead.beadId
+        LblId.Text = _selectedBead.BeadId
+        LblId.Visible = False
         TxtName.Text = ""
         TxtNumber.Text = ""
         TxtR.Text = String.Empty
@@ -85,7 +86,8 @@ Public Class FrmBeads
     End Sub
     Private Sub LoadBeadForm(oBead As Bead)
         _selectedBead = oBead
-        LblId.Text = _selectedBead.beadId
+        LblId.Text = _selectedBead.BeadId
+        LblId.Visible = True
         TxtName.Text = oBead.ColourName
         TxtNumber.Text = CStr(oBead.beadNo)
         Dim _colour As Color = oBead.Colour

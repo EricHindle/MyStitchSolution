@@ -50,6 +50,8 @@ Partial Class FrmThread
         Me.BtnNew = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.CbBrand = New System.Windows.Forms.ComboBox()
         Me.GrpStock = New System.Windows.Forms.GroupBox()
         Me.RbSome = New System.Windows.Forms.RadioButton()
         Me.RbEnough = New System.Windows.Forms.RadioButton()
@@ -72,8 +74,6 @@ Partial Class FrmThread
         Me.BtnClose = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.CbBrand = New System.Windows.Forms.ComboBox()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlForm.SuspendLayout()
         Me.GrpStock.SuspendLayout()
@@ -155,6 +155,7 @@ Partial Class FrmThread
         Me.LblId.Size = New System.Drawing.Size(24, 19)
         Me.LblId.TabIndex = 108
         Me.LblId.Text = "Id"
+        Me.LblId.Visible = False
         '
         'Label1
         '
@@ -325,6 +326,28 @@ Partial Class FrmThread
         Me.PnlForm.Name = "PnlForm"
         Me.PnlForm.Size = New System.Drawing.Size(372, 392)
         Me.PnlForm.TabIndex = 130
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label2.Location = New System.Drawing.Point(17, 292)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(50, 19)
+        Me.Label2.TabIndex = 138
+        Me.Label2.Text = "Brand"
+        '
+        'CbBrand
+        '
+        Me.CbBrand.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbBrand.FormattingEnabled = True
+        Me.CbBrand.Location = New System.Drawing.Point(96, 289)
+        Me.CbBrand.Name = "CbBrand"
+        Me.CbBrand.Size = New System.Drawing.Size(121, 27)
+        Me.CbBrand.TabIndex = 137
         '
         'GrpStock
         '
@@ -559,28 +582,6 @@ Partial Class FrmThread
         Me.ChkShowStock.TabIndex = 133
         Me.ChkShowStock.Text = "Show stock level"
         Me.ChkShowStock.UseVisualStyleBackColor = True
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(17, 292)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(50, 19)
-        Me.Label2.TabIndex = 138
-        Me.Label2.Text = "Brand"
-        '
-        'CbBrand
-        '
-        Me.CbBrand.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbBrand.FormattingEnabled = True
-        Me.CbBrand.Location = New System.Drawing.Point(96, 289)
-        Me.CbBrand.Name = "CbBrand"
-        Me.CbBrand.Size = New System.Drawing.Size(121, 27)
-        Me.CbBrand.TabIndex = 137
         '
         'FrmThread
         '

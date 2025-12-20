@@ -280,12 +280,14 @@ Public Class FrmProject
         LoadProjectForm(_selectedProject)
         oProject = New Project
         oProjectDesign = New ProjectDesign
+        LblProjectId.Visible = False
     End Sub
     Friend Sub LoadProjectSettings()
         MnuDebug.Checked = My.Settings.isDebugOn
     End Sub
     Private Sub ClearProjectForm()
         DgvProjects.ClearSelection()
+        LblProjectId.Visible = False
     End Sub
     Private Sub LoadProjectForm(pProject As Project)
         _selectedProject = pProject

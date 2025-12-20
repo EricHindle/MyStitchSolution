@@ -70,10 +70,10 @@ Partial Class FrmBeads
         Me.beadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BtnDelete = New System.Windows.Forms.Button()
         Me.PnlForm = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.CbBrand = New System.Windows.Forms.ComboBox()
         Me.BtnNew = New System.Windows.Forms.Button()
         Me.BtnUpdate = New System.Windows.Forms.Button()
-        Me.CbBrand = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.GrpStock.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -376,6 +376,7 @@ Partial Class FrmBeads
         Me.LblId.Size = New System.Drawing.Size(24, 19)
         Me.LblId.TabIndex = 108
         Me.LblId.Text = "Id"
+        Me.LblId.Visible = False
         '
         'Label4
         '
@@ -530,6 +531,28 @@ Partial Class FrmBeads
         Me.PnlForm.Size = New System.Drawing.Size(372, 415)
         Me.PnlForm.TabIndex = 140
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.SystemColors.Control
+        Me.Label2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label2.Location = New System.Drawing.Point(17, 297)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(50, 19)
+        Me.Label2.TabIndex = 136
+        Me.Label2.Text = "Brand"
+        '
+        'CbBrand
+        '
+        Me.CbBrand.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CbBrand.FormattingEnabled = True
+        Me.CbBrand.Location = New System.Drawing.Point(96, 294)
+        Me.CbBrand.Name = "CbBrand"
+        Me.CbBrand.Size = New System.Drawing.Size(121, 27)
+        Me.CbBrand.TabIndex = 135
+        '
         'BtnNew
         '
         Me.BtnNew.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
@@ -559,28 +582,6 @@ Partial Class FrmBeads
         Me.BtnUpdate.TabIndex = 134
         Me.BtnUpdate.Text = "Update"
         Me.BtnUpdate.UseVisualStyleBackColor = False
-        '
-        'CbBrand
-        '
-        Me.CbBrand.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CbBrand.FormattingEnabled = True
-        Me.CbBrand.Location = New System.Drawing.Point(96, 294)
-        Me.CbBrand.Name = "CbBrand"
-        Me.CbBrand.Size = New System.Drawing.Size(121, 27)
-        Me.CbBrand.TabIndex = 135
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.SystemColors.Control
-        Me.Label2.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label2.Location = New System.Drawing.Point(17, 297)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(50, 19)
-        Me.Label2.TabIndex = 136
-        Me.Label2.Text = "Brand"
         '
         'FrmBeads
         '

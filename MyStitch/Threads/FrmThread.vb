@@ -73,6 +73,7 @@ Public Class FrmThread
     Private Sub ClearThreadForm()
         DgvThreads.ClearSelection()
         LblId.Text = _selectedThread.ThreadId
+        LblId.Visible = False
         TxtName.Text = ""
         TxtNumber.Text = ""
         TxtR.Text = String.Empty
@@ -85,6 +86,7 @@ Public Class FrmThread
     Private Sub LoadThreadForm(oThread As Thread)
         _selectedThread = oThread
         LblId.Text = _selectedThread.ThreadId
+        LblId.Visible = True
         TxtName.Text = oThread.ColourName
         TxtNumber.Text = CStr(oThread.ThreadNo)
         CbBrand.SelectedValue = oThread.BrandId

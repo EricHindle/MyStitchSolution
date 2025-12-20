@@ -593,6 +593,7 @@ Partial Class FrmProject
         Me.LblProjectId.Size = New System.Drawing.Size(24, 19)
         Me.LblProjectId.TabIndex = 12
         Me.LblProjectId.Text = "Id"
+        Me.LblProjectId.Visible = False
         '
         'Label1
         '
