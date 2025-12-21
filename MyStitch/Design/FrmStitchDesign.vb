@@ -693,11 +693,10 @@ Public Class FrmStitchDesign
         End If
     End Sub
     Private Sub MnuThreadCards_Click(sender As Object, e As EventArgs) Handles MnuThreadCards.Click
-
         OpenBuildCardsForm(oProject)
     End Sub
     Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
-        OpenPrintCardsForm()
+        OpenPrintCardsForm(oProject)
     End Sub
     Private Sub MnuCentreMarks_Click(sender As Object, e As EventArgs) Handles MnuCentreMarks.Click
         ToggleCentreMarks()

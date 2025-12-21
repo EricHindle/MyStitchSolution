@@ -16,8 +16,9 @@ Module ModCards
             _buildCards.ShowDialog()
         End Using
     End Sub
-    Public Sub OpenPrintCardsForm()
+    Public Sub OpenPrintCardsForm(pProject As Project)
         Using _PrintCards As New FrmPrintThreadCards
+            _PrintCards.SelectedProject = pProject
             _PrintCards.ShowDialog()
         End Using
     End Sub

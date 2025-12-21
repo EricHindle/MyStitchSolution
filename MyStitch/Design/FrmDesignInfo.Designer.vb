@@ -57,6 +57,15 @@ Partial Class FrmDesignInfo
         Me.block_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.DgvBack = New System.Windows.Forms.DataGridView()
+        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_from_qtr = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_to_qtr = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SplitContainer4 = New System.Windows.Forms.SplitContainer()
         Me.DgvKnot = New System.Windows.Forms.DataGridView()
         Me.knot_pos_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -118,15 +127,6 @@ Partial Class FrmDesignInfo
         Me.ChkShowBlock = New System.Windows.Forms.CheckBox()
         Me.ChkShowBack = New System.Windows.Forms.CheckBox()
         Me.ChkShowKnots = New System.Windows.Forms.CheckBox()
-        Me.back_from_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_from_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_from_qtr = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_x = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_y = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_to_qtr = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_id = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_thread_no = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.back_strands = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DgvThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -465,6 +465,78 @@ Partial Class FrmDesignInfo
         Me.DgvBack.RowHeadersVisible = False
         Me.DgvBack.Size = New System.Drawing.Size(652, 153)
         Me.DgvBack.TabIndex = 159
+        '
+        'back_from_x
+        '
+        Me.back_from_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_from_x.HeaderText = "From X"
+        Me.back_from_x.Name = "back_from_x"
+        Me.back_from_x.ReadOnly = True
+        Me.back_from_x.Width = 70
+        '
+        'back_from_y
+        '
+        Me.back_from_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_from_y.HeaderText = "From Y"
+        Me.back_from_y.Name = "back_from_y"
+        Me.back_from_y.ReadOnly = True
+        Me.back_from_y.Width = 70
+        '
+        'back_from_qtr
+        '
+        Me.back_from_qtr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_from_qtr.HeaderText = "Qtr"
+        Me.back_from_qtr.Name = "back_from_qtr"
+        Me.back_from_qtr.ReadOnly = True
+        Me.back_from_qtr.Width = 40
+        '
+        'back_to_x
+        '
+        Me.back_to_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_to_x.HeaderText = "To X"
+        Me.back_to_x.Name = "back_to_x"
+        Me.back_to_x.ReadOnly = True
+        Me.back_to_x.Width = 70
+        '
+        'back_to_y
+        '
+        Me.back_to_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_to_y.HeaderText = "To Y"
+        Me.back_to_y.Name = "back_to_y"
+        Me.back_to_y.ReadOnly = True
+        Me.back_to_y.Width = 70
+        '
+        'back_to_qtr
+        '
+        Me.back_to_qtr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_to_qtr.HeaderText = "Qtr"
+        Me.back_to_qtr.Name = "back_to_qtr"
+        Me.back_to_qtr.ReadOnly = True
+        Me.back_to_qtr.Width = 40
+        '
+        'back_thread_id
+        '
+        Me.back_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_thread_id.HeaderText = "Thread Id"
+        Me.back_thread_id.Name = "back_thread_id"
+        Me.back_thread_id.ReadOnly = True
+        Me.back_thread_id.Width = 90
+        '
+        'back_thread_no
+        '
+        Me.back_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_thread_no.HeaderText = "Thread No"
+        Me.back_thread_no.Name = "back_thread_no"
+        Me.back_thread_no.ReadOnly = True
+        Me.back_thread_no.Width = 90
+        '
+        'back_strands
+        '
+        Me.back_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.back_strands.HeaderText = "Strands"
+        Me.back_strands.Name = "back_strands"
+        Me.back_strands.ReadOnly = True
+        Me.back_strands.Width = 60
         '
         'SplitContainer4
         '
@@ -1128,78 +1200,6 @@ Partial Class FrmDesignInfo
         Me.ChkShowKnots.TabIndex = 204
         Me.ChkShowKnots.Text = "Show"
         Me.ChkShowKnots.UseVisualStyleBackColor = True
-        '
-        'back_from_x
-        '
-        Me.back_from_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_from_x.HeaderText = "From X"
-        Me.back_from_x.Name = "back_from_x"
-        Me.back_from_x.ReadOnly = True
-        Me.back_from_x.Width = 70
-        '
-        'back_from_y
-        '
-        Me.back_from_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_from_y.HeaderText = "From Y"
-        Me.back_from_y.Name = "back_from_y"
-        Me.back_from_y.ReadOnly = True
-        Me.back_from_y.Width = 70
-        '
-        'back_from_qtr
-        '
-        Me.back_from_qtr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_from_qtr.HeaderText = "Qtr"
-        Me.back_from_qtr.Name = "back_from_qtr"
-        Me.back_from_qtr.ReadOnly = True
-        Me.back_from_qtr.Width = 40
-        '
-        'back_to_x
-        '
-        Me.back_to_x.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_to_x.HeaderText = "To X"
-        Me.back_to_x.Name = "back_to_x"
-        Me.back_to_x.ReadOnly = True
-        Me.back_to_x.Width = 70
-        '
-        'back_to_y
-        '
-        Me.back_to_y.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_to_y.HeaderText = "To Y"
-        Me.back_to_y.Name = "back_to_y"
-        Me.back_to_y.ReadOnly = True
-        Me.back_to_y.Width = 70
-        '
-        'back_to_qtr
-        '
-        Me.back_to_qtr.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_to_qtr.HeaderText = "Qtr"
-        Me.back_to_qtr.Name = "back_to_qtr"
-        Me.back_to_qtr.ReadOnly = True
-        Me.back_to_qtr.Width = 40
-        '
-        'back_thread_id
-        '
-        Me.back_thread_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_thread_id.HeaderText = "Thread Id"
-        Me.back_thread_id.Name = "back_thread_id"
-        Me.back_thread_id.ReadOnly = True
-        Me.back_thread_id.Width = 90
-        '
-        'back_thread_no
-        '
-        Me.back_thread_no.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_thread_no.HeaderText = "Thread No"
-        Me.back_thread_no.Name = "back_thread_no"
-        Me.back_thread_no.ReadOnly = True
-        Me.back_thread_no.Width = 90
-        '
-        'back_strands
-        '
-        Me.back_strands.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.back_strands.HeaderText = "Strands"
-        Me.back_strands.Name = "back_strands"
-        Me.back_strands.ReadOnly = True
-        Me.back_strands.Width = 60
         '
         'FrmDesignInfo
         '

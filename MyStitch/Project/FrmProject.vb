@@ -27,6 +27,8 @@ Public Class FrmProject
     Private Const PROJECT_NOT_UPDATED As String = "Project NOT Updated"
     Private Const NO_PROJECT_SELECTED As String = "No Project Selected"
     Private Const DESIGN_NOT_FOUND As String = "Design File not found"
+    Private Const PANEL_MAX_WIDTH As Integer = 370
+
 #End Region
 #Region "variables"
     Private _selectedProject As New Project
@@ -35,6 +37,7 @@ Public Class FrmProject
 #Region "handlers"
     Private Sub FrmProject_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("MyStitch Projects", MyBase.Name)
+        iPanelMax = PANEL_MAX_WIDTH
         LoadProjectSettings()
         AddInstruction(SELECT_OR_ADD)
         InitialiseProjects()
@@ -239,7 +242,7 @@ Public Class FrmProject
         OpenBuildCardsForm(_selectedProject)
     End Sub
     Private Sub MnuPrintCards_Click(sender As Object, e As EventArgs) Handles MnuPrintCards.Click
-        OpenPrintCardsForm()
+        OpenPrintCardsForm(_selectedProject)
     End Sub
     Private Sub MnuPrintSettings_Click(sender As Object, e As EventArgs) Handles MnuPrintSettings.Click
         ShowPrintSettingsForm()
@@ -271,7 +274,9 @@ Public Class FrmProject
     Private Sub MnuPalettes_Click(sender As Object, e As EventArgs) Handles MnuPalettes.Click
         OpenPaletteForm()
     End Sub
-
+    Private Sub MnuGlobalSettings_Click(sender As Object, e As EventArgs) Handles MnuGlobalSettings.Click
+        OpenSettingsForm()
+    End Sub
 #End Region
 #Region "functions"
     Private Sub InitialiseForm()
@@ -317,17 +322,9 @@ Public Class FrmProject
         AddInstruction(pText, False)
     End Sub
     Private Sub AddInstruction(pText As String, pIsLogged As Boolean)
-        If Not String.IsNullOrWhiteSpace(pText) Then
-            LblInstruction.Text = pText
-            PnlInstruction.Visible = True
-            If pIsLogged Then
-                LogUtil.LogInfo(pText, MyBase.Name)
-            End If
-        Else
-            LblInstruction.Text = String.Empty
-            PnlInstruction.Visible = False
-        End If
+        ModCommon.AddInstruction(pText, LblInstruction, PnlInstruction, pIsLogged, String.Empty)
     End Sub
+
     Private Function BuildProjectFromForm(pProject As Project) As Project
         Dim _fcolr As Integer = If(CbFabricColour.SelectedIndex = CbFabricColour.Items.Count - 1, PicFabricColour.BackColor.ToArgb, CbFabricColour.SelectedIndex + 1)
         Dim _project As Project = ProjectBuilder.AProject.StartingWithNothing _
@@ -580,6 +577,7 @@ Public Class FrmProject
     Private Sub NudDesignHeight_ValueChanged(sender As Object, e As EventArgs) Handles NudDesignHeight.ValueChanged
         NudFabricHeight.Value = Math.Max(NudFabricHeight.Value, NudDesignHeight.Value)
     End Sub
+
 
 #End Region
 End Class

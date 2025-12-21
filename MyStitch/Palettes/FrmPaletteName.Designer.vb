@@ -29,6 +29,7 @@ Partial Class FrmPaletteName
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPaletteName))
         Me.BtnCancelPalette = New System.Windows.Forms.Button()
         Me.BtnSavePalette = New System.Windows.Forms.Button()
         Me.TxtPaletteName = New System.Windows.Forms.TextBox()
@@ -123,6 +124,7 @@ Partial Class FrmPaletteName
         Me.Controls.Add(Me.TxtPaletteName)
         Me.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FrmPaletteName"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent

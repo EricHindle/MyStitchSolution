@@ -75,6 +75,12 @@ Partial Class FrmPaletteMaint
         Me.TxtThreadNumber = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.DgvThreadList = New System.Windows.Forms.DataGridView()
+        Me.ListThreadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListThreadColour = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.listthreadsel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer3 = New System.Windows.Forms.SplitContainer()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -82,19 +88,13 @@ Partial Class FrmPaletteMaint
         Me.TxtBeadNumber = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DgvBeadList = New System.Windows.Forms.DataGridView()
-        Me.LblPaletteName = New System.Windows.Forms.Label()
-        Me.ListThreadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListThreadColour = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.listthreadsel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.ListBeadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListBeadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.listbeadsel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.LblPaletteName = New System.Windows.Forms.Label()
         CType(Me.DgvPalettes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -628,6 +628,53 @@ Partial Class FrmPaletteMaint
         Me.DgvThreadList.Size = New System.Drawing.Size(252, 221)
         Me.DgvThreadList.TabIndex = 154
         '
+        'ListThreadId
+        '
+        Me.ListThreadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.ListThreadId.HeaderText = "Id"
+        Me.ListThreadId.Name = "ListThreadId"
+        Me.ListThreadId.ReadOnly = True
+        Me.ListThreadId.Visible = False
+        '
+        'ListThreadName
+        '
+        Me.ListThreadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.ListThreadName.HeaderText = "Name"
+        Me.ListThreadName.Name = "ListThreadName"
+        Me.ListThreadName.ReadOnly = True
+        '
+        'ListThreadNo
+        '
+        Me.ListThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.ListThreadNo.HeaderText = "No."
+        Me.ListThreadNo.Name = "ListThreadNo"
+        Me.ListThreadNo.ReadOnly = True
+        Me.ListThreadNo.Width = 50
+        '
+        'ListThreadSeq
+        '
+        Me.ListThreadSeq.HeaderText = "Seq"
+        Me.ListThreadSeq.Name = "ListThreadSeq"
+        Me.ListThreadSeq.ReadOnly = True
+        Me.ListThreadSeq.Visible = False
+        '
+        'ListThreadColour
+        '
+        Me.ListThreadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.ListThreadColour.HeaderText = "Colour"
+        Me.ListThreadColour.Name = "ListThreadColour"
+        Me.ListThreadColour.ReadOnly = True
+        Me.ListThreadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ListThreadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.ListThreadColour.Width = 60
+        '
+        'listthreadsel
+        '
+        Me.listthreadsel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.listthreadsel.HeaderText = ""
+        Me.listthreadsel.Name = "listthreadsel"
+        Me.listthreadsel.Width = 30
+        '
         'SplitContainer2
         '
         Me.SplitContainer2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -747,66 +794,6 @@ Partial Class FrmPaletteMaint
         Me.DgvBeadList.Size = New System.Drawing.Size(252, 103)
         Me.DgvBeadList.TabIndex = 154
         '
-        'LblPaletteName
-        '
-        Me.LblPaletteName.AutoSize = True
-        Me.LblPaletteName.BackColor = System.Drawing.SystemColors.Control
-        Me.LblPaletteName.Font = New System.Drawing.Font("Felix Titling", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblPaletteName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.LblPaletteName.Location = New System.Drawing.Point(321, 16)
-        Me.LblPaletteName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.LblPaletteName.Name = "LblPaletteName"
-        Me.LblPaletteName.Size = New System.Drawing.Size(109, 16)
-        Me.LblPaletteName.TabIndex = 160
-        Me.LblPaletteName.Text = "PALETTE NAME"
-        '
-        'ListThreadId
-        '
-        Me.ListThreadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ListThreadId.HeaderText = "Id"
-        Me.ListThreadId.Name = "ListThreadId"
-        Me.ListThreadId.ReadOnly = True
-        Me.ListThreadId.Visible = False
-        '
-        'ListThreadName
-        '
-        Me.ListThreadName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.ListThreadName.HeaderText = "Name"
-        Me.ListThreadName.Name = "ListThreadName"
-        Me.ListThreadName.ReadOnly = True
-        '
-        'ListThreadNo
-        '
-        Me.ListThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ListThreadNo.HeaderText = "No."
-        Me.ListThreadNo.Name = "ListThreadNo"
-        Me.ListThreadNo.ReadOnly = True
-        Me.ListThreadNo.Width = 50
-        '
-        'ListThreadSeq
-        '
-        Me.ListThreadSeq.HeaderText = "Seq"
-        Me.ListThreadSeq.Name = "ListThreadSeq"
-        Me.ListThreadSeq.ReadOnly = True
-        Me.ListThreadSeq.Visible = False
-        '
-        'ListThreadColour
-        '
-        Me.ListThreadColour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ListThreadColour.HeaderText = "Colour"
-        Me.ListThreadColour.Name = "ListThreadColour"
-        Me.ListThreadColour.ReadOnly = True
-        Me.ListThreadColour.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ListThreadColour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.ListThreadColour.Width = 60
-        '
-        'listthreadsel
-        '
-        Me.listthreadsel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.listthreadsel.HeaderText = ""
-        Me.listthreadsel.Name = "listthreadsel"
-        Me.listthreadsel.Width = 30
-        '
         'ListBeadId
         '
         Me.ListBeadId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
@@ -853,6 +840,19 @@ Partial Class FrmPaletteMaint
         Me.listbeadsel.HeaderText = ""
         Me.listbeadsel.Name = "listbeadsel"
         Me.listbeadsel.Width = 30
+        '
+        'LblPaletteName
+        '
+        Me.LblPaletteName.AutoSize = True
+        Me.LblPaletteName.BackColor = System.Drawing.SystemColors.Control
+        Me.LblPaletteName.Font = New System.Drawing.Font("Felix Titling", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblPaletteName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.LblPaletteName.Location = New System.Drawing.Point(321, 16)
+        Me.LblPaletteName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.LblPaletteName.Name = "LblPaletteName"
+        Me.LblPaletteName.Size = New System.Drawing.Size(109, 16)
+        Me.LblPaletteName.TabIndex = 160
+        Me.LblPaletteName.Text = "PALETTE NAME"
         '
         'FrmPaletteMaint
         '

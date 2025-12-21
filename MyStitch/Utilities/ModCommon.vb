@@ -9,9 +9,12 @@ Imports System.Globalization
 Imports System.IO
 Imports HindlewareLib.Logging
 
-Module ModCommon
+Friend Module ModCommon
 #Region "constants"
     Public Const DATA_FILE_NAME As String = "MyStitchData"
+    Public Const SELECT_PROJECT As String = "Select a Project"
+    Public Const SELECT_CARD As String = "Select a Card"
+    Public Const ADD_CARD As String = "Add card to page"
 #End Region
 #Region "variables"
     Public oDataFolderName As String
@@ -26,6 +29,7 @@ Module ModCommon
     Public myCultureInfo As CultureInfo = CultureInfo.CurrentUICulture
     Public isUpgradedSettings As Boolean = False
     Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
+    Public iPanelMax As Integer = 370
 #End Region
 #Region "enum"
     Public Enum FormType
@@ -261,11 +265,26 @@ Module ModCommon
             _backup.ShowDialog()
         End Using
     End Sub
+
     'Public Sub OpenGlobalSettingsForm()
     '    LogUtil.Info("Global Options", MethodBase.GetCurrentMethod.Name)
     '    Using _settings As New FrmGlobalSettings
     '        _settings.ShowDialog()
     '    End Using
     'End Sub
+
+    Friend Sub AddInstruction(pText As String, pLabel As Label, pPanel As Panel, pIsLogged As Boolean, pOrigin As String)
+        If Not String.IsNullOrWhiteSpace(pText) Then
+            pLabel.Text = pText
+            pPanel.Visible = True
+            If pIsLogged Then
+                LogUtil.LogInfo(pText, pOrigin)
+            End If
+        Else
+            pLabel.Text = String.Empty
+            pPanel.Visible = False
+        End If
+        pPanel.Width = Math.Max(iPanelMax, pLabel.Width + 17)
+    End Sub
 #End Region
 End Module

@@ -17,8 +17,7 @@ Imports MyStitch.Domain.Objects
 ''' New setting records are not needed unless the code changes, so they cannot be created here.</remarks>
 Public Class FrmGlobalSettings
 #Region "Private variable instances"
-    Private ReadOnly oTa As New MyStitchDataTableAdapters.SettingsTableAdapter
-    Private ReadOnly oTable As New MyStitchData.SettingsDataTable
+    Private ReadOnly oTable As New MyStitchDataSet.SettingsDataTable
 #End Region
 #Region "Form"
     Private Sub Form_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -31,14 +30,13 @@ Public Class FrmGlobalSettings
         GetFormPos(Me, My.Settings.GlobalSettingsFormPos)
 
         Try
-            oTa.Fill(oTable)
+            'oTa.Fill(oTable)
         Catch ex As DbException
             LogUtil.Problem("Exception during Global Settings table load : " & ex.Message)
         End Try
         cbSelect.DataSource = oTable
         cbSelect.DisplayMember = "pKey"
         cbSelect.ValueMember = "pKey"
-        lblFormName.Text = "GLOBAL SETTINGS"
         ClearForm()
     End Sub
 
@@ -83,7 +81,7 @@ Public Class FrmGlobalSettings
         Else
             MsgBox("Pick an item from the list", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Selection error")
         End If
-        oTa.Fill(oTable)
+        '   oTa.Fill(oTable)
         ClearForm()
     End Sub
 #End Region
@@ -96,7 +94,7 @@ Public Class FrmGlobalSettings
                 components.Dispose()
             End If
             If disposing Then
-                oTa.Dispose()
+                '   oTa.Dispose()
                 oTable.Dispose()
             End If
         Finally

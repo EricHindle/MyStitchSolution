@@ -292,4 +292,9 @@ Module ModProject
             _palettes.ShowDialog()
         End Using
     End Sub
+    Friend Sub OpenSettingsForm()
+        Using _settings As New FrmGlobalSettings
+            _settings.ShowDialog()
+        End Using
+    End Sub
 End Module

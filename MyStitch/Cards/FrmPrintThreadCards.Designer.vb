@@ -41,11 +41,14 @@ Partial Class FrmPrintThreadCards
         Me.NudColCt = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.BtnResetImage = New System.Windows.Forms.Button()
+        Me.PnlInstruction = New System.Windows.Forms.Panel()
+        Me.LblInstruction = New System.Windows.Forms.Label()
         CType(Me.PicThreadCard, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlCardImage.SuspendLayout()
         CType(Me.NudColCt, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlInstruction.SuspendLayout()
         Me.SuspendLayout()
         '
         'PicThreadCard
@@ -99,12 +102,12 @@ Partial Class FrmPrintThreadCards
         Me.BtnAddCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnAddCard.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnAddCard.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnAddCard.Location = New System.Drawing.Point(314, 482)
+        Me.BtnAddCard.Location = New System.Drawing.Point(384, 483)
         Me.BtnAddCard.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnAddCard.Name = "BtnAddCard"
         Me.BtnAddCard.Size = New System.Drawing.Size(109, 40)
         Me.BtnAddCard.TabIndex = 129
-        Me.BtnAddCard.Text = "Add Card"
+        Me.BtnAddCard.Text = "Add a Card"
         Me.BtnAddCard.UseVisualStyleBackColor = False
         '
         'BtnPrint
@@ -115,7 +118,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnPrint.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnPrint.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnPrint.Location = New System.Drawing.Point(613, 482)
+        Me.BtnPrint.Location = New System.Drawing.Point(668, 482)
         Me.BtnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnPrint.Name = "BtnPrint"
         Me.BtnPrint.Size = New System.Drawing.Size(80, 40)
@@ -131,7 +134,7 @@ Partial Class FrmPrintThreadCards
         Me.BtnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnSaveImage.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnSaveImage.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnSaveImage.Location = New System.Drawing.Point(466, 482)
+        Me.BtnSaveImage.Location = New System.Drawing.Point(529, 482)
         Me.BtnSaveImage.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnSaveImage.Name = "BtnSaveImage"
         Me.BtnSaveImage.Size = New System.Drawing.Size(109, 40)
@@ -208,7 +211,7 @@ Partial Class FrmPrintThreadCards
         Me.LbCards.ItemHeight = 18
         Me.LbCards.Location = New System.Drawing.Point(17, 312)
         Me.LbCards.Name = "LbCards"
-        Me.LbCards.Size = New System.Drawing.Size(120, 94)
+        Me.LbCards.Size = New System.Drawing.Size(120, 112)
         Me.LbCards.TabIndex = 147
         '
         'Label1
@@ -273,11 +276,38 @@ Partial Class FrmPrintThreadCards
         Me.BtnResetImage.Text = "Reset Image"
         Me.BtnResetImage.UseVisualStyleBackColor = False
         '
+        'PnlInstruction
+        '
+        Me.PnlInstruction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlInstruction.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PnlInstruction.Controls.Add(Me.LblInstruction)
+        Me.PnlInstruction.Location = New System.Drawing.Point(12, 482)
+        Me.PnlInstruction.Name = "PnlInstruction"
+        Me.PnlInstruction.Size = New System.Drawing.Size(325, 40)
+        Me.PnlInstruction.TabIndex = 160
+        '
+        'LblInstruction
+        '
+        Me.LblInstruction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblInstruction.AutoSize = True
+        Me.LblInstruction.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInstruction.ForeColor = System.Drawing.Color.MidnightBlue
+        Me.LblInstruction.Location = New System.Drawing.Point(4, 10)
+        Me.LblInstruction.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblInstruction.Name = "LblInstruction"
+        Me.LblInstruction.Size = New System.Drawing.Size(39, 19)
+        Me.LblInstruction.TabIndex = 132
+        Me.LblInstruction.Text = "      "
+        Me.LblInstruction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'FrmPrintThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(978, 555)
+        Me.Controls.Add(Me.PnlInstruction)
         Me.Controls.Add(Me.BtnResetImage)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.NudColCt)
@@ -300,6 +330,8 @@ Partial Class FrmPrintThreadCards
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlCardImage.ResumeLayout(False)
         CType(Me.NudColCt, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlInstruction.ResumeLayout(False)
+        Me.PnlInstruction.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -322,4 +354,6 @@ Partial Class FrmPrintThreadCards
     Friend WithEvents NudColCt As NumericUpDown
     Friend WithEvents Label2 As Label
     Friend WithEvents BtnResetImage As Button
+    Friend WithEvents PnlInstruction As Panel
+    Friend WithEvents LblInstruction As Label
 End Class

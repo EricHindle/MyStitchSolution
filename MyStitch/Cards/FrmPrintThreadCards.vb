@@ -10,7 +10,7 @@ Imports HindlewareLib.Logging
 Imports MyStitch.Domain
 Imports MyStitch.Domain.Objects
 Public Class FrmPrintThreadCards
-
+#Region "constants"
     ' image dots per inch
 
     ' font points per inch
@@ -27,9 +27,23 @@ Public Class FrmPrintThreadCards
     Private THREAD_NAME_BRUSH As Brush = Brushes.DimGray
     Private LINE_PEN As New Pen(Brushes.Black, 1)
     Private CARD_COLOUR As Brush = Brushes.White
+    Private Const PANEL_MAX_WIDTH As Integer = 325
+    Private Const COLUMNS_FULL As String = "All columns full"
+#End Region
+#Region "properties"
+    Private _selectedProject As Project
+    Public Property SelectedProject() As Project
+        Get
+            Return _selectedProject
+        End Get
+        Set(ByVal value As Project)
+            _selectedProject = value
+        End Set
+    End Property
+#End Region
 #Region "variables"
     Private _cardGraphics As Graphics
-    Private oImageUtil As New HindlewareLib.Imaging.ImageUtil
+    Private oImageUtil As New ImageUtil
     Private sourceBitmap As Bitmap
     Private oSelectedProject As Project
     Private isLoading As Boolean
@@ -38,7 +52,17 @@ Public Class FrmPrintThreadCards
     Private leftmargin As Integer
     Private topmargin As Integer
 #End Region
-#Region "handlers"
+#Region "form control handlers"
+    Private Sub FrmPrintThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LogUtil.LogInfo("Printing Thread Cards", MyBase.Name)
+        isLoading = True
+        InitialiseForm()
+        isLoading = False
+        If _selectedProject IsNot Nothing AndAlso SelectedProject.IsLoaded Then
+            SelectProjectInList(DgvProjects, _selectedProject.ProjectId)
+            AddInstruction(SELECT_CARD)
+        End If
+    End Sub
     Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles BtnClose.Click
         Close()
     End Sub
@@ -47,84 +71,12 @@ Public Class FrmPrintThreadCards
         My.Settings.PrintThreadCardsFormPos = SetFormPos(Me)
         My.Settings.Save()
     End Sub
-    Private Sub FrmPrintThreadCards_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LogUtil.LogInfo("Printing ProjectThread Cards", MyBase.Name)
-        GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
-        isLoading = True
-        InitialiseForm()
-        isLoading = False
-    End Sub
-    Private Sub InitialiseForm()
-        sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
-        sourceBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
-        leftmargin = oPrintDoc.DefaultPageSettings.HardMarginX * 3
-        topmargin = oPrintDoc.DefaultPageSettings.HardMarginY * 3
-        SetPictureWidth()
-        LoadProjectList(DgvProjects, MyBase.Name)
-        LogUtil.ShowStatus("Select a project", LblStatus)
-    End Sub
-    Private Sub AddProjectRow(oProject As Project)
-        Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
-        oRow.Cells(projectId.Name).Value = oProject.ProjectId
-        oRow.Cells(projectName.Name).Value = oProject.ProjectName
-    End Sub
     Private Sub BtnSaveImage_Click(sender As Object, e As EventArgs) Handles BtnSaveImage.Click
         Dim _imagefile As String = SaveSourceImage(sourceBitmap)
     End Sub
     Private Sub PnlCardImage_SizeChanged(sender As Object, e As EventArgs) Handles PnlCardImage.SizeChanged
         SetPictureWidth()
     End Sub
-    Private Sub SetPictureWidth()
-        If sourceBitmap IsNot Nothing Then
-            If PnlCardImage.Width > PnlCardImage.Height Then
-                PicThreadCard.Width = PicThreadCard.Height * sourceBitmap.Width / sourceBitmap.Height
-            Else
-                PicThreadCard.Height = PicThreadCard.Width * sourceBitmap.Height / sourceBitmap.Width
-            End If
-        End If
-        PicThreadCard.Image = sourceBitmap
-        PicThreadCard.Location = New Point((PnlCardImage.Width - PicThreadCard.Width) / 2, PicThreadCard.Top)
-    End Sub
-    Private Function SaveSourceImage(pImage As Image) As String
-        Dim _path As String = My.Settings.ImagePath
-        Return SaveSourceImage(pImage, _path, Nothing)
-    End Function
-    Private Function SaveSourceImage(pImage As Image, pPath As String, pFilename As String) As String
-        Dim imageFileName As String = Nothing
-        Try
-            LogUtil.ShowStatus("Saving image", LblStatus)
-            If pImage IsNot Nothing Then
-                imageFileName = ImageUtil.SaveImage(pImage, pPath, pFilename, HindlewareLib.Imaging.ImageUtil.ImageType.JPEG)
-                LogUtil.ShowStatus("Saved " & imageFileName, LblStatus)
-            Else
-                LogUtil.ShowStatus("NOT saved image", LblStatus)
-            End If
-        Catch ex As ArgumentException
-            LogUtil.ShowStatus("NOT saved image", LblStatus)
-        End Try
-        Return imageFileName
-    End Function
-    Private Function SavePictureBoxImage(ByRef _pictureBox As PictureBox, _width As Integer, _height As Integer) As String
-        Dim imageFile As String = Nothing
-        Try
-            Dim _path As String = "D:/netwyrks/MyStitch/Images/"
-            Dim _filename As String = "TestCard.jpg"
-            Dim imageFileName As String = HindlewareLib.Imaging.ImageUtil.GetImageFileName(HindlewareLib.Imaging.ImageUtil.OpenOrSave.Save, HindlewareLib.Imaging.ImageUtil.ImageType.JPEG, _path, _filename)
-            If Not String.IsNullOrEmpty(imageFileName) Then
-                LogUtil.ShowStatus("Saving image from picture box", LblStatus)
-                If _pictureBox.Image IsNot Nothing Then
-                    oImageUtil.SaveImageFromPictureBox(_pictureBox, _width, _height, imageFileName, HindlewareLib.Imaging.ImageUtil.ImageType.JPEG)
-                End If
-                imageFile = imageFileName
-                LogUtil.ShowStatus("Saved " & imageFileName, LblStatus)
-            Else
-                LogUtil.ShowStatus("NOT saved image", LblStatus)
-            End If
-        Catch ex As ArgumentException
-            LogUtil.ShowStatus("NOT saved image", LblStatus)
-        End Try
-        Return imageFile
-    End Function
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles BtnPrint.Click
         If oSelectedProject IsNot Nothing Then
             LogUtil.ShowStatus("Printing card", LblStatus, MyBase.Name)
@@ -137,8 +89,6 @@ Public Class FrmPrintThreadCards
             LogUtil.ShowStatus("No project selected", LblStatus, True)
         End If
     End Sub
-#End Region
-#Region "subroutines"
     Private Sub OnPrintImage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
         LogUtil.ShowStatus("Sending card to printer", LblStatus, MyBase.Name)
         'print options
@@ -165,17 +115,83 @@ Public Class FrmPrintThreadCards
             PrepareNewImage()
         End If
     End Sub
+    Private Sub BtnAddCard_Click(sender As Object, e As EventArgs) Handles BtnAddCard.Click
+        AddSelectedCard()
+    End Sub
+    Private Sub NudColCt_ValueChanged(sender As Object, e As EventArgs) Handles NudColCt.ValueChanged
+        PrepareNewImage(NudColCt.Value)
+    End Sub
+    Private Sub BtnResetImage_Click(sender As Object, e As EventArgs) Handles BtnResetImage.Click
+        PrepareNewImage()
+    End Sub
+    Private Sub LbCards_DoubleClick(sender As Object, e As EventArgs) Handles LbCards.DoubleClick
+        AddSelectedCard()
+    End Sub
+    Private Sub LbCards_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LbCards.SelectedIndexChanged
+        If _nextCol <= NudColCt.Value - 1 Then
+            AddInstruction(ADD_CARD)
+        Else
+            AddInstruction(COLUMNS_FULL)
+        End If
+        LogUtil.ClearStatus(LblStatus)
+    End Sub
+#End Region
+#Region "subroutines"
+    Private Sub InitialiseForm()
+        GetFormPos(Me, My.Settings.PrintThreadCardsFormPos)
+        iPanelMax = PANEL_MAX_WIDTH
+        sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
+        sourceBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
+        leftmargin = oPrintDoc.DefaultPageSettings.HardMarginX * 3
+        topmargin = oPrintDoc.DefaultPageSettings.HardMarginY * 3
+        SetPictureWidth()
+        LoadProjectList(DgvProjects, MyBase.Name)
+        AddInstruction(SELECT_PROJECT)
+    End Sub
+    Private Sub SetPictureWidth()
+        If sourceBitmap IsNot Nothing Then
+            If PnlCardImage.Width > PnlCardImage.Height Then
+                PicThreadCard.Width = PicThreadCard.Height * sourceBitmap.Width / sourceBitmap.Height
+            Else
+                PicThreadCard.Height = PicThreadCard.Width * sourceBitmap.Height / sourceBitmap.Width
+            End If
+        End If
+        PicThreadCard.Image = sourceBitmap
+        PicThreadCard.Location = New Point((PnlCardImage.Width - PicThreadCard.Width) / 2, PicThreadCard.Top)
+    End Sub
+    Private Sub AddProjectRow(oProject As Project)
+        Dim oRow As DataGridViewRow = DgvProjects.Rows(DgvProjects.Rows.Add())
+        oRow.Cells(projectId.Name).Value = oProject.ProjectId
+        oRow.Cells(projectName.Name).Value = oProject.ProjectName
+    End Sub
+    Private Function SaveSourceImage(pImage As Image) As String
+        Dim _path As String = My.Settings.ImagePath
+        Return SaveSourceImage(pImage, _path, Nothing)
+    End Function
+    Private Function SaveSourceImage(pImage As Image, pPath As String, pFilename As String) As String
+        Dim imageFileName As String = Nothing
+        Try
+            LogUtil.ShowStatus("Saving image", LblStatus)
+            If pImage IsNot Nothing Then
+                imageFileName = ImageUtil.SaveImage(pImage, pPath, pFilename, ImageUtil.ImageType.JPEG)
+                LogUtil.ShowStatus("Saved " & imageFileName, LblStatus)
+            Else
+                LogUtil.ShowStatus("NOT saved image", LblStatus)
+            End If
+        Catch ex As ArgumentException
+            LogUtil.ShowStatus("NOT saved image", LblStatus)
+        End Try
+        Return imageFileName
+    End Function
     Private Sub PrepareNewImage()
         PrepareNewImage(4)
     End Sub
     Private Sub PrepareNewImage(pColCt As Integer)
-
         If DgvProjects.SelectedRows.Count > 0 Then
             Dim oRow As DataGridViewRow = DgvProjects.SelectedRows(0)
             Dim _projectId As Integer = oRow.Cells(projectId.Name).Value
             oSelectedProject = FindProjectById(_projectId)
             LoadCardList(_projectId, LbCards, MyBase.Name)
-            LogUtil.ShowStatus("Select a card", LblStatus)
             If _LbCards.Items.Count < 4 Then
                 NudColCt.Value = 3
             Else
@@ -185,17 +201,12 @@ Public Class FrmPrintThreadCards
         End If
     End Sub
     Private Sub InitialiseImage(projectName As String)
-        '   Dim _pen1 As New Pen(Brushes.Black, 1)
         sourceBitmap = New Bitmap(A4_WIDTH_PIXELS, A4_HEIGHT_PIXELS)
         sourceBitmap.SetResolution(PRINT_DPI, PRINT_DPI)
         _cardGraphics = Graphics.FromImage(sourceBitmap)
         _cardGraphics.FillRectangle(Brushes.White, New Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height))
-        ' Dim _projectNameFontSize As Integer = PROJECT_NAME_FONT_SIZE
-        '    Dim _textheight As Integer = (PROJECT_NAME_FONT_SIZE * DPI / PPI) * 1.2
         Dim colCt As Integer = NudColCt.Value
         Dim colWidth As Integer = A4_WIDTH_PIXELS / colCt
-        '   Dim holeradius As Integer = HOLEPUNCH_HOLE_RADIUS
-        '  Dim holeinset As Integer = HOLEPUNCH_HOLE_INSET
         Dim _left_x As Integer
         Dim _right_x As Integer
         Dim _top_y As Integer
@@ -234,9 +245,6 @@ Public Class FrmPrintThreadCards
         PicThreadCard.Image = sourceBitmap
         PicThreadCard.Refresh()
         _nextCol = 0
-    End Sub
-    Private Sub LbCards_SelectedValueChanged(sender As Object, e As EventArgs) Handles LbCards.SelectedIndexChanged
-        LogUtil.ClearStatus(LblStatus)
     End Sub
     Private Sub AddCardToImage(pList As List(Of ProjectCardThread))
         Dim oRowCt As Integer = 10
@@ -285,19 +293,24 @@ Public Class FrmPrintThreadCards
         PicThreadCard.Image = sourceBitmap
         PicThreadCard.Refresh()
     End Sub
-    Private Sub BtnAddCard_Click(sender As Object, e As EventArgs) Handles BtnAddCard.Click
+    Private Sub AddSelectedCard()
         If LbCards.SelectedIndex > -1 Then
-            Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
-            Dim _threadList As List(Of ProjectCardThread) = findProjectCardThreadsByProjectCard(oSelectedProject.ProjectId, _cardNo)
-            AddCardToImage(_threadList)
-            _nextCol += 1
+            If _nextCol <= NudColCt.Value - 1 Then
+                Dim _cardNo As Integer = CInt(LbCards.SelectedItem)
+                Dim _threadList As List(Of ProjectCardThread) = FindProjectCardThreadsByProjectCard(oSelectedProject.ProjectId, _cardNo)
+                AddCardToImage(_threadList)
+                _nextCol += 1
+                AddInstruction(SELECT_CARD)
+            Else
+                AddInstruction(COLUMNS_FULL)
+            End If
         End If
     End Sub
-    Private Sub NudColCt_ValueChanged(sender As Object, e As EventArgs) Handles NudColCt.ValueChanged
-        PrepareNewImage(NudColCt.Value)
+    Private Sub AddInstruction(pText As String)
+        AddInstruction(pText, False)
     End Sub
-    Private Sub BtnResetImage_Click(sender As Object, e As EventArgs) Handles BtnResetImage.Click
-        PrepareNewImage()
+    Private Sub AddInstruction(pText As String, pIsLogged As Boolean)
+        ModCommon.AddInstruction(pText, LblInstruction, PnlInstruction, pIsLogged, String.Empty)
     End Sub
 #End Region
 End Class

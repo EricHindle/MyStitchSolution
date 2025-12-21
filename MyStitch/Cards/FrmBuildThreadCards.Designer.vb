@@ -72,6 +72,9 @@ Partial Class FrmBuildThreadCards
         Me.LblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ChkShowStock = New System.Windows.Forms.CheckBox()
+        Me.PnlInstruction = New System.Windows.Forms.Panel()
+        Me.LblInstruction = New System.Windows.Forms.Label()
+        Me.BtnPrintCards = New System.Windows.Forms.Button()
         CType(Me.DgvProjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NudMaxThreads, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DgvCardThreads, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -79,6 +82,7 @@ Partial Class FrmBuildThreadCards
         Me.PnlThreads.SuspendLayout()
         Me.PnlCardThreads.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.PnlInstruction.SuspendLayout()
         Me.SuspendLayout()
         '
         'BtnDelete
@@ -119,7 +123,7 @@ Partial Class FrmBuildThreadCards
         Me.BtnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BtnClose.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BtnClose.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.BtnClose.Location = New System.Drawing.Point(881, 496)
+        Me.BtnClose.Location = New System.Drawing.Point(881, 492)
         Me.BtnClose.Margin = New System.Windows.Forms.Padding(4)
         Me.BtnClose.Name = "BtnClose"
         Me.BtnClose.Size = New System.Drawing.Size(80, 40)
@@ -158,7 +162,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(148, Byte), Integer), CType(CType(84, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.DgvProjects.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Me.DgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvProjects.Size = New System.Drawing.Size(265, 212)
+        Me.DgvProjects.Size = New System.Drawing.Size(265, 208)
         Me.DgvProjects.TabIndex = 134
         '
         'projectId
@@ -205,7 +209,7 @@ Partial Class FrmBuildThreadCards
         'NudMaxThreads
         '
         Me.NudMaxThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.NudMaxThreads.Location = New System.Drawing.Point(563, 494)
+        Me.NudMaxThreads.Location = New System.Drawing.Point(277, 371)
         Me.NudMaxThreads.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
         Me.NudMaxThreads.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NudMaxThreads.Name = "NudMaxThreads"
@@ -217,7 +221,7 @@ Partial Class FrmBuildThreadCards
         '
         Me.LblMaxThreads.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LblMaxThreads.AutoSize = True
-        Me.LblMaxThreads.Location = New System.Drawing.Point(400, 496)
+        Me.LblMaxThreads.Location = New System.Drawing.Point(226, 350)
         Me.LblMaxThreads.Name = "LblMaxThreads"
         Me.LblMaxThreads.Size = New System.Drawing.Size(156, 18)
         Me.LblMaxThreads.TabIndex = 138
@@ -230,7 +234,7 @@ Partial Class FrmBuildThreadCards
         Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.Label1.Font = New System.Drawing.Font("Felix Titling", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(123, 273)
+        Me.Label1.Location = New System.Drawing.Point(123, 269)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(78, 23)
@@ -244,7 +248,7 @@ Partial Class FrmBuildThreadCards
         Me.LbCards.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
         Me.LbCards.FormattingEnabled = True
         Me.LbCards.ItemHeight = 18
-        Me.LbCards.Location = New System.Drawing.Point(127, 308)
+        Me.LbCards.Location = New System.Drawing.Point(127, 304)
         Me.LbCards.Name = "LbCards"
         Me.LbCards.Size = New System.Drawing.Size(84, 130)
         Me.LbCards.TabIndex = 149
@@ -259,7 +263,7 @@ Partial Class FrmBuildThreadCards
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(163, 23)
         Me.Label2.TabIndex = 152
-        Me.Label2.Text = "CARD THREADS"
+        Me.Label2.Text = "CARD THREAD :"
         '
         'DgvCardThreads
         '
@@ -281,7 +285,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvCardThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DgvCardThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.cardthreadid, Me.cardthreadname, Me.cardthreadno, Me.cardThreadSeq, Me.cardthreadcolour})
         Me.DgvCardThreads.GridColor = System.Drawing.Color.FromArgb(CType(CType(93, Byte), Integer), CType(CType(93, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.DgvCardThreads.Location = New System.Drawing.Point(36, 33)
+        Me.DgvCardThreads.Location = New System.Drawing.Point(39, 37)
         Me.DgvCardThreads.Margin = New System.Windows.Forms.Padding(4)
         Me.DgvCardThreads.Name = "DgvCardThreads"
         Me.DgvCardThreads.ReadOnly = True
@@ -292,7 +296,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvCardThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvCardThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvCardThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvCardThreads.Size = New System.Drawing.Size(245, 411)
+        Me.DgvCardThreads.Size = New System.Drawing.Size(242, 429)
         Me.DgvCardThreads.TabIndex = 151
         '
         'cardthreadid
@@ -384,7 +388,7 @@ Partial Class FrmBuildThreadCards
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White
         Me.DgvThreads.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black
         Me.DgvThreads.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DgvThreads.Size = New System.Drawing.Size(260, 415)
+        Me.DgvThreads.Size = New System.Drawing.Size(260, 433)
         Me.DgvThreads.TabIndex = 154
         '
         'threadId
@@ -456,7 +460,7 @@ Partial Class FrmBuildThreadCards
         Me.PnlThreads.Controls.Add(Me.DgvThreads)
         Me.PnlThreads.Location = New System.Drawing.Point(399, 12)
         Me.PnlThreads.Name = "PnlThreads"
-        Me.PnlThreads.Size = New System.Drawing.Size(563, 455)
+        Me.PnlThreads.Size = New System.Drawing.Size(563, 473)
         Me.PnlThreads.TabIndex = 156
         '
         'PnlCardThreads
@@ -472,7 +476,7 @@ Partial Class FrmBuildThreadCards
         Me.PnlCardThreads.Controls.Add(Me.Label2)
         Me.PnlCardThreads.Location = New System.Drawing.Point(275, 4)
         Me.PnlCardThreads.Name = "PnlCardThreads"
-        Me.PnlCardThreads.Size = New System.Drawing.Size(285, 448)
+        Me.PnlCardThreads.Size = New System.Drawing.Size(285, 466)
         Me.PnlCardThreads.TabIndex = 155
         '
         'BtnRemoveThread
@@ -522,7 +526,7 @@ Partial Class FrmBuildThreadCards
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LblStatus})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 540)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 536)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(974, 22)
         Me.StatusStrip1.TabIndex = 157
@@ -538,18 +542,61 @@ Partial Class FrmBuildThreadCards
         Me.ChkShowStock.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ChkShowStock.AutoSize = True
         Me.ChkShowStock.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ChkShowStock.Location = New System.Drawing.Point(259, 308)
+        Me.ChkShowStock.Location = New System.Drawing.Point(259, 304)
         Me.ChkShowStock.Name = "ChkShowStock"
         Me.ChkShowStock.Size = New System.Drawing.Size(123, 18)
         Me.ChkShowStock.TabIndex = 158
         Me.ChkShowStock.Text = "Show stock levels"
         Me.ChkShowStock.UseVisualStyleBackColor = True
         '
+        'PnlInstruction
+        '
+        Me.PnlInstruction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PnlInstruction.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PnlInstruction.Controls.Add(Me.LblInstruction)
+        Me.PnlInstruction.Location = New System.Drawing.Point(12, 491)
+        Me.PnlInstruction.Name = "PnlInstruction"
+        Me.PnlInstruction.Size = New System.Drawing.Size(370, 40)
+        Me.PnlInstruction.TabIndex = 159
+        '
+        'LblInstruction
+        '
+        Me.LblInstruction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblInstruction.AutoSize = True
+        Me.LblInstruction.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblInstruction.ForeColor = System.Drawing.Color.MidnightBlue
+        Me.LblInstruction.Location = New System.Drawing.Point(4, 10)
+        Me.LblInstruction.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.LblInstruction.Name = "LblInstruction"
+        Me.LblInstruction.Size = New System.Drawing.Size(39, 19)
+        Me.LblInstruction.TabIndex = 132
+        Me.LblInstruction.Text = "      "
+        Me.LblInstruction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'BtnPrintCards
+        '
+        Me.BtnPrintCards.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(47, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BtnPrintCards.FlatAppearance.BorderColor = System.Drawing.Color.Black
+        Me.BtnPrintCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.BtnPrintCards.Font = New System.Drawing.Font("Tahoma", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnPrintCards.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.BtnPrintCards.Location = New System.Drawing.Point(19, 379)
+        Me.BtnPrintCards.Margin = New System.Windows.Forms.Padding(4)
+        Me.BtnPrintCards.Name = "BtnPrintCards"
+        Me.BtnPrintCards.Size = New System.Drawing.Size(80, 55)
+        Me.BtnPrintCards.TabIndex = 160
+        Me.BtnPrintCards.Text = "Print Cards"
+        Me.BtnPrintCards.UseVisualStyleBackColor = False
+        '
         'FrmBuildThreadCards
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(974, 562)
+        Me.ClientSize = New System.Drawing.Size(974, 558)
+        Me.Controls.Add(Me.BtnPrintCards)
+        Me.Controls.Add(Me.PnlInstruction)
         Me.Controls.Add(Me.ChkShowStock)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.PnlThreads)
@@ -578,6 +625,8 @@ Partial Class FrmBuildThreadCards
         Me.PnlCardThreads.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.PnlInstruction.ResumeLayout(False)
+        Me.PnlInstruction.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -620,4 +669,7 @@ Partial Class FrmBuildThreadCards
     Friend WithEvents ChkShowStock As CheckBox
     Friend WithEvents LblStatus As ToolStripStatusLabel
     Friend WithEvents threadNo As DataGridViewTextBoxColumn
+    Friend WithEvents PnlInstruction As Panel
+    Friend WithEvents LblInstruction As Label
+    Friend WithEvents BtnPrintCards As Button
 End Class

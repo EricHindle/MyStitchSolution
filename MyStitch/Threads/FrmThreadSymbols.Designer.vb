@@ -40,7 +40,7 @@ Partial Class FrmThreadSymbols
         Me.DgvThreads = New System.Windows.Forms.DataGridView()
         Me.threadId = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ThreadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.threadNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadSortNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.threadColour = New System.Windows.Forms.DataGridViewImageColumn()
         Me.threadsymbol = New System.Windows.Forms.DataGridViewImageColumn()
@@ -141,7 +141,7 @@ Partial Class FrmThreadSymbols
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DgvThreads.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DgvThreads.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.ThreadNo, Me.threadSortNumber, Me.threadColour, Me.threadsymbol, Me.threadsymbolid})
+        Me.DgvThreads.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.threadId, Me.threadName, Me.threadNo, Me.threadSortNumber, Me.threadColour, Me.threadsymbol, Me.threadsymbolid})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -181,13 +181,13 @@ Partial Class FrmThreadSymbols
         Me.threadName.Name = "threadName"
         Me.threadName.ReadOnly = True
         '
-        'ThreadNo
+        'threadNo
         '
-        Me.ThreadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.ThreadNo.HeaderText = "No."
-        Me.ThreadNo.Name = "threadNo"
-        Me.ThreadNo.ReadOnly = True
-        Me.ThreadNo.Width = 50
+        Me.threadNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.threadNo.HeaderText = "No."
+        Me.threadNo.Name = "threadNo"
+        Me.threadNo.ReadOnly = True
+        Me.threadNo.Width = 50
         '
         'threadSortNumber
         '
@@ -305,10 +305,10 @@ Partial Class FrmThreadSymbols
     Friend WithEvents LblProjectName As Label
     Friend WithEvents threadId As DataGridViewTextBoxColumn
     Friend WithEvents threadName As DataGridViewTextBoxColumn
-    Friend WithEvents ThreadNo As DataGridViewTextBoxColumn
     Friend WithEvents threadSortNumber As DataGridViewTextBoxColumn
     Friend WithEvents threadColour As DataGridViewImageColumn
     Friend WithEvents threadsymbol As DataGridViewImageColumn
     Friend WithEvents threadsymbolid As DataGridViewTextBoxColumn
     Friend WithEvents BtnClearSymbol As Button
+    Friend WithEvents threadNo As DataGridViewTextBoxColumn
 End Class
