@@ -263,7 +263,7 @@ Partial Class FrmBuildThreadCards
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(163, 23)
         Me.Label2.TabIndex = 152
-        Me.Label2.Text = "CARD THREAD :"
+        Me.Label2.Text = "THREAD CARD :"
         '
         'DgvCardThreads
         '

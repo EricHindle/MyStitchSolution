@@ -325,6 +325,12 @@
     <Compile Include="Utilities\FrmGlobalSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utilities\FrmMessage.Designer.vb">
+      <DependentUpon>FrmMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\FrmMessage.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\FrmOptions.Designer.vb">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </Compile>
@@ -441,6 +447,9 @@
     <EmbeddedResource Include="Utilities\FrmGlobalSettings.resx">
       <DependentUpon>FrmGlobalSettings.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utilities\FrmMessage.resx">
+      <DependentUpon>FrmMessage.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utilities\FrmOptions.resx">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </EmbeddedResource>
@@ -473,6 +482,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MyStitch.ico" />
+    <None Include="Resources\info.png" />
     <None Include="Resources\up24.png" />
     <None Include="Resources\right24.png" />
     <None Include="Resources\left24.png" />

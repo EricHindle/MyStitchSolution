@@ -806,13 +806,13 @@ Partial Class FrmProject
         'MnuBuildCards
         '
         Me.MnuBuildCards.Name = "MnuBuildCards"
-        Me.MnuBuildCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuBuildCards.Size = New System.Drawing.Size(174, 22)
         Me.MnuBuildCards.Text = "Build Thread Cards"
         '
         'MnuPrintCards
         '
         Me.MnuPrintCards.Name = "MnuPrintCards"
-        Me.MnuPrintCards.Size = New System.Drawing.Size(180, 22)
+        Me.MnuPrintCards.Size = New System.Drawing.Size(174, 22)
         Me.MnuPrintCards.Text = "Print Thread Cards"
         '
         'MnuImportImage
@@ -908,13 +908,15 @@ Partial Class FrmProject
         '
         Me.LblInstruction.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LblInstruction.AutoSize = True
         Me.LblInstruction.Font = New System.Drawing.Font("Felix Titling", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblInstruction.ForeColor = System.Drawing.Color.MidnightBlue
         Me.LblInstruction.Location = New System.Drawing.Point(4, 10)
         Me.LblInstruction.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.LblInstruction.Name = "LblInstruction"
-        Me.LblInstruction.Size = New System.Drawing.Size(537, 19)
+        Me.LblInstruction.Size = New System.Drawing.Size(39, 19)
         Me.LblInstruction.TabIndex = 132
+        Me.LblInstruction.Text = "      "
         Me.LblInstruction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PnlInstruction
@@ -925,7 +927,7 @@ Partial Class FrmProject
         Me.PnlInstruction.Controls.Add(Me.LblInstruction)
         Me.PnlInstruction.Location = New System.Drawing.Point(18, 577)
         Me.PnlInstruction.Name = "PnlInstruction"
-        Me.PnlInstruction.Size = New System.Drawing.Size(549, 40)
+        Me.PnlInstruction.Size = New System.Drawing.Size(368, 40)
         Me.PnlInstruction.TabIndex = 133
         '
         'FrmProject
@@ -964,6 +966,7 @@ Partial Class FrmProject
         Me.MenuStrip1.PerformLayout()
         Me.PnlButtons.ResumeLayout(False)
         Me.PnlInstruction.ResumeLayout(False)
+        Me.PnlInstruction.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

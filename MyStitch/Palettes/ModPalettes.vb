@@ -14,6 +14,8 @@ Module ModPalettes
             _result = _paletteName.ShowDialog()
             If _result = DialogResult.OK Then
                 _newName = _paletteName.PaletteName
+            Else
+                _newName = String.Empty
             End If
         End Using
         Return _newName

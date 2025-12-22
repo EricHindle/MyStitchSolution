@@ -15,7 +15,7 @@ Class FrmPaletteMaint
     Private isLoading As Boolean
     Private _selectedPalette As Palette
 #End Region
-#Region "handlers"
+#Region "form control handlers"
     Private Sub FrmPalettes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LogUtil.LogInfo("Palettes", MyBase.Name)
         InitialiseForm()
@@ -107,7 +107,7 @@ Class FrmPaletteMaint
         DgvBeadList.ClearSelection()
     End Sub
 #End Region
-#Region "functions"
+#Region "subroutines"
     Private Sub InitialiseForm()
         RestoreFormLayout()
         isLoading = True
@@ -230,7 +230,7 @@ Class FrmPaletteMaint
         End If
     End Sub
     Private Sub LoadPaletteList(ByRef pDgv As DataGridView, pBaseName As String)
-        LogUtil.Debug("Load palette list", pBaseName)
+        LogUtil.Debug("Loading palette list", pBaseName)
         pDgv.Rows.Clear()
         For Each oPalette As Palette In GetPaletteList()
             AddPaletteRow(pDgv, oPalette)

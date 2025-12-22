@@ -71,6 +71,7 @@ Public Class FrmStitchDesign
     Private isThreadOn As Boolean
     Private iFloodFillCount As Integer
     Private isFloodCancelled As Boolean
+
 #End Region
 #Region "form control event handlers"
 #Region "form events"
@@ -1062,14 +1063,15 @@ Public Class FrmStitchDesign
         LblCurrentAction.Text = String.Empty
         If oProject.IsLoaded Then
             InitialisePalette()
-            LblStatus.Text = "Loading..."
-            LblStatus.Refresh()
+            ShowMessage("Loading " & oProject.ProjectName & " ...", MyBase.Name)
+            Application.DoEvents()
             Dim _isPaletteChanged As Boolean
             LoadProjectDesignFromFile(oProject, PicDesign, isGridOn, isCentreOn, _isPaletteChanged, isCentreMarksOn)
             If _isPaletteChanged Then
                 InitialisePalette()
             End If
             CalculateScrollBarMaximumValues()
+            RemoveMessage()
             LblStatus.Text = String.Empty
         Else
             MsgBox("No project found", MsgBoxStyle.Exclamation, "Error")
@@ -1177,11 +1179,12 @@ Public Class FrmStitchDesign
         BeadLayoutPanel.Controls.Clear()
         oProjectBeads = FindProjectBeads(oProject.ProjectId)
         If oProjectBeads.Count > 0 Then
+            ScPalette.Panel2Collapsed = False
             oProjectBeads.Beads.Sort(Function(x As ProjectBead, y As ProjectBead) x.Bead.SortNumber.CompareTo(y.Bead.SortNumber))
             Dim _panelWidth As Integer = BeadLayoutPanel.Width
             Dim _panelHeight As Integer = BeadLayoutPanel.Height
             Dim _BeadCt As Integer = oProjectBeads.Count
-            Dim _picSize As Integer = ShrinkPic(BeadLayoutPanel, _BeadCt, BEAD_COLOUR_SIZE)
+            Dim _picSize As Integer = Math.Max(10, ShrinkPic(BeadLayoutPanel, _BeadCt, BEAD_COLOUR_SIZE))
             Dim _firstPicBead As PictureBox = Nothing
             For Each _projectBead As ProjectBead In oProjectBeads.Beads
                 Dim _Bead As Bead = _projectBead.Bead
@@ -1217,7 +1220,6 @@ Public Class FrmStitchDesign
             If _firstPicBead IsNot Nothing Then
                 SelectBeadPaletteColour(_firstPicBead)
             End If
-            ScPalette.Panel2Collapsed = False
         Else
             ScPalette.Panel2Collapsed = True
         End If

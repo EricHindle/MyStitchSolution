@@ -30,6 +30,8 @@ Friend Module ModCommon
     Public isUpgradedSettings As Boolean = False
     Public myStringFormatProvider As IFormatProvider = myCultureInfo.GetFormat(GetType(String))
     Public iPanelMax As Integer = 370
+    Private _messageForm As FrmMessage
+
 #End Region
 #Region "enum"
     Public Enum FormType
@@ -285,6 +287,25 @@ Friend Module ModCommon
             pPanel.Visible = False
         End If
         pPanel.Width = Math.Max(iPanelMax, pLabel.Width + 17)
+    End Sub
+
+    Public Sub ShowMessage(pMessageText As String, pSource As String)
+        ShowMessage(pMessageText, False, True, pSource)
+    End Sub
+    Public Sub ShowMessage(pMessageText As String, pIsShowclose As Boolean, pIsLogged As Boolean, pSource As String)
+        _messageForm = New FrmMessage With {
+                                .MessageText = pMessageText,
+                                .IsShowClose = pIsShowclose,
+                                .IsLogged = pIsLogged,
+                                .Source = pSource
+            }
+        _messageForm.Show()
+    End Sub
+    Public Sub RemoveMessage()
+        If _messageForm IsNot Nothing AndAlso _messageForm.IsDisposed = False Then
+            _messageForm.Close()
+            _messageForm.Dispose()
+        End If
     End Sub
 #End Region
 End Module
